@@ -146,6 +146,9 @@
     "symfony/http-kernel": {
         "version": "v4.0.1"
     },
+    "symfony/inflector": {
+        "version": "v4.0.1"
+    },
     "symfony/lts": {
         "version": "4-dev"
     },
@@ -158,6 +161,9 @@
     "symfony/polyfill-php72": {
         "version": "v1.6.0"
     },
+    "symfony/property-access": {
+        "version": "v4.0.1"
+    },
     "symfony/routing": {
         "version": "3.3",
         "recipe": {
@@ -166,6 +172,9 @@
             "version": "3.3",
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
         }
+    },
+    "symfony/security": {
+        "version": "v4.0.1"
     },
     "symfony/translation": {
         "version": "3.3",
