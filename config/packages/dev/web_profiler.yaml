@@ -1,5 +1,9 @@
 # config/packages/dev/web_profiler.yaml
 web_profiler:
-    toolbar:              true
+    toolbar:              '%kernel.debug%'
     intercept_redirects:  false
     excluded_ajax_paths:  ^/bundles|^/_wdt
+
+framework:
+    profiler:
+        enabled: '%kernel.debug%'

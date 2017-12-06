@@ -1,0 +1,58 @@
+App\Entity\Setting:
+    type: entity
+    table: setting
+    repositoryClass: App\Repository\SettingRepository
+    indexes:
+        type:
+            columns: [ type, name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        type:
+            type: string
+            length: '25'
+        name:
+            type: string
+            length: '64'
+            unique: true
+        displayName:
+            type: string
+            length: '64'
+            unique: true
+            column: display_name
+        description:
+            type: text
+        value:
+            type: text
+            nullable: true
+        choice:
+            type: string
+            length: '50'
+            nullable: true
+        validator:
+            type: string
+            length: '255'
+            nullable: true
+        role:
+            type: string
+            length: 64
+        lastModified:
+            type: datetime
+            column: last_modified
+        createdOn:
+            type: datetime
+            column: created_on
+    manyToOne:
+        createdBy:
+            targetEntity: App\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: App\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

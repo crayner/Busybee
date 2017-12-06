@@ -46,6 +46,12 @@ services:
     busybee.core.subscriber.table_prefix_subscriber:
         class: App\Core\Subscriber\TablePrefixSubscriber
         arguments:
-            - '%database_prefix%'
+            - '%db_prefix%'
         tags:
             - { name: doctrine.event_subscriber }
+    busybee.core.manager.setting_manager:
+        class: App\Core\Manager\SettingManager
+        arguments:
+            - 'App\Repository\SettingRepository'
+            - '%kernel.project_dir%'
+        public: true

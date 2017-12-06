@@ -54,7 +54,7 @@ class InstallManager
 		$db = $sql['DATABASE_URL'];
 		unset($sql['DATABASE_URL']);
 		$sql = array_merge($db, $sql);
-dump($sql);
+
 		return $sql;
 	}
 

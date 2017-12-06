@@ -1,11 +1,12 @@
 <?php
 namespace App\Core\Manager;
 
+use App\Kernel;
+use App\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -44,7 +45,7 @@ class SettingManager implements ContainerAwareInterface
 	private $settingExists = false;
 
 	/**
-	 * @var string
+	 * @var projectDir
 	 */
 	private $projectDir;
 
@@ -68,14 +69,23 @@ class SettingManager implements ContainerAwareInterface
 	 *
 	 * @param ContainerInterface $container
 	 */
-	public function __construct(SettingRepository $sr, Session $session, Kernel $kernel)
+	public function __construct(SettingRepository $sr, string $projectDir = null)
 	{
-		$this->settings     = $session->get('settings');
-		$this->settingCache = $session->get('settingCache');
+		$session = new Session();
+		if ($session->isStarted())
+		{
+			$this->settings     = $session->get('settings');
+			$this->settingCache = $session->get('settingCache');
+		} else {
+			$this->settings     = [];
+			$this->settingCache = [];
+		}
+
 		$this->settingRepo  = $sr;
-		$this->projectDir   = $kernel->getProjectDir();
-		$this->setContainer($kernel->getContainer());
+		$this->projectDir   = $projectDir;
+
 		$this->messages = new MessageManager('SystemBundle');
+		dump($this);
 	}
 
 	/**
