@@ -1,0 +1,150 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
+
+{% block menuContainer %}{% endblock menuContainer %}
+
+{% trans_default_domain 'BusybeeInstallBundle' %}
+{% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
+{% endblock stylesheets %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = '' %}
+    {% if config.proceed %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_bundles")}}) %}
+    {% endif %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'BusybeeInstallBundle'} %}
+    {% block flashMessages %}{% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
+    <div id="form_body">
+
+
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="well col-sm-6">
+                    {{ form_row(form.email, {value: config.misc.systemUser['email']}) }}
+                </div>
+                <div class="well col-sm-6">
+                    {{ form_row(form.username, {value: config.misc.systemUser['username']}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="well col-sm-4">
+                    {{ form_row(form.hemisphere, {value: config.misc.hemisphere}) }}
+                </div>
+                <div class="well col-sm-4 ">
+                    {{ form_row(form.pass_word, {value: config.misc.systemUser['password']}) }}
+                </div>
+                <div class="well col-sm-4">
+                    <div class="form-group text-right">
+                        <button type="button" id="generatePassword" class="btn btn-info"
+                                style="float: right;">{{ 'misc.password1.generate'|trans }}</button>
+                        <div class="field-help"
+                             style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': config.misc.password['minLength'], '%numbers%': config.misc.password['numbers'], '%mixedCase%': config.misc.password['mixedCase'], '%specials%': config.misc.password['specials']}) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+
+
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'BusybeeInstallBundle', panelStyle: 'default'} %}
+        <div class="row">
+            <div class="well col-sm-6">
+                {{ form_row(form.secret) }}
+                {{ form_row(form.session_name, {value: config.misc.session_name}) }}
+            </div>
+            <div class="well col-sm-6">
+                {{ form_row(form.session_max_idle_time, {value: config.misc.session_max_idle_time}) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="well col-sm-6">
+                {{ form_row(form.session_remember_me_name, {value: config.misc.session_remember_me_name}) }}
+            </div>
+            <div class="well col-sm-6">
+                {{ form_row(form.signin_count_minimum, {value: config.misc.signin_count_minimum}) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="well col-sm-4">
+                {{ form_row(form.locale, {value: config.misc.locale}) }}
+            </div>
+            <div class="well col-sm-4">
+                {{ form_row(form.timezone, {value: config.misc.timezone}) }}
+            </div>
+            <div class="well col-sm-4">
+                {{ form_row(form.country, {value: config.misc.country}) }}
+            </div>
+        </div>
+    </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+
+
+    {% set toggle = 'data-toggle=toggle data-onStyle=success data-offStyle=default data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
+
+
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.password.title', panelParagraph: 'misc.password.message', panelStyle: 'default' } %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="well col-sm-6">
+                {{ form_row(form.minLength, {value: config.misc.password['minLength']|trim}) }}
+            </div>
+            <div class="well col-sm-6">
+                {{ form_row(form.numbers, {checked: config.misc.password['numbers']}) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="well col-sm-6">
+                {{ form_row(form.mixedCase, {checked: config.misc.password['mixedCase']}) }}
+            </div>
+            <div class="well col-sm-6">
+                {{ form_row(form.specials, {checked: config.misc.password['specials']}) }}
+            </div>
+        </div>
+
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+
+
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
+            <div class="row">
+                <div class="well col-sm-2">
+                    {{ form_row(form.oauth, {checked: config.misc.google['oauth']}) }}
+                </div>
+                <div class="well col-sm-5">
+                    {{ form_row(form.client_id, {value: config.misc.google['client_id']}) }}
+                </div>
+                <div class="well col-sm-5">
+                    {{ form_row(form.client_secret, {value: config.misc.google['client_secret']}) }}
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+    <script type="text/javascript" language="JavaScript">
+        $("#generatePassword").on('click', function () {
+            $('#install_miscellaneous_pass_word').val('{{ config.misc.systemUser['text'].text|raw }}');
+        });
+    </script>
+{% endblock javascripts %}

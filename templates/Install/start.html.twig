@@ -1,0 +1,142 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
+
+{% block menuContainer %}
+{% endblock menuContainer %}
+
+{% trans_default_domain 'BusybeeInstallBundle' %}
+{% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'system.install.title'} %}
+    {% block flashMessages %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {transDomain: 'BusybeeInstallBundle', flashClass: 'fadeAlert'} %}
+    {% endblock flashMessages %}
+    <div class="row">
+        <div class="col-sm-6">
+            {% if config.parameterStatus %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ 'parameter.file.title'|trans }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ 'parameter.file.ok'|trans }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ 'parameter.file.title'|trans }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ 'parameter.file.fail'|trans }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+
+        <div class="col-sm-6">
+            {% if config.sql.connected %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ 'parameter.sql.title'|trans }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ 'parameter.sql.ok'|trans({'%name%': config.sql.database_name}) }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ 'parameter.sql.title'|trans }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ 'parameter.sql.fail'|trans({'%name%': config.sql.database_name, '%error%': config.sql.error})|raw }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+
+    </div>
+
+
+    {% if config.sql.connected and not config.sql.displayForm %}
+        {% set h3Content = proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
+        <form action="{{ path("install_check_mailer_parameters") }}" method="post">
+            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
+            <div id="form_body" class="container-fluid">
+                <div class="row">
+                    <div class="well col-sm-6 col-sm-offset-6">
+                        <div class="form-group alert alert-info">
+                            <p>{{ 'install.database.connection.complete'|trans({'%name%': config.sql.database_name }) }}</p>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+            {% set versions = version_manager.getVersion(true) %}
+            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'software.system.values', 'panelStyle': 'default'} %}
+            {% include '@BusybeeTemplate/Acknowledgement/acknowledgementContent.html.twig' %}
+            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        </form>
+
+    {% else %}
+        {% set h3Content = '' %}
+        {% if config.sql.displayForm %}
+            {% set h3Content = h3Content ~ proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
+        {% endif %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {{ form_start(form) }}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
+        <div id="form_body" class="container-fluid">
+            <div class="row">
+                <div class="well col-sm-6">
+                    {{ form_row(form.driver, {value: config.sql.database_driver}) }}
+                </div>
+                <div class="well col-sm-6">
+                    {{ form_row(form.host, {value: config.sql.database_host}) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="well col-sm-6">
+                    {{ form_row(form.port, {value: config.sql.database_port}) }}
+                </div>
+                <div class="well col-sm-6">
+                    {{ form_row(form.name, {value: config.sql.database_name}) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="well col-sm-6">
+                    {{ form_row(form.user, {value: config.sql.database_user}) }}
+                </div>
+                <div class="well col-sm-6">
+                    {{ form_row(form.password, {value: config.sql.database_password}) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="well col-sm-6">
+                    {{ form_row(form.prefix, {value: config.sql.database_prefix}) }}
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        {{ form_end(form) }}
+    {% endif %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+{% endblock javascripts %}

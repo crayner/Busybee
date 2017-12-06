@@ -26,3 +26,26 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    busybee.install.manager.install_manager:
+        class: App\Install\Manager\InstallManager
+        arguments:
+            - '%kernel.project_dir%'
+        public: true
+    busybee.core.validator.constraints.no_white_space_validator:
+        class: App\Core\Validator\Constraints\NoWhiteSpaceValidator
+        tags:
+            - { name: validator.constraint_validator, alias: nowhitespace_validator }
+    busybee.core.listener.kernel_listener:
+        class: App\Core\Listener\KernelListener
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@router'
+            - '%kernel.cache_dir%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+    busybee.core.subscriber.table_prefix_subscriber:
+        class: App\Core\Subscriber\TablePrefixSubscriber
+        arguments:
+            - '%database_prefix%'
+        tags:
+            - { name: doctrine.event_subscriber }

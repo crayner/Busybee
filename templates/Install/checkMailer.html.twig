@@ -1,0 +1,116 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
+
+{% block menuContainer %}
+{% endblock menuContainer %}
+
+{% trans_default_domain 'BusybeeInstallBundle' %}
+{% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = proceedButton({additional: 'id=proceedButton', windowOpen: {route: path("install_misc_check")}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'install.mailer.parameters'} %}
+    {% block flashMessages %}{% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
+    <div id="form_body" class="container-fluid">
+        <div class="row">
+            <div class="well col-sm-6">
+                {{ form_row(form.transport, {value: config.mailer.mailer_transport}) }}
+            </div>
+        </div>
+
+        <div class="row" id="smtpMailer">
+            <div class="well col-sm-3">
+                {{ form_row(form.host, {value: config.mailer.mailer_host}) }}
+            </div>
+            <div class="well col-sm-3">
+                {{ form_row(form.port, {value: config.mailer.mailer_port}) }}
+            </div>
+            <div class="well col-sm-3">
+                {{ form_row(form.encryption, {value: config.mailer.mailer_encryption}) }}
+            </div>
+            <div class="well col-sm-3">
+                {{ form_row(form.auth_mode, {value: config.mailer.mailer_auth_mode}) }}
+            </div>
+        </div>
+
+        <div class="row mailerDetailsHide">
+            <div class="well col-sm-6">
+                {{ form_row(form.user, {value: config.mailer.mailer_user}) }}
+            </div>
+            <div class="well col-sm-6">
+                {{ form_row(form.password, {value: config.mailer.mailer_password}) }}
+            </div>
+        </div>
+
+        <div class="row mailerDetailsHide">
+            <div class="well col-sm-6">
+                {{ form_row(form.sender_name, {value: config.mailer.mailer_sender_name}) }}
+            </div>
+            <div class="well col-sm-6">
+                {{ form_row(form.sender_address, {value: config.mailer.mailer_sender_address}) }}
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('#mailer_transport').val() == 'off') {
+                $('#smtpMailer').fadeOut(5);
+                $('.smtpMailer').prop('disabled', true);
+                $('.mailerDetailsHide').fadeOut(5);
+                $('.mailerDetails').prop('disabled', true);
+            } else if ($('#mailer_transport').val() == 'smtp') {
+                $('.smtpMailer').prop('disabled', false);
+                $('#smtpMailer').fadeIn(5);
+                $('.mailerDetailsHide').fadeIn(5);
+                $('.mailerDetails').prop('disabled', false);
+            } else {
+                $('#smtpMailer').fadeOut(5);
+                $('.smtpMailer').prop('disabled', true);
+                $('.mailerDetailsHide').fadeIn(5);
+                $('.mailerDetails').prop('disabled', false);
+            }
+            {% if config.mailer.canDeliver %}
+            $('#proceedButton').prop('disabled', false);
+            {% else %}
+            $('#proceedButton').prop('disabled', true);
+            {% endif %}
+        });
+
+        $('#mailer_transport').change(function () {
+            if ($('#mailer_transport').val() == 'off') {
+                $('#proceedButton').prop('disabled', false);
+                $('.smtpMailer').prop('disabled', true);
+                $('#smtpMailer').fadeOut(5);
+                $('.mailerDetailsHide').fadeOut(5);
+                $('.mailerDetails').prop('disabled', true);
+            } else if ($('#mailer_transport').val() == 'smtp') {
+                $('#proceedButton').prop('disabled', true);
+                $('.smtpMailer').prop('disabled', false);
+                $('#smtpMailer').fadeIn(5);
+                $('.mailerDetailsHide').fadeIn(5);
+                $('.mailerDetails').prop('disabled', false);
+            } else {
+                $('#proceedButton').prop('disabled', true);
+                $('.smtpMailer').prop('disabled', true);
+                $('#smtpMailer').fadeOut(5);
+                $('.mailerDetailsHide').fadeIn(5);
+                $('.mailerDetails').prop('disabled', false);
+            }
+        });
+    </script>
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+{% endblock javascripts %}
