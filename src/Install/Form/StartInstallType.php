@@ -58,7 +58,7 @@ class StartInstallType extends AbstractType
 					],
 				]
 			)
-			->add('path', TextType::class,
+			->add('name', TextType::class,
 				[
 					'label'       => 'sql.database.name.label',
 					'attr'        => array(
@@ -88,11 +88,11 @@ class StartInstallType extends AbstractType
 					],
 				]
 			)
-			->add('password', TextType::class,
+			->add('pass', TextType::class,
 				[
-					'label'       => 'sql.database.password.label',
+					'label'       => 'sql.database.pass.label',
 					'attr'        => array(
-						'help' => 'sql.database.password.help',
+						'help' => 'sql.database.pass.help',
 					),
 					'mapped'      => false,
 					'constraints' => [

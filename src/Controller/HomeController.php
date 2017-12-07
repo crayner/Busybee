@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\Manager\StatusManager;
+use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 

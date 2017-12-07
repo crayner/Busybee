@@ -85,7 +85,6 @@ class SettingManager implements ContainerAwareInterface
 		$this->projectDir   = $projectDir;
 
 		$this->messages = new MessageManager('SystemBundle');
-		dump($this);
 	}
 
 	/**

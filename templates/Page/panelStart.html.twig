@@ -1,0 +1,48 @@
+{# src/Busybee/HomeBundle/Resources/views/Page/panelStart.html.twig #}
+
+{% if transDomain is not defined %}
+    {% set transDomain = "BusybeeHomeBundle" %}
+{% endif %}
+
+{% trans_default_domain transDomain %}
+
+{% if title is defined %}
+    {% set header = title %}
+{% endif %}
+
+{% if header is not defined %}
+    {% set header = 'panel.header.empty' %}
+{% endif %}
+
+{% if name is not defined %}
+    {% set name = 'Default' %}
+{% endif %}
+
+{% if panelParams is not defined %}
+    {% set panelParams = {} %}
+{% endif %}
+
+{% if name is not iterable %}
+    {% set name = {'%name%': name} %}
+{% endif %}
+
+{% if h3Content is not defined %}
+    {% set h3Content = '' %}
+{% endif %}
+
+{% if panelStyle is not defined %}
+    {% set panelStyle = 'primary' %}
+{% endif %}
+
+<div class="panel panel-{{ panelStyle }} busybee-panel"{% if panelAttr is defined %} {{ panelAttr }}{% endif %}>
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ header|trans(name) }}
+            {{ h3Content|raw }}
+        </h3>
+        {% if panelParagraph is defined %}
+            <p>{{ panelParagraph|trans(panelParams)|raw }}</p>
+        {% endif %}
+    </div>
+    <div class="panel-body"{% if bodyAttr is defined %} {{ bodyAttr }}{% endif %}>
+{#</div>
+</div>#}

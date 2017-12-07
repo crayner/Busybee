@@ -1,0 +1,104 @@
+{% trans_default_domain "BusybeeHomeBundle" %}
+
+{% extends 'Default/headerNotice.html.twig' %}
+
+{% block htmlContent %}
+    <!DOCTYPE html >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>{{ get_setting('org.name.long', 'Busybee Institute') }} - {% block title %}{% endblock title %} on
+            Busybee</title>
+
+        {% block stylesheets %}
+            {% include 'Default/style.html.twig' %}
+        {% endblock stylesheets %}
+    </head>
+
+    <body>
+
+    {% block menuContainer %}
+        {% include '@BusybeeTemplate/Menu/main-menu.html.twig' %}
+    {% endblock menuContainer %}
+
+    <div class="container theme-showcase" role="main">
+
+        {% block titleContainer %}
+            <div class="jumbotron hideSection{{ containerThemeOverwrite }}">
+                <img src="{{ asset(get_setting('org.logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo"/>
+                <h2>{% block headerTitle %}Busybee - {{ get_setting('org.name.long') }}{% endblock headerTitle %}</h2>
+                <p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
+                {% if headerNotices is not empty %}<p>{{ headerNotices|raw }}</p>{% endif %}
+            </div>
+        {% endblock titleContainer %}
+
+        <div class="row-fluid row">
+            {% if fullPage is defined %}
+            <div class="col-sm-12" id="contentContainer">
+                {% else %}
+                <div class="col-sm-9" id="contentContainer">
+                    {% endif %}
+                    {% block flashMessages %}
+                        {% include '@BusybeeTemplate/Default/flash.html.twig' %}
+                    {% endblock flashMessages %}
+                    {% block contentContainer %}
+
+                        {{ include('@BusybeeTemplate/Default/buttons.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/tables.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/thumbnails.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/labels.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/badges.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/dropdowns.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/navs.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/navBars.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/alerts.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/progressBars.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/listGroups.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/panels.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/wells.html.twig') }}
+
+                        {{ include('@BusybeeTemplate/Default/carousel.html.twig') }}
+
+                    {% endblock contentContainer %}
+                </div>
+                {% if fullPage is not defined %}
+                    <div class="col-sm-3">
+                        <div id="sectionMenuContainer">
+                        {% block sectionMenu %}
+                            {% include 'Menu/section-menu.html.twig' %}
+                        {% endblock sectionMenu %}
+                        </div>
+                    </div>
+                {% endif %}
+        </div>
+
+        </div> <!-- /container -->
+
+    <div class="container theme-showcase" id="footerContainer">
+        {% block footerContainer %}
+            {{ include('@BusybeeTemplate/Default/footer.html.twig') }}
+        {% endblock footerContainer %}
+    </div> <!-- /container footer -->
+        <div class="showLoader"><!-- Place at bottom of page --></div>
+
+
+    {% block javascripts %}
+        {% include "@BusybeeTemplate/Default/scripts.html.twig" %}
+    {% endblock javascripts %}
+
+
+    </body>
+    </html>
+{% endblock htmlContent %}

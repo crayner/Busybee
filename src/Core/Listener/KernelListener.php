@@ -8,11 +8,12 @@ use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 
 class KernelListener
 {
@@ -36,11 +37,12 @@ class KernelListener
 	 *
 	 * @param ObjectManager $objectManager
 	 */
-	public function __construct(ObjectManager $objectManager, Router $router, $cacheDir)
+	public function __construct(ObjectManager $objectManager, RouterInterface $router, ParameterBag $parameterBag)
 	{
 		$this->objectManager   = $objectManager;
 		$this->router          = $router;
-		$this->cacheDir        = $cacheDir;
+		dump($parameterBag);die();
+		$this->cacheDir        = $parameterBag;
 	}
 
 	/**
@@ -103,5 +105,7 @@ class KernelListener
 			$response = new RedirectResponse($url);
 			$event->setResponse($response);
 		}
+
+		dump($this);die();
 	}
 }

@@ -24,10 +24,11 @@ doctrine:
         entity_managers:
             default:
                 connection: default
+                auto_mapping: true
                 mappings:
                     App:
                         is_bundle: false
                         type: yml
-                        dir: '%kernel.project_dir%/src/Entity'
+                        dir: '%kernel.project_dir%/config/doctrine'
                         prefix: 'App\Entity'
                         alias: App

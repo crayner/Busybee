@@ -1,0 +1,33 @@
+{% trans_default_domain "BusybeeHomeBundle" %}
+
+{% set sections = get_section() %}
+{% set header = '' %}
+{% for name,link in sections %}
+    {% if header != name %}
+        {% set header = name %}
+        {% set prompt = 'section.header.' ~ header %}
+        <h4 class="sectionHeader">{{ prompt|trans }}</h4>
+        {% set keys = link|keys %}
+    {% endif %}
+    {% for key in keys %}
+        {% set data = link[key] %}
+        {% set test = true %}
+        {% if data['test'] is defined %}
+            {% set test = sectionMenuTest(data['test']) %}
+        {% endif %}
+        {% if test %}
+            {% if routeExists(data['route']) %}
+                {% set target = '_self' %}
+                {% set options = '' %}
+                {% if data['target'] is defined %}
+                    {% set target = data['target']['name'] %}
+                    {% set options = data['target']['options'] %}
+                {% endif %}
+                <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params']), target: target, params: options}})|raw }}</div>
+            {% else %}
+                <div class="{{ data['linkClass'] }}"
+                     style="font-size: 12px; padding: 0 4px; margin: 0; color: #337ab7;">{{ 'system.route.missing'|trans({'%{route}': data['route']}) }}</div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}

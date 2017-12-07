@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Install\Form\StartInstallType;
+use App\Install\Manager\InstallManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,9 +14,8 @@ class InstallController extends BusybeeController
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function installBuild(Request $request)
+	public function installBuild(Request $request, InstallManager $installer)
 	{
-		$installer         = $this->get('busybee.install.manager.install_manager');
 		$installer->signin = null;
 
 		$params = $installer->getParameters();
@@ -24,6 +24,8 @@ class InstallController extends BusybeeController
 		$form = $this->createForm(StartInstallType::class, null, ['data' => $sql]);
 
 		$sql = $installer->handleDataBaseRequest($form, $request);
+
+		dump($sql);
 
 		$testDatabase = false;
 		if (! empty($sql['name']) && ! empty($sql['user']) && ! empty($sql['password']))

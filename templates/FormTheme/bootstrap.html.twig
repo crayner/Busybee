@@ -1,0 +1,154 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block image_label -%}
+    {% if imageExists(data) %}
+        <img src="{{ asset( imagePath(data) ) }}" class="{{ attr.imageClass }} form_image"/>
+        {{- form_label(form) -}}
+        {% if deletePhoto is not null %}
+            {% set imageDelete = 0 %}
+            {% if form.parent.vars.value.name is defined %}
+                {% set imageDelete = form.parent.vars.value.name %}
+            {% endif %}
+            {{ deleteButton({title: 'photo.delete', transDomain: translation_domain, windowOpen: {route: deletePhoto|replace({'__imageDelete__': imageDelete}), target: deleteTarget, params: deleteParams}, colour: 'warning'})|raw }}
+        {% endif %}
+    {% else %}
+        {{- form_label(form) -}}
+    {% endif %}
+{%- endblock image_label %}
+
+{% block url_label -%}
+    {{- form_label(form) -}}
+    {% if value is not empty %}
+        &nbsp;{{ miscButton({transDomain: translation_domain, windowOpen: {route: value, target: '_blank'}, class: 'halflings halflings-link btn btn-sm btn-default', title: label, style: ''})|raw }}
+    {% endif %}
+{%- endblock url_label %}
+
+{% block form_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
+    {{- parent() -}}
+    {% set required_printed = false %}
+    {% if required and not required_printed %}{% spaceless %}<span
+            class="field-required">
+        &nbsp;{{ 'form.required'|trans({}, 'BusybeeTemplateBundle') }} </span>&nbsp;{% endspaceless %}{% set required_printed = true %}{% endif %}
+{%- endblock form_label %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
+        <ul class="list-unstyled">
+        {%- for error in errors -%}
+            <li><span class="glyphicons glyphicons-exclamation-sign"></span> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
+        {%- endfor -%}
+        </ul>
+        {% if form.parent %}</span>{% else %}</div>{% endif %}
+        <br/>
+    {% else %}
+        {% if setting_name is not defined %}<br/>{% endif %}
+    {%- endif %}
+    {% for attrname,attrvalue in attr %}
+        {% if attrname == 'help' %}
+            {% if attrvalue is iterable %}
+                <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue[0] : attrvalue[0]|trans(attrvalue[1], translation_domain)) }}</span>
+            {% else %}
+                <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain)) }}</span>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{%- endblock form_errors %}
+
+{% block toggle_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' toggle form-control')|trim}) -%}
+
+    {%- set attr = attr|merge({"data-toggle": "toggle"}) -%}
+
+    {% if attribute(attr, "data-off") is not defined %}
+        {%- set attr = attr|merge({"data-off": '<span class="halflings halflings-thumbs-down"></span>'}) -%}
+    {% endif %}
+
+    {% if attribute(attr, "data-on") is not defined %}
+        {%- set attr = attr|merge({"data-on": '<span class="halflings halflings-thumbs-up"></span>'}) -%}
+    {% endif %}
+
+    {% if attribute(attr, "data-size") is not defined %}
+        {%- set attr = attr|merge({"data-size": "small"}) -%}
+    {% endif %}
+
+    {% if attribute(attr, "data-onstyle") is not defined %}
+        {%- set attr = attr|merge({"data-onstyle": "success"}) -%}
+    {% endif %}
+    {% if attribute(attr, "data-offstyle") is not defined %}
+        {%- set attr = attr|merge({"data-offstyle": "danger"}) -%}
+    {% endif %}
+
+    <div class="{{ div_class }}">
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    </div>
+
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    <label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
+    {% if form.vars.help is defined %}<br/><span
+            class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}
+{%- endblock toggle_widget %}
+
+{%- block widget_attributes -%}
+    id="{{ id }}" name="{{ full_name }}"
+    {%- if disabled %} disabled="disabled"{% endif -%}
+    {%- if required %} required="required"{% endif -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title', 'data-on', 'data-off'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrname in ['help', 'imageClass'] -%}
+
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock widget_attributes -%}
+
+{% block choice_setting_label %}
+    <span class="halflings halflings-info-sign alert-info"
+          title="{{ 'setting.choice.name'|trans({'%name%': setting_name}, 'BusybeeTemplateBundle') }}"
+          style="float: left; margin: 2px 4px; 0 0;"
+          onclick="window.open('{{ path('setting_edit_name', {name: setting_name}) }}', 'SettingManage', 'width=1200,height=900')"></span>
+    {{- form_label(form) -}}
+{% endblock choice_setting_label %}
+
+{% block choice_row -%}
+    {% if expanded %}
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+            {{- form_widget(form) -}}
+            {{- form_label(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% else %}
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+            {{- form_widget(form) -}}
+            {{- form_label(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% endif %}
+{%- endblock choice_row %}
+
+{% block form_row -%}
+    {% if form.vars.block_prefixes.1 == 'choice' %}
+        {{- block('choice_row') -}}
+    {% else %}
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+            {{- form_widget(form) -}}
+            {{- form_label(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% endif %}
+{%- endblock form_row %}
+
+{%- block auto_complete_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    <input type="hidden" id="{{ id }}" value="{{ value }}" name="{{ full_name }}"/>
+    {% set id = id ~ '_list' %}
+    {% set full_name = full_name|replace({(name): name ~ '_list'}) %}
+    {% set name = name|replace({(name): name ~ '_list'}) %}
+    <input type="text" {{ block('widget_attributes') }} />
+{%- endblock auto_complete_widget -%}

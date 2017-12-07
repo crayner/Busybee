@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: craig
- * Date: 5/12/2017
- * Time: 16:09
- */
-
 namespace App\Install\Manager;
 
-
+use App\Core\Organism\Database;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
@@ -27,10 +20,12 @@ class InstallManager
 
 	/**
 	 * InstallManager constructor.
+	 *
+	 * @param $projectDir   String
 	 */
-	public function __construct(string $projectDir)
+	public function __construct($projectDir)
 	{
-		$this->sql             = new \stdClass();
+		$this->sql             = new Database();
 		$this->projectDir = $projectDir;
 	}
 
@@ -55,6 +50,11 @@ class InstallManager
 		unset($sql['DATABASE_URL']);
 		$sql = array_merge($db, $sql);
 
+		foreach($sql as $name=>$value)
+		{
+			$n = 'set'.ucfirst($name);
+			$this->sql->$n($value);
+		}
 		return $sql;
 	}
 
@@ -91,20 +91,17 @@ class InstallManager
 
 		$sql = [];
 		foreach ((array) $this->sql as $name => $value)
-		{
-			if (strpos($name, 'database_') === 0)
-			{
-				$sql[str_replace('database_', '', $name)] = $value;
-			}
-		}
-		if (!$form->isSubmitted())
+			if (in_array($name, ['host','path','port','pass','user','scheme','prefix','name']))
+				$sql[$name] = $value;
+
+		if (! $form->isSubmitted())
 			return $sql;
 
 		foreach ($sql as $name => $value)
 		{
 			$sql[$name]    = $form->get($name)->getData();
-			$n             = 'database_' . $name;
-			$this->sql->$n = $form->get($name)->getData();
+			$n = 'set'.ucfirst($name);
+			$this->sql->$n($form->get($name)->getData());
 		}
 
 		if ($form->isValid())
@@ -122,11 +119,20 @@ class InstallManager
 	}
 
 	/**
-	 * @return \stdClass|null
+	 * @return Database|null
 	 */
-	public function getSql(): ?\stdClass
+	public function getSql(): ?Database
 	{
 		return $this->sql;
 	}
 
+	/**
+	 * Parameter Status
+	 *
+	 * @return bool
+	 */
+	public function parameterStatus()
+	{
+		return is_writable($this->projectDir . '/.env');
+	}
 }
