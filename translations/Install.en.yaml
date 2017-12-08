@@ -1,0 +1,65 @@
+system:
+    install:
+        title: Install System
+        description: Test and install the system architecture.
+parameter:
+    file:
+        title: Parameter File Status
+        ok: "The 'busybee.yaml' file is writable. Values you enter here will be saved."
+        fail: "The 'busybee.yaml' file is NOT writable. You will need to manually update this file before the system will work correctly. You will be provided with the details to copy by this script."
+    sql:
+        title: Database Connection Parameters
+        ok: "A connection to the database %name% was successful."
+        fail: "A connection to the database %name% was not successful.  The connection error states: %error%"
+install:
+    database:
+        parameters: Database Connection Parameters
+        connection:
+            complete: 'The database connection has been successfully tested and the database %name% is ready to use.'
+        not:
+            tested: 'The connection to the database has not been tested.  It will be tested when you successfully save the form.'
+        save:
+            failed: 'The database parameters were not saved.'
+            success: 'The database parameters saved successfully.'
+            already: 'The database settings are correctly set and already saved.'
+sql:
+    database:
+        driver:
+            label: The Type of Database Connection
+            help: The database connection is dependant on your server architecture. Please obtain the information from your Information Technology person.
+            'PDO MySQL': PDO MySQL
+        save: Save
+        host:
+            label: The Host Name or IP Address
+            help: What is the name of the server or th IP address of the server on which the database is located.
+        port:
+            label: The Communication Port used by the Database Server
+            help: Please obtain the information from your Information Technology person.
+        name:
+            label: The Name of the Database
+            help: The database has this name, and if it does not exist the system will attempt to create the database of this name.
+        user:
+            label: The User Name to access the Database.
+            help: ''
+        pass:
+            label: The Password to the user for the Database.
+            help: ''
+        prefix:
+            label: The Prefix added to ALL tables.
+            help: Allows multiple systems to use the same database.
+software:
+    required: ' This software is required at version %required%.'
+    system:
+        values: 'System Software'
+acknowledgement:
+    title: 'System Check'
+    description: ''
+    help:
+        fixnow: The indicated software is incorrect or not correctly configured.
+        equal: All OK.
+        over: The software installed is later than the requirement. This is usually OK, but can break sections of the site and is therefore not recommended.
+        upgrade: Your software requires attention to upgrade to the required version.
+version:
+    upgrade: ' This software is required at version %required%.'
+    over: ' The system version is greater than required. Some functions on the site may work unexpectedly.  The version required is %required%.'
+    equal: ' This software meets current requirements. %required%'

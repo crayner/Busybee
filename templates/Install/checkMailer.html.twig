@@ -1,12 +1,12 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "@BusybeeTemplate/Default/template.html.twig" %}
 
-{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
+{% form_theme form "Install:Template:bootstrap.html.twig" %}
 
 {% block menuContainer %}
 {% endblock menuContainer %}
 
-{% trans_default_domain 'BusybeeInstallBundle' %}
+{% trans_default_domain 'Install' %}
 {% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
@@ -19,40 +19,40 @@
     {% block flashMessages %}{% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
     <div id="form_body" class="container-fluid">
         <div class="row">
-            <div class="well col-sm-6">
+            <div class="well col-6">
                 {{ form_row(form.transport, {value: config.mailer.mailer_transport}) }}
             </div>
         </div>
 
         <div class="row" id="smtpMailer">
-            <div class="well col-sm-3">
+            <div class="well col-3">
                 {{ form_row(form.host, {value: config.mailer.mailer_host}) }}
             </div>
-            <div class="well col-sm-3">
+            <div class="well col-3">
                 {{ form_row(form.port, {value: config.mailer.mailer_port}) }}
             </div>
-            <div class="well col-sm-3">
+            <div class="well col-3">
                 {{ form_row(form.encryption, {value: config.mailer.mailer_encryption}) }}
             </div>
-            <div class="well col-sm-3">
+            <div class="well col-3">
                 {{ form_row(form.auth_mode, {value: config.mailer.mailer_auth_mode}) }}
             </div>
         </div>
 
         <div class="row mailerDetailsHide">
-            <div class="well col-sm-6">
+            <div class="well col-6">
                 {{ form_row(form.user, {value: config.mailer.mailer_user}) }}
             </div>
-            <div class="well col-sm-6">
+            <div class="well col-6">
                 {{ form_row(form.password, {value: config.mailer.mailer_password}) }}
             </div>
         </div>
 
         <div class="row mailerDetailsHide">
-            <div class="well col-sm-6">
+            <div class="well col-6">
                 {{ form_row(form.sender_name, {value: config.mailer.mailer_sender_name}) }}
             </div>
-            <div class="well col-sm-6">
+            <div class="well col-6">
                 {{ form_row(form.sender_address, {value: config.mailer.mailer_sender_address}) }}
             </div>
         </div>

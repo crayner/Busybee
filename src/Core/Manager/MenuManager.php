@@ -47,13 +47,13 @@ class MenuManager
 	 *
 	 * @param Container $container
 	 */
-	public function __construct(PageManager $pageManager, AuthorizationCheckerInterface $authChecker, PageRepository $pageRepository)
+	public function __construct(PageManager $pageManager, AuthorizationCheckerInterface $authChecker, PageRepository $pageRepository, RouterManager $routerManager)
 	{
 		$this->pageManager = $pageManager;
 
 		$this->checker = $authChecker;
 
-		$this->routerManager = new RouterManager();
+		$this->routerManager = $routerManager;
 
 		try
 		{

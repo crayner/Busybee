@@ -117,10 +117,16 @@ class StartInstallType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver)
 	{
-		$resolver->setDefaults(array(
-			'translation_domain' => 'BusybeeInstallBundle',
-			'data_class'         => null,
-		));
+		$resolver->setDefaults(
+			[
+				'translation_domain' => 'Install',
+				'data_class'         => null,
+				'csrf_protection' => true,
+				'csrf_field_name' => '_token',
+				// a unique key to help generate the secret token
+				'csrf_token_id'   => 'start_install',
+			]
+		);
 	}
 
 	/**

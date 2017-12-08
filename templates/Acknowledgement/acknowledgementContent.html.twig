@@ -1,0 +1,90 @@
+{% trans_default_domain 'Install' %}
+<div class="container">
+    {% for name,version in versions %}
+        {% if version['value'] is not defined %}
+            {% set show = 1 %}
+            <div class="row row-striped acknowledgement">
+                <div class="col-12">
+                    {% for vName,value in version %}
+                        <div class="row row-hover">
+                            <div class="col-3">
+                                {% if show == 1 %}
+                                    {{ name }}
+                                {% endif %}
+                                {% set show = 0 %}
+                            </div>
+                            <div class="col-3">
+                                {{ vName }}
+                            </div>
+                            <div class="col-6{% if value['flag'] %} {{ value['flag'] }}{% endif %}">
+                                {{ value['value'] }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="row row-striped row-hover acknowledgement">
+                <div class="col-3">
+                    {{ name }}
+                </div>
+                <div class="offset-3 col-6{% if version['flag'] %} {{ version['flag'] }}{% endif %}">
+                    {{ version['value'] }}
+                </div>
+            </div>
+        {% endif %}
+        {% if name == 'Symfony' %}
+            {% if majorProblems is defined and majorProblems is not empty %}
+                <div class="row alert alert-danger">
+                    <div class="col-10 offset-1">
+                        <h4>{{ 'symfony.problems'|trans }}</h4>
+                        <ol>
+                            {% for problem in majorProblems %}
+                                <li>{{ problem.getTestMessage() }}
+                                    <p class="help"><em>{{ problem.getHelpHtml() }}</em></p>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            {% endif %}
+            {% if minorProblems is defined and minorProblems is not empty %}
+                <div class="row alert alert-warning">
+                    <div class="col-10 offset-1">
+                        <h4>{{ 'symfony.recommendations'|trans }}</h4>
+                        <ol>
+                            {% for problem in minorProblems %}
+                                <li>{{ problem.getTestMessage() }}
+                                    <p class="help"><em>{{ problem.getHelpHtml() }}</em></p>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div class="container" style="margin-top: 50px;">
+    <div class="row alert alert-success">
+        <div class="col-12">
+            {{ 'acknowledgement.help.equal'|trans }}
+        </div>
+    </div>
+    <div class="row alert alert-info">
+        <div class="col-12">
+            {{ 'acknowledgement.help.over'|trans }}
+        </div>
+    </div>
+    <div class="row alert alert-warning">
+        <div class="col-12">
+            {{ 'acknowledgement.help.upgrade'|trans }}
+        </div>
+    </div>
+    <div class="row alert alert-danger">
+        <div class="col-12">
+            {{ 'acknowledgement.help.fixnow'|trans }}
+        </div>
+</div>
+
+</div>

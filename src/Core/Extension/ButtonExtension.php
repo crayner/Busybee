@@ -216,7 +216,7 @@ XXX;
 
 		if (!empty($details['windowOpen']))
 		{
-			$target                = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
+			$target                = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'FormTheme' : $details['transDomain']);
 			$route                 = 'onClick="window.open(\'' . $details['windowOpen']['route'] . '\',\'' . $target . '\'';
 			$route                 = empty($details['windowOpen']['params']) ? $route . ')"' : $route . ',\'' . $details['windowOpen']['params'] . '\')"';
 			$details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
@@ -251,7 +251,7 @@ XXX;
 					if (is_array($defaults[$q]))
 						$defaults[$q] = $this->translator->trans($defaults[$q]['message'], $defaults[$q]['params'], empty($details['transDomain']) ? 'messages' : $details['transDomain']);
 					else
-						$defaults[$q] = $this->translator->trans($defaults[$q], [], empty($details['transDomain']) ? 'messages' : $details['transDomain']);
+						$defaults[$q] = $this->translator->trans($defaults[$q], [], empty($details['transDomain']) ? 'FormTheme' : $details['transDomain']);
 				$button = str_replace('%' . $q . '%', $defaults[$q], $button);
 			}
 		}

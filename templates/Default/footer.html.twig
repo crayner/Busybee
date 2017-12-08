@@ -1,0 +1,6 @@
+{% trans_default_domain 'Template' %}
+
+<div class="card">
+    <div class="card-footer footerDetails">{{ 'footer.details'|trans( {'%version%': get_setting('Version.System'), '%name%': get_parameter('author') } )|raw }}</div>
+</div>
+

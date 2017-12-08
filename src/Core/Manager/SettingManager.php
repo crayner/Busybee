@@ -6,6 +6,7 @@ use App\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -69,7 +70,7 @@ class SettingManager implements ContainerAwareInterface
 	 *
 	 * @param ContainerInterface $container
 	 */
-	public function __construct(SettingRepository $sr, string $projectDir = null)
+	public function __construct(SettingRepository $sr, myContainer $container)
 	{
 		$session = new Session();
 		if ($session->isStarted())
@@ -82,7 +83,9 @@ class SettingManager implements ContainerAwareInterface
 		}
 
 		$this->settingRepo  = $sr;
-		$this->projectDir   = $projectDir;
+		$this->projectDir   = $container->getParameter('kernel.project_dir');
+
+		$this->container = $container;
 
 		$this->messages = new MessageManager('SystemBundle');
 	}

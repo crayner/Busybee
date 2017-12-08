@@ -25,9 +25,9 @@ class UserRepository extends ServiceEntityRepository
 	 *
 	 * @return User
 	 */
-	public function find($id): User
+	public function find($id, $lockMode = NULL, $lockVersion = NULL): User
 	{
-		$entity = parent::find($id);
+		$entity = parent::find($id, $lockMode, $lockVersion);
 
 		if (is_null($entity) && intval($id) === 1)
 			$entity = new User();

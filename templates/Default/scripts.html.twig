@@ -1,0 +1,59 @@
+<!-- core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<script src={{ asset('js/jquery-ui.min.js') }}></script>
+{% if app.getUser is not empty %}
+    <script src={{ asset('js/dist/store.modern.min.js') }}></script>
+    <script src={{ asset('js/jquery-idleTimeout.js') }}></script>
+    <!-- <script src={{ asset('js/bootstrap.min.js') }}></script>
+    <script src={{ asset('js/bootstrap-submenu.min.js') }}></script> -->
+    <script type="text/javascript" charset="utf-8">
+        // idleTimeout
+        $(document).ready(function () {
+            $(document).idleTimeout({
+                dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans({}, 'BusybeeHomeBundle') }}',
+                dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans({}, 'BusybeeHomeBundle') }}',
+                dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans({}, 'BusybeeHomeBundle') }}',
+                idleTimeLimit: {{ get_setting('idleTimeout', 15) * 60 - 30 }},
+                dialogDisplayLimit: 30,
+                activityEvents: 'click keypress scroll wheel mousewheel',
+                sessionKeepAliveTimer: false,
+                dialogTitle: '{{ 'idletimeout.title'|trans({}, 'BusybeeHomeBundle') }}',
+                dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
+                redirectUrl: '{{ path('security_timeout') }}',
+                customCallback: function () {
+                    var close = '{{ app.request.get('closeWindow') }}';
+                    if (close.length > 0)
+                        window.close();
+                }
+            });
+
+            var hide = '{{ hideSection(app.request.get('_route')) }}';
+            if (hide) {
+                $('.hideSection').fadeOut(5);
+            }
+        });
+        $('[data-submenu]').submenupicker();
+
+        function menuSectionSlide() {
+            var scroll_top = $(window).scrollTop();
+            if (scroll_top >= 247) { // the detection!
+                $('#sectionMenuContainer').addClass('is-sticky');
+            } else {
+                $('#sectionMenuContainer').removeClass('is-sticky');
+            }
+        }
+
+        $(window).scroll(menuSectionSlide);
+    </script>
+{% endif %}
+{% if script is defined %}
+    {% for xx in script %}
+        {% include xx %}
+    {% endfor %}
+{% endif %}
+<!-- core JavaScript end -->

@@ -4,6 +4,14 @@ parameters:
     # environment variables are not available yet.
     # You should not need to change this value.
     env(DATABASE_URL): ''
+    db_driver: pdo_mysql
+    db_host: 172.16.0.222
+    db_port: 3306
+    db_name: craigray_core
+    db_user: craigray_core
+    db_pass: 'U!f}6?]V*1Qi'
+    db_prefix: bee_
+    db_server: mysql
 
 doctrine:
     dbal:
@@ -15,9 +23,9 @@ doctrine:
                 port:     '%db_port%'
                 dbname:   '%db_name%'
                 user:     '%db_user%'
-                password: '%db_password%'
+                password: '%db_pass%'
                 charset:  'utf8mb4'
-                server_version: '5.7'
+                server_version: '5.6'
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         default_entity_manager: default

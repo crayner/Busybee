@@ -1,0 +1,18 @@
+form:
+    save: Save
+    cancel: Cancel
+    add: Add
+    upload: Upload
+    proceed: Proceed
+    return: Return
+    delete: Erase
+    misc: Miscellaneous
+    reset: Reset
+    close: Close
+    up: Up
+    down: Down
+    edit: Edit
+    on: On
+    off: Off
+    duplicate: Duplicate
+    required: Required

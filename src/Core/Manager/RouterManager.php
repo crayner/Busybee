@@ -1,9 +1,15 @@
 <?php
 namespace App\Core\Manager;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class RouterManager
 {
+	/**
+	 * @var string
+	 */
+	private $currentRoute;
+
 	/**
 	 * @return array
 	 */
@@ -15,9 +21,17 @@ class RouterManager
 	/**
 	 * RouterManager constructor.
 	 */
-	public function __construct(Request $request)
+	public function __construct(RequestStack $request)
 	{
-		dump($request);
+		$this->currentRoute = $request->getCurrentRequest()->get('_route');
 		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCurrentRoute(): string
+	{
+		return $this->currentRoute;
 	}
 }

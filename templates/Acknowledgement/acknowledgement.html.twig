@@ -1,0 +1,14 @@
+{# src/General/HomeBundle/Resources/views/acknowledgement.html.twig #}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% trans_default_domain 'Install' %}
+
+{% block title %}Busybee {{ 'acknowledgement.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'acknowledgement.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'acknowledgement.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Acknowledgement/acknowledgementContent.html.twig' %}
+{% endblock contentContainer %}
+

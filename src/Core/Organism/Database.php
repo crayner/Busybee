@@ -9,6 +9,8 @@
 namespace App\Core\Organism;
 
 
+use Doctrine\DBAL\Exception\InvalidArgumentException;
+
 class Database
 {
 	/**
@@ -57,6 +59,11 @@ class Database
 	private $driver = 'pdo_mysql';
 
 	/**
+	 * @var string
+	 */
+	private $server = 'mysql';
+
+	/**
 	 * @return null|string
 	 */
 	public function getName(): ?string
@@ -66,14 +73,18 @@ class Database
 
 	/**
 	 * @param string $name
+	 * @param bool   $path
 	 *
 	 * @return Database
 	 */
-	public function setName(string $name): Database
+	public function setName(string $name, bool $path = true): Database
 	{
 		$this->name = $name;
 
-		return $this->setPath('/'.$name);
+		if ($path)
+			return $this->setPath('/'.$name, false);
+
+		return $this;
 	}
 
 	/**
@@ -129,9 +140,11 @@ class Database
 	 *
 	 * @return Database
 	 */
-	public function setPath(string $path): Database
+	public function setPath(string $path, $name = true): Database
 	{
-		$this->path = $path;
+		$this->path = strpos($path, '/') !== 0 ? '/'.$path : $path;
+		if ($name)
+			return $this->setName(trim($path, '/'), false);
 
 		return $this;
 	}
@@ -221,6 +234,16 @@ class Database
 	{
 		$this->driver = $driver;
 
+		switch ($driver)
+		{
+			case 'pdo_mysql':
+				$this->setScheme('mysql');
+				$this->setServer('mysql');
+				break;
+			default:
+				throw new InvalidArgumentException('Driver must be [pdo_mysql].');
+		}
+
 		return $this;
 }
 
@@ -243,4 +266,51 @@ class Database
 
 		return $this;
 }
+
+	/**
+	 * @return string
+	 */
+	public function getServer(): string
+	{
+		return $this->server;
+	}
+
+	/**
+	 * @param string $server
+	 *
+	 * @return Database
+	 */
+	public function setServer(string $server): Database
+	{
+		$this->server = $server;
+
+		return $this;
+    }
+
+	/**
+	 * @return array
+	 */
+	public function getPropertyNames(): array
+    {
+	    return [
+	    	'name',
+		    'port',
+		    'user',
+		    'path',
+		    'pass',
+		    'host',
+		    'prefix',
+		    'scheme',
+		    'driver',
+		    'server',
+	    ];
+    }
+
+	/**
+	 * @return string
+	 */
+	public function getUrl(): string
+    {
+	    return 'DATABASE_URL='. $this->getScheme().'://'.$this->getUser().':'.$this->getPass().'@'.$this->getHost().':'.$this->getPort().$this->getPath();
+    }
 }

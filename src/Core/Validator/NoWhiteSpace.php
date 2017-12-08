@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator;
 
+use App\Core\Validator\Constraints\NoWhiteSpaceValidator;
 use Symfony\Component\Validator\Constraint;
 
 class NoWhiteSpace extends Constraint
@@ -20,6 +21,6 @@ class NoWhiteSpace extends Constraint
 	 */
 	public function validatedBy()
 	{
-		return 'nowhitespace_validator';
+		return NoWhiteSpaceValidator::class;
 	}
 }

@@ -34,9 +34,9 @@
 
         <div class="row-fluid row">
             {% if fullPage is defined %}
-            <div class="col-sm-12" id="contentContainer">
+            <div class="col-12" id="contentContainer">
                 {% else %}
-                <div class="col-sm-9" id="contentContainer">
+                <div class="col-9" id="contentContainer">
                     {% endif %}
                     {% block flashMessages %}
                         {% include '@BusybeeTemplate/Default/flash.html.twig' %}
@@ -74,7 +74,7 @@
                     {% endblock contentContainer %}
                 </div>
                 {% if fullPage is not defined %}
-                    <div class="col-sm-3">
+                    <div class="col-3">
                         <div id="sectionMenuContainer">
                         {% block sectionMenu %}
                             {% include 'Menu/section-menu.html.twig' %}
@@ -88,14 +88,14 @@
 
     <div class="container theme-showcase" id="footerContainer">
         {% block footerContainer %}
-            {{ include('@BusybeeTemplate/Default/footer.html.twig') }}
+            {{ include('Default/footer.html.twig') }}
         {% endblock footerContainer %}
     </div> <!-- /container footer -->
         <div class="showLoader"><!-- Place at bottom of page --></div>
 
 
     {% block javascripts %}
-        {% include "@BusybeeTemplate/Default/scripts.html.twig" %}
+        {% include "Default/scripts.html.twig" %}
     {% endblock javascripts %}
 
 
