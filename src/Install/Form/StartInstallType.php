@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Install\Form;
 
 use App\Core\Type\TextType;
 use App\Core\Validator\NoWhiteSpace;
+use App\Install\Organism\Database;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,10 +25,7 @@ class StartInstallType extends AbstractType
 					'choices'     => [
 						'sql.database.driver.PDO MySQL' => 'pdo_mysql',
 					],
-					'attr'        => [
-						'help' => 'sql.database.driver.help',
-					],
-					'mapped'      => false,
+					'help' => 'sql.database.driver.help',
 					'constraints' => [
 						new NotBlank(),
 					],
@@ -37,10 +34,7 @@ class StartInstallType extends AbstractType
 			->add('port', TextType::class,
 				[
 					'label'       => 'sql.database.port.label',
-					'attr'        => array(
 						'help' => 'sql.database.port.help',
-					),
-					'mapped'      => false,
 					'constraints' => [
 						new NotBlank(),
 					],
@@ -49,10 +43,7 @@ class StartInstallType extends AbstractType
 			->add('host', TextType::class,
 				[
 					'label'       => 'sql.database.host.label',
-					'attr'        => array(
 						'help' => 'sql.database.host.help',
-					),
-					'mapped'      => false,
 					'constraints' => [
 						new NotBlank(),
 					],
@@ -61,10 +52,7 @@ class StartInstallType extends AbstractType
 			->add('name', TextType::class,
 				[
 					'label'       => 'sql.database.name.label',
-					'attr'        => array(
 						'help' => 'sql.database.name.help',
-					),
-					'mapped'      => false,
 					'constraints' => [
 						new NotBlank(),
 						new \App\Core\Validator\NoWhiteSpace(
@@ -76,10 +64,7 @@ class StartInstallType extends AbstractType
 			->add('user', TextType::class,
 				[
 					'label'       => 'sql.database.user.label',
-					'attr'        => array(
 						'help' => 'sql.database.user.help',
-					),
-					'mapped'      => false,
 					'constraints' => [
 						new NotBlank(),
 						new NoWhiteSpace(
@@ -91,10 +76,7 @@ class StartInstallType extends AbstractType
 			->add('pass', TextType::class,
 				[
 					'label'       => 'sql.database.pass.label',
-					'attr'        => array(
 						'help' => 'sql.database.pass.help',
-					),
-					'mapped'      => false,
 					'constraints' => [
 						new NotBlank(),
 					],
@@ -103,10 +85,7 @@ class StartInstallType extends AbstractType
 			->add('prefix', TextType::class,
 				[
 					'label'    => 'sql.database.prefix.label',
-					'attr'     => array(
 						'help' => 'sql.database.prefix.help',
-					),
-					'mapped'   => false,
 					'required' => false,
 				]
 			);
@@ -120,7 +99,7 @@ class StartInstallType extends AbstractType
 		$resolver->setDefaults(
 			[
 				'translation_domain' => 'Install',
-				'data_class'         => null,
+				'data_class'         => Database::class,
 				'csrf_protection' => true,
 				'csrf_field_name' => '_token',
 				// a unique key to help generate the secret token

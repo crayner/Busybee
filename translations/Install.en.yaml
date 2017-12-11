@@ -22,6 +22,10 @@ install:
             failed: 'The database parameters were not saved.'
             success: 'The database parameters saved successfully.'
             already: 'The database settings are correctly set and already saved.'
+    mailer:
+        parameters: Email Settings
+    misc:
+        parameters: Miscellaneous Settings
 sql:
     database:
         driver:
@@ -63,3 +67,131 @@ version:
     upgrade: ' This software is required at version %required%.'
     over: ' The system version is greater than required. Some functions on the site may work unexpectedly.  The version required is %required%.'
     equal: ' This software meets current requirements. %required%'
+mailer:
+    transport:
+        label: Transport Method
+        help: Select appropriate transport method for your installation.
+        placeholder: No Mailer
+        smtp: SMTP
+        mail: Mail
+        sendmail: Sendmail
+        gmail: 'Google Mail (GMail)'
+    host:
+        label: SMTP Host
+        help: ''
+    port:
+        label: SMTP Port
+        help: ''
+    encryption:
+        label: SMTP Encryption
+        help: ''
+        none: None
+        ssl: SSL
+        tls: TLS
+    auth_mode:
+        label: SMTP Authority Mode
+        help: ''
+        plain: Plain
+        login: Login
+        cram-md5: CRAM MD5
+    user:
+        label: Email System User Name
+        help: ''
+    password:
+        label: Email System Password
+        help: ''
+    sender_name:
+        label: "Email System Default Sender's Name"
+        help: This would usually be the name of the Organisation.
+    sender_address:
+        label: "Email System Default Sender's Email Address"
+        help: This would usually be the email of the Organisation.
+    save:
+        success: The mailer details were saved successfully.
+        failed: The mailer details did not save correctly.
+        already: The mailer setting are already correctly set and saved.
+    test:
+        success: The email system on your server has been correctly configured.
+    delivered:
+        success: 'An email was successfully sent to %{email}'
+misc:
+    secret:
+        label: Enter a Secret Code
+        help: This code is used to seed various keys in the system.
+    session_name:
+        label: Enter a Session Name
+        help: The session name stored for your system.
+    session_max_idle_time:
+        label: Idle Time Sign Off
+        help: The time in seconds before the system will sign off an idle connection.
+    session_remember_me_name:
+        label: Rememberme Cookie Name
+        help: Remember me is used to maintain authentication across the system.  No need to change this, but possible here if your feel the need.
+    sign_in_count_minimum:
+        label: Incorrect Authentication Limit
+        help: Block users who forget their password, when they record this number of failures.
+    locale:
+        label: Locale (Language)
+        help: System Default Language
+    hemisphere:
+        label: Hemisphere
+        help: 'Used to generate a default school calendar of 1 Jul to 30 Jun for northern, and 1 Jan to 31 Dec for southern.'
+    country:
+        label: Location Country
+        help: ''
+    timezone:
+        label: Location Timezone
+        help: 'Your default system tiemzone will be locked to this setting.'
+    email:
+        label: System Administrator User EMail
+        help: "All users MUST have a valid and unique email address."
+    user:
+        title: System Administrator Details
+        description: Details of the System Administrator are created here.  You will need to take note of the username and password that your create here to gain access to the site in the future.
+    username:
+        label: System Administrator User Name
+        help: 'Can be left blank and then assumes the email address.'
+    password1:
+        description: ""
+        copy: "Copy this password if required from the field below:"
+        generate: Generate Password
+        conditions: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
+    password2:
+        label: Confirm Password
+        description: ""
+        message: Your passwords must match.
+    password:
+        label: System Administrator Password
+        title: System Password Requirements
+        help: ''
+        conditions: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
+        message: All user passwords will need to match the requirements that you set.
+        minLength:
+            label: Minimum Length
+            help: "The minimum length that the password must reach to satisfy requirements."
+        mixedCase:
+            label: Upper and Lower Case Characters
+            help: "The password requires at least one upper and lower case character"
+        numbers:
+            label: Require a Number
+            help: "The password requires at least one number"
+        specials:
+            label: Require a Punctuation Character
+            help: "The password requires at least one Punctuation Character. #?!@$%^+=&*-"
+    google:
+        title: Google OAuth
+        description: 'If your school uses Google Suite (or GAFE) you can set up authenticationi using Google Authentication. <br/><a href="https://developers.google.com/identity/protocols/OAuth2" target="_blank">Using OAuth 2.0 to Access Google API`s</a>'
+        oauth:
+            label: 'Use Google Authentication'
+            help: ''
+        client_id:
+            label: Google Client Identifier
+            help: ''
+        client_secret:
+            label: Google Client Secret
+            help: ''
+google:
+    client_id:
+        empty: The Google client ID must not be empty.
+    client_secret:
+        empty: The Google client secret must not be empty.

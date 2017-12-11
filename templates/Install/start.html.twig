@@ -97,34 +97,34 @@
         <div id="form_body" class="container-fluid">
             <div class="row">
                 <div class="card col-6">
-                    {{ form_row(form.driver, {value: config.sql.driver}) }}
+                    {{ form_row(form.driver) }}
                 </div>
                 <div class="card col-6">
-                    {{ form_row(form.host, {value: config.sql.host}) }}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="card col-6">
-                    {{ form_row(form.port, {value: config.sql.port}) }}
-                </div>
-                <div class="card col-6">
-                    {{ form_row(form.name, {value: config.sql.name}) }}
+                    {{ form_row(form.host) }}
                 </div>
             </div>
 
             <div class="row">
                 <div class="card col-6">
-                    {{ form_row(form.user, {value: config.sql.user}) }}
+                    {{ form_row(form.port) }}
                 </div>
                 <div class="card col-6">
-                    {{ form_row(form.pass, {value: config.sql.pass}) }}
+                    {{ form_row(form.name) }}
                 </div>
             </div>
 
             <div class="row">
                 <div class="card col-6">
-                    {{ form_row(form.prefix, {value: config.sql.prefix}) }}
+                    {{ form_row(form.user) }}
+                </div>
+                <div class="card col-6">
+                    {{ form_row(form.pass) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="card col-6">
+                    {{ form_row(form.prefix) }}
                 </div>
             </div>
         </div>
@@ -137,5 +137,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'Scripts/fadeAlert.html.twig' %}
+    {% include 'Script/fadeAlert.html.twig' %}
 {% endblock javascripts %}

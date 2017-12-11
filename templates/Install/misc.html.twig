@@ -1,7 +1,7 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
-{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+{% extends "Default/template.html.twig" %}
 
-{% form_theme form "Install:Template:bootstrap.html.twig" %}
+{% form_theme form "FormTheme/bootstrap.html.twig" %}
 
 {% block menuContainer %}{% endblock menuContainer %}
 
@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
+    {% include 'Style/toggle.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
@@ -22,129 +22,131 @@
         {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_bundles")}}) %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'BusybeeInstallBundle'} %}
-    {% block flashMessages %}{% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
+    {% include 'Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'Install'} %}
+    {% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
     <div id="form_body">
 
 
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
+        {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
         <div class="container-fluid">
             <div class="row">
-                <div class="well col-6">
-                    {{ form_row(form.email, {value: config.misc.systemUser['email']}) }}
+                <div class="card col-6">
+                    {{ form_row(form.userEmail) }}
                 </div>
-                <div class="well col-6">
-                    {{ form_row(form.username, {value: config.misc.systemUser['username']}) }}
+                <div class="card col-6">
+                    {{ form_row(form.userName) }}
                 </div>
             </div>
             <div class="row">
-                <div class="well col-4">
-                    {{ form_row(form.hemisphere, {value: config.misc.hemisphere}) }}
+                <div class="card col-6 ">
+                    {{ form_row(form.userPassword) }}
                 </div>
-                <div class="well col-4 ">
-                    {{ form_row(form.pass_word, {value: config.misc.systemUser['password']}) }}
-                </div>
-                <div class="well col-4">
-                    <div class="form-group text-right">
+                <div class="card col-6">
+                    <div class="form-group">
                         <button type="button" id="generatePassword" class="btn btn-info"
                                 style="float: right;">{{ 'misc.password1.generate'|trans }}</button>
-                        <div class="field-help"
-                             style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': config.misc.password['minLength'], '%numbers%': config.misc.password['numbers'], '%mixedCase%': config.misc.password['mixedCase'], '%specials%': config.misc.password['specials']}) }}</div>
+                        <div class="small text-info"
+                             style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': config.misc.passwordMinLength, '%numbers%': config.misc.passwordNumbers, '%mixedCase%': config.misc.passwordMixedCase, '%specials%': config.misc.passwordSpecials}) }}</div>
                     </div>
                 </div>
             </div>
         </div>
-        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        {% include 'Page/panelEnd.html.twig' %}
 
 
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'BusybeeInstallBundle', panelStyle: 'default'} %}
-        <div class="row">
-            <div class="well col-6">
-                {{ form_row(form.secret) }}
-                {{ form_row(form.session_name, {value: config.misc.session_name}) }}
+        {% include 'Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'Install', panelStyle: 'default'} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-6">
+                    {{ form_row(form.secret) }}
+                    {{ form_row(form.sessionName) }}
+                </div>
+                <div class="card col-6">
+                    {{ form_row(form.sessionRememberMeName) }}
+                </div>
             </div>
-            <div class="well col-6">
-                {{ form_row(form.session_max_idle_time, {value: config.misc.session_max_idle_time}) }}
+
+            <div class="row">
+                <div class="card col-4">
+                    {{ form_row(form.signInCountMinimum) }}
+                </div>
+                <div class="card col-4">
+                    {{ form_row(form.hemisphere) }}
+                </div>
+                <div class="card col-4">
+                    {{ form_row(form.sessionMaxIdleTime) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="card col-4">
+                    {{ form_row(form.locale) }}
+                </div>
+                <div class="card col-4">
+                    {{ form_row(form.timezone) }}
+                </div>
+                <div class="card col-4">
+                    {{ form_row(form.country) }}
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="well col-6">
-                {{ form_row(form.session_remember_me_name, {value: config.misc.session_remember_me_name}) }}
-            </div>
-            <div class="well col-6">
-                {{ form_row(form.signin_count_minimum, {value: config.misc.signin_count_minimum}) }}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="well col-4">
-                {{ form_row(form.locale, {value: config.misc.locale}) }}
-            </div>
-            <div class="well col-4">
-                {{ form_row(form.timezone, {value: config.misc.timezone}) }}
-            </div>
-            <div class="well col-4">
-                {{ form_row(form.country, {value: config.misc.country}) }}
-            </div>
-        </div>
-    </div>
-        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        {% include 'Page/panelEnd.html.twig' %}
 
 
     {% set toggle = 'data-toggle=toggle data-onStyle=success data-offStyle=default data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
 
 
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.password.title', panelParagraph: 'misc.password.message', panelStyle: 'default' } %}
+        {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.password.title', panelParagraph: 'misc.password.message', panelStyle: 'default' } %}
     <div class="container-fluid">
         <div class="row">
-            <div class="well col-6">
-                {{ form_row(form.minLength, {value: config.misc.password['minLength']|trim}) }}
+            <div class="card col-6">
+                {{ form_row(form.passwordMinLength) }}
             </div>
-            <div class="well col-6">
-                {{ form_row(form.numbers, {checked: config.misc.password['numbers']}) }}
+            <div class="card col-6">
+                {{ form_row(form.passwordNumbers) }}
             </div>
         </div>
 
         <div class="row">
-            <div class="well col-6">
-                {{ form_row(form.mixedCase, {checked: config.misc.password['mixedCase']}) }}
+            <div class="card col-6">
+                {{ form_row(form.passwordMixedCase) }}
             </div>
-            <div class="well col-6">
-                {{ form_row(form.specials, {checked: config.misc.password['specials']}) }}
+            <div class="card col-6">
+                {{ form_row(form.passwordSpecials) }}
             </div>
         </div>
 
-        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        {% include 'Page/panelEnd.html.twig' %}
 
 
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
+        {% include 'Page/panelStart.html.twig' with {'transDomain': 'Install', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
             <div class="row">
-                <div class="well col-2">
-                    {{ form_row(form.oauth, {checked: config.misc.google['oauth']}) }}
+                <div class="card col-2">
+                    {{ form_row(form.googleOAuth) }}
                 </div>
-                <div class="well col-5">
-                    {{ form_row(form.client_id, {value: config.misc.google['client_id']}) }}
+                <div class="card col-5">
+                    {{ form_row(form.googleClientId) }}
                 </div>
-                <div class="well col-5">
-                    {{ form_row(form.client_secret, {value: config.misc.google['client_secret']}) }}
+                <div class="card col-5">
+                    {{ form_row(form.googleClientSecret) }}
                 </div>
             </div>
         </div>
-        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        {% include 'Page/panelEnd.html.twig' %}
 
     </div>
-    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
+{% dump config %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
-    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+    {% include 'Script/toggle.html.twig' %}
+    {% include 'Script/fadeAlert.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $("#generatePassword").on('click', function () {
-            $('#install_miscellaneous_pass_word').val('{{ config.misc.systemUser['text'].text|raw }}');
+            $('#install_miscellaneous_userPassword').val('{{ config.generatePassword }}');
         });
     </script>
 {% endblock javascripts %}

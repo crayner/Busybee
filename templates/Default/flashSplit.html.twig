@@ -1,0 +1,19 @@
+{% trans_default_domain transDomain %}
+
+{% if theMessage is not empty %}
+    {% if theMessage is iterable %}
+        {% for message,parameters in theMessage %}
+            {% if showFlash(message|trans(parameters)) %}
+                <div class="alert alert-{{ level }}{{ flashClass }}" role="alert">
+                    {{ message|trans(parameters) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if showFlash(theMessage|trans) %}
+            <div class="alert alert-{{ level }}{{ flashClass }}" role="alert">
+                {{ theMessage|trans }}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

@@ -6,7 +6,7 @@ class MessageManager
 	/**
 	 * @var string
 	 */
-	private $domain = 'BusybeeHomeBundle';
+	private $domain = 'Busybee';
 
 	/**
 	 * @var array
@@ -36,6 +36,21 @@ class MessageManager
 		$this->messages[] = $mess;
 
 		return $this;
+	}
+
+	/**
+	 * Add Message (Synonym)
+	 *
+	 * @param string      $level
+	 * @param string      $message
+	 * @param array       $options
+	 * @param string|null $domain
+	 *
+	 * @return $this
+	 */
+	public function add(string $level, string $message, array $options = [], string $domain = null)
+	{
+		return $this->addMessage($level, $message,$options,  $domain );
 	}
 
 	/**
@@ -79,10 +94,9 @@ class MessageManager
 	 *
 	 * @param string|null $domain
 	 */
-	public function __construct(string $domain = null)
+	public function __construct(string $domain = 'Busybee')
 	{
-		if (!is_null($domain))
-			$this->setDomain($domain);
+		$this->setDomain($domain);
 	}
 
 	/**

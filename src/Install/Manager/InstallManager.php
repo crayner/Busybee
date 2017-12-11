@@ -1,7 +1,10 @@
 <?php
 namespace App\Install\Manager;
 
-use App\Core\Organism\Database;
+use App\Install\Organism\Database;
+use App\Install\Organism\Mailer;
+use App\Install\Organism\Miscellaneous;
+use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\SyntaxErrorException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,14 +23,34 @@ class InstallManager
 	private $projectDir;
 
 	/**
+	 * @var bool
+	 */
+	private $mailerSaved = false;
+
+	/**
+	 * @var Mailer
+	 */
+	private $mailer;
+
+	/**
+	 * @var Miscellaneous
+	 */
+	private $misc;
+
+	/**
+	 * @var bool
+	 */
+	private $proceed = false;
+
+	/**
 	 * InstallManager constructor.
 	 *
 	 * @param $projectDir   String
 	 */
 	public function __construct($projectDir)
 	{
-		$this->sql             = new Database();
-		$this->projectDir = $projectDir;
+		$this->sql              = new Database();
+		$this->projectDir       = $projectDir;
 	}
 
 	/**
@@ -127,7 +150,7 @@ class InstallManager
 	public function saveSQLParameters()
 	{
 		$params = Yaml::parse(file_get_contents($this->projectDir.'/config/packages/doctrine.yaml'));
-dump($params);
+
 		$params['parameters']['db_driver'] = $this->sql->getDriver();
 		$params['parameters']['db_host'] = $this->sql->getHost();
 		$params['parameters']['db_port'] = $this->sql->getPort();
@@ -163,7 +186,8 @@ dump($params);
 	 */
 	public function testConnected($sql, $factory)
 	{
-		unset($sql['name']);
+		$name = $sql->getName();
+		$sql->setName(null);
 		$this->sql->error = 'No Error Detected.';
 		$this->connection = $factory->getConnection();
 
@@ -174,12 +198,14 @@ dump($params);
 		catch (ConnectionException | \Exception $e)
 		{
 			$this->sql->error     = $e->getMessage();
-			$this->sql->connected = false;
+			$this->sql->setConnected(false);
 			$this->exception      = $e;
 		}
-		$this->sql->connected = $this->connection->isConnected();
+		$this->sql->setConnected($this->connection->isConnected());
 
-		return $this->sql->connected;
+		$this->sql->setName($name);
+
+		return $this->sql->isConnected();
 	}
 
 	/**
@@ -194,14 +220,245 @@ dump($params);
 		catch (SyntaxErrorException $e)
 		{
 			$this->sql->error     = $e->getMessage() . '. <strong>The database name must not have any spaces.</strong>';
-			$this->sql->connected = false;
+			$this->sql->setConnected(false);
 			$this->exception      = $e;
 
 		}
 
-		if ($this->sql->connected)
+		if ($this->sql->isConnected())
 			$this->connection->executeQuery("ALTER DATABASE `" . $this->sql->getName() . "` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`");
 
-		return $this->sql->connected;
+		return $this->sql->isConnected();
+	}
+
+	/**
+	 * Get Mailer Config
+	 *
+	 * @return array
+	 */
+	public function getMailerConfig()
+	{
+		$params =  Yaml::parse(file_get_contents($this->projectDir . '/config/packages/swiftmailer.yaml'));
+
+		$this->mailer = new Mailer($params);
+
+		return $this->mailer;
+	}
+
+	/**
+	 * Save Mailer Config
+	 *
+	 * @param      $mailer
+	 * @param bool $writeUrl
+	 *
+	 * @return bool
+	 */
+	public function saveMailerConfig($mailer, $writeUrl = true)
+	{
+		$this->mailer = $mailer;
+
+		$this->mailerSaved = file_put_contents($this->projectDir . '/config/packages/swiftmailer.yaml', Yaml::dump($this->mailer->dumpMailerSettings()));
+
+		if ($this->mailerSaved && $writeUrl)
+		{
+			$env = file($this->projectDir.'/.env');
+			foreach($env as $q=>$w)
+			{
+				if (strpos($w, 'MAILER_URL=') === 0)
+					$env[$q] = $this->mailer->getUrl();
+				$env[$q] = trim($env[$q]);
+			}
+			$env = implode($env, "\r\n");
+			$this->mailerSaved = file_put_contents($this->projectDir.'/.env', $env);
+		}
+
+		return $this->mailerSaved;
+	}
+
+	/**
+	 * @return Mailer|null
+	 */
+	public function getMailer(): ?Mailer
+	{
+		return $this->mailer;
+	}
+
+	/**
+	 * @param FormInterface $form
+	 * @param Request       $request
+	 *
+	 * @return null
+	 */
+	public function handleMailerRequest(FormInterface $form, Request $request)
+	{
+		$form->handleRequest($request);
+		$this->mailerSaved = false;
+
+		if (!$form->isSubmitted())
+			return;
+
+		if ($form->isValid())
+		{
+			foreach ($request->get('install_mailer') as  $name => $value)
+			{
+				$set = 'set' . ucfirst($name);
+				$this->mailer->$set($value);
+			}
+
+			if ($this->mailer->getHost() === 'empty')
+				$this->mailer->setHost(null);
+
+			$this->saveMailerConfig($this->mailer);
+		}
+
+		return;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isMailerSaved(): bool
+	{
+		return $this->mailerSaved;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isProceed(): bool
+	{
+		return $this->proceed;
+	}
+
+	/**
+	 * @param bool $proceed
+	 *
+	 * @return InstallManager
+	 */
+	public function setProceed(bool $proceed): InstallManager
+	{
+		$this->proceed = $proceed;
+
+		return $this;
+    }
+
+    public function getMiscellaneousConfig()
+    {
+    	$this->misc = new Miscellaneous();
+
+	    $params = Yaml::parse(file_get_contents($this->projectDir.'/config/packages/busybee.yaml'));
+
+	    foreach($params['parameters'] as $name=>$value)
+	    {
+	    	$name = str_replace('_', ' ', $name);
+	    	$name = explode(' ', $name);
+	    	foreach($name as $q=>$w)
+	    		$name[$q] = ucfirst($w);
+	    	$name = implode('', $name);
+	    	$set = 'set' . $name;
+
+	    	if (method_exists($this->misc, $set))
+	    		$this->misc->$set($value);
+	    }
+
+    	return $this->misc;
+    }
+
+	/**
+	 * @param FormInterface $form
+	 * @param Request       $request
+	 */
+	public function handleMiscellaneousRequest(FormInterface $form, Request $request)
+	{
+		$this->proceed = false;
+		$form->handleRequest($request);
+
+		if (!$form->isSubmitted()) return;
+
+		if ($form->isValid())
+		{
+			$params = Yaml::parse(file_get_contents($this->projectDir.'/config/packages/busybee.yaml'));
+			foreach($request->get('install_miscellaneous') as $name=>$value)
+			{
+				$set = 'set'.ucfirst($name);
+				$this->misc->$set($value);
+			}
+
+			$params['parameters'] = $this->misc->dumpMiscellaneousSettings($params['parameters']);
+
+			try
+			{
+				file_put_contents($this->projectDir . '/config/packages/busybee.yaml', Yaml::dump($params));
+			} catch( \Exception $e) {
+				throw $e;
+			}
+
+			$this->proceed = true;
+		}
+
+		return;
+	}
+
+	/**
+	 * @return Miscellaneous
+	 */
+	public function getMisc(): Miscellaneous
+	{
+		return $this->misc;
+	}
+
+	public function generatePassword()
+	{
+		$source = 'abcdefghijklmnopqrstuvwxyz';
+		if ($this->misc->isPasswordNumbers())
+			$source .= '0123456789';
+		if ($this->misc->isPasswordMixedCase())
+			$source .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		if ($this->misc->isPasswordSpecials())
+			$source .= '#?!@$%^+=&*-';
+
+		do {
+			$password = '';
+			for($x = 0; $x < $this->misc->getPasswordMinLength(); $x++)
+				$password .= substr($source, random_int(0, strlen($source) - 1), 1);
+		} while (! $this->isPasswordValid($password, $this->misc));
+
+		return $password;
+	}
+
+	/**
+	 * Is Password Valid
+	 *
+	 * @param               $password
+	 * @param Miscellaneous $misc
+	 *
+	 * @return bool
+	 */
+	public function isPasswordValid($password, Miscellaneous $misc)
+	{
+		if ($misc instanceof Miscellaneous)
+		{
+			$pattern = "/^(.*(?=.*[a-z])";
+			if ($misc->isPasswordMixedCase())
+				$pattern .= "(?=.*[A-Z])";
+
+			if ($misc->isPasswordNumbers())
+				$pattern .= "(?=.*[0-9])";
+
+			if ($misc->isPasswordSpecials())
+				$pattern .= "(?=.*?[#?!@$%^+=&*-])";
+			$pattern .= ".*){" . $misc->getPasswordMinLength() . ",}$/";
+
+			return (preg_match($pattern, $password) === 1);
+		}
+		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isMiscSaved(): bool
+	{
+		return $this->miscSaved;
 	}
 }

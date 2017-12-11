@@ -2,3 +2,19 @@ parameters:
     version:
         system: '0.0.04'
         database: '0.0.04'
+    locale: 'en'
+    secret: null
+    session_name: busybee_session
+    session_remember_me_name: busybee_session_remember
+    session_max_idle_time: 900
+    country: AU
+    sign_in_count_minimum: 3
+    timezone: Australia/Sydney
+    password_min_length: 8
+    password_numbers: 1
+    password_mixed_case: 1
+    password_specials: 0
+    hemisphere: South
+    google_o_auth: 0
+    google_client_id: null
+    google_client_secret: null

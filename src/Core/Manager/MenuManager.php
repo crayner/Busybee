@@ -3,10 +3,8 @@ namespace App\Core\Manager;
 
 use App\Repository\PageRepository;
 use Doctrine\DBAL\Driver\PDOException;
+use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
@@ -62,6 +60,11 @@ class MenuManager
 		{
 			if (!($e->getPrevious() instanceof PDOException && $e->getPrevious()->getSQLState() == '42S02'))
 				throw $e;
+			$x = [];
+		} catch (ConnectionException $e)
+		{
+			if (!($e->getPrevious() instanceof PDOException && $e->getPrevious()->getSQLState() == '1045'))
+				dump($e);
 			$x = [];
 		}
 		$this->pageRoles = [];
@@ -315,8 +318,6 @@ class MenuManager
 		$routes = $this->routerManager->getSectionRoutes();
 
 		$currentRoute = $this->routerManager->getCurrentRoute();
-
-		dump($currentRoute);
 
 		$route = isset($routes[$currentRoute]) ? $routes[$currentRoute] : [];
 

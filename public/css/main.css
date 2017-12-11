@@ -22,12 +22,6 @@ body {
 	border-radius: 10px; 
 	box-shadow: 2px 2px 15px rgba(0,0,0,0.75);
 }
-.field-help {
-	font-style: italic;
-	font-size: 85% ;
-	color: #3DB3D7;
-	text-align: justify ;
-}
 @media screen and (min-width: 768px) {
 	.dropdown:hover>.dropdown-menu {
 		display: block;
@@ -137,9 +131,6 @@ a {
 	margin-top: -15px;
     font-size: 16px!important;
     font-weight: 100!important;
-}
-.alert .field-help {
-    color: inherit;
 }
 .nav-tabs>li>a {
 	border-top: 1px solid #ddd;
@@ -300,50 +291,6 @@ ul.nav li.disabled {
 }
 button.btn.btn-header {
     padding: 1px 7px;
-}
-.well-danger {
-    background-image: -webkit-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
-    background-image: -o-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2dede), to(#e7c3c3));
-    background-image: linear-gradient(to bottom, #f2dede 0, #e7c3c3 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2dede', endColorstr='#ffe7c3c3', GradientType=0);
-    background-repeat: repeat-x;
-    border-color: #dca7a7;
-    color: #a94442;
-}
-.well-warning {
-    background-image: -webkit-linear-gradient(top, #fcf8e3 0, #f8efc0 100%);
-    background-image: -o-linear-gradient(top, #fcf8e3 0, #f8efc0 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcf8e3), to(#f8efc0));
-    background-image: linear-gradient(to bottom, #fcf8e3 0, #f8efc0 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffcf8e3', endColorstr='#fff8efc0', GradientType=0);
-    background-repeat: repeat-x;
-    border-color: #f5e79e;
-    color: #8a6d3b;
-}
-.well-info {
-    background-image: -webkit-linear-gradient(top, #d9edf7 0, #b9def0 100%);
-    background-image: -o-linear-gradient(top, #d9edf7 0, #b9def0 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#d9edf7), to(#b9def0));
-    background-image: linear-gradient(to bottom, #d9edf7 0, #b9def0 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
-    background-repeat: repeat-x;
-    border-color: #9acfea;
-    color: #31708f;
-}
-.well-success {
-    background-image: -webkit-linear-gradient(top, #dff0d8 0, #c8e5bc 100%);
-    background-image: -o-linear-gradient(top, #dff0d8 0, #c8e5bc 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#dff0d8), to(#c8e5bc));
-    background-image: linear-gradient(to bottom, #dff0d8 0, #c8e5bc 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdff0d8', endColorstr='#ffc8e5bc', GradientType=0);
-    background-repeat: repeat-x;
-    border-color: #b2dba1;
-    color: #3c763d;
-}
-
-.well-success span.field-help {
-    color: inherit;
 }
 .row-hover:hover {
     background-color: rgba(180, 200, 220, 0.5);
@@ -602,7 +549,7 @@ body.loading .showLoader {
 .card {
     background-color: transparent;
 }
-.card-primary, .card-success, .card-danger, .card-info, .card-default {
+.card-primary, .card-success, .card-danger, .card-info, .card-default, .card-warning {
     background-color: transparent;
 }.card-primary .card-header {
      background-color: #0275d8;
@@ -615,6 +562,9 @@ body.loading .showLoader {
 }
 .card-info .card-header {
     background-color: #5bc0de;
+}
+.card-warning .card-header {
+    background-color: #f0ad4e;
 }
 .card-default .card-header {
     background-color: rgba(210,210,210,1.0);

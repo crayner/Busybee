@@ -11,8 +11,10 @@ class TextType extends BaseType
 	 */
 	public function configureOptions(OptionsResolver $resolver)
 	{
-		$resolver->setDefaults(array(
-			'compound' => false,
-		));
+		$resolver->setDefaults(
+			[
+				'compound' => false,
+			]
+		);
 	}
 }

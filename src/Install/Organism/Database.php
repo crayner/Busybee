@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: craig
- * Date: 7/12/2017
- * Time: 17:08
- */
-
-namespace App\Core\Organism;
-
+namespace App\Install\Organism;
 
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 
@@ -64,6 +56,11 @@ class Database
 	private $server = 'mysql';
 
 	/**
+	 * @var boolean
+	 */
+	private $connected = false;
+
+	/**
 	 * @return null|string
 	 */
 	public function getName(): ?string
@@ -72,16 +69,16 @@ class Database
 	}
 
 	/**
-	 * @param string $name
+	 * @param string|null $name
 	 * @param bool   $path
 	 *
 	 * @return Database
 	 */
-	public function setName(string $name, bool $path = true): Database
+	public function setName(string $name = null, bool $path = true): Database
 	{
 		$this->name = $name;
 
-		if ($path)
+		if ($path && ! empty($name))
 			return $this->setPath('/'.$name, false);
 
 		return $this;
@@ -313,4 +310,24 @@ class Database
     {
 	    return 'DATABASE_URL='. $this->getScheme().'://'.$this->getUser().':'.$this->getPass().'@'.$this->getHost().':'.$this->getPort().$this->getPath();
     }
+
+	/**
+	 * @return bool
+	 */
+	public function isConnected(): bool
+	{
+		return $this->connected;
+	}
+
+	/**
+	 * @param bool $connected
+	 *
+	 * @return Database
+	 */
+	public function setConnected(bool $connected): Database
+	{
+		$this->connected = $connected;
+
+		return $this;
+}
 }

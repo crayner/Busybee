@@ -34,26 +34,24 @@
 
 {% block form_errors -%}
     {% if errors|length > 0 -%}
-        {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
+        {% if form.parent %}<span class="small text-info">{% else %}{% endif %}
         <ul class="list-unstyled">
         {%- for error in errors -%}
-            <li><span class="glyphicons glyphicons-exclamation-sign"></span> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
+            <li class="text-danger"><span class="glyphicons glyphicons-exclamation-sign"></span> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
         {%- endfor -%}
         </ul>
-        {% if form.parent %}</span>{% else %}</div>{% endif %}
+        {% if form.parent %}</span>{% endif %}
         <br/>
     {% else %}
         {% if setting_name is not defined %}<br/>{% endif %}
     {%- endif %}
-    {% for attrname,attrvalue in attr %}
-        {% if attrname == 'help' %}
-            {% if attrvalue is iterable %}
-                <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue[0] : attrvalue[0]|trans(attrvalue[1], translation_domain)) }}</span>
-            {% else %}
-                <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain)) }}</span>
-            {% endif %}
+    {% if help is defined and help is not empty %}
+        {% if help is iterable %}
+            <span class="small text-info">{{ (translation_domain is same as(false) ? help[0] : help[0]|trans(help[1], translation_domain)) }}</span>
+        {% else %}
+            <span class="small text-info">{{ (translation_domain is same as(false) ? help : help|trans({}, translation_domain)) }}</span>
         {% endif %}
-    {% endfor %}
+    {% endif %}
 {%- endblock form_errors %}
 
 {% block toggle_widget -%}
@@ -87,7 +85,7 @@
     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
     <label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
     {% if form.vars.help is defined %}<br/><span
-            class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}
+            class="small text-info">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}
 {%- endblock toggle_widget %}
 
 {%- block widget_attributes -%}
@@ -118,13 +116,13 @@
 
 {% block choice_row -%}
     {% if expanded %}
-        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
             {{- form_errors(form) -}}
         </div>
     {% else %}
-        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
             {{- form_errors(form) -}}
@@ -136,7 +134,7 @@
     {% if form.vars.block_prefixes.1 == 'choice' %}
         {{- block('choice_row') -}}
     {% else %}
-        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
             {{- form_errors(form) -}}

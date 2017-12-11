@@ -1,7 +1,6 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
 
 services:
     # default configuration for services in *this* file
@@ -31,3 +30,10 @@ services:
         arguments:
             - '%kernel.project_dir%'
         public: true
+    App\Core\Manager\CacheManager:
+        class: App\Core\Manager\CacheManager
+        arguments:
+            - '%kernel.cache_dir%'
+    App\Core\Type\Extension\FormTypeExtension:
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }

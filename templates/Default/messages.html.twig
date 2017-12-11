@@ -1,0 +1,13 @@
+{% if messages is defined and messages.messages is iterable %}
+    {% if flashClass is defined %}
+        {% set flashClass = " " ~ flashClass %}
+    {% else %}
+        {% set flashClass = "" %}
+    {% endif %}
+    {% for message in messages.messages %}
+        <div class="alert alert-{{ message.level }}{{ flashClass }}" role="alert">
+            {{ message.message|trans(message.options, message.domain) }}
+        </div>
+    {% endfor %}
+    {% set messages = messages.clearMessages() %}
+{% endif %}

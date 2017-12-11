@@ -64,5 +64,7 @@
             "id": "01C0J6PERM3GSPZ6J2SW55YM9W",
             "allow-contrib": false
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
