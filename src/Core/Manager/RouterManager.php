@@ -23,7 +23,9 @@ class RouterManager
 	 */
 	public function __construct(RequestStack $request)
 	{
-		$this->currentRoute = $request->getCurrentRequest()->get('_route');
+		if (! is_null($request->getCurrentRequest()))
+			$this->currentRoute = $request->getCurrentRequest()->get('_route');
+
 		return $this;
 	}
 

@@ -2,6 +2,12 @@ system:
     install:
         title: Install System
         description: Test and install the system architecture.
+    build:
+        database:
+            success: 'The database has been built. %count% queries occurred.'
+            warning: 'The database has failed to build. %count% tables were attempted but the errors shown above occurred.'
+            error: '%error%'
+            count: 'The database needs %count% alterations to meet the latest version.'
 parameter:
     file:
         title: Parameter File Status
@@ -22,6 +28,7 @@ install:
             failed: 'The database parameters were not saved.'
             success: 'The database parameters saved successfully.'
             already: 'The database settings are correctly set and already saved.'
+        progress: 'Data collection complete! The database is now being generated, please be patient.'
     mailer:
         parameters: Email Settings
     misc:
@@ -51,6 +58,9 @@ sql:
         prefix:
             label: The Prefix added to ALL tables.
             help: Allows multiple systems to use the same database.
+        charset:
+            label: The database character set..
+            help: 'Enables you to store data using a variety of character sets.'
 software:
     required: ' This software is required at version %required%.'
     system:
@@ -136,6 +146,9 @@ misc:
     hemisphere:
         label: Hemisphere
         help: 'Used to generate a default school calendar of 1 Jul to 30 Jun for northern, and 1 Jan to 31 Dec for southern.'
+        choice:
+            south: Southern Hemisphere
+            north: Northern Hemisphere
     country:
         label: Location Country
         help: ''
@@ -195,3 +208,14 @@ google:
         empty: The Google client ID must not be empty.
     client_secret:
         empty: The Google client secret must not be empty.
+user:
+    error:
+        email:
+            email: The email needs to be a real one.
+            unique: The email address is already registered as a user.
+        username:
+            unique: The user name is already registered as a user.
+        password:
+            match: The passwords do not match.
+    password:
+        message: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."

@@ -7,11 +7,12 @@ parameters:
     db_driver: pdo_mysql
     db_host: 172.16.0.222
     db_port: 3306
-    db_name: craigray_core
+    db_name: ''
     db_user: craigray_core
-    db_pass: 'U!f}6?]V*1Qi'
+    db_pass: ''
     db_prefix: bee_
     db_server: mysql
+    db_charset: 'utf8mb4'
 
 doctrine:
     dbal:
@@ -24,8 +25,11 @@ doctrine:
                 dbname:   '%db_name%'
                 user:     '%db_user%'
                 password: '%db_pass%'
-                charset:  'utf8mb4'
-                server_version: '5.6'
+                charset:  '%db_charset%'
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_unicode_ci
+                server_version: '5.5'
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         default_entity_manager: default

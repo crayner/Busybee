@@ -4,10 +4,12 @@
     {% else %}
         {% set flashClass = "" %}
     {% endif %}
+    {% if element is not defined %}
+        {% set element = 'div' %}
+    {% endif %}
     {% for message in messages.messages %}
-        <div class="alert alert-{{ message.level }}{{ flashClass }}" role="alert">
+        <{{ element }} class="alert alert-{{ message.level }}{{ flashClass }}" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
             {{ message.message|trans(message.options, message.domain) }}
-        </div>
+        </{{ element }}>
     {% endfor %}
-    {% set messages = messages.clearMessages() %}
 {% endif %}

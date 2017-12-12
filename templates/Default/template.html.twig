@@ -2,6 +2,7 @@
 
 {% extends 'Default/headerNotice.html.twig' %}
 
+{% set script = [] %}
 {% block htmlContent %}
     <!DOCTYPE html >
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,7 +40,7 @@
                 <div class="col-9" id="contentContainer">
                     {% endif %}
                     {% block flashMessages %}
-                        {% include '@BusybeeTemplate/Default/flash.html.twig' %}
+                        {% include 'Default/flash.html.twig' %}
                     {% endblock flashMessages %}
                     {% block contentContainer %}
 

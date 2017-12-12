@@ -53,20 +53,14 @@ class MenuManager
 
 		$this->routerManager = $routerManager;
 
+		$x = [];
 		try
 		{
 			$x = $pageRepository->findAll();
-		} catch (TableNotFoundException $e)
-		{
-			if (!($e->getPrevious() instanceof PDOException && $e->getPrevious()->getSQLState() == '42S02'))
-				throw $e;
-			$x = [];
-		} catch (ConnectionException $e)
-		{
-			if (!($e->getPrevious() instanceof PDOException && $e->getPrevious()->getSQLState() == '1045'))
-				dump($e);
-			$x = [];
+		} catch (TableNotFoundException $e) {
+		} catch (ConnectionException $e) {
 		}
+
 		$this->pageRoles = [];
 		foreach ($x as $page)
 		{

@@ -30,6 +30,7 @@ class PasswordValidator extends ConstraintValidator
 				->setParameter('%mixedCase%', $constraint->details->isPasswordMixedCase() ? 'Yes' : 'No')
 				->setParameter('%specials%', $constraint->details->isPasswordSpecials() ? 'Yes' : 'No')
 				->setParameter('%minLength%', $constraint->details->getPasswordMinLength())
+				->setTranslationDomain($constraint->transDomain)
 				->addViolation();
 		}
 	}

@@ -34,11 +34,11 @@ App\Entity\Page:
     manyToOne:
         createdBy:
             targetEntity: App\Entity\User
-            joinColumns:
-                created_by:
-                    referencedColumnName: id
+            joinColumn:
+                name: created_by
+                referencedColumnName: id
         modifiedBy:
             targetEntity: App\Entity\User
-            joinColumns:
-                modified_by:
-                    referencedColumnName: id
+            joinColumn:
+                name: modified_by
+                referencedColumnName: id

@@ -15,18 +15,18 @@
     {% include 'Style/toggle.html.twig' %}
 {% endblock stylesheets %}
 
+{% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
+
 {% block contentContainer %}
     {{ form_start(form) }}
     {% set h3Content = '' %}
     {% if config.proceed %}
-        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_bundles")}}) %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_database")}}) %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% include 'Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'Install'} %}
-    {% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
+
     <div id="form_body">
-
-
         {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
         <div class="container-fluid">
             <div class="row">
@@ -149,4 +149,5 @@
             $('#install_miscellaneous_userPassword').val('{{ config.generatePassword }}');
         });
     </script>
+    {% include 'Script/messages.html.twig' %}
 {% endblock javascripts %}

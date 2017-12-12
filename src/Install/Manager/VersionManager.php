@@ -11,6 +11,11 @@ use Symfony\Component\Translation\TranslatorInterface;
 class VersionManager
 {
 	/**
+	 * Version
+	 */
+	const VERSION = '0.0.04';
+
+	/**
 	 * @var SettingManagerInterface
 	 */
 	private $settingManager;
@@ -53,17 +58,19 @@ class VersionManager
 	 *
 	 * @return array
 	 */
-	public function getVersion($install = false)
+	public function getAcknowledgements($install = false, $connection = null)
 	{
-		$versions = [];
+		if ($connection instanceof Connection)
+			$this->connection = $connection;
 
+		$versions = [];
 
 		$versions['Twig']                                 = \Twig_Environment::VERSION;
 		$versions['Symfony']                              = Kernel::VERSION;
 		$versions['Doctrine']['ORM']                      = Version::VERSION;
 		$versions['Doctrine']['Common']                   = \Doctrine\Common\Version::VERSION;
 		$versions['Doctrine']['Cache']                    = \Doctrine\Common\Cache\Version::VERSION;
-		$versions['Database']['Server']                   = $this->connection->getWrappedConnection()->getServerVersion();
+		$versions['Database']['Server']                   = str_replace('-MariaDB', '', $this->connection->getWrappedConnection()->getServerVersion());
 		$versions['Database']['Driver']                   = $this->connection->getParams()['driver'];
 		$versions['Database']['Character Set']            = $this->connection->getParams()['charset'];
 		$versions['Doctrine']['DBal']                     = \Doctrine\DBAL\Version::VERSION;
@@ -124,15 +131,15 @@ class VersionManager
 		}
 
 		$phpVersions                   = [];
-		$phpVersions['Core']['low']    = '7.2.0';
+		$phpVersions['Core']['low']    = '7.1.0';
 		$phpVersions['Core']['high']   = '7.2.99';
-		$phpVersions['Core']['string'] = '7.2.x';
+		$phpVersions['Core']['string'] = '7.1';
 		$phpVersions['apcu']           = '5.1.8';
 		$phpVersions['intl']           = '1.1.0';
-		$phpVersions['json']           = '1.6.0';
-		$phpVersions['openssl']['low']    = '7.2.0';
+		$phpVersions['json']           = '1.5.0';
+		$phpVersions['openssl']['low']    = '7.1.0';
 		$phpVersions['openssl']['high']   = '7.2.99';
-		$phpVersions['openssl']['string'] = '7.2.x';
+		$phpVersions['openssl']['string'] = '7.x';
 
 		foreach ($phpVersions as $name => $version)
 			if (!is_array($version))
@@ -157,9 +164,9 @@ class VersionManager
 			if (!isset($phpVersions[$name]))
 				unset($versions['PHP'][$name]);
 
-		$version['low']                 = '5.6.30';
-		$version['high']                = '5.6.39';
-		$version['string']              = '5.6.30 - 5.6.39';
+		$version['low']                 = '5.5.56';
+		$version['high']                = '5.7';
+		$version['string']              = '5.5 - 5.7';
 		$versions['Database']['Server'] = $this->fullCompare($versions['Database']['Server'], $version);
 
 		$version = 'utf8mb4';
@@ -256,5 +263,13 @@ class VersionManager
 		}
 
 		return $test;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getVersion(): string
+	{
+		return self::VERSION;
 	}
 }

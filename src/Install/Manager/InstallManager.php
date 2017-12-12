@@ -4,8 +4,10 @@ namespace App\Install\Manager;
 use App\Install\Organism\Database;
 use App\Install\Organism\Mailer;
 use App\Install\Organism\Miscellaneous;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\SyntaxErrorException;
+use Doctrine\ORM\Configuration;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
@@ -41,6 +43,11 @@ class InstallManager
 	 * @var bool
 	 */
 	private $proceed = false;
+
+	/**
+	 * @var
+	 */
+	private $connection;
 
 	/**
 	 * InstallManager constructor.
@@ -184,26 +191,23 @@ class InstallManager
 	 *
 	 * @return mixed
 	 */
-	public function testConnected($sql, $factory)
+	public function testConnected()
 	{
-		$name = $sql->getName();
-		$sql->setName(null);
+		$this->connection = $this->getConnection(false);
+
 		$this->sql->error = 'No Error Detected.';
-		$this->connection = $factory->getConnection();
+		$this->sql->setConnected(true);
 
 		try
 		{
 			$this->connection->connect();
 		}
-		catch (ConnectionException | \Exception $e)
+		catch (ConnectionException $e)
 		{
-			$this->sql->error     = $e->getMessage();
+			$this->sql->error = $e->getMessage();
 			$this->sql->setConnected(false);
-			$this->exception      = $e;
+			$this->exception = $e;
 		}
-		$this->sql->setConnected($this->connection->isConnected());
-
-		$this->sql->setName($name);
 
 		return $this->sql->isConnected();
 	}
@@ -213,21 +217,22 @@ class InstallManager
 	 */
 	public function hasDatabase()
 	{
-		try
-		{
-			$this->connection->executeQuery("CREATE DATABASE IF NOT EXISTS " . $this->sql->getName() . " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-		}
-		catch (SyntaxErrorException $e)
-		{
-			$this->sql->error     = $e->getMessage() . '. <strong>The database name must not have any spaces.</strong>';
-			$this->sql->setConnected(false);
-			$this->exception      = $e;
-
-		}
-
 		if ($this->sql->isConnected())
-			$this->connection->executeQuery("ALTER DATABASE `" . $this->sql->getName() . "` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`");
+		{
+			try
+			{
+				$this->connection->executeQuery("CREATE DATABASE IF NOT EXISTS " . $this->sql->getName() . " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+			}
+			catch (SyntaxErrorException $e)
+			{
+				$this->sql->error = $e->getMessage() . '. <strong>The database name must not have any spaces.</strong>';
+				$this->sql->setConnected(false);
+				$this->exception = $e;
 
+			}
+
+			$this->connection->executeQuery("ALTER DATABASE `" . $this->sql->getName() . "` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`");
+		}
 		return $this->sql->isConnected();
 	}
 
@@ -367,6 +372,7 @@ class InstallManager
 	/**
 	 * @param FormInterface $form
 	 * @param Request       $request
+	 * @throws \Exception
 	 */
 	public function handleMiscellaneousRequest(FormInterface $form, Request $request)
 	{
@@ -460,5 +466,26 @@ class InstallManager
 	public function isMiscSaved(): bool
 	{
 		return $this->miscSaved;
+	}
+
+	public function getConnection($useDatabase = true)
+	{
+		$config = new \Doctrine\DBAL\Configuration();
+
+		$connectionParams = [
+			'driver' => $this->sql->getDriver(),
+			'host' => $this->sql->getHost(),
+			'port' => $this->sql->getPort(),
+			'user' => $this->sql->getUser(),
+			'password' => $this->sql->getPass(),
+			'charset' => $this->sql->getCharset()
+		];
+		if ($useDatabase)
+			$connectionParams['dbname'] = $this->sql->getName();
+
+		$this->connection = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+
+		return $this->connection;
+
 	}
 }

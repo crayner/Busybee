@@ -5,10 +5,13 @@ use App\Core\Manager\CacheManager;
 use App\Core\Manager\MessageManager;
 use App\Install\Form\MailerType;
 use App\Install\Form\MiscellaneousType;
+use App\Install\Manager\DatabaseManager;
+use App\Install\Manager\SystemBuildManager;
 use App\Install\Manager\VersionManager;
 use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,7 +27,7 @@ class InstallController extends BusybeeController
 	{
 		$installer->signin = null;
 
-		$sql    = $installer->getSQLParameters();
+		$sql = $installer->getSQLParameters();
 
 		$form = $this->createForm(StartInstallType::class, $sql);
 
@@ -44,14 +47,13 @@ class InstallController extends BusybeeController
 			$testDatabase = true;
 
 
-		$messages = new MessageManager('Install)');
+		$messages = new MessageManager('Install');
 
 		if (($form->isSubmitted() && $form->isValid()) || $testDatabase)
 		{
-			$cf = $this->get('doctrine');
-
-			if (!$installer->testConnected($sql, $cf))
+			if (! $installer->testConnected())
 			{
+				dump($form->isSubmitted());
 				return $this->render('Install/start.html.twig',
 					[
 						'config' => $installer,
@@ -61,7 +63,7 @@ class InstallController extends BusybeeController
 
 			}
 
-			if (!$installer->hasDatabase())
+			if (! $installer->hasDatabase())
 			{
 				return $this->render('Install/start.html.twig',
 					[
@@ -201,6 +203,8 @@ class InstallController extends BusybeeController
 		{
 			$messages->add('info', 'mailer.save.already');
 		}
+		if ($form->isSubmitted() && ! $form->isValid())
+			$messages->add('danger', 'form.notvalid', [], 'FormTheme');
 
 		return $this->render('Install/checkMailer.html.twig',
 			[
@@ -228,21 +232,34 @@ class InstallController extends BusybeeController
 
 		$installer->handleMiscellaneousRequest($form, $request);
 
-		return $this->render('Install/misc.html.twig',
+		$messages = new MessageManager('Install');
+
+		if ($form->isSubmitted() && ! $form->isValid())
+			$messages->add('danger', 'form.notvalid', [], 'FormTheme');
+		if ($form->isSubmitted() && $form->isValid())
+			$messages->add('success', 'form.valid', [], 'FormTheme');
+
+
+			return $this->render('Install/misc.html.twig',
 			[
 				'config' => $installer,
 				'form'   => $form->createView(),
+				'messages' => $messages,
 			]
 		);
 	}
 	/**
 	 * @param Request $request
-	 * @Route("/install/bundles/", name="install_bundles")
+	 * @Route("/install/database/", name="install_database")
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function installBundles()
+	public function installDatabase(SystemBuildManager $systemBuildManager)
 	{
-		return $this->render('Hello World');
+		return $this->render('Install/database.html.twig',
+			[
+				'manager' => $systemBuildManager,
+			]
+		);
 	}
 }

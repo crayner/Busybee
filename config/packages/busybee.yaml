@@ -1,9 +1,6 @@
 parameters:
-    version:
-        system: '0.0.04'
-        database: '0.0.04'
     locale: 'en'
-    secret: null
+    secret: ekonf9935ty43576hbfhfo3e856t
     session_name: busybee_session
     session_remember_me_name: busybee_session_remember
     session_max_idle_time: 900
@@ -15,6 +12,9 @@ parameters:
     password_mixed_case: 1
     password_specials: 0
     hemisphere: South
-    google_o_auth: 0
-    google_client_id: null
-    google_client_secret: null
+    google_o_auth: 1
+    google_client_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com
+    google_client_secret: EZ9oJc3uuvHh_2X27lkMexZ-
+    user_name: craigray
+    user_password: tiGGer44
+    user_email: craig@craigrayner.com

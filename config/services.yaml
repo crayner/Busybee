@@ -37,3 +37,9 @@ services:
     App\Core\Type\Extension\FormTypeExtension:
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+    app.core.subscriber.table_prefix_subscriber:
+        class: App\Core\Subscriber\TablePrefixSubscriber
+        arguments:
+            - '%db_prefix%'
+        tags:
+            - { name: doctrine.event_subscriber }

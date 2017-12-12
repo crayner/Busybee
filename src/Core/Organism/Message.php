@@ -1,5 +1,5 @@
 <?php
-namespace App\Core\Manager;
+namespace App\Core\Organism;
 
 class Message
 {

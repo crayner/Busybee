@@ -10,6 +10,8 @@
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
+{% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
+
 {% block contentContainer %}
     {{ form_start(form) }}
         {% set h3Content = '' %}
@@ -18,7 +20,6 @@
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'install.mailer.parameters'} %}
-    {% block flashMessages %}{% include 'Default/messages.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
     <div id="form_body" class="container-fluid">
         <div class="row">
             <div class="card col-6">

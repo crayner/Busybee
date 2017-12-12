@@ -102,7 +102,7 @@ class Mailer
 
 		if ($transport === 'gmail')
 		{
-//			$this->setEncryption('tls');
+			$this->setEncryption('tls');
 //			$this->setAuthMode('oauth');
 		}
 		return $this;

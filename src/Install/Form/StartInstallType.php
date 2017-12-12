@@ -85,10 +85,22 @@ class StartInstallType extends AbstractType
 			->add('prefix', TextType::class,
 				[
 					'label'    => 'sql.database.prefix.label',
-						'help' => 'sql.database.prefix.help',
+					'help' => 'sql.database.prefix.help',
 					'required' => false,
 				]
-			);
+			)
+			->add('charset', ChoiceType::class,
+				[
+					'label'    => 'sql.database.charset.label',
+					'help' => 'sql.database.charset.help',
+					'required' => true,
+					'choices'   => [
+						'utf8' => 'utf8',
+						'utf8mb4' => 'utf8mb4',
+					],
+				]
+			)
+		;
 	}
 
 	/**

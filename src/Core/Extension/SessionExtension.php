@@ -20,7 +20,8 @@ class SessionExtension extends AbstractExtension
 	 */
 	public function __construct(RequestStack $request)
 	{
-		$this->session = $request->getCurrentRequest()->getSession();
+		if (! is_null($request->getCurrentRequest()))
+			$this->session = $request->getCurrentRequest()->getSession();
 	}
 
 	/**

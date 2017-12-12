@@ -93,13 +93,11 @@ App\Entity\User:
     manyToOne:
         createdBy:
             targetEntity: App\Entity\User
-            joinColumns:
-                created_by:
-                    referencedColumnName: id
-                    nullable: true
+            joinColumn:
+                name: created_by
+                referencedColumnName: id
         modifiedBy:
             targetEntity: App\Entity\User
-            joinColumns:
-                modified_by:
-                    referencedColumnName: id
-                    nullable: true
+            joinColumn:
+                name: modified_by
+                referencedColumnName: id

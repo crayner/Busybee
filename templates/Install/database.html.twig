@@ -1,0 +1,29 @@
+{% extends "Default/template.html.twig" %}
+
+{% block menuContainer %}
+{% endblock menuContainer %}
+
+{% trans_default_domain 'Install' %}
+{% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'system.install.title'} %}
+    <div class="container-fluid">
+        <p class="alert alert-info">{{ 'install.database.progress'|trans }}</p>
+        {% set x = manager.buildDatabase() %}
+    {% if not x %}
+        {{ proceedButton({'windowOpen': {'route': path("install_database")}})|raw }}
+    {% endif %}
+    {% set messages = manager.messages %}
+    {% include 'Default/messages.html.twig' with {element: 'p'} %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/messages.html.twig' %}
+{% endblock javascripts %}

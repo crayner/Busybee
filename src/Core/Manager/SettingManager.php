@@ -1,13 +1,12 @@
 <?php
 namespace App\Core\Manager;
 
-use App\Kernel;
+use App\Entity\User;
 use App\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 

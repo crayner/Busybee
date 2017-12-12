@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b30f3875ceae1a3a52552853dedf721",
+    "content-hash": "9ae154cff0f489b24d13da86102bbccf",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3368,7 +3368,7 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "dev-master",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/swiftmailer-bundle.git",
@@ -4275,10 +4275,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "symfony/lts": 20,
-        "symfony/swiftmailer-bundle": 20
+        "symfony/lts": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.1.3"

@@ -61,6 +61,11 @@ class Database
 	private $connected = false;
 
 	/**
+	 * @var string
+	 */
+	private $charset = 'utf8mb4';
+
+	/**
 	 * @return null|string
 	 */
 	public function getName(): ?string
@@ -300,6 +305,7 @@ class Database
 		    'scheme',
 		    'driver',
 		    'server',
+		    'charset',
 	    ];
     }
 
@@ -327,6 +333,26 @@ class Database
 	public function setConnected(bool $connected): Database
 	{
 		$this->connected = $connected;
+
+		return $this;
+}
+
+	/**
+	 * @return string
+	 */
+	public function getCharset(): string
+	{
+		return $this->charset;
+	}
+
+	/**
+	 * @param string $charset
+	 *
+	 * @return Database
+	 */
+	public function setCharset(string $charset): Database
+	{
+		$this->charset = $charset;
 
 		return $this;
 }

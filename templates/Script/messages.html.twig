@@ -1,0 +1,8 @@
+{% if messages is defined and messages.messages is iterable %}
+    <script type="javascript">
+    {% for message in messages.messages %}
+        $("#{{ message.message|replace({' ': '_', '.': '_'}) }}").alert();
+    {% endfor %}
+    </script>
+    {% set messages = messages.clearMessages() %}
+{% endif %}

@@ -13,6 +13,8 @@ class Password extends Constraint
 
 	public $details;
 
+	public $transDomain = 'Install';
+
 	public function validatedBy()
 	{
 		return PasswordValidator::class;
