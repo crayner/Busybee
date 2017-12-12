@@ -60,7 +60,7 @@ sql:
             help: Allows multiple systems to use the same database.
         charset:
             label: The database character set..
-            help: 'Enables you to store data using a variety of character sets.'
+            help: 'Enables you to store data using a variety of character sets. The recommended setting is "utf8mb4".'
 software:
     required: ' This software is required at version %required%.'
     system:
@@ -123,7 +123,8 @@ mailer:
     test:
         success: The email system on your server has been correctly configured.
     delivered:
-        success: 'An email was successfully sent to %{email}'
+        success: 'An email was successfully sent to %{email}.  To ensure that settings are working fully you should confirm the delivery of this email.'
+        failed: 'An attempt to send an email to "%{address}". To ensure that settings are working fully you should confirm the delivery of this email.  An error was received, stating: %{message}'
 misc:
     secret:
         label: Enter a Secret Code

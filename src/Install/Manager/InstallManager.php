@@ -306,7 +306,12 @@ class InstallManager
 		{
 			foreach ($request->get('install_mailer') as  $name => $value)
 			{
+				$name = explode('_', $name);
+				foreach($name as $q=>$w)
+					$name[$q] = ucfirst($w);
+				$name = implode('', $name);
 				$set = 'set' . ucfirst($name);
+
 				$this->mailer->$set($value);
 			}
 

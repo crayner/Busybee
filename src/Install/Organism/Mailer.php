@@ -102,8 +102,7 @@ class Mailer
 
 		if ($transport === 'gmail')
 		{
-			$this->setEncryption('tls');
-//			$this->setAuthMode('oauth');
+			$this->setEncryption('ssl')->setPort(465)->setAuthMode('login');
 		}
 		return $this;
 }
@@ -354,13 +353,13 @@ class Mailer
 				if (! empty($this->getEncryption()))
 					$fragment[] = 'encryption=' . $this->getEncryption();
 				if (! empty($this->getUser()))
-					$fragment = 'username=' . $this->getUser();
+					$fragment[] = 'username=' . $this->getUser();
 				if (! empty($this->getPassword()))
-					$fragment = 'password=' . $this->getPassword();
+					$fragment[] = 'password=' . $this->getPassword();
 				if (! empty($this->getAuthMode()))
-					$fragment = 'auth_mode=' . $this->getAuthMode();
+					$fragment[] = 'auth_mode=' . $this->getAuthMode();
 				if (!empty($fragment))
-					$url .= '?' . implode($fragment, '&');
+					$url .= '?' . implode('&', $fragment);
 				break;
 			default:
 				// Disable Mailer

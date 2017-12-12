@@ -34,7 +34,7 @@
     {% set panelStyle = 'primary' %}
 {% endif %}
 
-<div class="card card-{{ panelStyle }} busybee-card"{% if panelAttr is defined %} {{ panelAttr }}{% endif %}>
+<div class="card card-{{ panelStyle }}"{% if panelAttr is defined %} {{ panelAttr }}{% endif %}>
     <div class="card-header">
         <h3 class="card-title">{{ header|trans(name) }}
             {{ h3Content|raw }}

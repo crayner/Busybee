@@ -127,7 +127,7 @@ class InstallController extends BusybeeController
 		$swift['host']      = "%mailer_host%";
 		$swift['username']  = "%mailer_user%";
 		$swift['password']  = "%mailer_password%";
-		$swift['spool']     = ['type' => 'memory'];
+		$swift['spool']     = ['enabled' => false];
 
 		$installer->saveMailerConfig($mailer, false);
 
@@ -180,6 +180,26 @@ class InstallController extends BusybeeController
 				$messages->add('error', $e->getMessage());
 				$installer->getMailer()->setCanDeliver(false);
 			}
+			if ($installer->getMailer()->isCanDeliver())
+			{
+				$spool = $swiftMailer->getTransport()->getSpool();
+
+				$transport = new \Swift_SmtpTransport($installer->getMailer()->getHost(), $installer->getMailer()->getPort(), $installer->getMailer()->getEncryption());
+				$transport
+					->setUsername($installer->getMailer()->getUser())
+					->setPassword($installer->getMailer()->getPassword())
+				;
+				$ok = true;
+				try
+				{
+					$spool->flushQueue($transport);
+				} catch (\Exception $e) {
+					$messages->add('warning', 'mailer.delivered.failed', ['%{address}' => $installer->getMailer()->getSenderAddress(), '%{message}' => $e->getMessage()]);
+					$ok = false;
+				}
+				if ($ok)
+					$messages->add('success', 'mailer.delivered.success', ['%{email}' => $installer->getMailer()->getSenderAddress()]);
+			}
 		}
 
 		if ($form->isSubmitted())
@@ -187,9 +207,7 @@ class InstallController extends BusybeeController
 			if ($installer->isMailerSaved())
 			{
 				$messages->add('success', 'mailer.save.success');
-				if ($installer->getMailer()->isCanDeliver())
-					$messages->add('success', 'mailer.delivered.success', ['%{email}' => $installer->getMailer()->getSenderAddress()]);
-				else
+				if (! $installer->getMailer()->isCanDeliver())
 					$messages->add('warning', 'mailer.delivered.warning');
 
 			}
@@ -224,6 +242,18 @@ class InstallController extends BusybeeController
 	 */
 	public function miscellaneousInstall(Request $request, InstallManager $installer)
 	{
+		$mailer = $installer->getMailerConfig();
+
+		//turn spooler off
+		$swift              = $mailer->getSwiftmailer();
+		$swift['url']       = '%env(MAILER_URL)%';
+		$swift['transport'] = "%mailer_transport%";
+		$swift['host']      = "%mailer_host%";
+		$swift['username']  = "%mailer_user%";
+		$swift['password']  = "%mailer_password%";
+		$swift['spool']     = ['type' => 'memory'];
+
+		$installer->saveMailerConfig($mailer, false);
 		$installer->setProceed(false);
 
 		$misc = $installer->getMiscellaneousConfig();
