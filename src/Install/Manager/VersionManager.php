@@ -2,6 +2,10 @@
 namespace App\Install\Manager;
 
 use App\Core\Manager\SettingManager;
+use App\Core\Settings\Settings_0_0_01;
+use App\Core\Settings\Settings_0_0_02;
+use App\Core\Settings\Settings_0_0_03;
+use App\Core\Settings\Settings_0_0_04;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Version;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -53,6 +57,16 @@ class VersionManager
 		return $this;
 	}
 
+	static function listSettings()
+	{
+		return [
+			'0.0.01' => new Settings_0_0_01(),
+			'0.0.02' => new Settings_0_0_02(),
+			'0.0.03' => new Settings_0_0_03(),
+			'0.0.04' => new Settings_0_0_04(),
+		];
+
+	}
 	/**
 	 * Get Version
 	 *
@@ -275,5 +289,34 @@ class VersionManager
 	public function getVersion(): string
 	{
 		return self::VERSION;
+	}
+
+	/**
+	 * @param $version
+	 *
+	 * @return string
+	 */
+	static function incrementVersion($version)
+	{
+		$parts = explode('.', $version);
+		if (count($parts) !== 3)
+		{
+			trigger_error('This process only accepts standard 3 part versions. (0.0.00)');
+			return $version;
+		}
+
+		if ($parts[2] + 1 < 99) {
+			$parts[2]++;
+		} else {
+			$parts[2] = 0;
+			if ($parts[1] + 1 < 99) {
+				$parts[1]++;
+			} else {
+				$parts[1] = 0;
+				$parts[0]++;
+			}
+		}
+
+		return implode('.', $parts);
 	}
 }

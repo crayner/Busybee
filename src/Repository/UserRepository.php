@@ -17,21 +17,4 @@ class UserRepository extends ServiceEntityRepository
 	{
 		parent::__construct($registry, User::class);
 	}
-
-	/**
-	 * find
-	 *
-	 * @param mixed $id
-	 *
-	 * @return User
-	 */
-	public function find($id, $lockMode = NULL, $lockVersion = NULL): User
-	{
-		$entity = parent::find($id, $lockMode, $lockVersion);
-
-		if (is_null($entity) && intval($id) === 1)
-			$entity = new User();
-
-		return $entity;
-	}
 }

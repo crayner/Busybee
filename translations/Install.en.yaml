@@ -29,6 +29,10 @@ install:
             success: 'The database parameters saved successfully.'
             already: 'The database settings are correctly set and already saved.'
         progress: 'Data collection complete! The database is now being generated, please be patient.'
+    system:
+        progress: 'The system settings are now being loaded.'
+        setting:
+            file: 'The class %{class} was processed correctly.'
     mailer:
         parameters: Email Settings
     misc:

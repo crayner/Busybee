@@ -58,6 +58,7 @@ class myContainer implements ContainerInterface
 	 * The error is still thrown by default.
 	 *
 	 * @param    string $name The parameter name
+	 * @throws      ParameterNotFoundException
 	 *
 	 * @return    mixed  $value The parameter value
 	 */
@@ -162,5 +163,4 @@ class myContainer implements ContainerInterface
 	{
 		return $this->container->getParameterBag();
 	}
-
 }

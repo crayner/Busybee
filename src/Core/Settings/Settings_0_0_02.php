@@ -1,7 +1,9 @@
 <?php
 namespace App\Core\Settings;
 
-class Settings_0_0_02
+use App\Core\Definition\SettingInterface;
+
+class Settings_0_0_02 implements SettingInterface
 {
 	const VERSION = '0.0.02';
 
@@ -914,7 +916,6 @@ Religion.List:
         Faith: 7300
         Faith Christian Church: 2000
         Faith Christian Church  Pentecostal: 2499
-        Faith Christian Church  Pentecostal: 2499
         Faith in God: 7304
         Faith Life Pentecostal: 2418
         Falun Dafa: 7399
@@ -1098,7 +1099,6 @@ Religion.List:
         Judaism: 5011
         Judaism Jewish: 5011
         Judaism Progressive: 5011
-        Judaism: 5011
         Judeo Christian: 2999
         Kardecist: 6171
         Karma: 7399
@@ -1674,5 +1674,13 @@ idleTimeout:
     role: 'ROLE_REGISTRAR'
     value: 15
 LLL;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getClassName()
+	{
+		return get_class();
 	}
 }

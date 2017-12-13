@@ -15,7 +15,7 @@ abstract class BusybeeController extends Controller
 	 *
 	 * @throws AccessDeniedException
 	 */
-	protected function denyAccessUnlessGranted($attributes, $subject = null, string $message = 'Access Denied')
+	protected function denyResourceAccessUnlessGranted($attributes, $subject = null, string $message = 'Access Denied')
 	{
 		$request   = $this->get('request_stack')->getCurrentRequest();
 		$routeName = $request->get('_route');
@@ -25,19 +25,10 @@ abstract class BusybeeController extends Controller
 		$dev = $this->get('kernel')->getEnvironment();
 
 		if ($dev === 'dev' && !is_string($this->get('busybee_core_security.model.get_current_user')))
-			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%name%' => $routeName, '%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('busybee_core_security.model.get_current_user')->rolesToString()], 'BusybeeSecurityBundle') : $message;
+			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%name%' => $routeName, '%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('busybee_core_security.model.get_current_user')->rolesToString()], 'Security') : $message;
 		else
-			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', ['%name%' => $routeName], 'BusybeeSecurityBundle') : $message;
+			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', ['%name%' => $routeName], 'Security') : $message;
 
-
-		/*		if (! $this->isGranted($page->getRoles(), $subject))
-				{
-					$mm = new MessageManager('SystemBundle');
-					$mm->addMessage('danger', $message);
-
-					$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($mm);
-
-				} */
-		parent::denyAccessUnlessGranted($page->getRoles(), $subject, $message);
+		$this->denyAccessUnlessGranted($page->getRoles(), $subject, $message);
 	}
 }

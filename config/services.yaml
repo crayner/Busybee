@@ -44,7 +44,12 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
     App\Core\Listener\MailerLoggerListener:
-        arguments: ["@logger"]
+        arguments:
+            - "@logger"
         tags:
           - { name: monolog.logger, channel: mailer }
           - { name: "swiftmailer.default.plugin" }
+    App\Core\Listener\ModifyRowListener:
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }

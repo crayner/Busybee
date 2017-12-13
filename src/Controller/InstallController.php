@@ -269,6 +269,7 @@ class InstallController extends BusybeeController
 			]
 		);
 	}
+
 	/**
 	 * @param Request $request
 	 * @Route("/install/database/", name="install_database")
@@ -278,6 +279,21 @@ class InstallController extends BusybeeController
 	public function installDatabase(SystemBuildManager $systemBuildManager)
 	{
 		return $this->render('Install/database.html.twig',
+			[
+				'manager' => $systemBuildManager,
+			]
+		);
+	}
+
+	/**
+	 * @param Request $request
+	 * @Route("/install/system/settings/", name="install_system_settings")
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function installSytemSettings(SystemBuildManager $systemBuildManager)
+	{
+		return $this->render('Install/system_settings.html.twig',
 			[
 				'manager' => $systemBuildManager,
 			]

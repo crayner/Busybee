@@ -1,5 +1,5 @@
 <?php
-namespace App\Core\EntityExtension;
+namespace App\Core\Definition;
 
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 

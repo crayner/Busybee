@@ -274,6 +274,7 @@ class InstallManager
 				$env[$q] = trim($env[$q]);
 			}
 			$env = implode($env, "\r\n");
+dump($env);
 			$this->mailerSaved = file_put_contents($this->projectDir.'/.env', $env);
 		}
 

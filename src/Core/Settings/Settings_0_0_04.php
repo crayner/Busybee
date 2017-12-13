@@ -1,7 +1,9 @@
 <?php
 namespace App\Core\Settings;
 
-class Settings_0_0_04
+use App\Core\Definition\SettingInterface;
+
+class Settings_0_0_04 implements SettingInterface
 {
 	const VERSION = '0.0.04';
 
@@ -14,5 +16,13 @@ class Settings_0_0_04
 version:
     value: 0.0.04
 LLL;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getClassName()
+	{
+		return get_class();
 	}
 }

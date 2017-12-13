@@ -6,6 +6,7 @@ parameters:
     session_max_idle_time: 900
     country: AU
     sign_in_count_minimum: 3
+    sign_in_ip_exceptions: []
     timezone: Australia/Sydney
     password_min_length: 8
     password_numbers: 1

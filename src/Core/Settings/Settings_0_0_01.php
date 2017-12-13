@@ -1,7 +1,9 @@
 <?php
 namespace App\Core\Settings;
 
-class Settings_0_0_01
+use App\Core\Definition\SettingInterface;
+
+class Settings_0_0_01 implements SettingInterface
 {
 	const VERSION = '0.0.01';
 
@@ -18,5 +20,13 @@ version:
     description: 'The version of Busybee currently configured on your system.'
     role: 'ROLE_SYSTEM_ADMIN'
 LLL;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getClassName()
+	{
+		return get_class();
 	}
 }

@@ -1,15 +1,14 @@
 <?php
 namespace App\Core\EntityExtension;
 
+use App\Entity\User;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Storage agnostic user object
  *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class UserModel implements UserInterface
+abstract class UserModel implements AdvancedUserInterface, \Serializable
 {
 	/**
 	 * @var string
@@ -165,7 +164,7 @@ abstract class UserModel implements UserInterface
 	 */
 	public function getChangePassword()
 	{
-		return $this->credentialsExpired;
+		return $this->getCredentialsExpired();
 	}
 
 	/**
@@ -184,10 +183,10 @@ abstract class UserModel implements UserInterface
 		if ($this->getId() == 1)
 			return false;
 
-		if (!$this->enabled)
-			return true;
+		if ($this->enabled)
+			return false;
 
-		return false;
+		return true;
 	}
 
 	public function rolesToString()

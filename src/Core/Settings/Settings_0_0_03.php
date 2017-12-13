@@ -1,7 +1,9 @@
 <?php
 namespace App\Core\Settings;
 
-class Settings_0_0_03
+use App\Core\Definition\SettingInterface;
+
+class Settings_0_0_03 implements SettingInterface
 {
 	const VERSION = '0.0.03';
 
@@ -160,5 +162,13 @@ teachingload.column.maximum:
       description: The maximum number of periods in a timetable day that a teacher should have face to face teaching.
       role: ROLE_PRINCIPAL
 LLL;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getClassName()
+	{
+		return get_class();
 	}
 }

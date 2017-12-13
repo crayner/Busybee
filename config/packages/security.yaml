@@ -1,7 +1,14 @@
 security:
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+            cost:      15
     providers:
-        in_memory: { memory: ~ }
+        App\Core\Provider\UserProvider:
+            entity:
+                class:              App\Entity\User
+                property:           username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

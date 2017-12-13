@@ -1,18 +1,25 @@
 <?php
 namespace App\Install\Manager;
 
+use App\Core\Definition\SettingInterface;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Setting;
+use App\Entity\User;
 use Doctrine\DBAL\Exception\DriverException;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class SystemBuildManager
 {
 	/**
-	 * @var ObjectManager
+	 * @var EntityManager
 	 */
-	private $objectManager;
+	private $entityManager;
 
 	/**
 	 * @var MessageManager
@@ -25,20 +32,29 @@ class SystemBuildManager
 	private $settingManager;
 
 	/**
-	 * @var array
+	 * @var TokenStorageInterface
 	 */
-	private $parameters;
+	private $tokenStorage;
+
+	/**
+	 * @var UserPasswordEncoderInterface
+	 */
+	private $encoder;
 
 	/**
 	 * DatabaseManager constructor.
 	 *
-	 * @param ObjectManager $objectManager
+	 * @param EntityManagerInterface       $entityManager
+	 * @param SettingManager               $settingManager
+	 * @param UserPasswordEncoderInterface $encoder
 	 */
-	public function __construct(ObjectManager $objectManager, SettingManager $settingManager)
+	public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager, UserPasswordEncoderInterface $encoder, TokenStorageInterface $tokenStorage)
 	{
-		$this->objectManager = $objectManager;
+		$this->entityManager = $entityManager;
 		$this->messages = new MessageManager('Install');
 		$this->settingManager = $settingManager;
+		$this->encoder = $encoder;
+		$this->tokenStorage = $tokenStorage;
 	}
 
 	/**
@@ -52,13 +68,13 @@ class SystemBuildManager
 	 */
 	public function buildDatabase()
 	{
-		$conn = $this->objectManager->getConnection();
+		$conn = $this->entityManager->getConnection();
 
 		$conn->exec('SET FOREIGN_KEY_CHECKS = 0');
 
-		$schemaTool = new SchemaTool($this->objectManager);
+		$schemaTool = new SchemaTool($this->entityManager);
 
-		$metaData = $this->objectManager->getMetadataFactory()->getAllMetadata();
+		$metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
 
 		$xx = $schemaTool->getUpdateSchemaSql($metaData, true);
 
@@ -120,5 +136,115 @@ class SystemBuildManager
 	public function getSettingManager(): SettingManager
 	{
 		return $this->settingManager;
+	}
+
+	/**
+	 * @param $data
+	 */
+	public function buildSystemSettings()
+	{
+		if ($this->getSettingManager()->has('version'))
+			$version = $this->getSettingManager()->get('version', '0.0.00');
+		else
+			$version = '0.0.00';
+
+		$installed = $version;
+		$software = VersionManager::VERSION;
+
+
+		if (version_compare($installed, $software, '>='))
+			return true;
+
+		$list = VersionManager::listSettings();
+
+		while (version_compare($installed, $software, '<'))
+		{
+			foreach($list as $version=>$class)
+			{
+				if (! $class instanceof SettingInterface)
+					trigger_error('The setting class '.$version.' is not correctly formated as a SettingInterface.');
+
+				if (version_compare($installed, $version, '<'))
+				{
+					$data = Yaml::parse($class->getSettings());
+
+					foreach ($data as $name => $datum)
+					{
+						$entity = $this->settingManager->getSettingEntity($name);
+						if (!$entity instanceof Setting)
+						{
+							$entity = new Setting();
+							if (empty($datum['type']))
+								trigger_error('When creating a setting the type must be defined. ' . $name);
+							$entity->setType($datum['type']);
+						}
+						$entity->setName($name);
+						foreach ($datum as $field => $value)
+						{
+							$w = 'set' . ucwords($field);
+							$entity->$w($value);
+						}
+						$this->settingManager->createSetting($entity);
+					}
+				}
+				$this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
+				$installed = $version;
+			}
+
+			if (version_compare($installed, $software, '='))
+				sleep(1);//$this->getSettingManager()->set('version', $installed);
+			elseif (version_compare($installed, $software, '<'))
+				trigger_error('You need to supply a setting class for version '. $software);
+			elseif (version_compare($installed, $software, '>'))
+				trigger_error('The setting class is trying to install a version ('.$installed.') greater than the software version ('.$software.').');
+		}
+
+		return false;
+
+
+		$this->addMessage('success', 'bundle.update.resource.success', ['%resource%' => $resource]);
+	}
+
+	/**
+	 * @return User|null
+	 */
+	public function writeSystemUser()
+	{
+		$params = Yaml::parse(file_get_contents($this->projectDir.'/config/packages/busybee.yaml'));
+
+		$user = $this->entityManager->getRepository(User::class)->find(1);
+
+		if (! isset($params['parameters']['user_name']))
+			return ;
+
+		if (! $user instanceof User)
+			$user = new User();
+
+		$user->setInstaller(true);
+		$user->setUsername($params['parameters']['user_name']);
+		$user->setUsernameCanonical($params['parameters']['user_name']);
+		$user->setEmail($params['parameters']['user_email']);
+		$user->setEmailCanonical($params['parameters']['user_email']);
+		$user->setLocale('en');
+		$user->setLocked(false);
+		$user->setExpired(false);
+		$user->setCredentialsExpired(false);
+		$user->setEnabled(true);
+		$user->setDirectroles(['ROLE_SYSTEM_ADMIN']);
+		$password = $this->encoder->encodePassword($user, $params['parameters']['user_password']);
+		$user->setPassword($password);
+
+		$this->entityManager->persist($user);
+		$this->entityManager->flush();
+
+		unset($params['parameters']['user_name'], $params['parameters']['user_password'], $params['parameters']['user_email']);
+
+		file_put_contents($this->projectDir.'/config/packages/busybee.yaml', Yaml::dump($params));
+
+		$token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
+
+		$this->tokenStorage->setToken($token);
+
+		return ;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Manager;
 
+use App\Entity\Setting;
 use App\Entity\User;
 use App\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -65,17 +66,23 @@ class SettingManager implements ContainerAwareInterface
 	private $messages;
 
 	/**
+	 * @var  Session
+	 */
+	private $session;
+
+	private $authorisatiion;
+	/**
 	 * SettingManager constructor.
 	 *
 	 * @param ContainerInterface $container
 	 */
-	public function __construct(SettingRepository $sr, myContainer $container)
+	public function __construct(SettingRepository $sr, myContainer $container, Authorisation $authorisatiion)
 	{
-		$session = new Session();
-		if ($session->isStarted())
+		$this->session = new Session();
+		if ($this->session->isStarted())
 		{
-			$this->settings     = $session->get('settings');
-			$this->settingCache = $session->get('settingCache');
+			$this->settings     = $this->session->get('settings');
+			$this->settingCache = $this->session->get('settingCache');
 		} else {
 			$this->settings     = [];
 			$this->settingCache = [];
@@ -86,6 +93,7 @@ class SettingManager implements ContainerAwareInterface
 
 		$this->container = $container;
 
+		$this->authorisatiion = $authorisatiion;
 		$this->messages = new MessageManager('SystemBundle');
 	}
 
@@ -275,7 +283,7 @@ class SettingManager implements ContainerAwareInterface
 		$this->setting = $this->settingRepo->findOneByName($name);
 		if (is_null($this->setting) || empty($this->setting->getName()))
 			return $this;
-		if (true !== $this->container->get('busybee_core_security.model.authorisation')->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName(), 'role%' => $this->setting->getRole()])) return $this;
+		if (true !== $this->authorisatiion->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName(), 'role%' => $this->setting->getRole()])) return $this;
 		switch ($this->setting->getType())
 		{
 			case 'string':
@@ -348,16 +356,19 @@ class SettingManager implements ContainerAwareInterface
 	{
 		$this->settings[$name]     = $value;
 		$this->settingCache[$name] = new \DateTime('now');
-		$this->container->get('session')->set('settings', $this->settings);
-		$this->container->get('session')->set('settingCache', $this->settingCache);
+
+		if ($this->session->isStarted()){
+			$this->session->set('settings', $this->settings);
+			$this->session->set('settingCache', $this->settingCache);
+		}
 
 		return $value;
 	}
 
 	/**
-	 * @return Container
+	 * @return myContainer
 	 */
-	public function getContainer()
+	public function getContainer(): myContainer
 	{
 		return $this->container;
 	}
