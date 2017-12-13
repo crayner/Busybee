@@ -77,7 +77,7 @@ class VersionManager
 		foreach (get_loaded_extensions() as $name)
 			$versions['PHP'][$name] = phpversion($name);
 
-		dump($versions['PHP']);
+		$versions['PHP']['memory'] = ini_get('memory_limit');
 
 		foreach ($versions as $q => $w)
 		{
@@ -101,32 +101,19 @@ class VersionManager
 
 		if (!$install)
 		{
-			$versions['Busybee']['System']   = $this->settingManager->get('version.system');
-			$versions['Busybee']['Database'] = $this->settingManager->get('version.database');
+			$versions['Busybee']['Version'] = $this->settingManager->get('version');
 
-			if ($versions['Busybee']['System'] !== $this->version['system'])
+			if ($versions['Busybee']['Version'] !== $this->version)
 			{
-				$versions['Busybee']['System']          = [];
-				$versions['Busybee']['System']['flag']  = 'alert alert-warning';
-				$versions['Busybee']['System']['value'] = $this->translator->trans('software.required', ['%required%' => $this->version['system']], 'Install');
+				$versions['Busybee']['Version']          = [];
+				$versions['Busybee']['Version']['flag']  = 'alert alert-warning';
+				$versions['Busybee']['Version']['value'] = $this->translator->trans('software.required', ['%required%' => $this->version], 'Install');
 			}
 			else
 			{
-				$versions['Busybee']['System']          = [];
-				$versions['Busybee']['System']['flag']  = 'alert alert-success';
-				$versions['Busybee']['System']['value'] = $this->translator->trans('version.equal', ['%required%' => $this->version['system']], 'Install');
-			}
-			if ($versions['Busybee']['Database'] !== $this->version['database'])
-			{
-				$versions['Busybee']['Database']          = [];
-				$versions['Busybee']['Database']['flag']  = 'alert alert-warning';
-				$versions['Busybee']['Database']['value'] = $this->translator->trans('software.required', ['%required%' => $this->version['database']], 'Install');
-			}
-			else
-			{
-				$versions['Busybee']['Database']          = [];
-				$versions['Busybee']['Database']['flag']  = 'alert alert-success';
-				$versions['Busybee']['Database']['value'] = $this->translator->trans('version.equal', ['%required%' => $this->version['database']], 'Install');
+				$versions['Busybee']['Version']          = [];
+				$versions['Busybee']['Version']['flag']  = 'alert alert-success';
+				$versions['Busybee']['Version']['value'] = $this->translator->trans('version.equal', ['%required%' => $this->version], 'Install');
 			}
 		}
 
@@ -135,11 +122,20 @@ class VersionManager
 		$phpVersions['Core']['high']   = '7.2.99';
 		$phpVersions['Core']['string'] = '7.1';
 		$phpVersions['apcu']           = '5.1.8';
+		$phpVersions['memory']['string']          = '256M - 1024M';
+		$phpVersions['memory']['low']          = '256M';
+		$phpVersions['memory']['high']          = '1024M';
 		$phpVersions['intl']           = '1.1.0';
-		$phpVersions['json']           = '1.5.0';
+		$phpVersions['json']['low']    = '1.5.0';
+		$phpVersions['json']['high']   = '1.6.99';
+		$phpVersions['json']['string'] = '1.6.x';
 		$phpVersions['openssl']['low']    = '7.1.0';
 		$phpVersions['openssl']['high']   = '7.2.99';
 		$phpVersions['openssl']['string'] = '7.x';
+
+		foreach ($versions['PHP'] as $name => $w)
+			if (!isset($phpVersions[$name]))
+				unset($versions['PHP'][$name]);
 
 		foreach ($phpVersions as $name => $version)
 			if (!is_array($version))
@@ -154,15 +150,23 @@ class VersionManager
 		{
 			if (!isset($versions['PHP'][$name]))
 			{
-				$versions['PHP'][$name]['value'] = $this->translator->trans('software.required', ['%required%' => $version['string']], 'Install');
-				$versions['PHP'][$name]['flag']  = 'alert alert-danger';
+					$versions['PHP'][$name]['value'] = $this->translator->trans('software.required', ['%required%' => $version['string']], 'Install');
+					$versions['PHP'][$name]['flag']  = 'alert alert-danger';
 			}
-			else
+			elseif (! in_array($name, ['memory']))
 				$versions['PHP'][$name] = $this->fullCompare($versions['PHP'][$name], $version);
 		}
-		foreach ($versions['PHP'] as $name => $w)
-			if (!isset($phpVersions[$name]))
-				unset($versions['PHP'][$name]);
+		dump($versions['PHP']);dump($phpVersions);
+		if ($versions['PHP']['memory']['value'] < $phpVersions['memory']['low'])
+		{
+			$versions['PHP']['memory']['value'] = $this->translator->trans('php.memory.small', ['%{required}' => $phpVersions['memory']['string'], '%{memory}' => $versions['PHP']['memory']['value']], 'Install');
+			$versions['PHP']['memory']['flag']  = 'alert alert-warning';
+		} else {
+			$versions['PHP']['memory']['value'] = $this->translator->trans('php.memory.ok', ['%{required}' => $phpVersions['memory']['string'], '%{memory}' => $versions['PHP']['memory']['value']], 'Install');
+			$versions['PHP']['memory']['flag']  = 'alert alert-success';
+		}
+
+
 
 		$version['low']                 = '5.5.56';
 		$version['high']                = '5.7';

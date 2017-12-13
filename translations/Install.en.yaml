@@ -122,8 +122,11 @@ mailer:
         already: The mailer setting are already correctly set and saved.
     test:
         success: The email system on your server has been correctly configured.
+        header:
+            direct: Busybee Test Email
+            spool: Busybee Test Spool Email
     delivered:
-        success: 'An email was successfully sent to %{email}.  To ensure that settings are working fully you should confirm the delivery of this email.'
+        success: 'An email was successfully sent to %{email}.  To ensure that settings are working fully you should confirm the delivery of this email. A test of the spooler is also done, so you should receive two test emails.'
         failed: 'An attempt to send an email to "%{address}". To ensure that settings are working fully you should confirm the delivery of this email.  An error was received, stating: %{message}'
 misc:
     secret:
@@ -220,3 +223,7 @@ user:
             match: The passwords do not match.
     password:
         message: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
+php:
+    memory:
+        ok: 'The memory limit is set at %{memory} which meets current requirements of %{required}.'
+        small: 'The memory limit is set at %{memory} which does not meets current requirements of %{required}.'

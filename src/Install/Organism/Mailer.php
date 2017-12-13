@@ -322,6 +322,7 @@ class Mailer
 		$parameters['parameters']['mailer_auth_mode'] = $this->getAuthMode();
 		$parameters['parameters']['mailer_sender_name'] = $this->getSenderName();
 		$parameters['parameters']['mailer_sender_address'] = $this->getSenderAddress();
+		$parameters['parameters']['mailer_spool'] = $this->getSpool();
 		$parameters['swiftmailer'] = $this->getSwiftmailer();
 		return $parameters;
 	}
@@ -406,5 +407,5 @@ class Mailer
 		$this->spool = $spool;
 
 		return $this;
-}
+	}
 }

@@ -1,0 +1,13 @@
+monolog:
+    handlers:
+        security:
+            # log all messages (since debug is the lowest level)
+            level:    debug
+            type:     stream
+            path:     '%kernel.logs_dir%/security.%kernel.environment%.log'
+            channels: [security]
+        mailer:
+            level:    debug
+            type:     stream
+            path:     '%kernel.logs_dir%/mailer.%kernel.environment%.log'
+            channels: [mailer]

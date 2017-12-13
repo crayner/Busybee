@@ -1,15 +1,15 @@
 parameters:
-    mailer_transport: gmail
-    mailer_host: smtp.gmail.com
-    mailer_user: craig@craigrayner.com
-    mailer_password: oaerkkeodcrjyhzw
+    mailer_transport: 'gmail'
+    mailer_host: 'smtp.gmail.com'
+    mailer_user: 'craig@craigrayner.com'
+    mailer_password: 'oaerkkeodcrjyhzw'
     mailer_port: 465
-    mailer_encryption: ssl
-    mailer_auth_mode: login
+    mailer_encryption: 'ssl'
+    mailer_auth_mode: 'login'
     mailer_sender_name: 'Busybee System'
-    mailer_sender_address: craig@craigrayner.com
-    mailer_spool:
-        type: memory
+    mailer_sender_address: 'craig@craigrayner.com'
+    mailer_spool: { type: 'memory' }
+
 swiftmailer:
     url: '%env(MAILER_URL)%'
     transport: '%mailer_transport%'
@@ -17,3 +17,5 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: '%mailer_spool%'
+    delivery_addresses:   []
+    disable_delivery:     false

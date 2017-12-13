@@ -1,0 +1,7 @@
+{% trans_default_domain 'Install' %}
+
+{% if direct %}
+    {{ 'mailer.test.header.direct'|trans }}
+{% else %}
+    {{ 'mailer.test.header.spool'|trans }}
+{% endif %}

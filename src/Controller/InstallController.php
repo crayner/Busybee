@@ -116,7 +116,7 @@ class InstallController extends BusybeeController
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function mailerInstall(InstallManager $installer, Request $request, MessageManager $messages, \Swift_Transport $swiftTransport)
+	public function mailerInstall(InstallManager $installer, Request $request, MessageManager $messages, \Swift_Mailer $swiftMailer)
 	{
 		$mailer = $installer->getMailerConfig();
 
@@ -127,7 +127,7 @@ class InstallController extends BusybeeController
 		$swift['host']      = "%mailer_host%";
 		$swift['username']  = "%mailer_user%";
 		$swift['password']  = "%mailer_password%";
-		$swift['spool']     = ['enabled' => false];
+		$swift['spool']     = "%mailer_spool%";
 
 		$installer->saveMailerConfig($mailer, false);
 
@@ -141,34 +141,23 @@ class InstallController extends BusybeeController
 
 		$messages->setDomain('Install');
 
-		$swiftMailer = new \Swift_Mailer($swiftTransport);
-
-		if ($installer->getMailer()->getTransport() != '')
+				if ($installer->getMailer()->getTransport() != '')
 		{
-			$message = (new \Swift_Message('Busybee Email Test'))
+			$email= (new \Swift_Message($this->renderView('Emails/test_header.html.twig', ['direct' => true])))
 				->setFrom($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
 				->setTo($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
 				->setBody(
 					$this->renderView(
-						'Emails/test.html.twig', []
+						'Emails/test.html.twig'
 					),
 					'text/html'
 				)
-
-				/*
-				 * If you also want to include a plaintext version of the message
-				->addPart(
-					$this->renderView(
-						'Emails/registration.txt.twig', []
-					),
-					'text/plain'
-				)
-				*/
 			;
 			$installer->getMailer()->setCanDeliver(true);
+
 			try
 			{
-				$swiftMailer->send($message);
+				$swiftMailer->send($email);
 			}
 			catch (\Swift_TransportException $e)
 			{
@@ -183,13 +172,13 @@ class InstallController extends BusybeeController
 			if ($installer->getMailer()->isCanDeliver())
 			{
 				$spool = $swiftMailer->getTransport()->getSpool();
-
 				$transport = new \Swift_SmtpTransport($installer->getMailer()->getHost(), $installer->getMailer()->getPort(), $installer->getMailer()->getEncryption());
 				$transport
 					->setUsername($installer->getMailer()->getUser())
 					->setPassword($installer->getMailer()->getPassword())
 				;
 				$ok = true;
+
 				try
 				{
 					$spool->flushQueue($transport);
@@ -198,7 +187,21 @@ class InstallController extends BusybeeController
 					$ok = false;
 				}
 				if ($ok)
+				{
 					$messages->add('success', 'mailer.delivered.success', ['%{email}' => $installer->getMailer()->getSenderAddress()]);
+
+					$email = (new \Swift_Message($this->renderView('Emails/test_header.html.twig', ['direct' => false])))
+						->setFrom($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
+						->setTo($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
+						->setBody(
+							$this->renderView(
+								'Emails/test.html.twig'
+							),
+							'text/html'
+						)
+					;
+					$swiftMailer->send($email);
+				}
 			}
 		}
 
@@ -242,18 +245,6 @@ class InstallController extends BusybeeController
 	 */
 	public function miscellaneousInstall(Request $request, InstallManager $installer)
 	{
-		$mailer = $installer->getMailerConfig();
-
-		//turn spooler off
-		$swift              = $mailer->getSwiftmailer();
-		$swift['url']       = '%env(MAILER_URL)%';
-		$swift['transport'] = "%mailer_transport%";
-		$swift['host']      = "%mailer_host%";
-		$swift['username']  = "%mailer_user%";
-		$swift['password']  = "%mailer_password%";
-		$swift['spool']     = ['type' => 'memory'];
-
-		$installer->saveMailerConfig($mailer, false);
 		$installer->setProceed(false);
 
 		$misc = $installer->getMiscellaneousConfig();
