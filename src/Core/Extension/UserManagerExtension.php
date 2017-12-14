@@ -1,7 +1,7 @@
 <?php
 namespace App\Core\Extension;
 
-use App\Core\Manager\UserManager;
+use HillRange\Security\Manager\UserManager;
 use Twig\Extension\AbstractExtension;
 
 class UserManagerExtension extends AbstractExtension

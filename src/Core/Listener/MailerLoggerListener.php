@@ -3,8 +3,9 @@ namespace App\Core\Listener;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use Swift_Events_SendListener;
 
-class MailerLoggerListener implements \Swift_Events_SendListener
+class MailerLoggerListener implements Swift_Events_SendListener
 {
 	/**
 	 * @var LoggerInterface

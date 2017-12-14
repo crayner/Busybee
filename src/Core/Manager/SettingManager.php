@@ -2,8 +2,9 @@
 namespace App\Core\Manager;
 
 use App\Entity\Setting;
-use App\Entity\User;
 use App\Repository\SettingRepository;
+use HillRange\Security\Entity\User;
+use HillRange\Security\Manager\Authorisation;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -76,7 +77,7 @@ class SettingManager implements ContainerAwareInterface
 	 *
 	 * @param ContainerInterface $container
 	 */
-	public function __construct(SettingRepository $sr, myContainer $container, Authorisation $authorisatiion)
+	public function __construct(SettingRepository $sr, ContainerInterface $container, Authorisation $authorisatiion)
 	{
 		$this->session = new Session();
 		if ($this->session->isStarted())

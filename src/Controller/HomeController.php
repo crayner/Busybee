@@ -2,11 +2,11 @@
 namespace App\Controller;
 
 use App\Core\Manager\StatusManager;
-use App\Entity\Product;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends BusybeeController
+class HomeController extends Controller
 {
 	/**
 	 * @Route("/", name="home")

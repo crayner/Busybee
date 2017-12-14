@@ -1,8 +1,8 @@
 <?php
 namespace App\Core\Manager;
 
-use App\Repository\PageRepository;
-use Doctrine\DBAL\Driver\PDOException;
+use HillRange\Security\Manager\PageManager;
+use HillRange\Security\Repository\PageRepository;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundE
 class MenuManager
 {
 	/**
-	 * @var \Busybee\Core\SecurityBundle\Model\PageManager|object
+	 * @var PageManager|object
 	 */
 	protected $pageManager;
 
@@ -43,7 +43,10 @@ class MenuManager
 	/**
 	 * MenuManager constructor.
 	 *
-	 * @param Container $container
+	 * @param PageManager                   $pageManager
+	 * @param AuthorizationCheckerInterface $authChecker
+	 * @param PageRepository                $pageRepository
+	 * @param RouterManager                 $routerManager
 	 */
 	public function __construct(PageManager $pageManager, AuthorizationCheckerInterface $authChecker, PageRepository $pageRepository, RouterManager $routerManager)
 	{

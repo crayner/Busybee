@@ -55,11 +55,11 @@ class Setting
 	 */
 	private $role;
 	/**
-	 * @var \App\Entity\User
+	 * @var \HillRange\Security\Entity\User
 	 */
 	private $createdBy;
 	/**
-	 * @var \App\Entity\User
+	 * @var \HillRange\Security\Entity\User
 	 */
 	private $modifiedBy;
 	/**
@@ -263,7 +263,7 @@ class Setting
 	/**
 	 * Get createdBy
 	 *
-	 * @return \App\Entity\User
+	 * @return \HillRange\Security\Entity\User
 	 */
 	public function getCreatedBy()
 	{
@@ -273,11 +273,11 @@ class Setting
 	/**
 	 * Set createdBy
 	 *
-	 * @param \App\Entity\User $createdBy
+	 * @param \HillRange\Security\Entity\User $createdBy
 	 *
 	 * @return Setting
 	 */
-	public function setCreatedBy(\App\Entity\User $createdBy = null)
+	public function setCreatedBy(\HillRange\Security\Entity\User $createdBy = null)
 	{
 		$this->createdBy = $createdBy;
 
@@ -287,7 +287,7 @@ class Setting
 	/**
 	 * Get modifiedBy
 	 *
-	 * @return \App\Entity\User
+	 * @return \HillRange\Security\Entity\User
 	 */
 	public function getModifiedBy()
 	{
@@ -297,11 +297,11 @@ class Setting
 	/**
 	 * Set modifiedBy
 	 *
-	 * @param \App\Entity\User $modifiedBy
+	 * @param \HillRange\Security\Entity\User $modifiedBy
 	 *
 	 * @return Setting
 	 */
-	public function setModifiedBy(\App\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\HillRange\Security\Entity\User $modifiedBy = null)
 	{
 		$this->modifiedBy = $modifiedBy;
 

@@ -5,7 +5,7 @@ use App\Core\Definition\SettingInterface;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Entity\Setting;
-use App\Entity\User;
+use HillRange\Security\Entity\User;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;

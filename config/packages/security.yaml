@@ -1,13 +1,13 @@
 security:
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     encoders:
-        App\Entity\User:
+        HillRange\Security\Entity\User:
             algorithm: bcrypt
             cost:      15
     providers:
         App\Core\Provider\UserProvider:
             entity:
-                class:              App\Entity\User
+                class:              HillRange\Security\Entity\User
                 property:           username
     firewalls:
         dev:

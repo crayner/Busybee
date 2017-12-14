@@ -3,7 +3,7 @@ namespace App\Core\Listener;
 
 use App\Core\Manager\myContainer;
 use App\Entity\Setting;
-use App\Entity\User;
+use HillRange\Security\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

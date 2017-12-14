@@ -1,21 +1,19 @@
 <?php
 namespace App\Controller;
 
-use App\Core\Manager\CacheManager;
 use App\Core\Manager\MessageManager;
 use App\Install\Form\MailerType;
 use App\Install\Form\MiscellaneousType;
-use App\Install\Manager\DatabaseManager;
 use App\Install\Manager\SystemBuildManager;
 use App\Install\Manager\VersionManager;
 use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
-class InstallController extends BusybeeController
+class InstallController extends Controller
 {
 	/**
 	 * @param Request $request
