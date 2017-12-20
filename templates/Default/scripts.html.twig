@@ -23,7 +23,7 @@
                 sessionKeepAliveTimer: false,
                 dialogTitle: '{{ 'idletimeout.title'|trans({}, 'BusybeeHomeBundle') }}',
                 dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
-                redirectUrl: '{{ path('security_timeout') }}',
+                redirectUrl: '{{ path('hillrange_security_timeout') }}',
                 customCallback: function () {
                     var close = '{{ app.request.get('closeWindow') }}';
                     if (close.length > 0)

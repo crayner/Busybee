@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <p class="alert alert-info">{{ 'install.database.progress'|trans }}</p>
         {% set x = manager.buildDatabase() %}
-        {% set y = manager.writeSystemUser() %}
+        {% set y = manager.writeSystemUser(projectDir) %}
     {% if not x %}
         {{ proceedButton({'windowOpen': {'route': path("install_database")}})|raw }}
     {% else %}

@@ -1,13 +1,13 @@
 security:
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     encoders:
-        HillRange\Security\Entity\User:
+        Hillrange\Security\Entity\User:
             algorithm: bcrypt
             cost:      15
     providers:
         App\Core\Provider\UserProvider:
             entity:
-                class:              HillRange\Security\Entity\User
+                class:              Hillrange\Security\Entity\User
                 property:           username
     firewalls:
         dev:
@@ -15,6 +15,9 @@ security:
             security: false
         main:
             anonymous: ~
+            form_login:
+                login_path: hillrange_security_login
+                check_path: hillrange_security_login
 
             # activate different ways to authenticate
 

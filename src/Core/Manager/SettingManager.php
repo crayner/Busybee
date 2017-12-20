@@ -3,8 +3,8 @@ namespace App\Core\Manager;
 
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
-use HillRange\Security\Entity\User;
-use HillRange\Security\Manager\Authorisation;
+use Hillrange\Security\Entity\User;
+use Hillrange\Security\Manager\Authorisation;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;

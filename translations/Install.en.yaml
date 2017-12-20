@@ -231,3 +231,5 @@ php:
     memory:
         ok: 'The memory limit is set at %{memory} which meets current requirements of %{required}.'
         small: 'The memory limit is set at %{memory} which does not meets current requirements of %{required}.'
+memory:
+    limit: 'Memory Limit: %{limit}. Bad < 256M >= OK <= 512M > Good.'

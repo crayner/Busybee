@@ -279,6 +279,7 @@ class InstallController extends Controller
 		return $this->render('Install/database.html.twig',
 			[
 				'manager' => $systemBuildManager,
+				'projectDir' => $this->getParameter('kernel.project_dir'),
 			]
 		);
 	}

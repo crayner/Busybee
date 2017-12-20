@@ -1,8 +1,8 @@
 <?php
 namespace App\Core\Manager;
 
-use HillRange\Security\Manager\PageManager;
-use HillRange\Security\Repository\PageRepository;
+use Hillrange\Security\Manager\PageManager;
+use Hillrange\Security\Repository\PageRepository;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;

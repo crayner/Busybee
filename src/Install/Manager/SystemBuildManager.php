@@ -5,7 +5,7 @@ use App\Core\Definition\SettingInterface;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Entity\Setting;
-use HillRange\Security\Entity\User;
+use Hillrange\Security\Entity\User;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -40,6 +40,11 @@ class SystemBuildManager
 	 * @var UserPasswordEncoderInterface
 	 */
 	private $encoder;
+
+	/**
+	 * @var string
+	 */
+	private $projectDir;
 
 	/**
 	 * DatabaseManager constructor.
@@ -206,11 +211,14 @@ class SystemBuildManager
 	}
 
 	/**
-	 * @return User|null
+	 * @param string $projectDir
+	 *
+	 * @return void
 	 */
-	public function writeSystemUser()
+	public function writeSystemUser(string $projectDir)
 	{
-		$params = Yaml::parse(file_get_contents($this->projectDir.'/config/packages/busybee.yaml'));
+		$this->projectDir = $projectDir; dump($this);
+		$params = Yaml::parse(file_get_contents($projectDir.'/config/packages/busybee.yaml'));
 
 		$user = $this->entityManager->getRepository(User::class)->find(1);
 

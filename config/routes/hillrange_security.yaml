@@ -1,0 +1,4 @@
+hillrange_security:
+    resource: '@HillrangeSecurityBundle/Controller/'
+    type: annotation
+    prefix: /hillrange/

@@ -1,10 +1,9 @@
 <?php
 namespace App\Core\Listener;
 
-use App\Core\Manager\myContainer;
 use App\Entity\Setting;
-use HillRange\Security\Entity\User;
-use App\Repository\UserRepository;
+use Hillrange\Security\Entity\User;
+use Hillrange\Security\Repository\UserRepository;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -62,13 +61,15 @@ class ModifyRowListener implements EventSubscriberInterface
 		$entityManager = $args->getEntityManager();
 		$this->userRepository = $entityManager->getRepository(User::class);
 
-		if ($entity instanceof User && intval($this->getCurrentUser()->getId()) == 0)
+		if ($entity instanceof User && (! $this->getCurrentUser() instanceof User || intval($this->getCurrentUser()->getId()) == 0))
 		{
 			$entity->setCreatedOn(new \Datetime('now'));
-			$entity->setCreatedBy(null);
+			$entity->setCreatedBy($entity);
 			$entity->setLastModified(new \Datetime('now'));
-			$entity->setModifiedBy(null);
+			$entity->setModifiedBy($entity);
 		}
+		elseif (! $this->getCurrentUser() instanceof User)
+			trigger_error('No User Authenticated');
 		else
 		{
 			$entity->setCreatedOn(new \Datetime('now'));
@@ -89,9 +90,9 @@ class ModifyRowListener implements EventSubscriberInterface
 	/**
 	 * @return User|null
 	 */
-	private function getCurrentUser()
+	private function getCurrentUser(): ?User
 	{
-		if (!is_null($this->user)) return $this->user;
+		if (! is_null($this->user)) return $this->user;
 		$token = $this->tokenStorage->getToken();
 		if (!is_null($token)) $this->user = $token->getUser();
 		if (is_null($this->user))
@@ -100,8 +101,7 @@ class ModifyRowListener implements EventSubscriberInterface
 			if ($token instanceof TokenInterface)
 				$this->user = $token->getUser();
 		}
-
-		return $this->user;
+		return $this->user instanceof User ? $this->user: null ;
 	}
 
 	/**

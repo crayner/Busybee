@@ -34,7 +34,9 @@
 		"symfony/twig-bundle": "^4.0",
 		"symfony/validator": "^4.0",
 		"symfony/var-dumper": "^4.0",
-		"symfony/yaml": "^4.0"
+		"symfony/yaml": "^4.0",
+		"twig/extensions": "^1.5",
+		"twig/twig": "^2.4"
 	},
     "require-dev": {
         "symfony/dotenv": "^4.0"
@@ -74,7 +76,8 @@
     "extra": {
         "symfony": {
             "id": "01C0J6PERM3GSPZ6J2SW55YM9W",
-            "allow-contrib": false
+            "allow-contrib": false,
+            "dev-master": "0.0.x-dev"
         }
     },
     "minimum-stability": "dev",

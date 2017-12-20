@@ -91,7 +91,6 @@ class VersionManager
 		foreach (get_loaded_extensions() as $name)
 			$versions['PHP'][$name] = phpversion($name);
 
-		$versions['PHP']['memory'] = ini_get('memory_limit');
 
 		foreach ($versions as $q => $w)
 		{
@@ -136,9 +135,6 @@ class VersionManager
 		$phpVersions['Core']['high']   = '7.2.99';
 		$phpVersions['Core']['string'] = '7.1';
 		$phpVersions['apcu']           = '5.1.8';
-		$phpVersions['memory']['string']          = '256M - 1024M';
-		$phpVersions['memory']['low']          = '256M';
-		$phpVersions['memory']['high']          = '1024M';
 		$phpVersions['intl']           = '1.1.0';
 		$phpVersions['json']['low']    = '1.5.0';
 		$phpVersions['json']['high']   = '1.6.99';
@@ -170,17 +166,6 @@ class VersionManager
 			elseif (! in_array($name, ['memory']))
 				$versions['PHP'][$name] = $this->fullCompare($versions['PHP'][$name], $version);
 		}
-		dump($versions['PHP']);dump($phpVersions);
-		if ($versions['PHP']['memory']['value'] < $phpVersions['memory']['low'])
-		{
-			$versions['PHP']['memory']['value'] = $this->translator->trans('php.memory.small', ['%{required}' => $phpVersions['memory']['string'], '%{memory}' => $versions['PHP']['memory']['value']], 'Install');
-			$versions['PHP']['memory']['flag']  = 'alert alert-warning';
-		} else {
-			$versions['PHP']['memory']['value'] = $this->translator->trans('php.memory.ok', ['%{required}' => $phpVersions['memory']['string'], '%{memory}' => $versions['PHP']['memory']['value']], 'Install');
-			$versions['PHP']['memory']['flag']  = 'alert alert-success';
-		}
-
-
 
 		$version['low']                 = '5.5.56';
 		$version['high']                = '5.7';
@@ -242,14 +227,20 @@ class VersionManager
 				ksort($versions[$q], SORT_STRING + SORT_FLAG_CASE);
 		ksort($versions, SORT_STRING + SORT_FLAG_CASE);
 
-
 		$versions['Settings'] = [];
 
 		$versions['Settings']['Allow URL File Open']['value'] = ini_get('allow_url_fopen') == 1 ? 'On' : 'Off';
+		$versions['Settings']['Memory Limit']['value'] = $this->translator->trans('memory.limit', ['%{limit}' => ini_get('memory_limit')], 'Install');
 		if (ini_get('allow_url_fopen'))
 			$versions['Settings']['Allow URL File Open']['flag'] = 'alert alert-success';
 		else
 			$versions['Settings']['Allow URL File Open']['flag'] = 'alert alert-danger';
+		if (ini_get('memory_limit') >= '512M')
+			$versions['Settings']['Memory Limit']['flag'] = 'alert alert-success';
+		elseif (ini_get('memory_limit') >= '256M')
+			$versions['Settings']['Memory Limit']['flag'] = 'alert alert-warning';
+		else
+			$versions['Settings']['Memory Limit']['flag'] = 'alert alert-danger';
 
 		return $versions;
 	}
