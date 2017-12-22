@@ -4,13 +4,13 @@ namespace App\Core\Manager;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Hillrange\Security\Entity\User;
-use Hillrange\Security\Manager\Authorisation;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Setting Manager
@@ -71,13 +71,19 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	private $session;
 
-	private $authorisatiion;
+	/**
+	 * @var AuthorizationCheckerInterface
+	 */
+	private $authorisation;
+
 	/**
 	 * SettingManager constructor.
 	 *
-	 * @param ContainerInterface $container
+	 * @param SettingRepository             $sr
+	 * @param ContainerInterface            $container
+	 * @param AuthorizationCheckerInterface $authorisation
 	 */
-	public function __construct(SettingRepository $sr, ContainerInterface $container, Authorisation $authorisatiion)
+	public function __construct(SettingRepository $sr, ContainerInterface $container, AuthorizationCheckerInterface $authorisation)
 	{
 		$this->session = new Session();
 		if ($this->session->isStarted())
@@ -94,7 +100,7 @@ class SettingManager implements ContainerAwareInterface
 
 		$this->container = $container;
 
-		$this->authorisatiion = $authorisatiion;
+		$this->authorisation = $authorisation;
 		$this->messages = new MessageManager('SystemBundle');
 	}
 

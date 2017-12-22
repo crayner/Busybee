@@ -53,3 +53,6 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
+    App\Install\Listener\InstallListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }

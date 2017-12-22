@@ -51,7 +51,7 @@ class VersionManager
 	{
 		$this->connection     = $connection;
 		$this->settingManager = $settingManager;
-		$this->version        = $request->getCurrentRequest()->get('version');
+		$this->version        = $this->settingManager->get('version', '0.0.00');
 		$this->translator     = $translator;
 
 		return $this;
@@ -216,9 +216,9 @@ class VersionManager
 		$version['high']              = '2.6.99';
 		$versions['Doctrine']['DBal'] = $this->fullCompare($versions['Doctrine']['DBal'], $version);
 
-		$version['string'] = '2.5+';
-		$version['low']    = '2.5.6';
-		$version['high']   = '2.5.99';
+		$version['string'] = '2.6+';
+		$version['low']    = '2.6.0';
+		$version['high']   = '2.6.99';
 		$versions['Doctrine']['ORM'] = $this->fullCompare($versions['Doctrine']['ORM'], $version);
 
 
@@ -231,6 +231,10 @@ class VersionManager
 
 		$versions['Settings']['Allow URL File Open']['value'] = ini_get('allow_url_fopen') == 1 ? 'On' : 'Off';
 		$versions['Settings']['Memory Limit']['value'] = $this->translator->trans('memory.limit', ['%{limit}' => ini_get('memory_limit')], 'Install');
+		$versions['Settings']['Session Auto Start']['value'] = ini_get('session.auto_start') == 1 ? 'session.auto_start.on' : 'session.auto_start.off';
+
+		$versions['Settings']['Session Auto Start']['value'] = $this->translator->trans($versions['Settings']['Session Auto Start']['value'], [], 'Install');
+
 		if (ini_get('allow_url_fopen'))
 			$versions['Settings']['Allow URL File Open']['flag'] = 'alert alert-success';
 		else
@@ -241,6 +245,10 @@ class VersionManager
 			$versions['Settings']['Memory Limit']['flag'] = 'alert alert-warning';
 		else
 			$versions['Settings']['Memory Limit']['flag'] = 'alert alert-danger';
+		if (ini_get('session.auto_start'))
+			$versions['Settings']['Session Auto Start']['flag'] = 'alert alert-warning';
+		else
+			$versions['Settings']['Session Auto Start']['flag'] = 'alert alert-success';
 
 		return $versions;
 	}
@@ -309,5 +317,13 @@ class VersionManager
 		}
 
 		return implode('.', $parts);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isUpToDate()
+	{
+		return version_compare(self::VERSION, $this->version, '<');
 	}
 }

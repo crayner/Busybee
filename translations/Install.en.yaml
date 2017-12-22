@@ -233,3 +233,7 @@ php:
         small: 'The memory limit is set at %{memory} which does not meets current requirements of %{required}.'
 memory:
     limit: 'Memory Limit: %{limit}. Bad < 256M >= OK <= 512M > Good.'
+session:
+    auto_start:
+        off: Session auto start should not be set in php.ini
+        on: Session auto start should not be set in php.ini

@@ -13,9 +13,6 @@ class HomeController extends Controller
 	 */
 	public function home(Request $request, StatusManager $statusManager)
 	{
-		if (! $statusManager->isInstalled($request->getSession()))
-			return $this->redirectToRoute('install_build');
-
 		return $this->render('base.html.twig');
 	}
 }

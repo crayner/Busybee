@@ -4,10 +4,8 @@ namespace App\Install\Manager;
 use App\Install\Organism\Database;
 use App\Install\Organism\Mailer;
 use App\Install\Organism\Miscellaneous;
-use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\SyntaxErrorException;
-use Doctrine\ORM\Configuration;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
@@ -225,13 +223,14 @@ class InstallManager
 			}
 			catch (SyntaxErrorException $e)
 			{
-				$this->sql->error = $e->getMessage() . '. <strong>The database name must not have any spaces.</strong>';
+				$this->sql->error = $e->getMessage() . '. <strong>The database name is not valid.</strong>';
 				$this->sql->setConnected(false);
 				$this->exception = $e;
 
 			}
 
-			$this->connection->executeQuery("ALTER DATABASE `" . $this->sql->getName() . "` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`");
+			if ($this->sql->isConnected())
+				$this->connection->executeQuery("ALTER DATABASE `" . $this->sql->getName() . "` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`");
 		}
 		return $this->sql->isConnected();
 	}

@@ -12,8 +12,7 @@
     {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'system.install.title'} %}
     <div class="container-fluid">
         <p class="alert alert-info">{{ 'install.system.progress'|trans }}</p>
-        {% set x = manager.buildSystemSettings() %}
-    {% if not x %}
+    {% if not manager.systemSettingsInstalled %}
         {{ proceedButton({'windowOpen': {'route': path("install_system_settings")}})|raw }}
     {% else %}
         {{ proceedButton({'windowOpen': {'route': path("install_system_settings")}})|raw }}

@@ -292,6 +292,9 @@ class InstallController extends Controller
 	 */
 	public function installSytemSettings(SystemBuildManager $systemBuildManager)
 	{
+		$systemBuildManager->buildDatabase();
+
+		$systemBuildManager->buildSystemSettings();
 		return $this->render('Install/system_settings.html.twig',
 			[
 				'manager' => $systemBuildManager,

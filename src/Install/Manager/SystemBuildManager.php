@@ -47,6 +47,11 @@ class SystemBuildManager
 	private $projectDir;
 
 	/**
+	 * @var bool
+	 */
+	private $systemSettingsInstalled = false;
+
+	/**
 	 * DatabaseManager constructor.
 	 *
 	 * @param EntityManagerInterface       $entityManager
@@ -156,12 +161,15 @@ class SystemBuildManager
 		$installed = $version;
 		$software = VersionManager::VERSION;
 
+		$this->systemSettingsInstalled = true;
 
 		if (version_compare($installed, $software, '>='))
 			return true;
 
-		$list = VersionManager::listSettings();
+		$this->systemSettingsInstalled = false;
 
+		$list = VersionManager::listSettings();
+dump(version_compare($installed, $software, '<'));
 		while (version_compare($installed, $software, '<'))
 		{
 			foreach($list as $version=>$class)
@@ -197,8 +205,10 @@ class SystemBuildManager
 			}
 
 			if (version_compare($installed, $software, '='))
+			{
+				$this->systemSettingsInstalled = true;
 				sleep(1);//$this->getSettingManager()->set('version', $installed);
-			elseif (version_compare($installed, $software, '<'))
+			}elseif (version_compare($installed, $software, '<'))
 				trigger_error('You need to supply a setting class for version '. $software);
 			elseif (version_compare($installed, $software, '>'))
 				trigger_error('The setting class is trying to install a version ('.$installed.') greater than the software version ('.$software.').');
@@ -254,5 +264,13 @@ class SystemBuildManager
 		$this->tokenStorage->setToken($token);
 
 		return ;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isSystemSettingsInstalled(): bool
+	{
+		return $this->systemSettingsInstalled;
 	}
 }
