@@ -1,0 +1,32 @@
+App\Entity\Term:
+    type: entity
+    table: calendar_term
+    repositoryClass: App\Repository\YearRepository
+    uniqueConstraints:
+        name_calendar:
+            columns: [ name, calendar_id ]
+        nameShort_calendar:
+            columns: [ nameShort, calendar_id ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        nameShort:
+            type: string
+            length: '6'
+        firstDay:
+            type: date
+        lastDay:
+            type: date
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            inversedBy: terms
+            joinColumn:
+                name: calendar_id
+                referencedColumnName: id

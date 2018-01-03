@@ -136,41 +136,6 @@ class MiscellaneousType extends AbstractType
 						'help' => 'misc.password.specials.help',
 				]
 			)
-			->add('userEmail', EmailType::class,
-				[
-					'label'       => 'misc.email.label',
-						'help' => 'misc.email.help',
-					'constraints' => [
-						new NotBlank(),
-						new Email(
-							[
-								'strict'  => true,
-								'checkMX' => true,
-							]
-						),
-					],
-				]
-			)
-			->add('userName', TextType::class,
-				[
-					'label'       => 'misc.username.label',
-						'help' => 'misc.username.help',
-					'required'    => false,
-					'constraints' => [
-						new NotBlank(),
-					],
-				]
-			)
-			->add('userPassword', TextType::class,
-				[
-					'label'       => 'misc.password.label',
-						'help' => 'misc.password.help',
-					'constraints' => [
-						new NotBlank(),
-						new Password(['details' => $options['data']]),
-					],
-				]
-			)
 			->add('googleOAuth', ToggleType::class,
 				[
 					'label'  => 'misc.google.oauth.label',

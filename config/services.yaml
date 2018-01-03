@@ -15,7 +15,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests}'
+        exclude: '../src/{Entity,Migrations,Tests,Voter,Core\Util}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -49,10 +49,14 @@ services:
         tags:
           - { name: monolog.logger, channel: mailer }
           - { name: "swiftmailer.default.plugin" }
-    App\Core\Listener\ModifyRowListener:
+    app.voter.setting_voter:
+        class: App\Voter\SettingVoter
+        arguments:
+            - 'ROLE_'
         tags:
-            - { name: doctrine.event_listener, event: preUpdate }
-            - { name: doctrine.event_listener, event: prePersist }
-    App\Install\Listener\InstallListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request }
+            - { name: security.voter, priority: 250 }
+        public: true
+    App\Core\Util\UserManager:
+        arguments:
+            - '@security.token_storage'
+            - '@doctrine.orm.default_entity_manager'

@@ -1,0 +1,34 @@
+App\Entity\CalendarGroup:
+    type: entity
+    table: calendar_group
+    repositoryClass: App\Repository\CalendarGroupRepository
+    uniqueConstraints:
+        calendar_short:
+            columns:
+                - name_short
+                - calendar_id
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nameShort:
+            type: string
+            length: '8'
+            column: name_short
+        name:
+            type: string
+            length: 24
+        sequence:
+            type: integer
+            length: 2
+        website:
+            type: string
+            length: 200
+            nullable: true
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            inversedBy: calendarGroups
+            cascade: ['persist']

@@ -17,7 +17,7 @@
     {% if not x %}
         {{ proceedButton({'windowOpen': {'route': path("install_database")}})|raw }}
     {% else %}
-        {{ proceedButton({'windowOpen': {'route': path("install_system_settings")}})|raw }}
+        {{ proceedButton({'windowOpen': {'route': path("install_user")}})|raw }}
     {% endif %}
     {% set messages = manager.messages %}
     {% include 'Default/messages.html.twig' with {element: 'p'} %}

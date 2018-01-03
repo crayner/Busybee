@@ -27,33 +27,6 @@
     {% include 'Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'Install'} %}
 
     <div id="form_body">
-        {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="card col-6">
-                    {{ form_row(form.userEmail) }}
-                </div>
-                <div class="card col-6">
-                    {{ form_row(form.userName) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="card col-6 ">
-                    {{ form_row(form.userPassword) }}
-                </div>
-                <div class="card col-6">
-                    <div class="form-group">
-                        <button type="button" id="generatePassword" class="btn btn-info"
-                                style="float: right;">{{ 'misc.password1.generate'|trans }}</button>
-                        <div class="small text-info"
-                             style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': config.misc.passwordMinLength, '%numbers%': config.misc.passwordNumbers, '%mixedCase%': config.misc.passwordMixedCase, '%specials%': config.misc.passwordSpecials}) }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% include 'Page/panelEnd.html.twig' %}
-
-
         {% include 'Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'Install', panelStyle: 'default'} %}
         <div class="container-fluid">
             <div class="row">
@@ -137,17 +110,11 @@
     </div>
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
-{% dump config %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
     {% include 'Script/toggle.html.twig' %}
     {% include 'Script/fadeAlert.html.twig' %}
-    <script type="text/javascript" language="JavaScript">
-        $("#generatePassword").on('click', function () {
-            $('#install_miscellaneous_userPassword').val('{{ config.generatePassword }}');
-        });
-    </script>
     {% include 'Script/messages.html.twig' %}
 {% endblock javascripts %}

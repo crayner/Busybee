@@ -1,25 +1,25 @@
 <?php
 namespace App\Core\Manager;
 
-use Hillrange\Security\Manager\PageManager;
-use Hillrange\Security\Repository\PageRepository;
+use Hillrange\Security\Util\PageManager;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
+use Symfony\Component\Yaml\Yaml;
 
-class MenuManager
+class MenuManager extends MenuManagerConstants
 {
-	/**
-	 * @var PageManager|object
-	 */
-	protected $pageManager;
-
 	/**
 	 * @var object|\Symfony\Component\Security\Core\Authorization\AuthorizationChecker
 	 */
 	private $checker;
 
+	/**
+	 * @var PageManager
+	 */
+	private $pageManager;
 	/**
 	 * @var array
 	 */
@@ -41,25 +41,29 @@ class MenuManager
 	private $routerManager;
 
 	/**
+	 * @var ContainerInterface
+	 */
+	private $container;
+
+	/**
 	 * MenuManager constructor.
 	 *
 	 * @param PageManager                   $pageManager
 	 * @param AuthorizationCheckerInterface $authChecker
-	 * @param PageRepository                $pageRepository
 	 * @param RouterManager                 $routerManager
 	 */
-	public function __construct(PageManager $pageManager, AuthorizationCheckerInterface $authChecker, PageRepository $pageRepository, RouterManager $routerManager)
+	public function __construct(PageManager $pageManager, AuthorizationCheckerInterface $authChecker, RouterManager $routerManager, ContainerInterface $container)
 	{
 		$this->pageManager = $pageManager;
-
 		$this->checker = $authChecker;
+		$this->container = $container;
 
 		$this->routerManager = $routerManager;
 
 		$x = [];
 		try
 		{
-			$x = $pageRepository->findAll();
+			$x = $this->pageManager->getPageRepository()->findAll();
 		} catch (TableNotFoundException $e) {
 		} catch (ConnectionException $e) {
 		}
@@ -84,7 +88,8 @@ class MenuManager
 		if (!empty($this->nodes))
 			return $this->nodes;
 
-		$nodes = $this->container->getParameter('nodes');
+		$nodes = $this->getNodes();
+
 		$nodes = $this->msort($nodes, 'order');
 		foreach ($nodes as $q => $node)
 		{
@@ -125,7 +130,7 @@ class MenuManager
 	{
 		if (!empty($this->nodeItems[$node]))
 			return $this->nodeItems[$node];
-		$items  = $this->container->getParameter('items');
+		$items  = $this->getItems();
 		$result = [];
 		foreach ($items as $w)
 		{
@@ -299,7 +304,7 @@ class MenuManager
 	 */
 	public function menuRequired($menu)
 	{
-		$items = $this->container->getParameter('items');
+		$items = $this->getItems();
 		foreach ($items as $item)
 			if (intval($menu) == intval($item['node']))
 				return true;
@@ -350,5 +355,21 @@ class MenuManager
 		}
 
 		return $sections;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getNodes()
+	{
+		return Yaml::parse(str_replace("\t", "    ", MenuManagerConstants::NODES));
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getItems()
+	{
+		return Yaml::parse(str_replace("\t", "    ", MenuManagerConstants::ITEMS));
 	}
 }

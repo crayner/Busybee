@@ -1,0 +1,32 @@
+{# src/Busybee/HomeBundle/Resources/views/Menu/dropdown.html.twig #}
+
+{% trans_default_domain "home" %}
+
+{% if (menu.role is defined and is_granted(menu.role)) or menu.role is not defined %}
+    {% if (menu.test is defined and test_menuItem(menu.test)) or menu.test is not defined %}
+        {% if menu_required(menu.menu) %}
+            <li class="dropdown">
+                {% set translate = 'home' %}{% if menu.translate is defined %}{% set translate = menu.translate %}{% endif %}
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false" data-submenu>{{ menu.label|trans({}, translate) }}<span
+                            class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    {% for drop in get_menuItems(menu.menu) %}
+                        {% if (drop.role is defined and is_granted(drop.role)) or drop.role is not defined %}
+                            {% if (drop.test is defined and test_menuItem(drop.test)) or drop.test is not defined %}
+                                {% if drop.menu is defined %}
+                                    {% include '@BusybeeTemplate/Menu/submenu.html.twig' with {'menu': drop} %}
+                                {% elseif drop.route is defined %}
+                                    {% set translate = 'home' %}{% if drop.translate is defined %}{% set translate = drop.translate %}{% endif %}
+                                    <li>
+                                        <a href="{{ path(drop.route, drop.parameters) }}">{{ drop.label|trans({}, translate) }}</a>
+                                    </li><!-- {{ drop.order }} -->
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li><!-- {{ menu.order }} -->
+        {% endif %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,45 @@
+App\Entity\Calendar:
+    type: entity
+    table: calendar
+    repositoryClass: App\Repository\CalendarRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+            unique: true
+        firstDay:
+            type: date
+        lastDay:
+            type: date
+        status:
+            type: string
+            length: '20'
+        downloadCache:
+            column: download_cache
+            nullable: true
+            length: 150
+            type: string
+        importIdentifier:
+            column: import_identifier
+            nullable: true
+            type: integer
+            length: 3
+    oneToMany:
+        terms:
+            targetEntity: App\Entity\Term
+            mappedBy: calendar
+            cascade: [persist, remove]
+        specialDays:
+            targetEntity: App\Entity\SpecialDay
+            mappedBy: calendar
+            cascade: [persist, remove]
+        calendarGroups:
+            targetEntity: App\Entity\CalendarGroup
+            mappedBy: calendar
+            cascade: [persist, remove]
+            orderBy: { sequence: ASC }

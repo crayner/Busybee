@@ -19,3 +19,5 @@ framework:
         name: '%session_name%'
         cookie_lifetime: 0
         save_path: '%kernel.project_dir%/var/sessions'
+    csrf_protection:
+        enabled: true

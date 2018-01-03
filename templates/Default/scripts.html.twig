@@ -1,28 +1,29 @@
 <!-- core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+{%  trans_default_domain 'home' %}
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 
 {% if app.getUser is not empty %}
-    <script src={{ asset('js/dist/store.modern.min.js') }}></script>
-    <script src={{ asset('js/jquery-idleTimeout.js') }}></script>
+    {% include '@hillrange_security/security/scripts.html.twig' %}
     <script src={{ asset('js/bootstrap-submenu.min.js') }}></script>
     <script type="text/javascript" charset="utf-8">
         // idleTimeout
         $(document).ready(function () {
             $(document).idleTimeout({
-                dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans({}, 'BusybeeHomeBundle') }}',
-                dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans({}, 'BusybeeHomeBundle') }}',
-                dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans({}, 'BusybeeHomeBundle') }}',
+                dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans }}',
+                dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans }}',
+                dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans }}',
                 idleTimeLimit: {{ get_setting('idleTimeout', 15) * 60 - 30 }},
                 dialogDisplayLimit: 30,
                 activityEvents: 'click keypress scroll wheel mousewheel',
                 sessionKeepAliveTimer: false,
-                dialogTitle: '{{ 'idletimeout.title'|trans({}, 'BusybeeHomeBundle') }}',
-                dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
+                dialogTitle: '{{ 'idletimeout.title'|trans }}',
+                dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}) }}',
                 redirectUrl: '{{ path('hillrange_security_timeout') }}',
                 customCallback: function () {
                     var close = '{{ app.request.get('closeWindow') }}';

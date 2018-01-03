@@ -20,7 +20,7 @@ class InstallManager
 	/**
 	 * @var string
 	 */
-	private $projectDir;
+	protected $projectDir;
 
 	/**
 	 * @var bool
@@ -273,7 +273,7 @@ class InstallManager
 				$env[$q] = trim($env[$q]);
 			}
 			$env = implode($env, "\r\n");
-dump($env);
+
 			$this->mailerSaved = file_put_contents($this->projectDir.'/.env', $env);
 		}
 
@@ -418,53 +418,6 @@ dump($env);
 		return $this->misc;
 	}
 
-	public function generatePassword()
-	{
-		$source = 'abcdefghijklmnopqrstuvwxyz';
-		if ($this->misc->isPasswordNumbers())
-			$source .= '0123456789';
-		if ($this->misc->isPasswordMixedCase())
-			$source .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		if ($this->misc->isPasswordSpecials())
-			$source .= '#?!@$%^+=&*-';
-
-		do {
-			$password = '';
-			for($x = 0; $x < $this->misc->getPasswordMinLength(); $x++)
-				$password .= substr($source, random_int(0, strlen($source) - 1), 1);
-		} while (! $this->isPasswordValid($password, $this->misc));
-
-		return $password;
-	}
-
-	/**
-	 * Is Password Valid
-	 *
-	 * @param               $password
-	 * @param Miscellaneous $misc
-	 *
-	 * @return bool
-	 */
-	public function isPasswordValid($password, Miscellaneous $misc)
-	{
-		if ($misc instanceof Miscellaneous)
-		{
-			$pattern = "/^(.*(?=.*[a-z])";
-			if ($misc->isPasswordMixedCase())
-				$pattern .= "(?=.*[A-Z])";
-
-			if ($misc->isPasswordNumbers())
-				$pattern .= "(?=.*[0-9])";
-
-			if ($misc->isPasswordSpecials())
-				$pattern .= "(?=.*?[#?!@$%^+=&*-])";
-			$pattern .= ".*){" . $misc->getPasswordMinLength() . ",}$/";
-
-			return (preg_match($pattern, $password) === 1);
-		}
-		return false;
-	}
-
 	/**
 	 * @return bool
 	 */
@@ -473,6 +426,12 @@ dump($env);
 		return $this->miscSaved;
 	}
 
+	/**
+	 * @param bool $useDatabase
+	 *
+	 * @return \Doctrine\DBAL\Connection
+	 * @throws \Doctrine\DBAL\DBALException
+	 */
 	public function getConnection($useDatabase = true)
 	{
 		$config = new \Doctrine\DBAL\Configuration();

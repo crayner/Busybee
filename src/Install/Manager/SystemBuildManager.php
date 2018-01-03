@@ -4,20 +4,23 @@ namespace App\Install\Manager;
 use App\Core\Definition\SettingInterface;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
+use App\Entity\Calendar;
 use App\Entity\Setting;
 use Hillrange\Security\Entity\User;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Hillrange\Security\Util\PasswordManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class SystemBuildManager
+class SystemBuildManager extends InstallManager
 {
 	/**
-	 * @var EntityManager
+	 * @var EntityManagerInterface
 	 */
 	private $entityManager;
 
@@ -32,19 +35,9 @@ class SystemBuildManager
 	private $settingManager;
 
 	/**
-	 * @var TokenStorageInterface
+	 * @var PasswordManager
 	 */
-	private $tokenStorage;
-
-	/**
-	 * @var UserPasswordEncoderInterface
-	 */
-	private $encoder;
-
-	/**
-	 * @var string
-	 */
-	private $projectDir;
+	private $passwordManager;
 
 	/**
 	 * @var bool
@@ -58,13 +51,13 @@ class SystemBuildManager
 	 * @param SettingManager               $settingManager
 	 * @param UserPasswordEncoderInterface $encoder
 	 */
-	public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager, UserPasswordEncoderInterface $encoder, TokenStorageInterface $tokenStorage)
+	public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager, ContainerInterface $container, PasswordManager $passwordManager)
 	{
 		$this->entityManager = $entityManager;
 		$this->messages = new MessageManager('Install');
 		$this->settingManager = $settingManager;
-		$this->encoder = $encoder;
-		$this->tokenStorage = $tokenStorage;
+		$this->passwordManager = $passwordManager;
+		parent::__construct($container->getParameter('kernel.project_dir'));
 	}
 
 	/**
@@ -169,7 +162,7 @@ class SystemBuildManager
 		$this->systemSettingsInstalled = false;
 
 		$list = VersionManager::listSettings();
-dump(version_compare($installed, $software, '<'));
+
 		while (version_compare($installed, $software, '<'))
 		{
 			foreach($list as $version=>$class)
@@ -215,53 +208,55 @@ dump(version_compare($installed, $software, '<'));
 		}
 
 		return false;
-
-
-		$this->addMessage('success', 'bundle.update.resource.success', ['%resource%' => $resource]);
 	}
 
 	/**
 	 * @param string $projectDir
+	 * @param array  $data
 	 *
 	 * @return void
 	 */
-	public function writeSystemUser(string $projectDir)
+	public function writeSystemUser(string $projectDir, array $userParams = [])
 	{
-		$this->projectDir = $projectDir; dump($this);
-		$params = Yaml::parse(file_get_contents($projectDir.'/config/packages/busybee.yaml'));
+		$this->projectDir = $projectDir;
 
 		$user = $this->entityManager->getRepository(User::class)->find(1);
 
-		if (! isset($params['parameters']['user_name']))
+		if (empty($userParams) || empty($userParams['_username']))
 			return ;
 
 		if (! $user instanceof User)
 			$user = new User();
 
 		$user->setInstaller(true);
-		$user->setUsername($params['parameters']['user_name']);
-		$user->setUsernameCanonical($params['parameters']['user_name']);
-		$user->setEmail($params['parameters']['user_email']);
-		$user->setEmailCanonical($params['parameters']['user_email']);
+		$user->setUsername($userParams['_username']);
+		$user->setUsernameCanonical($userParams['_username']);
+		$user->setEmail($userParams['_email']);
+		$user->setEmailCanonical($userParams['_email']);
 		$user->setLocale('en');
 		$user->setLocked(false);
 		$user->setExpired(false);
 		$user->setCredentialsExpired(false);
 		$user->setEnabled(true);
 		$user->setDirectroles(['ROLE_SYSTEM_ADMIN']);
-		$password = $this->encoder->encodePassword($user, $params['parameters']['user_password']);
+		$password = $this->passwordManager->encodePassword($user, $userParams['_password']);
 		$user->setPassword($password);
 
 		$this->entityManager->persist($user);
 		$this->entityManager->flush();
 
-		unset($params['parameters']['user_name'], $params['parameters']['user_password'], $params['parameters']['user_email']);
+		$cal = new Calendar();
+		$cal->setName(date('Y'));
+		$cal->getFirstDay(new \DateTime($this->getName(),'-01-01'));
+		$cal->getLastDay(new \DateTime($this->getName(),'-12-31'));
+		$cal->setStatus('current');
+		$this->entityManager->persist($cal);
+		$this->entityManager->flush();
 
-		file_put_contents($this->projectDir.'/config/packages/busybee.yaml', Yaml::dump($params));
+		$user->setUserSetting('Calendar', $cal, 'object');
 
-		$token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
-
-		$this->tokenStorage->setToken($token);
+		$this->entityManager->persist($user);
+		$this->entityManager->flush();
 
 		return ;
 	}
@@ -272,5 +267,29 @@ dump(version_compare($installed, $software, '<'));
 	public function isSystemSettingsInstalled(): bool
 	{
 		return $this->systemSettingsInstalled;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isUserDefined()
+	{
+		$user = $this->entityManager->getRepository(User::class)->find(1);
+
+		if ($user)
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * @param Request $request
+	 * @param Form    $form
+	 */
+	public function handleUserParameters(Request $request, Form $form)
+	{
+		$form->handleRequest($request);
+
+		dump($form);
 	}
 }

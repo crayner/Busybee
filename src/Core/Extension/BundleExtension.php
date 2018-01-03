@@ -1,7 +1,6 @@
 <?php
 namespace App\Core\Extension;
 
-
 use App\Core\Manager\BundleManager;
 use Twig\Extension\AbstractExtension;
 

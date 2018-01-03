@@ -324,6 +324,6 @@ class VersionManager
 	 */
 	public function isUpToDate()
 	{
-		return version_compare(self::VERSION, $this->version, '<');
+		return version_compare(self::VERSION, $this->version, '>=');
 	}
 }

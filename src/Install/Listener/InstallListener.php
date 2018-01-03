@@ -4,6 +4,7 @@ namespace App\Install\Listener;
 use App\Core\Manager\TableManager;
 use App\Entity\Setting;
 use App\Install\Manager\InstallManager;
+use App\Install\Manager\SystemBuildManager;
 use App\Install\Manager\VersionManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -34,6 +35,11 @@ class InstallListener implements EventSubscriberInterface
 	private $versionManager;
 
 	/**
+	 * @var SystemBuildManager
+	 */
+	private $systemBuildManager;
+
+	/**
 	 * @param GetResponseEvent $event
 	 *
 	 * @return void
@@ -46,12 +52,16 @@ class InstallListener implements EventSubscriberInterface
 					'install_check_mailer_parameters',
 					'install_misc_check',
 					'install_database',
-					'install_system_settings',
+					'install_user',
+					'update_system_settings',
+					'login',
 				]
 			)
-		) return null;
+		) return ;
 
-		dump($this);die();
+		if (strpos($event->getRequest()->get('_route'), '_') === 0)
+			return;
+
 
 		// Test for db installation.
 		$response = null;
@@ -60,19 +70,16 @@ class InstallListener implements EventSubscriberInterface
 		// Are the database settings correct?
 		if (! $this->installManager->testConnected())
 			$response = new RedirectResponse($this->router->generate('install_build'));
-
-		// Can I connect to the databse
-		if (! $this->installManager->hasDatabase())
+		elseif (! $this->installManager->hasDatabase()) // Can I connect to the database
 			$response = new RedirectResponse($this->router->generate('install_database'));
-
-		// Are the database tables installed?
-		if (false === $this->tableManager->isTableInstalled(Setting::class))
+		elseif (false === $this->tableManager->isTableInstalled(Setting::class))// Are the database tables installed?
 			$response = new RedirectResponse($this->router->generate('install_database'));
+		elseif (false === $this->systemBuildManager->isUserDefined())// Are the database tables installed?
+			$response = new RedirectResponse($this->router->generate('install_user'));
+		elseif (! $this->versionManager->isUpToDate())
+			$response = new RedirectResponse($this->router->generate('update_system_settings'));
 
-		if (! $this->versionManager->isUpToDate())
-			$response = new RedirectResponse($this->router->generate('install_system_settings'));
-
-		if (! empty($response))
+		if (! is_null($response))
 			$event->setResponse($response);
 
 		return ;
@@ -91,14 +98,18 @@ class InstallListener implements EventSubscriberInterface
 	/**
 	 * InstallListener constructor.
 	 *
-	 * @param RouterInterface $router
-	 * @param InstallManager  $installManager
+	 * @param RouterInterface    $router
+	 * @param InstallManager     $installManager
+	 * @param TableManager       $tableManager
+	 * @param VersionManager     $versionManager
+	 * @param SystemBuildManager $systemBuildManager
 	 */
-	public function __construct(RouterInterface $router, InstallManager $installManager, TableManager $tableManager, VersionManager $versionManager)
+	public function __construct(RouterInterface $router, InstallManager $installManager, TableManager $tableManager, VersionManager $versionManager, SystemBuildManager $systemBuildManager)
 	{
 		$this->router           = $router;
 		$this->installManager   = $installManager;
 		$this->tableManager     = $tableManager;
 		$this->versionManager   = $versionManager;
+		$this->systemBuildManager    = $systemBuildManager;
 	}
 }

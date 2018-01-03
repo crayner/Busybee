@@ -4,6 +4,7 @@ namespace App\Core\Manager;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Hillrange\Security\Entity\User;
+use Hillrange\Security\Exception\UnauthorisedUserException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -290,7 +291,10 @@ class SettingManager implements ContainerAwareInterface
 		$this->setting = $this->settingRepo->findOneByName($name);
 		if (is_null($this->setting) || empty($this->setting->getName()))
 			return $this;
-		if (true !== $this->authorisatiion->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName(), 'role%' => $this->setting->getRole()])) return $this;
+
+		if (! $this->authorisation->isGranted($this->setting->getRole(), $this->setting))
+			return $this;
+
 		switch ($this->setting->getType())
 		{
 			case 'string':
@@ -375,7 +379,7 @@ class SettingManager implements ContainerAwareInterface
 	/**
 	 * @return myContainer
 	 */
-	public function getContainer(): myContainer
+	public function getContainer(): ?ContainerInterface
 	{
 		return $this->container;
 	}

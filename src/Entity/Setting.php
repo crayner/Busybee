@@ -2,6 +2,8 @@
 namespace App\Entity;
 
 use App\Core\Exception\Exception;
+use Hillrange\Security\Util\UserTrackInterface;
+use Hillrange\Security\Util\UserTrackTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Yaml\Yaml;
@@ -9,8 +11,10 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Setting
  */
-class Setting
+class Setting implements UserTrackInterface
 {
+	use UserTrackTrait;
+
 	/**
 	 * @var integer
 	 */
@@ -32,16 +36,6 @@ class Setting
 	private $value;
 
 	/**
-	 * @var \DateTime
-	 */
-	private $lastModified;
-
-	/**
-	 * @var \DateTime
-	 */
-	private $createdOn;
-
-	/**
 	 * @var boolean
 	 */
 	private $securityActive;
@@ -50,18 +44,12 @@ class Setting
 	 * @var string
 	 */
 	private $choice;
+
 	/**
 	 * @var string
 	 */
 	private $role;
-	/**
-	 * @var \Hillrange\Security\Entity\User
-	 */
-	private $createdBy;
-	/**
-	 * @var \Hillrange\Security\Entity\User
-	 */
-	private $modifiedBy;
+
 	/**
 	 * @var string
 	 */
@@ -165,54 +153,6 @@ class Setting
 	}
 
 	/**
-	 * Get lastModified
-	 *
-	 * @return \DateTime
-	 */
-	public function getLastModified()
-	{
-		return $this->lastModified;
-	}
-
-	/**
-	 * Set lastModified
-	 *
-	 * @param \DateTime $lastModified
-	 *
-	 * @return Setting
-	 */
-	public function setLastModified($lastModified)
-	{
-		$this->lastModified = $lastModified;
-
-		return $this;
-	}
-
-	/**
-	 * Get createdOn
-	 *
-	 * @return \DateTime
-	 */
-	public function getCreatedOn()
-	{
-		return $this->createdOn;
-	}
-
-	/**
-	 * Set createdOn
-	 *
-	 * @param \DateTime $createdOn
-	 *
-	 * @return Setting
-	 */
-	public function setCreatedOn($createdOn)
-	{
-		$this->createdOn = $createdOn;
-
-		return $this;
-	}
-
-	/**
 	 * Get role
 	 *
 	 * @return string
@@ -256,54 +196,6 @@ class Setting
 	public function setSecurityActive($sa = true)
 	{
 		$this->securityActive = $sa;
-
-		return $this;
-	}
-
-	/**
-	 * Get createdBy
-	 *
-	 * @return \Hillrange\Security\Entity\User
-	 */
-	public function getCreatedBy()
-	{
-		return $this->createdBy;
-	}
-
-	/**
-	 * Set createdBy
-	 *
-	 * @param \Hillrange\Security\Entity\User $createdBy
-	 *
-	 * @return Setting
-	 */
-	public function setCreatedBy(\Hillrange\Security\Entity\User $createdBy = null)
-	{
-		$this->createdBy = $createdBy;
-
-		return $this;
-	}
-
-	/**
-	 * Get modifiedBy
-	 *
-	 * @return \Hillrange\Security\Entity\User
-	 */
-	public function getModifiedBy()
-	{
-		return $this->modifiedBy;
-	}
-
-	/**
-	 * Set modifiedBy
-	 *
-	 * @param \Hillrange\Security\Entity\User $modifiedBy
-	 *
-	 * @return Setting
-	 */
-	public function setModifiedBy(\Hillrange\Security\Entity\User $modifiedBy = null)
-	{
-		$this->modifiedBy = $modifiedBy;
 
 		return $this;
 	}
@@ -409,6 +301,8 @@ class Setting
 	 */
 	private function getArray(): array
 	{
+		if (empty($this->value))
+			return [];
 		return Yaml::parse($this->value);
 	}
 

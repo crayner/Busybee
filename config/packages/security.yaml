@@ -1,14 +1,12 @@
 security:
-    # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     encoders:
         Hillrange\Security\Entity\User:
             algorithm: bcrypt
-            cost:      15
+            cost:      13
     providers:
-        App\Core\Provider\UserProvider:
+        hillrange_security_user_provider:
             entity:
                 class:              Hillrange\Security\Entity\User
-                property:           username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -16,13 +14,44 @@ security:
         main:
             anonymous: ~
             form_login:
-                login_path: hillrange_security_login
-                check_path: hillrange_security_login
-
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # https://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # https://symfony.com/doc/current/cookbook/security/form_login_setup.html
+                login_path:           login
+                check_path:           login
+                csrf_parameter:       'login[_token]'
+                csrf_token_id:        authenticate
+                csrf_token_generator: security.csrf.token_manager
+                username_parameter:   'login[_username]'
+                password_parameter:   'login[_password]'
+            provider:                 hillrange_security_user_provider
+            logout:
+                path:   logout
+                target: home
+            remember_me: false
+#                secret:   '%env(APP_SECRET)%'
+#                name:     '%session_name%_remember_me'
+#                lifetime: 43200 # 12 hours in seconds
+#                path:     /
+#                secure:   false
+#                remember_me_parameter: 'login[_remember_me]'
+            switch_user: true
+    role_hierarchy:
+        ROLE_USER: ~
+        ROLE_ALLOWED_TO_SWITCH: ~
+        ROLE_PARENT: ~
+        ROLE_STUDENT: ~
+        ROLE_STAFF: ~
+        ROLE_TEACHER:
+            - ROLE_ALLOWED_TO_SWITCH
+            - ROLE_STUDENT
+            - ROLE_STAFF
+        ROLE_HEAD_TEACHER:
+            - ROLE_TEACHER
+        ROLE_PRINCIPAL:
+            - ROLE_HEAD_TEACHER
+        ROLE_ADMIN:
+            - ROLE_ALLOWED_TO_SWITCH
+        ROLE_REGISTRAR:
+            - ROLE_PRINCIPAL
+            - ROLE_ADMIN
+        ROLE_SYSTEM_ADMIN:
+            - ROLE_REGISTRAR
+            - ROLE_PARENT

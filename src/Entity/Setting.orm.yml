@@ -39,20 +39,3 @@ App\Entity\Setting:
         role:
             type: string
             length: 64
-        lastModified:
-            type: datetime
-            column: last_modified
-        createdOn:
-            type: datetime
-            column: created_on
-    manyToOne:
-        createdBy:
-            targetEntity: Hillrange\Security\Entity\User
-            joinColumn:
-                name: created_by
-                referencedColumnName: id
-        modifiedBy:
-            targetEntity: Hillrange\Security\Entity\User
-            joinColumn:
-                name: modified_by
-                referencedColumnName: id

@@ -4,14 +4,16 @@ namespace App\Controller;
 use App\Core\Manager\MessageManager;
 use App\Install\Form\MailerType;
 use App\Install\Form\MiscellaneousType;
+use App\Install\Form\UserType;
 use App\Install\Manager\SystemBuildManager;
 use App\Install\Manager\VersionManager;
 use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Install\Organism\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class InstallController extends Controller
 {
@@ -286,18 +288,47 @@ class InstallController extends Controller
 
 	/**
 	 * @param Request $request
-	 * @Route("/install/system/settings/", name="install_system_settings")
+	 * @Route("/install/user/", name="install_user")
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function installSytemSettings(SystemBuildManager $systemBuildManager)
+	public function installUser(Request $request, SystemBuildManager $systemBuildManager, AuthenticationUtils $authUtils = null)
 	{
-		$systemBuildManager->buildDatabase();
+		$user = new User();
 
-		$systemBuildManager->buildSystemSettings();
-		return $this->render('Install/system_settings.html.twig',
+		$user->setPasswordNumbers($this->getParameter('password_numbers'));
+		$user->setPasswordMixedCase($this->getParameter('password_mixed_case'));
+		$user->setPasswordSpecials($this->getParameter('password_specials'));
+		$user->setPasswordMinLength($this->getParameter('password_min_length'));
+
+		$form = $this->createForm(UserType::class, $user);
+
+		$systemBuildManager->handleUserParameters($request, $form);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$systemBuildManager->writeSystemUser($this->getParameter('kernel.project_dir'), $request->get('install_user'));
+
+			$data = $request->get('install_user');
+			$request->request->set('_username', $data['_username']);
+			$request->request->set('_password', $data['_password']);
+			$request->request->set('_target_path', $this->generateUrl('install_user'));
+
+			// get the login error if there is one
+			$error = is_null($authUtils) ? null : $authUtils->getLastAuthenticationError();
+			if (! empty($error))
+				$systemBuildManager->getMessages()->add('danger', $error);
+
+			dump($error);
+dump($authUtils);die();
+		}
+
+
+		return $this->render('Install/user.html.twig',
 			[
 				'manager' => $systemBuildManager,
+				'projectDir' => $this->getParameter('kernel.project_dir'),
+				'form' => $form->createView(),
 			]
 		);
 	}

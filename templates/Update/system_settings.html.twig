@@ -13,9 +13,9 @@
     <div class="container-fluid">
         <p class="alert alert-info">{{ 'install.system.progress'|trans }}</p>
     {% if not manager.systemSettingsInstalled %}
-        {{ proceedButton({'windowOpen': {'route': path("install_system_settings")}})|raw }}
+        {{ proceedButton({'windowOpen': {'route': path("update_system_settings")}})|raw }}
     {% else %}
-        {{ proceedButton({'windowOpen': {'route': path("install_system_settings")}})|raw }}
+        {{ proceedButton({'windowOpen': {'route': path("home")}})|raw }}
     {% endif %}
     {% set messages = manager.messages %}
     {% include 'Default/messages.html.twig' with {element: 'p'} %}

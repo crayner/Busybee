@@ -1667,12 +1667,6 @@ Settings.Default.Overwrite:
     description: 'A file name that allows the update process to change the default settings to match the users pre-set details.'
     role: 'ROLE_SYSTEM_ADMIN'
     value: ''
-idleTimeout:
-    type: 'integer'
-    displayName: 'Idle Timeout (Minutes)'
-    description: "Number of minutes that you can leave the screen idle before the system logs out automatically."
-    role: 'ROLE_REGISTRAR'
-    value: 15
 LLL;
 	}
 

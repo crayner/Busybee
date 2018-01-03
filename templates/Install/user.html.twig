@@ -1,0 +1,71 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form "FormTheme/bootstrap.html.twig" %}
+
+{% block menuContainer %}{% endblock menuContainer %}
+
+{% trans_default_domain 'Install' %}
+{% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'Style/toggle.html.twig' %}
+{% endblock stylesheets %}
+
+{% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = '' %}
+    {% if manager.isUserDefined %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("update_system_settings")}}) %}
+    {% endif %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include 'Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'Install'} %}
+
+    <div id="form_body">
+        {% set h3Content = '' %}
+        {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-6">
+                    {{ form_row(form._email) }}
+                </div>
+                <div class="card col-6">
+                    {{ form_row(form._username) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6 ">
+                    {{ form_row(form._password) }}
+                </div>
+                <div class="card col-6">
+                    <div class="form-group">
+                        {{ miscButton({additional: {id: 'generatePassword'}, class: 'btn btn-info', prompt: 'misc.password1.generate', transDomain: 'Install', title: 'misc.password1.generate'})|raw }}
+                        <div class="small text-info"
+                             style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': manager.passwordSetting('min_length'), '%numbers%': manager.passwordSetting('numbers'), '%mixedCase%': manager.passwordSetting('mixed_case'), '%specials%': manager.passwordSetting('specials')}) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'Page/panelEnd.html.twig' %}
+
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
+    {% include 'Script/fadeAlert.html.twig' %}
+    <script type="text/javascript" language="JavaScript">
+        $("#generatePassword").on('click', function () {
+            $('#install_user_userPassword').val('{{ manager.generatePassword }}');
+        });
+    </script>
+    {% include 'Script/messages.html.twig' %}
+{% endblock javascripts %}

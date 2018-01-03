@@ -9,7 +9,7 @@ parameters:
     db_port: 3306
     db_name: craigray_core
     db_user: craigray_core
-    db_pass: 'U!f}6?]V*1Qi'
+    db_pass: 'fAxNp7hdYsBwJ54y'
     db_prefix: bee_
     db_server: mysql
     db_charset: 'utf8mb4'
@@ -41,6 +41,6 @@ doctrine:
                     App:
                         is_bundle: false
                         type: yml
-                        dir: '%kernel.project_dir%/config/doctrine'
+                        dir: '%kernel.project_dir%/src/Entity'
                         prefix: 'App\Entity'
                         alias: App

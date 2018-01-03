@@ -1,0 +1,48 @@
+{# src/Busybee/HomeBundle/Resources/views/Menu/sign-in-form.html.twig #}
+
+{% trans_default_domain "BusybeeHomeBundle" %}
+
+{% if not is_granted('ROLE_USER') %}
+    {% set route = get_parameter('security_routes')['security_user_check'] %}
+    <form class="navbar-form navbar-right" action="{{ path(route) }}" method="post">
+        <div class="form-group">
+            <input type="text" id="username" class="form-control input-sm" name="_username"
+                   value="{{ last_username|default("") }}" placeholder="{{ 'Username/Email'|trans }}"/>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="password" id="password" name="_password" class="form-control input-sm"
+                       placeholder="{{ 'Password'|trans }}"/>
+                <span class="input-group-btn"><button type="submit" class="btn btn-success halflings halflings-log-in"
+                                                      style="min-height: 30px; margin-top: -2px; margin-left: 0px;"></button></span>
+            </div>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+        {% if get_parameter('google.oauth') == 'on' %}
+            <a href="{{ path('google_oauth') }}" title="{{ 'google.oauth'|trans }}"><img
+                        src="{{ asset('img/Google_icon_2015.png') }}" width="35"/></a>
+        {% endif %}
+    </form>
+{% elseif is_granted('ROLE_USER') %}
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">{{ formatUserName(app.user) }}<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('security_user_edit', {id: 'Current'}) }}"
+                       target="_self">{{ 'menu.user.self.manage'|trans([], 'BusybeeHomeBundle') }}</a></li>
+                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                    <li>
+                        <a href="{{ path('home_page', {'_switch_user': '_exit'}) }}">{{ 'Exit Impersonation'|trans }}</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('busybee_security_logout') }}" target="_self">{{ 'Sign Out'|trans }}</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
+{% endif %}
+
+
+
+

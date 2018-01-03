@@ -1,1 +1,15 @@
+parameters:
+    # Minutes until user is forced off the system if idle.
+    idleTimeout: 15
+    security_password_reset_token_ttl: 86400
+    password:
+        min_length: 8
+        specials: false
+        numbers: true
+        mixed_case: true
+    security_routes:
+        security_user_edit: hillrange_security_user_edit
+        security_user_login: login
+        security_user_check: login
+
 hillrange_security:

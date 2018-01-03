@@ -1,0 +1,41 @@
+App\Entity\SpecialDay:
+    type: entity
+    table: calendar_special_day
+    repositoryClass: App\Repository\SpecialDayRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        day:
+            type: date
+            unique: true
+        type:
+            type: string
+            length: '25'
+        name:
+            type: string
+            length: '100'
+        description:
+            type: text
+            nullable: true
+        open:
+            type: time
+            nullable: true
+        start:
+            type: time
+            nullable: true
+        finish:
+            type: time
+            nullable: true
+        close:
+            type: time
+            nullable: true
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            inversedBy: specialDays
+            joinColumn:
+                name: calendar_id
+                referencedColumnName: id

@@ -1,7 +1,7 @@
 <?php
 namespace App\Core\Extension;
 
-use Hillrange\Security\Manager\UserManager;
+use App\Core\Util\UserManager;
 use Twig\Extension\AbstractExtension;
 
 class UserManagerExtension extends AbstractExtension
@@ -29,7 +29,8 @@ class UserManagerExtension extends AbstractExtension
 		return [
 			new \Twig_SimpleFunction('formatUserName', [$this->userManager, 'formatUserName']),
 			new \Twig_SimpleFunction('get_userManager', [$this, 'getUserManager']),
-			new \Twig_SimpleFunction('get_SystemYear', [$this->userManager, 'getSystemYear']),
+			new \Twig_SimpleFunction('get_SystemCalendar', [$this->userManager, 'getSystemCalendar']),
+			new \Twig_SimpleFunction('get_UserSetting', [$this->userManager, 'getUserSetting']),
 		];
 	}
 
