@@ -12,6 +12,7 @@ parameters:
         security_user_login: login
         security_user_check: login
         security_user_logout: logout
+        security_password_forgot: password_request_reset
     firewall_name: main
 
 hillrange_security:

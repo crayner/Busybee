@@ -62,7 +62,6 @@ class InstallListener implements EventSubscriberInterface
 		if (strpos($event->getRequest()->get('_route'), '_') === 0)
 			return;
 
-
 		// Test for db installation.
 		$response = null;
 

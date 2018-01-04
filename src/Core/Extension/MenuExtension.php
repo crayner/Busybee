@@ -1,32 +1,22 @@
 <?php
 namespace App\Core\Extension;
 
-use App\Core\Manager\BundleManager;
+use App\Core\Manager\MenuManager;
 use Twig\Extension\AbstractExtension;
 
-class BundleExtension extends AbstractExtension
+class MenuExtension extends AbstractExtension
 {
 	/**
-	 * @var BundleManager
+	 * @var MenuManager
 	 */
 	private $manager;
-
-	/**
-	 * ButtonExtension constructor.
-	 *
-	 * @param BundleManager $manager
-	 */
-	public function __construct(BundleManager $manager)
-	{
-		$this->manager = $manager;
-	}
 
 	/**
 	 * @return string
 	 */
 	public function getName()
 	{
-		return 'bundle_manager_extension';
+		return 'menu_extension';
 	}
 
 	/**
@@ -37,5 +27,10 @@ class BundleExtension extends AbstractExtension
 		return array(
 			new \Twig_SimpleFunction('sectionMenuTest', array($this->manager, 'sectionMenuTest')),
 		);
+	}
+
+	public function __construct(MenuManager $manager)
+	{
+		$this->manager = $manager;
 	}
 }

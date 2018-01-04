@@ -9,6 +9,6 @@
 {% block headerLead %}{{ 'acknowledgement.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% include 'Acknowledgement/acknowledgementContent.html.twig' %}
+    {% include 'Acknowledgement/acknowledgementContent.html.twig' with {versions: manager.acknowledgements} %}
 {% endblock contentContainer %}
 

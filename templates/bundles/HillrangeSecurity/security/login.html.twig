@@ -1,0 +1,18 @@
+{# src/General/SecurityBundle/Resources/views/Security/login.html.twig #}
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'security' %}
+{% block title %}{{ 'security.login.login.label'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'security.login.login.label'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'security.login.login.description'|trans }}{% endblock headerLead %}
+
+
+{% block SecurityBundleContent %}
+    {% block contentContainer %}
+        {% include "@hillrange_security/security/login_content.html.twig" %}{% endblock contentContainer %}
+{% endblock SecurityBundleContent %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/fadeAlert.html.twig' %}
+{% endblock javascripts %}

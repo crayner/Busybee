@@ -39,6 +39,7 @@ class HomeController extends Controller
 				'versions'      => $versions,
 				'majorProblems' => $SymfonyRequirements->getFailedRequirements(),
 				'minorProblems' => $SymfonyRequirements->getFailedRecommendations(),
+				'manager'       => $versionManager,
 			]
 		);
 	}
