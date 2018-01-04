@@ -1,7 +1,30 @@
 {# src/Busybee/HomeBundle/Resources/views/Menu/main-menu.html.twig #}
 
-{% trans_default_domain "BusybeeHomeBundle" %}
+{% trans_default_domain "home" %}
 <section class="hideSection">
+    <div class="container theme-showcase bg-inverse" role="menu" style="margin-top: -55px;">
+        <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ 'Toggle navigation'|trans }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('home') }}">{% block projectname %}{{ get_setting('org.name.short', 'BEE') }}{% endblock projectname %}</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                {% block dynamicMenu %}
+                    <ul class="navbar-nav">
+                        {% include "Menu/site-menu.html.twig" %}
+                    </ul>
+                {% endblock dynamicMenu %}
+                {% block signInForm %}
+                    {% include 'Menu/sign-in-form.html.twig' %}
+                {% endblock signInForm %}
+
+            </div>
+        </nav>
+    </div>
+</section>
+
+
+    {#
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -25,4 +48,4 @@
             </div><!--/.navbar-collapse -->
         </div>
     </nav>
-</section>
+    #}

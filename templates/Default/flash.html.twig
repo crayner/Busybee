@@ -12,22 +12,22 @@
 
 {% if app.session is not empty and app.session.flashBag is not empty %}
     {% for flashMessage in app.session.flashbag.get('error') %}
-        {% include '@BusybeeTemplate/Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
+        {% include 'Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('danger') %}
-        {% include '@BusybeeTemplate/Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
+        {% include 'Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('warning') %}
-        {% include '@BusybeeTemplate/Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'warning'} %}
+        {% include 'Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'warning'} %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('info') %}
-        {% include '@BusybeeTemplate/Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'info'} %}
+        {% include 'Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'info'} %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('success') %}
-        {% include '@BusybeeTemplate/Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'success'} %}
+        {% include 'Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'success'} %}
     {% endfor %}
 {% endif %}

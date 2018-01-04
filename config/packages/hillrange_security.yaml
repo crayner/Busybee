@@ -11,5 +11,7 @@ parameters:
         security_user_edit: hillrange_security_user_edit
         security_user_login: login
         security_user_check: login
+        security_user_logout: logout
+    firewall_name: main
 
 hillrange_security:

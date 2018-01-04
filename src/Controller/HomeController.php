@@ -34,7 +34,7 @@ class HomeController extends Controller
 
 		$SymfonyRequirements = new SymfonyRequirements($this->getParameter('kernel.root_dir'));
 
-		return $this->render('@BusybeeTemplate/Acknowledgement/acknowledgement.html.twig',
+		return $this->render('Acknowledgement/acknowledgement.html.twig',
 			[
 				'versions'      => $versions,
 				'majorProblems' => $SymfonyRequirements->getFailedRequirements(),

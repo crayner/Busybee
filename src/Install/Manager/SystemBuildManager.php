@@ -245,15 +245,26 @@ class SystemBuildManager extends InstallManager
 		$this->entityManager->persist($user);
 		$this->entityManager->flush();
 
-		$cal = new Calendar();
-		$cal->setName(date('Y'));
-		$cal->getFirstDay(new \DateTime($this->getName(),'-01-01'));
-		$cal->getLastDay(new \DateTime($this->getName(),'-12-31'));
-		$cal->setStatus('current');
-		$this->entityManager->persist($cal);
-		$this->entityManager->flush();
 
+		$cal = $this->entityManager->getRepository(Calendar::class)->findOneByName(date('Y'));
+
+		if (empty($cal))
+		{
+			$cal = new Calendar();
+
+			$cal->setName(date('Y'));
+			$cal->setFirstDay(new \DateTime($cal->getName() . '-01-01'));
+			$cal->setLastDay(new \DateTime($cal->getName() . '-12-31'));
+			$cal->setStatus('current');
+			$cal->setCreatedBy($user);
+			$cal->setModifiedBy($user);
+			$this->entityManager->persist($cal);
+			$this->entityManager->flush();
+		}
 		$user->setUserSetting('Calendar', $cal, 'object');
+
+		$user->setCreatedBy($user);
+		$user->setModifiedBy($user);
 
 		$this->entityManager->persist($user);
 		$this->entityManager->flush();
@@ -290,6 +301,25 @@ class SystemBuildManager extends InstallManager
 	{
 		$form->handleRequest($request);
 
-		dump($form);
+	}
+
+	/**
+	 * @param null $name
+	 *
+	 * @return array|bool|string
+	 */
+	public function getPasswordSetting($name = null)
+	{
+		return $this->passwordManager->getPasswordSetting($name);
+	}
+
+	/**
+	 * @param bool $generate
+	 *
+	 * @return string
+	 */
+	public function generatePassword($generate = false)
+	{
+		return $this->passwordManager->generatePassword($generate);
 	}
 }

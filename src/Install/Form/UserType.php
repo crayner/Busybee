@@ -2,8 +2,8 @@
 namespace App\Install\Form;
 
 use App\Core\Type\TextType;
-use App\Core\Validator\Password;
 use App\Install\Organism\User;
+use Hillrange\Security\Validator\Password;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,7 +50,7 @@ class UserType extends AbstractType
 						'help' => 'misc.password.help',
 					'constraints' => [
 						new NotBlank(),
-						new Password(['details' => $options['data']]),
+						new Password(),
 					],
 				]
 			)

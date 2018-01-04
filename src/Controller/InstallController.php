@@ -318,9 +318,6 @@ class InstallController extends Controller
 			$error = is_null($authUtils) ? null : $authUtils->getLastAuthenticationError();
 			if (! empty($error))
 				$systemBuildManager->getMessages()->add('danger', $error);
-
-			dump($error);
-dump($authUtils);die();
 		}
 
 
