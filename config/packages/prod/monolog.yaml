@@ -1,7 +1,8 @@
 monolog:
     handlers:
         main:
-            type: fingers_crossed
+            type: rotating_file
+            max_files: 7
             action_level: error
             handler: nested
             excluded_404s:
@@ -9,7 +10,8 @@ monolog:
                 - ^/
             channels: ['!security', '!mailer']
         nested:
-            type: stream
+            type: rotating_file
+            max_files: 7
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
         console:

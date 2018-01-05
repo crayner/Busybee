@@ -4,15 +4,19 @@
     {% if theMessage is iterable %}
         {% for message,parameters in theMessage %}
             {% if showFlash(message|trans(parameters)) %}
-                <div class="alert alert-{{ level }}{{ flashClass }}" role="alert">
-                    {{ message|trans(parameters) }}
+                <div class="alert alert-{{ level }}{{ flashClass }} alert-dismissible fade show" role="alert">
+                    {{ message|trans(parameters) }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" class="halflings halflings-remove-circle"></span>
+                    </button>
                 </div>
             {% endif %}
         {% endfor %}
     {% else %}
         {% if showFlash(theMessage|trans) %}
-            <div class="alert alert-{{ level }}{{ flashClass }}" role="alert">
-                {{ theMessage|trans }}
+            <div class="alert alert-{{ level }}{{ flashClass }} alert-dismissible fade show" role="alert">
+                {{ theMessage|trans }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" class="halflings halflings-remove-circle"></span>
+                </button>
             </div>
         {% endif %}
     {% endif %}

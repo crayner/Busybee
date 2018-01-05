@@ -13,3 +13,15 @@ monolog:
             path:     '%kernel.logs_dir%/mailer.%kernel.environment%.log'
             channels: [mailer]
             max_files: 7
+        request:
+            level:    debug
+            type:     rotating_file
+            path:     '%kernel.logs_dir%/request.%kernel.environment%.log'
+            channels: [request]
+            max_files: 7
+        doctrine:
+            level:    debug
+            type:     rotating_file
+            path:     '%kernel.logs_dir%/doctrine.%kernel.environment%.log'
+            channels: [doctrine]
+            max_files: 7
