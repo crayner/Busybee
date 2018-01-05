@@ -8,7 +8,7 @@ parameters:
         numbers: true
         mixed_case: true
     security_routes:
-        security_user_edit: hillrange_security_user_edit
+        security_user_edit: security_user_edit
         security_user_login: login
         security_user_check: login
         security_user_logout: logout

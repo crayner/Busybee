@@ -24,6 +24,8 @@ class HomeController extends Controller
 
 			if ($error->getCode() == 773)
 				$messages->add('warning', 'security.login.ip.blocked', ['%{ip}' => $request->server->get('REMOTE_ADDR')]);
+			elseif ($error->getCode() == 774)
+				$messages->add('warning', 'security.login.user.expired');
 			else
 				$messages->add('warning', $error->getMessage());
 		}
