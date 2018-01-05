@@ -2,9 +2,12 @@
 
 {% trans_default_domain 'security' %}
 
+{% form_theme form
+    'FormTheme/bootstrap.html.twig' %}
+
 <div class="form_error container"></div>
 
-<form action="{{ path(get_SecurityRoute("security_user_check")) }}" method="post">
+{{ form_start(form) }}
     {% set h3Content = miscButton({windowOpen: {route: path(get_SecurityRoute("security_password_forgot"))}, transDomain: 'security', class: 'btn btn-info halflings halflings-question-sign', title: 'security.login.reset_password.label', type: 'button'}) %}
     {% set h3Content = h3Content ~ miscButton({transDomain: 'security', class: 'btn btn-success halflings halflings-log-in', title: 'security.login.login.label', type: 'submit'}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'security.login.login.label', transDomain: 'security'} %}
@@ -21,19 +24,18 @@
         <div class="row">
             <div class="well col-sm-6">
                 <div class="form-group">
-                    <label for="login__username">{{ 'security.login.username.label'|trans }}</label>
-                    <input type="text" id="login__username" name="login[_username]" value="{{ last_username }}" required
-                           class="form-control"/>
-                    <input type="hidden" name="login[_token]" value="{{ csrf_token('authenticate') }}"/>
+                    {{ form_row(form._username) }}
+                    {{ form_row(form._token) }}
                 </div>
             </div>
             <div class="well col-sm-6">
                 <div class="form-group">
-                    <label for="password">{{ 'security.login.password.label'|trans }}</label>
-                    <input type="password" id="login__password" name="login[_password]" required class="form-control"/>
+                    {{ form_row(form._password) }}
                 </div>
             </div>
         </div>
     </div>
     {% include 'Page/panelEnd.html.twig' %}
-</form>	
+{% do form.login.setRendered %}
+{% do form.password_reset.setRendered %}
+{{ form_end(form) }}

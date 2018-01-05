@@ -10,6 +10,8 @@
     {% set flashClass = "" %}
 {% endif %}
 
+{% include 'Default/messages.html.twig' with {messages: getMessageManager() } %}
+
 {% if app.session is not empty and app.session.flashBag is not empty %}
     {% for flashMessage in app.session.flashbag.get('error') %}
         {% include 'Default/flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}

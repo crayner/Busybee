@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Extension;
 
+use App\Core\Manager\MessageManager;
 use Twig\Extension\AbstractExtension;
 
 class FlashExtension extends AbstractExtension
@@ -9,6 +10,11 @@ class FlashExtension extends AbstractExtension
 	 * @var array
 	 */
 	private $flashMessage = [];
+
+	/**
+	 * @var MessageManager
+	 */
+	private $messageManager;
 
 	/**
 	 * @return string
@@ -25,6 +31,7 @@ class FlashExtension extends AbstractExtension
 	{
 		return [
 			new \Twig_SimpleFunction('showFlash', array($this, 'showFlash')),
+			new \Twig_SimpleFunction('getMessageManager', array($this, 'getMessageManager')),
 		];
 	}
 
@@ -41,5 +48,23 @@ class FlashExtension extends AbstractExtension
 		$this->flashMessage[] = $value;
 
 		return true;
+	}
+
+	/**
+	 * FlashExtension constructor.
+	 *
+	 * @param MessageManager $messageManager
+	 */
+	public function __construct(MessageManager $messageManager)
+	{
+		$this->messageManager = $messageManager;
+	}
+
+	/**
+	 * @return MessageManager
+	 */
+	public function getMessageManager()
+	{
+		return $this->messageManager;
 	}
 }

@@ -3,11 +3,13 @@ monolog:
         security:
             # log all messages (since debug is the lowest level)
             level:    debug
-            type:     stream
+            type:     rotating_file
             path:     '%kernel.logs_dir%/security.%kernel.environment%.log'
             channels: [security]
+            max_files: 7
         mailer:
             level:    debug
-            type:     stream
+            type:     rotating_file
             path:     '%kernel.logs_dir%/mailer.%kernel.environment%.log'
             channels: [mailer]
+            max_files: 7

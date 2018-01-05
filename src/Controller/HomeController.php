@@ -1,9 +1,11 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\MessageManager;
 use App\Install\Manager\VersionManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Requirements\SymfonyRequirements;
 
 class HomeController extends Controller
@@ -11,8 +13,20 @@ class HomeController extends Controller
 	/**
 	 * @Route("/", name="home")
 	 */
-	public function home(Request $request)
+	public function home(Request $request, MessageManager $messages)
 	{
+
+		if ($request->getSession() && $request->getSession()->has(Security::AUTHENTICATION_ERROR))
+		{
+			$messages->setDomain('security');
+			$error = $request->getSession()->get(Security::AUTHENTICATION_ERROR);
+			$request->getSession()->remove(Security::AUTHENTICATION_ERROR);
+
+			if ($error->getCode() == 773)
+				$messages->add('warning', 'security.login.ip.blocked', ['%{ip}' => $request->server->get('REMOTE_ADDR')]);
+			else
+				$messages->add('warning', $error->getMessage());
+		}
 		return $this->render('home.html.twig');
 	}
 
