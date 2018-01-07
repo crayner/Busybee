@@ -23,7 +23,7 @@
                         src="{{ asset('img/Google_icon_2015.png') }}" width="35"/></a>
         {% endif %}
     </form>
-{% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+{% else %}
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ formatUserName(app.user) }}</a>
@@ -38,12 +38,9 @@
                 {% else %}
                     <li><a href="{{ path(get_SecurityRoute('security_user_logout')) }}" class="dropdown-item">{{ 'Sign Out'|trans }}</a></li>
                 {% endif %}
-
             </ul>
-
         </li>
     </ul>
-
 {% endif %}
 
 
