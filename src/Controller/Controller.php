@@ -16,11 +16,9 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	/**
 	 * Gets a container configuration parameter by its name.
 	 *
-	 * modifed by Craig Rayner to allow default values in code.
+	 * modified by Craig Rayner to allow default values in code.
 	 *
 	 * @return mixed
-	 *
-	 * @final since version 3.4
 	 */
 	protected function getParameter(string $name, $default = null)
 	{

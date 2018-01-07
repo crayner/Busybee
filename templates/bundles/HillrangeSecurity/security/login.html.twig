@@ -9,10 +9,6 @@
 
 {% block SecurityBundleContent %}
     {% block contentContainer %}
-        {% include "@hillrange_security/security/login_content.html.twig" %}{% endblock contentContainer %}
+        {% include "@HillrangeSecurity/security/login_content.html.twig" %}{% endblock contentContainer %}
 {% endblock SecurityBundleContent %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {% include 'Script/fadeAlert.html.twig' %}
-{% endblock javascripts %}

@@ -3,12 +3,6 @@ user:
         name: '%{name}'
         current: 'You are working in the current system calendar. Click here to change this setting.'
         warning: 'Warning: You are not working in the current system calendar.  Changes made may not alter current details in the system. Proceed with caution. Click here to change this setting.'
-idletimeout:
-    title: 'Timed Sign Out'
-    signout: 'Sign Out Now'
-    stay: 'Stay Connected'
-    dialogue: 'No activity has been detected for %time% minutes.  You are about to be signed out of the system for security reasons.'
-    timeRemaining: 'Time Remaining'
 homePage:
     lead: Busybee is designed for School Management
     heading: Busybee

@@ -134,7 +134,7 @@ class VersionManager
 		$phpVersions['Core']['low']    = '7.1.0';
 		$phpVersions['Core']['high']   = '7.2.99';
 		$phpVersions['Core']['string'] = '7.1';
-		$phpVersions['apcu']           = '5.1.8';
+		$phpVersions['apcu']           = '5.1.9';
 		$phpVersions['intl']           = '1.1.0';
 		$phpVersions['json']['low']    = '1.5.0';
 		$phpVersions['json']['high']   = '1.6.99';

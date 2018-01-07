@@ -13,6 +13,6 @@ parameters:
         security_user_check: login
         security_user_logout: logout
         security_password_forgot: password_request_reset
-    firewall_name: main
+        securty_forced_password_change: forced_password_change
+    encoder.cost: 13
 
-hillrange_security:

@@ -1,6 +1,7 @@
 {# src/Busybee/HomeBundle/Resources/views/Menu/main-menu.html.twig #}
 
 {% trans_default_domain "home" %}
+{% if app.request.get('_route') != 'login' %}
 <section class="hideSection">
     <div class="container theme-showcase bg-inverse" role="menu" style="margin-top: -55px;">
         <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
@@ -22,30 +23,4 @@
         </nav>
     </div>
 </section>
-
-
-    {#
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand"
-                   href="{{ path('home') }}">{% block projectname %}{{ get_setting('org.name.short', 'BEE') }}{% endblock projectname %}</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                {% block dynamicMenu %}
-                    <ul class="nav navbar-nav">
-                        {% include "Menu/site-menu.html.twig" %}
-                    </ul>
-                    {% include 'Menu/sign-in-form.html.twig' %}
-                {% endblock dynamicMenu %}
-            </div><!--/.navbar-collapse -->
-        </div>
-    </nav>
-    #}
+{% endif %}

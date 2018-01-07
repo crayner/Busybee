@@ -10,28 +10,10 @@
 <script src="{{ asset('js/holder.min.js') }}"></script>
 
 {% if app.getUser is not empty %}
-    {% include '@hillrange_security/security/scripts.html.twig' %}
+    {% include '@HillrangeSecurity/security/scripts.html.twig' %}
     <script src={{ asset('js/bootstrap-submenu.min.js') }}></script>
     <script type="text/javascript" charset="utf-8">
-        // idleTimeout
         $(document).ready(function () {
-            $(document).idleTimeout({
-                dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans }}',
-                dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans }}',
-                dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans }}',
-                idleTimeLimit: {{ get_setting('idleTimeout', 15) * 60 - 30 }},
-                dialogDisplayLimit: 30,
-                activityEvents: 'click keypress scroll wheel mousewheel',
-                sessionKeepAliveTimer: false,
-                dialogTitle: '{{ 'idletimeout.title'|trans }}',
-                dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}) }}',
-                redirectUrl: '{{ path('hillrange_security_timeout') }}',
-                customCallback: function () {
-                    var close = '{{ app.request.get('closeWindow') }}';
-                    if (close.length > 0)
-                        window.close();
-                }
-            });
 
             var hide = '{{ hideSection(app.request.get('_route')) }}';
             if (hide) {

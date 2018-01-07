@@ -1,8 +1,8 @@
 security:
     encoders:
         Hillrange\Security\Entity\User:
-            algorithm: bcrypt
-            cost:      13
+           algorithm: bcrypt
+           cost:      '%encoder.cost%'
     providers:
         hillrange_security_user_provider:
             entity:
@@ -21,6 +21,8 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 username_parameter:   'login[_username]'
                 password_parameter:   'login[_password]'
+#                failure_handler: Hillrange\Security\Listener\FailureHandler
+                success_handler: Hillrange\Security\Listener\SuccessHandler
             provider:                 hillrange_security_user_provider
             logout:
                 path:   logout
