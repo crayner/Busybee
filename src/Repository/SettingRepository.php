@@ -7,21 +7,27 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class SettingRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+	/**
+	 * SettingRepository constructor.
+	 *
+	 * @param RegistryInterface $registry
+	 */
+	public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Setting::class);
     }
 
-    /*
-    public function findBySomething($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->where('s.something = :value')->setParameter('value', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+	/**
+	 * @param $name
+	 *
+	 * @return mixed
+	 */
+	public function loadOneByName($name)
+	{
+		return $this->createQueryBuilder('s')
+			->where('s.name = :name')
+			->setParameter('name', $name)
+			->getQuery()
+			->getOneOrNullResult();
+	}
 }

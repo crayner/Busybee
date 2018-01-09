@@ -10,6 +10,7 @@ use App\Install\Manager\VersionManager;
 use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
 use App\Install\Organism\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -281,7 +282,7 @@ class InstallController extends Controller
 		return $this->render('Install/database.html.twig',
 			[
 				'manager' => $systemBuildManager,
-				'projectDir' => $this->getParameter('kernel.project_dir'),
+				'projectDir' => $systemBuildManager->getSettingManager()->getParameter('kernel.project_dir'),
 			]
 		);
 	}
@@ -296,10 +297,10 @@ class InstallController extends Controller
 	{
 		$user = new User();
 
-		$user->setPasswordNumbers($this->getParameter('password_numbers'));
-		$user->setPasswordMixedCase($this->getParameter('password_mixed_case'));
-		$user->setPasswordSpecials($this->getParameter('password_specials'));
-		$user->setPasswordMinLength($this->getParameter('password_min_length'));
+		$user->setPasswordNumbers($systemBuildManager->getSettingManager()->getParameter('password_numbers'));
+		$user->setPasswordMixedCase($systemBuildManager->getSettingManager()->getParameter('password_mixed_case'));
+		$user->setPasswordSpecials($systemBuildManager->getSettingManager()->getParameter('password_specials'));
+		$user->setPasswordMinLength($systemBuildManager->getSettingManager()->getParameter('password_min_length'));
 
 		$form = $this->createForm(UserType::class, $user);
 
@@ -307,7 +308,7 @@ class InstallController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$systemBuildManager->writeSystemUser($this->getParameter('kernel.project_dir'), $request->get('install_user'));
+			$systemBuildManager->writeSystemUser($systemBuildManager->getSettingManager()->getParameter('kernel.project_dir'), $request->get('install_user'));
 
 			$data = $request->get('install_user');
 			$request->request->set('_username', $data['_username']);
@@ -324,7 +325,7 @@ class InstallController extends Controller
 		return $this->render('Install/user.html.twig',
 			[
 				'manager' => $systemBuildManager,
-				'projectDir' => $this->getParameter('kernel.project_dir'),
+				'projectDir' => $systemBuildManager->getSettingManager()->getParameter('kernel.project_dir'),
 				'form' => $form->createView(),
 			]
 		);

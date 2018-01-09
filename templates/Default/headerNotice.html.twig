@@ -2,7 +2,7 @@
 {% set headerNotices = '' %}
 {% spaceless %}
 {% if app.user is not null %}
-    {% set route = get_parameter('security_routes')['security_user_edit'] %}
+    {% set route = get_parameter('security.routes')['security_user_edit'] %}
     {% if get_UserSetting('Calendar') is not null %}
         {% set headerNotices = headerNotices ~ miscButton({transDomain: 'home', style: 'float: left;', title: 'user.calendar.warning', class: 'btn btn-warning btn-header', prompt: {message: 'user.calendar.name', 'params': {'%{name}': get_SystemCalendar(get_UserSetting('Calendar')).name }}, windowOpen: {route: path(route, {id: app.user.id})}}) %}
         {% set containerThemeOverwrite = ' containerWarning' %}

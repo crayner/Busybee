@@ -6,7 +6,7 @@ security:
     providers:
         hillrange_security_user_provider:
             entity:
-                class:              Hillrange\Security\Entity\User
+                class:  Hillrange\Security\Entity\User
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -21,39 +21,17 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 username_parameter:   'login[_username]'
                 password_parameter:   'login[_password]'
-#                failure_handler: Hillrange\Security\Listener\FailureHandler
-                success_handler: Hillrange\Security\Listener\SuccessHandler
+                success_handler:      Hillrange\Security\Listener\SuccessHandler
             provider:                 hillrange_security_user_provider
             logout:
-                path:   logout
-                target: home
-            remember_me: false
-#                secret:   '%env(APP_SECRET)%'
-#                name:     '%session_name%_remember_me'
-#                lifetime: 43200 # 12 hours in seconds
-#                path:     /
-#                secure:   false
+                path:                 logout
+                target:               home
+            remember_me:              false
+#                secret:               '%env(APP_SECRET)%'
+#                name:                 '%session_name%_remember_me'
+#                lifetime:             43200 # 12 hours in seconds
+#                path:                 /
+#                secure:               false
 #                remember_me_parameter: 'login[_remember_me]'
-            switch_user: true
-    role_hierarchy:
-        ROLE_USER: ~
-        ROLE_ALLOWED_TO_SWITCH: ~
-        ROLE_PARENT: ~
-        ROLE_STUDENT: ~
-        ROLE_STAFF: ~
-        ROLE_TEACHER:
-            - ROLE_ALLOWED_TO_SWITCH
-            - ROLE_STUDENT
-            - ROLE_STAFF
-        ROLE_HEAD_TEACHER:
-            - ROLE_TEACHER
-        ROLE_PRINCIPAL:
-            - ROLE_HEAD_TEACHER
-        ROLE_ADMIN:
-            - ROLE_ALLOWED_TO_SWITCH
-        ROLE_REGISTRAR:
-            - ROLE_PRINCIPAL
-            - ROLE_ADMIN
-        ROLE_SYSTEM_ADMIN:
-            - ROLE_REGISTRAR
-            - ROLE_PARENT
+            switch_user:              true
+    role_hierarchy:                   '%security.hierarchy.roles%'

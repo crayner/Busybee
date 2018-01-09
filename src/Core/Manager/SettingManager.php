@@ -187,14 +187,7 @@ class SettingManager implements ContainerAwareInterface
 			$name = str_replace('._flip', '', $name);
 		}
 
-		try
-		{
-			$this->setting = $this->getSettingEntity($name);
-		}
-		catch (\Exception $e)
-		{
-			return $default;
-		}
+		$this->setting = $this->getSettingEntity($name);
 
 		if (is_null($this->setting) || empty($this->setting->getName()))
 		{
@@ -536,8 +529,7 @@ class SettingManager implements ContainerAwareInterface
 	public function getSettingEntity($name): ?Setting
 	{
 		$name          = strtolower($name);
-		$this->setting = $this->settingRepo->findOneByName($name);
-
+		$this->setting = $this->settingRepo->loadOneByName($name);
 		return $this->setting;
 	}
 
@@ -789,10 +781,24 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	public function getParameter($name, $default = null)
 	{
-		if (!$this->hasParameter($name))
+		if ($this->hasParameter($name))
+			return $this->container->getParameter($name);
+
+		if (false === strpos($name, '.'))
 			return $default;
 
-		return $this->container->getParameter($name);
+		$pName = explode('.', $name);
+
+		$key = array_pop($pName);
+
+		$name = implode('.', $pName);
+
+		$value = $this->getParameter($name, $default);
+
+		if (is_array($value) && isset($value[$key]))
+			return $value[$key];
+
+		throw new \InvalidArgumentException(sprintf('The value %s is not a valid array parameter.', $name));
 	}
 
 	/**

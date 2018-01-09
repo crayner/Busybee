@@ -157,7 +157,7 @@ class Setting implements UserTrackInterface
 	 *
 	 * @return string
 	 */
-	public function getRole()
+	public function getRole(): ?string
 	{
 		return $this->role;
 	}

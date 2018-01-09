@@ -326,4 +326,12 @@ class VersionManager
 	{
 		return version_compare(self::VERSION, $this->version, '<=');
 	}
+
+	/**
+	 * @return SettingManager
+	 */
+	public function getSettingManager(): SettingManager
+	{
+		return $this->settingManager;
+	}
 }

@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
 use App\Install\Manager\VersionManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -15,8 +17,8 @@ class HomeController extends Controller
 	 */
 	public function home(Request $request, MessageManager $messages)
 	{
-
-		if ($request->getSession() && $request->getSession()->has(Security::AUTHENTICATION_ERROR))
+dump($this->getUser());
+		if ($request->getSession()->has(Security::AUTHENTICATION_ERROR))
 		{
 			$messages->setDomain('security');
 			$error = $request->getSession()->get(Security::AUTHENTICATION_ERROR);
@@ -34,6 +36,7 @@ class HomeController extends Controller
 
 	/**
 	 * @Route("/template/", name="home_template")
+	 * @IsGranted("ROLE_ADMIN")
 	 */
 	public function template()
 	{
@@ -48,7 +51,7 @@ class HomeController extends Controller
 	{
 		$versions = $versionManager->getVersion();
 
-		$SymfonyRequirements = new SymfonyRequirements($this->getParameter('kernel.root_dir'));
+		$SymfonyRequirements = new SymfonyRequirements($versionManager->getSettingManager()->getParameter('kernel.root_dir'));
 
 		return $this->render('Acknowledgement/acknowledgement.html.twig',
 			[

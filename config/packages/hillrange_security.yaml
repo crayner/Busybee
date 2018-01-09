@@ -1,13 +1,13 @@
 parameters:
     # Minutes until user is forced off the system if idle.
     idleTimeout: 15
-    security_password_reset_token_ttl: 86400
-    password:
+    security.password.reset.token.ttl: 86400
+    security.password.settings:
         min_length: 8
         specials: false
         numbers: true
         mixed_case: true
-    security_routes:
+    security.routes:
         security_user_edit: security_user_edit
         security_user_login: login
         security_user_check: login
@@ -15,4 +15,36 @@ parameters:
         security_password_forgot: password_request_reset
         securty_forced_password_change: forced_password_change
     encoder.cost: 13
+    security.groups:
+        Parent: [ROLE_PARENT]
+        Student: [ROLE_STUDENT]
+        Teaching Staff: [ROLE_STAFF, ROLE_TEACHER, ROLE_ALLOWED_TO_SWITCH]
+        Support Staff: [ROLE_STAFF]
+        Administration Staff: [ROLE_STAFF, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        Contact: [ROLE_USER]
+    security.hierarchy.roles:
+        ROLE_USER: ~
+        ROLE_ALLOWED_TO_SWITCH: ~
+        ROLE_PARENT: ~
+        ROLE_STUDENT: ~
+        ROLE_STAFF: ~
+        ROLE_TEACHER:
+            - ROLE_ALLOWED_TO_SWITCH
+            - ROLE_STUDENT
+            - ROLE_STAFF
+        ROLE_HEAD_TEACHER:
+            - ROLE_TEACHER
+        ROLE_PRINCIPAL:
+            - ROLE_HEAD_TEACHER
+        ROLE_ADMIN:
+            - ROLE_ALLOWED_TO_SWITCH
+        ROLE_REGISTRAR:
+            - ROLE_PRINCIPAL
+            - ROLE_ADMIN
+        ROLE_SYSTEM_ADMIN:
+            - ROLE_REGISTRAR
+            - ROLE_PARENT
+    google:
+        oauth: off
+
 
