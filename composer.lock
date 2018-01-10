@@ -982,16 +982,16 @@
         },
         {
             "name": "easycorp/easy-log-handler",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/easy-log-handler.git",
-                "reference": "79104f113f562ab6c677d482457d4474204d34a5"
+                "reference": "1a617a37ab9389eac4e2e1d14cb70ee0087d724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/easy-log-handler/zipball/79104f113f562ab6c677d482457d4474204d34a5",
-                "reference": "79104f113f562ab6c677d482457d4474204d34a5",
+                "url": "https://api.github.com/repos/EasyCorp/easy-log-handler/zipball/1a617a37ab9389eac4e2e1d14cb70ee0087d724d",
+                "reference": "1a617a37ab9389eac4e2e1d14cb70ee0087d724d",
                 "shasum": ""
             },
             "require": {
@@ -1028,7 +1028,7 @@
                 "monolog",
                 "productivity"
             ],
-            "time": "2017-10-20T08:47:57+00:00"
+            "time": "2018-01-10T08:34:20+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1093,12 +1093,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "655241615e4eaf84247827fbb1420402226ecc9d"
+                "reference": "df66890b92fcc4472d14a260fa9cd11747cf878b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/655241615e4eaf84247827fbb1420402226ecc9d",
-                "reference": "655241615e4eaf84247827fbb1420402226ecc9d",
+                "url": "https://api.github.com/repos/crayner/security/zipball/df66890b92fcc4472d14a260fa9cd11747cf878b",
+                "reference": "df66890b92fcc4472d14a260fa9cd11747cf878b",
                 "shasum": ""
             },
             "require": {
@@ -1151,7 +1151,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-01-10T05:18:54+00:00"
+            "time": "2018-01-10T21:48:29+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2574,16 +2574,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.59",
+            "version": "v1.0.60",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "2015d2d699ddfaa71a4d2415d39b8bffd13d2ce7"
+                "reference": "066fe955b1a134841cdcc068a9f843594fdb1adc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/2015d2d699ddfaa71a4d2415d39b8bffd13d2ce7",
-                "reference": "2015d2d699ddfaa71a4d2415d39b8bffd13d2ce7",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/066fe955b1a134841cdcc068a9f843594fdb1adc",
+                "reference": "066fe955b1a134841cdcc068a9f843594fdb1adc",
                 "shasum": ""
             },
             "require": {
@@ -2616,7 +2616,7 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-01-09T05:50:13+00:00"
+            "time": "2018-01-10T07:00:13+00:00"
         },
         {
             "name": "symfony/form",

@@ -1,6 +1,52 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    encoder.cost: 15
+    idleTimeout: 15  #set to zero to ignore
+    security.password.reset.token.ttl: 86400
+    security.password.settings:
+        min_length: 8
+        specials: false
+        numbers: true
+        mixed_case: true
+    security.routes:
+        security_user_edit: security_user_edit
+        security_user_login: login
+        security_user_check: login
+        security_user_logout: logout
+        security_password_forgot: password_request_reset
+        securty_forced_password_change: forced_password_change
+    security.groups:
+        Parent: [ROLE_PARENT]
+        Student: [ROLE_STUDENT]
+        Teaching Staff: [ROLE_STAFF, ROLE_TEACHER, ROLE_ALLOWED_TO_SWITCH]
+        Support Staff: [ROLE_STAFF]
+        Administration Staff: [ROLE_STAFF, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        Contact: [ROLE_USER]
+    security.hierarchy.roles:
+        ROLE_USER: ~
+        ROLE_ALLOWED_TO_SWITCH: ~
+        ROLE_PARENT: ~
+        ROLE_STUDENT: ~
+        ROLE_STAFF: ~
+        ROLE_TEACHER:
+            - ROLE_ALLOWED_TO_SWITCH
+            - ROLE_STUDENT
+            - ROLE_STAFF
+        ROLE_HEAD_TEACHER:
+            - ROLE_TEACHER
+        ROLE_PRINCIPAL:
+            - ROLE_HEAD_TEACHER
+        ROLE_ADMIN:
+            - ROLE_ALLOWED_TO_SWITCH
+        ROLE_REGISTRAR:
+            - ROLE_PRINCIPAL
+            - ROLE_ADMIN
+        ROLE_SYSTEM_ADMIN:
+            - ROLE_REGISTRAR
+            - ROLE_PARENT
+    google:
+        oauth: off
 
 services:
     # default configuration for services in *this* file
