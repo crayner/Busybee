@@ -34,9 +34,6 @@ services:
         class: App\Core\Manager\CacheManager
         arguments:
             - '%kernel.cache_dir%'
-    App\Core\Type\Extension\FormTypeExtension:
-        tags:
-            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
     app.core.subscriber.table_prefix_subscriber:
         class: App\Core\Subscriber\TablePrefixSubscriber
         arguments:
@@ -60,3 +57,9 @@ services:
         arguments:
             - '@security.token_storage'
             - '@doctrine.orm.default_entity_manager'
+    App\Core\Extension\FieldHelpTypeExtension:
+        tags:
+            - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\FormType' }
+    App\Core\Extension\ToggleTypeExtension:
+        tags:
+            - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\CheckboxType' }

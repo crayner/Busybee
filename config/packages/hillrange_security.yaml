@@ -1,6 +1,6 @@
 parameters:
     # Minutes until user is forced off the system if idle.
-    idleTimeout: 15
+    idleTimeout: 15  #set to zero to ignore
     security.password.reset.token.ttl: 86400
     security.password.settings:
         min_length: 8

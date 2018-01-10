@@ -1,0 +1,12 @@
+{% trans_default_domain "security" %}
+
+<hr style="color: red">
+{{ form_start(form) }}
+{% set h3Content = saveButton() %}
+{% include 'Page/panelStart.html.twig' with {header: 'user.manage.self', transDomain: 'security', panelParagraph: 'user.self.change.warning' } %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    {{ form_rest(form) }}
+{% include 'Page/panelEnd.html.twig' %}
+{{ form_end(form) }}

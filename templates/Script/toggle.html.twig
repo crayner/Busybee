@@ -1,3 +1,20 @@
-{# src/HomeBundle/Resources/views/Toggle/script.html.twig #}
+<!-- Toggle Script --><script>
+$('[data-toggle="buttons"] .btn').on('click', function () {
+    // toggle style
+    var swap = $(this).attr('toggle_swap');
+    $(this).toggleClass(swap);
 
-<script src="{{ asset('js/bootstrap-toggle.js') }}"></script>
+    // toggle input
+    var $chk = $(this).find('[type=hidden]');
+    var $val = $chk.val();
+
+    if ($val === "1")
+        $val = "0";
+    else
+        $val = "1";
+
+    $chk.val($val);
+
+    return false;
+});
+</script>

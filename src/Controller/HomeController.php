@@ -17,7 +17,6 @@ class HomeController extends Controller
 	 */
 	public function home(Request $request, MessageManager $messages)
 	{
-dump($this->getUser());
 		if ($request->getSession()->has(Security::AUTHENTICATION_ERROR))
 		{
 			$messages->setDomain('security');

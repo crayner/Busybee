@@ -1,0 +1,23 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'security' %}
+
+{% form_theme form
+    'FormTheme/bootstrap.html.twig' %}
+
+{% block title %}{{ 'user.manage.title'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'user.manage.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'user.manage.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% if fullEdit %}
+        {% include "@HillrangeSecurity/User/userContent.html.twig" %}
+    {% else  %}
+        {% include "@HillrangeSecurity/User/selfContent.html.twig" %}
+    {% endif %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
+{% endblock javascripts %}

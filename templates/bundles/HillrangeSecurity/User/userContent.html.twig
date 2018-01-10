@@ -1,0 +1,51 @@
+{% trans_default_domain "security" %}
+
+
+{{ form_start(form) }}
+{% set h3Content = saveButton() %}
+{% include 'Page/panelStart.html.twig' with {header: 'user.manage.title', transDomain: 'security', panelParagraph: 'user.self.change.warning' } %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.username) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.locale) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.enabled, {help: 'user.enabled.help', attr: {use_toggle: true}}) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.expired, {attr: {use_toggle: true}}) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.credentials_expired, {attr: {use_toggle: true}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 offset-4 card">
+                {{ form_row(form.expiresAt, {help: 'user.expiresAt.help'}) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.credentialsExpireAt, {help: 'user.credentialsExpireAt.help'}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.directroles, {help: 'user.directroles.help'}) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.groups, {help: 'user.groups.help'}) }}
+            </div>
+        </div>
+    {% do form.save.setRendered() %}
+    {{ form_rest(form) }}
+{% include 'Page/panelEnd.html.twig' %}
+{{ form_end(form) }}

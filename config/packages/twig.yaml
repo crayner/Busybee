@@ -5,3 +5,5 @@ twig:
         '%kernel.project_dir%/vendor/hillrange/security/Resources/views': HillrangeSecurity
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        idleTimeout: '%idleTimeout%'

@@ -24,8 +24,26 @@
 {%- endblock url_label %}
 
 {% block form_label -%}
-    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
-    {{- parent() -}}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-control-label')|trim}) -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</{{ element|default('label') }}>
+    {%- endif -%}
     {% set required_printed = false %}
     {% if required and not required_printed %}{% spaceless %}<span
             class="field-required">
@@ -34,59 +52,26 @@
 
 {% block form_errors -%}
     {% if errors|length > 0 -%}
-        {% if form.parent %}<span class="small text-info">{% else %}{% endif %}
+        {% if form.parent %}<small class="form-text text-danger">{% endif %}
         <ul class="list-unstyled">
         {%- for error in errors -%}
-            <li class="text-danger"><span class="glyphicons glyphicons-exclamation-sign"></span> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
+            <li class="text-danger glyphicons glyphicons-exclamation-sign"> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
         {%- endfor -%}
         </ul>
-        {% if form.parent %}</span>{% endif %}
-        <br/>
-    {% else %}
-        {% if setting_name is not defined %}<br/>{% endif %}
     {%- endif %}
+    {% if setting_name is defined %}
+        <small class="form-text text-muted halflings halflings-info-sign"
+              title="{{ 'setting.choice.name'|trans({'%name%': setting_name}, 'System') }}"
+              onclick="window.open('{{ path('setting_edit_name', {name: setting_name}) }}', 'SettingManage', 'width=1200,height=900')">{{ 'setting.choice.name'|trans({'%name%': setting_name}, 'System') }}</small>
+        {{- form_label(form) -}}
+    {% endif %}
     {% if help is defined and help is not empty %}
-        {% if help is iterable %}
-            <span class="small text-info">{{ (translation_domain is same as(false) ? help[0] : help[0]|trans(help[1], translation_domain)) }}</span>
-        {% else %}
-            <span class="small text-info">{{ (translation_domain is same as(false) ? help : help|trans({}, translation_domain)) }}</span>
+        {% if help_params is not defined or help_params is not iterable %}
+            {% set help_params = {} %}
         {% endif %}
+        <small class="form-text text-muted">{{ (translation_domain is same as(false) ? help : help|trans(help_params, translation_domain)) }}</small>
     {% endif %}
 {%- endblock form_errors %}
-
-{% block toggle_widget -%}
-    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' toggle form-control')|trim}) -%}
-
-    {%- set attr = attr|merge({"data-toggle": "toggle"}) -%}
-
-    {% if attribute(attr, "data-off") is not defined %}
-        {%- set attr = attr|merge({"data-off": '<span class="halflings halflings-thumbs-down"></span>'}) -%}
-    {% endif %}
-
-    {% if attribute(attr, "data-on") is not defined %}
-        {%- set attr = attr|merge({"data-on": '<span class="halflings halflings-thumbs-up"></span>'}) -%}
-    {% endif %}
-
-    {% if attribute(attr, "data-size") is not defined %}
-        {%- set attr = attr|merge({"data-size": "small"}) -%}
-    {% endif %}
-
-    {% if attribute(attr, "data-onstyle") is not defined %}
-        {%- set attr = attr|merge({"data-onstyle": "success"}) -%}
-    {% endif %}
-    {% if attribute(attr, "data-offstyle") is not defined %}
-        {%- set attr = attr|merge({"data-offstyle": "danger"}) -%}
-    {% endif %}
-
-    <div class="{{ div_class }}">
-        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-    </div>
-
-    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-    <label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
-    {% if form.vars.help is defined %}<br/><span
-            class="small text-info">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}
-{%- endblock toggle_widget %}
 
 {%- block widget_attributes -%}
     id="{{ id }}" name="{{ full_name }}"
@@ -105,14 +90,6 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endblock widget_attributes -%}
-
-{% block choice_setting_label %}
-    <span class="halflings halflings-info-sign alert-info"
-          title="{{ 'setting.choice.name'|trans({'%name%': setting_name}, 'Install') }}"
-          style="float: left; margin: 2px 4px; 0 0;"
-          onclick="window.open('{{ path('setting_edit_name', {name: setting_name}) }}', 'SettingManage', 'width=1200,height=900')"></span>
-    {{- form_label(form) -}}
-{% endblock choice_setting_label %}
 
 {% block choice_row -%}
     {% if expanded %}
@@ -150,3 +127,60 @@
     {% set name = name|replace({(name): name ~ '_list'}) %}
     <input type="text" {{ block('widget_attributes') }} />
 {%- endblock auto_complete_widget -%}
+
+{% block date_widget -%}
+    {%- if widget != 'single_text' and not valid -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+        {% set valid = true %}
+    {%- endif -%}
+
+    {%- if widget == 'single_text' -%}
+        {{- block('form_widget_simple') -}}
+    {%- else -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        {%- if datetime is not defined or not datetime -%}
+            <div {{ block('widget_container_attributes') -}}>
+        {%- endif %}
+        {{- date_pattern|replace({
+            '{{ year }}': form_widget(form.year, {attr: {class: 'form-control-sm'}}),
+            '{{ month }}': form_widget(form.month, {attr: {class: 'form-control-sm'}}),
+            '{{ day }}': form_widget(form.day, {attr: {class: 'form-control-sm'}}),
+        })|raw -}}
+        {%- if datetime is not defined or not datetime -%}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+{%- endblock date_widget %}
+
+{% block checkbox_widget -%}
+    {% if use_toggle is not defined %}
+        {% set use_toggle = false %}
+    {% endif %}
+    {% if attr.use_toggle is defined %}
+        {% set use_toggle = true %}
+    {% endif %}
+    {% if use_toggle %}
+        {% set button_class = button_class_off|default('btn btn-danger halflings halflings-thumbs-down') %}
+
+        {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'halflings-thumbs-down': 'halflings-thumbs-up'}) %}
+        {% if checked %}
+            {% set button_class = button_class|replace(button_toggle_on) %}
+        {% endif %}
+
+        {% set swap_list = '' %}
+        {% for x,y in button_toggle_on %}
+            {% set swap_list = swap_list ~ ' ' ~ y ~ ' ' ~ x|trim %}
+        {% endfor %}
+
+        <div class="{{ div_class }}">
+            <div data-toggle="buttons">
+                <span class="{{ button_class }}" toggle_swap="{{ swap_list|trim }}"><input type="hidden" value="{% if checked %}1{% else %}0{% endif %}" id="{{ id }}" name="{{ full_name }}" /></span>
+            </div>
+        </div>
+
+        {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+        <label class="control-label">{{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}</label>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock checkbox_widget %}

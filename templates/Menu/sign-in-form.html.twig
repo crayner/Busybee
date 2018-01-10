@@ -28,7 +28,7 @@
             <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ formatUserName(app.user) }}</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                 <li>
-                    <a href="{{ path(get_SecurityRoute('security_user_edit'), {id: 'Current'}) }}" class="dropdown-item" title="{{ 'menu.user.self.manage'|trans }}">{{ 'menu.user.self.manage'|trans }}</a>
+                    <a href="{{ path(get_SecurityRoute('security_user_edit'), {id: app.user.id}) }}" class="dropdown-item" title="{{ 'menu.user.self.manage'|trans }}">{{ 'menu.user.self.manage'|trans }}</a>
                 </li>
                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                     <li>
