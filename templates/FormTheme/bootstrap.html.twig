@@ -55,9 +55,10 @@
         {% if form.parent %}<small class="form-text text-danger">{% endif %}
         <ul class="list-unstyled">
         {%- for error in errors -%}
-            <li class="text-danger glyphicons glyphicons-exclamation-sign"> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
+            <li class="text-danger halflings halflings-exclamation-sign"> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
         {%- endfor -%}
         </ul>
+        {% if form.parent %}</small>{% endif %}
     {%- endif %}
     {% if setting_name is defined %}
         <small class="form-text text-muted halflings halflings-info-sign"

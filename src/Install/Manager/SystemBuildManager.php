@@ -234,7 +234,6 @@ class SystemBuildManager extends InstallManager
 		$user->setEmail($userParams['_email']);
 		$user->setEmailCanonical($userParams['_email']);
 		$user->setLocale('en');
-		$user->setLocked(false);
 		$user->setExpired(false);
 		$user->setCredentialsExpired(false);
 		$user->setEnabled(true);
