@@ -20,3 +20,7 @@ menu:
     user:
         self:
             manage: Current User
+    admin:
+        node: System
+    setting:
+        manage: System Settings

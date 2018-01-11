@@ -1,7 +1,4 @@
-{# src/Busybee/HomeBundle/Resources/views/Menu/dropdown.html.twig #}
-
 {% trans_default_domain "home" %}
-
 {% if (menu.role is defined and is_granted(menu.role)) or menu.role is not defined %}
     {% if (menu.test is defined and test_menuItem(menu.test)) or menu.test is not defined %}
         {% if menu_required(menu.menu) %}

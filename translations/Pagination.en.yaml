@@ -1,0 +1,8 @@
+pagination:
+    search:
+        label: Search
+        placeholder: 'Search for ...'
+    sort.label: Sort
+    limit.label: Limit Results
+    figures: "{0,1}Records %first% to %last% of %total%.|]1,Inf]Records %first% to %last% of %total%.<br/>%pages% Pages"
+    records.only: 'Matching Records: %total%'

@@ -34,25 +34,4 @@ security:
 #                secure:               false
 #                remember_me_parameter: 'login[_remember_me]'
             switch_user:              true
-    role_hierarchy:
-        ROLE_USER: ~
-        ROLE_ALLOWED_TO_SWITCH: ~
-        ROLE_PARENT: ~
-        ROLE_STUDENT: ~
-        ROLE_STAFF: ~
-        ROLE_TEACHER:
-            - ROLE_ALLOWED_TO_SWITCH
-            - ROLE_STUDENT
-            - ROLE_STAFF
-        ROLE_HEAD_TEACHER:
-            - ROLE_TEACHER
-        ROLE_PRINCIPAL:
-            - ROLE_HEAD_TEACHER
-        ROLE_ADMIN:
-            - ROLE_ALLOWED_TO_SWITCH
-        ROLE_REGISTRAR:
-            - ROLE_PRINCIPAL
-            - ROLE_ADMIN
-        ROLE_SYSTEM_ADMIN:
-            - ROLE_REGISTRAR
-            - ROLE_PARENT
+    role_hierarchy: '%security.hierarchy.roles%'

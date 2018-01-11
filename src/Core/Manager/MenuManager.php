@@ -209,8 +209,6 @@ class MenuManager extends MenuManagerConstants
 				return false;
 			}
 		}
-
-		return false;
 	}
 
 	/**

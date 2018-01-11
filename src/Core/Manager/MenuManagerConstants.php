@@ -12,6 +12,12 @@ namespace App\Core\Manager;
 class MenuManagerConstants
 {
 	CONST NODES = '
+1:
+	name: System
+	label: menu.admin.node
+	role: ROLE_USER
+	order: 1
+	menu: 1
 9:
     name: Miscellaneous
     label: menu.miscellaneous
@@ -21,6 +27,13 @@ class MenuManagerConstants
 ';
 
 	CONST ITEMS = '
+11:
+    label: menu.setting.manage
+    name: Setting Management
+    role: ROLE_REGISTRAR
+    node: 1
+    order: 11
+    route: setting_manage
 90:
     label: menu.template_design
     name: Template Design
@@ -36,6 +49,5 @@ class MenuManagerConstants
     node: 9
     order: 91
 ';
-
 
 }

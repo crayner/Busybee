@@ -1,0 +1,56 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'System' %}
+
+{% block title %}{{ 'system.setting.manage.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.setting.manage.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.setting.manage.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Pagination/index.html.twig' %}
+    {% if is_granted('ROLE_SYSTEM_ADMIN') %}
+        {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, 'class': 'btn btn-success halflings halflings-asterisk' }) %}
+    {% endif %}
+    {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.manage.title', 'transDomain': 'System'} %}
+    <div class="container-fluid">
+        <div class="row row-header">
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'system.setting.manage.name'|trans }}
+                {% else %}
+                    {{ 'system.setting.manage.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-6" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Description' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'system.setting.manage.valueDesc'|trans }}
+                {% else %}
+                    {{ 'system.setting.manage.valueDesc'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3 withAdd">
+                {{ 'system.setting.manage.actions'|trans }}
+            </div>
+        </div>
+        {% for setting in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-3 form-inline">
+                    {{ setting.displayName }}
+                </div>
+                <div class="col-6 form-inline">
+                    {{ setting.description }}
+                </div>
+                <div class="col-3 form-inline">
+                    <button title='{{ 'system.setting.edit.title'|trans }}' type="button"
+                            class="halflings halflings-edit btn btn-warning"
+                            onClick="window.open('{{ path('setting_edit', {'id': setting.id}) }}','_self')"></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}

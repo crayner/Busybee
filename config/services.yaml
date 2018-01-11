@@ -26,9 +26,12 @@ parameters:
     security.hierarchy.roles:
         ROLE_USER: ~
         ROLE_ALLOWED_TO_SWITCH: ~
-        ROLE_PARENT: ~
-        ROLE_STUDENT: ~
-        ROLE_STAFF: ~
+        ROLE_PARENT:
+            - ROLE_USER
+        ROLE_STUDENT:
+            - ROLE_USER
+        ROLE_STAFF:
+            - ROLE_USER
         ROLE_TEACHER:
             - ROLE_ALLOWED_TO_SWITCH
             - ROLE_STUDENT
