@@ -1,9 +1,4 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    paths:
-        '%kernel.project_dir%/templates/bundles/HillrangeSecurity': HillrangeSecurity
-        '%kernel.project_dir%/vendor/hillrange/security/Resources/views': HillrangeSecurity
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    globals:
-        idleTimeout: '%idleTimeout%'

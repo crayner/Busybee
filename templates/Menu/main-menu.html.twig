@@ -1,7 +1,8 @@
 {# src/Busybee/HomeBundle/Resources/views/Menu/main-menu.html.twig #}
 
 {% trans_default_domain "home" %}
-{% if app.request.get('_route') != 'login' %}
+{% set bad_routes = [get_parameter('security.routes.security_user_login'), get_parameter('security.routes.securty_forced_password_change')] %}
+{% if app.request.get('_route') not in bad_routes %}
 <section class="hideSection">
     <div class="container theme-showcase bg-dark" role="menu" style="margin-top: -55px;">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">

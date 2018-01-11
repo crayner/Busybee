@@ -575,3 +575,9 @@ body.loading .showLoader {
 #footerContainer .card {
     border: none;
 }
+.x-halflings {
+    font-size: 1.20rem;
+    height: 31px;
+    width: 45px;
+    padding: 0;
+}
