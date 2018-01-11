@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba578047cd7e20a783cd018324983abb",
+    "content-hash": "844fb49dde6f5f0a189ab22cb3178505",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1093,12 +1093,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "df66890b92fcc4472d14a260fa9cd11747cf878b"
+                "reference": "b2611cbbc98e6b0955e7e9f4631545eea48d15cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/df66890b92fcc4472d14a260fa9cd11747cf878b",
-                "reference": "df66890b92fcc4472d14a260fa9cd11747cf878b",
+                "url": "https://api.github.com/repos/crayner/security/zipball/b2611cbbc98e6b0955e7e9f4631545eea48d15cb",
+                "reference": "b2611cbbc98e6b0955e7e9f4631545eea48d15cb",
                 "shasum": ""
             },
             "require": {
@@ -1108,15 +1108,11 @@
                 "sensiolabs/security-checker": "^4.1",
                 "symfony/console": "^4.0",
                 "symfony/debug-pack": "^1.0",
-                "symfony/expression-language": "^4.0",
                 "symfony/flex": "^1.0",
                 "symfony/form": "^4.0",
                 "symfony/framework-bundle": "^4.0",
                 "symfony/lts": "^4@dev",
                 "symfony/orm-pack": "^1.0",
-                "symfony/security-bundle": "^4.0",
-                "symfony/security-csrf": "^4.0",
-                "symfony/swiftmailer-bundle": "^3.1",
                 "symfony/translation": "^4.0",
                 "symfony/validator": "^4.0",
                 "symfony/yaml": "^4.0",
@@ -1126,6 +1122,9 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "0.0.x-dev"
+                },
+                "symfony": {
+                    "allow-contrib": "true"
                 }
             },
             "autoload": {
@@ -1151,7 +1150,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-01-10T21:48:29+00:00"
+            "time": "2018-01-11T00:59:01+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
