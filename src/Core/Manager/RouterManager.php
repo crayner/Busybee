@@ -11,14 +11,6 @@ class RouterManager
 	private $currentRoute;
 
 	/**
-	 * @return array
-	 */
-	public function getSectionRoutes()
-	{
-		return [];
-	}
-
-	/**
 	 * RouterManager constructor.
 	 */
 	public function __construct(RequestStack $request)

@@ -315,7 +315,9 @@ class MenuManager extends MenuManagerConstants
 	 */
 	public function getSection()
 	{
-		$routes = $this->routerManager->getSectionRoutes();
+		$sections = $this->getSections();
+
+		$routes = $this->getSectionRoutes($sections);
 
 		$currentRoute = $this->routerManager->getCurrentRoute();
 
@@ -323,9 +325,6 @@ class MenuManager extends MenuManagerConstants
 
 		if (empty($route))
 			return [];
-
-
-		$sections = $this->container->getParameter('sections');
 
 		$sections = $sections[$route['section']];
 
@@ -369,5 +368,55 @@ class MenuManager extends MenuManagerConstants
 	private function getItems()
 	{
 		return Yaml::parse(str_replace("\t", "    ", MenuManagerConstants::ITEMS));
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getSections()
+	{
+		return Yaml::parse(str_replace("\t", "    ", MenuManagerConstants::SECTIONS));
+	}
+
+	/**
+	 * @param $sections
+	 *
+	 * @return array
+	 */
+	private function getSectionRoutes($sections)
+	{
+		$routes = [];
+		foreach ($sections as $name => $header)
+		{
+			if (!is_array($header))
+			{
+				dump($sections);
+				dump($name);
+				dump($header);
+				throw new \InvalidArgumentException('Section are not formatted correctly.');
+			}
+			foreach ($header as $headName => $data)
+				if ($headName !== 'hidden')
+				{
+					foreach ($data as $x)
+					{
+						$key                     = $x['route'];
+						$routes[$key]['section'] = $name;
+						$routes[$key]['header']  = $headName;
+					}
+				}
+				else
+				{
+					foreach ($data as $key)
+					{
+						$routes[$key]['section'] = $name;
+						$routes[$key]['header']  = $headName;
+					}
+				}
+
+			return $routes;
+		}
+
+
 	}
 }

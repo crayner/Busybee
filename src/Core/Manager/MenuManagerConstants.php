@@ -49,5 +49,28 @@ class MenuManagerConstants
     node: 9
     order: 91
 ';
-
+	CONST SECTIONS = '
+System Admin:
+    extend_update:
+        acknowledgement:
+            route: acknowledgement
+            label: menu.site.acknowledgement
+            role: []
+            params: {}
+    settings:
+        setting_manage:
+            label: menu.setting.manage
+            role: ROLE_SYSTEM_ADMIN
+            route: setting_manage
+            params: {}
+        page_security:
+            label: menu.setting.page.security
+            role: ROLE_SYSTEM_ADMIN
+            route: page_list
+            params: {}
+    hidden:
+        - setting_edit
+        - setting_edit_name
+        - page_edit
+';
 }

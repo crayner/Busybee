@@ -24,3 +24,16 @@ menu:
         node: System
     setting:
         manage: System Settings
+    site:
+        acknowledgement: System Check
+section:
+    header:
+        years_days_times: 'Years, Days & Times'
+        groupings: Groupings
+        other: Other
+        settings: Settings
+        extend_update: 'System Checks'
+        user_management: User Management
+        people_manage: People Management
+        timetable: Timetable
+system.route.missing: 'Route %{route} does not exists.'
