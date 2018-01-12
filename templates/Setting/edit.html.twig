@@ -1,0 +1,58 @@
+{# src/Busybee/System/Resources/views/Setting/edit.html.twig #}
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'System' %}
+
+{% form_theme form 'FormTheme/bootstrap.html.twig' %}
+
+{% block title %}{{ 'system.setting.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.setting.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.nameSelect, {'value': setting_id ~ ""}) %}
+    {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', transDomain: 'System', panelParagraph: 'system.setting.edit.description'} %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 well">
+                <div class="alert alert-warning">
+                    {{ 'system.setting.warning'|trans }}
+                </div>
+            </div>
+            <div class="col-sm-6 well">
+                {{ form_row(form.name) }}
+                {{ form_row(form.displayName) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 well">
+                {{ form_row(form.description) }}
+            </div>
+            <div class="col-sm-6 well">
+                {{ form_row(form.value) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
+    <script type="text/javascript">
+        $('.changeSetting').change(function ($e) {
+            $("#setting_nameSelect").prop('disabled', true);
+        });
+        $('#setting_nameSelect').change(function ($e) {
+            var id = $("#setting_nameSelect").val();
+            var url = "{{ path('setting_edit', {'id': '_id'}) }}";
+            url = url.replace("_id", id);
+            window.open(url, '_self');
+        });
+    </script>
+{% endblock javascripts %}

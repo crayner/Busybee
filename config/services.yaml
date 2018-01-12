@@ -50,6 +50,7 @@ parameters:
             - ROLE_PARENT
     google:
         oauth: off
+    upload_path: 'uploads/%current_year%/%current_month%'
 
 services:
     # default configuration for services in *this* file
@@ -64,7 +65,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Voter,Core\Util}'
+        exclude: '../src/{Entity,Migrations,Tests,Voter,Core/Util}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -112,3 +113,5 @@ services:
     App\Core\Extension\ToggleTypeExtension:
         tags:
             - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\CheckboxType' }
+    App\Core\Validator\BackgroundImage:
+        public: true

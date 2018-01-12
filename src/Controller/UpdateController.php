@@ -5,6 +5,7 @@ use App\Install\Manager\SystemBuildManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -18,7 +19,7 @@ class UpdateController extends Controller
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function updateSystemSettings(SystemBuildManager $systemBuildManager, TokenStorageInterface $tokenStorage, Request $request)
+	public function updateSystemSettings(SystemBuildManager $systemBuildManager, TokenStorageInterface $tokenStorage, RequestStack $request)
 	{
 		$listener = $this->get('Hillrange\Security\Listener\UserTrackListener');
 

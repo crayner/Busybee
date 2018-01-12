@@ -233,7 +233,7 @@ background.image:
     displayName: 'Background Image'
     description: 'Change the background displayed for the site.  The image needs to be a minimum of 1200px width.  You can load an image of 1M size, but the smaller the size the better.'
     role: 'ROLE_ADMIN'
-    validator: 'busybee_core_template.validator.background_image'
+    validator: 'App\Core\Validator\BackgroundImage'
     value: 'img/backgroundPage.jpg'
 SchoolDay.Open:
     type: 'time'

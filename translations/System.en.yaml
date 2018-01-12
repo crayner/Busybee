@@ -18,22 +18,22 @@ system:
             title: Create Setting(s)
             description: ''
             success: The setting was saved successfully.
-        label:
-            description: Setting Description
-            value: Setting Value
-            displayName: Setting Display Name
-            upload: Upload Setting File
-            default: Set as Default Upgrade
-        placeholder:
-            name: Select setting to edit.
-        help:
-            description: You can alter the setting decription to better describe the setting.
-            boolean: Setting is true or false, Yes or No.
-            array: "Setting values for arrays are displayed as a display name: key combination."
-            twig: "Templates in twig need to be tested on the page for which thay are used."
-            displayName: 'The display name is available to change for your system, but it must be unique on your system.'
-            image: 'Upload an image.'
-            default: "The default file is loaded when you upgrade the system to a new version. The upgrade process will overwrite defaults, and this setting will then refresh your school's default settings."
-            file: File are usually set by the system.  As such, file management should only be attempted with extreme care.
-        integer:
-            help: Enter a vaild integer value.
+        description:
+            label: Setting Description
+            help: You can alter the setting decription to better describe the setting.
+        value.label: Setting Value
+        displayName:
+            label: Setting Display Name
+            help: 'The display name is available to change for your system, but it must be unique on your system.'
+        upload.label: Upload Setting File
+        default:
+            label: Set as Default Upgrade
+            help: "The default file is loaded when you upgrade the system to a new version. The upgrade process will overwrite defaults, and this setting will then refresh your school's default settings."
+        name.placeholder: Select setting to edit.
+        boolean.help: Setting is true or false, Yes or No.
+        array.help: "Setting values for arrays are displayed as a display name: key combination."
+        twig.help: "Templates in twig need to be tested on the page for which they are used."
+        image.help: 'Upload an image.'
+        file.help: File are usually set by the system.  As such, file management should only be attempted with extreme care.
+        integer.help: Enter a vaild integer value.
+photo.delete: Delete Photo

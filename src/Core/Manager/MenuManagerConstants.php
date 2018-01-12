@@ -49,6 +49,7 @@ class MenuManagerConstants
     node: 9
     order: 91
 ';
+
 	CONST SECTIONS = '
 System Admin:
     extend_update:
