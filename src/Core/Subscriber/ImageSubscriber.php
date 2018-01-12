@@ -74,13 +74,13 @@ class ImageSubscriber implements EventSubscriberInterface
 			$data = $file->getPathName();
 
 			if (!empty($form->getData()) && file_exists($form->getData()))
-				unlink($form->getData());
+				if (0 === strpos($form->getData(), 'uploads/'))
+					unlink($form->getData());
 		}
 
 		if (!empty($form->getData()) && empty($data))
 			$data = $form->getData();
 
 		$event->setData($data);
-
 	}
 }

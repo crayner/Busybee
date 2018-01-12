@@ -31,6 +31,7 @@ class ImageToStringTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($data)
 	{
+
 		return $data;
 	}
 }

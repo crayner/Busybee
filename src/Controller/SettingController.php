@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
@@ -297,17 +298,16 @@ class SettingController extends Controller
 
 		$form->handleRequest($request);
 
-		if (!$valid)
+		if (! $valid)
 		{
 			$form->get('value')->addError(new FormError($errorMsg));
 		}
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$em = $this->get('doctrine')->getManager();
-			$em->persist($setting);
-			$em->flush();
-			$session                       = $this->get('session');
+			$entityManager->persist($setting);
+			$entityManager->flush();
+			$session                       = $request->getSession();
 			$settings                      = $session->get('settings', []);
 
 			$settings[$setting->getName()] = $setting->getValue();
@@ -315,7 +315,7 @@ class SettingController extends Controller
 			$session->set('settings', $settings);
 
 			if ($setting->getType() == 'image')
-				return $this->redirectToRoute('setting_edit', array('id' => $id));
+				return $this->redirectToRoute('setting_edit', ['id' => $id]);
 		}
 
 		return $this->render('Setting/edit.html.twig', [
@@ -343,13 +343,12 @@ class SettingController extends Controller
 		{
 			$file = $setting->getValue();
 
-			if (false === strpos($file, 'img/'))
+			if (0 === strpos($file, 'uploads/'))
 			{
 				if (file_exists($file))
 					unlink($file);
 
 				$setting->setValue(null);
-				$em = $this->get('doctrine')->getManager();
 				$em->persist($setting);
 				$em->flush();
 				$session                       = $request->getSession();

@@ -102,7 +102,7 @@ class SettingManager implements ContainerAwareInterface
 		$this->container = $container;
 
 		$this->authorisation = $authorisation;
-		$this->messages = new MessageManager('SystemBundle');
+		$this->messages = new MessageManager('System');
 	}
 
 	/**
@@ -227,10 +227,9 @@ class SettingManager implements ContainerAwareInterface
 			case 'file':
 			case 'image':
 				$value   = $this->setting->getValue();
-				$webPath = realpath($this->projectDir . '/web/');
-				if (!file_exists($webPath . '/' . $value))
+				$webPath = realpath($this->projectDir . '/public/');
+				if (! file_exists($webPath . '/' . $value))
 					$value = $default;
-
 				return $this->writeSettingToSession($name, $value);
 				break;
 			case 'twig':
@@ -499,6 +498,7 @@ class SettingManager implements ContainerAwareInterface
 	{
 		$name                = strtolower($name);
 		$this->settingExists = false;
+
 		if (isset($this->settings[$name]) && empty($options))
 		{
 			$this->settingExists = true;
@@ -506,6 +506,7 @@ class SettingManager implements ContainerAwareInterface
 			return empty($this->settings[$name]) ? $default : $this->settings[$name];
 		}
 		$value = $this->getSetting($name, $default, $options);
+
 		if ($this->settingExists && empty($options))
 		{
 			$this->settings[$name]     = $value;
@@ -826,7 +827,7 @@ class SettingManager implements ContainerAwareInterface
 		}
 		catch (ParseException $e)
 		{
-			$this->container->get('session')->getFlashBag()->add('error', $this->container->get('translator')->trans('updateDatabase.failure', array('%fName%' => $fName), 'SystemBundle'));
+			$this->container->get('session')->getFlashBag()->add('error', $this->container->get('translator')->trans('updateDatabase.failure', array('%fName%' => $fName), 'System'));
 
 			return [];
 		}

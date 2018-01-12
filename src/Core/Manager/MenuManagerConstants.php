@@ -64,11 +64,6 @@ System Admin:
             role: ROLE_SYSTEM_ADMIN
             route: setting_manage
             params: {}
-        page_security:
-            label: menu.setting.page.security
-            role: ROLE_SYSTEM_ADMIN
-            route: page_list
-            params: {}
     hidden:
         - setting_edit
         - setting_edit_name

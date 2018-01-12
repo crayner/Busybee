@@ -63,6 +63,12 @@ class Setting implements UserTrackInterface
 	 */
 	private $validator;
 
+
+	/**
+	 * @var blob
+	 */
+	private $defaultValue;
+
 	/**
 	 * Get id
 	 *
@@ -128,6 +134,9 @@ class Setting implements UserTrackInterface
 	 */
 	public function getValue()
 	{
+		if (empty($this->value) && ! empty($this->defaultValue))
+			$this->value = $this->defaultValue;
+
 		$type = 'get' . ucfirst($this->getType());
 
 		return $this->$type();
@@ -138,18 +147,22 @@ class Setting implements UserTrackInterface
 	 *
 	 * @param blob $value
 	 *
-	 * @return blob
+	 * @return Setting
 	 */
-	public function setValue($value)
+	public function setValue($value): Setting
 	{
-
 		if (empty($this->getType()))
 			throw new Exception('The setting ' . $this->getName() . ' has not set the type correctly.');
 
 		$type = 'set' . ucfirst($this->getType());
 
+		$x = $this->$type($value);
+		if ($x instanceof Setting)
+			return $x;
 
-		return $this->$type($value);
+		$this->value = $x;
+
+		return $this;
 	}
 
 	/**
@@ -189,7 +202,7 @@ class Setting implements UserTrackInterface
 	/**
 	 * Set role
 	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\Role $role
+	 * @param boole= $sa
 	 *
 	 * @return Setting
 	 */
@@ -297,6 +310,67 @@ class Setting implements UserTrackInterface
 	}
 
 	/**
+	 * @return mixed
+	 */
+	public function getDefaultValue()
+	{
+		switch ($this->type)
+		{
+			case 'array':
+				return empty($this->defaultValue) ? [] : Yaml::parse($this->defaultValue);
+			case 'image':
+				return file_exists($this->defaultValue)? $this->defaultValue : null;
+			case 'integer':
+				return intval($this->defaultValue);
+			case 'twig':
+			case 'text':
+			case 'string':
+			case 'regex':
+				return is_string($this->defaultValue) ? $this->defaultValue : null;
+			case 'time':
+				if (is_string($this->defaultValue) && preg_match("/^(2[0-3]|[01][0-9]):([0-5][0-9])$/", $this->defaultValue) == 1)
+					$value = new \DateTime('1970-01-01 ' . $this->defaultValue . ':00');
+				elseif (is_string($this->defaultValue))
+					$value = unserialize($this->defaultValue);
+				else
+					$value = null;
+
+				if (!$value instanceof \DateTime)
+				{
+					$value       = null;
+					$this->defaultValue = null;
+				}
+				else
+					$this->defaultValue = serialize($value);
+
+				return $value;
+			default:
+				return $this->defaultValue;
+		}
+	}
+
+	/**
+	 * @param  $defaultValue
+	 *
+	 * @return Setting
+	 */
+	public function setDefaultValue($defaultValue): Setting
+	{
+		if (empty($this->getType()))
+			throw new Exception('The setting ' . $this->getName() . ' has not set the type correctly.');
+
+		$type = 'set' . ucfirst($this->getType());
+
+		$x = $this->$type($defaultValue);
+		if ($x instanceof Setting)
+			return $x;
+
+		$this->defaultValue = $x;
+
+		return $this;
+	}
+
+	/**
 	 * @return array
 	 */
 	private function getArray(): array
@@ -309,16 +383,14 @@ class Setting implements UserTrackInterface
 	/**
 	 * @param $value
 	 *
-	 * @return Setting
+	 * @return
 	 */
-	private function setArray($value): Setting
+	private function setArray($value)
 	{
 		if (is_array($value))
 			$value = Yaml::dump($value);
 
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -336,18 +408,16 @@ class Setting implements UserTrackInterface
 	 * @param $value
 	 *
 	 * @throws Exception
-	 * @return Setting
+	 * @return
 	 */
-	private function setImage($value): Setting
+	private function setImage($value)
 	{
 		if ($value instanceof UploadedFile)
 			throw new Exception('The image must first be converted from an uploaded file.');
 		if ($value instanceof File)
 			$value = $value->getPathname();
 
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -361,11 +431,9 @@ class Setting implements UserTrackInterface
 	/**
 	 * @return int
 	 */
-	private function setInteger($value): Setting
+	private function setInteger($value): int
 	{
-		$this->value = intval($value);
-
-		return $this;
+		return intval($value);
 	}
 
 	/**
@@ -379,13 +447,11 @@ class Setting implements UserTrackInterface
 	/**
 	 * @param $value
 	 *
-	 * @return Setting
+	 * @return
 	 */
-	private function setTwig($value): Setting
+	private function setTwig($value)
 	{
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -399,13 +465,11 @@ class Setting implements UserTrackInterface
 	/**
 	 * @param $value
 	 *
-	 * @return Setting
+	 * @return
 	 */
-	private function setString($value): Setting
+	private function setString($value)
 	{
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -419,13 +483,11 @@ class Setting implements UserTrackInterface
 	/**
 	 * @param $value
 	 *
-	 * @return Setting
+	 * @return
 	 */
-	private function setText($value): Setting
+	private function setText($value)
 	{
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -455,18 +517,16 @@ class Setting implements UserTrackInterface
 	/**
 	 * @param $value
 	 *
-	 * @return Setting
+	 * @return
 	 */
-	private function setTime($value): Setting
+	private function setTime($value)
 	{
 		if ($value instanceof \DateTime)
-			$this->value = serialize($value);
+			$value = serialize($value);
 		else
-			$this->value = empty($value) ? null : $value;
+			$value = empty($value) ? null : $value;
 
-		$this->getTime();
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -487,9 +547,7 @@ class Setting implements UserTrackInterface
 		if (false === @preg_match($value, 'jsfoieqwht9rhewtgs euohgt')) // if this valid regex
 			$value = null;
 
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	/**
@@ -509,9 +567,7 @@ class Setting implements UserTrackInterface
 	public function setSystem($value): Setting
 	{
 		// It really is up to the programmer to check this....
-		$this->value = $value;
-
-		return $this;
+		return $value;
 	}
 
 	public function __construct()
