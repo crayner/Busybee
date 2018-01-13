@@ -1,12 +1,15 @@
 <?php
 namespace App\Core\Form;
 
+use App\Core\Subscriber\SettingSubscriber;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -18,13 +21,19 @@ class SettingType extends AbstractType
 	private $repo;
 
 	/**
+	 * @var SettingSubscriber
+	 */
+	private $settingSubscriber;
+
+	/**
 	 * SettingType constructor.
 	 *
 	 * @param SettingRepository $repo
 	 */
-	public function __construct(SettingRepository $repo)
+	public function __construct(SettingRepository $repo, SettingSubscriber $settingSubscriber)
 	{
 		$this->repo = $repo;
+		$this->settingSubscriber = $settingSubscriber;
 	}
 
 	/**
@@ -66,6 +75,7 @@ class SettingType extends AbstractType
 					)
 				)
 			);
+		$builder->addEventSubscriber($this->settingSubscriber);
 	}
 
 	/**
@@ -90,6 +100,7 @@ class SettingType extends AbstractType
 			array(
 				'data_class'         => Setting::class,
 				'translation_domain' => 'System',
+				'cancelURL'         => null,
 			)
 		);
 	}
@@ -100,5 +111,10 @@ class SettingType extends AbstractType
 	public function getBlockPrefix()
 	{
 		return 'setting';
+	}
+
+	public function buildView(FormView $view, FormInterface $form, array $options)
+	{
+		$view->vars['cancelURL'] = $options['cancelURL'];
 	}
 }

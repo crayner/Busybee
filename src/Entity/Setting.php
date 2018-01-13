@@ -564,7 +564,27 @@ class Setting implements UserTrackInterface
 	 *
 	 * @return Setting
 	 */
-	public function setSystem($value): Setting
+	public function setSystem($value)
+	{
+		// It really is up to the programmer to check this....
+		return $value;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getEnum()
+	{
+		// It really is up to the programmer to check this....
+		return $this->value;
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	public function setEnum($value)
 	{
 		// It really is up to the programmer to check this....
 		return $value;
