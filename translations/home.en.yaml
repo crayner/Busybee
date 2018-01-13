@@ -26,6 +26,7 @@ menu:
         manage: System Settings
     site:
         acknowledgement: System Check
+    update.system: Update System
 section:
     header:
         years_days_times: 'Years, Days & Times'

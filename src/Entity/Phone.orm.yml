@@ -1,0 +1,25 @@
+App\Entity\Phone:
+    type: entity
+    table: phone
+    repositoryClass: App\Repository\PhoneRepository
+    uniqueConstraints:
+        phoneNumber:
+            columns:
+                - phoneNumber
+                - countryCode
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        phoneType:
+            type: string
+            length: '25'
+        phoneNumber:
+            type: string
+            length: '20'
+        countryCode:
+            type: string
+            length: '6'

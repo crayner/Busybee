@@ -540,9 +540,9 @@ class Setting implements UserTrackInterface
 	/**
 	 * @param $value
 	 *
-	 * @return Setting
+	 * @return string
 	 */
-	private function setRegex($value): Setting
+	private function setRegex($value)
 	{
 		if (false === @preg_match($value, 'jsfoieqwht9rhewtgs euohgt')) // if this valid regex
 			$value = null;

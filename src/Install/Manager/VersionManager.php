@@ -7,6 +7,8 @@ use App\Core\Settings\Settings_0_0_02;
 use App\Core\Settings\Settings_0_0_03;
 use App\Core\Settings\Settings_0_0_04;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Version;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Kernel;
@@ -20,7 +22,7 @@ class VersionManager
 	const VERSION = '0.0.04';
 
 	/**
-	 * @var SettingManagerInterface
+	 * @var SettingManager
 	 */
 	private $settingManager;
 
@@ -40,6 +42,11 @@ class VersionManager
 	private $translator;
 
 	/**
+	 * @var EntityManagerInterface
+	 */
+	private $entityManager;
+
+	/**
 	 * VersionManager constructor.
 	 *
 	 * @param Connection              $connection
@@ -47,12 +54,13 @@ class VersionManager
 	 * @param                     $version
 	 * @param TranslatorInterface     $translator
 	 */
-	public function __construct(Connection $connection, SettingManager $settingManager, TranslatorInterface $translator, RequestStack $request)
+	public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager, TranslatorInterface $translator, RequestStack $request)
 	{
-		$this->connection     = $connection;
+		$this->connection     = $entityManager->getConnection();
 		$this->settingManager = $settingManager;
 		$this->version        = $this->settingManager->get('version', '0.0.00');
 		$this->translator     = $translator;
+		$this->entityManager = $entityManager;
 
 		return $this;
 	}
@@ -324,6 +332,15 @@ class VersionManager
 	 */
 	public function isUpToDate()
 	{
+		$schemaTool = new SchemaTool($this->entityManager);
+
+		$metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
+
+		$xx = $schemaTool->getUpdateSchemaSql($metaData);
+
+		if (count($xx) > 0)
+			return false;
+
 		return version_compare(self::VERSION, $this->version, '<=');
 	}
 

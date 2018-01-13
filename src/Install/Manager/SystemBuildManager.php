@@ -79,7 +79,7 @@ class SystemBuildManager extends InstallManager
 
 		$metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
 
-		$xx = $schemaTool->getUpdateSchemaSql($metaData, true);
+		$xx = $schemaTool->getUpdateSchemaSql($metaData);
 
 		$count = count($xx);
 		$this->addMessage('info', 'system.build.database.count', ['%count%' => $count]);

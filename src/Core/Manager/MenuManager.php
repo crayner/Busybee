@@ -134,7 +134,7 @@ class MenuManager extends MenuManagerConstants
 		$result = [];
 		foreach ($items as $w)
 		{
-			if ($w['node'] == $node && $this->itemRoleCheck($w))
+			if ($w['node'] == $node && $this->itemCheck($w))
 			{
 				$w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array();
 				if (isset($w['route']))
@@ -151,6 +151,11 @@ class MenuManager extends MenuManagerConstants
 		return $items;
 	}
 
+
+	private function itemCheck($node)
+	{
+		return $this->itemRoleCheck($node) && $this->showItem($node);
+	}
 	/**
 	 * @param   array $node
 	 *
@@ -418,5 +423,19 @@ class MenuManager extends MenuManagerConstants
 		}
 
 
+	}
+
+	private function showItem($node)
+	{
+		if (empty($node['showTest']))
+			return true;
+
+		$className = $node['showTest'];
+
+		if (! class_exists($className, true))
+			return false;
+		$class = $this->container->get($className);
+
+		return $class->showItem();
 	}
 }
