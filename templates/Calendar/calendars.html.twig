@@ -1,0 +1,67 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/years.html.twig #}
+
+{% trans_default_domain "Calendar" %}
+
+{% extends "/Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'calendars.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'calendars.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'calendars.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% set h3Content = addButton({windowOpen: {route: path('calendar_edit', {id: 'Add'})}}) %}
+    {% include 'Page/panelStart.html.twig' with {transDomain: 'Calendar', header: 'calendars.list'} %}
+    <div class="container-fluid">
+        {% if Calendars|length > 0 %}
+        <div class="row row-header">
+            <div class="col-2">
+                {{ 'calendar.name.header'|trans }}
+            </div>
+            <div class="col-3">
+                {{ 'calendar.firstDay.header'|trans }}
+            </div>
+            <div class="col-3">
+                {{ 'calendar.lastDay.header'|trans }}
+            </div>
+            <div class="col-4 col-md-4">
+                {{ 'calendar.action.header'|trans }}
+            </div>
+        </div>
+        {% for Calendar in Calendars %}
+            <div class="row row-striped">
+                <div class="col-2{% if Calendar.status == 'current' %} alert-success{% endif %}">
+                    {{ Calendar.name }}
+                </div>
+                <div class="col-3 small{% if Calendar.status == 'current' %} alert-success{% endif %}">
+                    {{ Calendar.firstDay|date(get_setting('date.format.long')) }}
+                </div>
+                <div class="col-3 small{% if Calendar.status == 'current' %} alert-success{% endif %}">
+                    {{ Calendar.lastDay|date(get_setting('date.format.long')) }}
+                </div>
+                <div class="col-4 col-md-4">
+                    {{ editButton({'style': '', 'windowOpen': {'route': path('calendar_edit', {'id': Calendar.id})}, 'title': 'Calendar.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'Calendar'})|raw }}
+                    {% set additional = 'onclick="confirmDelete(\'' ~ path('calendar_delete', {'id': Calendar.id}) ~ '\')"' %}
+                    {% if not manager.canDelete(Calendar) %}{% set additional = additional ~ ' disabled' %}{% endif %}
+                    {{ deleteButton({additional: additional, style: ''})|raw }}
+                    {{ miscButton({title: 'Calendar.calendar.button',  class: 'halflings halflings-calendar btn btn-info', style: '', transDomain: 'Calendar', 'windowOpen': {'route': path('calendar_display', {'id': Calendar.id, 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+        <p class="alert alert-warning">{{ 'years.empty'|trans }}<p>
+            {% endif %}
+    </div>
+    {% include '/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function confirmDelete(delUrl) {
+            if (confirm("{{ 'years.delete.confirm'|trans }}")) {
+                document.location = delUrl;
+            }
+        }
+    </script>
+{% endblock javascripts %}

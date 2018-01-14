@@ -27,6 +27,13 @@ class MenuManagerConstants
 ';
 
 	CONST ITEMS = '
+10:
+    label: menu.admin.school
+    name: School Admin
+    role: ROLE_REGISTRAR
+    node: 1
+    order: 10
+    route: calendar_years
 11:
     label: menu.setting.manage
     name: Setting Management
@@ -68,5 +75,16 @@ System Admin:
         - setting_edit
         - setting_edit_name
         - page_edit
+School Admin:
+    years_days_times:
+        calendar_years:
+            label: menu.year.manage
+            role: ROLE_REGISTRAR
+            route: calendar_years
+            params: {}
+    hidden:
+        - year_edit
+        - edit_grade
+        - student_add_to_calendar_group
 ';
 }

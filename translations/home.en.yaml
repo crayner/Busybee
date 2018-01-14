@@ -20,13 +20,17 @@ menu:
     user:
         self:
             manage: Current User
-    admin:
-        node: System
     setting:
         manage: System Settings
     site:
         acknowledgement: System Check
     update.system: Update System
+    admin:
+        school: School Admin
+        node: ADMIN
+        system: System Admin
+        user: User Admin
+        timetable: Timetable Admin
 section:
     header:
         years_days_times: 'Years, Days & Times'

@@ -81,11 +81,11 @@ Phone.TypeList:
         'Mobile': 'Mobile'
         'Work': 'Work'
         'Imported': 'Imported'
-Phone.CountryList:
+phone.country.list:
     type: 'array'
-    displayName: 'List of Country Codes'
+    displayName: 'List of Phone Country Codes'
     description: "List of phone country codes."
-    role: 'ROLE_REGISTRAR'
+    role: 'ROLE_SYSTEM_ADMIN'
     value:
         'Australia +61': '+61'
         'Canada +1': '+1'
@@ -95,7 +95,7 @@ Phone.Validation:
     type: 'regex'
     displayName: 'Phone Validation Rule'
     description: "Phone Validation Regular Expression"
-    role: 'ROLE_ADMIN'
+    role: 'ROLE_SYSTEM_ADMIN'
     value: ''
 Phone.Display:
     type: 'twig'
@@ -295,11 +295,12 @@ Staff.Categories:
         Ancillary: Ancillary
         Cleaner: Cleaner
         Administrative: Administrative
-Country.Code:
-    type: 'string'
+phone.country.code:
+    type: 'enum'
     displayName: 'Phone Country Code'
     description: 'Default phone country code.'
-    role: 'ROLE_REGISTRAR'
+    role: 'ROLE_SYSTEM_ADMIN'
+    choice: 'phone.country.list'
     validator: null
 Person.Import:
     type: 'array'

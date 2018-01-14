@@ -1,14 +1,11 @@
 <?php
 namespace App\Entity;
 
+use App\Core\EntityExtension\CalendarExtension;
 use Doctrine\Common\Collections\ArrayCollection;
-use Hillrange\Security\Util\UserTrackInterface;
-use Hillrange\Security\Util\UserTrackTrait;
 
-class Calendar implements UserTrackInterface
+class Calendar extends CalendarExtension
 {
-	use UserTrackTrait;
-
 	/**
 	 * @var integer
 	 */
@@ -111,7 +108,7 @@ class Calendar implements UserTrackInterface
 	 *
 	 * @return $this
 	 */
-	public function setStatus($status)
+	public function setStatus($status): Calendar
 	{
 		$this->status = strtolower($status);
 
@@ -133,9 +130,9 @@ class Calendar implements UserTrackInterface
 	 *
 	 * @param \DateTime $lastDay
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function setLastDay($lastDay)
+	public function setLastDay($lastDay): Calendar
 	{
 		$this->lastDay = $lastDay;
 
@@ -147,14 +144,14 @@ class Calendar implements UserTrackInterface
 	 *
 	 * @param Term $term
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function addTerm(Term $term)
+	public function addTerm(Term $term): Calendar
 	{
 		if ($this->terms->contains($term))
 			return $this;
 
-		$term->setYear($this);
+		$term->setCalendar($this);
 
 		$this->terms->add($term);
 
@@ -208,11 +205,11 @@ class Calendar implements UserTrackInterface
 	/**
 	 * Add specialDay
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay
+	 * @param SpecialDay $specialDay
 	 *
 	 * @return Term
 	 */
-	public function addSpecialDay(\Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay)
+	public function addSpecialDay(SpecialDay $specialDay): Calendar
 	{
 		if (!is_null($specialDay->getName()))
 			$this->specialDays[] = $specialDay;
@@ -223,9 +220,9 @@ class Calendar implements UserTrackInterface
 	/**
 	 * Remove specialDay
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay
+	 * @param SpecialDay $specialDay
 	 */
-	public function removeSpecialDay(\Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay)
+	public function removeSpecialDay(SpecialDay $specialDay)
 	{
 		$this->specialDays->removeElement($specialDay);
 	}
@@ -259,16 +256,16 @@ class Calendar implements UserTrackInterface
 	/**
 	 * Add calendarGroups
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroups
+	 * @param CalendarGroup $calendarGroups
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function addCalendarGroup(\Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroup)
+	public function addCalendarGroup(CalendarGroup $calendarGroup): Calendar
 	{
 		if ($this->calendarGroups->contains($calendarGroup))
 			return $this;
 
-		$calendarGroup->setYear($this);
+		$calendarGroup->setCalendar($this);
 
 		$this->calendarGroups->add($calendarGroup);
 
@@ -278,9 +275,9 @@ class Calendar implements UserTrackInterface
 	/**
 	 * Remove calendarGroup
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroup
+	 * @param CalendarGroup $calendarGroup
 	 */
-	public function removeCalendarGroup(\Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroup)
+	public function removeCalendarGroup(CalendarGroup $calendarGroup)
 	{
 		$this->calendarGroups->removeElement($calendarGroup);
 	}
@@ -332,9 +329,9 @@ class Calendar implements UserTrackInterface
 	 *
 	 * @param string $name
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function setName($name)
+	public function setName($name): Calendar
 	{
 		$this->name = $name;
 
@@ -356,9 +353,9 @@ class Calendar implements UserTrackInterface
 	 *
 	 * @param \DateTime $firstDay
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function setFirstDay($firstDay)
+	public function setFirstDay($firstDay): Calendar
 	{
 		$this->firstDay = $firstDay;
 
@@ -376,9 +373,9 @@ class Calendar implements UserTrackInterface
 	/**
 	 * @param string $downloadCache
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function setDownloadCache(string $downloadCache = null): Year
+	public function setDownloadCache(string $downloadCache = null): Calendar
 	{
 
 		$this->downloadCache = empty($downloadCache) ? null : $downloadCache;
@@ -397,9 +394,9 @@ class Calendar implements UserTrackInterface
 	/**
 	 * @param int|null $importIdentifier
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function setImportIdentifier($importIdentifier): Year
+	public function setImportIdentifier($importIdentifier): Calendar
 	{
 		$this->importIdentifier = $importIdentifier;
 
@@ -409,13 +406,12 @@ class Calendar implements UserTrackInterface
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $calendarGroups
 	 *
-	 * @return Year
+	 * @return Calendar
 	 */
-	public function setCalendarGroups(\Doctrine\Common\Collections\Collection $calendarGroups = null): Year
+	public function setCalendarGroups(\Doctrine\Common\Collections\Collection $calendarGroups = null): Calendar
 	{
 		$this->calendarGroups = $calendarGroups;
 
 		return $this;
 	}
-
 }

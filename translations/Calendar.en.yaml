@@ -1,0 +1,12 @@
+calendar:
+    name.header: Name
+    firstDay.header: First Day
+    lastDay.header: Last Day
+    action.header: Actions
+calendars:
+    title: Adademic Calendar Definitions
+    description: ''
+    list: Academic Calendars
+    empty: There are no Calendars Defined.
+    delete:
+        confirm: Are you sure you wish to delete this Calendar?
