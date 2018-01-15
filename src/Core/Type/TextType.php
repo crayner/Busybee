@@ -1,10 +1,10 @@
 <?php
 namespace App\Core\Type;
 
-use Symfony\Component\Form\Extension\Core\Type\TextType as BaseType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TextType extends BaseType
+class TextType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -16,5 +16,15 @@ class TextType extends BaseType
 				'compound' => false,
 			]
 		);
+	}
+
+	public function getParent()
+	{
+		return \Symfony\Component\Form\Extension\Core\Type\TextType::class;
+	}
+
+	public function getBlockPrefix()
+	{
+		return 'bee_text';
 	}
 }

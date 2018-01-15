@@ -62,6 +62,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 			$names = $this->settingManager->getLikeSettingNames($options['setting_name']);
 			throw new \InvalidArgumentException('Setting ' . $options['setting_name'] . ' not found.' . $names);
 		}
+
+		$setting = $this->settingManager->getSettingEntity($options['setting_name']);
 		$choices = $this->settingManager->get($options['setting_name']);
 
 		if (!is_null($options['setting_data_value']))
@@ -103,7 +105,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'SystemBundle';
 
 		$newOptions['setting_name'] = $options['setting_name'];
-		$newOptions['setting_display_name'] = $options['setting_display_name'];
+		$newOptions['setting_display_name'] = $options['setting_display_name'] ? $options['setting_display_name'] : $setting->getDisplayName();
 
 		//  Now replace the existing setting form element with a straight Choice
 		$form->getParent()->add($name, ChoiceSettingType::class, $newOptions);

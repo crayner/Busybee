@@ -43,7 +43,6 @@ class SettingChoiceType extends AbstractType
 		$resolver->setRequired(
 			array(
 				'setting_name',
-				'setting_display_name',
 			)
 		);
 		$resolver->setDefaults(
@@ -51,10 +50,11 @@ class SettingChoiceType extends AbstractType
 				'expanded'           => false,
 				'multiple'           => false,
 				'placeholder'        => null,
-				'year_data'          => null,
+				'calendar_data'          => null,
 				'use_label_as_value' => false,
 				'setting_data_name'  => null,
 				'setting_data_value' => null,
+				'setting_display_name' => null,
 			)
 		);
 	}

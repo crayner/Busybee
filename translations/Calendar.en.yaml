@@ -1,8 +1,57 @@
 calendar:
-    name.header: Name
-    firstDay.header: First Day
-    lastDay.header: Last Day
+    name:
+        header: Name
+        label: Calendar Name
+        help: The name to display for this calendar.
+    firstDay:
+        header: First Day
+        label: First Day
+        help: ''
+    lastDay:
+        header: Last Day
+        help: The last day must be less than a year after the first day and must also be after the first day.
+        label: Last Day
     action.header: Actions
+    calendar.tab: Calendar
+    terms.tab: Terms
+    specialDay:
+        title: "Manage Special Days in %name%"
+        add: Add Special Day
+    specialDays:
+        tab: Special Days
+        help: "The date of Special Days must exist in the year, and each special day must be a unique date."
+    calendarGroups.tab: Groups
+    year:
+        title: 'Manage Calendar: %name%'
+        return: Return
+    status:
+        placeholder: Select Status
+        label: Calendar Status
+        help: Only one calendar can be current.
+        past: Past
+        current: Current
+        future: Future
+    term:
+        title: "Manage Terms in %name%"
+    help:
+        terms: "Terms are sorted within the year by the First Day Date. Terms must exist within the year days, and must not overlap days in another term."
+        grades: ''
+    title: Define Calendars
+    description: Create and modify calendar definitions.
+    groups:
+        title: "Manage Calendar Groups in %name%"
+        help: "To sort, drag and drop the Calendar Group to the required position and save the form."
+    group:
+        add:
+            title: Group Details
+        website:
+            label: Web Site
+        nameshort:
+            label: Group Name
+            placeholder: Select a Group
+            unique: The name of the year must be unique for this calendar.
+
+
 calendars:
     title: Adademic Calendar Definitions
     description: ''
@@ -10,3 +59,44 @@ calendars:
     empty: There are no Calendars Defined.
     delete:
         confirm: Are you sure you wish to delete this Calendar?
+term:
+    add:
+        label: Add Term
+    name:
+        help: ''
+        label:  Term Name
+    name_short:
+        label: Term Short Name
+        help: ''
+    delete:
+        confirm: Are you sure you want to delete this Term?
+        title: Erase Term
+special_day:
+    day:
+        help: (Must be Unique)
+        label: Date of Special Day
+    type:
+        help: "Closed: No attendance required. Change Timing: Alter opening hours."
+        closure: Closed
+        alter: Change Timing
+        label: Special Day option
+    name:
+        help: Usually the name of the public holiday.
+        label: Name
+    description:
+        help: ''
+        label: Description
+    open:
+        help: Campus open time
+        label: Open Doors
+    start:
+        help: ""
+        label: Start Teaching
+    finish:
+        help: ""
+        label: Finish Teaching
+    close:
+        help: Campus close time
+        label: Close Doors
+    hour: Hour
+    minute: Minute

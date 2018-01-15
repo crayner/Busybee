@@ -82,6 +82,7 @@ date.format:
     value:
         long: D, jS M/Y
         short: j/m/Y
+        widget: dMMMy
     displayName: Date Format
     description: Display the date in reports in this format. Formats are found at http://php.net/manual/en/function.date.php
     role: ROLE_REGISTRAR

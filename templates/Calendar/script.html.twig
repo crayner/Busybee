@@ -1,0 +1,19 @@
+{% trans_default_domain "Calendar" %}
+
+<script type="text/javascript" language="JavaScript">
+    function resetCalendar() {
+        var fragment = $('.tab-content > .active').attr('id');
+
+        var id = '{{ app.request.get('id') }}';
+        if (id.length === 0) {
+            id = '0';
+        }
+
+        var path = '{{ path('calendar_edit', { 'id': '__id__', '_fragment': '__fragment__'}) }}';
+        path = path.replace('__id__', id);
+        path = path.replace('__fragment__', fragment);
+
+        location.assign(path);
+        location.reload(true);
+    }
+</script>

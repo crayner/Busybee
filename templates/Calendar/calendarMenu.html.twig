@@ -1,0 +1,9 @@
+{% set h3Content = '' %}
+{% set h3Content = h3Content ~ returnButton({'windowOpen': {'route': path('calendar_years')}}) %}
+{% if calendar_id != 'Add' %}
+    {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('calendar_edit', {'id': 'Add'})}}) %}
+    {% set h3Content = h3Content ~ miscButton({'title': 'year.calendar.button', 'type': 'button', 'class': 'halflings halflings-calendar btn btn-info', 'transDomain': 'Calendar', 'windowOpen': {'route': path('calendar_display', {'id': app.request.get('id'), 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw %}
+{% endif %}
+{% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'return resetCalendar', 'options': []}}) %}
+{% set h3Content = h3Content ~ saveButton() %}
+{% include 'Page/panelStart.html.twig' with {'header': header, 'transDomain': 'Calendar'} %}

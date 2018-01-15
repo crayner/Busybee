@@ -1,0 +1,28 @@
+<script language="JavaScript" type="text/javascript">
+
+    $(".specialDayList").collection({
+        name_prefix: '{{ form.specialDays.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'calendar.specialday.add'|trans({}, 'Calendar') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'calendar.specialday.remove'|trans({}, 'Calendar') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        allow_duplicate: true,
+        add_at_the_end: true
+    });
+
+    {% for error in form.vars.errors %}
+    {% if error.messageTemplate in ['calendar.specialDay.error.delete', 'calendar.specialDay.error.timeEmpty', 'calendar.specialDay.error.timeInvalid'] %}
+    $("#specialDayMessage").html('<p class="alert alert-danger alert-dismissable show hide">{{ error.message }}</p>');
+    $("#specialDayMessage").fadeIn(1000);
+    {% endif %}
+    {% endfor %}
+
+    function removeSpecialDay(id, year) {
+        if (id > 0) {
+            var path = "{{ path('special_day_delete', {'id': '__id__', 'year': '__year__'}) }}";
+            path = path.replace('__id__', id);
+            path = path.replace('__year__', year);
+            window.open(path, '_self');
+        }
+    }
+</script>

@@ -1,0 +1,69 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/calendar.html.twig #}
+
+{% trans_default_domain "Calendar" %}
+
+{% set flashClass = 'fadeAlert' %}
+{% set transDomain = 'Calendar' %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+    'FormTheme/jquery.collection.html.twig'
+    'Calendar/term.html.twig'
+    'Calendar/specialDay.html.twig'
+    'Calendar/calendar_group.html.twig'
+    'FormTheme/bootstrap.html.twig'
+%}
+
+{% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'calendar.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'calendar.description'|trans }}{% endblock headerLead %}
+
+{% set tabs = manager.getTabs() %}
+
+{% block contentContainer %}
+{% dump(tabs) %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-disappear show hide") }}
+    {{ form_start(form, {'action': path('calendar_edit', {'id': calendar_id} ) } ) }}
+    <div id="formTabs">
+        <ul class="nav nav-pills" role="tablist">
+            {% set active = ' active' %}
+            {% for name,tab in tabs %}
+                {% set translation = 'Calendar' %}
+                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+                <li class="nav-item"><a href="#{{ name }}" role="tab" data-toggle="tab"
+                       class="{{ name }} nav-link{{ active }}" id="{{ name }}_tab">{{ tab.label|trans({}, translation) }}</a></li>
+                {% set active = '' %}
+            {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% set active = ' active' %}
+            {% for name,tab in tabs %}
+                {% set translation = 'Calendar' %}
+                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+                <div class="tab-pane{{ active }}" id="{{ name }}">
+                    {% if tab.message is defined %}
+                        <div class="container-fluid">
+                            <div class='row' id="{{ tab.message }}" style="display: none;">
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% include(tab.include) %}
+                </div>
+                {% set active = '' %}
+            {% endfor %}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+    {% include 'Calendar/calendar_group_script.html.twig' %}
+    {% include 'Calendar/termScript.html.twig' %}
+    {% include "Calendar/specialDaysScript.html.twig" %}
+    {% include 'Calendar/script.html.twig' %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {'route': 'calendar_edit'} %}
+{% endblock javascripts %}

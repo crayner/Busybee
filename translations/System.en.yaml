@@ -1,6 +1,10 @@
 setting:
     choice:
         name: '%name%'
+    create:
+        setting:
+            label: YAML Formatted Setting
+            placeholder: Use one or more settings in YAML format. Settings that already exist are ignored.
 system:
     setting:
         warning: "CAUTION: Changing System Settings can have unpredictable affects on the operation of the system, and should only be done with caution."

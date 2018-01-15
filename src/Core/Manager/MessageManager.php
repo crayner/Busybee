@@ -8,7 +8,7 @@ class MessageManager
 	/**
 	 * @var string
 	 */
-	private $domain = 'Busybee';
+	private $domain = 'home';
 
 	/**
 	 * @var array

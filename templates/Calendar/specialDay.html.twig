@@ -1,0 +1,55 @@
+{% trans_default_domain "Calendar" %}
+
+{% block specialday_label %}{% endblock %}
+{% block specialday_errors %}{% endblock %}
+
+{% block specialday_widget %}
+    {% if form.name.vars.value is empty %}{% set panelTitle = 'calendar.specialDay.add'|trans %}{% else %}{% set panelTitle = form.name.vars.value %}{% endif %}
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% set sday_id = '0' %}
+    {% if form.vars.value is not null %}{% set sday_id = form.vars.value.getId() %}{% endif %}
+    {% set h3Content = h3Content ~ duplicateButton({mergeClass: 'collection-duplicate collection-action'}) %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'specialDay.delete.title', 'transDomain': 'Calendar', colour: 'warning', mergeClass: 'collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removeSpecialDay', 'options': {'id': sday_id, 'year': app.request.get('id')}}}) %}
+    {% set h3Content = h3Content ~ saveButton({'name': 'specialDays'}) %}
+    {% set h3Content = h3Content ~ '</div>' %}
+    {% include 'Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'Calendar'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.day) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.type) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-8 card">
+                {{ form_row(form.calendar, {'value': app.request.get('id')}) }}
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+        {% set displayType = 'none' %}
+        {% if form.type.vars.value == 'alter' %}{% set displayType = 'flex' %}{% endif %}
+        <div class="row alterTime{{ form.vars.name }}" style="display: {{ displayType }}">
+            <div class="col-4 card">
+                {{ form_row(form.open) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.start) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 offset-4 card">
+                {{ form_row(form.finish) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.close) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Calendar/specialDayScript.html.twig' with {'name': form.vars.name} %}
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock specialday_widget %}

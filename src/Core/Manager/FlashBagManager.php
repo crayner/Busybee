@@ -2,6 +2,7 @@
 
 namespace App\Core\Manager;
 
+use App\Core\Organism\Message;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -18,22 +19,30 @@ class FlashBagManager
 	private $translator;
 
 	/**
+	 * @var MessageManager
+	 */
+	private $messageManager;
+
+	/**
 	 * FlashBagManager constructor.
 	 *
 	 * @param FlashBagInterface   $flashBag
 	 * @param TranslatorInterface $translator
 	 */
-	public function __construct(FlashBagInterface $flashBag, TranslatorInterface $translator)
+	public function __construct(FlashBagInterface $flashBag, TranslatorInterface $translator, MessageManager $messageManager)
 	{
 		$this->translator = $translator;
 		$this->flashBag   = $flashBag;
+		$this->messageManager = $messageManager;
 	}
 
 	/**
-	 * @param array $messages
+	 * @param null|array $messages
 	 */
-	public function addMessages(MessageManager $messages)
+	public function addMessages(MessageManager $messages = null)
 	{
+		$messages = $messages ? $messages : $this->messageManager ;
+
 		foreach ($messages->getMessages() as $message)
 		{
 			if (!$message instanceof Message)
@@ -62,4 +71,31 @@ class FlashBagManager
 
 		return $messages;
 	}
+
+	/**
+	 * Add Message (Synonym)
+	 *
+	 * @param string      $level
+	 * @param string      $message
+	 * @param array       $options
+	 * @param string|null $domain
+	 *
+	 * @return $this
+	 */
+	public function add(string $level, string $message, array $options = [], string $domain = null)
+	{
+		return $this->messageManager->addMessage($level, $message,$options,  $domain );
+	}
+
+
+	/**
+	 * @param string $domain
+	 */
+	public function setDomain(string $domain): FlashBagManager
+	{
+		$this->messageManager->setDomain($domain);
+
+		return $this;
+	}
+
 }

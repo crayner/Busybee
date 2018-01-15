@@ -1,17 +1,11 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Form\SettingCreateType;
 use App\Core\Form\SettingType;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
-use App\Core\Type\ImageType;
-use App\Core\Type\SettingChoiceType;
-use App\Core\Type\TextType;
-use App\Core\Type\TimeType;
-use App\Core\Validator\Integer;
-use App\Core\Validator\Regex;
-use App\Core\Validator\Twig;
 use App\Entity\Setting;
 use App\Pagination\SettingPagination;
 use App\Repository\SettingRepository;
@@ -20,8 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,8 +50,38 @@ class SettingController extends Controller
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function create(Request $request)
+	public function create(Request $request, SettingManager $settingManager)
 	{
+		$form = $this->createForm(SettingCreateType::class);
+
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$create = $request->request->get('create');
+			$data   = Yaml::parse($create['setting']);
+			$sm     = $settingManager;
+			foreach ($data as $name => $values)
+			{
+				$setting = new Setting();
+				$setting->setName($name);
+				foreach ($values as $field => $value)
+				{
+					$b = 'set' . ucfirst($field);
+					if ($field == 'value' && is_array($value))
+						$value = Yaml::dump($value);
+					$setting->$b($value);
+				}
+				$sm->createSetting($setting);
+			}
+		}
+
+		return $this->render('Setting/create.html.twig',
+			[
+				'form'     => $form->createView(),
+				'fullForm' => $form,
+			]
+		);
 	}
 
 	/**

@@ -1,12 +1,19 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Form\CalendarType;
+use App\Core\Manager\CalendarGroupManager;
 use App\Core\Manager\CalendarManager;
-use App\Repository\CalendarRepository;
+use App\Core\Manager\FlashBagManager;
+use App\Core\Manager\MessageManager;
+use App\Entity\Calendar;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CalendarController extends Controller
 {
@@ -15,13 +22,13 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_REGISTRAR")
 	 * @return Response
 	 */
-	public function yearsAction(CalendarRepository $calendarRepository, CalendarManager $calendarManager)
+	public function yearsAction(CalendarManager $calendarManager)
 	{
-		$years = $calendarRepository->findBy([], ['firstDay' => 'DESC']);
+		$calendars = $calendarManager->getCalendarRepository()->findBy([], ['firstDay' => 'DESC']);
 
 		return $this->render('Calendar/calendars.html.twig',
 			[
-				'Calendars' => $years, 'manager' => $calendarManager,
+				'Calendars' => $calendars, 'manager' => $calendarManager,
 			]
 		);
 	}
@@ -32,49 +39,44 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_REGISTRAR")
 	 * @return RedirectResponse|Response
 	 */
-	public function editYearAction($id, Request $request)
+	public function edit($id, Request $request, CalendarManager $calendarManager, CalendarGroupManager $calendarGroupManager, EntityManagerInterface $em, MessageManager $messageManager, FlashBagManager $flashBagManager)
 	{
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-
 		if ($id === 'current')
 		{
-			$year = $this->get('busybee_core_calendar.model.get_current_year');
+			$calendar = $calendarManager->getCurrentCalendar();
 
-			return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
+			return $this->redirectToRoute('calendar_edit', ['id' => $calendar->getId()]);
 		}
 
-		$year = $id === 'Add' ? new Year() : $this->get('busybee_core_calendar.repository.year_repository')->find($id);
+		$calendar = $id === 'Add' ? new Calendar() : $calendarManager->getCalendarRepository()->find($id);
 
-		$form = $this->createForm(YearType::class, $year, ['calendarGroupManager' => $this->get('busybee_core_calendar.model.calendar_group_manager')]);
+		$form = $this->createForm(CalendarType::class, $calendar, ['calendarGroupManager' => $calendarGroupManager]);
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$em = $this->get('doctrine')->getManager();
-			$em->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 0');
-			$em->persist($year);
-
+			$em->persist($calendar);
 			$em->flush();
-			$em->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 1');
 
-			$request->getSession()
-				->getFlashBag()
-				->add('success', 'calendar.success');
+			$messageManager->add('success', 'calendar.success', [], 'Calendar');
+
+			$flashBagManager->addMessages($messageManager);
+
 			if ($id === 'Add')
-				return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
+				return new RedirectResponse($this->generateUrl('year_edit', array('id' => $calendar->getId())));
 
-			$id = $year->getId();
+			$id = $calendar->getId();
 
-			$form = $this->createForm(YearType::class, $year, ['calendarGroupManager' => $this->get('busybee_core_calendar.model.calendar_group_manager')]);
+			$form = $this->createForm(CalendarType::class, $calendar, ['calendarGroupManager' => $calendarGroupManager]);
 		}
 
-		return $this->render('BusybeeCalendarBundle:Calendar:calendar.html.twig',
+		return $this->render('Calendar/calendar.html.twig',
 			[
 				'form'     => $form->createView(),
 				'fullForm' => $form,
-				'id'       => $id,
-				'year_id'  => $id,
+				'calendar_id'  => $id,
+				'manager' => $calendarManager,
 			]
 		);
 	}
@@ -91,10 +93,10 @@ class CalendarController extends Controller
 
 		$repo = $this->get('busybee_core_calendar.repository.year_repository');
 
-		$year = $repo->find($id);
+		$calendar = $repo->find($id);
 
 		$em = $this->get('doctrine')->getManager();
-		$em->remove($year);
+		$em->remove($calendar);
 		$em->flush();
 
 		return new RedirectResponse($this->generateUrl('calendar_years'));
@@ -115,14 +117,14 @@ class CalendarController extends Controller
 
 		if ($id == 'current')
 		{
-			$year = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
+			$calendar = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
 		}
 		else
-			$year = $repo->find($id);
+			$calendar = $repo->find($id);
 
-		$years = $repo->findBy([], ['name' => 'ASC']);
+		$calendars = $repo->findBy([], ['name' => 'ASC']);
 
-		$year = $repo->find($year->getId());
+		$calendar = $repo->find($calendar->getId());
 
 		$service = $this->get('busybee_core_calendar.service.widget_service.calendar'); //calling a calendar service
 
@@ -139,13 +141,13 @@ class CalendarController extends Controller
 		 */
 		$service->setModels(null, null, $dayModelClass);
 
-		$year->initialiseTerms();
+		$calendar->initialiseTerms();
 
-		$calendar = $service->generate($year); //Generate a calendar for specified year
+		$calendar = $service->generate($calendar); //Generate a calendar for specified year
 
 		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
 
-		$cm->setCalendarDays($year, $calendar);
+		$cm->setCalendarDays($calendar, $calendar);
 
 		/*
          * Pass calendar to Twig
@@ -154,8 +156,8 @@ class CalendarController extends Controller
 		return $this->render('BusybeeCalendarBundle:Calendar:yearCalendar.html.twig',
 			array(
 				'calendar'    => $calendar,
-				'year'        => $year,
-				'years'       => $years,
+				'year'        => $calendar,
+				'years'       => $calendars,
 				'closeWindow' => $closeWindow,
 			)
 		);

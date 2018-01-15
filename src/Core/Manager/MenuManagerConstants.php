@@ -78,12 +78,12 @@ System Admin:
 School Admin:
     years_days_times:
         calendar_years:
-            label: menu.year.manage
+            label: menu.calendar.manage
             role: ROLE_REGISTRAR
             route: calendar_years
             params: {}
     hidden:
-        - year_edit
+        - calendar_edit
         - edit_grade
         - student_add_to_calendar_group
 ';

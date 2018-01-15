@@ -1,0 +1,26 @@
+<script language="JavaScript" type="text/javascript">
+    function removeTerm(id) {
+        if (id > 0) {
+            var path = "{{ path('term_delete', {'id': '__id__'}) }}";
+            path = path.replace('__id__', id);
+            window.open(path, '_self');
+        }
+    }
+
+
+    $(".termList").collection({
+        name_prefix: '{{ form.terms.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '{{ addButton({title: 'calendar.term.add', transDomain: 'Calendar', class: 'halflings halflings-plus-sign btn btn-primary' })|raw }}',
+        remove: '{{ deleteButton({transDomain: 'Calendar', title: 'calendar.term.remove', class: 'halflings halflings-erase btn btn-warning'})|raw }}',
+        add_at_the_end: true
+    });
+
+    {% for error in form.vars.errors %}
+    {% if error.messageTemplate in ['calendar.term.error.delete', 'calendar.term.error.invalid', 'calendar.term.error.order', 'calendar.term.error.outsideYear', 'calendar.term.error.overlapped'] %}
+    $("#termMessage").html('<p class="alert alert-danger alert-dismissable show hide">{{ error.message }}</p>');
+    $("#termMessage").fadeIn(1000);
+    {% endif %}
+    {% endfor %}
+</script>

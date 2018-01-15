@@ -394,12 +394,8 @@ class MenuManager extends MenuManagerConstants
 		foreach ($sections as $name => $header)
 		{
 			if (!is_array($header))
-			{
-				dump($sections);
-				dump($name);
-				dump($header);
 				throw new \InvalidArgumentException('Section are not formatted correctly.');
-			}
+
 			foreach ($header as $headName => $data)
 				if ($headName !== 'hidden')
 				{
@@ -412,6 +408,7 @@ class MenuManager extends MenuManagerConstants
 				}
 				else
 				{
+					dump($data);
 					foreach ($data as $key)
 					{
 						$routes[$key]['section'] = $name;
@@ -419,10 +416,8 @@ class MenuManager extends MenuManagerConstants
 					}
 				}
 
-			return $routes;
 		}
-
-
+		return $routes;
 	}
 
 	private function showItem($node)

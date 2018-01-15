@@ -1,0 +1,22 @@
+{# src/Busybee/SystemBundle/Resources/views/Setting/create.html.twig #}
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'System' %}
+
+{% block title %}{{ 'system.setting.create.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.setting.create.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.setting.create.description'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'System', 'panelParagraph': 'system.setting.edit.description'} %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}
+    <div class="card">
+            {{ form_row(form.setting) }}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}

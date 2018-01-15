@@ -1,0 +1,39 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/term.html.twig #}
+
+{% trans_default_domain "Calendar" %}
+
+{% block term_label %}{% endblock %}
+{% block term_errors %}{% endblock %}
+
+{% block term_widget %}
+    {% spaceless %}
+        {% if form.name.vars.value is empty %}{% set termTitle = 'term.add.label'|trans %}{% else %}{% set termTitle = form.name.vars.value %}{% endif %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set term_id = '0' %}
+        {% if form.vars.value is not null %}{% set term_id = form.vars.value.getId() %}{% endif %}
+        {% set h3Content = h3Content ~ deleteButton({javascript: {function: 'return removeTerm', options: {'id': term_id}}, title: 'term.delete.title', transDomain: 'Calendar', mergeClass: 'collection-remove collection-action', colour: 'warning'}) %}
+        {% set h3Content = h3Content ~ saveButton({'name': 'terms'}) %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% include 'Page/panelStart.html.twig' with {'header': termTitle, 'panelStyle': 'info'} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3 card">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-3 card">
+                    {{ form_row(form.nameShort) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.firstDay) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 offset-6 card">
+                    {{ form_row(form.lastDay) }}
+                    {{ form_row(form.calendar, {'value': app.request.get('id')}) }}
+                </div>
+            </div>
+        </div>
+        {% include 'Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock term_widget %}

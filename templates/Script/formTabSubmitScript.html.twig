@@ -1,0 +1,32 @@
+<script type="text/javascript" language="JavaScript">
+    $('form').submit(function () {
+        var fragment = $('.tab-content > .active').attr('id');
+
+        var path = "{{ path(route, {'id': app.request.get('id'), '_fragment': '__fragment__'}) }}";
+
+        path = path.replace('__fragment__', fragment);
+
+        $(this).prop('action', path);
+        return true;
+    });
+
+    $("form button[type=submit]").click(function () {
+        $("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
+        $(this).attr("clicked", "true");
+    });
+
+    $(document).ready(function () {
+        var hash = '#' + window.location.hash.substr(1);
+        if (hash !== "#") {
+            if ($(hash).length > 0) {
+                var key = '#formTabs > .' + hash.replace('#', '');
+                var index = $(key).parent();
+                $('.active').removeClass('active');
+                index.addClass('active');
+                $(hash).addClass('active');
+                var name = hash + '_tab';
+                $(name).addClass('active')
+            }
+        }
+    });
+</script>
