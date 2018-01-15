@@ -21,7 +21,7 @@ class CalendarDateValidator extends ConstraintValidator
 		if (empty($value))
 			return;
 
-		$calendar  = reset($constraint->fields);
+		$calendar  = $constraint->fields;
 		$start = $calendar->getFirstDay();
 		$end   = $calendar->getLastDay();
 		$name  = $calendar->getName();

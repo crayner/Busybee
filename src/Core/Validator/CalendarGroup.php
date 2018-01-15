@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator;
 
+use App\Core\Validator\Constraints\CalendarGroupValidator;
 use Symfony\Component\Validator\Constraint;
 
 class CalendarGroup extends Constraint
@@ -14,6 +15,6 @@ class CalendarGroup extends Constraint
 
 	public function validatedBy()
 	{
-		return 'calendar_group_validator';
+		return CalendarGroupValidator::class;
 	}
 }

@@ -58,14 +58,14 @@ class CalendarGroupValidator extends ConstraintValidator
 					->atPath('[' . $q . '].nameShort')
 					->addViolation();
 
-			if (!is_null($group->getYearTutor()))
+/*			if (!is_null($group->getYearTutor()))
 			{
 				$tutors[$group->getYearTutor()->getId()] = empty($tutors[$group->getYearTutor()->getId()]) ? 1 : $tutors[$group->getYearTutor()->getId()] + 1;
 				if ($tutors[$group->getYearTutor()->getId()] > 1)
 					$this->context->buildViolation('calendar.group.yeartutor.unique', ['%{name}' => $group->getYearTutor()->formatName()])
 						->atPath('[' . $q . '].yearTutor')
 						->addViolation();
-			}
+			} */
 		}
 	}
 }

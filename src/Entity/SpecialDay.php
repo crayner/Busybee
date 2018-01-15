@@ -86,7 +86,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setDay($day)
+	public function setDay($day): SpecialDay
 	{
 		$this->day = $day;
 
@@ -110,7 +110,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setType($type)
+	public function setType($type): SpecialDay
 	{
 		$this->type = $type;
 
@@ -134,7 +134,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setName($name)
+	public function setName($name): SpecialDay
 	{
 		$this->name = $name;
 
@@ -158,7 +158,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setDescription($description)
+	public function setDescription($description): SpecialDay
 	{
 		$this->description = $description;
 
@@ -168,9 +168,9 @@ class SpecialDay extends SpecialDayExtension
 	/**
 	 * Get calendar
 	 *
-	 * @return \Busybee\Core\CalendarBundle\Entity\Calendar
+	 * @return Calendar
 	 */
-	public function getCalendar()
+	public function getCalendar(): ?Calendar
 	{
 		return $this->calendar;
 	}
@@ -178,11 +178,11 @@ class SpecialDay extends SpecialDayExtension
 	/**
 	 * Set calendar
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\Calendar $calendar
+	 * @param Calendar $calendar
 	 *
 	 * @return SpecialDay
 	 */
-	public function setCalendar(\Busybee\Core\CalendarBundle\Entity\Calendar $calendar = null)
+	public function setCalendar(Calendar $calendar = null): SpecialDay
 	{
 		$this->calendar = $calendar;
 
@@ -206,7 +206,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setOpen($open)
+	public function setOpen($open): SpecialDay
 	{
 		$this->open = $open;
 
@@ -230,7 +230,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setStart($start)
+	public function setStart($start): SpecialDay
 	{
 		$this->start = $start;
 
@@ -254,7 +254,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setFinish($finish)
+	public function setFinish($finish): SpecialDay
 	{
 		$this->finish = $finish;
 
@@ -278,7 +278,7 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setClose($close)
+	public function setClose($close): SpecialDay
 	{
 		$this->close = $close;
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator;
 
+use App\Core\Validator\Constraints\SpecialDayDateValidator;
 use Symfony\Component\Validator\Constraint;
 
 class SpecialDayDate extends Constraint
@@ -11,6 +12,6 @@ class SpecialDayDate extends Constraint
 
 	public function validatedBy()
 	{
-		return 'specialday_date_validator';
+		return SpecialDayDateValidator::class;
 	}
 }

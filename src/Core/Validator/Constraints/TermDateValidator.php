@@ -15,7 +15,7 @@ class TermDateValidator extends ConstraintValidator
 	private $entityManager;
 
 	/**
-	 * SpecialDayDateValidator constructor.
+	 * TermDateValidator constructor.
 	 *
 	 * @param EntityManagerInterface $objectManager
 	 */
@@ -39,7 +39,8 @@ class TermDateValidator extends ConstraintValidator
 		$firstDay = $constraint->calendar->getFirstDay();
 		$lastDay  = $constraint->calendar->getLastDay();
 
-		$terms = $this->entityManager->getRepository(Term::class)->findBy(['calendar' => $constraint->calendar->getId()], ['firstDay' => 'ASC']);
+		$terms = $this->entityManager->getRepository(Term::class);
+		$terms = $terms->findBy(['calendar' => $constraint->calendar->getId()], ['firstDay' => 'ASC']);
 
 		if (!empty($terms))
 			foreach ($terms as $t)

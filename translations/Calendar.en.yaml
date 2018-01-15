@@ -50,6 +50,7 @@ calendar:
             label: Group Name
             placeholder: Select a Group
             unique: The name of the year must be unique for this calendar.
+    success: The calendar was successfully saved.
 
 
 calendars:

@@ -2,6 +2,7 @@
 namespace App\Core\Subscriber;
 
 use App\Core\Manager\CalendarManager;
+use App\Entity\CalendarGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -48,10 +49,8 @@ class CalendarSubscriber implements EventSubscriberInterface
 		{
 			$cg  = $entity->getCalendarGroups();
 			$new = new ArrayCollection();
-			$seq = 0;
+			$seq = is_null($cg) || $cg->count() == 0 ? 0 : $cg->first()->getSequence() < 100 ? 100 : 0 ;
 
-			if ($cg->first()->getSequence() < 100)
-				$seq = 100;
 
 			foreach ($data['calendarGroups'] as $q => $w)
 			{
@@ -61,13 +60,14 @@ class CalendarSubscriber implements EventSubscriberInterface
 
 				$exists = new CalendarGroup();
 
-				foreach ($cg as $cal)
-					if ($cal->getNameShort() === $w['nameShort'])
-					{
-						$exists = $cal;
-						$cg->removeElement($exists);
-						break;
-					}
+				if (!is_null($cg))
+					foreach ($cg as $cal)
+						if ($cal->getNameShort() === $w['nameShort'])
+						{
+							$exists = $cal;
+							$cg->removeElement($exists);
+							break;
+						}
 
 				$exists->setSequence($seq);
 
@@ -75,7 +75,7 @@ class CalendarSubscriber implements EventSubscriberInterface
 				{
 					$exists->setName($w['name']);
 					$exists->setNameShort($w['nameShort']);
-					$exists->setYear($entity);
+					$exists->setCalendar($entity);
 				}
 				$new->add($exists);
 			}

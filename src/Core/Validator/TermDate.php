@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator;
 
+use App\Core\Validator\Constraints\TermDateValidator;
 use Symfony\Component\Validator\Constraint;
 
 class TermDate extends Constraint
@@ -11,6 +12,6 @@ class TermDate extends Constraint
 
 	public function validatedBy()
 	{
-		return 'term_date_validator';
+		return TermDateValidator::class;
 	}
 }

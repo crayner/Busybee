@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator;
 
+use App\Core\Validator\Constraints\CalendarStatusValidator;
 use Symfony\Component\Validator\Constraint;
 
 class CalendarStatus extends Constraint
@@ -11,6 +12,6 @@ class CalendarStatus extends Constraint
 
 	public function validatedBy()
 	{
-		return 'calendar_status_validator';
+		return CalendarStatusValidator::class;
 	}
 }

@@ -1,7 +1,7 @@
 App\Entity\Term:
     type: entity
     table: calendar_term
-    repositoryClass: App\Repository\YearRepository
+    repositoryClass: App\Repository\TermRepository
     uniqueConstraints:
         name_calendar:
             columns: [ name, calendar_id ]

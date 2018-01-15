@@ -22,8 +22,7 @@ menu:
             manage: Current User
     setting:
         manage: System Settings
-    site:
-        acknowledgement: System Check
+    site.acknowledgement: System Check
     update.system: Update System
     admin:
         school: School Admin
@@ -31,6 +30,7 @@ menu:
         system: System Admin
         user: User Admin
         timetable: Timetable Admin
+    calendar.manage: Manage Calendars
 section:
     header:
         years_days_times: 'Years, Days & Times'
