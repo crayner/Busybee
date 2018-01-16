@@ -1,6 +1,8 @@
 <?php
 namespace App\Core\Manager;
 
+use App\Core\Organism\Day;
+use App\Core\Organism\Year;
 use App\Entity\Calendar;
 use App\Repository\CalendarRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -51,15 +53,26 @@ class CalendarManager
 	private $calendarRepository;
 
 	/**
+	 * @var Year
+	 */
+	private $year;
+
+	/**
+	 * @var  Calendar
+	 */
+	private $calendar;
+
+	/**
 	 * YearManager constructor.
 	 *
 	 * @param ObjectManager $manager
 	 */
-	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage)
+	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year)
 	{
 		$this->manager = $manager;
 		$this->tokenStorage = $tokenStorage;
 		$this->calendarRepository = $manager->getRepository(Calendar::class);
+		$this->year = $year;
 	}
 
 	/**
@@ -218,4 +231,167 @@ calendarGroups:
     message: calendarGroupMessage
 ");
 	}
-}
+
+	/**
+	 * @param Calendar $calendar
+	 *
+	 * @return Year
+	 */
+	public function generate(Calendar $calendar)
+	{
+		$this->calendar = $calendar;
+		return $this->year->generate($this->calendar);
+	}
+
+	/**
+	 * Set Calendar Day Types
+	 * 
+	 * @param Year     $year
+	 * @param Calendar $calendar
+	 *
+	 * @return Calendar
+	 */
+	public function setCalendarDays(Year $year, Calendar $calendar)
+	{
+		$this->year     = $year;
+		$this->calendar = $calendar;
+		$this->setNonSchoolDays();
+		$this->setTermBreaks();
+		$this->setClosedDays();
+		$this->setSpecialDays();
+
+		return $this->calendar;
+	}
+
+	/**
+	 * Set Non School Days
+	 */
+	public function setNonSchoolDays()
+	{
+		$schoolDays = $this->year->getSettingManager()->get('schoolweek');
+
+		foreach ($this->year->getMonths() as $monthKey => $month)
+		{
+			foreach ($month->getWeeks() as $weekKey => $week)
+			{
+				foreach ($week->getDays() as $dayKey => $day)
+				{
+					// School Day ?
+					if (!in_array($day->getDate()->format('D'), $schoolDays))
+						$day->setSchoolDay(false);
+					else
+						$day->setSchoolDay(true);
+				}
+				$month->getWeeks()[$weekKey] = $week;
+			}
+			$this->year->getMonths()[$monthKey] = $month;
+		}
+	}
+
+	/**
+	 * Set Term Breaks
+	 */
+	public function setTermBreaks()
+	{
+		foreach ($this->year->getMonths() as $monthKey => $month)
+		{
+			foreach ($month->getWeeks() as $weekKey => $week)
+			{
+				foreach ($week->getDays() as $dayKey => $day)
+				{
+					// School Day ?
+					$break = $this->isTermBreak($day);
+					$this->year->getDay($day->getDate()->format('d.m.Y'))->setTermBreak($break);
+					$day->setTermBreak($break);
+					$week->getDays()[$dayKey] = $day;
+				}
+				$month->getWeeks()[$weekKey] = $week;
+			}
+			$this->year->getMonths()[$monthKey] = $month;
+		}
+	}
+
+	/**
+	 * @param Day $currentDate
+	 *
+	 * @return bool
+	 */
+	public function isTermBreak(Day $currentDate)
+	{
+		// Check if the day is a possible school day. i.e. Ignore Weekends
+		if ($currentDate->isTermBreak()) return true;
+
+		foreach ($this->calendar->getTerms() as $term)
+		{
+			if ($currentDate->getDate() >= $term->getFirstDay() && $currentDate->getDate() <= $term->getLastDay())
+				return false;
+		}
+
+		$currentDate->setTermBreak(true);
+
+		return true;
+	}
+
+	/**
+	 *
+	 */
+	public function setClosedDays()
+	{
+		if (!is_null($this->calendar->getSpecialDays()))
+			foreach ($this->calendar->getSpecialDays() as $specialDay)
+				if ($specialDay->getType() == 'closure')
+					$this->year->getDay($specialDay->getDay()->format('d.m.Y'))->setClosed(true, $specialDay->getName());
+	}
+
+	/**
+	 *
+	 */
+	public function setSpecialDays()
+	{
+		if (!is_null($this->calendar->getSpecialDays()))
+			foreach ($this->calendar->getSpecialDays() as $specialDay)
+				if ($specialDay->getType() != 'closure')
+					$this->year->getDay($specialDay->getDay()->format('d.m.Y'))->setSpecial(true, $specialDay->getName());
+	}
+
+	/**
+	 * @param Day  $day
+	 * @param null $class
+	 *
+	 * @return string
+	 */
+	public function getDayClass(Day $day, $class = null)
+	{
+
+		$class    = empty($class) ? '' : $class;
+		$weekDays = $this->year->getSettingManager()->get('schoolWeek');
+		$weekEnd  = true;
+
+		if (isset($weekDays[$day->getDate()->format('D')]))
+			$weekEnd = false;
+		if (!$weekEnd)
+			$class .= ' dayBold';
+
+		if ($this->isTermBreak($day))
+			$class .= ' termBreak';
+		if ($day->isClosed())
+		{
+			$class .= ' isClosed';
+			$class = str_replace(' termBreak', '', $class);
+		}
+		if ($day->isSpecial())
+		{
+			$class .= ' isSpecial';
+			$class = str_replace(' termBreak', '', $class);
+		}
+
+		if (!$day->isSchoolDay())
+		{
+			$class .= ' isNonSchoolDay';
+			$class = str_replace(' termBreak', '', $class);
+		}
+
+		if (empty($class)) return '';
+
+		return ' class="' . trim($class) . '"';
+	}}

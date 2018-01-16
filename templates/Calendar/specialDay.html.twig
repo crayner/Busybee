@@ -9,7 +9,7 @@
     {% set sday_id = '0' %}
     {% if form.vars.value is not null %}{% set sday_id = form.vars.value.getId() %}{% endif %}
     {% set h3Content = h3Content ~ duplicateButton({mergeClass: 'collection-duplicate collection-action'}) %}
-    {% set h3Content = h3Content ~ deleteButton({'title': 'specialDay.delete.title', 'transDomain': 'Calendar', colour: 'warning', mergeClass: 'collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removeSpecialDay', 'options': {'id': sday_id, 'year': app.request.get('id')}}}) %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'special_day.delete.title', 'transDomain': 'Calendar', colour: 'warning', mergeClass: 'collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removeSpecialDay', 'options': {'id': sday_id, 'year': app.request.get('id')}}}) %}
     {% set h3Content = h3Content ~ saveButton({'name': 'specialDays'}) %}
     {% set h3Content = h3Content ~ '</div>' %}
     {% include 'Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'Calendar'} %}

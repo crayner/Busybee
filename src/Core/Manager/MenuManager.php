@@ -408,7 +408,6 @@ class MenuManager extends MenuManagerConstants
 				}
 				else
 				{
-					dump($data);
 					foreach ($data as $key)
 					{
 						$routes[$key]['section'] = $name;

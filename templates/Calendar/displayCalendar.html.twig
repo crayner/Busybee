@@ -1,0 +1,51 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/yearCalendar.html.twig #}
+
+{% trans_default_domain "Calendar" %}
+
+{% set fullPage = true %}
+{% extends "Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'calendar.display.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'calendar.display.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'calendar.display.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Calendar/calendarView.html.twig' %}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#year').change(function ($e) {
+            var id = $(this).val();
+            var route = "{{ path('calendar_display', {id: '__id__'}) }}";
+            route = route.replace('__id__', id);
+            window.open(route, '_self');
+        });
+
+        function printCalendar(id) {
+            var route = '{{ path('calendar_print', {id: '__id__'}) }}';
+            route = route.replace('__id__', id);
+
+
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function (data) {
+                    var url = '{{ path('download_file', {role: 'ROLE_USER', file: '__FILE__'}) }}';
+                    url = url.replace('__FILE__', data['file']);
+                    window.open(url, '_self');
+                },
+                beforeSend: function () {
+                    $("body").addClass('loading');
+                    $('.showLoader').html("<p>{{ 'calendar.display.title'|trans }}</p>");
+                },
+                complete: function () {
+                    $('.showLoader').html("<!-- Used -->");
+                    $("body").removeClass('loading');
+                }
+            });
+        }
+    </script>
+{% endblock javascripts %}

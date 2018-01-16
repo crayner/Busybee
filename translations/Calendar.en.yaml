@@ -51,7 +51,11 @@ calendar:
             placeholder: Select a Group
             unique: The name of the year must be unique for this calendar.
     success: The calendar was successfully saved.
-
+    display:
+        button: Display Calendar
+        title: Display Calendar
+        description: ''
+        print: Print Calendar
 
 calendars:
     title: Adademic Calendar Definitions
@@ -101,3 +105,6 @@ special_day:
         label: Close Doors
     hour: Hour
     minute: Minute
+    delete:
+        title: Erase Special Day
+Wk: Wk

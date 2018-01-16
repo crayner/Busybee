@@ -1,16 +1,22 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Exception\Exception;
 use App\Core\Form\CalendarType;
 use App\Core\Manager\CalendarGroupManager;
 use App\Core\Manager\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
+use App\Repository\CalendarRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -105,19 +111,17 @@ class CalendarController extends Controller
 	/**
 	 * @param   int  $id
 	 * @param   bool $closeWindow
-	 * @Route("/calendar/display/{id}/", name="calendar_display")
+	 * @Route("/calendar/display/{id}/{closeWindow}", name="calendar_display")
 	 * @IsGranted("ROLE_USER")
 	 * @return  Response
 	 */
-	public function calendarAction($id, $closeWindow = null)
+	public function display($id, $closeWindow = false, CalendarManager $calendarManager)
 	{
-		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
-
-		$repo = $this->get('busybee_core_calendar.repository.year_repository');
+		$repo = $calendarManager->getCalendarRepository();
 
 		if ($id == 'current')
 		{
-			$calendar = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
+			$calendar = $calendarManager->getCurrentCalendar();
 		}
 		else
 			$calendar = $repo->find($id);
@@ -125,11 +129,6 @@ class CalendarController extends Controller
 		$calendars = $repo->findBy([], ['name' => 'ASC']);
 
 		$calendar = $repo->find($calendar->getId());
-
-		$service = $this->get('busybee_core_calendar.service.widget_service.calendar'); //calling a calendar service
-
-		//Defining a custom classes for rendering of months and days
-		$dayModelClass   = Day::class;
 
 		/**
 		 * Set model classes for calendar. Arguments:
@@ -139,27 +138,92 @@ class CalendarController extends Controller
 		 * 4. Day. Default: '\TFox\CalendarBundle\Service\WidgetService\Day'
 		 * To set default classes null should be passed as argument
 		 */
-		$service->setModels(null, null, $dayModelClass);
 
 		$calendar->initialiseTerms();
 
-		$calendar = $service->generate($calendar); //Generate a calendar for specified year
+		$year = $calendarManager->generate($calendar); //Generate a calendar for specified year
 
-		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
-
-		$cm->setCalendarDays($calendar, $calendar);
+		$calendarManager->setCalendarDays($year, $calendar);
 
 		/*
          * Pass calendar to Twig
          */
 
-		return $this->render('BusybeeCalendarBundle:Calendar:yearCalendar.html.twig',
+		return $this->render('Calendar/displayCalendar.html.twig',
 			array(
 				'calendar'    => $calendar,
-				'year'        => $calendar,
-				'years'       => $calendars,
+				'calendars'   => $calendars,
+				'year'        => $year,
 				'closeWindow' => $closeWindow,
 			)
 		);
+	}
+	/**
+	 * @param $id
+	 * @Route("/calendar/print/{id}/", name="calendar_print")
+	 * @IsGranted("ROLE_USER")
+	 * @return Response
+	 */
+	public function print($id, CalendarManager $calendarManager, EntityManagerInterface $om)
+	{
+		$calendar = $calendarManager->getCalendarRepository()->find($id);
+
+		if (! empty($calendar->getDownloadCache()) && file_exists($calendar->getDownloadCache()))
+			return new JsonResponse(
+				[
+					'file' => base64_encode($calendar->getDownloadCache()),
+				],
+				200
+			);
+
+		$year =  $calendarManager->generate($calendar); //Generate a calendar for specified year
+
+		$calendarManager->setCalendarDays($year, $calendar);
+
+		/*
+         * Pass calendar to Twig
+         */
+		$content = $this->renderView('Calendar/calendarView.pdf.twig',
+			array(
+				'calendar' => $calendar,
+				'year'     => $year,
+			)
+		);
+
+		try
+		{
+			$locale = substr(empty($this->getUser()->getLocale()) ? $this->getParameter('locale') : $this->getUser()->getLocale(), 0, 2);
+
+			$pdf = new Html2Pdf('L', 'A4', $locale);
+			ini_set('max_execution_time', 90);
+			$pdf->writeHtml($content);
+
+			$pdf_content = $pdf->output('ignore_me.pdf', 'S');
+
+			$cName = 'calendar_' . $calendar->getName();
+			$fName = $cName . '_' . mb_substr(md5(uniqid()), mb_strlen($cName) + 1) . '.pdf';
+
+			$path = $this->getParameter('upload_path');
+
+			file_put_contents($path . DIRECTORY_SEPARATOR . $fName, $pdf_content);
+
+			$calendar->setDownloadCache($path . DIRECTORY_SEPARATOR . $fName);
+
+			$om->persist($calendar);
+			$om->flush();
+
+			return new JsonResponse(
+				[
+					'file' => base64_encode($calendar->getDownloadCache()),
+				],
+				200
+			);
+		}
+		catch (Html2PdfException $e)
+		{
+			$formatter = new ExceptionFormatter($e);
+
+			throw new Exception($formatter->getHtmlMessage());
+		}
 	}
 }

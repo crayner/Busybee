@@ -201,7 +201,7 @@ firstDayofWeek:
     type: 'string'
     displayName: 'First Day of Week'
     description: 'The first day of the week for display purposes.  Monday or Sunday, defaults to Monday.'
-    role: 'ROLE_ADMIN'
+    role: 'ROLE_REGISTRAR'
     value: 'Monday'
 schoolweek:
     type: 'array'
