@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Core\EntityExtension\TermExtension;
+use App\Calendar\Entity\TermExtension;
 
 /**
  * Term

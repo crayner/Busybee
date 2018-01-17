@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Core\EntityExtension\CalendarGroupExtension;
+use App\Calendar\Entity\CalendarGroupExtension;
 use App\Entity\Space;
 use App\Entity\Staff;
 use App\Entity\StudentCalendarGroup;

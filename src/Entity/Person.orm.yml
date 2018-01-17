@@ -1,0 +1,109 @@
+App\Entity\Person:
+    type: entity
+    inheritanceType: single_table
+    discriminatorColumn:
+        name: person_type
+        type: string
+    discriminatorMap:
+        person: Person
+#        student: Busybee\People\StudentBundle\Entity\Student
+#        staff: Busybee\People\StaffBundle\Entity\Staff
+#        contact: Busybee\People\ContactBundle\Entity\Contact
+    table: person
+    repositoryClass: App\Repository\PersonRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        identifier:
+            type: string
+            length: '10'
+            unique: true
+        importIdentifier:
+            type: string
+            length: '32'
+            nullable: true
+        honorific:
+            type: string
+            length: '5'
+            nullable: true
+        surname:
+            type: string
+            length: '50'
+        firstName:
+            type: string
+            length: '50'
+        preferredName:
+            type: string
+            length: '50'
+        officialName:
+            type: string
+            length: '150'
+        gender:
+            type: string
+            length: '1'
+        dob:
+            type: date
+            nullable: true
+        email:
+            type: string
+            length: '65'
+            nullable: true
+        email2:
+            type: string
+            length: '65'
+            nullable: true
+        website:
+            type: string
+            length: '200'
+            nullable: true
+        photo:
+            type: string
+            length: '150'
+            nullable: true
+        vehicleRegistration:
+            type: string
+            length: '25'
+            nullable: true
+        nameInCharacters:
+            type: string
+            length: 32
+            nullable: true
+        comment:
+            type: text
+            nullable: true
+    manyToOne:
+        address1:
+            targetEntity: App\Entity\Address
+            nullable: true
+            cascade: [ 'persist' ]
+            joinColumns:
+                address1:
+                    referencedColumnName: id
+        address2:
+            targetEntity: App\Entity\Address
+            nullable: true
+            joinColumns:
+                address2:
+                    referencedColumnName: id
+    manyToMany:
+        phone:
+            targetEntity: App\Entity\Phone
+            cascade: [ 'persist' ]
+            joinTable:
+                name: person_phone
+                joinColumns:
+                    person_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    phone_id:
+                        referencedColumnName: id
+    oneToOne:
+        user:
+            targetEntity: Hillrange\Security\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id

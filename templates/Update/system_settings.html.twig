@@ -9,18 +9,27 @@
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
+    {% set h3Content = '' %}
+    {% if not manager.systemSettingsInstalled %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("update_system_settings")}})|raw %}
+    {% else %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("home")}})|raw %}
+    {% endif %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
+    {{ form_start(form) }}
+
     {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'system.install.title'} %}
     <div class="container-fluid">
-        <p class="alert alert-info">{{ 'install.system.progress'|trans }}</p>
-    {% if not manager.systemSettingsInstalled %}
-        {{ proceedButton({'windowOpen': {'route': path("update_system_settings")}})|raw }}
-    {% else %}
-        {{ proceedButton({'windowOpen': {'route': path("home")}})|raw }}
-    {% endif %}
+        {% if manager.action %}
+            <p class="alert alert-info">{{ 'install.system.progress'|trans }}</p>
+        {% else %}
+            <p class="alert alert-info">{{ 'install.system.check'|trans }}</p>
+        {% endif %}
     {% set messages = manager.messages %}
     {% include 'Default/messages.html.twig' with {element: 'p'} %}
     </div>
     {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
 
 {% endblock contentContainer %}
 

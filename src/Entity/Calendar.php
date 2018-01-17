@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Core\EntityExtension\CalendarExtension;
+use App\Calendar\Entity\CalendarExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Calendar extends CalendarExtension

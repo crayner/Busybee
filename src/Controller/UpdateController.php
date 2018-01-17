@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Form\UpdateType;
 use App\Core\Manager\MenuUpdateTest;
 use App\Install\Manager\SystemBuildManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,14 +19,24 @@ class UpdateController extends Controller
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function updateSystemSettings(SystemBuildManager $systemBuildManager)
+	public function updateSystemSettings(SystemBuildManager $systemBuildManager, Request $request)
 	{
+		$form = $this->createForm(UpdateType::class);
+
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+			$systemBuildManager->setAction(true);
+
 		$systemBuildManager->buildDatabase();
 
 		$systemBuildManager->buildSystemSettings();
+
+
 		return $this->render('Update/system_settings.html.twig',
 			[
 				'manager' => $systemBuildManager,
+				'form' => $form->createView(),
 			]
 		);
 	}

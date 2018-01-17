@@ -45,6 +45,11 @@ class SystemBuildManager extends InstallManager
 	private $systemSettingsInstalled = false;
 
 	/**
+	 * @var bool
+	 */
+	private $action = false;
+
+	/**
 	 * DatabaseManager constructor.
 	 *
 	 * @param EntityManagerInterface       $entityManager
@@ -67,13 +72,14 @@ class SystemBuildManager extends InstallManager
 	 * @since   23rd October 2016
 	 *
 	 * @throws DriverException
-	 * @return  void
+	 * @return  bool
 	 */
 	public function buildDatabase()
 	{
 		$conn = $this->entityManager->getConnection();
 
-		$conn->exec('SET FOREIGN_KEY_CHECKS = 0');
+		if ($this->isAction())
+			$conn->exec('SET FOREIGN_KEY_CHECKS = 0');
 
 		$schemaTool = new SchemaTool($this->entityManager);
 
@@ -82,24 +88,31 @@ class SystemBuildManager extends InstallManager
 		$xx = $schemaTool->getUpdateSchemaSql($metaData);
 
 		$count = count($xx);
-		$this->addMessage('info', 'system.build.database.count', ['%count%' => $count]);
+		if (! $this->isAction())
+		{
+			$this->addMessage('info', 'system.build.database.count', ['%count%' => $count]);
+			return true;
+		}
+		else
+			$this->addMessage('info', 'system.build.database.done', ['%count%' => $count]);
+
 
 		$ok = true;
 		foreach ($xx as $sql) {
 			try
 			{
-				$conn->executeQuery($sql);
+				if ($this->isAction())
+					$conn->executeQuery($sql);
 			} catch (DriverException $e){
 				if ($e->getErrorCode() == '1823')
 				{
 					$ok = false;
 					$this->addMessage('danger', 'system.build.database.error', ['%error%' => $e->getMessage()]);
-					dump($e);
 				}
 			}
 		}
-
-		$conn->exec('SET FOREIGN_KEY_CHECKS = 1');
+		if ($this->isAction())
+			$conn->exec('SET FOREIGN_KEY_CHECKS = 1');
 
 		if ($ok)
 			$this->addMessage('success', 'system.build.database.success', ['%count%' => $count]);
@@ -143,6 +156,7 @@ class SystemBuildManager extends InstallManager
 
 	/**
 	 * @param $data
+	 * @return bool
 	 */
 	public function buildSystemSettings()
 	{
@@ -163,12 +177,18 @@ class SystemBuildManager extends InstallManager
 
 		$list = VersionManager::listSettings();
 
+		if (! $this->isAction())
+		{
+			$this->messages->add('info', 'update.setting.required');
+			return false;
+		}
+
 		while (version_compare($installed, $software, '<'))
 		{
 			foreach($list as $version=>$class)
 			{
 				if (! $class instanceof SettingInterface)
-					trigger_error('The setting class '.$version.' is not correctly formated as a SettingInterface.');
+					trigger_error('The setting class '.$version.' is not correctly formatted as a SettingInterface.');
 
 				if (version_compare($installed, $version, '<'))
 				{
@@ -321,4 +341,24 @@ class SystemBuildManager extends InstallManager
 	{
 		return $this->passwordManager->generatePassword($generate);
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isAction(): bool
+	{
+		return $this->action;
+	}
+
+	/**
+	 * @param bool $action
+	 *
+	 * @return SystemBuildManager
+	 */
+	public function setAction(bool $action): SystemBuildManager
+	{
+		$this->action = $action;
+
+		return $this;
+}
 }

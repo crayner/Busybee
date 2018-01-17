@@ -1,9 +1,9 @@
 <?php
 namespace App\Core\Extension;
 
-use App\Core\Manager\CalendarManager;
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\SettingManager;
-use App\Core\Organism\Day;
+use App\Calendar\Util\Day;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Twig\Extension\AbstractExtension;
 

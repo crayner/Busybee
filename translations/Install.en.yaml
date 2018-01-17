@@ -8,6 +8,7 @@ system:
             warning: 'The database has failed to build. %count% tables were attempted but the errors shown above occurred.'
             error: '%error%'
             count: 'The database needs %count% alterations to meet the latest version.'
+            done: 'The database altered %count% transactions in the database.'
 parameter:
     file:
         title: Parameter File Status
@@ -31,6 +32,7 @@ install:
         progress: 'Data collection complete! The database is now being generated, please be patient.'
     system:
         progress: 'The system settings are now being loaded.'
+        check: 'Checking if system requires updating.'
         setting:
             file: 'The class %{class} was processed correctly.'
     mailer:

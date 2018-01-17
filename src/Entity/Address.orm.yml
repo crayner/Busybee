@@ -1,0 +1,46 @@
+App\Entity\Address:
+    type: entity
+    table: address
+    repositoryClass: App\Repository\AddressRepository
+    uniqueConstraints:
+        address:
+            columns:
+                - buildingType
+                - buildingNumber
+                - streetNumber
+                - propertyName
+                - streetName
+                - locality
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        buildingType:
+            type: string 
+            length: '10'
+            nullable: true
+        buildingNumber:
+            type: string
+            length: '10'
+            nullable: true
+        streetNumber:
+            type: string
+            length: '15'
+            nullable: true
+        propertyName:
+            type: string
+            length: '50'
+            nullable: true
+        streetName:
+            type: string
+            length: '70'
+    manyToOne:
+        locality:
+            targetEntity: App\Entity\Locality
+            cascade: ['persist']
+            joinColumns:
+                locality:
+                    referencedColumnName: id

@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Core\EntityExtension\SpecialDayExtension;
+use App\Calendar\Entity\SpecialDayExtension;
 
 /**
  * SpecialDay

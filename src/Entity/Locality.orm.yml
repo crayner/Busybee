@@ -1,0 +1,32 @@
+App\Entity\Locality:
+    type: entity
+    table: locality
+    repositoryClass: App\Repository\LocalityRepository
+    uniqueConstraints:
+        locality:
+            columns:
+                - name
+                - territory
+                - postCode
+                - country
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '50'
+        territory:
+            type: string
+            length: '50'
+            nullable: true
+        postCode:
+            type: string
+            length: '12'
+            nullable: true
+        country:
+            type: string
+            length: '6'

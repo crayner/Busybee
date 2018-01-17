@@ -2,9 +2,9 @@
 namespace App\Controller;
 
 use App\Core\Exception\Exception;
-use App\Core\Form\CalendarType;
-use App\Core\Manager\CalendarGroupManager;
-use App\Core\Manager\CalendarManager;
+use App\Calendar\Form\CalendarType;
+use App\Calendar\Util\CalendarGroupManager;
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
