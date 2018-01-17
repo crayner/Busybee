@@ -82,6 +82,11 @@ School Admin:
             role: ROLE_REGISTRAR
             route: calendar_years
             params: {}
+        school_days_times:
+            route: school_days_times
+            role: ROLE_REGISTRAR
+            label: menu.school.daysandtimes
+            params: {}
     hidden:
         - calendar_edit
         - edit_grade

@@ -94,8 +94,8 @@ class FormErrorsExtension extends AbstractExtension
 				$return .= '<ul>';
 			}
 			$return .= '<' . $tag . ' class="' . $noErrorClass . '">';
-			$return .= $this->trans->trans($noErrorMessage, [], 'Home');
-			$return .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true" class="halflings halflings-remove-circle"></span></button></' . $tag . '>';
+			$return .= $this->trans->trans($noErrorMessage, [], 'home');
+			$return .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="'.$this->trans->trans('Close Message', [], 'home').'"><span aria-hidden="true" class="halflings halflings-remove-circle"></span></button></' . $tag . '>';
 
 			if ($tag == 'li')
 			{

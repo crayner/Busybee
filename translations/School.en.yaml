@@ -1,0 +1,40 @@
+school:
+    days_times:
+        title: Institute Days and Times
+        description: ''
+    day_time:
+        day:
+            title: Active Days
+            help: Set the days that the institute is normally opened. This can be overwritten in the timetable to open or close any day of the week.
+        time:
+            title: Standard Training Day
+            help: These time settings are the default added to new days when the timetable day is created.  Days in the timetable can be altered from this default information.
+        sun:
+            label: Sunday
+        mon:
+            label: Monday
+        tue:
+            label: Tuesday
+        wed:
+            label: Wednesday
+        thu:
+            label: Thursday
+        fri:
+            label: Friday
+        sat:
+            label: Saturday
+        open:
+            error: The open time must be before the start time.
+            label: Institute Open
+            help: Gates open to the students.
+        begin:
+            error: The start time must be before the finish time.
+            label: Lessons Start
+            help: Lessons starts at this time.
+        finish:
+            error: The finish time must be before the close time.
+            label: Lessons Finish
+            help: Lessons finish at this time.
+        close:
+            label: Institute Closed
+            help: Gates closed at this time.

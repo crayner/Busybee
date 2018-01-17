@@ -1,0 +1,29 @@
+{% trans_default_domain "School" %}
+
+{% block school_day_label %}{% endblock %}
+{% block school_day_errors %}{% endblock %}
+
+{% block school_day_widget %}
+    {% spaceless %}
+        {% set h3Content = saveButton()|raw %}
+        {% include 'Page/panelStart.html.twig' with {header: 'school.day_time.day.title', name: '', panelStyle: 'default', transDomain: 'School'} %}
+        <div class="row">
+            {% if 'Sunday' == get_setting('firstdayofweek') %}
+                <div class="col-3 card">{{ form_row(form.sun) }}</div>
+            {% endif %}
+            <div class="col-3 card">{{ form_row(form.mon) }}</div>
+            <div class="col-3 card">{{ form_row(form.tue) }}</div>
+            <div class="col-3 card">{{ form_row(form.wed) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3 card">{{ form_row(form.thu) }}</div>
+            <div class="col-3 card">{{ form_row(form.fri) }}</div>
+            <div class="col-3 card">{{ form_row(form.sat) }}</div>
+            {% if 'Sunday' != get_setting('firstdayofweek') %}
+                <div class="col-3 card">{{ form_row(form.sun) }}</div>
+            {% endif %}
+        </div>
+        <div class="row alert alert-info">{{ 'school.day_time.day.help'|trans }}</div>
+        {% include 'Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock school_day_widget %}

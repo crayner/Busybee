@@ -1,0 +1,30 @@
+{% trans_default_domain "School" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+"FormTheme/bootstrap.html.twig"
+"FormTheme/jquery.collection.html.twig"
+"School/day.html.twig"
+"School/time.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'school.days_times.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.days_times.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.days_times.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissable show hide") }}
+    {% set form_path = [] %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.days_times.title', transDomain: 'School'} %}
+    {{ form_start(form) }}
+    {{ form_row(form.day) }}
+    {{ form_row(form.time) }}
+    {{ form_end(form) }}
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
+    {% include "Script/jquery_collection.html.twig" %}
+{% endblock javascripts %}

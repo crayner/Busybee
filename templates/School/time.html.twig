@@ -1,0 +1,20 @@
+{% trans_default_domain "School" %}
+
+{% block school_time_label %}{% endblock %}
+{% block school_time_errors %}{% endblock %}
+
+{% block school_time_widget %}
+    {% spaceless %}
+        {% set h3Content = saveButton()|raw %}
+        {% include 'Page/panelStart.html.twig' with {header: 'school.day_time.time.title', name: '', panelStyle: 'default', transDomain: 'School'} %}
+        <div class="row">
+            <div class="col-3 card">{{ form_row(form.open) }}</div>
+            <div class="col-3 card">{{ form_row(form.begin) }}</div>
+            <div class="col-3 card">{{ form_row(form.finish) }}</div>
+            <div class="col-3 card">{{ form_row(form.close) }}</div>
+        </div>
+        <div class="row alert alert-info">{{ 'school.day_time.time.help'|trans }}</div>
+
+        {% include 'Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock school_time_widget %}

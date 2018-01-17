@@ -1,0 +1,36 @@
+<!-- Monitor Form -->
+<script type="text/javascript" language="JavaScript">
+
+    $('.monitorChange').change(function () {
+        $('.formChanged').prop("disabled", true);
+        $('button[title="Add"]').prop('disabled', true);
+        $('.disableOnChange').prop('disabled', true);
+    });
+
+
+    $('button[type=reset]').click(function () {
+        $('.formChanged').prop("disabled", false);
+        $('button[title="Add"]').prop('disabled', false);
+        $('.disableOnChange').prop('disabled', false);
+    });
+
+    $(".changeRecord").change(function () {
+        {% if app.request.get('closeWindow') is not empty %}
+        var path = "{{ path(route, {'id': '__id__', 'closeWindow': '_closeWindow'}) }}";
+        {% else %}
+        var path = "{{ path(route, {'id': '__id__'}) }}";
+        {% endif %}
+
+        var id = $(this).val();
+        if (id == '') {
+            id = 'Add';
+        }
+        window.open(path.replace('__id__', id + ''), '_self');
+    });
+
+    $('button[title="Add"]').click(function (e) {
+        $(".formChanged").prop("disabled", false);
+    })
+
+
+</script>

@@ -161,3 +161,30 @@
         {{ parent() }}
     {% endif %}
 {%- endblock checkbox_widget %}
+
+{% block bee_toggle_row -%}
+    {% set button_class = button_class_off|default('btn btn-danger halflings halflings-thumbs-down') %}
+
+    {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'halflings-thumbs-down': 'halflings-thumbs-up'}) %}
+    {% dump %}
+    {% if value == '1' %}
+        {% set button_class = button_class|replace(button_toggle_on) %}
+    {% endif %}
+
+    {% set swap_list = '' %}
+    {% for x,y in button_toggle_on %}
+        {% set swap_list = swap_list ~ ' ' ~ y ~ ' ' ~ x|trim %}
+    {% endfor %}
+
+    <div data-toggle="buttons">
+        {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+        <label class="control-label">{{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}
+        {% if required %}
+            <br/><span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span>
+        {% endif %}</label>
+        <span class="{{ button_class }} {{ div_class }}" toggle_swap="{{ swap_list|trim }}"><input type="hidden" value="{{ value }}" id="{{ id }}" name="{{ full_name }}" /></span>
+    </div>
+    {{- form_errors(form) -}}
+
+{%- endblock bee_toggle_row %}
+
