@@ -1,0 +1,31 @@
+App\Entity\DepartmentMember:
+    type: entity
+    table: department_member
+    repositoryClass: App\Repository\DepartmentMemberRepository
+    uniqueConstraints:
+        dept_staff:
+            columns: [ dept_id, staff_id ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        staffType:
+            type: string
+            length: '32'
+            name: staff_type
+    manyToOne:
+        department:
+            targetEntity: App\Entity\Department
+            inversedBy: members
+            joinColumn:
+                name: dept_id
+                referencedColumnName: id
+        staff:
+            targetEntity: App\Entity\Staff
+            inversedBy: departments
+            joinColumn:
+                name: staff_id
+                referencedColumnName: id
+                nullable: false

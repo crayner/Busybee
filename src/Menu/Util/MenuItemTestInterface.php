@@ -1,6 +1,5 @@
 <?php
-namespace App\Core\Manager;
-
+namespace App\Menu\Util;
 
 interface MenuItemTestInterface
 {

@@ -1,6 +1,7 @@
 <?php
-namespace App\Core\Manager;
+namespace App\Menu\Util;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class RouterManager
@@ -16,7 +17,7 @@ class RouterManager
 	public function __construct(RequestStack $request)
 	{
 		if (! is_null($request->getCurrentRequest()))
-			$this->currentRoute = $request->getCurrentRequest()->get('_route');
+			$this->setCurrentRoute($request->getCurrentRequest());
 
 		return $this;
 	}
@@ -27,5 +28,15 @@ class RouterManager
 	public function getCurrentRoute(): string
 	{
 		return $this->currentRoute;
+	}
+
+	public function setCurrentRoute(Request $request)
+	{
+		if (! empty($this->currentRoute))
+			return $this;
+
+		$this->currentRoute = $request->get('_route');
+
+		return $this;
 	}
 }

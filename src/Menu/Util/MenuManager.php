@@ -1,5 +1,5 @@
 <?php
-namespace App\Core\Manager;
+namespace App\Menu\Util;
 
 use Hillrange\Security\Util\PageManager;
 use Doctrine\DBAL\Exception\ConnectionException;
@@ -404,6 +404,7 @@ class MenuManager extends MenuManagerConstants
 						$key                     = $x['route'];
 						$routes[$key]['section'] = $name;
 						$routes[$key]['header']  = $headName;
+						$routes[$key]['params']  = empty($x['params']) ? [] : $x['params'];
 					}
 				}
 				else

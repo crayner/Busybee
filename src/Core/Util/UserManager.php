@@ -5,6 +5,7 @@ use App\Entity\Calendar;
 use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Security\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserManager
 {
@@ -35,8 +36,11 @@ class UserManager
 	/**
 	 * @return string
 	 */
-	public function formatUserName(): string
+	public function formatUserName(UserInterface $user = null): string
 	{
+		if ($user instanceof User)
+			return $user->formatName();
+
 		if ($this->user)
 			return $this->user->formatName();
 
@@ -49,9 +53,9 @@ class UserManager
 	public function getSystemCalendar()
 	{
 		if (! $this->user)
-			return null;
+			return $this->entityManager->getRepository(Calendar::class)->findOneBy(['status' => 'current']);
 
-		$calendar = $this->user->getUserSettings('Calendar');
+		$calendar = $this->user->getUserSettings('calendar');
 		$cal = is_null($calendar) ? null : $this->entityManager->getRepository(Calendar::class)->find($calendar) ;
 		if (is_null($cal))
 			$cal = $this->entityManager->getRepository(Calendar::class)->loadCurrentCalendar();

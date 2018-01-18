@@ -31,7 +31,9 @@ menu:
         user: User Admin
         timetable: Timetable Admin
     calendar.manage: Manage Calendars
-    school.daysandtimes: Manage School Days and Times
+    school:
+        daysandtimes: Manage School Days and Times
+        department.edit: Manage Departments
 section:
     header:
         years_days_times: 'Years, Days & Times'

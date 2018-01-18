@@ -1,0 +1,32 @@
+{% trans_default_domain "Department" %}
+
+{% block _department_courses_entry_label %}{% endblock %}
+{% block _department_courses_entry_error %}{% endblock %}
+
+{% block _department_courses_entry_widget %}
+    {% spaceless %}
+        {% set panelStyle = 'default' %}
+        {% set transDomain = 'Department' %}
+        {% set header = 'department.course.member' %}
+        {% set courseName = {'%name%': 'department.course.name.placeholder'|trans} %}
+        {% if data is not empty %}
+            {% set courseName = {'%name%': data.name} %}
+        {% endif %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'department.course.remove', transDomain: 'Department', class: 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ '</div>' %}
+
+        {% include 'Page/panelStart.html.twig' with {'panelStyle': 'default', name: courseName} %}
+        <div class="container-fluid departmentCourse">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_row(form) }}
+                    {{ form_label(form) }}
+                </div>
+            </div>
+        </div>
+        {% include 'Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock _department_courses_entry_widget %}

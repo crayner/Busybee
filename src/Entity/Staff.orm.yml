@@ -1,0 +1,36 @@
+App\Entity\Staff:
+    type: entity
+    repositoryClass: App\Repository\StaffRepository
+    fields:
+        staffType:
+            type: string
+            length: '20'
+            name: staff_type
+        jobTitle:
+            type: string
+            length: '100'
+        house:
+            type: string
+            length: '32'
+            nullable: true
+        status:
+            nullable: true
+            type: string
+            length: 24
+        profession:
+            type: string
+            length: 32
+            nullable: true
+        employer:
+            type: string
+            length: '32'
+            nullable: true
+    oneToMany:
+        calendarGroups:
+            targetEntity: App\Entity\CalendarGroup
+            mappedBy: calendarTutor
+            cascade: ['persist']
+        departments:
+            targetEntity: App\Entity\DepartmentMember
+            mappedBy: staff
+            cascade: ['persist']

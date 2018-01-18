@@ -8,6 +8,7 @@ use Hillrange\Security\Exception\UnauthorisedUserException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -43,9 +44,9 @@ class SettingManager implements ContainerAwareInterface
 	private $settings;
 
 	/**
-	 * @var bool
+	 * @var array
 	 */
-	private $settingExists = false;
+	private $settingExists;
 
 	/**
 	 * @var projectDir
@@ -63,11 +64,6 @@ class SettingManager implements ContainerAwareInterface
 	private $container;
 
 	/**
-	 * @var MessageManager
-	 */
-	private $messages;
-
-	/**
 	 * @var  Session
 	 */
 	private $session;
@@ -78,13 +74,23 @@ class SettingManager implements ContainerAwareInterface
 	private $authorisation;
 
 	/**
+	 * @var \Twig_Environment
+	 */
+	private $twig;
+
+	/**
+	 * @var MessageManager
+	 */
+	private $messageManager;
+
+	/**
 	 * SettingManager constructor.
 	 *
 	 * @param SettingRepository             $sr
 	 * @param ContainerInterface            $container
 	 * @param AuthorizationCheckerInterface $authorisation
 	 */
-	public function __construct(SettingRepository $sr, ContainerInterface $container, AuthorizationCheckerInterface $authorisation)
+	public function __construct(SettingRepository $sr, ContainerInterface $container, AuthorizationCheckerInterface $authorisation, \Twig_Environment $twig, MessageManager $messageManager)
 	{
 		$this->session = new Session();
 		if ($this->session->isStarted())
@@ -102,7 +108,9 @@ class SettingManager implements ContainerAwareInterface
 		$this->container = $container;
 
 		$this->authorisation = $authorisation;
-		$this->messages = new MessageManager('System');
+
+		$this->twig = $twig;
+		$this->messageManager = $messageManager;
 	}
 
 	/**
@@ -156,117 +164,6 @@ class SettingManager implements ContainerAwareInterface
 	}
 
 	/**
-	 * get Setting
-	 *
-	 * @version    18th November 2016
-	 * @since      20th October 2016
-	 *
-	 * @param    string $name
-	 * @param    mixed  $default
-	 * @param    array  $options
-	 *
-	 * @return    mixed    Value
-	 * @throws  \Exception
-	 */
-	public function getSetting($name, $default = null, $options = array())
-	{
-		$name = strtolower($name);
-
-		if (isset($this->settings[$name]) && $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options))
-		{
-			$this->settingExists = true;
-
-			return $this->settings[$name];
-		}
-
-		$this->settingExists = false;
-		$flip                = false;
-		if (substr($name, -6) === '._flip')
-		{
-			$flip = true;
-			$name = str_replace('._flip', '', $name);
-		}
-
-		$this->setting = $this->getSettingEntity($name);
-
-		if (is_null($this->setting) || empty($this->setting->getName()))
-		{
-			if (false === strpos($name, '.'))
-				return $default;
-			$name = explode('.', $name);
-			$last = end($name);
-			array_pop($name);
-			$value = $this->getSetting(implode('.', $name), $default, $options);
-
-			if (is_array($value))
-			{
-				$x = [];
-				foreach ($value as $name => $data)
-					$x[strtolower($name)] = $data;
-				$value = $x;
-			}
-
-			if (is_array($value) && isset($value[$last]))
-				return $value[$last];
-
-			return $default;
-		}
-
-		$this->settingExists = true;
-
-		switch ($this->setting->getType())
-		{
-			case 'system':
-			case 'regex':
-			case 'text':
-				return $this->writeSettingToSession($name, $this->setting->getValue());
-				break;
-			case 'string':
-				return $this->writeSettingToSession($name, strval(mb_substr($this->setting->getValue(), 0, 25)));
-				break;
-			case 'file':
-			case 'image':
-				$value   = $this->setting->getValue();
-				$webPath = realpath($this->projectDir . '/public/');
-				if (! file_exists($webPath . '/' . $value))
-					$value = $default;
-				return $this->writeSettingToSession($name, $value);
-				break;
-			case 'twig':
-				try
-				{
-					return $this->container->get('twig')->createTemplate($this->setting->getValue())->render($options);
-				}
-				catch (\Twig_Error_Runtime $e)
-				{
-					return $this->getContainer()->get('translator')->trans('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'SystemBundle');
-				}
-				catch (\Twig_Error_Loader $e)
-				{
-					return $this->getContainer()->get('translator')->trans('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'SystemBundle');
-				}
-				break;
-			case 'boolean':
-				return $this->writeSettingToSession($name, (bool) $this->setting->getValue());
-				break;
-			case 'time':
-				return $this->writeSettingToSession($name, $this->setting->getValue());
-				break;
-			case 'array':
-				if ($flip)
-					return $this->writeSettingToSession($name . '_flip', array_flip($this->setting->getValue()));
-				else
-					return $this->writeSettingToSession($name, $this->setting->getValue());
-				break;
-			case 'integer':
-				return $this->writeSettingToSession($name, intval($this->setting->getValue()));
-				break;
-			default:
-				throw new Exception('The Setting Type (' . $this->setting->getType() . ') has not been defined for ' . $name . '.');
-		}
-	}
-
-	/**
 	 * set Setting
 	 *
 	 * @version    9th November 2017
@@ -312,7 +209,7 @@ class SettingManager implements ContainerAwareInterface
 				if (is_null($value)) $value = '{{ empty }}';
 				try
 				{
-					$x = $this->container->get('twig')->createTemplate($value)->render(array());
+					$x = $this->twig->createTemplate($value)->render(array());
 				}
 				catch (\Twig_Error_Syntax $e)
 				{
@@ -336,13 +233,7 @@ class SettingManager implements ContainerAwareInterface
 		$em = $this->container->get('doctrine')->getManager();
 		$em->persist($this->setting);
 		$em->flush();
-		switch ($this->setting->getType())
-		{
-			case 'twig':
-				break;
-			default:
-				$this->writeSettingToSession($name, $value);
-		}
+		$this->writeSettingToSession($name);
 
 		return $this;
 	}
@@ -351,21 +242,20 @@ class SettingManager implements ContainerAwareInterface
 	 * Write Setting to Session
 	 *
 	 * @param $name
-	 * @param $value
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	private function writeSettingToSession($name, $value)
+	private function writeSettingToSession($name)
 	{
-		$this->settings[$name]     = $value;
+		if ($this->setting->getType() === 'twig')
+			return;
+		$this->settings[$name]     = $this->setting;
 		$this->settingCache[$name] = new \DateTime('now');
 
 		if ($this->session->isStarted()){
 			$this->session->set('settings', $this->settings);
 			$this->session->set('settingCache', $this->settingCache);
 		}
-
-		return $value;
 	}
 
 	/**
@@ -494,28 +384,75 @@ class SettingManager implements ContainerAwareInterface
 	 *
 	 * @return    mixed    Value
 	 */
-	public function get($name, $default = null, $options = array())
+	public function get($name, $default = null, $options = [])
 	{
-		$name                = strtolower($name);
-		$this->settingExists = false;
-
-		if (isset($this->settings[$name]) && empty($options))
-		{
-			$this->settingExists = true;
-
-			return empty($this->settings[$name]) ? $default : $this->settings[$name];
-		}
-		$value = $this->getSetting($name, $default, $options);
-
-		if ($this->settingExists && empty($options))
-		{
-			$this->settings[$name]     = $value;
-			$this->settingCache[$name] = new \DateTime('now');
-		}
-
-		return $value;
+		return $this->getSetting($name, $default, $options);
 	}
 
+
+	/**
+	 * get Setting
+	 *
+	 * @version    18th November 2016
+	 * @since      20th October 2016
+	 *
+	 * @param    string $name
+	 * @param    mixed  $default
+	 * @param    array  $options
+	 *
+	 * @return    mixed    Value
+	 * @throws  \Exception
+	 */
+	public function getSetting($name, $default = null, $options = [])
+	{
+		$name = strtolower($name);
+		$flip                = false;
+		if (substr($name, -6) === '._flip')
+		{
+			$flip = true;
+			$name = str_replace('._flip', '', $name);
+		}
+
+		$this->settingExists[$name] = empty($this->settingExists[$name]) ? false : $this->settingExists[$name] ;
+
+		if ($this->settingExists[$name] && $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options))
+		{
+			$this->settingExists[$name] = true;
+
+			$this->setting = $this->settings[$name];
+		} else {
+
+			$this->settingExists[$name] = false;
+
+			$this->setting = $this->getSettingEntity($name);
+
+		}
+
+		if ($this->settingExists[$name] && $name === $this->setting->getName() && $this->setting->getType() !== 'twig') {
+			if ($flip && $this->setting->getType() === 'array')
+				return array_flip($this->setting->getValue());
+
+			return empty($this->setting->getValue()) ? $default : $this->setting->getValue() ;
+		} elseif (! $this->settingExists[$name] && $this->setting->getType() === 'array') {
+			return $this->getSettingArray($name, $default);
+		} elseif ($this->settingExists[$name] && $name === $this->setting->getName() && $this->setting->getType() === 'twig') {
+			try
+			{
+				return $this->twig->createTemplate($this->setting->getValue())->render($options);
+			}
+			catch (\Twig_Error_Loader $e)
+			{
+				$this->messagesManager->add('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'System');
+				return null;
+			}
+
+		}
+
+
+
+		dump($name);
+		dump($this);die();
+	}
 
 	/**
 	 * get Setting Entity
@@ -529,8 +466,24 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	public function getSettingEntity($name): ?Setting
 	{
-		$name          = strtolower($name);
+		$name          = str_replace('._flip', '', strtolower($name));
+
 		$this->setting = $this->settingRepo->loadOneByName($name);
+		if (is_null($this->setting) && strpos($name, '.') !== false)
+		{
+			$x = explode('.', $name);
+			array_pop($x);
+			$name = implode('.', $x);
+			$this->getSettingEntity($name);
+		}
+		else
+		{
+			$this->settings[$name] = $this->setting;
+			$this->writeSettingToSession($name);
+			$this->settingExists[$name] = true;
+		}
+
+
 		return $this->setting;
 	}
 
@@ -690,7 +643,7 @@ class SettingManager implements ContainerAwareInterface
 	{
 		$this->get($name);
 
-		return $this->settingExists;
+		return $this->settingExists[$name];
 	}
 
 	/**
@@ -857,4 +810,23 @@ class SettingManager implements ContainerAwareInterface
 		$this->set($name, null);
 	}
 
+
+	/**
+	 * @param $name
+	 *
+	 * @return mixed
+	 */
+	private function getSettingArray($name)
+	{
+		$x = explode('.', $name);
+		$key = array_pop($x);
+		$name = implode('.', $x);
+		$value = $this->setting->getValue();
+		foreach($value as $keyName=>$result)
+		{
+			if (strtolower($keyName) === $key)
+				return $result;
+		}
+		return $this->getSettingArray($name);
+	}
 }

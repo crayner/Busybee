@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Subscriber;
 
+use App\Core\Exception\Exception;
 use App\Core\Manager\SettingManager;
 use App\Core\Type\ChoiceSettingType;
 use Symfony\Component\Form\FormEvent;
@@ -57,13 +58,10 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$options = $form->getConfig()->getOptions();
 		$name    = $form->getName();
 
-		if (!$this->settingManager->settingExists($options['setting_name']))
-		{
-			$names = $this->settingManager->getLikeSettingNames($options['setting_name']);
-			throw new \InvalidArgumentException('Setting ' . $options['setting_name'] . ' not found.' . $names);
-		}
-
 		$setting = $this->settingManager->getSettingEntity($options['setting_name']);
+		if (is_null($setting))
+			throw new Exception('The setting '.$options['setting_name'].' was not found.');
+
 		$choices = $this->settingManager->get($options['setting_name']);
 
 		if (!is_null($options['setting_data_value']))

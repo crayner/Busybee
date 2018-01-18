@@ -1,0 +1,49 @@
+App\Entity\Department:
+    type: entity
+    table: department
+    repositoryClass: App\Repository\DepartmentRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '30'
+            unique: true
+        type:
+            type: string
+            length: '20'
+        nameShort:
+            type: string
+            length: '4'
+            unique: true
+        importIdentifier:
+            type: string
+            length: '12'
+            nullable: true
+        blurb:
+            type: text
+            nullable: true
+        logo:
+            type: string
+            length: 150
+            nullable: true
+    oneToMany:
+        members:
+            targetEntity: App\Entity\DepartmentMember
+            mappedBy: department
+            cascade: [ all ]
+#    manyToMany:
+#        courses:
+#            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
+#            joinTable:
+#                name: department_course
+#                joinColumns:
+#                    dept_id:
+#                        referencedColumnName: id
+#                inverseJoinColumns:
+#                    course_id:
+#                        referencedColumnName: id
+#                        unique: true

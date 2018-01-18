@@ -1,0 +1,12 @@
+{% trans_default_domain "Department" %}
+
+<script type="text/javascript">
+    $(".courseList").collection({
+        name_prefix: '{{ form.courses.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'department.course.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'department.course.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true
+    });
+</script>

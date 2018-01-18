@@ -32,3 +32,7 @@ App\Entity\CalendarGroup:
             targetEntity: App\Entity\Calendar
             inversedBy: calendarGroups
             cascade: ['persist']
+        calendarTutor:
+            targetEntity: App\Entity\Staff
+            cascade: ['persist']
+            inversedBy: calendarGroups

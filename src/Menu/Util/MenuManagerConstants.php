@@ -1,12 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: craig
- * Date: 3/01/2018
- * Time: 18:10
- */
-
-namespace App\Core\Manager;
+namespace App\Menu\Util;
 
 
 class MenuManagerConstants
@@ -76,6 +69,13 @@ System Admin:
         - setting_edit_name
         - page_edit
 School Admin:
+    groupings:
+        department_edit:
+            label: menu.school.department.edit
+            role: ROLE_REGISTRAR
+            route: department_edit
+            params:
+                id: \'Add\'
     years_days_times:
         calendar_years:
             label: menu.calendar.manage

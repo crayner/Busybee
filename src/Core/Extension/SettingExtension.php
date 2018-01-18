@@ -1,7 +1,7 @@
 <?php
 namespace App\Core\Extension;
 
-use App\Core\Manager\MenuManager;
+use App\Menu\Util\MenuManager;
 use App\Core\Manager\SettingManager;
 use Twig\Extension\AbstractExtension;
 

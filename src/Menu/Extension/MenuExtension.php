@@ -1,7 +1,7 @@
 <?php
-namespace App\Core\Extension;
+namespace App\Menu\Extension;
 
-use App\Core\Manager\MenuManager;
+use App\Menu\Util\MenuManager;
 use Twig\Extension\AbstractExtension;
 
 class MenuExtension extends AbstractExtension

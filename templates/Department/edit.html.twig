@@ -1,0 +1,98 @@
+{% trans_default_domain "Department" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+"FormTheme/bootstrap.html.twig"
+"FormTheme/jquery.collection.html.twig"
+'Department/memberCollection.html.twig'
+'Department/courseCollection.html.twig' %}
+
+{% block title %}{{ 'department.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'department.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'department.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissable show hide") }}
+    {{ form_start(form) }}
+    {% set h3Content = '' %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('department_edit', {'id': app.request.get('id')})}})|raw %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
+    {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
+    {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'Department', panelParagraph: ''} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 card">
+                <div class="row">
+                    <div class="col-12 card">
+                        {{ form_row(form.name) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 card">
+                        {{ form_row(form.nameShort) }}
+                    </div>
+                    <div class="col-6 card">
+                        {{ form_row(form.type) }}
+                    </div>
+                </div>
+                {% if form.courses is defined %}
+                    <div class="row">
+                        <div class="col-12 card">
+                            {% set h3Content = '' %}
+                            {% include 'Page/panelStart.html.twig' with {header: 'department.course.title', transDomain: 'Department', panelParagraph: form.courses.vars.attr.help, panelStyle: 'info'} %}
+                            {% for error in form.courses.parent.vars.errors %}
+                                {% set printMe = error.messageTemplate|replace({'department.course.unique': 'print_me'}) %}
+                                {% if printMe == 'print_me' %}
+                                    <p class="alert alert-danger"><span
+                                                class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                            {{ form_widget(form.courses) }}
+                            {% include 'Page/panelEnd.html.twig' %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {% if form.members is defined %}
+                <div class="col-6 card">
+                    {% set h3Content = '' %}
+                    {% include 'Page/panelStart.html.twig' with {header: 'department.members.title', transDomain: 'Department', panelParagraph: form.members.vars.attr.help, panelStyle: 'info'} %}
+                    <div class="memberMessage"></div>
+                    {% for error in form.members.parent.vars.errors %}
+                        {% set printMe = error.messageTemplate|replace({'department.member.uniquestaff': 'print_me'}) %}
+                        {% if printMe == 'print_me' %}
+                            <p class="alert alert-danger"><span
+                                        class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    {{ form_widget(form.members) }}
+                    {% include 'Page/panelEnd.html.twig' %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.logo) }}
+            </div>
+            <div class="col-8 card">
+                {{ form_row(form.blurb) }}
+                {{ form_row(form.importIdentifier) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set route = 'department_edit' %}
+    {% include 'Script/monitorForm.html.twig' %}
+    {% include 'Script/jquery_collection.html.twig' %}
+    {% include 'Department/memberCollection.js.html.twig' %}
+    {% if form.courses is defined %}
+        {% include 'Department/courseCollection.js.html.twig' %}
+    {% endif %}
+{% endblock javascripts %}
