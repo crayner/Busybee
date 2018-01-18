@@ -6,9 +6,9 @@ App\Entity\Person:
         type: string
     discriminatorMap:
         person: Person
-#        student: Busybee\People\StudentBundle\Entity\Student
+        student: App\Entity\Student
         staff: App\Entity\Staff
-#        contact: Busybee\People\ContactBundle\Entity\Contact
+        contact: App\Entity\Contact
     table: person
     repositoryClass: App\Repository\PersonRepository
     id:

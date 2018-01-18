@@ -1,9 +1,6 @@
 <?php
 namespace App\People\Entity;
 
-use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\People\StudentBundle\Entity\Student;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 use Symfony\Component\HttpFoundation\File\File;

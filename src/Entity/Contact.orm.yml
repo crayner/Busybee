@@ -1,0 +1,15 @@
+App\Entity\Contact:
+    type: entity
+    repositoryClass: App\Repository\ContactRepository
+    fields:
+        jobTitle:
+            type: string
+            length: '100'
+        profession:
+            type: string
+            length: 32
+            nullable: true
+        employer:
+            type: string
+            length: '32'
+            nullable: true

@@ -1,0 +1,113 @@
+App\Entity\Student:
+    type: entity
+    repositoryClass: App\Repository\StudentRepository
+    fields:
+        startAtSchool:
+            type: date
+        startAtThisSchool:
+            type: date
+        lastAtThisSchool:
+            type: date
+            nullable: true
+        locker:
+            length: 16
+            nullable: true
+        firstLanguage:
+            type: string
+            length: 16
+            nullable: true
+        secondLanguage:
+            type: string
+            length: 16
+            nullable: true
+        thirdLanguage:
+            type: string
+            length: 16
+            nullable: true
+        countryOfBirth:
+            type: string
+            length: 16
+            nullable: true
+        birthCertificateScan:
+            type: string
+            length: '150'
+            nullable: true
+        ethnicity:
+            type: string
+            length: 32
+            nullable: true
+        citizenship1:
+            type: string
+            length: 16
+            nullable: true
+        citizenship1Passport:
+            type: string
+            length: 16
+            nullable: true
+        citizenship1PassportScan:
+            type: string
+            length: '150'
+            nullable: true
+        citizenship2:
+            type: string
+            length: 16
+            nullable: true
+        citizenship2Passport:
+            type: string
+            length: 16
+            nullable: true
+        religion:
+            type: string
+            length: 16
+            nullable: true
+        nationalIDCardNumber:
+            type: string
+            length: 32
+            nullable: true
+        nationalIDCardScan:
+            type: string
+            length: '150'
+            nullable: true
+        residencyStatus:
+            type: string
+            length: 32
+            nullable: true
+        visaExpiryDate:
+            type: datetime
+            nullable: true
+        house:
+            type: string
+            length: 32
+            nullable: true
+        status:
+            nullable: true
+            type: string
+            length: 24
+        lastSchool:
+            nullable: true
+            type: string
+            length: 100
+        nextSchool:
+            nullable: true
+            type: string
+            length: 100
+        departureReason:
+            nullable: true
+            type: string
+            length: 50
+        transport:
+            nullable: true
+            type: string
+            length: 255
+        dayType:
+            nullable: true
+            type: string
+            length: 32
+        transportNotes:
+            nullable: true
+            type: text
+    oneToMany:
+        calendarGroups:
+            targetEntity: App\Entity\StudentCalendarGroup
+            mappedBy: student
+            cascade: ['persist']
