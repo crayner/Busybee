@@ -1093,12 +1093,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "889666c0de33c5c42bd320173a3ca37755ca467c"
+                "reference": "703233d58dd6a1090f24fcbb179462722a2b8170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/889666c0de33c5c42bd320173a3ca37755ca467c",
-                "reference": "889666c0de33c5c42bd320173a3ca37755ca467c",
+                "url": "https://api.github.com/repos/crayner/security/zipball/703233d58dd6a1090f24fcbb179462722a2b8170",
+                "reference": "703233d58dd6a1090f24fcbb179462722a2b8170",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1150,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-01-17T06:02:32+00:00"
+            "time": "2018-01-19T06:06:11+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2626,24 +2626,24 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.61",
+            "version": "v1.0.64",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "f872f8faccf5ff95678e1e428f460a333ba1e5d0"
+                "reference": "99f8c1e064ab47812a534137a21facb9fc935669"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/f872f8faccf5ff95678e1e428f460a333ba1e5d0",
-                "reference": "f872f8faccf5ff95678e1e428f460a333ba1e5d0",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/99f8c1e064ab47812a534137a21facb9fc935669",
+                "reference": "99f8c1e064ab47812a534137a21facb9fc935669",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.1",
+                "composer-plugin-api": "^1.0",
                 "php": "^7.0"
             },
             "require-dev": {
-                "composer/composer": "^1.4",
+                "composer/composer": "^1.0.2",
                 "symfony/phpunit-bridge": "^3.2.8"
             },
             "type": "composer-plugin",
@@ -2668,7 +2668,7 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-01-12T13:09:44+00:00"
+            "time": "2018-01-19T16:37:54+00:00"
         },
         {
             "name": "symfony/form",

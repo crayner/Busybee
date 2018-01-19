@@ -394,4 +394,14 @@ calendarGroups:
 		if (empty($class)) return '';
 
 		return ' class="' . trim($class) . '"';
-	}}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCalendarList()
+	{
+		$results = $this->getEntityManager()->getRepository(Calendar::class)->findBy([], ['firstDay' => 'ASC']);
+		return empty($results) ? [] : $results ;
+	}
+}

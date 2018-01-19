@@ -1,6 +1,7 @@
 <?php
 namespace App\Calendar\Entity;
 
+use App\Entity\Calendar;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
@@ -31,5 +32,17 @@ abstract class CalendarExtension implements UserTrackInterface
 			return false;
 
 		return true;
+	}
+
+	/**
+	 * @param Calendar $calendar
+	 *
+	 * @return bool
+	 */
+	public function isEqual(Calendar $calendar): bool
+	{
+		if ($calendar->getId() === $this->getId())
+			return true;
+		return false;
 	}
 }

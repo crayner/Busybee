@@ -179,7 +179,9 @@ abstract class PaginationManager implements PaginationInterface
 
 		$params          = [];
 		$params['route'] = parse_url($requestStack->getCurrentRequest()->get('_route'), PHP_URL_PATH);
-		$this->path      = $params['route'];
+		$route_params = $requestStack->getCurrentRequest()->get('_route_params');
+
+		$this->path      = $router->generate($params['route'], is_array($route_params) ? $route_params : []);
 		$this->setChoice(null);
 		$this->setReDirect(false);
 

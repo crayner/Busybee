@@ -74,7 +74,7 @@ class AddressController extends Controller
 		$addresses = is_array($addresses) ? $addresses : array();
 
 		$options   = array();
-		$option    = array('value' => "", "label" => $this->get('translator')->trans('person.address.placeholder', array(), 'BusybeePersonBundle'));
+		$option    = array('value' => "", "label" => $this->get('translator')->trans('person.address.placeholder', array(), 'Person'));
 		$options[] = $option;
 		$am        = $this->get('busybee_people_address.model.address_manager');
 		foreach ($addresses as $address)

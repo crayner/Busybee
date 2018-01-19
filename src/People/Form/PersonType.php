@@ -196,7 +196,6 @@ class PersonType extends AbstractType
 			[
 				'deletePhoto',
 				'isSystemAdmin',
-				'systemCalendar',
 				'deletePassportScan',
 				'deleteIDScan',
 				'session',
@@ -210,19 +209,5 @@ class PersonType extends AbstractType
 	public function getBlockPrefix()
 	{
 		return 'person';
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getYears()
-	{
-		$years = array();
-		for ($i = -100; $i <= 0; $i++)
-		{
-			$years[] = date('Y', strtotime($i . ' Years'));
-		}
-
-		return $years;
 	}
 }

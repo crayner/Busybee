@@ -52,15 +52,11 @@ class PersonController extends Controller
 
 		$editOptions = array();
 
-		$calendar = $calendarManager->getCurrentCalendar();
-
 		$form = $this->createForm(PersonType::class, $person, [
 			'deletePhoto'        => $this->generateUrl('person_photo_remove', ['id' => $id]),
 			'isSystemAdmin'      => $this->isGranted('ROLE_SYSTEM_ADMIN'),
 			'session'            => $this->get('session'),
-			'systemCalendar'     => $calendar,
 			'data'               => $person,
-			'isSystemAdmin'      => $this->isGranted('ROLE_SYSTEM_ADMIN'),
 			'data_class'         => get_class($person),
 			'deletePassportScan' => $this->generateUrl('student_passport_remove', ['id' => $id]),
 			'deleteIDScan'       => $this->generateUrl('student_id_remove', ['id' => $id]),
@@ -139,7 +135,7 @@ class PersonController extends Controller
 		$editOptions['identifier']    = $person->getIdentifier();
 		$editOptions['addresses']     = $personManager->getAddresses($person);
 		$editOptions['phones']        = $personManager->getPhones($person);
-		$editOptions['calendar']      = $calendar;
+		$editOptions['calendarManager']      = $calendarManager;
 		$editOptions['personManager'] = $personManager;
 
 		return $this->render('Person/edit.html.twig',

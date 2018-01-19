@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-3 form-inline">
                     {{ person.surname }}<br/>
-                    {{ person.firstName }}
+                    <span class="small">{{ person.firstName }}</span>
                 </div>
                 <div class="col-3 hidden-sm hidden-xs small" style="display: inline-block;">
                     {{ manager.getDetails(person)|raw }}

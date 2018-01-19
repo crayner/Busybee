@@ -9,3 +9,7 @@ user:
     credentialsExpireAt.help: 'The user will need to change their password when this date is reached.'
     directroles.help: Direct Role allocation for a user should not be used unless the user needs a level of access not supplied by group selection.  Direct Roles are combined with the indirect roles inherited from the Groups to which the user belongs.
     groups.help: Groups are created by your system administrator to match a user to groups that provide authority to use the various pages in the site.  Groups are also used by the site to lists groups such as classes and parents of classes.
+    calendar:
+        label: 'Calendar'
+        help: 'User calendar setting.  Allows the user to alter data in a different calendar.'
+        placeholder: Current Calendar

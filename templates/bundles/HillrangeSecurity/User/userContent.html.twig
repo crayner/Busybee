@@ -1,53 +1,73 @@
 {% trans_default_domain "security" %}
-
-
-{{ form_start(form) }}
-{% set h3Content = saveButton() %}
-{% set h3Content =  h3Content ~ miscButton({title: 'Impersonate User', transDomain: 'security', windowOpen: {route: path(app.request.get('_route'), {id: app.request.get('id')}) ~ '?_switch_user=' ~ form.username.vars.value}, class: 'btn btn-sm btn-warning x-halflings glyphicons glyphicons-theater', type: 'button'}) %}
-
-{% include 'Page/panelStart.html.twig' with {header: 'user.manage.title', transDomain: 'security', panelParagraph: 'user.self.change.warning' } %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+<div class="row">
+    <div class="col-4 card">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="col-4 card">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="col-4 card">
+        {{ form_row(form.locale) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-4 card">
+        {{ form_row(form.enabled, {help: 'user.enabled.help', attr: {use_toggle: true}}) }}
+    </div>
+    <div class="col-4 card">
+        {{ form_row(form.expired, {attr: {use_toggle: true}}) }}
+    </div>
+    <div class="col-4 card">
+        {{ form_row(form.credentials_expired, {attr: {use_toggle: true}}) }}
+    </div>
+</div>
+<div class="row">
+    {% set offset = ' offset-4' %}
+    {% if app.user.id == personManager.person.userId %}
+        {% set offset = '' %}
+        <div class="col-4 card">
+            <div class="form-group">
+                <select class="form-control" id="user_calendar" onchange="return changeCalendar();">
+                    {% set current = calendarManager.currentCalendar %}
+                    <option value="current">{{ 'user.calendar.placeholder'|trans }}</option>
+                    {% for calendar in calendarManager.calendarList %}
+                        {% if calendar.equal(current) %}
+                            <option value="{{ calendar.id }}" selected>{{ calendar.name }}</option>
+                        {% else %}
+                            <option value="{{ calendar.id }}">{{ calendar.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <label class="form-control-label" for="user_calendar">{{ 'user.calendar.label'|trans }}</label>
+                <small class="form-text text-muted">{{ 'user.calendar.help'|trans }}</small>
+            </div>
+        </div>
+    {% elseif is_granted(['ROLE_ALLOWED_TO_SWITCH', 'ROLE_SYSTEM_ADMIN']) %}
+        {% set offset = '' %}
+        <div class="col-4 align-self-center">
+            <div class="d-flex justify-content-center">
+            {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                {% set route = path('home') ~ '?_switch_user=' ~ personManager.person.user.username %}
+                {{ miscButton({transDomain: 'Security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button'})|raw }}
+            {% endif %}
+            {% if is_granted('ROLE_SYSTEM_ADMIN') %}
+                {{ editButton({ title: 'user.request.passwordReset', class: 'btn btn-warning x-halflings glyphicons glyphicons-user-key', transDomain: 'Security', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: personManager.person.userId})}})|raw }}
+            {% endif %}
+            </div>
+        </div>
     {% endif %}
-        <div class="row">
-            <div class="col-4 card">
-                {{ form_row(form.username) }}
-            </div>
-            <div class="col-4 card">
-                {{ form_row(form.email) }}
-            </div>
-            <div class="col-4 card">
-                {{ form_row(form.locale) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4 card">
-                {{ form_row(form.enabled, {help: 'user.enabled.help', attr: {use_toggle: true}}) }}
-            </div>
-            <div class="col-4 card">
-                {{ form_row(form.expired, {attr: {use_toggle: true}}) }}
-            </div>
-            <div class="col-4 card">
-                {{ form_row(form.credentials_expired, {attr: {use_toggle: true}}) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4 offset-4 card">
-                {{ form_row(form.expiresAt, {help: 'user.expiresAt.help'}) }}
-            </div>
-            <div class="col-4 card">
-                {{ form_row(form.credentialsExpireAt, {help: 'user.credentialsExpireAt.help'}) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 card">
-                {{ form_row(form.directroles, {help: 'user.directroles.help'}) }}
-            </div>
-            <div class="col-6 card">
-                {{ form_row(form.groups, {help: 'user.groups.help'}) }}
-            </div>
-        </div>
-    {% do form.save.setRendered() %}
-    {{ form_rest(form) }}
-{% include 'Page/panelEnd.html.twig' %}
-{{ form_end(form) }}
+    <div class="col-4 {{ offset }} card">
+        {{ form_row(form.expiresAt, {help: 'user.expiresAt.help'}) }}
+    </div>
+    <div class="col-4 card">
+        {{ form_row(form.credentialsExpireAt, {help: 'user.credentialsExpireAt.help'}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 card">
+        {{ form_row(form.directroles, {help: 'user.directroles.help'}) }}
+    </div>
+    <div class="col-6 card">
+        {{ form_row(form.groups, {help: 'user.groups.help'}) }}
+    </div>
+</div>

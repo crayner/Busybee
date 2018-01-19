@@ -21,11 +21,12 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 username_parameter:   'login[_username]'
                 password_parameter:   'login[_password]'
-                success_handler:      Hillrange\Security\Exposed\SuccessHandler
+                success_handler:      Hillrange\Security\Exposed\LoginSuccessHandler
             provider:                 hillrange_security_user_provider
             logout:
                 path:                 logout
                 target:               home
+                success_handler:      Hillrange\Security\Exposed\LogoutSuccessHandler
             remember_me:              false
 #                secret:               '%env(APP_SECRET)%'
 #                name:                 '%session_name%_remember_me'

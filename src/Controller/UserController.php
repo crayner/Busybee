@@ -1,11 +1,14 @@
 <?php
 namespace App\Controller;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\People\Util\PersonManager;
 use Hillrange\Security\Entity\User;
+use Hillrange\Security\Util\ParameterInjector;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -16,7 +19,7 @@ class UserController extends Controller
 	 * @Route("/person/user/toggle/{id}/", name="person_toggle_user")
 	 * @IsGranted("ROLE_ADMIN")
 	 */
-	public function toggle($id, PersonManager $personManager, MessageManager $messageManager)
+	public function toggle($id, PersonManager $personManager, MessageManager $messageManager, ParameterInjector $parameterInjector)
 	{
 		$person = $personManager->find($id);
 
@@ -51,7 +54,7 @@ class UserController extends Controller
 
 			if (is_null($user))
 			{
-				$user = new User();
+				$user = new User($parameterInjector);
 				$user->setEmail($person->getEmail());
 				$user->setEmailCanonical($person->getEmail());
 				$user->setUsername($person->getEmail());
@@ -88,5 +91,42 @@ class UserController extends Controller
 			),
 			200
 		);
+	}
+	/**
+	 * @param $id
+	 * @Route("/security/user/edit/{id}/", name="user_edit")
+	 */
+	public function userEdit($id)
+	{
+		return $this->redirectToRoute('person_edit', ['id' => $id, '_fragment' => 'user']);
+	}
+
+	/**
+	 * @param                 $id
+	 * @param                 $calendar
+	 * @param CalendarManager $calendarManager
+	 * @Route("/security/user/calendar/change/{id}/{calendar}/", name="user_calendar_change")
+	 * @Security("is_granted('IS_CURRENT_USER', id)")
+	 */
+	public function userCalendar($id, $calendar)
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		$user = $em->getRepository(User::class)->find($id);
+
+		$settings = $user->getUserSettings();
+
+		if (isset($settings['calendar']) && $calendar == 'current')
+			unset($settings['calendar']);
+
+		if ($calendar > 0)
+			$settings['calendar'] = intval($calendar);
+
+		$user->setUserSettings($settings);
+
+		$em->persist($user);
+		$em->flush();
+
+		return $this->redirectToRoute('person_edit', ['id' => $id, '_fragment' => 'user']);
 	}
 }

@@ -100,7 +100,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['multiple']                  = isset($options['multiple']) ? $options['multiple'] : false;
 		$newOptions['expanded']                  = isset($options['expanded']) ? $options['expanded'] : false;
 		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
-		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'SystemBundle';
+		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'System';
 
 		$newOptions['setting_name'] = $options['setting_name'];
 		$newOptions['setting_display_name'] = $options['setting_display_name'] ? $options['setting_display_name'] : $setting->getDisplayName();

@@ -1,6 +1,6 @@
 {# src/Busybee/PersonBundle/Resources/views/Person/script.html.twig #}
 
-{% trans_default_domain "BusybeePersonBundle" %}
+{% trans_default_domain "Person" %}
 
 <script type="text/javascript">
     $(".addPersonAddress").click(function (e) {
@@ -116,8 +116,8 @@
         name_prefix: '{{ form.phone.vars.full_name }}',
         allow_up: false,
         allow_down: false,
-        add: '<button title="{{ 'contact.phone.add'|trans({}, 'BusybeePersonBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-        remove: '<button title="{{ 'contact.phone.remove'|trans({}, 'BusybeePersonBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add: '<button title="{{ 'contact.phone.add'|trans({}, 'Person') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'contact.phone.remove'|trans({}, 'Person') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
         add_at_the_end: true
     });
 
@@ -192,6 +192,17 @@
 
         location.assign(path);
         location.reload(true);
+    }
+
+    function changeCalendar() {
+        var id = '{{ app.request.get('id') }}';
+        var value = $('#user_calendar').val();
+
+        var path = '{{ path('user_calendar_change', {'id': '__id__', 'calendar': '__calendar__'}) }}';
+        path = path.replace('__id__', id);
+        path = path.replace('__calendar__', value);
+
+        window.open(path,'_self');
     }
 </script>
 {% include 'Person/toggleScript.html.twig' %}

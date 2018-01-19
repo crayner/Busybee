@@ -1,12 +1,5 @@
-{# src/Busybee/PersonBundle/Resources/views/Person/user.html.twig #}
-
 {% trans_default_domain "Person" %}
-
-<div class="panel panel-primary busybee-panel">
-    {% include "Person/panelHeader.html.twig"  with {'header': 'person.user.title'} %}
-    <div class="panel-body">
-        {% include '@BusybeeSecurity/User/userContent.html.twig' with {form: form.user, header: false} %}
-    </div>
-</div>
-
+{% include "Person/panelHeader.html.twig"  with {'header': 'person.user.title', name: personManager.person.formatName} %}
+    {% include '@HillrangeSecurity/User/userContent.html.twig' with {form: form.user} %}
+{% include 'Page/panelEnd.html.twig' %}
 {% do form.user.setRendered() %}

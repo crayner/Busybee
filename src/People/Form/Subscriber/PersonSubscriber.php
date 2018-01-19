@@ -6,6 +6,8 @@ use App\Core\Type\SettingChoiceType;
 use App\Core\Type\TextType;
 use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Security\Form\FullUserType;
+use Hillrange\Security\Form\UserType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
@@ -81,9 +83,9 @@ class PersonSubscriber implements EventSubscriberInterface
 
 		if ($person->isUser())
 		{
-			$user = is_null($person->getUser()) ? new User() : $person->getUser();
+			$user = $person->getUser();
 			$person->setUser($user);
-			$form->add('user', UserType::class, ['isSystemAdmin' => $this->isSystemAdmin, 'data' => $user, 'session' => $this->session]);
+			$form->add('user', FullUserType::class, ['data' => $user]);
 			if (empty($person->getUser()->getEmail()) || $person->getUser()->getEmail() != $person->getEmail())
 				$person->getUser()->setEmail($person->getEmail());
 		}
@@ -380,7 +382,7 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_name'              => 'house.list',
 					'setting_data_name'         => 'name',
 					'setting_data_value'        => 'name',
-					'choice_translation_domain' => 'SystemBundle',
+					'choice_translation_domain' => 'System',
 				]
 			)
 			->add('calendarGroups', CollectionType::class,

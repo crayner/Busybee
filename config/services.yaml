@@ -10,7 +10,7 @@ parameters:
         numbers: true
         mixed_case: true
     security.routes:
-        security_user_edit: security_user_edit
+        security_user_edit: user_edit
         security_user_login: login
         security_user_check: login
         security_user_logout: logout
@@ -114,4 +114,9 @@ services:
         tags:
             - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\CheckboxType' }
     App\Core\Validator\BackgroundImage:
+        public: true
+    app.voter.current_user_voter:
+        class: App\Voter\CurrentUserVoter
+        tags:
+            - { name: security.voter, priority: 125 }
         public: true
