@@ -16,9 +16,9 @@
 {% endif %}
 
 {{ form_start(form, form_array) }}
-<div class="container-fluid well" style="padding: 0 15px 5px;">
+<div class="container-fluid card" style="padding: 0 15px 5px;">
     <div class="row">
-        <div class="col-sm-3 text-right">
+        <div class="col-3 text-right">
             {% if pagination.displaySearch %}
                 <label class="control-label">{{ form.searchData.vars.label|trans }}</label>
                 <div class="input-group input-group-sm">
@@ -30,7 +30,7 @@
             {% endif %}
             {% do form.searchData.setRendered %}
         </div>
-        <div class="col-sm-3 text-right">
+        <div class="col-3 text-right">
             {% if pagination.displaySort and form.sortByName.vars.choices is not empty %}
                 <label class="control-label">{{ form.sortByName.vars.label|trans }}</label>
                 <div class="input-group input-group-sm">
@@ -39,18 +39,18 @@
             {% endif %}
             {% do form.sortByName.setRendered %}
         </div>
-        <div class="col-sm-3 text-right">
+        <div class="col-3 text-right">
             {% if pagination.displayChoice and form.choice is defined %}
                 <label class="control-label">{{ form.choice.vars.label|trans }}</label>
                 <div class="input-group input-group-sm">
                     {{ form_widget(form.choice, {value: pagination.getChoice }) }}
-                <div class="input-group input-group-sm">
-                {{ form_widget(form.lastChoice, {value: pagination.getChoice }) }}
+                    {{ form_widget(form.lastChoice, {value: pagination.getChoice }) }}
+                </div>
             {% endif %}
         </div>
 
         {% if pagination.displayResult and pagination.getTotal > pagination.getLimit %}
-            <div class="col-sm-3 text-right">
+            <div class="col-3 text-right">
                 {{ form_widget(form.lastSearch, {value: pagination.getSearch }) }}
                 {{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
                 <label class="control-label">{{ form.limit.vars.label|trans }}</label>
@@ -75,7 +75,7 @@
                 </span>
             </div>
         {% elseif pagination.displayResult and pagination.getTotal > 10 %}
-            <div class="col-sm-3 text-right">
+            <div class="col-3 text-right">
                 <label class="control-label">{{ form.limit.vars.label|trans }}</label>
                 <div class="text-right">
                     {{ form_widget(form.limit, {'value': '' ~ pagination.limit, 'attr': {'style': 'max-width: 150px; width: 150px;'}}) }}
@@ -90,7 +90,7 @@
                 </span>
             </div>
         {% elseif pagination.displayResult %}
-            <div class="col-sm-3 text-right">
+            <div class="col-3 text-right">
                 <label class="control-label">&nbsp;</label>
                 <div class="text-right text-muted small">
                     {{ 'pagination.records.only'|trans({'%total%': pagination.getTotal}, 'Pagination') }}

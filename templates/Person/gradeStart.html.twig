@@ -1,0 +1,8 @@
+<div class="panel panel-primary busybee-panel">
+    {% include "Person/panelHeader.html.twig"  with {header: 'person.grade.title'} %}
+    <div class="panel-body">
+
+        <div class="gradeMessage"></div>
+        {{ form_widget(form.grades) }}
+        {% do form.grades.setRendered %}
+{% include 'Page/panelEnd.html.twig' %}

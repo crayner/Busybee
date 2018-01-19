@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\People\Entity\PersonExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Person
@@ -71,17 +72,17 @@ class Person extends PersonExtension
 	private $photo;
 
 	/**
-	 * @var User
+	 * @var null|UserInterface
 	 */
 	private $user;
 
 	/**
-	 * @var \Busybee\People\AddressBundle\Entity\Address
+	 * @var Address
 	 */
 	private $address1;
 
 	/**
-	 * @var \Busybee\People\AddressBundle\Entity\Address
+	 * @var Address
 	 */
 	private $address2;
 
@@ -417,9 +418,9 @@ class Person extends PersonExtension
 	/**
 	 * Get user
 	 *
-	 * @return User
+	 * @return null|UserInterface
 	 */
-	public function getUser()
+	public function getUser(): ?UserInterface
 	{
 		return $this->user;
 	}
@@ -427,11 +428,11 @@ class Person extends PersonExtension
 	/**
 	 * Set user
 	 *
-	 * @param User $user
+	 * @param null|UserInterface $user
 	 *
 	 * @return Person
 	 */
-	public function setUser(User $user = null)
+	public function setUser(UserInterface $user = null): Person
 	{
 		$this->user = $user;
 
@@ -527,7 +528,10 @@ class Person extends PersonExtension
 	 */
 	public function getIdentifier()
 	{
-		return $this->identifier;
+		if (empty($this->identifier) || false !== mb_strpos($this->identifier, '*'))
+			$this->setIdentifier('');
+
+		return strtoupper($this->identifier);
 	}
 
 	/**
@@ -539,7 +543,32 @@ class Person extends PersonExtension
 	 */
 	public function setIdentifier($identifier)
 	{
-		$this->identifier = $identifier;
+		if ((empty($identifier) || false !== mb_strpos($identifier, '*')) && (empty($this->identifier) || false !== mb_strpos($this->identifier, '*')))
+		{
+			$identifier = mb_substr($this->surname, 0, 4);
+			while (mb_strlen($identifier) < 4)
+				$identifier .= '_';
+			$given = explode(' ', $this->firstName);
+			while(count($given) > 2)
+				array_pop($given);
+			foreach($given as $name)
+				$identifier .= mb_substr($name, 0, 1);
+			while (mb_strlen($identifier) < 6)
+				$identifier .= '*';
+			$mon = '**';
+			if ($this->getDob() instanceof \DateTime)
+				$mon = $this->getDob()->format('m');
+			$identifier .= $mon;
+			$mon = '**';
+			if ($this->getDob() instanceof \DateTime)
+				$mon = $this->getDob()->format('d');
+			$identifier .= $mon;
+
+			while (mb_strlen($identifier) < 10)
+				$identifier .= '*';
+		}
+
+		$this->identifier = strtoupper($identifier);
 
 		return $this;
 	}

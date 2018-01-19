@@ -1,0 +1,81 @@
+App\Entity\Family:
+    type: entity
+    table: family
+    repositoryClass: App\Repository\FamilyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '255'
+        firstLanguage:
+            type: string
+            length: 16
+            nullable: true
+        secondLanguage:
+            type: string
+            length: 16
+            nullable: true
+        house:
+             type: string
+             length: 32
+             nullable: true
+        status:
+             type: string
+             length: 16
+             nullable: true
+        importIdentifier:
+             type: string
+             length: 16
+             nullable: true
+    oneToMany:
+        careGivers:
+            targetEntity: App\Entity\CareGiver
+            orderBy:
+                'contactPriority': 'ASC'
+            mappedBy: family
+            cascade:
+                - 'remove'
+                - 'persist'
+            orphanRemoval: true
+    manyToMany:
+        phone:
+            targetEntity: App\Entity\Phone
+            cascade: [ 'persist' ]
+            joinTable:
+                name: family_phone
+                joinColumns:
+                    family_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    phone_id:
+                        referencedColumnName: id
+        students:
+            targetEntity: App\Entity\Student
+            orderBy: { 'startAtSchool': 'ASC' }
+            cascade: [ 'persist' ]
+            joinTable:
+                name: family_student
+                joinColumns:
+                    family_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    student_id:
+                        referencedColumnName: id
+    manyToOne:
+        address1:
+            targetEntity: App\Entity\Address
+            nullable: true
+            joinColumns:
+                address1:
+                    referencedColumnName: id
+        address2:
+            targetEntity: App\Entity\Address
+            nullable: true
+            joinColumns:
+                address2:
+                    referencedColumnName: id

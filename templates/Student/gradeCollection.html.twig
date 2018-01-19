@@ -1,0 +1,33 @@
+{% trans_default_domain "Student" %}
+
+{% block grade_by_student_label %}{% endblock %}
+{% block grade_by_student_errors %}{% endblock %}
+
+{% block grade_by_student_widget %}
+    {% set panelStyle = 'info' %}
+    {% set transDomain = 'Student' %}
+    {% set header = 'student.grade.title' %}
+    {% set h3Content = '<div class="collection-actions collection-panel craig">' %}
+    {% set id = '' %}
+    {% set yearName = '(New)' %}
+    {% if data is not null %}
+        {% set yearName = data.getGradeYear %}
+        {% set id = data.getId() %}
+    {% endif %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'student.grade.remove', transDomain: 'Student', 'class': 'removeGrade halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', additional: {id: 'removeGrade' ~ id}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ '</div>' %}
+    {% include 'Page/panelStart.html.twig' with {name: yearName} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.grade) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.status) }}
+                {{ form_row(form.student, {value: app.request.get('id')}) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock %}

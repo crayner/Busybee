@@ -1,0 +1,37 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/addresses.html.twig #}
+
+{% trans_default_domain "Address" %}
+
+<p class="alert alert-warning alert-dismissable show hide">{{ 'address.warning'|trans }}</p>
+
+{% if addresses is defined %}
+
+    <p class="alert alert-info">
+        <strong>{{ 'family.address.linked'|trans }}</strong>
+        {% for address in addresses %}
+            {{ formatAddress(address)|raw }}
+        {% endfor %}</p>
+{% endif %}
+
+<div class="row">
+    <div class="col-12 card">
+        {{ form_row(form.address1) }}
+        <span>
+            {{ deleteButton({additional: {id: "erasePersonAddress1"}, title: 'address.button.erase', transDomain: 'Address', colour: 'warning'})|raw }}
+            {{ resetButton({title: 'address.button.refresh', transDomain: 'Address', additional: {id: 'refreshPersonAddress1'}, colour: 'info', mergeClass: 'refreshPersonAddress'})|raw }}
+            {{ addButton({colour: 'primary', mergeClass: 'addPersonAddress', additional: {id: 'addPersonAddress1'}, transDomain: 'Address', title: 'address.button.add'})|raw }}
+		</span><br/>
+        {% include 'Default/flash.html.twig' with {flashClass: 'alert-dismissable show hide', transDomain: 'Person'} %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 card">
+        {{ form_row(form.address2) }}
+        <span>
+            {{ deleteButton({additional: {id: "erasePersonAddress2"}, title: 'address.button.erase', transDomain: 'Address', colour: 'warning'})|raw }}
+            {{ resetButton({title: 'address.button.refresh', transDomain: 'Address', additional: {id: 'refreshPersonAddress2'}, colour: 'info', mergeClass: 'refreshPersonAddress'})|raw }}
+            {{ addButton({colour: 'primary', mergeClass: 'addPersonAddress', additional: {id: 'addPersonAddress2'}, transDomain: 'Address', title: 'address.button.add'})|raw }}
+		</span><br/>
+        {% include 'Default/flash.html.twig' with {flashClass: 'alert-dismissable show hide', transDomain: 'Person'} %}
+    </div>
+</div>

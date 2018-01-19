@@ -6,3 +6,4 @@ pagination:
     limit.label: Limit Results
     figures: "{0,1}Records %first% to %last% of %total%.|]1,Inf]Records %first% to %last% of %total%.<br/>%pages% Pages"
     records.only: 'Matching Records: %total%'
+    choice.label: Choice

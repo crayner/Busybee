@@ -59,11 +59,6 @@ abstract class PaginationManager implements PaginationInterface
 	private $form;
 
 	/**
-	 * @var stdClass
-	 */
-	private $setting;
-
-	/**
 	 * @var integer
 	 */
 	private $lastLimit;
@@ -92,11 +87,6 @@ abstract class PaginationManager implements PaginationInterface
 	 * @var string
 	 */
 	private $choice;
-
-	/**
-	 * @var string
-	 */
-	private $choices;
 
 	/**
 	 * @var string
@@ -167,11 +157,6 @@ abstract class PaginationManager implements PaginationInterface
 	 * @var array
 	 */
 	private $injectedSearch;
-
-	/**
-	 * @var String
-	 */
-	private $transDomain;
 
 	/**
 	 * Constructor
@@ -847,16 +832,9 @@ abstract class PaginationManager implements PaginationInterface
 
 	public function getChoices()
 	{
-		return $this->choices;
+		return $this->choices ?: [];
 	}
 
-	public function setChoices($choices)
-	{
-		$this->choices          = $choices;
-		$this->setting->choices = $choices;
-
-		return $this;
-	}
 
 	public function getChoice()
 	{
@@ -1157,7 +1135,7 @@ abstract class PaginationManager implements PaginationInterface
 
 	public function getTransDomain()
 	{
-		return empty($this->transDomain) ? 'Pagination' : $this->transDomain;
+		return $this->transDomain ?: 'Pagination' ;
 	}
 
 	/**

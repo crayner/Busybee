@@ -1,0 +1,51 @@
+{# src/Busybee/StudentBundle/Resources/views/Person/student.html.twig #}
+
+{% trans_default_domain "Person" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include 'Person/panelHeader.html.twig' with {header: 'person.student.title', transDomain: 'Person'} %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.startAtSchool) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.startAtThisSchool) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.lastAtThisSchool) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.house) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.countryOfBirth) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.ethnicity) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.firstLanguage) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.secondLanguage) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.thirdLanguage) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.religion) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.locker) }}
+                </div>
+            </div>
+        </div>
+        {% include 'Page/panelEnd.html.twig' %}

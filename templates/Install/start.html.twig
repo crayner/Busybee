@@ -13,7 +13,7 @@
 {% block contentContainer %}
     {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'system.install.title'} %}
     {% block flashMessages %}
-        {% include 'Default/flash.html.twig' with {transDomain: 'Install', flashClass: 'fadeAlert'} %}
+        {% include 'Default/flash.html.twig' with {transDomain: 'Install', flashClass: 'alert-dismissable show hide'} %}
     {% endblock flashMessages %}
     <div class="container-fluid">
         <div class="row">

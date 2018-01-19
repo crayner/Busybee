@@ -1,7 +1,5 @@
-{# src/Busybee/HomeBundle/Resources/views/Page/panelStart.html.twig #}
-
 {% if transDomain is not defined %}
-    {% set transDomain = "BusybeeHomeBundle" %}
+    {% set transDomain = "home" %}
 {% endif %}
 
 {% trans_default_domain transDomain %}
@@ -44,5 +42,3 @@
         {% endif %}
     </div>
     <div class="card-body"{% if bodyAttr is defined %} {{ bodyAttr }}{% endif %}>
-{#</div>
-</div>#}

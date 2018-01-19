@@ -73,6 +73,7 @@ class PaginationType extends AbstractType
 							'onChange' => '$(this.form).submit()',
 						),
 						'data'     => $limit,
+						'choice_translation_domain' => $options['data']->getTransDomain(),
 					)
 				)
 				->add('lastLimit', HiddenType::class, array(

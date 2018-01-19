@@ -1,0 +1,41 @@
+{% trans_default_domain "Person" %}
+
+{% if header is not defined %}
+    {% set header = 'person.manage.title' %}
+{% endif %}
+
+{% if id == 'Add' %}
+    {% set name = 'New Person' %}
+{% endif %}
+
+{% set h3Content = '' %}
+{% if app.request.get('closeWindow') is not empty %}
+    {% set h3Content = h3Content ~ closeButton()|raw %}
+{% else %}
+    {% if app.request.get('returnRoute') is not empty %}
+        {% set h3Content = h3Content ~ returnButton({title: 'person.return', transDomain: 'Person', windowOpen: {route: app.request.get('returnRoute')}})|raw %}
+    {% else %}
+        {% set h3Content = h3Content ~ returnButton({title: 'person.return', transDomain: 'Person', windowOpen: {route: path('person_manage')}})|raw %}
+    {% endif %}
+{% endif %}
+{% if id != 'Add' %}
+    {% set h3Content = h3Content ~ addButton({title: 'person.add.title', transDomain: 'Person', windowOpen: {route: path('person_edit', {'id': 'Add'})}})|raw %}
+{% endif %}
+{% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}, title: 'person.reset.button', transDomain: 'Person'})|raw %}
+{% set h3Content = h3Content ~ saveButton()|raw %}
+
+{% if form.dob.vars.data is not empty %}
+    {% set difference = date('now').diff(date(form.dob.vars.data)) %}
+    {% set years = difference.y %}
+    {% set id_label = 'person.identifier.label_age'|trans({'%identifier%': identifier, '%years%': difference.y, '%months%': difference.m, '%days%': difference.d})|raw %}
+{% else %}
+    {% if identifier is empty %}
+        {% set id_label = '' %}
+    {% else %}
+        {% set id_label = 'person.identifier.label'|trans({'%identifier%': identifier})|raw %}
+    {% endif %}
+{% endif %}
+{% set h3Content = h3Content ~ id_label %}
+
+
+{% include 'Page/panelStart.html.twig' with {transDomain: 'Person'} %}

@@ -23,7 +23,7 @@
             <div class="col-3">
                 {{ 'calendar.lastDay.header'|trans }}
             </div>
-            <div class="col-4 col-md-4">
+            <div class="col-4 col-4">
                 {{ 'calendar.action.header'|trans }}
             </div>
         </div>
@@ -38,7 +38,7 @@
                 <div class="col-3 small{% if Calendar.status == 'current' %} alert-success{% endif %}">
                     {{ Calendar.lastDay|date(get_setting('date.format.long')) }}
                 </div>
-                <div class="col-4 col-md-4">
+                <div class="col-4 col-4">
                     {{ editButton({'style': '', 'windowOpen': {'route': path('calendar_edit', {'id': Calendar.id})}, 'title': 'Calendar.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'Calendar'})|raw }}
                     {% set additional = 'onclick="confirmDelete(\'' ~ path('calendar_delete', {'id': Calendar.id}) ~ '\')"' %}
                     {% if not manager.canDelete(Calendar) %}{% set additional = additional ~ ' disabled' %}{% endif %}

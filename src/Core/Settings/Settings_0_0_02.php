@@ -62,8 +62,8 @@ Address.TerritoryList:
         'Not Specified': 'Unknown'
 Address.BuildingType:
     type: 'array'
-    displayName: 'Dwelling Type'
-    description: "List of building types used as dwellings found in your organisation's area."
+    displayName: 'Dcarding Type'
+    description: "List of building types used as dcardings found in your organisation's area."
     role: 'ROLE_REGISTRAR'
     value:
         'Not Specified':  ''

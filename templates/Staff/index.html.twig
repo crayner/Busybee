@@ -1,0 +1,7 @@
+{% trans_default_domain "Person" %}
+
+{% extends "Person/index.html.twig" %}
+
+{% block paginationContent %}
+    {% include 'Pagination/index.html.twig' with {'form_array': {'action': path('staff_manage') } } %}
+{% endblock paginationContent %}

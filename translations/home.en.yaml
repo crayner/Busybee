@@ -34,6 +34,17 @@ menu:
     school:
         daysandtimes: Manage School Days and Times
         department.edit: Manage Departments
+    people:
+        person:
+            manage: Manage People
+        staff:
+            manage: Manage Staff
+        student:
+            manage: Manage Students
+        family:
+            manage: Manage Families
+        manage: People Admin
+        title: PEOPLE
 section:
     header:
         years_days_times: 'Years, Days & Times'

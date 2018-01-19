@@ -1,0 +1,72 @@
+{% trans_default_domain "Person" %}
+
+<script type="text/javascript">
+    $(".studentToggle").click(function () {
+        var id = $(this).prop('id');
+        id = id.substring(13);
+        var route = "{{ path('person_toggle_student', {'id': '__id__'}) }}";
+        route = route.replace('__id__', id);
+        $.ajax({
+            url: route,
+            type: "POST",
+            success: function (data) {
+                $("#peopleError").html(data.message);
+                if (data.status == "removed") {
+                    $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-thumbs-down btn btn-primary");
+                    $('a[href="#student"]').parent().addClass('disabled');
+                    $('a[href="#grade"]').parent().addClass('disabled');
+                    $('a[href="#immigration"]').parent().addClass('disabled');
+                }
+                if (data.status == "added") {
+                    $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-thumbs-up btn btn-success");
+                }
+                $(".fadeAlert").fadeOut(5000);
+            }
+        })
+    });
+    $(".staffToggle").click(function () {
+        var id = $(this).prop('id');
+        id = id.replace('staffToggle', '');
+        var route = "{{ path('person_toggle_staff', {'id': '__id__'}) }}";
+        route = route.replace('__id__', id);
+        $.ajax({
+            url: route,
+            type: "POST",
+            success: function (data) {
+                $("#peopleError").html(data.message);
+                if (data.status == "removed") {
+                    $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-thumbs-down btn btn-primary");
+                    $('a[href="#staff"]').parent().addClass('disabled');
+
+                }
+                if (data.status == "added") {
+                    $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-thumbs-up btn btn-success");
+                }
+                $(".fadeAlert").fadeOut(5000);
+            }
+        })
+    });
+    $(".userToggle").click(function () {
+        var id = $(this).prop('id');
+        id = id.replace('userToggle', '');
+        var route = "{{ path('person_toggle_user', {'id': '__id__'}) }}";
+        route = route.replace('__id__', id);
+        $.ajax({
+            url: route,
+            type: "POST",
+            async: false,
+            success: function (data) {
+                $("#peopleError").html(data.message);
+                if (data.status == "removed") {
+                    $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-down btn btn-primary");
+                    $('a[href="#user"]').parent().addClass('disabled');
+                }
+                if (data.status == "added") {
+                    $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-up btn btn-success");
+                    $("#userToggle" + id).prop('disabled', true);
+                }
+                $(".fadeAlert").fadeOut(5000);
+            }
+        })
+    });
+</script>

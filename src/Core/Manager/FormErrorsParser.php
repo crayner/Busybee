@@ -11,11 +11,11 @@ use Symfony\Component\Form\FormInterface;
  * This service travels through all levels of form and gathers errors from every element.
  * Then it returns errors for you as array of errors - form errors, subforms errors and fields errors.
  * Notice that you need this approach to get ALL errors from form - also form (not fields) errors itself,
- * as well as errors from custom validators you have created.
+ * as card as errors from custom validators you have created.
  *
  *
  * Returned data is array of Symfony\Component\Form\FormError objects (default) or localized messages (use setReturnAsString() method)
- * It can be flat (one level) array (easier to iterate) as well as multidimensional array
+ * It can be flat (one level) array (easier to iterate) as card as multidimensional array
  * that represents the structure of your form (easier to join form elements with errors).
  *
  * Why do I need this?

@@ -1,0 +1,90 @@
+{% trans_default_domain "Person" %}
+
+    {% include "Person/panelHeader.html.twig" %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.surname) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.photo) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.preferredName) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.officialName) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.dob) }}
+                </div>
+            </div>
+            <div class="row">
+                {% set offset = 8 %}
+                {% if validPerson() and (canDeleteStaff() or canBeStaff()) %}
+                    <div class="col-2 card">
+                        {% set staffOn = false %}
+                        {% if isStaff() %}
+                            {% set staffOn = true %}
+                        {% endif %}
+                        {% set additional = {id: 'staffToggle' ~ form.vars.value.id} %}
+                        {% if not staffOn and not canBeStaff() %}
+                            {% set additional = additional|merge({disabled: 'disabled'}) %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}})|raw }}
+                            <label class="control-label small text-left">{{ 'person.staff.question.label'|trans }}</label>
+                        </div>
+                    </div>
+                    {% set offset = offset - 2 %}
+                {% endif %}
+
+                {% if validPerson() and (canDeleteStudent() or canBeStudent()) %}
+                    <div class="col-2 card">
+
+                        {% set studentOn = false %}
+                        {% if isStudent(form.vars.value) %}
+                            {% set studentOn = true %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-primary halflings halflings-thumbs-down'}})|raw }}
+                            <label class="control-label small text-left">{{ 'person.student.question.label'|trans }}</label>
+                        </div>
+                    </div>
+                    {% set offset = offset - 2 %}
+                {% endif %}
+                {% if validPerson(form.vars.value) and (canDeleteUser(form.vars.value) or canBeUser(form.vars.value)) %}
+                    <div class="col-2 card">
+                        {% set userOn = false %}
+                        {% if isUser(form.vars.value) %}
+                            {% set userOn = true %}
+                        {% endif %}
+                        {% set additional = {id: 'userToggle' ~ form.vars.value.id} %}
+                        {% if not userOn and not canBeUser() %}
+                            {% set additional = additional|merge({disabled: 'disabled'}) %}
+                        {% endif %}
+                        {% if userOn and not canDeleteUser() %}
+                            {% set additional = additional|merge({disabled: 'disabled'}) %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}})|raw }}
+                            <label class="control-label small text-left">{{ 'person.user.question.label'|trans }}</label>
+                        </div>
+                    </div>
+                    {% set offset = offset - 2 %}
+                {% endif %}
+                <div class="offset-{{ offset }} col-2 card">
+                    {{ form_row(form.honorific) }}
+                </div>
+                <div class="col-2 card">
+                    {{ form_row(form.gender) }}
+                    {{ form_row(form.identifier) }}
+                </div>
+            </div>
+        </div>
+    {% include 'Page/panelEnd.html.twig' %}

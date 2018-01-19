@@ -1,6 +1,6 @@
 <?php
+namespace App\Address\Entity;
 
-namespace App\Core\Extension;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 

@@ -104,7 +104,7 @@ class Message
 	public function getDomain(): string
 	{
 		if (empty($this->domain))
-			return 'BusybeeHomeBundle';
+			return 'home';
 
 		return $this->domain;
 	}

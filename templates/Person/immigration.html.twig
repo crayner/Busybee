@@ -1,0 +1,44 @@
+{# src/Busybee/StudentBundle/Resources/views/Person/immigration.html.twig #}
+
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include "Person/panelHeader.html.twig"  with {'header': 'person.immigration.title'} %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.citizenship1) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.citizenship1Passport) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.citizenship1PassportScan) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.citizenship2) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.citizenship2Passport) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.visaExpiryDate) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.nationalIDCardNumber) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.nationalIDCardScan) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.residencyStatus) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

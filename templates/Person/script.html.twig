@@ -1,0 +1,197 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/script.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+<script type="text/javascript">
+    $(".addPersonAddress").click(function (e) {
+        window.open("{{ path('address_manage', {'id': 'Add'}) }}", "Address", "width=820,height=600");
+    });
+
+    $(".refreshPersonAddress").click(function () {
+        $.ajax({
+            url: "{{ path('address_fetch') }}",
+            type: "POST",
+            success: function (data) {
+                $("#person_address1_list").autocomplete('option', 'source', data.options);
+                $("#person_address2_list").autocomplete('option', 'source', data.options);
+
+                var id1 = $("#person_address1").val();
+                var id2 = $("#person_address2").val();
+
+                options = data.options; // Or whatever source information you're working with
+                var label1 = "";
+                var label2 = "";
+                for (index = 0; index < options.length; ++index) {
+                    option = options[index];
+
+                    if (option.value == id1) {
+                        label1 = option.label;
+                    }
+                    if (option.value == id2) {
+                        label2 = option.label;
+                    }
+                }
+
+                $("#person_address1_list").val(label1);
+                $("#person_address2_list").val(label2)
+            }
+        })
+    });
+
+    $("#person_address1_list").on("autocompleteselect", function (event, ui) {
+        event.preventDefault();
+        var id = ui.item.value;
+        var label = ui.item.label;
+        $("#person_address1").val(id);
+        $("#person_address1_list").val(label);
+    });
+
+    $("#person_address2_list").on("autocompleteselect", function (event, ui) {
+        event.preventDefault();
+        var id = ui.item.value;
+        var label = ui.item.label;
+        $("#person_address2").val(id);
+        $("#person_address2_list").val(label);
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '{{ path('address_fetch') }}',
+            type: 'POST',
+            success: function (data) {
+                $('.beeAddressList').autocomplete({
+                    source: data.options,
+                    minLength: 2,
+                    delay: 250,
+                    disabled: false
+                });
+                var id1 = $("#person_address1").val();
+                var id2 = $("#person_address2").val();
+
+                options = data.options; // Or whatever source information you're working with
+                var label1 = "";
+                var label2 = "";
+                for (index = 0; index < options.length; ++index) {
+                    option = options[index];
+
+                    if (option.value == id1) {
+                        label1 = option.label;
+                    }
+                    if (option.value == id2) {
+                        label2 = option.label;
+                    }
+                }
+
+                $("#person_address1_list").val(label1);
+                $("#person_address2_list").val(label2)
+            }
+        });
+
+        if (window.location.hash) {
+            var hash = window.location.hash;
+            hash = 'a[href="' + hash.replace('#', '#') + '"]';
+            $(hash).tab('show');
+        }
+    });
+
+    $("#erasePersonAddress1").click(function () {
+        $("#person_address1").val("");
+        $("#person_address1_list").val("{{ 'person.address.placeholder'|trans }}");
+    });
+
+    $("#erasePersonAddress2").click(function () {
+        $("#person_address2").val("");
+        $("#person_address2_list").val("{{ 'person.address.placeholder'|trans }}");
+    });
+
+    $("#person_address1_list").on("focus", function () {
+        $("#person_address1_list").val("");
+    });
+
+    $("#person_address2_list").on("focus", function () {
+        $("#person_address2_list").val("");
+    });
+
+    $(".phoneNumberList").collection({
+        name_prefix: '{{ form.phone.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'contact.phone.add'|trans({}, 'BusybeePersonBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'contact.phone.remove'|trans({}, 'BusybeePersonBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true
+    });
+
+
+    {% if form.grades is defined %}
+    $(".gradeList").collection({
+        name_prefix: '{{ form.grades.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'student.grade.add'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'student.grade.remove'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true,
+        before_remove: function (collection, element) {
+            var source = $(element[0]).find('.removeGrade');
+            var id = source.attr('id');
+            id = id.replace('removeGrade', '');
+            if (id === '') {
+                return true;
+            }
+            return removeGrade(id);
+        }
+    });
+
+    function removeGrade(id) {
+        var xx = true;
+
+        if (id > 0) {
+
+            var path = '{{ path('delete_student_grade', {'id': '__id__'}) }}';
+            path = path.replace('__id__', id);
+
+            $.ajax({
+                url: path,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+
+                    var message = '<div class="alert alert-__status__">__message__</div>';
+
+                    message = message.replace('__message__', data['message']);
+                    message = message.replace('__status__', data['status']);
+                    if (data['status'] === 'success') {
+                        $('.gradeMessage').html(message);
+                    } else if (data['status'] === 'error') {
+                        $('.gradeMessage').html(message);
+                        xx = false;
+                    } else if (data['status'] === 'warning') {
+                        $('.gradeMessage').html(message);
+                        xx = false;
+                    }
+                }
+            });
+        }
+
+        return xx;
+    }
+
+
+    {% endif %}
+
+    function resetForm() {
+        var fragment = $('.tab-content > .active').attr('id');
+        var id = '{{ app.request.get('id') }}';
+
+        if (id.length === 0) {
+            id = '0';
+        }
+
+        var path = '{{ path('person_edit', {'id': '__id__', '_fragment': '__fragment__'}) }}';
+        path = path.replace('__id__', id);
+        path = path.replace('__fragment__', fragment);
+
+        location.assign(path);
+        location.reload(true);
+    }
+</script>
+{% include 'Person/toggleScript.html.twig' %}

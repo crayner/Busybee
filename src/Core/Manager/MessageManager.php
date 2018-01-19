@@ -108,4 +108,12 @@ class MessageManager
 	{
 		return count($this->messages);
 	}
+
+	public function renderView(\Twig_Environment $twig = null)
+	{
+		if (! $twig instanceof \Twig_Environment)
+			throw new \LogicException('You can not use the "render" method if the Templating Component or the Twig Bundle are not available. Try running "composer require symfony/twig-bundle".');
+
+		return $twig->render('Default/messages.html.twig', ['messages' => $this]);
+	}
 }

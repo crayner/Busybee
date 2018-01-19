@@ -1,0 +1,58 @@
+App\Entity\CareGiver:
+    type: entity
+    table: caregiver
+    repositoryClass: App\Repository\CareGiverRepository
+    uniqueConstraints:
+        familyPerson:
+            columns:
+                - family_id
+                - person_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        comment:
+            type: text
+            nullable: true
+        phoneContact:
+            type: boolean
+        smsContact:
+            type: boolean
+        emailContact:
+            type: boolean
+        mailContact:
+            type: boolean
+        contactPriority:
+            type: integer
+            length: 2
+        relationship:
+            type: string
+            length: 32
+        newsletter:
+            type: boolean
+        finance:
+            type: boolean
+        pickUpAllowed:
+            type: boolean
+        emergencyOnly:
+            type: boolean
+        reporting:
+            type: boolean
+    manyToOne:
+        person:
+            targetEntity: App\Entity\Person
+            inversedBy: careGivers
+            joinColumn:
+                name: person_id
+                referencedColumnName: id
+                nullable: false
+        family:
+            targetEntity: App\Entity\Family
+            inversedBy: careGivers
+            joinColumn:
+                name: family_id
+                referencedColumnName: id
+                nullable: false

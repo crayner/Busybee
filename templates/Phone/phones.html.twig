@@ -1,0 +1,20 @@
+{# phones.html.twig #}
+
+{% trans_default_domain "Phone" %}
+
+<div class="panel panel-info busybee-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ form_label(form.phone) }}</h3>
+    </div>
+    <div class="panel-body">
+        <p class="alert alert-warning">{{ 'phone.warning'|trans }}</p>
+        {% if phones is defined %}
+            <p class="alert alert-info"><strong>{{ 'family.phone.linked'|trans }}</strong><br/>
+                {% for phone in phones %}
+                    {{ formatPhone(phone)|raw }}<br/>
+                {% endfor %}</p>
+        {% endif %}
+        {{ form_widget(form.phone) }}
+    </div>
+</div>
+{% do form.phone.setRendered %}

@@ -1,0 +1,116 @@
+person:
+    photo:
+        title: Photo
+        label: Portrait Photo
+        help: Passport style photo, 350px to 400px width by 450px to 500 px height, with maximum size of 300kB.
+    familyName:
+        title: Family Name
+    givenName:
+        title: Given Names
+    people:
+        title: Manage People
+        description: Add, modify and manage people data.
+    details:
+        title: Details
+    actions: Actions and Status
+    staff:
+        category: Staff
+        question:
+            label: 'Staff Member ?'
+            help: ''
+        tab: Staff
+        title: 'Staff Details: %name%'
+        toggle.button:
+            on: Toggle Staff
+            off: Toggle Staff
+    student:
+        category: Student
+        question:
+            label: 'Student ?'
+            help: ''
+        tab: Student
+        title: 'Student Details: %name%'
+        toggle.button:
+            on: Toggle Student
+            off: Toggle Student
+    immigration:
+        tab: Citizenship
+        title: 'Citizenship Details: %name%'
+    grades:
+        tab: 'Year / Grades'
+    user:
+        category: User
+        question:
+            label: User ?
+        tab: User
+        title: 'User Details: %name%'
+        toggle.button:
+            on: Toggle User
+            off: Toggle User
+    surname:
+        label: Family Name
+    firstName:
+        label: Given Names
+    preferredName:
+        label: Preferred Name
+    officialName:
+        label: Official Name
+        help: This is the name recorded on official documents. e.g. birth certificates and passports. Helps school document linkage to identity.
+    dob:
+        label: Date of Birth
+        format:
+            label: Format of Date Imported
+    person:
+        tab: Person
+        title: Manage Personal Details
+        description: ''
+    contact:
+        tab: Contact
+        title: "Contact Details: %name%"
+    manage:
+        title: "Personal Details: %name%"
+    identifier:
+        label: '<span class="personIdentifier small text-mute">Id: %identifier%</span>'
+        label_age: '<span class="personIdentifier small text-mute">Id: %identifier%<br>Age: %years%.%months%.%days%</span>'
+    honorific:
+        label: Personal Title
+    gender:
+        label: Gender
+    phones:
+        label: Phone Details
+    reset:
+        button: Reset Form
+    return: Manage People
+    email:
+        label: Email
+        help: An email is required for this person to become a user.
+    email2:
+        label: Alternate Email
+    website:
+        label: Personal Web Site
+    address1:
+        label: 'Primary (Physical) Address'
+        help: The address can be left blank in which case the family address is used.  Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
+    address2:
+        label: 'Secondary (Postal) Address'
+        help: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
+    address:
+        placeholder: Start typing any address.
+    grade:
+        title: 'Grade Details: %name%'
+    add:
+        title: Add Person
+    edit:
+        title: Edit Person
+    import:
+        title: Import People
+    pagination:
+        all: All People
+        student: Students Only
+        staff: Staff Only
+        contact: All except Staff and Students
+        user: Users Only
+user:
+    toggle:
+        removeSuccess: The user detail was removed from this person.
+        addSuccess: User information was linked to this person.

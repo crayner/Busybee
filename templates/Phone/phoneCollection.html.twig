@@ -1,0 +1,35 @@
+{% trans_default_domain "Person" %}
+
+
+{% block phone_label %}{% endblock %}
+{% block phone_errors %}{% endblock %}
+
+
+{% block phone_widget %}
+    {% set type = type|default('phone') %}
+    <div class="card phoneNumber">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.phoneType) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.countryCode) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                {{ form_row(form.phoneNumber, {value: get_setting('Phone.Display', null, {'phone': form.phoneNumber.vars.value}) } ) }}
+            </div>
+            <div class="col-3 collection-actions">
+				<span>
+					<button title="{{ 'contact.phone.remove'|trans }}" type="button"
+                            class="collection-remove collection-action halflings halflings-erase btn btn-warning"
+                            style="float: right;"></button>
+					<button title="{{ 'contact.phone.add'|trans }}" type="button"
+                            class="halflings halflings-plus-sign btn btn-primary collection-add collection-action"
+                            style="float: right;"></button>
+				</span>
+            </div>
+        </div>
+    </div>
+{% endblock phone_widget %}

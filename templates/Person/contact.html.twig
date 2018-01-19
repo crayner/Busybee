@@ -1,0 +1,33 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/contact.html.twig #}
+
+{% trans_default_domain "Person" %}
+
+{% include "Person/panelHeader.html.twig"  with {'header': 'person.contact.title'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6" style="padding: 0">
+                {% include 'Phone/phones.html.twig' %}
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12 card">
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 card">
+                        {{ form_row(form.email2) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 card">
+                        {{ form_row(form.website) }}
+                    </div>
+                </div>
+                {% include 'Address/addresses.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% include 'Page/panelEnd.html.twig' %}
+
+

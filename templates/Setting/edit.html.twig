@@ -18,21 +18,21 @@
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 well">
+            <div class="col-6 card">
                 <div class="alert alert-warning">
                     {{ 'system.setting.warning'|trans }}
                 </div>
             </div>
-            <div class="col-sm-6 well">
+            <div class="col-6 card">
                 {{ form_row(form.name) }}
                 {{ form_row(form.displayName) }}
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 well">
+            <div class="col-6 card">
                 {{ form_row(form.description) }}
             </div>
-            <div class="col-sm-6 well">
+            <div class="col-6 card">
                 {{ form_row(form.value) }}
             </div>
         </div>

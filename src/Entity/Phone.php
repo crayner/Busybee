@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Core\Extension\PhoneExtension;
+use App\Address\Entity\PhoneExtension;
 
 /**
  * Phone

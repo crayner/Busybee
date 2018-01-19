@@ -415,7 +415,7 @@ class SettingManager implements ContainerAwareInterface
 
 		$this->settingExists[$name] = empty($this->settingExists[$name]) ? false : $this->settingExists[$name] ;
 
-		if ($this->settingExists[$name] && $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options))
+		if ($this->settingExists[$name] && (empty($this->settingCache[$name]) || $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options)))
 		{
 			$this->settingExists[$name] = true;
 
@@ -425,7 +425,6 @@ class SettingManager implements ContainerAwareInterface
 			$this->settingExists[$name] = false;
 
 			$this->setting = $this->getSettingEntity($name);
-
 		}
 
 		if ($this->settingExists[$name] && $name === $this->setting->getName() && $this->setting->getType() !== 'twig') {

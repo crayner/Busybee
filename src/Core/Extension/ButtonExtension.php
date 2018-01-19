@@ -482,10 +482,30 @@ XXX;
 	{
 		if (!isset($details['value']))
 			throw new Exception('You must set a boolean value for the On/Off Button.  value = ?');
+		$details['on'] = isset($details['on']) ? $details['on'] : [];
+		$details['off'] = isset($details['off']) ? $details['off'] : [];
+		if (isset($details['title']))
+		{
+			$details['on']['title'] = isset($details['on']['title'])? $details['on']['title'] : $details['title'].'.on';
+			$details['off']['title'] = isset($details['off']['title'])? $details['off']['title'] : $details['title'].'.off';
+		}
+
+		if (isset($details['transDomain']))
+		{
+			$details['on']['transDomain'] = isset($details['on']['transDomain']) ? $details['on']['transDomain'] : $details['transDomain'];
+			$details['off']['transDomain'] = isset($details['off']['transDomain']) ? $details['off']['transDomain'] : $details['transDomain'];
+		}
+
+		if (isset($details['style']))
+		{
+			$details['on']['style'] = isset($details['on']['style']) ? $details['on']['style'] : $details['style'];
+			$details['off']['style'] = isset($details['off']['style']) ? $details['off']['style'] : $details['style'];
+		}
+
 		if ($details['value'])
-			return $this->generateButton($this->buttons['on'], isset($details['on']) ? $details['on'] : []);
+			return $this->generateButton($this->buttons['on'], $details['on']);
 		else
-			return $this->generateButton($this->buttons['off'], isset($details['off']) ? $details['off'] : []);
+			return $this->generateButton($this->buttons['off'], $details['off']);
 	}
 
 	/**

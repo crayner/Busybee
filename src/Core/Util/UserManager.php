@@ -20,17 +20,24 @@ class UserManager
 	private $entityManager;
 
 	/**
+	 * @var TokenStorageInterface
+	 */
+	private $tokenStorage;
+
+	/**
 	 * UserManager constructor.
 	 *
-	 * @param TokenStorageInterface $token
+	 * @param TokenStorageInterface  $tokenStorage
+	 * @param EntityManagerInterface $entityManager
 	 */
-	public function __construct(TokenStorageInterface $token, EntityManagerInterface $entityManager)
+	public function __construct(TokenStorageInterface $tokenStorage, EntityManagerInterface $entityManager)
 	{
-		if ($token->getToken())
-			$this->user = $token->getToken()->getUser();
+		if ($tokenStorage->getToken())
+			$this->user = $tokenStorage->getToken()->getUser();
 		else
 			$this->user = null;
 		$this->entityManager = $entityManager;
+		$this->tokenStorage = $tokenStorage;
 	}
 
 	/**
@@ -71,8 +78,12 @@ class UserManager
 	public function getUserSetting($name)
 	{
 		if (! $this->user)
-			return null;
-
-		return $this->user->getUserSettings($name);
+		{
+			if ($this->tokenStorage->getToken())
+				$this->user = $this->tokenStorage->getToken()->getUser();
+			else
+				$this->user = null;
+		}
+		return $this->user ? $this->user->getUserSettings($name) : null;
 	}
 }

@@ -1,0 +1,123 @@
+{% trans_default_domain "Person" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'person.people.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'person.people.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'person.people.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% block paginationContent %}
+        {% include 'Pagination/index.html.twig' with {'form_array': {action: path('person_manage') } } %}
+    {% endblock paginationContent %}
+    {% set transDomain = 'Person' %}
+    {% set h3Content = addButton({windowOpen: {route: path('person_edit', {id: 'Add'})}})|raw %}
+
+    {% set h3Content = h3Content ~ uploadButton({transDomain: transDomain, title: 'person.import.title', windowOpen: {route: path('people_import')}})|raw %}
+
+    {% if header is not defined %}{% set header = 'people.title' %}{% endif %}
+    {% include 'Page/panelStart.html.twig' with {'header': header} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" id="peopleError">
+            </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-1 hidden-sm hidden-xs">
+                {{ 'person.photo.title'|trans }}
+            </div>
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'person.surname.label' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.familyName.title'|trans }}
+                {% else %}
+                    {{ 'person.familyName.title'|trans }}
+                {% endif %}
+            <br />
+                {% if pagination.getSortByName == 'person.firstName.label' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.givenName.title'|trans }}
+                {% else %}
+                    {{ 'person.givenName.title'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3 hidden-sm hidden-xs" style="display: inline-block;">
+                {% if pagination.getSortByName == 'person.email.label' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.details.title'|trans }}
+                {% else %}
+                    {{ 'person.details.title'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-5 text-center" style="display: inline-block;">
+                {{ 'person.actions'|trans }}
+            </div>
+        </div>
+
+        {% for person in pagination.getResult %}
+            {% set xx = manager.getPerson(person.id) %}
+            <div class="row row-striped">
+                <div class="col-1 hidden-sm hidden-xs">
+                    {{ person.getPhoto75('left')|raw }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ person.surname }}<br/>
+                    {{ person.firstName }}
+                </div>
+                <div class="col-3 hidden-sm hidden-xs small" style="display: inline-block;">
+                    {{ manager.getDetails(person)|raw }}
+                </div>
+                <div class="col-5 text-center form-inline">
+                    {% set staffOn = false %}
+                    {% if isStaff(person) %}
+                        {% set staffOn = true %}
+                    {% endif %}
+                    {% set additional = {id: 'staffToggle' ~ person.id} %}
+                    {% if not manager.canBeStaff(person) %}
+                        {% set additional = additional|merge({disabled: 'disabled'}) %}
+                    {% endif %}
+                    {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}, title: 'person.staff.toggle.button', transDomain: 'Person'})|raw }}
+
+                    {% set studentOn = false %}
+                    {% if isStudent(person) %}
+                        {% set studentOn = true %}
+                    {% endif %}
+                    {% set additional = {id: 'studentToggle' ~ person.id} %}
+                    {% if not manager.canBeStudent(person) %}
+                        {% set additional = additional|merge({disabled: 'disabled'}) %}
+                    {% endif %}
+                    {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}, title: 'person.student.toggle.button', transDomain: 'Person'})|raw }}
+
+                    {% set userOn = false %}
+                    {% if isUser(person) %}
+                        {% set userOn = true %}
+                    {% endif %}
+                    {% set additional = {id: 'userToggle' ~ person.id} %}
+                    {% if not userOn and not canBeUser() %}
+                        {% set additional = additional|merge({disabled: 'disabled'}) %}
+                    {% endif %}
+                    {% if userOn and not canDeleteUser() %}
+                        {% set additional = additional|merge({disabled: 'disabled'}) %}
+                    {% endif %}
+                    {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}, title: 'person.user.toggle.button', transDomain: 'Person'})|raw }}
+                    {% set route = path('person_edit', {'id': person.id, }) %}
+                    {{ editButton({'title': 'person.edit.title', 'transDomain': 'Person', 'windowOpen': {'route': route}, 'colour': 'warning'})|raw }}
+                    {% if person.userId() is not empty %}
+                        {% set route = path(app.request.get('_route')) ~ '?_switch_user=' ~ person.person.user.username %}
+                        {% set additional = '' %}
+                        {% if person.userId == app.user.getId or person.person.user.expired %}{% set additional = 'disabled' %}{% endif %}
+                        {{ miscButton({transDomain: 'Security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button', additional: additional})|raw }}
+                        {{ editButton({ title: 'user.request.passwordReset', 'class': 'btn btn-warning  x-halflings glyphicons glyphicons-user-key', transDomain: 'Security', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.userId})}})|raw }}
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
+    {% include 'Pagination/script.html.twig' %}
+    {% include 'Person/toggleScript.html.twig' %}
+{% endblock javascripts %}
+
