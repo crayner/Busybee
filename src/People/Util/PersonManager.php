@@ -468,4 +468,82 @@ user:
 
 		return $result;
 	}
+
+	/**
+	 * Create Staff
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return bool
+	 */
+	public function createStaff(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canBeStaff())
+		{
+			$tableName = $this->entityManager->getClassMetadata(Person::class)->getTableName();
+
+			$this->entityManager->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . $this->person->getId());
+
+			if ($persist)
+			{
+				$this->entityManager->persist($this->person);
+				$this->entityManager->flush();
+			}
+
+			$this->entityManager->refresh($this->person);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Create Staff
+	 *
+	 * @param Person|null $person
+	 */
+	public function deleteStaff(Person $person = null)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canDeleteStaff())
+		{
+			$this->switchToPerson();
+		}
+	}
+
+	/**
+	 * Switch to Staff
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return Person|null
+	 */
+	public function switchToPerson(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if (is_subclass_of($this->person, Person::class))
+		{
+			$tableName = $this->entityManager->getClassMetadata(Person::class)->getTableName();
+
+			$x = $this->entityManager->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . $this->person->getId());
+
+			if ($persist)
+			{
+				$this->entityManager->persist($this->person);
+				$this->entityManager->flush();
+			}
+
+			$this->entityManager->refresh($this->person);
+
+		}
+
+		return $this->person;
+	}
 }

@@ -114,3 +114,5 @@ user:
     toggle:
         removeSuccess: The user detail was removed from this person.
         addSuccess: User information was linked to this person.
+photo:
+    delete: Delete Photo

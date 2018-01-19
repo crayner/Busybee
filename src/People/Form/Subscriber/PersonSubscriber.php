@@ -4,10 +4,9 @@ namespace App\People\Form\Subscriber;
 use App\Core\Type\DateType;
 use App\Core\Type\SettingChoiceType;
 use App\Core\Type\TextType;
+use App\People\Form\UserType;
 use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Hillrange\Security\Form\FullUserType;
-use Hillrange\Security\Form\UserType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
@@ -29,11 +28,6 @@ class PersonSubscriber implements EventSubscriberInterface
 	 * @var EntityManagerInterface
 	 */
 	private $entityManager;
-
-	/**
-	 * @var
-	 */
-	private $isSystemAdmin;
 
 	/**
 	 * @var SessionInterface
@@ -85,7 +79,7 @@ class PersonSubscriber implements EventSubscriberInterface
 		{
 			$user = $person->getUser();
 			$person->setUser($user);
-			$form->add('user', FullUserType::class, ['data' => $user]);
+			$form->add('user', UserType::class, ['data' => $user]);
 			if (empty($person->getUser()->getEmail()) || $person->getUser()->getEmail() != $person->getEmail())
 				$person->getUser()->setEmail($person->getEmail());
 		}

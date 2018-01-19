@@ -165,17 +165,21 @@
 {% block bee_toggle_row -%}
     {% set button_class = button_class_off|default('btn btn-danger halflings halflings-thumbs-down') %}
 
-    {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'halflings-thumbs-down': 'halflings-thumbs-up'}) %}
-    {% dump %}
+    {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'halflings-thumbs-down': 'halflings-thumbs-up', 'btn-success': 'btn-danger', 'halflings-thumbs-up': 'halflings-thumbs-down'}) %}
     {% if value == '1' %}
         {% set button_class = button_class|replace(button_toggle_on) %}
     {% endif %}
 
     {% set swap_list = '' %}
     {% for x,y in button_toggle_on %}
-        {% set swap_list = swap_list ~ ' ' ~ y ~ ' ' ~ x|trim %}
+        {% if y not in swap_list  %}
+            {% set swap_list = swap_list ~ ' ' ~ y|trim %}
+        {% endif %}
+        {% if x not in swap_list  %}
+            {% set swap_list = swap_list ~ ' ' ~ x|trim %}
+        {% endif %}
     {% endfor %}
-
+{% dump(swap_list) %}
     <div data-toggle="buttons">
         {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
         <label class="control-label">{{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}
