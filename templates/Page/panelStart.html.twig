@@ -34,8 +34,12 @@
 
 <div class="card card-{{ panelStyle }}"{% if panelAttr is defined %} {{ panelAttr }}{% endif %}>
     <div class="card-header">
-        <h3 class="card-title">{{ header|trans(name) }}
-            {{ h3Content|raw }}
+        <h3 class="card-title d-flex mb-12 justify-content-between">
+            <span class="p-6">
+                {{ header|trans(name)|raw }}</span>
+            <span class="p-6">
+                {{ h3Content|raw }}
+            </span>
         </h3>
         {% if panelParagraph is defined %}
             <p>{{ panelParagraph|trans(panelParams)|raw }}</p>

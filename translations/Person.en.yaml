@@ -19,7 +19,7 @@ person:
             label: 'Staff Member ?'
             help: ''
         tab: Staff
-        title: 'Staff Details: %name%'
+        title: 'Staff Details:<br/><small>%name%</small>'
         toggle.button:
             on: Toggle Staff
             off: Toggle Staff
@@ -36,14 +36,14 @@ person:
     immigration:
         tab: Citizenship
         title: 'Citizenship Details: %name%'
-    grades:
-        tab: 'Year / Grades'
+    calendar_group:
+        tab: Calendar Groups
     user:
         category: User
         question:
             label: User ?
         tab: User
-        title: 'User Details: %name%'
+        title: 'User Details:<br /><small>%name%</small>'
         toggle.button:
             on: Toggle User
             off: Toggle User
@@ -66,9 +66,9 @@ person:
         description: ''
     contact:
         tab: Contact
-        title: "Contact Details: %name%"
+        title: "Contact Details:<br/><small>%name%</small>"
     manage:
-        title: "Personal Details: %name%"
+        title: "Personal Details:<br/><small>%name%</small>"
     identifier:
         label: '<span class="personIdentifier small text-mute">Id: %identifier%</span>'
         label_age: '<span class="personIdentifier small text-mute">Id: %identifier%<br>Age: %years%.%months%.%days%</span>'
@@ -97,7 +97,7 @@ person:
     address:
         placeholder: Start typing any address.
     grade:
-        title: 'Grade Details: %name%'
+        title: 'Grade Details:<br/><small>%name%</small>'
     add:
         title: Add Person
     edit:
@@ -116,3 +116,86 @@ user:
         addSuccess: User information was linked to this person.
 photo:
     delete: Delete Photo
+staff:
+    stafftype.label: Staff Category
+    jobTitle.label: Position Title
+    homeroom:
+        label: 'Home Room (Optional)'
+        placeholder: 'Select a Home Room'
+        help: 'Assumes that the staff member uses the assigned room as both classroom and office. Added to the timetable by default when the staff member is added to a timetable period.'
+    house:
+        label: House
+        placeholder: Select a House
+student:
+    startAtSchool:
+        label: 'First attended school on:'
+        help: The date the student first started formal schooling at any school.
+    startAtThisSchool:
+        label: 'First day at this school:'
+        help: The date the student first attended formal schooling at this school.
+    lastAtThisSchool:
+        label: 'Last day at this school:'
+        help: The last date of formal schooling at this school.
+    house:
+        label: 'House'
+        placeholder: Select a house
+        help: 'If the student is linked to a family the house will populate directly from the family house details.'
+    language:
+        first:
+            label: First language spoken.
+        second:
+            label: Second language spoken.
+        third:
+            label: Third language spoken.
+        placeholder: Select a Language
+    countryOfBirth:
+        label: Country of Birth
+        placeholder: Select Country of Birth
+    ethnicity:
+        label: Ethnicity
+        placeholder: Select Ethnicity
+    citizenship:
+        1:
+            label: Primary Citizenship
+        2:
+            label: Secondary Citizenship
+        passport:
+            1:
+                label: Primary Passport Number
+            2:
+                label: Secondary Passport Number
+        placeholder: Select country of Citizenship
+    passportScan:
+        label: Passport Scan
+        help: Provide a landscape scan of the passport, 2:1 or less ratio. Maximum size, 1.5MB.
+    visaExpiryDate:
+        label: Visa Expiry Date
+        help: This date is only required if the student must have a visa to attend the school.
+    nationalIDCardNumber:
+        label: National ID Card Details
+    nationalIDCardScan:
+        label: Scan of National ID Card.
+        help: 'Provide a landscape scan, 2:1 or less ratio. Maximum size, 1.5MB.'
+    residencyStatus:
+        label: Residency Status
+        placeholder: Select Residency Status
+        help: Residency status in the country the school is located.
+    religion:
+        label: Religion
+        placeholder: Select Religion
+    locker:
+        label: Locker Details
+    grades:
+        error:
+            current: The current status must be unique for the student.
+            empty: The grade must be set.
+            year: The year must not be duplicated for the student.
+    grade:
+        remove:
+            success: The grade details where removed.
+            blocked: The grade record is locked. Removal is restricted.
+            fail: The database failed to remove the grade information.
+        notfound: The greade information is not available.
+    validator:
+        email:
+            unique: 'The email %string% already exists in the database.'

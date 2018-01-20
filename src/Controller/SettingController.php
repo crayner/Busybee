@@ -87,12 +87,12 @@ class SettingController extends Controller
 	/**
 	 * @param         $id
 	 * @param Request $request
-	 * @Route("/setting/edit/{id}/", name="setting_edit")
+	 * @Route("/setting/edit/{id}/{closeWindow}", name="setting_edit")
 	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 *
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function edit($id, Request $request, EntityManagerInterface $entityManager, SettingManager $settingManager)
+	public function edit($id, $closeWindow = null, Request $request, EntityManagerInterface $entityManager, SettingManager $settingManager)
 	{
 		$setting = $entityManager->getRepository(Setting::class)->find($id);
 
@@ -153,6 +153,7 @@ class SettingController extends Controller
 				'form'       => $form->createView(),
 				'fullForm'   => $form,
 				'setting_id' => $setting->getId(),
+				'closeWindow'=> $closeWindow,
 			]
 		);
 	}
@@ -206,15 +207,15 @@ class SettingController extends Controller
 	 * @param Request $request
 	 *
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
-	 * @Route("setting/{name}/edit/", name="setting_edit_name")
+	 * @Route("setting/{name}/edit/{closeWindow}", name="setting_edit_name")
 	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 */
-	public function editNameAction($name, Request $request, SettingRepository $settingRepository, EntityManagerInterface $entityManager, SettingManager $settingManager)
+	public function editName($name, $closeWindow = null,  Request $request, SettingRepository $settingRepository, EntityManagerInterface $entityManager, SettingManager $settingManager)
 	{
 		$setting = $settingRepository->findOneByName($name);
 
 		if (is_null($setting)) throw new \InvalidArgumentException('The System setting of name: ' . $name . ' was not found');
 
-		return $this->forward(SettingController::class.'::edit', ['id' => $setting->getId()]);
+		return $this->forward(SettingController::class.'::edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
 	}
 }

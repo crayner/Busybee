@@ -2,10 +2,14 @@
 namespace App\People\Form\Subscriber;
 
 use App\Core\Type\DateType;
+use App\Core\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Core\Type\TextType;
+use App\Core\Validator\SettingChoice;
+use App\People\Form\StudentCalendarGroupType;
 use App\People\Form\UserType;
 use App\People\Util\PersonManager;
+use App\People\Validator\CalendarGroups;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -158,8 +162,7 @@ class PersonSubscriber implements EventSubscriberInterface
 		$form
 			->add('staffType', SettingChoiceType::class, array(
 					'label'        => 'staff.stafftype.label',
-					'setting_name' => 'Staff.Categories',
-					'placeholder'  => 'staff.stafftype.placeholder',
+					'setting_name' => 'staff.categories',
 					'attr'         => array(
 						'class' => 'staffMember',
 					)
@@ -180,8 +183,6 @@ class PersonSubscriber implements EventSubscriberInterface
 						'help' => 'staff.house.help',
 					),
 					'setting_name'       => 'house.list',
-					'setting_data_name'  => 'name',
-					'setting_data_value' => 'name',
 				)
 			)/*			->add('homeroom', EntityType::class, array(
 					'label'         => 'staff.label.homeroom',
@@ -219,8 +220,8 @@ class PersonSubscriber implements EventSubscriberInterface
 				[
 					'years' => range(date('Y', strtotime('-25 years')), date('Y', strtotime('+1 year'))),
 					'label' => 'student.startAtSchool.label',
+					'help'  => 'student.startAtSchool.help',
 					'attr'  => array(
-						'help'  => 'student.startAtSchool.help',
 						'class' => 'student',
 					),
 				]
@@ -228,8 +229,8 @@ class PersonSubscriber implements EventSubscriberInterface
 			->add('startAtThisSchool', DateType::class, array(
 					'years' => range(date('Y', strtotime('-25 years')), date('Y', strtotime('+1 year'))),
 					'label' => 'student.startAtThisSchool.label',
+					'help'  => 'student.startAtThisSchool.help',
 					'attr'  => array(
-						'help'  => 'student.startAtThisSchool.help',
 						'class' => 'student',
 					),
 				)
@@ -237,8 +238,8 @@ class PersonSubscriber implements EventSubscriberInterface
 			->add('lastAtThisSchool', DateType::class, array(
 					'years'    => range(date('Y', strtotime('-5 years')), date('Y', strtotime('+18 months'))),
 					'label'    => 'student.lastAtThisSchool.label',
+					'help'  => 'student.lastAtThisSchool.help',
 					'attr'     => array(
-						'help'  => 'student.lastAtThisSchool.help',
 						'class' => 'student',
 					),
 					'required' => false,
@@ -273,7 +274,8 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'        => 'student.ethnicity.label',
 					'placeholder'  => 'student.ethnicity.placeholder',
 					'required'     => false,
-					'setting_name' => 'Ethnicity.List',
+					'setting_name' => 'ethnicity.list',
+					'translation_prefix' => false,
 				)
 			)
 			->add('religion', SettingChoiceType::class,
@@ -281,7 +283,8 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'        => 'student.religion.label',
 					'placeholder'  => 'student.religion.placeholder',
 					'required'     => false,
-					'setting_name' => 'Religion.List',
+					'setting_name' => 'religion.list',
+					'translation_prefix'    => false,
 				)
 			)
 			->add('citizenship1', CountryType::class,
@@ -317,8 +320,8 @@ class PersonSubscriber implements EventSubscriberInterface
 				)
 			)
 			->add('citizenship1PassportScan', ImageType::class, array(
+					'help'       => 'student.passportScan.help',
 					'attr'        => array(
-						'help'       => 'student.passportScan.help',
 						'imageClass' => 'headShot75',
 					),
 					'label'       => 'student.passportScan.label',
@@ -334,8 +337,8 @@ class PersonSubscriber implements EventSubscriberInterface
 				]
 			)
 			->add('nationalIDCardScan', ImageType::class, array(
+					'help'       => 'student.nationalIDCardScan.help',
 					'attr'        => array(
-						'help'       => 'student.nationalIDCardScan.help',
 						'imageClass' => 'headShot75',
 					),
 					'label'       => 'student.nationalIDCardScan.label',
@@ -349,17 +352,15 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'        => 'student.residencyStatus.label',
 					'placeholder'  => 'student.residencyStatus.placeholder',
 					'required'     => false,
-					'setting_name' => 'Residency.List',
-					'attr'         => array(
-						'help' => 'student.residencyStatus.help',
-					),
+					'setting_name' => 'residency.list',
+					'help' => 'student.residencyStatus.help',
 				)
 			)
 			->add('visaExpiryDate', DateType::class, array(
 					'years'    => range(date('Y', strtotime('-1 years')), date('Y', strtotime('+10 year'))),
 					'label'    => 'student.visaExpiryDate.label',
+					'help'  => 'student.visaExpiryDate.help',
 					'attr'     => array(
-						'help'  => 'student.visaExpiryDate.help',
 						'class' => 'student',
 					),
 					'required' => false,
@@ -370,30 +371,22 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'                     => 'student.house.label',
 					'placeholder'               => 'student.house.placeholder',
 					'required'                  => false,
-					'attr'                      => array(
-						'help' => 'student.house.help',
-					),
+					'help' => 'student.house.help',
 					'setting_name'              => 'house.list',
-					'setting_data_name'         => 'name',
-					'setting_data_value'        => 'name',
-					'choice_translation_domain' => 'System',
 				]
 			)
 			->add('calendarGroups', CollectionType::class,
 				[
-					'label'         => 'student.calendar.groups.label',
+					'label'         => 'student.calendar_groups.label',
 					'allow_add'     => true,
 					'allow_delete'  => true,
 					'entry_type'    => StudentCalendarGroupType::class,
 					'attr'          => [
 						'class' => 'calendarGroupList',
-						'help'  => 'student.calendar.groups.help',
 					],
-					'entry_options' => [
-						'systemYear' => $form->getConfig()->getOption('systemYear'),
-					],
+					'help'  => 'student.calendar_groups.help',
 					'constraints'   => [
-						new Grades(),
+						new CalendarGroups(),
 					],
 				]
 			);

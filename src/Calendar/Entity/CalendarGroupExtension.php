@@ -34,6 +34,6 @@ abstract class CalendarGroupExtension implements UserTrackInterface
 	 */
 	public function getCalendarGroupYear()
 	{
-		return $this->getNameShort() . ' (' . $this->getYear()->getName() . ')';
+		return $this->getNameShort() . ' (' . $this->getCalendar()->getName() . ')';
 	}
 }

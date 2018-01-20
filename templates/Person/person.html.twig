@@ -1,6 +1,6 @@
 {% trans_default_domain "Person" %}
 
-    {% include "Person/panelHeader.html.twig" %}
+    {% include "Person/panelHeader.html.twig" with {name: personManager.person.formatName} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-4 card">
@@ -51,8 +51,12 @@
                         {% if isStudent(form.vars.value) %}
                             {% set studentOn = true %}
                         {% endif %}
+                        {% set additional = {id: 'studentToggle' ~ form.vars.value.id} %}
+                        {% if not studentOn and not canBeStudent() %}
+                            {% set additional = additional|merge({disabled: 'disabled'}) %}
+                        {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-primary halflings halflings-thumbs-down'}})|raw }}
+                            {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}})|raw }}
                             <label class="control-label small text-left">{{ 'person.student.question.label'|trans }}</label>
                         </div>
                     </div>

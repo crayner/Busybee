@@ -3,6 +3,13 @@
 {% trans_default_domain "home" %}
 
 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_IPBlocked(app.request.clientIP) %}
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <span class="nav-link">{{ 'Login Blocked'|trans({}, 'security') }}</span>
+            </li>
+        </ul>
+    {% else %}
     {% set route = get_parameter('security.routes.security_user_check') %}
     <form class="form-inline ml-auto" action="{{ path(route) }}" method="post">
         <div class="form-group mb-2">
@@ -22,6 +29,7 @@
                         src="{{ asset('img/Google_icon_2015.png') }}" width="35"/></a>
         {% endif %}
     </form>
+    {% endif %}
 {% else %}
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">

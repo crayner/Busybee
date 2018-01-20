@@ -4,6 +4,7 @@ namespace App\Core\Subscriber;
 use App\Core\Exception\Exception;
 use App\Core\Manager\SettingManager;
 use App\Core\Type\ChoiceSettingType;
+use App\Core\Validator\SettingChoice;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -64,23 +65,33 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
 		$choices = $this->settingManager->get($options['setting_name']);
 
+		$newChoices = [];
 		if (!is_null($options['setting_data_value']))
 		{
-			$newChoices = [];
+			if (!is_array($choices))
+				throw new Exception('The setting '.$options['setting_name'] . ' is not correctly configured.');
+
 			foreach ($choices as $label => $data)
 			{
-				if (!is_array($data) || empty($data[$options['setting_data_value']]))
-					throw new \Exception('Setting Data is not in the expected format.');
-
-
-				if (!is_null($options['setting_data_name']) && !empty($data[$options['setting_data_name']]))
-					$newChoices[$data[$options['setting_data_name']]] = $data[$options['setting_data_value']];
-				else
-					$newChoices[$data[$options['setting_data_value']]] = $data[$options['setting_data_value']];
-
+				if (is_array($data))
+				{
+					if (!is_null($options['setting_data_name']) && !empty($data[$options['setting_data_name']]))
+						$newChoices[$data[$options['setting_data_name']]] = $data[$options['setting_data_value']];
+					else
+						$newChoices[$data[$options['setting_data_value']]] = $data[$options['setting_data_value']];
+				} else {
+					throw new Exception('The setting '.$options['setting_name'] . ' is not correctly configured to use a sub array.');
+				}
 			}
-			$choices = $newChoices;
-		}
+		} else
+			foreach ($choices as $label => $data)
+				if ($options['translation_prefix'])
+					$newChoices[strtolower($options['setting_name'].'.'.$label)] = $data;
+				else
+					$newChoices[$label] = $data;
+
+
+		$choices = $newChoices;
 
 		if ($options['use_label_as_value'])
 		{
@@ -100,11 +111,15 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['multiple']                  = isset($options['multiple']) ? $options['multiple'] : false;
 		$newOptions['expanded']                  = isset($options['expanded']) ? $options['expanded'] : false;
 		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
-		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'System';
+		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'Setting';
 
 		$newOptions['setting_name'] = $options['setting_name'];
 		$newOptions['setting_display_name'] = $options['setting_display_name'] ? $options['setting_display_name'] : $setting->getDisplayName();
 
+		$newOptions['constraints'] = empty($newOptions['constraints']) ? [] : $newOptions['constraints'];
+
+///		if (!empty($options['setting_name']))
+//			$newOptions['constraints'][] = new SettingChoice(['name' => $options['setting_name']]);
 		//  Now replace the existing setting form element with a straight Choice
 		$form->getParent()->add($name, ChoiceSettingType::class, $newOptions);
 	}

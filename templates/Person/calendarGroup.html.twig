@@ -1,0 +1,5 @@
+{% include "Person/panelHeader.html.twig"  with {header: 'person.grade.title', name: personManager.person.formatName} %}
+<div class="calendarGroupsMessage"></div>
+{{ form_widget(form.calendarGroups) }}
+{% do form.calendarGroups.setRendered %}
+{% include 'Page/panelEnd.html.twig' %}

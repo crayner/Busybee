@@ -6,6 +6,7 @@ use App\Core\Manager\SettingManager;
 use App\Core\Type\AutoCompleteType;
 use App\Core\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
+use App\Core\Validator\SettingChoice;
 use App\Entity\Address;
 use App\Entity\Person;
 use App\People\Form\Subscriber\PersonSubscriber;
@@ -47,11 +48,15 @@ class PersonType extends AbstractType
 		$builder
 			->add('honorific', SettingChoiceType::class, array(
 					'label'        => 'person.honorific.label',
-					'setting_name' => 'Person.TitleList',
+					'setting_name' => 'person.titlelist',
 					'attr'         => array(
 						'class' => 'beeHonorific',
 					),
 					'required'     => false,
+					'constraints'   => [
+						new SettingChoice(['name' => 'person.titlelist']),
+					],
+
 				)
 			)
 			->add('identifier', HiddenType::class,
@@ -89,12 +94,14 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('gender', SettingChoiceType::class, array(
-					'setting_name'              => 'Person.GenderList',
+					'setting_name'              => 'person.genderlist',
 					'label'                     => 'person.gender.label',
 					'attr'                      => array(
 						'class' => 'beeGender',
 					),
-					'choice_translation_domain' => 'Person',
+					'constraints'   => [
+						new SettingChoice(['name' => 'person.genderlist']),
+					],
 				)
 			)
 			->add('dob', BirthdayType::class, array(

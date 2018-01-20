@@ -12,6 +12,11 @@
     {% set h3Content = h3Content ~ saveButton({transDomain: 'security', class: 'btn btn-success halflings halflings-log-in', title: 'security.login.login.label', additional: {tabindex: '1'}}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'security.login.login.label', transDomain: 'security'} %}
     <div id="form_body" class="container-fluid">
+        {% if is_IPBlocked(app.request.clientIP) %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ 'Login Blocked'|trans }}
+            </div>
+        {% endif %}
         {% if error %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{ error.messageKey|trans(error.messageData, 'security') }}

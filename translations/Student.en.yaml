@@ -1,0 +1,7 @@
+student:
+    toggle:
+        personMissing: The person to toggle student status was not found.
+        addSuccess: 'The %name% was set as a Student.'
+        removeSuccess: "The %name% was removed as a Student."
+        removeRestricted: '%name% is set as a student, and the status is locked by the system.'
+        addRestricted: "%name% is status locked and was not set as a Student."

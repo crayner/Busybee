@@ -2,6 +2,7 @@ security:
     login:
         login:
             description: ''
+    impersonate.title: Impersonate
 user:
     enabled:
         help: 'Enable the user to allow use of the system.'
@@ -13,3 +14,5 @@ user:
         label: 'Calendar'
         help: 'User calendar setting.  Allows the user to alter data in a different calendar.'
         placeholder: Current Calendar
+    request.passwordReset: Send Password Reset Email.
+PasswordRequest: Password Request

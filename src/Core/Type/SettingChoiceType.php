@@ -55,6 +55,8 @@ class SettingChoiceType extends AbstractType
 				'setting_data_name'  => null,
 				'setting_data_value' => null,
 				'setting_display_name' => null,
+				'choice_translation_domain' => 'Setting',
+				'translation_prefix'    => true,
 			)
 		);
 	}
@@ -75,11 +77,11 @@ class SettingChoiceType extends AbstractType
 	 */
 	public function buildView(FormView $view, FormInterface $form, array $options)
 	{
-		$view->vars['setting_name']       = $options['setting_name'];
-		$view->vars['setting_display_name']       = $options['setting_display_name'];
-		$view->vars['use_label_as_value'] = $options['use_label_as_value'];
-		$view->vars['setting_data_name']  = $options['setting_data_name'];
-		$view->vars['setting_data_value'] = $options['setting_data_value'];
+		$view->vars['setting_name']         = $options['setting_name'];
+		$view->vars['setting_display_name'] = $options['setting_display_name'];
+		$view->vars['use_label_as_value']   = $options['use_label_as_value'];
+		$view->vars['setting_data_name']    = $options['setting_data_name'];
+		$view->vars['setting_data_value']   = $options['setting_data_value'];
 	}
 
 	/**

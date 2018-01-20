@@ -51,7 +51,7 @@
     {% if setting_name is defined %}
         {% spaceless %}<small class="form-text text-info halflings halflings-info-sign"
                title="{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}"
-               onclick="window.open('{{ path('setting_edit_name', {name: setting_name}) }}', 'SettingManage', 'width=1200,height=900')">{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}</small>{% endspaceless %}
+               onclick="window.open('{{ path('setting_edit_name', {name: setting_name, closeWindow: 'closeWindow'}) }}', 'SettingManage', 'width=1200,height=900')">&nbsp;{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}</small>{% endspaceless %}
     {% endif %}
 
 {%- endblock form_label %}
@@ -179,7 +179,7 @@
             {% set swap_list = swap_list ~ ' ' ~ x|trim %}
         {% endif %}
     {% endfor %}
-{% dump(swap_list) %}
+
     <div data-toggle="buttons">
         {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
         <label class="control-label">{{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}

@@ -1,27 +1,22 @@
-{# src/Busybee/StaffBundle/Resources/views/Person/staff.html.twig #}
+{% trans_default_domain "Staff" %}
 
-{% trans_default_domain "BusybeeStaffBundle" %}
-
-<div class="panel panel-primary busybee-panel">
-    {% include "Person/panelHeader.html.twig"  with {header: 'person.staff.title'} %}
-    <div class="panel-body">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.staffType) }}
-                </div>
-                <div class="col-6 card">
-                    {{ form_row(form.jobTitle) }}
-                </div>
+{% include "Person/panelHeader.html.twig"  with {header: 'person.staff.title', name: personManager.person.formatName} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.staffType) }}
             </div>
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.house) }}
-                </div>
-                <div class="col-6 card">
-                    {#{{ form_row(form.staff.homeroom) }}#}
-                </div>
+            <div class="col-6 card">
+                {{ form_row(form.jobTitle) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.house) }}
+            </div>
+            <div class="col-6 card">
+                {#{{ form_row(form.staff.homeroom) }}#}
             </div>
         </div>
     </div>
-</div>
+{% include 'Page/panelEnd.html.twig' %}

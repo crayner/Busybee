@@ -1,0 +1,43 @@
+App\Entity\Person:
+    constraints:
+        - \App\People\Validator\PersonName: ~
+    properties:
+        email:
+            - Email:
+                  checkMX: true
+            - \App\People\Validator\PersonEmail:
+                errorPath: email
+        email2:
+            - Email:
+                  checkMX: true
+            - \App\People\Validator\PersonEmail:
+                errorPath: email2
+        surname:
+            - NotBlank: ~
+        firstName:
+            - NotBlank: ~
+        officialName:
+            - NotBlank: ~
+        preferredName:
+            - NotBlank: ~
+        website:
+            - Url: ~
+        dob:
+            - Date: ~
+        gender:
+            - NotBlank: ~
+        honorific:
+        photo:
+            - \App\People\Validator\PersonImage: ~
+        phone:
+            - Valid: ~
+        address1:
+            - Valid: ~
+        address2:
+            - Valid: ~
+        user:
+            - Valid: ~
+        importIdentifier:
+            - \App\Core\Validator\UniqueOrBlank:
+                data_class: \App\Entity\Person
+                field: importIdentifier

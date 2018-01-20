@@ -1,8 +1,6 @@
-{# src/Busybee/PersonBundle/Resources/views/Person/contact.html.twig #}
-
 {% trans_default_domain "Person" %}
 
-{% include "Person/panelHeader.html.twig"  with {'header': 'person.contact.title'} %}
+{% include "Person/panelHeader.html.twig"  with {header: 'person.contact.title', name: personManager.person.formatName} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-6" style="padding: 0">

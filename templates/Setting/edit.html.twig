@@ -11,7 +11,11 @@
 
 {% block contentContainer %}
     {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
+    {% if closeWindow is defined and closeWindow == 'closeWindow' %}
+        {% set h3Content = closeButton()|raw %}
+    {% else %}
+        {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
+    {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.nameSelect, {'value': setting_id ~ ""}) %}
     {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', transDomain: 'System', panelParagraph: 'system.setting.edit.description'} %}

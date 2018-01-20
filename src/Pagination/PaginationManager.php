@@ -832,9 +832,12 @@ abstract class PaginationManager implements PaginationInterface
 		return $this->offSet + $this->getLimit() > $this->getTotal() ? $this->getTotal() : $this->offSet + $this->getLimit();
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getChoices()
 	{
-		return $this->choices ?: [];
+		return isset($this->choices) ? $this->choices : [];
 	}
 
 
@@ -1137,7 +1140,7 @@ abstract class PaginationManager implements PaginationInterface
 
 	public function getTransDomain()
 	{
-		return $this->transDomain ?: 'Pagination' ;
+		return isset($this->transDomain) ? $this->transDomain : 'Pagination' ;
 	}
 
 	/**

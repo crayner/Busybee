@@ -4,6 +4,7 @@ namespace App\People\Util;
 use App\Address\Util\AddressManager;
 use App\Core\Util\UserManager;
 use App\Entity\CareGiver;
+use App\Entity\Family;
 use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
@@ -80,9 +81,11 @@ person:
     label: person.person.tab
     include: Person/person.html.twig
     message: personMessage
+    translation: Person
 contact:
     label: person.contact.tab
     include: Person/contact.html.twig
+    translation: Person
 staff:
     label: person.staff.tab
     include: Person/staff.html.twig
@@ -99,14 +102,15 @@ student:
     message: studentMessage
     translation: Person
 grades:
-    label: person.grades.tab
-    include: Person/gradeStart.html.twig
-    message: gradeMessage
+    label: person.calendar_group.tab
+    include: Person/calendarGroup.html.twig
+    message: calendarGroupMessage
     translation: Person
 user:
     label: person.user.tab
     include: Person/user.html.twig
     message: userMessage
+    translation: Person
 ");
 	}
 
@@ -204,10 +208,10 @@ user:
 	 */
 	public function isFamilyInstalled(): bool
 	{
-		if (class_exists('Busybee\People\FamilyBundle\Model\FamilyManager'))
+		if (class_exists('App\Entity\Family'))
 		{
-			$metaData = $this->getOm()->getClassMetadata('Busybee\People\FamilyBundle\Entity\Family');
-			$schema   = $this->getOm()->getConnection()->getSchemaManager();
+			$metaData = $this->getEntityManager()->getClassMetadata('App\Entity\Family');
+			$schema   = $this->getEntityManager()->getConnection()->getSchemaManager();
 
 			return $schema->tablesExist([$metaData->table['name']]);
 
@@ -352,7 +356,7 @@ user:
 
 		if (is_array($families) && count($families) > 0)
 			return false;
-		if ($this->gradesInstalled())
+		if ($this->isGradesInstalled())
 		{
 			$grades = $this->entityManager->getRepository(StudentCalendarGroup::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
 
@@ -545,5 +549,108 @@ user:
 		}
 
 		return $this->person;
+	}
+
+	/**
+	 * Create Student
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return bool
+	 */
+	public function createStudent(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canBeStudent())
+		{
+			$this->switchToStudent();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Switch to Student
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return Person|null
+	 */
+	public function switchToStudent(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->person instanceof Person && !is_subclass_of($this->person, Person::class))
+		{
+			$tableName = $this->entityManager->getClassMetadata(Person::class)->getTableName();
+
+			$x = $this->entityManager->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "student" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			if ($persist)
+			{
+				$this->entityManager->persist($this->person);
+				$this->entityManager->flush();
+			}
+
+			$this->entityManager->refresh($this->person);
+
+		}
+
+		return $this->person;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isGradesInstalled(): bool
+	{
+		if (class_exists('App\Entity\StudentCalendarGroup'))
+		{
+			$metaData = $this->getEntityManager()->getClassMetadata('App\Entity\StudentCalendarGroup');
+			$schema   = $this->getEntityManager()->getConnection()->getSchemaManager();
+
+			return $schema->tablesExist([$metaData->table['name']]);
+
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get Current Grade
+	 *
+	 * @param $person
+	 *
+	 * @return string
+	 */
+	public function getCurrentGrade($person)
+	{
+		if (!$person instanceof Student || ! $this->isGradesInstalled())
+			return null;
+
+		foreach ($person->getCalendarGroups()->toArray() as $grade)
+			if ($grade->getStatus() == 'Current')
+				return $grade->getGradeCalendar();
+
+		return null;
+	}
+
+	public function canImpersonateUser(UserInterface $current, UserInterface $user)
+	{
+		if ($current->isEqualTo($user))
+			return false;
+
+		if ($user->isCredentialsExpired())
+			return false;
+
+		if ($user->isLocked())
+			return false;
+
+		return true;
 	}
 }

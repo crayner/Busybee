@@ -102,9 +102,9 @@
                     {% if person.userId() is not empty %}
                         {% set route = path(app.request.get('_route')) ~ '?_switch_user=' ~ person.person.user.username %}
                         {% set additional = '' %}
-                        {% if person.userId == app.user.getId or person.person.user.expired %}{% set additional = 'disabled' %}{% endif %}
-                        {{ miscButton({transDomain: 'Security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button', additional: additional})|raw }}
-                        {{ editButton({ title: 'user.request.passwordReset', 'class': 'btn btn-warning  x-halflings glyphicons glyphicons-user-key', transDomain: 'Security', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.userId})}})|raw }}
+                        {% if not manager.canImpersonateUser(app.user, person.user) %}{% set additional = 'disabled' %}{% endif %}
+                        {{ miscButton({transDomain: 'security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button', additional: additional})|raw }}
+                        {{ editButton({ title: 'user.request.passwordReset', 'class': 'btn btn-warning  x-halflings glyphicons glyphicons-user-key', transDomain: 'security', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.userId})}})|raw }}
                     {% endif %}
 
                 </div>

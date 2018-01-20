@@ -1,6 +1,8 @@
 <?php
 namespace App\People\Entity;
 
+use App\Entity\Staff;
+use App\Entity\Student;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 use Symfony\Component\HttpFoundation\File\File;

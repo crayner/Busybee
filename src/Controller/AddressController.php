@@ -1,9 +1,12 @@
 <?php
 namespace App\Controller;
 
+use App\Address\Util\AddressManager;
+use App\Repository\AddressRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -60,26 +63,25 @@ class AddressController extends Controller
 	}
 
 	/**
-	 * @param Request $request
+	 * @param AddressRepository $addressRepository
+	 * @param AddressManager    $addressManager
 	 *
 	 * @return JsonResponse
 	 * @Route("/address/list/fetch/", name="address_fetch")
 	 * @IsGranted("ROLE_ADMIN")
 	 */
-	public function fetchAction(Request $request)
+	public function fetch(AddressRepository $addressRepository, AddressManager $addressManager)
 	{
-		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$addresses = $this->get('busybee_people_address.repository.address_repository')->findBy(array(), array('propertyName' => 'ASC', 'streetName' => 'ASC', 'streetNumber' => 'ASC'));
+		$addresses = $addressRepository->findBy([], ['propertyName' => 'ASC', 'streetName' => 'ASC', 'streetNumber' => 'ASC']);
 		$addresses = is_array($addresses) ? $addresses : array();
 
-		$options   = array();
-		$option    = array('value' => "", "label" => $this->get('translator')->trans('person.address.placeholder', array(), 'Person'));
+		$options   = [];
+		$option    = ['value' => "", "label" => $this->get('translator')->trans('person.address.placeholder', array(), 'Person')];
 		$options[] = $option;
-		$am        = $this->get('busybee_people_address.model.address_manager');
 		foreach ($addresses as $address)
 		{
-			$option    = array('value' => strval($address->getId()), "label" => $am->getAddressListLabel($address));
+			$option    = array('value' => strval($address->getId()), "label" => $addressManager->getAddressListLabel($address));
 			$options[] = $option;
 		}
 

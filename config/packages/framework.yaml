@@ -21,3 +21,6 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions'
     csrf_protection:
         enabled: true
+    validation:
+        enabled: true
+        enable_annotations: false

@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\MessageManager;
+use App\Entity\Person;
 use App\Pagination\StudentPagination;
 use App\People\Util\PersonManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,18 +19,16 @@ class StudentController extends Controller
 	 * @IsGranted("ROLE_ADMIN")
 	 * @return JsonResponse
 	 */
-	public function toggle($id)
+	public function toggle($id, PersonManager $personManager, MessageManager $messageManager)
 	{
-		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
+		$person = $personManager->find($id);
 
-		$pm = $this->get('busybee_people_person.model.person_manager');
-
-		$person = $pm->find($id);
+		$messageManager->setDomain('Student');
 
 		if (!$person instanceof Person)
 			return new JsonResponse(
 				array(
-					'message' => '<div class="alert alert-danger alert-dismissable show hide">' . $this->get('translator')->trans('student.toggle.personMissing', array(), 'Student') . '</div>',
+					'message' => $messageManager->add('danger', 'student.toggle.personMissing'),
 					'status'  => 'failed'
 				),
 				200
@@ -36,15 +36,15 @@ class StudentController extends Controller
 
 		$em = $this->get('doctrine')->getManager();
 
-		if (!$pm->isStudent())
+		if (!$personManager->isStudent())
 		{
-			if ($pm->canBeStudent())
+			if ($personManager->canBeStudent())
 			{
-				$pm->createStudent($person);
+				$personManager->createStudent($person);
 
 				return new JsonResponse(
 					array(
-						'message' => '<div class="alert alert-success alert-dismissable show hide">' . $this->get('translator')->trans('student.toggle.addSuccess', array('%name%' => $person->formatName()), 'Student') . '</div>',
+						'message' => $messageManager->add('success', 'student.toggle.addSuccess', ['%name%' => $person->formatName()]),
 						'status'  => 'added',
 					),
 					200
@@ -54,22 +54,22 @@ class StudentController extends Controller
 			{
 				return new JsonResponse(
 					array(
-						'message' => '<div class="alert alert-warning alert-dismissable show hide">' . $this->get('translator')->trans('student.toggle.addRestricted', array('%name%' => $person->formatName()), 'Student') . '</div>',
+						'message' => $messageManager->add('warning', 'student.toggle.addRestricted', ['%name%' => $person->formatName()]),
 						'status'  => 'failed',
 					),
 					200
 				);
 			}
 		}
-		elseif ($pm->isStudent())
+		elseif ($personManager->isStudent())
 		{
-			if ($pm->canDeleteStudent(null, $this->getParameter('PersonTabs')))
+			if ($personManager->canDeleteStudent(null, $this->getParameter('PersonTabs')))
 			{
-				$pm->deleteStudent(null, $this->getParameter('PersonTabs'));
+				$personManager->deleteStudent(null, $this->getParameter('PersonTabs'));
 
 				return new JsonResponse(
 					array(
-						'message' => '<div class="alert alert-success alert-dismissable show hide">' . $this->get('translator')->trans('student.toggle.removeSuccess', array('%name%' => $person->formatName()), 'Student') . '</div>',
+						'message' => $messageManager->add('success', 'student.toggle.removeSuccess', ['%name%' => $person->formatName()]),
 						'status'  => 'removed',
 					),
 					200
@@ -80,7 +80,7 @@ class StudentController extends Controller
 			{
 				return new JsonResponse(
 					array(
-						'message' => '<div class="alert alert-warning alert-dismissable show hide">' . $this->get('translator')->trans('student.toggle.removeRestricted', array('%name%' => $person->formatName()), 'Student') . '</div>',
+						'message' => $messageManager->add('warning', 'student.toggle.removeRestricted', ['%name%' => $person->formatName()]),
 						'status'  => 'failed',
 					),
 					200
@@ -120,9 +120,9 @@ class StudentController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$pm = $this->get('busybee_people_person.model.person_manager');
+		$personManager = $this->get('busybee_people_person.model.person_manager');
 
-		$person = $pm->getPerson($id);
+		$person = $personManager->getPerson($id);
 
 		$em = $this->get('doctrine')->getManager();
 
@@ -150,9 +150,9 @@ class StudentController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$pm = $this->get('busybee_people_person.model.person_manager');
+		$personManager = $this->get('busybee_people_person.model.person_manager');
 
-		$person = $pm->getPerson($id);
+		$person = $personManager->getPerson($id);
 
 		$em = $this->get('doctrine')->getManager();
 
