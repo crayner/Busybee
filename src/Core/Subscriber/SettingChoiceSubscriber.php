@@ -118,8 +118,6 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
 		$newOptions['constraints'] = empty($newOptions['constraints']) ? [] : $newOptions['constraints'];
 
-///		if (!empty($options['setting_name']))
-//			$newOptions['constraints'][] = new SettingChoice(['name' => $options['setting_name']]);
 		//  Now replace the existing setting form element with a straight Choice
 		$form->getParent()->add($name, ChoiceSettingType::class, $newOptions);
 	}

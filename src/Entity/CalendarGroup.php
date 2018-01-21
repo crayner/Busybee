@@ -16,6 +16,7 @@ use Hillrange\Security\Util\UserTrackTrait;
 class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 {
 	use UserTrackTrait;
+
 	/**
 	 * @var integer
 	 */
@@ -211,6 +212,9 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 
 		if ($add)
 			$student->setCalendarGroup($this, false);
+
+		if (is_null($this->students))
+			$this->students = new ArrayCollection();
 
 		if (!$this->students->contains($student))
 			$this->students->add($student);

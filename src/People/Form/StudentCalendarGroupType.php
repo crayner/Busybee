@@ -1,13 +1,14 @@
 <?php
 namespace App\People\Form;
 
+use App\Core\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\CalendarGroup;
+use App\Entity\Student;
 use App\Entity\StudentCalendarGroup;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,14 +23,16 @@ class StudentCalendarGroupType extends AbstractType
 			->add('status', SettingChoiceType::class,
 				[
 					'setting_name' => 'student.enrolment.status',
-					'label'        => 'calendar.groups.status.label',
-					'placeholder'  => 'calendar.groups.status.placeholder',
-					'attr'         => [
-						'help' => 'calendar.groups.status.help',
-					],
+					'label'        => 'calendar_group.status.label',
+					'placeholder'  => 'calendar_group.status.placeholder',
+					'help' => 'calendar_group.status.help',
 				]
 			)
-			->add('student', HiddenType::class)
+			->add('student', HiddenEntityType::class,
+				[
+					'class' => Student::class,
+				]
+			)
 			->add('calendarGroup', EntityType::class,
 				[
 					'class'         => CalendarGroup::class,
@@ -40,11 +43,9 @@ class StudentCalendarGroupType extends AbstractType
 							->orderBy('c.firstDay', 'DESC')
 							->addOrderBy('g.sequence', 'ASC');
 					},
-					'placeholder'   => 'student.calendar.group.placeholder',
-					'label'         => 'student.calendar.group.label',
-					'attr'          => [
-						'help' => 'student.calendar.group.help',
-					],
+					'placeholder'   => 'student.calendar_group.placeholder',
+					'label'         => 'student.calendar_group.label',
+					'help' => 'student.calendar_group.help',
 				]
 			);
 	}

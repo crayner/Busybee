@@ -1,0 +1,33 @@
+{% trans_default_domain "Student" %}
+
+{% block calendar_group_by_student_label %}{% endblock %}
+{% block calendar_group_by_student_errors %}{% endblock %}
+
+{% block calendar_group_by_student_widget %}
+    {% set panelStyle = 'info' %}
+    {% set transDomain = 'Student' %}
+    {% set header = 'calendar_group.title' %}
+    {% set h3Content = '<div class="collection-actions collection-panel craig">' %}
+    {% set id = '' %}
+    {% set calendarName = '(New)' %}
+    {% if data is not null %}
+        {% set calendarName = data.getCalendarGroupName %}
+        {% set id = data.getId() %}
+    {% endif %}
+    {% set h3Content = h3Content ~ saveButton({style: ''}) %}
+    {% set h3Content = h3Content ~ deleteButton({title: 'calendar_group.remove', transDomain: 'Student', mergeClass: 'removeCalendarGroup collection-remove collection-action', additional: {id: 'removeCalendarGroup' ~ id}, colour: 'warning', style: ''}) %}
+    {% set h3Content = h3Content ~ '</div>' %}
+    {% include 'Page/panelStart.html.twig' with {name: calendarName} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.calendarGroup) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.status) }}
+                {{ form_row(form.student, {value: app.request.get('id')}) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock calendar_group_by_student_widget %}

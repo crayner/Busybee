@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator;
 
+use App\Core\Validator\Constraints\SettingChoiceValidator;
 use Symfony\Component\Validator\Constraint;
 
 class SettingChoice extends Constraint
@@ -9,22 +10,23 @@ class SettingChoice extends Constraint
 	public $strict = true;
 	public $extra_choices = [];  // Add additional choices not found in the setting.
 	public $message = 'setting.choice.invalid';
-	public $valueIn = null;
+	public $valueIn = null;  //  use this key in a layered array
 
+	/**
+	 * @return string
+	 */
 	public function validatedBy()
 	{
-		return SettingChoice::class;
+		return SettingChoiceValidator::class;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getRequiredOptions()
 	{
 		return [
 			'name',
 		];
-	}
-
-	public function __construct($options = null)
-	{
-		parent::__construct($options);
 	}
 }

@@ -87,7 +87,7 @@ class FormErrorsExtension extends AbstractExtension
 				$return .= '</ul>';
 			}
 		}
-		if (count($errorsList) == 0 && !empty($noErrorMessage))
+		if (count($errorsList) == 0 && ! empty($noErrorMessage))
 		{
 			if ($tag == 'li')
 			{
@@ -128,7 +128,7 @@ class FormErrorsExtension extends AbstractExtension
 				$return .= $this->trans->trans($item['label'], array(), $item['translation']);
 				$return .= ': ';
 				$return .= $error->getMessage();  // The translator has already translated any validation error.
-				$return .= '</' . $tag . '>';
+				$return .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="'.$this->trans->trans('Close Message', [], 'home').'"><span aria-hidden="true" class="halflings halflings-remove-circle"></span></button></' . $tag . '>';
 			}
 		}
 

@@ -60,7 +60,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+    {% include 'Script/jquery_collection.html.twig' %}
     {% include 'Calendar/calendar_group_script.html.twig' %}
     {% include 'Calendar/termScript.html.twig' %}
     {% include "Calendar/specialDaysScript.html.twig" %}

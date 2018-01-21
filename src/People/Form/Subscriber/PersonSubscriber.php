@@ -371,7 +371,7 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'                     => 'student.house.label',
 					'placeholder'               => 'student.house.placeholder',
 					'required'                  => false,
-					'help' => 'student.house.help',
+					'help'                      => 'student.house.help',
 					'setting_name'              => 'house.list',
 				]
 			)

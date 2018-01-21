@@ -5,3 +5,15 @@ student:
         removeSuccess: "The %name% was removed as a Student."
         removeRestricted: '%name% is set as a student, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Student."
+    calendar_group:
+        help: ''
+        placeholder: 'Select Grade/Calendar Group'
+        label: 'Grade/Calendar Group'
+calendar_group:
+    status:
+        label: Status
+        help: ''
+        placeholder: "Select a Status"
+    add: Add Grade to Calendar
+    remove: Remove Grade from Calendar
+    title: '%name% Calendar Grade'

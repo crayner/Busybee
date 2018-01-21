@@ -1,6 +1,7 @@
 <?php
 namespace App\People\Entity;
 
+use App\Entity\Calendar;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
@@ -10,29 +11,29 @@ abstract class StudentCalendarGroupExtension implements UserTrackInterface
 	/**
 	 * @return string
 	 */
-	public function getCalendarGroupYear()
+	public function getCalendarGroupName(): string
 	{
 		if (!empty($this->getCalendarGroup()))
 			return $this->getCalendarGroup()->getFullName();
 
-		return null;
+		return '';
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function canDelete()
+	public function canDelete(): bool
 	{
 		return true;
 	}
 
 	/**
-	 * @return Year|null
+	 * @return Calendar|null
 	 */
-	public function getYear()
+	public function getCalendar(): ?Calendar
 	{
 		if (!empty($this->getCalendarGroup()))
-			return $this->getCalendarGroup()->getYear();
+			return $this->getCalendarGroup()->getCalendar();
 
 		return null;
 	}

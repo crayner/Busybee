@@ -36,8 +36,6 @@ person:
     immigration:
         tab: Citizenship
         title: 'Citizenship Details: %name%'
-    calendar_group:
-        tab: Calendar Groups
     user:
         category: User
         question:
@@ -96,8 +94,10 @@ person:
         help: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
     address:
         placeholder: Start typing any address.
-    grade:
-        title: 'Grade Details:<br/><small>%name%</small>'
+    calendar_group:
+        title: 'Student Grade Details:<br/><small>%name%</small>'
+        description: Links the student to the calendar via the grade/year/form that they are enrolled in for that calendar.
+        tab: Calendar Group
     add:
         title: Add Person
     edit:
@@ -189,7 +189,7 @@ student:
         error:
             current: The current status must be unique for the student.
             empty: The grade must be set.
-            year: The year must not be duplicated for the student.
+            calendar: The calendar must not be duplicated for the student.
     grade:
         remove:
             success: The grade details where removed.
@@ -199,3 +199,14 @@ student:
     validator:
         email:
             unique: 'The email %string% already exists in the database.'
+phone:
+    type:
+        label: 'Type of Phone'
+        placeholder: Phone Type Selection
+    number:
+        label: 'Phone Number'
+        help: 'Any character but a number is ignored. The display can be altered in the settings.'
+        error: 'Not a valid phone number. {regex}'
+    country.label: 'Country Code'
+    warning: 'Changes in phone details are only linked to the person when the entire form is saved.'
+    linked: Linked Family Phone Numbers

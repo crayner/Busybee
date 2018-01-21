@@ -5,10 +5,11 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form
-"FormTheme/bootstrap.html.twig"
-"FormTheme/jquery.collection.html.twig"
-"Phone/phoneCollection.html.twig"
-"Student/gradeCollection.html.twig" %}
+    "FormTheme/jquery.collection.html.twig"
+    "Phone/phoneCollection.html.twig"
+    "Student/calendarGroupCollection.html.twig"
+    "FormTheme/bootstrap.html.twig"
+%}
 
 {% block title %}{{ parent() }}{% if id == 'Add' %}{{ 'person.person.title'|trans }}{% else %}{{ 'person.person.title'|trans }}{% endif %}{% endblock title %}
 {% block headerTitle %}{% if id == 'Add' %}{{ 'person.person.title'|trans }}{% else %}{{ 'person.person.title'|trans }}{% endif %}{% endblock headerTitle %}
@@ -31,7 +32,7 @@
                 {% if name == 'staff' and not isStaff() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'student' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'immigration' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
-                {% if name == 'grades' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
+                {% if name == 'calendar_group' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'user' and not isUser() %}{% set disabled = ' disabled' %}{% endif %}
                 <li class="nav-item" role="presentation"><a href="#{{ name }}" role="tab"
                                                          data-toggle="tab" class="nav-link{{ disabled }}">{{ tab.label|trans({}, translation) }}</a>
@@ -55,7 +56,7 @@
                     <div class="tab-pane" id="{{ name }}">
                         {% include 'FormTheme/emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
-                {% elseif name == 'grades' and not isStudent() %}
+                {% elseif name == 'calendar_group' and not isStudent() %}
                     <div class="tab-pane" id="{{ name }}">
                         {% include 'FormTheme/emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>

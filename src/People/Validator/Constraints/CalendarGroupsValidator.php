@@ -15,19 +15,20 @@ class CalendarGroupsValidator extends ConstraintValidator
 		$current = 0;
 		$year    = [];
 
-		foreach ($value->toArray() as $q => $grade)
+		foreach ($value->toArray() as $q => $group)
 		{
-			if (empty($grade->getStudent()) || empty($grade->getGrade()))
+dump($group);
+			if (empty($group->getStudent()) || empty($group->getCalendarGroup()))
 			{
 
 				$this->context->buildViolation('student.grades.error.empty')
-					->setTranslationDomain('BusybeePersonBundle')
+					->setTranslationDomain('Person')
 					->atPath('[' . strval($q) . ']')
-					->atPath('grade')
+					->atPath('calendarGroup')
 					->addViolation();
 			}
 
-			if ($grade->getStatus() === 'Current')
+			if ($group->getStatus() === 'Current')
 			{
 				$current++;
 
@@ -36,12 +37,12 @@ class CalendarGroupsValidator extends ConstraintValidator
 					$this->context->buildViolation('student.grades.error.current')
 						->atPath('[' . strval($q) . ']')
 						->atPath('status')
-						->setTranslationDomain('BusybeePersonBundle')
+						->setTranslationDomain('Person')
 						->addViolation();
 				}
 			}
 
-			$gy = $grade->getYear()->getName();
+			$gy = $group->getCalendar()->getName();
 
 			if (!is_null($gy))
 			{
@@ -51,8 +52,8 @@ class CalendarGroupsValidator extends ConstraintValidator
 				{
 					$this->context->buildViolation('student.grades.error.year')
 						->atPath('[' . strval($q) . ']')
-						->atPath('grade')
-						->setTranslationDomain('BusybeePersonBundle')
+						->atPath('calendarGroup')
+						->setTranslationDomain('Person')
 						->addViolation();
 				}
 			}

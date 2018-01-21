@@ -2,7 +2,7 @@
 namespace App\People\Util;
 
 use App\Address\Util\AddressManager;
-use App\Core\Util\UserManager;
+use App\Core\Manager\SettingManager;
 use App\Entity\CareGiver;
 use App\Entity\Family;
 use App\Entity\Person;
@@ -33,14 +33,20 @@ class PersonManager
 	private $person;
 
 	/**
+	 * @var SettingManager
+	 */
+	private $settingManager;
+
+	/**
 	 * PersonManager constructor.
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
-	public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager)
+	public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager, SettingManager $settingManager)
 	{
 		$this->entityManager = $entityManager;
 		$this->addressManager = $addressManager;
+		$this->settingManager = $settingManager;
 	}
 
 	/**
@@ -101,7 +107,7 @@ student:
     include: Person/student.html.twig
     message: studentMessage
     translation: Person
-grades:
+calendar_group:
     label: person.calendar_group.tab
     include: Person/calendarGroup.html.twig
     message: calendarGroupMessage
@@ -455,18 +461,19 @@ user:
 		if ($person instanceof Staff && !empty($person->getHonorific()))
 			$result .= $person->getHonorific() . '<br/>';
 
-		if ($person instanceof Student && !empty($this->getCurrentGrade($person)))
-			$result .= $this->getCurrentGrade($person) . '<br/>';
+		if ($person instanceof Student)
+			$result .= is_null($this->getCurrentGroup($person)) ? '' : $this->getCurrentGroup($person)->getFullName() . '<br />';
 
-		if (!empty($person->getEmail()))
+		if (! empty($person->getEmail()))
 			$result .= $person->getEmail() . '<br/>';
-		if (!empty($person->getEmail2()))
+
+		if (! empty($person->getEmail2()))
 			$result .= $person->getEmail2() . '<br/>';
 
 		foreach ($this->getPhones($person, true) as $phone)
 		{
-			$x = $this->getSm()->get('phone.display', null, ['phone' => $phone->getPhoneNumber()]);
-			if (!empty($x))
+			$x = $this->getSettingManager()->get('phone.display', null, ['phone' => $phone->getPhoneNumber()]);
+			if (! empty($x))
 				$result .= str_replace("\n", "<br/>", $x);
 		}
 
@@ -622,24 +629,30 @@ user:
 	}
 
 	/**
-	 * Get Current Grade
+	 * Get Current Group
 	 *
 	 * @param $person
 	 *
 	 * @return string
 	 */
-	public function getCurrentGrade($person)
+	public function getCurrentGroup($person)
 	{
 		if (!$person instanceof Student || ! $this->isGradesInstalled())
 			return null;
 
-		foreach ($person->getCalendarGroups()->toArray() as $grade)
-			if ($grade->getStatus() == 'Current')
-				return $grade->getGradeCalendar();
+		foreach ($person->getCalendarGroups()->toArray() as $group)
+			if ($group->getStatus() == 'Current')
+				return $group->getCalendarGroup();
 
 		return null;
 	}
 
+	/**
+	 * @param UserInterface $current
+	 * @param UserInterface $user
+	 *
+	 * @return bool
+	 */
 	public function canImpersonateUser(UserInterface $current, UserInterface $user)
 	{
 		if ($current->isEqualTo($user))
@@ -652,5 +665,25 @@ user:
 			return false;
 
 		return true;
+	}
+
+	/**
+	 * Create Staff
+	 *
+	 * @param Person|null $person
+	 */
+	public function deleteStudent(Person $person = null)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canDeleteStudent())
+		{
+			$this->switchToPerson();
+		}
+	}
+
+	public function getSettingManager(): SettingManager
+	{
+		return $this->settingManager;
 	}
 }

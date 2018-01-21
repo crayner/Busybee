@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Validator\Constraints;
 
+use App\Core\Exception\Exception;
 use App\Core\Manager\SettingManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -51,6 +52,7 @@ class SettingChoiceValidator extends ConstraintValidator
 
 		$this->context->buildViolation($constraint->message)
 			->setParameter('%string%', $value)
+			->setTranslationDomain('Setting')
 			->addViolation();
 	}
 }

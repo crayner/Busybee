@@ -1,0 +1,17 @@
+App\Entity\Phone:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [phoneNumber, countryCode, phoneType]
+            errorPath: phoneNumber
+    properties:
+        phoneNumber:
+            - NotBlank: ~
+            - \App\People\Validator\Phone: ~
+        phoneType:
+            - NotBlank: ~
+            - \App\Core\Validator\SettingChoice:
+                name: 'phone.typelist'
+        countryCode:
+            - NotBlank: ~
+            - \App\Core\Validator\SettingChoice:
+                name: 'phone.countrylist'

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends Controller
@@ -63,9 +64,9 @@ class StudentController extends Controller
 		}
 		elseif ($personManager->isStudent())
 		{
-			if ($personManager->canDeleteStudent(null, $this->getParameter('PersonTabs')))
+			if ($personManager->canDeleteStudent(null, $personManager->getTabs()))
 			{
-				$personManager->deleteStudent(null, $this->getParameter('PersonTabs'));
+				$personManager->deleteStudent(null, $personManager->getTabs());
 
 				return new JsonResponse(
 					array(
@@ -167,5 +168,34 @@ class StudentController extends Controller
 		$em->flush();
 
 		return $this->redirectToRoute('person_edit', ['id' => $id]);
+	}
+
+	/**
+	 * @param $id
+	 * @param $groupId
+	 * @Route("/student/remove/calendar/group/{id}", name="delete_student_calendar_group")
+	 * @IsGranted("ROLE_ADMIN")
+	 */
+	public function removeCalendarGroup($id)
+	{
+		$studentManager = $this->get('busybee_people_student.model.student_manager');
+
+		$studentManager->initiateCalendarGroup($group);
+
+		$studentManager->removeStudentFromCalendarGroup($student);
+
+		$studentManager->getPossibleStudents(false);
+		$studentManager->getCurrentStudents(false);
+
+		$message = $this->get('busybee_core_system.model.flash_bag_manager')->renderMessages($studentManager->getMessages());
+
+		return new JsonResponse(
+			[
+				'message'  => $message,
+				'current'  => $this->renderView('@BusybeeStudent/Student/addStudent.html.twig', ['manager' => $studentManager]),
+				'possible' => $this->renderView('@BusybeeStudent/Student/removeStudent.html.twig', ['manager' => $studentManager]),
+			],
+			200);
+
 	}
 }

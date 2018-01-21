@@ -25,4 +25,15 @@ person.genderlist:
     unspecified: Not Specified
     male: Male
     female: Female
-    other: Other    
+    other: Other
+student.enrolment.status:
+    future: Future
+    current: Current
+    left: Left
+    past: Past
+    archived: Archived
+phone.typelist:
+    home: Home
+    mobile: Mobile
+    work: Work
+    imported: Imported

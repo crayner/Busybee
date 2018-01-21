@@ -1,6 +1,5 @@
 {% trans_default_domain "Person" %}
 
-
 {% block phone_label %}{% endblock %}
 {% block phone_errors %}{% endblock %}
 
@@ -17,17 +16,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-9">
+            <div class="col-8">
                 {{ form_row(form.phoneNumber, {value: get_setting('Phone.Display', null, {'phone': form.phoneNumber.vars.value}) } ) }}
             </div>
-            <div class="col-3 collection-actions">
+            <div class="col-4 collection-actions">
 				<span>
-					<button title="{{ 'contact.phone.remove'|trans }}" type="button"
-                            class="collection-remove collection-action halflings halflings-erase btn btn-warning"
-                            style="float: right;"></button>
-					<button title="{{ 'contact.phone.add'|trans }}" type="button"
-                            class="halflings halflings-plus-sign btn btn-primary collection-add collection-action"
-                            style="float: right;"></button>
+                    {{ deleteButton({title: 'contact.phone.remove', transDomain: 'Person', mergeClass: 'collection-remove collection-action', colour: 'warning', style: ''})|raw }}
+                    {{ saveButton({style: ''})|raw }}
 				</span>
             </div>
         </div>

@@ -35,6 +35,7 @@ class PhoneType extends AbstractType
 				array(
 					'label'        => 'phone.type.label',
 					'setting_name' => 'phone.typelist',
+					'placeholder' => 'phone.type.placeholder',
 				)
 			)
 			->add('phoneNumber', TextType::class,
@@ -50,6 +51,7 @@ class PhoneType extends AbstractType
 					'label'        => 'phone.country.label',
 					'required'     => false,
 					'setting_name' => 'phone.countrylist',
+					'translation_prefix' => false,
 				)
 			);
 		$builder->get('phoneNumber')
@@ -65,7 +67,7 @@ class PhoneType extends AbstractType
 		$resolver->setDefaults(
 			array(
 				'data_class'         => Phone::class,
-				'translation_domain' => 'Phone',
+				'translation_domain' => 'Person',
 			)
 		);
 	}
