@@ -4,11 +4,9 @@ namespace App\Core\Manager;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Hillrange\Security\Entity\User;
-use Hillrange\Security\Exception\UnauthorisedUserException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -64,7 +62,7 @@ class SettingManager implements ContainerAwareInterface
 	private $container;
 
 	/**
-	 * @var  Session
+	 * @var  SessionInterface
 	 */
 	private $session;
 
@@ -89,18 +87,16 @@ class SettingManager implements ContainerAwareInterface
 	 * @param SettingRepository             $sr
 	 * @param ContainerInterface            $container
 	 * @param AuthorizationCheckerInterface $authorisation
+	 * @param \Twig_Environment             $twig
+	 * @param MessageManager                $messageManager
+	 * @param SessionInterface              $session
 	 */
-	public function __construct(SettingRepository $sr, ContainerInterface $container, AuthorizationCheckerInterface $authorisation, \Twig_Environment $twig, MessageManager $messageManager)
+	public function __construct(SettingRepository $sr, ContainerInterface $container, AuthorizationCheckerInterface $authorisation, \Twig_Environment $twig, MessageManager $messageManager, SessionInterface $session)
 	{
-		$this->session = new Session();
-		if ($this->session->isStarted())
-		{
-			$this->settings     = $this->session->get('settings');
-			$this->settingCache = $this->session->get('settingCache');
-		} else {
-			$this->settings     = [];
-			$this->settingCache = [];
-		}
+		$this->session = $session;
+
+		$this->settings     = null;
+		$this->settingCache = null;
 
 		$this->settingRepo  = $sr;
 		$this->projectDir   = $container->getParameter('kernel.project_dir');
@@ -251,10 +247,12 @@ class SettingManager implements ContainerAwareInterface
 			return;
 		$this->settings[$name]     = $this->setting;
 		$this->settingCache[$name] = new \DateTime('now');
+		$this->settingExists[$name] = true;
 
 		if ($this->session->isStarted()){
 			$this->session->set('settings', $this->settings);
 			$this->session->set('settingCache', $this->settingCache);
+			$this->session->set('settingExists', $this->settingExists);
 		}
 	}
 
@@ -405,6 +403,8 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	public function getSetting($name, $default = null, $options = [])
 	{
+		$this->loadSettingsFromSession();
+
 		$name = strtolower($name);
 		$flip                = false;
 		if (substr($name, -6) === '._flip')
@@ -415,7 +415,7 @@ class SettingManager implements ContainerAwareInterface
 
 		$this->settingExists[$name] = empty($this->settingExists[$name]) ? false : $this->settingExists[$name] ;
 
-		if ($this->settingExists[$name] && (empty($this->settingCache[$name]) || $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options)))
+		if (! empty($this->settings[$name]) && (empty($this->settingCache[$name]) || $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options)))
 		{
 			$this->settingExists[$name] = true;
 
@@ -446,11 +446,6 @@ class SettingManager implements ContainerAwareInterface
 			}
 
 		}
-
-
-
-		dump($name);
-		dump($this);die();
 	}
 
 	/**
@@ -594,8 +589,10 @@ class SettingManager implements ContainerAwareInterface
 		if (empty($this->settings[$name]))
 			return $this;
 		unset($this->settings[$name], $this->settingCache[$name]);
-		$this->container->get('session')->set('settings', $this->settings);
-		$this->container->get('session')->set('settingCache', $this->settingCache);
+		$this->settingExists[$name] = false;
+		$this->session->set('settings', $this->settings);
+		$this->session->set('settingCache', $this->settingCache);
+		$this->session->set('settingExists', $this->settingExists);
 
 		return $this;
 	}
@@ -827,5 +824,15 @@ class SettingManager implements ContainerAwareInterface
 				return $result;
 		}
 		return $this->getSettingArray($name);
+	}
+
+	private function loadSettingsFromSession()
+	{
+		if (! is_null($this->settings))
+			return;
+
+		$this->settings = $this->session->get('settings');
+		$this->settingCache = $this->session->get('settingCache');
+		$this->settingExists = $this->session->get('settingExists');
 	}
 }
