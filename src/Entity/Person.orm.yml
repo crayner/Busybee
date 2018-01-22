@@ -107,3 +107,7 @@ App\Entity\Person:
             joinColumn:
                 name: user_id
                 referencedColumnName: id
+    oneToMany:
+        careGivers:
+            mappedBy: person
+            targetEntity: App\Entity\CareGiver

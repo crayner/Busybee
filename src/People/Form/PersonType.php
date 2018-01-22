@@ -127,7 +127,7 @@ class PersonType extends AbstractType
 			)
 			->add('photo', ImageType::class, array(
 					'attr'        => array(
-						'imageClass' => 'headShot75',
+						'imageClass' => 'headShot75 img-thumbnail',
 					),
 					'help'       => 'person.photo.help',
 					'label'       => 'person.photo.label',

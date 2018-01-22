@@ -435,15 +435,6 @@ div#contentContainer {
     width: 400px;
 }
 
-.form_image {
-    margin-right: 3px;
-    margin-top: 3px;
-    padding: 4px;
-    background-color: white;
-    border: 1px solid #555555;
-    border-radius: 4px;
-}
-
 .showLoader {
     display: none;
     position: fixed;
@@ -522,4 +513,31 @@ body.loading .showLoader {
     color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
+}
+.row-striped {
+    border: 1px solid rgba(204,204,204,1);
+    border-radius: 8px;
+    min-height: 25px;
+}
+.row-striped:nth-of-type(odd){
+    background-color: rgba(204,204,204,0.5);
+}
+
+.row-striped:nth-of-type(odd) .row-hover:hover {
+    background-color: rgba(180, 200, 220, 0.5);
+}
+
+.row-striped:nth-of-type(even){
+    background-color: transparent;
+}
+.row-header {
+    font-size: 125%;
+    font-weight: bold;
+    background-color: rgba(204,204,204,1);
+    border: 1px solid rgba(204,204,204,1);
+    border-radius: 8px;
+    min-height: 25px;
+}
+.row-striped > [class*='col-'] {
+    display: block ;
 }

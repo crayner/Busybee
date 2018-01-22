@@ -7,6 +7,6 @@ App\Entity\SpecialDay:
     properties:
         name:
             - NotBlank: ~
-        year:
+        calendar:
             - NotBlank:
-                message: 'blank.specialday.year'
+                message: 'blank.specialday.calendar'

@@ -13,6 +13,6 @@ App\Entity\Term:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
-        year:
+        calendar:
             - NotBlank:
-                message: 'blank.term.year'
+                message: 'blank.term.calendar'

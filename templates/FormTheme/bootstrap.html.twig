@@ -2,7 +2,7 @@
 
 {% block image_label -%}
     {% if imageExists(data) %}
-        <img src="{{ asset( imagePath(data) ) }}" class="{{ attr.imageClass }} form_image"/>
+        <img src="{{ asset( imagePath(data) ) }}" class="{{ attr.imageClass }} card-img"/>
         {{- form_label(form) -}}
         {% if deletePhoto is not null %}
             {% set imageDelete = 0 %}
@@ -19,7 +19,7 @@
 {% block url_label -%}
     {{- form_label(form) -}}
     {% if value is not empty %}
-        &nbsp;{{ miscButton({transDomain: translation_domain, windowOpen: {route: value, target: '_blank'}, class: 'halflings halflings-link btn btn-sm btn-default', title: label, style: ''})|raw }}
+        &nbsp;{{ miscButton({transDomain: translation_domain, windowOpen: {route: value, target: '_blank'}, class: 'halflings halflings-link btn btn-default', title: label, style: ''})|raw }}
     {% endif %}
 {%- endblock url_label %}
 

@@ -18,6 +18,9 @@ class PersonImage extends Image
 	public $minRatio = 0.75;
 	public $maxRatio = 0.9;
 
+	/**
+	 * @return string
+	 */
 	public function validatedBy()
 	{
 		return PersonImageValidator::class;

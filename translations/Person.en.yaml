@@ -284,3 +284,5 @@ locality:
         success: 'Locality %name% Deleted'
         locked: 'Locality %name% is locked by the system.'
     title: Locality
+people:
+    title: All People

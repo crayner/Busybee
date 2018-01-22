@@ -54,17 +54,18 @@
         {% for person in pagination.getResult %}
             {% set xx = manager.getPerson(person.id) %}
             <div class="row row-striped">
-                <div class="col-1 hidden-sm hidden-xs">
+                <div class="col-1 hidden-sm">
                     {{ person.getPhoto75('left')|raw }}
                 </div>
-                <div class="col-3 form-inline">
+                <div class="col-3" style="display: inline-block;">
                     {{ person.surname }}<br/>
                     <span class="small">{{ person.firstName }}</span>
                 </div>
-                <div class="col-3 hidden-sm hidden-xs small" style="display: inline-block;">
+                <div class="col-3 hidden-sm small" style="display: inline-block;">
                     {{ manager.getDetails(person)|raw }}
                 </div>
-                <div class="col-5 text-center form-inline">
+                <div class="col-5 text-center">
+                    <div class="p-12 justify-content-end">
                     {% set staffOn = false %}
                     {% if isStaff(person) %}
                         {% set staffOn = true %}
@@ -97,6 +98,8 @@
                         {% set additional = additional|merge({disabled: 'disabled'}) %}
                     {% endif %}
                     {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}, title: 'person.user.toggle.button', transDomain: 'Person'})|raw }}
+                    </div>
+                    <div class="p-12 justify-content-end">
                     {% set route = path('person_edit', {'id': person.id, }) %}
                     {{ editButton({'title': 'person.edit.title', 'transDomain': 'Person', 'windowOpen': {'route': route}, 'colour': 'warning'})|raw }}
                     {% if person.userId() is not empty %}
@@ -104,9 +107,9 @@
                         {% set additional = '' %}
                         {% if not manager.canImpersonateUser(app.user, person.user) %}{% set additional = 'disabled' %}{% endif %}
                         {{ miscButton({transDomain: 'security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button', additional: additional})|raw }}
-                        {{ editButton({ title: 'user.request.passwordReset', 'class': 'btn btn-warning  x-halflings glyphicons glyphicons-user-key', transDomain: 'security', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.userId})}})|raw }}
+                        {{ editButton({ title: 'user.request.passwordReset', 'class': 'btn btn-warning  x-halflings glyphicons glyphicons-user-key', transDomain: 'security', windowOpen: {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.userId})}})|raw }}
                     {% endif %}
-
+                    </div>
                 </div>
             </div>
         {% endfor %}
