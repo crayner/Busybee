@@ -87,8 +87,8 @@ class PersonType extends AbstractType
 			)
 			->add('officialName', null, array(
 					'label' => 'person.officialName.label',
+					'help'  => 'person.officialName.help',
 					'attr'  => array(
-						'help'  => 'person.officialName.help',
 						'class' => 'beeOfficialName',
 					),
 				)
@@ -117,9 +117,7 @@ class PersonType extends AbstractType
 			->add('email', EmailType::class, array(
 					'label'    => 'person.email.label',
 					'required' => false,
-					'attr'     => array(
 						'help' => 'person.email.help',
-					),
 				)
 			)
 			->add('email2', EmailType::class, array(
@@ -129,9 +127,9 @@ class PersonType extends AbstractType
 			)
 			->add('photo', ImageType::class, array(
 					'attr'        => array(
-						'help'       => 'person.photo.help',
 						'imageClass' => 'headShot75',
 					),
+					'help'       => 'person.photo.help',
 					'label'       => 'person.photo.label',
 					'required'    => false,
 					'deletePhoto' => $options['deletePhoto'],
@@ -151,9 +149,10 @@ class PersonType extends AbstractType
 					'empty_data'   => null,
 					'required'     => false,
 					'label'        => 'person.address1.label',
+					'help'  => 'person.address1.help',
 					'attr'         => array(
-						'help'  => 'person.address1.help',
 						'class' => 'beeAddressList formChanged',
+						'autocomplete' => 'new-address',
 					),
 				)
 			)
@@ -164,10 +163,11 @@ class PersonType extends AbstractType
 //					'data'         => $options['data']->getAddress2(),
 					'empty_data'   => null,
 					'required'     => false,
+					'help'  => 'person.address2.help',
 					'label'        => 'person.address2.label',
 					'attr'         => array(
-						'help'  => 'person.address2.help',
 						'class' => 'beeAddressList formChanged',
+						'autocomplete' => 'new-address',
 					),
 				)
 			)

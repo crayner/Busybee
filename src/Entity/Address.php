@@ -3,7 +3,6 @@ namespace App\Entity;
 
 use App\Address\Entity\AddressExtension;
 
-
 /**
  * Address
  */
@@ -40,7 +39,7 @@ class Address extends AddressExtension
 	private $streetNumber;
 
 	/**
-	 * @var \Busybee\People\LocalityBundle\Entity\Locality
+	 * @var Locality
 	 */
 	private $locality;
 
@@ -181,7 +180,7 @@ class Address extends AddressExtension
 	/**
 	 * Get locality
 	 *
-	 * @return \Busybee\People\LocalityBundle\Entity\Locality
+	 * @return Locality
 	 */
 	public function getLocality()
 	{
@@ -191,11 +190,11 @@ class Address extends AddressExtension
 	/**
 	 * Set locality
 	 *
-	 * @param \Busybee\People\LocalityBundle\Entity\Locality $locality
+	 * @param Locality $locality
 	 *
 	 * @return Address
 	 */
-	public function setLocality(\Busybee\People\LocalityBundle\Entity\Locality $locality = null)
+	public function setLocality(Locality $locality = null)
 	{
 		$this->locality = $locality;
 

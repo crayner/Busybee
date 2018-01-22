@@ -1,0 +1,44 @@
+{# src/Busybee/PersonBundle/Resources/views/Locality/index.html.twig #}
+
+{% trans_default_domain "Person" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form "FormTheme/bootstrap.html.twig" %}
+
+{% block menuContainer %}{% endblock menuContainer %}
+
+{% block title %}{{ parent() }}{{ 'locality.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'locality.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'locality.description'|trans }}{% endblock headerLead %}
+
+{% block titleContainer %}{% endblock titleContainer %}
+
+{% block contentContainer %}
+    {% block flashMessages %}{% endblock flashMessages %}
+    {{ form_start(form, {'action': path('locality_manage', {'id': id}), 'method': 'POST'}) }}
+    <div class="container-fluid">
+        <div class='row' id="localityMessage" style="display: none;">
+        </div>
+    </div>
+    <div id="localityContent">
+        {% include 'Locality/edit.html.twig' %}
+    </div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '/Script/monitorForm.html.twig' with {'route': 'locality_manage'} %}
+    <script type="text/javascript">
+        $('.beeLocalityList').change(function () {
+
+            var route = "{{ path('locality_manage', {'id': '__id__'}) }}";
+            var id = $(this).val();
+            if (id == '') {
+                id = 'Add';
+            }
+            window.open(route.replace("__id__", id), "_self");
+        });
+    </script>
+{% endblock javascripts %}

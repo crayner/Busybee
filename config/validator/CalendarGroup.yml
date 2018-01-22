@@ -1,0 +1,16 @@
+App\Entity\CalendarGroup:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - nameShort
+                - year
+            message: calendar.group.nameshort.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - sequence
+                - year
+            message: calendar.group.sequence.unique
+            errorPath: nameShort
+    properties:
+        website:
+            - Url: ~

@@ -1,0 +1,50 @@
+{# src/Busybee/PersonBundle/Resources/views/Address/script.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+<script>
+    $("#refreshAddressLocality").click(function (e) {
+        $.ajax({
+            url: "{{ path('locality_fetch') }}",
+            type: "POST",
+            success: function (data) {
+                var id = $("#address_locality").val();
+                $("#address_locality").empty();
+
+                options = data.options; // Or whatever source information you're working with
+                for (index = 0; index < options.length; ++index) {
+                    option = options[index];
+
+                    $("#address_locality").append('<option value=' + option.value + '>' + option.text + '</option>');
+                }
+                $("#address_locality").val(id);
+            }
+        })
+    });
+
+    $("#addAddressLocality").click(function (e) {
+        window.open("{{ path('locality_manage', {'id': 'Add'}) }}", "Locality", "width=820,height=600");
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '{{ path('address_fetch') }}',
+            type: 'POST',
+            success: function (data) {
+                $("#address_addressList_list").autocomplete({
+                    source: data.options,
+                    minLength: 2,
+                    delay: 250,
+                    disabled: false
+                });
+            }
+        });
+    });
+
+    $("#address_addressList_list").on("autocompleteselect", function (event, ui) {
+        var id = ui.item.value;
+        var route = "{{ path('address_manage', {'id': '__id__'}) }}";
+        window.open(route.replace('__id__', id), "_self");
+    });
+
+</script>

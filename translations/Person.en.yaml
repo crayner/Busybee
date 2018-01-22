@@ -210,3 +210,77 @@ phone:
     country.label: 'Country Code'
     warning: 'Changes in phone details are only linked to the person when the entire form is saved.'
     linked: Linked Family Phone Numbers
+address:
+    title: Address Details
+    addressList:
+        label: Existing Address List.
+        help: Choosing an existing address allows an edit of that address.
+    propertyName:
+        label: Building / Property Name
+        help: Property or Building Name
+    buildingType:
+        label: Type of Building
+        help: ''
+    buildingNumber:
+        label: Building Number
+        help: The building identifier within the complex.
+    streetNumber:
+        label: Street Number
+        help: ''
+    streetName:
+        label: Street Name
+        help: ''
+    manage:
+        help: "To reduce the amount of typing required, the system allows for addresses to be entered only once.  To select an existing address, select the locality in which the address is located.  If the locality does not exist, then clear the locality selector, enter the new details and save the new locality. Once a locality is selected, you can start typing the name of the street in the address search box.  All matching addresses are presented for selection (limited to the first 20.) To create a new address, clear the address, select the appropriate locality, enter the new address details then save the address. Save the person record (green button) to save the address to the person."
+    locality:
+        placeholder: Select Locality
+        label: Address Locality
+        help: Select a locality for the address, or use the controils to create a new locality.
+    action:
+        save: Save Address
+        close: Close Address Form
+        add: Add Address
+        reset: Refresh Address
+        delete: Delete Address
+    linked: Linked Family Addresses
+    warning: 'Changes in address details are only linked to the person when the entire form is saved.'
+    button:
+        erase: Remove Address
+        refresh: Refresh Address List
+        add: Create Address
+    save:
+        success: 'The address %name% was saved.'
+    deletee:
+        success: 'The address %name% was deleted.'
+locality:
+    button:
+        add: Add Locality
+        refresh: Refresh Locality List
+    localityList:
+        placeholder: Select Locality or Clear Data
+        label: Choose Existing Locality
+        help: Select a locality or add a new locality below.
+    header:
+        title: Locality
+        description: Can be a Suburb, Town or City.  The locality in which people live.
+    action:
+        reset: Reset Locality Form
+        save: Save Locality
+        delete: Delete Locality
+        close: Close Page
+    name:
+        label: Town, Suburb or City
+        help: The locality details must be unique.
+    territory:
+        placeholder: Select a Territory
+        label: State, Province or Territory
+    postcode:
+        label: Post Code
+    country:
+        label: Country
+    save:
+        success: 'Locality %name% Saved'
+    delete:
+        success: 'Locality %name% Deleted'
+        locked: 'Locality %name% is locked by the system.'
+    title: Locality

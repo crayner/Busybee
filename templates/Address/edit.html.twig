@@ -1,0 +1,53 @@
+{% trans_default_domain "Person" %}
+
+{% set h3Content = '' %}
+{% if manager.canDelete() and id != 'Add' %}
+    {% set h3Content = h3Content ~ deleteButton({title: 'address.action.delete', transDomain: 'Person', windowOpen: {route: path('address_delete', {'id': id})}})|raw %}
+{% endif %}
+{% set h3Content = h3Content ~ resetButton({title: 'address.action.reset', transDomain: 'Person'})|raw %}
+{% set h3Content = h3Content ~ addButton({title: 'address.action.add', transDomain: 'Person', mergeClass: 'formChanged', windowOpen: {route: path('address_manage', {'id': 'Add'})}})|raw %}
+{% set h3Content = h3Content ~ closeButton({mergeClass: 'formChanged', title: 'address.action.close', transDomain: 'Person'})|raw %}
+{% set h3Content = h3Content ~ saveButton({title: 'address.action.save', transDomain: 'Person'})|raw %}
+{% include 'Page/panelStart.html.twig' with {header: 'address.title', transDomain: 'Person'} %}
+<div class="container-fluid">
+    <div class='row'>
+        <div class="col-6 card card-success">
+            {{ form_row(form.addressList) }}
+        </div>
+        <div class='col-6 card'>
+            {{ form_row(form.propertyName) }}
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-2 card'>
+            {{ form_row(form.buildingType) }}
+        </div>
+        <div class='col-2 card'>
+            {{ form_row(form.buildingNumber) }}
+        </div>
+        <div class='col-2 card'>
+            {{ form_row(form.streetNumber) }}
+        </div>
+        <div class='col-6 card'>
+            {{ form_row(form.streetName) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class='offset-6 col-6 card'>
+            {% set locValue = form.locality.vars.value %}
+            {% if locValue is empty %}{% set locValue = form.locality.vars.data %}{% endif %}
+            {{ form_row(form.locality, {'value': locValue}) }}
+            <span>
+                {{ resetButton({title: 'locality.button.refresh', transDomain: 'Person', additional: {id: 'refreshAddressLocality'}, colour: 'info', type: 'button'})|raw }}
+                {{ addButton({additional: {id: 'addAddressLocality'}, colour: 'primary', transDomain: 'Person', title: 'locality.button.add'})|raw }}
+            </span><br/>
+            {{ manager.messageManager.renderView(twig) }}
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-12 card card-info text-justify'>
+            {{ 'address.manage.help'|trans }}
+        </div>
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}

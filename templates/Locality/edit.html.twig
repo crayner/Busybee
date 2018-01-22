@@ -1,0 +1,47 @@
+{% trans_default_domain "Person" %}
+{% set h3Content = '' %}
+
+{% if manager.canDelete() and id != 'Add' %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'locality.action.delete', transDomain: 'Person', windowOpen: {route: path('locality_delete', {'id': id})}})|raw %}
+{% endif %}
+{% set h3Content = h3Content ~ resetButton({title: 'locality.action.reset', transDomain: 'Person', })|raw %}
+{% set h3Content = h3Content ~ closeButton({title: 'locality.action.close', transDomain: 'Person', mergeClass: 'formChanged'})|raw %}
+{% set h3Content = h3Content ~ saveButton({title: 'locality.action.save', transDomain: 'Person'})|raw %}
+{% include 'Page/panelStart.html.twig' with {header: 'locality.header.title', transDomain: 'Person', panelParagraph: 'locality.header.description' } %}
+    <div class='row'>
+        <div class="col-6">
+            {{ manager.messageManager.renderView(twig)|raw }}
+            {% include 'Default/flash.html.twig' %}
+        </div>
+        <div class="col-6 card" style="display: none">
+            <div class='form-widget text-right'>
+                {% if manager.canDelete() and id != 'Add' %}
+                    {{ deleteButton({windowOpen: {route: path('locality_delete', {'id': id})}})|raw }}
+                {% endif %}
+            </div>
+        </div>
+        <div class='col-6 card card-success'>
+            {{ form_row(form.localityList, {'value': form.vars.value.id|trim }) }}
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-6 card'>
+            {{ form_row(form.name) }}
+        </div>
+        <div class='col-6 card'>
+            {{ form_row(form.territory) }}
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-6 card'>
+            {{ form_row(form.postCode) }}
+        </div>
+        <div class='col-6 card'>
+            {% if form.territory.vars.value is empty %}
+                {{ form_row(form.country, {'value': get_parameter('country')}) }}
+            {% else %}
+                {{ form_row(form.country) }}
+            {% endif %}
+        </div>
+    </div>
+{% include 'Page/panelEnd.html.twig' %}

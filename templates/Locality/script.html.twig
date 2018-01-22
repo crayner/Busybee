@@ -1,0 +1,64 @@
+{# src/Busybee/PersonBundle/Resources/views/Locality/script.html.twig #}
+
+{% trans_default_domain "Person" %}
+
+{% set altSuffix = 'address2' %}
+{% if classSuffix is not defined %}{% set classSuffix = 'address1' %}{% endif %}
+
+{% if classSuffix == 'address2' %}{% set altSuffix = 'address1' %}{% endif %}
+
+<script>
+    $('.beeLocalityList').change(function () {
+        $.ajax({
+            url: "{{ path('locality_manage', {'id': 'Add'}) }}",
+            data: {'id': $(this).val()},
+            type: "POST",
+            success: function (data) {
+                $('.beeLocality').val(data.locality);
+                $('.beeTerritory').val(data.territory);
+                $('.beeCountry').val(data.country);
+                $('.beePostCode').val(data.postCode);
+                $('.beeAddressList').autocomplete("option", "source", data.addressList);
+                if (data.addressDisabled == 'true') {
+                    $('.beeAddressList').autocomplete('disable');
+                    $('.beeAddressList').prop('disabled', true);
+                } else {
+                    $('.beeAddressList').prop('disabled', false);
+                    $('.beeAddressList').autocomplete('enable');
+                }
+                $('.beeAddressList').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {
+                    item: {
+                        label: '',
+                        value: 0
+                    }
+                });
+            }
+        });
+    });
+    $('.beeLocalitySave').click(function () {
+        $.ajax({
+            url: "{{ path('locality_manage', {'id': 'Add'}) }}",
+            data: {
+                'id': $('.beeLocalityList').val(),
+                'locality': $('.beeLocality').val(),
+                'territory': $('.beeTerritory').val(),
+                'country': $('.beeCountry').val(),
+                'postCode': $('.beePostCode').val()
+            },
+            type: 'POST',
+            success: function (data) {
+                $('.beeLocality').val(data.locality);
+                $('.beeTerritory').val(data.territory);
+                $('.beeCountry').val(data.country);
+                $('.beePostCode').val(data.postCode);
+                $(".beeLocalityList").html(data.options);
+                $(".beeLocalityList").val(data.id);
+                $('#localityMessage').show();
+                $('#localityMessage').removeClass().addClass('row alert alert-' + data.status);
+                $('#localityMessage').html(data.message);
+                $('#localityMessage').fadeOut(3000);
+            }
+        });
+    });
+</script>
+

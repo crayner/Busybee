@@ -1,0 +1,13 @@
+App\Entity\Year:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [name]
+            errorPath: name
+            message: 'The Year Name must be unique.'
+    properties:
+        terms:
+            - Valid: ~
+        specialDays:
+            - Valid: ~
+        calendarGroups:
+            - Valid: ~

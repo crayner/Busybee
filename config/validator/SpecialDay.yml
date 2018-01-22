@@ -1,0 +1,12 @@
+App\Entity\SpecialDay:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [day]
+            errorPath: day
+            message: 'Each date must be unique to the Special Day record.'
+    properties:
+        name:
+            - NotBlank: ~
+        year:
+            - NotBlank:
+                message: 'blank.specialday.year'

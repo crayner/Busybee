@@ -96,7 +96,7 @@ class MessageManager
 	 *
 	 * @param string|null $domain
 	 */
-	public function __construct(string $domain = 'Busybee')
+	public function __construct(string $domain = 'home')
 	{
 		$this->setDomain($domain);
 	}

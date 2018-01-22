@@ -33,17 +33,6 @@ body {
 p {
 	text-align: justify;
 }
-.row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-}
-.row > [class*='col-'] {
-  display: flex;
-  flex-direction: column;
-}
 .form-group {
 	margin-bottom: 0;
 }
@@ -57,37 +46,6 @@ p {
     float: left;
     margin-right: 5px;
 }
-.row-striped {
-	border: 1px solid rgba(204,204,204,1);
-	border-radius: 8px;
-	min-height: 25px;
-}
-.row-striped:nth-of-type(odd){
-	background-color: rgba(204,204,204,0.5);
-}
-
-.row-striped:nth-of-type(odd) .row-hover:hover {
-    background-color: rgba(180, 200, 220, 0.5);
-}
-
-.row-striped:nth-of-type(even){
-	background-color: transparent;
-}
-.row-header {
-	font-size: 125%;
-	font-weight: bold;
-	background-color: rgba(204,204,204,1);
-	border: 1px solid rgba(204,204,204,1);
-	border-radius: 8px;
-	min-height: 25px;
-}
-.row-striped > [class*='col-'] {
-	display: block ;
-}
-.card-title {
-	font-weight: bold;
-	font-size: 24px;
-}
 .withAdd {
 	display: block!important;
 }
@@ -95,9 +53,6 @@ img.headShot75 {
 	float: right;
 	margin-left: 6px;
 	width: 75px;
-}
-.well {
-	margin-bottom: 5px ;
 }
 div#footerContainer {
     margin-top: 5px;
@@ -131,16 +86,6 @@ a {
 	margin-top: -15px;
     font-size: 16px!important;
     font-weight: 100!important;
-}
-.nav-tabs>li>a {
-	border-top: 1px solid #ddd;
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-}
-.nav-tabs>li>a:hover {
-	border-top: 1px solid #ddd;
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
 }
 div.calendarMonth {
 	border: 1px solid #444;
@@ -537,36 +482,9 @@ body.loading .showLoader {
     position: fixed;
     top: 48px;
 }
-
 .hoverYellow {
     border-color: yellow;
     border-width: 4px;
-}
-.card {
-    background-color: transparent;
-}
-.card-primary, .card-success, .card-danger, .card-info, .card-default, .card-warning {
-    background-color: transparent;
-}.card-primary .card-header {
-     background-color: #0275d8;
-}
-.card-success .card-header {
-    background-color: #5cb85c;
-}
-.card-danger .card-header {
-    background-color: #d9534f;
-}
-.card-info .card-header {
-    background-color: #5bc0de;
-}
-.card-warning .card-header {
-    background-color: #f0ad4e;
-}
-.card-default .card-header {
-    background-color: rgba(210,210,210,1.0);
-}
-.card .card-body {
-    background-color: rgba(240,240,240,0.75);
 }
 #footerContainer .card {
     border: none;
@@ -591,4 +509,17 @@ body.loading .showLoader {
 }
 .display_none {
     display: none;
+}
+.card {
+    background-color: transparent;
+}
+.card-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.card-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
 }

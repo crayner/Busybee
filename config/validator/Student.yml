@@ -1,0 +1,15 @@
+App\Entity\Student:
+    properties:
+        startAtSchool:
+            - Date: ~
+        startAtThisSchool:
+            - Date: ~
+        lastAtThisSchool:
+            - Date: ~
+        citizenship1PassportScan:
+            - \App\People\Validator\PassportImage: ~
+        nationalIDCardScan:
+            - \App\People\Validator\PassportImage: ~
+        house:
+            - \App\Core\Validator\SettingChoice:
+                name: 'house.list'

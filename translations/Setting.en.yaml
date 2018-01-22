@@ -37,3 +37,9 @@ phone.typelist:
     mobile: Mobile
     work: Work
     imported: Imported
+address.buildingtype:
+    not specified: 'Not Specified'
+    flat: Flat
+    unit: Unit
+    apartment: Apartment
+    town house: Town House
