@@ -16,6 +16,7 @@ parameters:
         security_user_logout: logout
         security_password_forgot: password_request_reset
         securty_forced_password_change: forced_password_change
+        security_home: home
     security.groups:
         Parent: [ROLE_PARENT]
         Student: [ROLE_STUDENT]
