@@ -80,9 +80,11 @@
             {% else %}
                 </main>
                 <nav class="col-3 collapse show" id="sidebar">
+                    <div id="sectionMenuContainer">
                     {% block sectionMenu %}
                         {% include 'Menu/section-menu.html.twig' %}
                     {% endblock sectionMenu %}
+                    </div>
                 </nav>
             {% endif %}
         </div>

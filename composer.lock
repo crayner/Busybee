@@ -1093,12 +1093,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "4d0a5a4e5289cfe2d9a6ef75e20cc626bfa5a7e5"
+                "reference": "f37a722d7b58b45917f013420eb9e09729054616"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/4d0a5a4e5289cfe2d9a6ef75e20cc626bfa5a7e5",
-                "reference": "4d0a5a4e5289cfe2d9a6ef75e20cc626bfa5a7e5",
+                "url": "https://api.github.com/repos/crayner/security/zipball/f37a722d7b58b45917f013420eb9e09729054616",
+                "reference": "f37a722d7b58b45917f013420eb9e09729054616",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1150,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-01-21T22:36:55+00:00"
+            "time": "2018-01-22T23:12:31+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1752,26 +1752,26 @@
         },
         {
             "name": "spipu/html2pdf",
-            "version": "v5.0.1",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/html2pdf.git",
-                "reference": "bbfcde715c0458300af8bf7f56b040dcd666a0db"
+                "reference": "7953415df897c2c9450d7a90480f18f7e044a2e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/html2pdf/zipball/bbfcde715c0458300af8bf7f56b040dcd666a0db",
-                "reference": "bbfcde715c0458300af8bf7f56b040dcd666a0db",
+                "url": "https://api.github.com/repos/spipu/html2pdf/zipball/7953415df897c2c9450d7a90480f18f7e044a2e9",
+                "reference": "7953415df897c2c9450d7a90480f18f7e044a2e9",
                 "shasum": ""
             },
             "require": {
-                "php": "~5.4 || ~7.0",
-                "tecnickcom/tcpdf": "~6.2"
+                "php": "^5.4 || ^7.0",
+                "tecnickcom/tcpdf": "^6.2"
             },
             "require-dev": {
-                "phake/phake": "~2.0",
-                "phpunit/phpunit": "~4.0 || ~5.0",
-                "squizlabs/php_codesniffer": "~2"
+                "phake/phake": "^2.0",
+                "phpunit/phpunit": "^4.0 || ^5.0",
+                "squizlabs/php_codesniffer": "^3.0"
             },
             "suggest": {
                 "ext-gd": "Allows to embed images into the PDF",
@@ -1801,7 +1801,7 @@
                 "html2pdf",
                 "pdf"
             ],
-            "time": "2017-06-16T13:23:32+00:00"
+            "time": "2018-01-23T13:32:32+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

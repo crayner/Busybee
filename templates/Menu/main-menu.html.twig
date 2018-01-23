@@ -4,7 +4,7 @@
 {% set bad_routes = [get_parameter('security.routes.security_user_login'), get_parameter('security.routes.securty_forced_password_change')] %}
 {% if app.request.get('_route') not in bad_routes %}
 <section class="hideSection">
-    <div class="container theme-showcase bg-dark" role="menu" style="margin-top: -55px;">
+    <div class="container theme-showcase bg-dark fixed-top" role="menu">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ 'Toggle navigation'|trans }}">
                 <span class="navbar-toggler-icon"></span>
