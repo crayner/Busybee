@@ -2,10 +2,8 @@
 namespace App\School\Util;
 
 use App\Core\Manager\SettingManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DaysTimesManager
 {
@@ -27,10 +25,10 @@ class DaysTimesManager
 	/**
 	 * HouseManager constructor.
 	 */
-	public function __construct(SettingManager $settingManager)
+	public function __construct(SettingManager $settingManager, Time $time)
 	{
 		$this->setDay(new Day());
-		$this->setTime(new Time());
+		$this->setTime($time);
 		$this->settingManager = $settingManager;
 		$this->loadDaysTimes();
 	}

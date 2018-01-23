@@ -22,6 +22,7 @@ menu:
             manage: Current User
     setting:
         manage: System Settings
+        houses: Manage Houses
     site.acknowledgement: System Check
     update.system: Update System
     admin:
@@ -30,7 +31,12 @@ menu:
         system: System Admin
         user: User Admin
         timetable: Timetable Admin
-    calendar.manage: Manage Calendars
+    calendar:
+        manage: Manage Calendars
+        groups: Calendar Groups
+        display: Display Calendar
+        special_days: Manage Special Days
+        terms: Manage Terms
     school:
         daysandtimes: Manage School Days and Times
         department.edit: Manage Departments

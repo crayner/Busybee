@@ -31,14 +31,17 @@ class TimesValidator extends ConstraintValidator
 		if ($value->getOpen() > $value->getBegin())
 			$this->context->buildViolation('school.admin.day_time.open.error')
 				->atPath('open')
+				->setTranslationDomain('School')
 				->addViolation();
 		if ($value->getBegin() > $value->getFinish())
 			$this->context->buildViolation('school.admin.day_time.begin.error')
 				->atPath('begin')
+				->setTranslationDomain('School')
 				->addViolation();
 		if ($value->getFinish() > $value->getClose())
 			$this->context->buildViolation('school.admin.day_time.finish.error')
 				->atPath('finish')
+				->setTranslationDomain('School')
 				->addViolation();
 	}
 

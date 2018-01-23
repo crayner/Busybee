@@ -20,7 +20,7 @@ class DepartmentMemberType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$options['staff_type'] = $options['staff_type'] == 'Learning Area' ? 'Learning' : 'Administration';
-
+dump($options);
 		$builder
 			->add('staff', EntityType::class,
 				[
@@ -33,9 +33,7 @@ class DepartmentMemberType extends AbstractType
 							->addOrderBy('s.firstName', 'ASC');
 					},
 					'placeholder'   => 'department.members.member.placeholder',
-					'attr'          => [
-						'help' => 'department.members.member.help',
-					]
+					'help' => 'department.members.member.help',
 				]
 			)
 			->add('staffType', SettingChoiceType::class,
@@ -60,7 +58,7 @@ class DepartmentMemberType extends AbstractType
 	{
 		$resolver->setDefaults(array(
 			'data_class'         => DepartmentMember::class,
-			'translation_domain' => 'Department',
+			'translation_domain' => 'School',
 		));
 		$resolver->setRequired(
 			[

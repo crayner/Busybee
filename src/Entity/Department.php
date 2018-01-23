@@ -204,11 +204,11 @@ class Department extends DepartmentExtension
 	/**
 	 * Add course
 	 *
-	 * @param \Busybee\Program\CurriculumBundle\Entity\Course $course
+	 * @param Course $course
 	 *
 	 * @return Department
 	 */
-	public function addCourse(\Busybee\Program\CurriculumBundle\Entity\Course $course)
+	public function addCourse(Course $course)
 	{
 		if ($this->courses->contains($course))
 			return $this;
@@ -221,9 +221,9 @@ class Department extends DepartmentExtension
 	/**
 	 * Remove course
 	 *
-	 * @param \Busybee\Program\CurriculumBundle\Entity\Course $course
+	 * @param Course $course
 	 */
-	public function removeCourse(\Busybee\Program\CurriculumBundle\Entity\Course $course)
+	public function removeCourse(Course $course)
 	{
 		$this->courses->removeElement($course);
 	}

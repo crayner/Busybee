@@ -179,10 +179,9 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'              => 'staff.house.label',
 					'placeholder'        => 'staff.house.placeholder',
 					'required'           => false,
-					'attr'               => array(
-						'help' => 'staff.house.help',
-					),
+					'help' => 'staff.house.help',
 					'setting_name'       => 'house.list',
+					'setting_data_value' => 'name',
 				)
 			)/*			->add('homeroom', EntityType::class, array(
 					'label'         => 'staff.label.homeroom',
@@ -373,6 +372,7 @@ class PersonSubscriber implements EventSubscriberInterface
 					'required'                  => false,
 					'help'                      => 'student.house.help',
 					'setting_name'              => 'house.list',
+					'setting_data_value'        => 'name',
 				]
 			)
 			->add('calendarGroups', CollectionType::class,

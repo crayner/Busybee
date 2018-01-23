@@ -1,4 +1,4 @@
-{% trans_default_domain "Department" %}
+{% trans_default_domain 'School' %}
 
 {% block department_member_label %}{% endblock %}
 {% block department_member_error %}{% endblock %}
@@ -6,7 +6,7 @@
 {% block department_member_widget %}
     {% spaceless %}
         {% set panelStyle = 'default' %}
-        {% set transDomain = 'Department' %}
+        {% set transDomain = 'School' %}
         {% set header = 'department.members.member.name' %}
         {% set staffName = 'department.members.member.placeholder'|trans %}
         {% if data is not empty %}
@@ -17,7 +17,7 @@
         {% if form.vars.value is not null %}
             {% set staff_id = 'memberRemove' ~ form.vars.value.id %}
         {% endif %}
-        {% set h3Content = h3Content ~ deleteButton({title: 'department.member.remove.button', transDomain: 'Department', class: 'memberRemove collection-remove collection-action halflings halflings-erase btn btn-warning', additional: {id: staff_id}})|raw %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'department.member.remove.button', transDomain: 'School', class: 'memberRemove collection-remove collection-action halflings halflings-erase btn btn-warning', additional: {id: staff_id}})|raw %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ '</div>' %}
@@ -25,10 +25,10 @@
         {% include 'Page/panelStart.html.twig' with {panelStyle: 'default', name: staffName} %}
         <div class="container-fluid departmentMember">
             <div class="row">
-                <div class="col-6">
-                    {{ form_row(form.staff, {value: form.staff.vars.data}) }}
+                <div class="col-6 card">
+                    {{ form_row(form.staff) }}
                 </div>
-                <div class="col-6">
+                <div class="col-6 card">
                     {{ form_row(form.staffType) }}
                     {% set dept_id = '' %}
                     {% if app.request.get('id') != 'Add' %}{% set dept_id = app.request.get('id') %}{% endif %}

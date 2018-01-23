@@ -2,13 +2,13 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
+use App\Core\Type\EntityType;
 use App\Core\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Department;
-use App\School\Listener\DepartmentSubscriber;
+use App\School\Form\Subscriber\DepartmentSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -59,7 +59,7 @@ class DepartmentType extends AbstractType
 			->add('departmentList', EntityType::class, array(
 					'class'         => Department::class,
 					'attr'          => array(
-						'class' => 'departmentList changeRecord formChanged',
+						'class' => 'departmentList changeRecord formChanged form-control-sm',
 					),
 					'label'         => '',
 					'mapped'        => false,
@@ -107,7 +107,7 @@ class DepartmentType extends AbstractType
 		$resolver->setDefaults(
 			[
 				'data_class'         => Department::class,
-				'translation_domain' => 'Department',
+				'translation_domain' => 'School',
 				'deletePhoto'        => null,
 			]
 		);

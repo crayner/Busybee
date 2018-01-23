@@ -17,6 +17,7 @@ calendar:
     specialDay:
         title: "Manage Special Days in %name%"
         add: Add Special Day
+        error.timeEmpty: 'The %{time_name} time for %{name} on %{date} must be set.'
     specialDays:
         tab: Special Days
         help: "The date of Special Days must exist in the year, and each special day must be a unique date."
@@ -95,10 +96,10 @@ special_day:
         help: Campus open time
         label: Open Doors
     start:
-        help: ""
+        help: "Formal teaching starts."
         label: Start Teaching
     finish:
-        help: ""
+        help: "Formal teaching finishes."
         label: Finish Teaching
     close:
         help: Campus close time
@@ -107,4 +108,11 @@ special_day:
     minute: Minute
     delete:
         title: Erase Special Day
+school_day:
+    time:
+        start: Start
+        begin: Start
+        close: Close
+        finish: Finish
+        open: Open
 Wk: Wk

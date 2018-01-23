@@ -25,4 +25,26 @@
             window.open(path, '_self');
         }
     }
+
+    $('.alterType').change(function ($e) {
+        var id = $(this).prop('id');
+
+        id = id.replace('calendar_specialDays_', '');
+        id = id.replace('_type', '');
+        var alter = '.alterTime' + id;
+        var value = $(this).val();
+        if (value == 'alter') {
+            $(alter).fadeIn(200);
+        } else {
+            $(alter).fadeOut(200);
+        }
+    });
+
+    {% for name,value in form.specialDays.children %}
+        var value = $('.alterType{{ name }}').val();
+
+        if (value == 'alter') {
+            $('.alterTime{{ name }}').fadeIn(200);
+        }
+    {% endfor %}
 </script>

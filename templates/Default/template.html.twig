@@ -36,57 +36,57 @@
 
         <div class="row-fluid row">
             {% if fullPage is defined and fullPage %}
-            <div class="col-12" id="contentContainer">
-                {% else %}
-                <div class="col-9" id="contentContainer">
-                    {% endif %}
-                    {% block flashMessages %}
-                        {% include 'Default/flash.html.twig' %}
-                    {% endblock flashMessages %}
-                    {% block contentContainer %}
+                <div class="col-12" id="contentContainer">
+            {% else %}
+                <main class="col-9" id="contentContainer">
+                    <i class="fa fa-times" data-toggle="collapse" data-target="#sidebar" aria-hidden="true" aria-expanded="false" aria-controls="sidebar" onclick="var that = this; setTimeout(function() {console.log(that.parentNode);that.parentNode.style.flex = 'auto';that.parentNode.style['max-width'] = 'none';}, 2000);"></i>
+            {% endif %}
+                {% block flashMessages %}
+                    {% include 'Default/flash.html.twig' %}
+                {% endblock flashMessages %}
+                {% block contentContainer %}
 
-                        {{ include('Default/buttons.html.twig') }}
+                {{ include('Default/buttons.html.twig') }}
 
-                        {{ include('Default/tables.html.twig') }}
+                {{ include('Default/tables.html.twig') }}
 
-                        {{ include('Default/thumbnails.html.twig') }}
+                {{ include('Default/thumbnails.html.twig') }}
 
-                        {{ include('Default/labels.html.twig') }}
+                {{ include('Default/labels.html.twig') }}
 
-                        {{ include('Default/badges.html.twig') }}
+                {{ include('Default/badges.html.twig') }}
 
-                        {{ include('Default/dropdowns.html.twig') }}
+                {{ include('Default/dropdowns.html.twig') }}
 
-                        {{ include('Default/navs.html.twig') }}
+                {{ include('Default/navs.html.twig') }}
 
-                        {{ include('Default/navBars.html.twig') }}
+                {{ include('Default/navBars.html.twig') }}
 
-                        {{ include('Default/alerts.html.twig') }}
+                {{ include('Default/alerts.html.twig') }}
 
-                        {{ include('Default/progressBars.html.twig') }}
+                {{ include('Default/progressBars.html.twig') }}
 
-                        {{ include('Default/listGroups.html.twig') }}
+                {{ include('Default/listGroups.html.twig') }}
 
-                        {{ include('Default/panels.html.twig') }}
+                {{ include('Default/panels.html.twig') }}
 
-                        {{ include('Default/cards.html.twig') }}
+                {{ include('Default/cards.html.twig') }}
 
-                        {{ include('Default/carousel.html.twig') }}
+                {{ include('Default/carousel.html.twig') }}
 
-                    {% endblock contentContainer %}
+                {% endblock contentContainer %}
+            {% if fullPage is defined and fullPage %}
                 </div>
-                {% if fullPage is not defined %}
-                    <div class="col-3">
-                        <div id="sectionMenuContainer">
-                        {% block sectionMenu %}
-                            {% include 'Menu/section-menu.html.twig' %}
-                        {% endblock sectionMenu %}
-                        </div>
-                    </div>
-                {% endif %}
+            {% else %}
+                </main>
+                <nav class="col-3 collapse show" id="sidebar">
+                    {% block sectionMenu %}
+                        {% include 'Menu/section-menu.html.twig' %}
+                    {% endblock sectionMenu %}
+                </nav>
+            {% endif %}
         </div>
-
-        </div> <!-- /container -->
+    </div> <!-- /container -->
 
     <div class="container theme-showcase" id="footerContainer">
         {% block footerContainer %}

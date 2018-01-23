@@ -212,9 +212,24 @@ class SettingController extends Controller
 	 */
 	public function editName($name, $closeWindow = null,  Request $request, SettingRepository $settingRepository, EntityManagerInterface $entityManager, SettingManager $settingManager)
 	{
-		$setting = $settingRepository->findOneByName($name);
+		$setting = null;
+		$original = $name;
+		do
+		{
+			$setting = $settingRepository->findOneByName($name);
 
-		if (is_null($setting)) throw new \InvalidArgumentException('The System setting of name: ' . $name . ' was not found');
+			if (is_null($setting))
+			{
+				$name = explode('.', $name);
+				array_pop($name);
+				$name = implode('.', $name);
+			}
+
+		} while (is_null($setting) && false !== mb_strpos($name, '.'));
+
+
+		if (is_null($setting))
+			throw new \InvalidArgumentException('The System setting of name: ' . $original . ' was not found');
 
 		return $this->forward(SettingController::class.'::edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
 	}

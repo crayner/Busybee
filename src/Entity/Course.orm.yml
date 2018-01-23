@@ -1,0 +1,27 @@
+App\Entity\Course:
+    type: entity
+    table: course
+    repositoryClass: App\Repository\CourseRepository
+    uniqueConstraints:
+        name_version:
+            columns: [ name, version ]
+        code_version:
+            columns: [ code, version ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        code:
+            type: string
+            length: '3'
+        version:
+            type: string
+            length: '10'
+        targetYear:
+            type: string
+            length: '255'

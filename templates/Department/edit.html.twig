@@ -1,4 +1,4 @@
-{% trans_default_domain "Department" %}
+{% trans_default_domain 'School' %}
 
 {% extends "Default/template.html.twig" %}
 
@@ -19,7 +19,7 @@
     {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('department_edit', {'id': app.request.get('id')})}})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
-    {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'Department', panelParagraph: ''} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: '', panelStyle: 'success'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-6 card">
@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-12 card">
                             {% set h3Content = '' %}
-                            {% include 'Page/panelStart.html.twig' with {header: 'department.course.title', transDomain: 'Department', panelParagraph: form.courses.vars.attr.help, panelStyle: 'info'} %}
+                            {% include 'Page/panelStart.html.twig' with {header: 'department.course.title', transDomain: 'School', panelParagraph: form.courses.vars.attr.help, panelStyle: 'info'} %}
                             {% for error in form.courses.parent.vars.errors %}
                                 {% set printMe = error.messageTemplate|replace({'department.course.unique': 'print_me'}) %}
                                 {% if printMe == 'print_me' %}
@@ -58,7 +58,7 @@
             {% if form.members is defined %}
                 <div class="col-6 card">
                     {% set h3Content = '' %}
-                    {% include 'Page/panelStart.html.twig' with {header: 'department.members.title', transDomain: 'Department', panelParagraph: form.members.vars.attr.help, panelStyle: 'info'} %}
+                    {% include 'Page/panelStart.html.twig' with {header: 'department.members.title', transDomain: 'School', panelParagraph: form.members.vars.help, panelStyle: 'info'} %}
                     <div class="memberMessage"></div>
                     {% for error in form.members.parent.vars.errors %}
                         {% set printMe = error.messageTemplate|replace({'department.member.uniquestaff': 'print_me'}) %}

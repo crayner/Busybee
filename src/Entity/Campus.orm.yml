@@ -1,0 +1,31 @@
+App\Entity\Campus:
+    type: entity
+    table: campus
+    repositoryClass: App\Repository\CampusRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        identifier:
+            type: string
+            length: '10'
+            unique: true
+        name:
+            type: string
+            length: '100'
+            unique: true
+        postcode:
+            type: string
+            length: '20'
+        territory:
+            type: string
+            length: '20'
+            nullable: true
+        locality:
+            type: string
+            length: '50'
+        country:
+            type: string
+            length: '10'

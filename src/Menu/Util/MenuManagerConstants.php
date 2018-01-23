@@ -89,6 +89,18 @@ School Admin:
             route: department_edit
             params:
                 id: Add
+        house_edit:
+            label: menu.setting.houses
+            role: ROLE_REGISTRAR
+            route: houses_edit
+            params: {}
+        manage_year_groups:
+            label: menu.calendar.groups
+            role: ROLE_REGISTRAR
+            route: calendar_edit
+            params:
+                id: current
+                _fragment: calendarGroups
     years_days_times:
         calendar_years:
             label: menu.calendar.manage
@@ -100,6 +112,30 @@ School Admin:
             role: ROLE_REGISTRAR
             label: menu.school.daysandtimes
             params: {}
+        display_calendar:
+            route: calendar_display
+            role: ROLE_REGISTRAR
+            label: menu.calendar.display
+            params: 
+                id: current
+                closeWindow: closeWindow 
+            target:
+                name: Calendar
+                options: width=1200,height=900
+        manage_year_special_days:
+            label: menu.calendar.special_days
+            role: ROLE_REGISTRAR
+            route: calendar_edit
+            params:
+                id: current
+                _fragment: specialDays
+        manage_year_terms:
+            label: menu.calendar.terms
+            role: ROLE_REGISTRAR
+            route: calendar_edit
+            params:
+                id: current
+                _fragment: terms
     hidden:
         - calendar_edit
         - edit_grade

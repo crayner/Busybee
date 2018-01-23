@@ -1,6 +1,7 @@
 <?php
 namespace App\School\Util;
 
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Time
 {
@@ -20,6 +21,21 @@ class Time
 	 * @var \DateTime
 	 */
 	private $close;
+
+	/**
+	 * @var TranslatorInterface
+	 */
+	private $translator;
+
+	/**
+	 * Time constructor.
+	 *
+	 * @param TranslatorInterface $translator
+	 */
+	public function __construct(TranslatorInterface $translator)
+	{
+		$this->translator = $translator;
+	}
 
 	/**
 	 * @return \DateTime
@@ -99,5 +115,10 @@ class Time
 		$this->close = $close;
 
 		return $this;
+	}
+
+	public function getTranslation(string $key): String
+	{
+		return $this->translator->trans('school_day.time.'.strtolower($key), [], 'Calendar');
 	}
 }

@@ -1,0 +1,63 @@
+App\Entity\Space:
+    type: entity
+    table: space
+    repositoryClass: App\Repository\SpaceRepository
+    uniqueConstraints:
+        name_campus:
+            columns: [ name, campus ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '30'
+        type:
+            type: string
+            length: '20'
+        capacity:
+            type: integer
+            length: '5'
+            nullable: true
+        computer:
+            type: boolean
+        studentComputers:
+            type: integer
+            length: '3'
+            nullable: true
+        projector:
+            type: boolean
+        tv:
+            type: boolean
+        dvd:
+            type: boolean
+        hifi:
+            type: boolean
+        speakers:
+            type: boolean
+        iwb:
+            type: boolean
+        phoneInt:
+            type: string
+            length: '5'
+            nullable: true
+        phoneExt:
+            type: string
+            length: '20'
+            nullable: true
+        comment:
+            type: text
+            nullable: true
+    oneToOne:
+        staff:
+            targetEntity: App\Entity\Staff
+            inversedBy: homeroom
+            cascade: [ 'persist' ]
+    manyToOne:
+        campus:
+            targetEntity: App\Entity\Campus
+            joinColumns:
+                campus:
+                    referencedColumnName: id

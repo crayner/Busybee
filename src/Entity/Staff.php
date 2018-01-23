@@ -197,7 +197,7 @@ class Staff extends StaffExtension
 	}
 
 	/**
-	 * @return Space
+	 * @return null|Space
 	 */
 	public function getHomeroom(): ?Space
 	{

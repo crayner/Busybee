@@ -6,21 +6,21 @@
 
 {% block phone_widget %}
     {% set type = type|default('phone') %}
-    <div class="card phoneNumber">
+    <div class="phoneNumber container card">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 card">
                 {{ form_row(form.phoneType) }}
             </div>
-            <div class="col-6">
+            <div class="col-6 card">
                 {{ form_row(form.countryCode) }}
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-7 card">
                 {{ form_row(form.phoneNumber, {value: get_setting('Phone.Display', null, {'phone': form.phoneNumber.vars.value}) } ) }}
             </div>
-            <div class="col-4 collection-actions">
-				<span>
+            <div class="col-5 collection-actions">
+				<span class="align-middle">
                     {{ deleteButton({title: 'contact.phone.remove', transDomain: 'Person', mergeClass: 'collection-remove collection-action', colour: 'warning', style: ''})|raw }}
                     {{ saveButton({style: ''})|raw }}
 				</span>

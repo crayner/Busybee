@@ -2,7 +2,9 @@
 namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
+use App\Core\Manager\MessageManager;
 use App\Entity\Department;
+use App\Entity\DepartmentMember;
 use App\School\Form\DepartmentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -35,7 +37,7 @@ class DepartmentController extends Controller
 			$em = $this->get('doctrine')->getManager();
 			$em->persist($entity);
 			$em->flush();
-			$flashBagManager->setDomain('home');
+
 			$flashBagManager->add('success', 'form.submit.success', [], 'home');
 
 			if ($id == 'Add')
@@ -50,7 +52,7 @@ class DepartmentController extends Controller
 				}
 
 				if ($count > 0)
-					$flashBagManager->add('success', 'department.member.added.success', [], 'Department');
+					$flashBagManager->add('success', 'department.member.added.success', [], 'School');
 				$flashBagManager->addMessages();
 
 				return $this->redirectToRoute('department_edit', ['id' => $entity->getId()]);
@@ -98,22 +100,21 @@ class DepartmentController extends Controller
 	/**
 	 * @param $id
 	 * @Route("/institute/department/remove/member/{id}/", name="department_member_remove")
+	 * @IsGranted("ROLE_PRINCIPAL")
 	 * @return JsonResponse
 	 */
-	public function removeMember($id)
+	public function removeMember($id, MessageManager $messageManager, \Twig_Environment $twig)
 	{
-		$this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
-
 		$om = $this->getDoctrine()->getManager();
 
 		$ds = $om->getRepository(DepartmentMember::class)->find($id);
+		$data            = [];
 
 		if ($ds instanceof DepartmentMember)
 		{
 
-			$data            = [];
 			$data['status']  = 'success';
-			$data['message'] = $this->get('translator')->trans('department.member.remove.success', [], 'BusybeeInstituteBundle');
+			$messageManager->add('success', 'department.member.remove.success', [], 'School');
 			try
 			{
 				$om->remove($ds);
@@ -122,14 +123,14 @@ class DepartmentController extends Controller
 			catch (\Exception $e)
 			{
 				$data['status']  = 'error';
-				$data['message'] = $this->get('translator')->trans('department.member.remove.failure', [], 'BusybeeInstituteBundle');
+				$messageManager->add('danger', 'department.member.remove.failure', ['%{message}' => $e->getMessage()], 'School');
 			}
 
+			$data['message'] = $messageManager->renderView($twig);
 			return new JsonResponse($data, 200);
 		}
 
-		$data            = [];
-		$data['message'] = $this->get('translator')->trans('department.member.remove.missing', [], 'BusybeeInstituteBundle');
+		$data['message'] = 			$data['message'] = $messageManager->add('warning', 'department.member.remove.missing', [], 'School')->renderView($twig);
 		$data['status']  = 'warning';
 
 		return new JsonResponse($data, 200);

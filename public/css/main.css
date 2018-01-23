@@ -55,9 +55,8 @@ img.headShot75 {
 	width: 75px;
 }
 div#footerContainer {
-    margin-top: 5px;
-	padding-top: 10px;
-    background: rgba(33,33,33,0.25);
+    padding-top: 0px;
+    background: rgba(33,33,33,0.5);
 }
 div.footerDetails {
     color: white;
@@ -501,19 +500,43 @@ body.loading .showLoader {
 .display_none {
     display: none;
 }
-.card {
+.card-body .card {
+    background-color: rgba(250,250,250,0.75);
+}
+.card-body .card .card {
+    background-color: rgba(225,225,225,0.75);
+}
+.card-body .card .card .card {
+    background-color: rgba(200,200,200,0.75);
+}
+.card-body .card .card .card .card {
+    background-color: rgba(175,175,175,0.75);
+}
+.card-body .card .card .card .card .card {
+    background-color: rgba(150,150,150,0.75);
+}
+.card-primary, .card-success, .card-danger, .card-info, .card-default, .card-warning {
     background-color: transparent;
 }
-.card-success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+.card-primary .card-header {
+     background-color: #0275d8;
+ }
+.card-success .card-header {
+    background-color: #5cb85c;
 }
-.card-info {
-    color: #0c5460;
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
+.card-danger .card-header {
+    background-color: #d9534f;
 }
+.card-info .card-header {
+    background-color: #5bc0de;
+}
+.card-warning .card-header {
+    background-color: #f0ad4e;
+}
+.card-default .card-header {
+    background-color: rgba(210,210,210,1.0);
+}
+
 .row-striped {
     border: 1px solid rgba(204,204,204,1);
     border-radius: 8px;

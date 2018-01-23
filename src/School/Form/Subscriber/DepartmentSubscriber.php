@@ -1,8 +1,9 @@
 <?php
-namespace App\School\Listener;
+namespace App\School\Form\Subscriber;
 
 use App\Core\Manager\SettingManager;
 use App\School\Form\DepartmentMemberType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -10,21 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DepartmentSubscriber implements EventSubscriberInterface
 {
-	/**
-	 * @var SettingManager
-	 */
-	private $sm;
-
-	/**
-	 * DepartmentType constructor.
-	 *
-	 * @param SettingManager $om
-	 */
-	public function __construct(SettingManager $sm)
-	{
-		$this->sm = $sm;
-	}
-
 	/**
 	 * @return array
 	 */
@@ -76,21 +62,22 @@ class DepartmentSubscriber implements EventSubscriberInterface
 
 		if (!is_null($data->getType()))
 		{
-
+			$data->getMembers()->count();
 			$form->add('members', CollectionType::class,
 				[
 					'entry_type'    => DepartmentMemberType::class,
 					'attr'          =>
 						[
 							'class' => 'memberList',
-							'help'  => 'department.members.help',
 						],
 					'allow_add'     => true,
 					'allow_delete'  => true,
+					'help'  => 'department.members.help',
 					'entry_options' => [
 						'staff_type' => $data->getType(),
 					],
-				]);
+				]
+			);
 		}
 	}
 }

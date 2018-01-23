@@ -2,6 +2,7 @@
 namespace App\Calendar\Validator\Constraints;
 
 use App\Entity\SpecialDay;
+use App\School\Util\DaysTimesManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -14,13 +15,19 @@ class SpecialDayDateValidator extends ConstraintValidator
 	private $entityManager;
 
 	/**
+	 * @var DaysTimesManager
+	 */
+	private $daysTimesManager;
+
+	/**
 	 * SpecialDayDateValidator constructor.
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
-	public function __construct(EntityManagerInterface $entityManager)
+	public function __construct(EntityManagerInterface $entityManager, DaysTimesManager $daysTimesManager)
 	{
 		$this->entityManager = $entityManager;
+		$this->daysTimesManager = $daysTimesManager;
 	}
 
 	/**
@@ -33,7 +40,6 @@ class SpecialDayDateValidator extends ConstraintValidator
 	{
 		if (empty($value))
 			return;
-
 		$days = $this->entityManager->getRepository(SpecialDay::class)->findBy(['calendar' => $constraint->calendar->getId()], ['day' => 'ASC']);
 
 		if (!empty($days))
@@ -43,58 +49,71 @@ class SpecialDayDateValidator extends ConstraintValidator
 					if (!$d->canDelete())
 					{
 						$this->context->buildViolation('calendar.specialDay.error.delete', ['%day%' => $d->getDay()->format('jS M/Y')])
+							->setTranslationDomain('Calendar')
+							->atPath('['.$value->indexOf($d).'].name')
 							->addViolation();
 
 						return;
 					}
 			}
+
 		foreach ($value as $key => $day)
 		{
 			if ($day->getType() == 'alter')
 			{
-				$ok = true;
 				if (empty($day->getOpen()))
 				{
-					$this->context->buildViolation('calendar.specialDay.error.timeEmpty')
+					$day->setOpen($this->daysTimesManager->getTime()->getOpen());
+					$this->context->buildViolation('calendar.specialDay.error.timeEmpty', ['%{date}' => $day->getDay()->format('jS M/Y'), '%{time_name}' => $this->daysTimesManager->getTime()->getTranslation('open'), '%{name}' => $day->getName()])
+						->setTranslationDomain('Calendar')
+						->atPath('['.$key.'].open')
 						->addViolation();
-
-					return;
 				}
+
 				if (empty($day->getStart()))
 				{
-					$this->context->buildViolation('calendar.specialDay.error.timeEmpty')
+					$day->setStart($this->daysTimesManager->getTime()->getBegin());
+					$this->context->buildViolation('calendar.specialDay.error.timeEmpty', ['%{date}' => $day->getDay()->format('jS M/Y'), '%{time_name}' => $this->daysTimesManager->getTime()->getTranslation('start'), '%{name}' => $day->getName()])
+						->setTranslationDomain('Calendar')
+						->atPath('['.$key.'].start')
 						->addViolation();
-
-					return;
 				}
+
 				if (empty($day->getFinish()))
 				{
-					$this->context->buildViolation('calendar.specialDay.error.timeEmpty')
+					$day->setFinish($this->daysTimesManager->getTime()->getFinish());
+					$this->context->buildViolation('calendar.specialDay.error.timeEmpty', ['%{date}' => $day->getDay()->format('jS M/Y'), '%{time_name}' => $this->daysTimesManager->getTime()->getTranslation('finish'), '%{name}' => $day->getName()])
+						->setTranslationDomain('Calendar')
+						->atPath('['.$key.'].finish')
 						->addViolation();
-
-					return;
 				}
+
 				if (empty($day->getClose()))
 				{
-					$this->context->buildViolation('calendar.specialDay.error.timeEmpty')
+					$day->setClose($this->daysTimesManager->getTime()->getClose());
+					$this->context->buildViolation('calendar.specialDay.error.timeEmpty', ['%{date}' => $day->getDay()->format('jS M/Y'), '%{time_name}' => $this->daysTimesManager->getTime()->getTranslation('close'), '%{name}' => $day->getName()])
+						->setTranslationDomain('Calendar')
+						->atPath('['.$key.'].close')
 						->addViolation();
-
-					return;
 				}
-				$time  = array(
+
+
+				$time  = [
 					'a' => $day->getOpen(),
 					'b' => $day->getStart(),
 					'c' => $day->getFinish(),
 					'd' => $day->getClose(),
-				);
+				];
 				$ttime = $time;
 				asort($ttime);
 				if ($time !== $ttime)
 				{
 					$this->context->buildViolation('calendar.specialDay.error.timeInvalid')
+						->setTranslationDomain('Calendar')
+						->atPath('['.$key.'].open')
 						->addViolation();
 
-					return;
+					return $value;
 				}
 			}
 			if ($key == '__name__' && empty($day->getName()))

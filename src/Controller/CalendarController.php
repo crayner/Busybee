@@ -28,7 +28,7 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_REGISTRAR")
 	 * @return Response
 	 */
-	public function yearsAction(CalendarManager $calendarManager)
+	public function calendars(CalendarManager $calendarManager)
 	{
 		$calendars = $calendarManager->getCalendarRepository()->findBy([], ['firstDay' => 'DESC']);
 
@@ -93,7 +93,7 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_REGISTRAR")
 	 * @return RedirectResponse
 	 */
-	public function deleteYearAction($id)
+	public function deleteYear($id)
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 

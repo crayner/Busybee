@@ -43,3 +43,33 @@ address.buildingtype:
     unit: Unit
     apartment: Apartment
     town house: Town House
+department.type.list:
+    learning area: Learning Area
+    administration: Administration
+department.staff.type.list:
+    learning:
+        coordinator: Coordinator
+        assistant coordinator: 'Assistant Coordinator'
+        teacher (curriculum): 'Teacher (Curriculum)'
+        teacher: Teacher
+        other: Other
+    administation:
+        director: Director
+        manager: Manager
+        administrator: Administrator
+        other: Other
+student.groups:
+    year 13: Year 13
+    year 12: Year 12
+    year 11: Year 11
+    year 10: Year 10
+    year 9: Year 9
+    year 8: Year 8
+    year 7: Year 7
+    year 6: Year 6
+    year 5: Year 5
+    year 4: Year 4
+    year 3: Year 3
+    year 2: Year 2
+    year 1: Year1
+    kinder: Kinder

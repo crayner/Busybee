@@ -1,0 +1,10 @@
+<script>
+    $(".houseCollection").collection({
+        name_prefix: '{{ form.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '{{ addButton({transDomain: 'School', title: 'setting.house.add'})|raw }}',
+        remove: '{{ deleteButton({transDomain: 'School', title: 'setting.house.remove', colour: 'warning'})|raw }}',
+        add_at_the_end: true
+    });
+</script>

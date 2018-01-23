@@ -55,11 +55,11 @@ class SpecialDayType extends AbstractType
 					'label'   => 'special_day.type.label',
 					'help'  => 'special_day.type.help',
 					'attr'    => array(
-						'class' => 'alterType' . $key,
+						'class' => 'alterType',
 					),
 					'choices' => array(
-						'special_day.type.closure' => 'closure',
 						'special_day.type.alter'   => 'alter',
+						'special_day.type.closure' => 'closure',
 					),
 				)
 			)

@@ -22,7 +22,6 @@
 {% set tabs = manager.getTabs() %}
 
 {% block contentContainer %}
-{% dump(tabs) %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-disappear show hide") }}
     {{ form_start(form, {'action': path('calendar_edit', {'id': calendar_id} ) } ) }}
     <div id="formTabs">
