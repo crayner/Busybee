@@ -1,7 +1,7 @@
 {# src/Busybee/HomeBundle/Resources/views/Menu/main-menu.html.twig #}
 
 {% trans_default_domain "home" %}
-{% set bad_routes = [get_parameter('security.routes.security_user_login'), get_parameter('security.routes.securty_forced_password_change')] %}
+{% set bad_routes = [get_parameter('security.routes.security_user_login'), get_parameter('security.routes.security_forced_password_change')] %}
 {% if app.request.get('_route') not in bad_routes %}
 <section class="hideSection">
     <div class="container theme-showcase bg-dark fixed-top" role="menu">
@@ -20,7 +20,6 @@
                 {% block signInForm %}
                     {% include 'Menu/sign-in-form.html.twig' %}
                 {% endblock signInForm %}
-
             </div>
         </nav>
     </div>

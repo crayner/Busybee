@@ -21,13 +21,15 @@
                 <input type="password" id="login__password" name="login[_password]" class="form-control"
                        placeholder="{{ 'Password'|trans }}" />
                 <span class="input-group-append"><button type="submit" class="btn btn-success halflings halflings-log-in"></button></span>
+
+                {% if get_parameter('google_oauth') == 'on' %}
+                <span class="input-group-append">
+                    <a href="{{ path('google_oauth') }}" title="{{ 'google.oauth'|trans({}, 'security') }}"><img
+                                src="{{ asset('img/Google_icon_2015.png') }}" height="31"/></a></span>
+                {% endif %}
             </div>
         </div>
         <input type="hidden" name="login[_token]" id="login__token" value="{{ csrf_token('authenticate') }}"/>
-        {% if get_parameter('google.oauth') == 'on' %}
-            <a href="{{ path('google_oauth') }}" title="{{ 'google.oauth'|trans }}"><img
-                        src="{{ asset('img/Google_icon_2015.png') }}" width="35"/></a>
-        {% endif %}
     </form>
     {% endif %}
 {% else %}

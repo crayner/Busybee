@@ -15,7 +15,7 @@ parameters:
         security_user_check: login
         security_user_logout: logout
         security_password_forgot: password_request_reset
-        securty_forced_password_change: forced_password_change
+        security_forced_password_change: forced_password_change
         security_home: home
     security.groups:
         Parent: [ROLE_PARENT]
@@ -49,8 +49,9 @@ parameters:
         ROLE_SYSTEM_ADMIN:
             - ROLE_REGISTRAR
             - ROLE_PARENT
-    google:
-        oauth: off
+    google_oauth: on
+    google_client_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com
+    google_client_secret: EZ9oJc3uuvHh_2X27lkMexZ-
     upload_path: 'uploads/%current_year%/%current_month%'
 
 services:
@@ -121,3 +122,11 @@ services:
         tags:
             - { name: security.voter, priority: 125 }
         public: true
+    App\Core\Manager\GoogleAuthenticator:
+        arguments:
+            - '@KnpU\OAuth2ClientBundle\Client\ClientRegistry'
+            - '@doctrine.orm.default_entity_manager'
+            - '@router'
+            - '@App\Core\Manager\MessageManager'
+            - '@Hillrange\Security\Util\ParameterInjector'
+            - '@monolog.logger.security'

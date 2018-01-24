@@ -35,4 +35,7 @@ security:
 #                secure:               false
 #                remember_me_parameter: 'login[_remember_me]'
             switch_user:              true
+            guard:
+                authenticators:
+                    - App\Core\Manager\GoogleAuthenticator
     role_hierarchy: '%security.hierarchy.roles%'

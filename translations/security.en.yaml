@@ -16,3 +16,4 @@ user:
         placeholder: Current Calendar
     request.passwordReset: Send Password Reset Email.
 PasswordRequest: Password Request
+google.oauth: Authenticate on Google
