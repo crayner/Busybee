@@ -85,11 +85,11 @@ class UserType extends AbstractType
 				)
 			)
 			->add('password', HiddenType::class,
-				array(
-					'attr' => array(
+				[
+					'attr' => [
 						'class' => 'user',
-					)
-				)
+					]
+				]
 			)
 			->add('expired', ToggleType::class,
 				array(

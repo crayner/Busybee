@@ -139,6 +139,9 @@ class GoogleAuthenticator implements AuthenticatorInterface
 		$this->em->persist($user);
 		$this->em->flush();
 
+		if (null !== $user->getLocale())
+			$request->setLocale($user->getLocale());
+
 		return new RedirectResponse($this->router->generate($this->parameterInjector->getParameter('security.routes.security_home')));
 	}
 
