@@ -1,11 +1,14 @@
 <?php
 namespace App\Core\Manager;
 
+use App\Core\Exception\Exception;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Hillrange\Security\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -441,8 +444,15 @@ class SettingManager implements ContainerAwareInterface
 			}
 			catch (\Twig_Error_Loader $e)
 			{
-				$this->messagesManager->add('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'System');
+				$this->messageManager->add('danger','setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'System');
 				return null;
+			}
+			catch (\Twig_Error_Runtime $e)
+			{
+				if (! preg_match('/^(Variable )(.+)( does not exist in)(.+)( at line )/', $e->getMessage()))
+					$this->messageManager->add('danger','setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'System');
+				return null;
+
 			}
 
 		}
@@ -834,5 +844,83 @@ class SettingManager implements ContainerAwareInterface
 		$this->settings = $this->session->get('settings');
 		$this->settingCache = $this->session->get('settingCache');
 		$this->settingExists = $this->session->get('settingExists');
+	}
+
+	/**
+	 * @param Request       $request
+	 * @param FormInterface $form
+	 */
+	public function handleImportRequest(Request $request, FormInterface $form)
+	{
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$file = $form->get('import_file')->getData();
+			try
+			{
+				$data = Yaml::parse(file_get_contents($file->getPathName()));
+			} catch (\Exception $e) {
+				$this->messageManager->add('danger', 'setting.import.import.error', ['%{message}' => $e->getMessage()], 'Setting');
+				return ;
+			}
+
+			if ($data['name'] !== $form->get('import_file')->getData()->getClientOriginalName())
+			{
+				$this->messageManager->add('danger', 'setting.import.name.error', ['%{name}' => $data['name']], 'Setting');
+				return;
+			}
+
+			$this->buildSettings($this->convertSettings($data['settings']), $data['name']);
+		}
+
+	}
+
+	/**
+	 * @param $content
+	 *
+	 * @return array
+	 */
+	private function convertSettings($content): array
+	{
+		$settings = [];
+		foreach ($content as $name => $value)
+			$settings[$name]['value'] = $value;
+
+		return $settings;
+	}
+
+	/**
+	 * @param $data
+	 * @param $resource
+	 */
+	private function buildSettings($data, $resource)
+	{
+		if (empty($data))
+			return;
+		foreach ($data as $name => $datum)
+		{
+			$entity = $this->getSettingEntity($name);
+
+			if (!$entity instanceof Setting)
+			{
+				$entity = new Setting();
+				$entity->setName($name);
+				if (empty($datum['type']))
+				{
+					$this->messageManager->addMessage('warning', 'setting.resource.warning', ['{{name}}' => $name], 'System');
+					continue;
+				}
+				$entity->setType($datum['type']);
+			}
+			foreach ($datum as $field => $value)
+			{
+				$w = 'set' . ucwords($field);
+				$entity->$w($value);
+			}
+			$this->createSetting($entity);
+		}
+
+		$this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource], 'System');
 	}
 }

@@ -11,7 +11,7 @@
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
         {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, 'class': 'btn btn-success halflings halflings-asterisk' }) %}
     {% endif %}
-    {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.manage.title', 'transDomain': 'System'} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'system.setting.manage.title', transDomain: 'System', panelParagraph: form} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-3" style="display: inline-block;">
@@ -53,4 +53,5 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
 {% endblock javascripts %}

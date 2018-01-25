@@ -73,3 +73,6 @@ student.groups:
     year 2: Year 2
     year 1: Year1
     kinder: Kinder
+setting.import:
+    name.error: 'The file name does not match the name inside the file. %{name}'
+    import.error: 'The file upload failed with the following error: %{message}'

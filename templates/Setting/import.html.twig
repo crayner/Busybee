@@ -1,0 +1,18 @@
+{% trans_default_domain 'System' %}
+
+{% form_theme form
+    'FormTheme/bootstrap.html.twig'
+%}
+
+{{ form_start(form, {attr: {class: 'form-inline'}}) }}
+
+<div class="row">
+    <div class="col-auto">
+        {{ form_widget(form.import_file) }}
+    </div>
+    <div class="col-auto">
+        {{ saveButton({class: 'btn btn-sm btn-primary halflings halflings-cloud-upload', style: ''})|raw }}
+    </div>
+</div>
+
+{{ form_end(form) }}

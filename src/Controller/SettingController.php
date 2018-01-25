@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\Form\SettingCreateType;
+use App\Core\Form\SettingImportType;
 use App\Core\Form\SettingType;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
@@ -17,6 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
 
 class SettingController extends Controller
@@ -28,15 +30,20 @@ class SettingController extends Controller
 	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function index(Request $request, SettingPagination $settingPagination)
+	public function index(Request $request, SettingPagination $settingPagination, SettingManager $settingManager)
 	{
 		$settingPagination->injectRequest($request);
 
 		$settingPagination->getDataSet();
 
+		$form = $this->createForm(SettingImportType::class);
+
+		$settingManager->handleImportRequest($request, $form);
+
 		return $this->render('Setting/manage.html.twig',
 			array(
 				'pagination' => $settingPagination,
+				'form' => $this->renderView('Setting/import.html.twig', ['form' => $form->createView(),]),
 			)
 		);
 	}
@@ -206,8 +213,8 @@ class SettingController extends Controller
 	 * @param         $name
 	 * @param Request $request
 	 *
-	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
-	 * @Route("setting/{name}/edit/{closeWindow}", name="setting_edit_name")
+	 * @return Response
+	 * @Route("/setting/{name}/edit/{closeWindow}", name="setting_edit_name")
 	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 */
 	public function editName($name, $closeWindow = null,  Request $request, SettingRepository $settingRepository, EntityManagerInterface $entityManager, SettingManager $settingManager)

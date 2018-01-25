@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "f37a722d7b58b45917f013420eb9e09729054616"
+                "reference": "6213299c1912166b2a21c3c6c924c925c4974c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/f37a722d7b58b45917f013420eb9e09729054616",
-                "reference": "f37a722d7b58b45917f013420eb9e09729054616",
+                "url": "https://api.github.com/repos/crayner/security/zipball/6213299c1912166b2a21c3c6c924c925c4974c5a",
+                "reference": "6213299c1912166b2a21c3c6c924c925c4974c5a",
                 "shasum": ""
             },
             "require": {
@@ -1331,7 +1331,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-01-22T23:12:31+00:00"
+            "time": "2018-01-25T01:47:34+00:00"
         },
         {
             "name": "jdorn/sql-formatter",

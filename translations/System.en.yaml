@@ -5,6 +5,11 @@ setting:
         setting:
             label: YAML Formatted Setting
             placeholder: Use one or more settings in YAML format. Settings that already exist are ignored.
+    twig:
+        error: 'The setting %name% failed to run a twig template. Value = %value%, Error = %error%, Options = %options%'
+    resource:
+        warning: The resource {{name}} was skipped due to incomplete data.
+        success: The resource {{name}} was loaded successfully.
 system:
     setting:
         warning: "CAUTION: Changing System Settings can have unpredictable affects on the operation of the system, and should only be done with caution."
