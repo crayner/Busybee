@@ -240,4 +240,18 @@ class SettingController extends Controller
 
 		return $this->forward(SettingController::class.'::edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
 	}
+
+	/**
+	 * @param Request $request
+	 *
+	 * @Route("/setting/third_party/", name="setting_third_party")
+	 * @IsGranted("ROLE_SYSTEM_ADMIN")
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function thirdParty(Request $request, SettingManager $settingManager)
+	{
+
+		return $this->render('Setting/third_party.html.twig');
+	}
+
 }

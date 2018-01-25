@@ -31,6 +31,9 @@ system:
             label: Setting Description
             help: You can alter the setting decription to better describe the setting.
         value.label: Setting Value
+        name:
+            label: Setting Name
+            help: The name is fixed and MUST not be changed.  It is set by the programme.
         displayName:
             label: Setting Display Name
             help: 'The display name is available to change for your system, but it must be unique on your system.'

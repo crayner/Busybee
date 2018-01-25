@@ -49,9 +49,6 @@ parameters:
         ROLE_SYSTEM_ADMIN:
             - ROLE_REGISTRAR
             - ROLE_PARENT
-    google_oauth: on
-    google_client_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com
-    google_client_secret: EZ9oJc3uuvHh_2X27lkMexZ-
     upload_path: 'uploads/%current_year%/%current_month%'
 
 services:
@@ -128,5 +125,5 @@ services:
             - '@doctrine.orm.default_entity_manager'
             - '@router'
             - '@App\Core\Manager\MessageManager'
-            - '@Hillrange\Security\Util\ParameterInjector'
+            - '@App\Core\Manager\SettingManager'
             - '@monolog.logger.security'

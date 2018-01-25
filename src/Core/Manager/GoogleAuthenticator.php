@@ -2,17 +2,14 @@
 namespace App\Core\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Hillrange\Security\Util\ParameterInjector;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use KnpU\OAuth2ClientBundle\Exception\MissingAuthorizationCodeException;
 use KnpU\OAuth2ClientBundle\Security\Exception\NoAuthCodeAuthenticationException;
-use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -43,9 +40,9 @@ class GoogleAuthenticator implements AuthenticatorInterface
 	private $messageManager;
 
 	/**
-	 * @var ParameterInjector
+	 * @var SettingManager
 	 */
-	private $parameterInjector;
+	private $settingManager;
 
 	/**
 	 * @var LoggerInterface
@@ -64,13 +61,13 @@ class GoogleAuthenticator implements AuthenticatorInterface
 	 * @param EntityManagerInterface $em
 	 * @param RouterInterface        $router
 	 */
-	public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router, MessageManager $messageManager, ParameterInjector $parameterInjector, LoggerInterface $logger)
+	public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router, MessageManager $messageManager, SettingManager $settingManager, LoggerInterface $logger)
 	{
 		$this->clientRegistry = $clientRegistry;
 		$this->em = $em;
 		$this->router = $router;
 		$this->messageManager = $messageManager;
-		$this->parameterInjector = $parameterInjector;
+		$this->settingManager = $settingManager;
 		$this->logger = $logger;
 	}
 
@@ -126,7 +123,7 @@ class GoogleAuthenticator implements AuthenticatorInterface
 	{
 		$this->logger->notice("Google Authentication: ".  $exception->getMessage());
 
-		return new RedirectResponse($this->router->generate($this->parameterInjector->getParameter('security.routes.security_user_login')));
+		return new RedirectResponse($this->router->generate($this->settingManager->getParameter('security.routes.security_user_login')));
 	}
 
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -142,12 +139,12 @@ class GoogleAuthenticator implements AuthenticatorInterface
 		if (null !== $user->getLocale())
 			$request->setLocale($user->getLocale());
 
-		return new RedirectResponse($this->router->generate($this->parameterInjector->getParameter('security.routes.security_home')));
+		return new RedirectResponse($this->router->generate($this->settingManager->getParameter('security.routes.security_home')));
 	}
 
 	public function start(Request $request, AuthenticationException $authException = null)
 	{
-		return new RedirectResponse($this->router->generate($this->parameterInjector->getParameter('security.routes.security_user_login')));
+		return new RedirectResponse($this->router->generate($this->settingManager->getParameter('security.routes.security_user_login')));
 	}
 
 	/**

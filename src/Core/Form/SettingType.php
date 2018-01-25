@@ -2,6 +2,7 @@
 namespace App\Core\Form;
 
 use App\Core\Subscriber\SettingSubscriber;
+use App\Core\Type\TextType;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Symfony\Component\Form\AbstractType;
@@ -43,7 +44,15 @@ class SettingType extends AbstractType
 	{
 		$builder
 			->add('type', HiddenType::class)
-			->add('name', HiddenType::class)
+			->add('name', TextType::class,
+				[
+					'label' => 'system.setting.name.label',
+					'help' => 'system.setting.name.help',
+					'attr' => [
+						'readonly' => true,
+					]
+				]
+			)
 			->add('nameSelect', ChoiceType::class,
 				array(
 					'label'       => '',
@@ -86,7 +95,7 @@ class SettingType extends AbstractType
 		$names    = [];
 		$settings = $this->repo->findBy([], ['name' => 'ASC']);
 		foreach ($settings as $setting)
-			$names[$setting->getName()] = $setting->getId();
+			$names[$setting->getDisplayName()] = $setting->getId();
 
 		return $names;
 	}

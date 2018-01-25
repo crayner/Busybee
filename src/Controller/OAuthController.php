@@ -12,7 +12,7 @@ class OAuthController extends Controller
 	 *
 	 * @Route("/connect/google/", name="google_oauth")
 	 */
-	public function connectAction()
+	public function connectGoogle()
 	{
 		// will redirect to Google!
 		return $this->get('oauth2.registry')
@@ -27,7 +27,7 @@ class OAuthController extends Controller
 	 *
 	 * @Route("/security/oauth2callback/", name="connect_google_check")
 	 */
-	public function connectCheckAction(Request $request)
+	public function connectCheckGoogle(Request $request)
 	{
 	}
 }

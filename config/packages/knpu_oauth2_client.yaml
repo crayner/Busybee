@@ -6,9 +6,9 @@ knpu_oauth2_client:
         google:
             # must be "google" - it activates that type!
             type: google
-            # add and configure client_id and client_secret in parameters.yml
-            client_id: '%google_client_id%'
-            client_secret: '%google_client_secret%'
+            # add and configure client_id and client_secret from Google Apps
+            client_id: '142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com'
+            client_secret: 'EZ9oJc3uuvHh_2X27lkMexZ-'
             # a route name you'll create
             redirect_route: connect_google_check
             redirect_params: {}

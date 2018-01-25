@@ -246,8 +246,10 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	private function writeSettingToSession($name)
 	{
-		if ($this->setting->getType() === 'twig')
+		if (null === $this->setting || null === $this->setting->getType() || $this->setting->getType() === 'twig')
 			return;
+
+
 		$this->settings[$name]     = $this->setting;
 		$this->settingCache[$name] = new \DateTime('now');
 		$this->settingExists[$name] = true;

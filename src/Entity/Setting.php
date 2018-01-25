@@ -394,6 +394,30 @@ class Setting implements UserTrackInterface
 	}
 
 	/**
+	 * @return bool
+	 */
+	private function getBoolean(): bool
+	{
+		if (empty($this->value))
+			$this->value = false;
+
+		return $this->value ? true : false ;
+	}
+
+	/**
+	 * @param bool|null $value
+	 *
+	 * @return bool
+	 */
+	private function setBoolean(bool $value = null): bool
+	{
+		if (empty($value))
+			$value = false;
+
+		return $value ? true : false ;
+	}
+
+	/**
 	 * @return string
 	 */
 	private function getImage(): string

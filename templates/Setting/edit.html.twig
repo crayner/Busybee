@@ -22,13 +22,11 @@
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6 card">
-                <div class="alert alert-warning">
-                    {{ 'system.setting.warning'|trans }}
-                </div>
+            <div class="col-6 card alert-warning">
+                {{ 'system.setting.warning'|trans }}
+                {{ form_row(form.name) }}
             </div>
             <div class="col-6 card">
-                {{ form_row(form.name) }}
                 {{ form_row(form.displayName) }}
             </div>
         </div>

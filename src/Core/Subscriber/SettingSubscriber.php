@@ -6,6 +6,7 @@ use App\Core\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Core\Type\TextType;
 use App\Core\Type\TimeType;
+use App\Core\Type\ToggleType;
 use App\Core\Validator\Integer;
 use App\Core\Validator\Regex;
 use App\Core\Validator\Twig;
@@ -96,10 +97,9 @@ class SettingSubscriber implements EventSubscriberInterface
 			switch ($data->getType())
 			{
 				case 'boolean':
-					$form->add('value', CheckboxType::class, array_merge($options, [
+					$form->add('value', ToggleType::class, array_merge($options, [
 								'data'       => $this->settingManager->get($data->getName()),
-								'help'       => 'system.setting.help.boolean',
-								'use_toggle' => true,
+								'help'       => 'system.setting.boolean.help',
 							]
 						)
 					);
