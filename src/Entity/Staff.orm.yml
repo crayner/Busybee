@@ -34,3 +34,9 @@ App\Entity\Staff:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: staff
             cascade: ['persist']
+    oneToOne:
+        homeroom:
+            targetEntity: App\Entity\Space
+            mappedNy: staff
+            joinColumn:
+                name: homeroom
