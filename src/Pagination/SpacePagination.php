@@ -1,14 +1,14 @@
 <?php
 namespace App\Pagination;
 
-use App\Entity\Setting;
+use App\Entity\Space;
 
-class SettingPagination extends PaginationManager
+class SpacePagination extends PaginationManager
 {
 	/**
 	 * @var string
 	 */
-	protected $paginationName = 'Setting';
+	protected $paginationName = 'Space';
 
 	/**
 	 * @var string
@@ -19,13 +19,18 @@ class SettingPagination extends PaginationManager
 	 * @var array
 	 */
 	protected $sortByList = [
-		'Name' => [
-			's.displayName' => 'ASC',
-			's.description' => 'ASC',
+		'space.sort.name' => [
+			's.name' => 'ASC',
+			's.type' => 'ASC',
 		],
-		'Description' => [
-			's.description' => 'ASC',
-			's.displayName' => 'ASC',
+		'space.sort.type' => [
+			's.type' => 'ASC',
+			's.name' => 'ASC',
+		],
+		'space.sort.capacity' => [
+			's.capacity' => 'DESC',
+			's.name' => 'ASC',
+			's.type' => 'ASC',
 		],
 	];
 	/**
@@ -37,8 +42,8 @@ class SettingPagination extends PaginationManager
 	 * @var array
 	 */
 	protected $searchList = [
-		's.displayName',
-		's.description',
+		's.name',
+		's.type',
 
 	];
 
@@ -46,16 +51,21 @@ class SettingPagination extends PaginationManager
 	 * @var array
 	 */
 	protected $select = [
-		's.displayName',
-		's.description',
+		's.name',
+		's.type',
+		's.capacity',
 		's.id',
 	];
 
 	/**
 	 * @var string
 	 */
-	protected $repositoryName = Setting::class;
+	protected $repositoryName = Space::class;
 
+	/**
+	 * @var string
+	 */
+	protected $transDomain = 'Facility';
 
 	/**
 	 * build Query

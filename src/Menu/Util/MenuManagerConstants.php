@@ -101,6 +101,21 @@ School Admin:
             params:
                 id: current
                 _fragment: calendarGroups
+    others:
+        campus_manage:
+	        label: menu.campus.manage.title
+	        name: Campus Management
+	        role: ROLE_REGISTRAR
+	        route: campus_manage
+	        params: {}
+	        translate: Facility
+        space_list:
+	        label: menu.space.list.title
+	        name: Space Management
+	        role: ROLE_REGISTRAR
+	        route: space_list
+	        params: {}
+	        translate: Facility
     years_days_times:
         calendar_years:
             label: menu.calendar.manage
@@ -140,6 +155,7 @@ School Admin:
         - calendar_edit
         - edit_grade
         - student_add_to_calendar_group
+        - space_edit
 Person Admin:
     people_manage:
 #        family_manage:

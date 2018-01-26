@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "6213299c1912166b2a21c3c6c924c925c4974c5a"
+                "reference": "ca8f7f89e08d1a6b72a4a7effbf79f5a5a00e0f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/6213299c1912166b2a21c3c6c924c925c4974c5a",
-                "reference": "6213299c1912166b2a21c3c6c924c925c4974c5a",
+                "url": "https://api.github.com/repos/crayner/security/zipball/ca8f7f89e08d1a6b72a4a7effbf79f5a5a00e0f4",
+                "reference": "ca8f7f89e08d1a6b72a4a7effbf79f5a5a00e0f4",
                 "shasum": ""
             },
             "require": {
@@ -1331,7 +1331,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-01-25T01:47:34+00:00"
+            "time": "2018-01-25T22:05:39+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -3029,16 +3029,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.66",
+            "version": "v1.0.67",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "b366e902710c8dc8d8be97ed8d64ef574d9bffcb"
+                "reference": "ac1c6aaafc4a9fddba3626867d786d151d2cc2ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/b366e902710c8dc8d8be97ed8d64ef574d9bffcb",
-                "reference": "b366e902710c8dc8d8be97ed8d64ef574d9bffcb",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/ac1c6aaafc4a9fddba3626867d786d151d2cc2ac",
+                "reference": "ac1c6aaafc4a9fddba3626867d786d151d2cc2ac",
                 "shasum": ""
             },
             "require": {
@@ -3071,7 +3071,7 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-01-21T09:15:48+00:00"
+            "time": "2018-01-25T06:46:31+00:00"
         },
         {
             "name": "symfony/form",

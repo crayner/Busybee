@@ -1,0 +1,44 @@
+{% trans_default_domain "Facility" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'facility.spaces.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'facility.spaces.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'facility.spaces.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Pagination/index.html.twig' %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('space_edit', {'id': 'Add'})}}) %}
+    {% include 'Page/panelStart.html.twig' with {'header': 'facility.spaces.title', 'transDomain': 'Facility'} %}
+    <div class="container-fluid">
+        <div class="row row-header">
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'facility.spaces.name'|trans }}
+                {% else %}
+                    {{ 'facility.spaces.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-6" style="display: inline-block;">
+                {{ 'facility.spaces.comment'|trans }}
+            </div>
+            <div class="col-3 withAdd">
+                {{ 'actions'|trans({}, 'home') }}
+            </div>
+        </div>
+        {% for resource in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-3 form-inline">
+                    {{ resource.campus.name ~ ' - ' ~ resource.name }}
+                </div>
+                <div class="col-6 form-inline">
+                    {{ resource.comment }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ editButton({title: 'space.edit.title', transDomain: 'Facility', windowOpen: {route: path('space_edit', {id: resource.id})}})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}

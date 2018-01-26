@@ -1,0 +1,44 @@
+facility.spaces:
+    title: Manage Spaces
+    description: Add, modify and remove Spaces (Rooms and Spaces.)
+    name: Spaces
+    comment: Comment
+space.sort:
+    name: Name of Space
+    type: Type of Space
+    capacity: Capacity of Space
+space:
+    add:
+        title: Add Space
+    edit:
+        title: Edit Space
+        description: Add, Modify Space details.
+    staff:
+        label: Home Room Teacher
+        placeholder: Select a Home Room Teacher
+        help: ''
+    type:
+        label: Space Type
+        placeholder: Select a Space Resource Type
+    name.label: Space Name
+    campus:
+        label: Campus Name
+        placeholder: Select a Campus
+        help: The Campus on which this resource exists.
+    capacity:
+        label: Capacity of Space.
+        help: Number of people that this space is designed to hold.
+    studentComputers.label: Available Student Computers
+    computer.label: Staff Use Computer?
+    projector.label: Projector supplied?
+    tv.label: Television supplied?
+    dvd.label: DVD Player supplied?
+    hifi.label: Sound System supplied?
+    speakers.label: Speakers supplied?
+    iwb.label: Interactive Whiteboard?
+    phoneint.label: Internal Phone Extension
+    phoneext.label: External Phone Number
+    comment.label: Comment
+    changeRecord.placeholder: Edit another Resource
+menu:
+    campus.manage.title: Manage Campuses

@@ -23,7 +23,10 @@
                     {% set target = data['target']['name'] %}
                     {% set options = data['target']['options'] %}
                 {% endif %}
-                <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params']), target: target, params: options}})|raw }}</div>
+                {% if data['translate'] is not defined %}
+                    {% set data = data|merge({translate: 'home'}) %}
+                {% endif %}
+                <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label'], transDomain: data['translate'], prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params']), target: target, params: options}})|raw }}</div>
             {% else %}
                 <div class="{{ data['linkClass'] }}"
                      style="font-size: 12px; padding: 0 4px; margin: 0; color: #337ab7;">{{ 'system.route.missing'|trans({'%{route}': data['route']}) }}</div>

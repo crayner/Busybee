@@ -1,0 +1,100 @@
+{% trans_default_domain "Facility" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+    'FormTheme/bootstrap.html.twig'
+%}
+
+{% block title %}{{ parent() }}{{ 'space.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'space.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'space.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ form_start(form, {'attr': {'id': 'SpaceForm'}}) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('space_list')}}) %}
+    {% if id != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('space_edit', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('space_edit', {'id': id}) }}) %}
+    {% set h3Content = h3Content ~ saveButton({class: 'btn btn-success halflings halflings-duplicate', title: 'space.edit.duplicate', transDomain: 'Facility', additional: {id: 'duplicate'}}) %}
+    {% set h3Content = h3Content ~ saveButton({additional: {id: 'save'}}) %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': id}) %}
+    {% include 'Page/panelStart.html.twig' with {header: 'space.edit.title', transDomain: 'Facility'} %}
+    <div class=container-fluid">
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.type) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.campus) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.staff) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.capacity) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.phoneExt) }}
+            </div>
+            <div class="col-2 card">
+                {{ form_row(form.phoneInt) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 card">
+                {{ form_row(form.comment) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 card">
+                {{ form_row(form.computer) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.projector) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.tv) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.dvd) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 card">
+                {{ form_row(form.hifi) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.speakers) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.iwb) }}
+                {{ form_row(form.duplicateid, {'value': id}) }}
+            </div>
+            <div class="col-3 card">
+                {% if form.studentComputers.vars.value is empty %}
+                    {% set value = '0' %}
+                {% else %}
+                    {% set value = form.studentComputers.vars.value %}
+                {% endif %}
+                {{ form_row(form.studentComputers, {'value': value}) }}
+            </div>
+        </div>
+
+        <div class="row">
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/toggle.html.twig' %}
+    {% include 'Script/monitorForm.html.twig' with {'route': 'space_edit'} %}
+    {% include 'Facility/spacesScript.html.twig' %}
+{% endblock javascripts %}

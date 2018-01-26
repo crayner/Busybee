@@ -1,0 +1,20 @@
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+<script type="text/javascript" language="JavaScript">
+    $('button[type="submit"]').click(function (e) {
+        e.preventDefault();
+
+        ButtonValue = $(this).attr('id');
+
+        if (ButtonValue === 'save') {
+            var path = '{{ path('space_edit', {'id': id}) }}';
+            $('#SpaceForm').attr('action', path);
+        } else if (ButtonValue === 'duplicate') {
+            var path = '{{ path('space_duplicate') }}';
+            $('#SpaceForm').attr('action', path);
+        }
+
+        $('#SpaceForm').submit();
+    });
+
+</script>

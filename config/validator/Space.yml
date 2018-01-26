@@ -1,0 +1,9 @@
+App\Entity\Space:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, campus]
+            errorPath: name
+            message: space.unique.name
+    properties:
+        phoneExt:
+            - App\People\Validator\Phone: ~
