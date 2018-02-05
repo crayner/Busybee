@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4454b4e7e94a40db0082663d4392be60",
+    "content-hash": "7137b81daa22f7895071e5c8a3ce047a",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "93408a57b8c483207c9c17b7be64b087149addba"
+                "reference": "22b63c8778c7eab9209b9c0c950ce92aa0da62bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/93408a57b8c483207c9c17b7be64b087149addba",
-                "reference": "93408a57b8c483207c9c17b7be64b087149addba",
+                "url": "https://api.github.com/repos/crayner/security/zipball/22b63c8778c7eab9209b9c0c950ce92aa0da62bd",
+                "reference": "22b63c8778c7eab9209b9c0c950ce92aa0da62bd",
                 "shasum": ""
             },
             "require": {
@@ -1331,7 +1331,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-02-05T20:16:42+00:00"
+            "time": "2018-02-05T23:43:46+00:00"
         },
         {
             "name": "hillrange/symfony-form",
@@ -5825,6 +5825,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hillrange/security": 20,
+        "hillrange/symfony-form": 20,
         "symfony/lts": 20
     },
     "prefer-stable": true,
