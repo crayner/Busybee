@@ -1,8 +1,8 @@
 <?php
 namespace App\School\Form;
 
-use App\Core\Type\ImageType;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\ImageType;
+use Hillrange\Form\Type\TextType;
 use App\School\Entity\House;
 use App\School\Form\Subscriber\HouseSubscriber;
 use Symfony\Component\Form\AbstractType;

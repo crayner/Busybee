@@ -1,8 +1,8 @@
 <?php
 namespace App\People\Form;
 
-use App\Core\Type\TextType;
-use App\Core\Type\ToggleType;
+use Hillrange\Form\Type\TextType;
+use Hillrange\Form\Type\ToggleType;
 use Hillrange\Security\Entity\User;
 use Hillrange\Security\Form\DirectRoleType;
 use Hillrange\Security\Form\GroupType;

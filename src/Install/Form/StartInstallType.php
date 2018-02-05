@@ -1,7 +1,7 @@
 <?php
 namespace App\Install\Form;
 
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Core\Validator\NoWhiteSpace;
 use App\Install\Organism\Database;
 use Symfony\Component\Form\AbstractType;

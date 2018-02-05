@@ -83,6 +83,9 @@
     "hillrange/security": {
         "version": "dev-master"
     },
+    "hillrange/symfony-form": {
+        "version": "0.0.x-dev"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

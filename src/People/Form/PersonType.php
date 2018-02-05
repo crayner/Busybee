@@ -4,7 +4,7 @@ namespace App\People\Form;
 use App\Address\Form\PhoneType;
 use App\Core\Manager\SettingManager;
 use App\Core\Type\AutoCompleteType;
-use App\Core\Type\ImageType;
+use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Core\Validator\SettingChoice;
 use App\Entity\Address;

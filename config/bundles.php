@@ -15,4 +15,5 @@ return [
     Hillrange\Security\HillrangeSecurityBundle::class => ['all' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
+    Hillrange\Form\HillrangeFormBundle::class => ['all' => true],
 ];

@@ -2,11 +2,11 @@
 namespace App\Core\Subscriber;
 
 use App\Core\Manager\SettingManager;
-use App\Core\Type\ImageType;
+use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Core\Type\TimeType;
-use App\Core\Type\ToggleType;
+use Hillrange\Form\Type\ToggleType;
 use App\Core\Validator\Integer;
 use App\Core\Validator\Regex;
 use App\Core\Validator\Twig;

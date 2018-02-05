@@ -1,8 +1,8 @@
 <?php
 namespace App\Install\Form;
 
-use App\Core\Type\TextType;
-use App\Core\Type\ToggleType;
+use Hillrange\Form\Type\TextType;
+use Hillrange\Form\Type\ToggleType;
 use App\Core\Validator\Password;
 use App\Install\Organism\Miscellaneous;
 use App\Install\Subscriber\MiscellaneousSubscriber;

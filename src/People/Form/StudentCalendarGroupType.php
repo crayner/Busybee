@@ -1,7 +1,7 @@
 <?php
 namespace App\People\Form;
 
-use App\Core\Type\HiddenEntityType;
+use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\CalendarGroup;
 use App\Entity\Student;

@@ -2,7 +2,7 @@
 namespace App\Core\Form;
 
 use App\Core\Subscriber\SettingSubscriber;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Symfony\Component\Form\AbstractType;

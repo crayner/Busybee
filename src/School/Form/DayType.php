@@ -1,7 +1,7 @@
 <?php
 namespace App\School\Form;
 
-use App\Core\Type\ToggleType;
+use Hillrange\Form\Type\ToggleType;
 use App\School\Util\Day;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

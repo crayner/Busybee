@@ -3,7 +3,7 @@ namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
 use App\Core\Type\EntityType;
-use App\Core\Type\ImageType;
+use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Department;
 use App\School\Form\Subscriber\DepartmentSubscriber;

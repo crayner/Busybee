@@ -1,0 +1,4 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates/bundles/HillrangeForm': HillrangeForm
+        '%kernel.project_dir%/vendor/hillrange/symfony-form/Resources/views': HillrangeForm

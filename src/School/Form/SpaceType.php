@@ -2,7 +2,7 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
-use App\Core\Type\ToggleType;
+use Hillrange\Form\Type\ToggleType;
 use App\Entity\Campus;
 use App\Entity\Space;
 use App\Entity\Staff;

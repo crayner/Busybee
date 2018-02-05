@@ -1,9 +1,9 @@
 <?php
 namespace App\Calendar\Form;
 
-use App\Core\Type\DateType;
-use App\Core\Type\HiddenEntityType;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\DateType;
+use Hillrange\Form\Type\HiddenEntityType;
+use Hillrange\Form\Type\TextType;
 use App\Entity\Calendar;
 use App\Entity\Term;
 use Doctrine\ORM\EntityManagerInterface;

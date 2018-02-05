@@ -4,7 +4,7 @@ namespace App\Address\Form;
 use App\Address\Form\Transformer\PhoneTransformer;
 use App\Address\Form\Subscriber\PhoneSubscriber;
 use App\Core\Type\SettingChoiceType;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Entity\Phone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

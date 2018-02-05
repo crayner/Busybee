@@ -1,10 +1,10 @@
 <?php
 namespace App\People\Form\Subscriber;
 
-use App\Core\Type\DateType;
-use App\Core\Type\ImageType;
+use Hillrange\Form\Type\DateType;
+use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Core\Validator\SettingChoice;
 use App\People\Form\StudentCalendarGroupType;
 use App\People\Form\UserType;

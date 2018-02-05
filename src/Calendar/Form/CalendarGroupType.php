@@ -2,7 +2,7 @@
 namespace App\Calendar\Form;
 
 use App\Calendar\Listener\CalendarGroupSubscriber;
-use App\Core\Type\HiddenEntityType;
+use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Calendar;
 use App\Entity\CalendarGroup;

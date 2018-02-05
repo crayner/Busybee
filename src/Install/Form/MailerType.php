@@ -1,7 +1,7 @@
 <?php
 namespace App\Install\Form;
 
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Install\Form\Subscriber\MailerSubscriber;
 use App\Install\Organism\Mailer;
 use Symfony\Component\Form\AbstractType;

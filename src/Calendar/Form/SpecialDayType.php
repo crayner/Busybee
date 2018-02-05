@@ -1,8 +1,8 @@
 <?php
 namespace App\Calendar\Form;
 
-use App\Core\Type\DateType;
-use App\Core\Type\HiddenEntityType;
+use Hillrange\Form\Type\DateType;
+use Hillrange\Form\Type\HiddenEntityType;
 use App\Entity\Calendar;
 use App\Entity\SpecialDay;
 use Symfony\Component\Form\AbstractType;

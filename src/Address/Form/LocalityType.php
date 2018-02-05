@@ -4,7 +4,7 @@ namespace App\Address\Form;
 
 use App\Core\Type\EntityType;
 use App\Core\Type\SettingChoiceType;
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Entity\Locality;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;

@@ -1,7 +1,7 @@
 <?php
 namespace App\Install\Form;
 
-use App\Core\Type\TextType;
+use Hillrange\Form\Type\TextType;
 use App\Install\Organism\User;
 use Hillrange\Security\Validator\Password;
 use Symfony\Component\Form\AbstractType;

@@ -8,7 +8,7 @@ use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
 use App\Core\Manager\SettingManager;
 use App\Calendar\Listener\CalendarSubscriber;
-use App\Core\Type\DateType;
+use Hillrange\Form\Type\DateType;
 use App\Entity\Calendar;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
