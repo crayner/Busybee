@@ -55,6 +55,10 @@ App\Entity\Space:
             targetEntity: App\Entity\Staff
             inversedBy: homeroom
             cascade: [ 'persist' ]
+            joinColumn:
+                name: homeroom_for
+                referencedColumnName: id
+                nullable: true
     manyToOne:
         campus:
             targetEntity: App\Entity\Campus

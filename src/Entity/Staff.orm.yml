@@ -33,10 +33,12 @@ App\Entity\Staff:
         departments:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: staff
-            cascade: ['persist']
+            cascade: [ 'persist' ]
     oneToOne:
         homeroom:
             targetEntity: App\Entity\Space
-            mappedNy: staff
+            mappedBy: staff
             joinColumn:
                 name: homeroom
+                referencedColumnName: id
+                nullable: true
