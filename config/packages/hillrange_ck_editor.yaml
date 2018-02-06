@@ -1,7 +1,7 @@
 hillrange_ck_editor:
-    default_config: busybee
+    default_config: hillrange
     configs:
-        busybee:
+        hillrange:
             toolbar: [
                          ['Styles','Format','Font','FontSize'],
                          '/',

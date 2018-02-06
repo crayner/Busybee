@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "3ca2b45f3385332b7ab7c468fb19481b10f1cf2b"
+                "reference": "00e4d3595a3b0dfea022c144e1bfa10bea60b006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/3ca2b45f3385332b7ab7c468fb19481b10f1cf2b",
-                "reference": "3ca2b45f3385332b7ab7c468fb19481b10f1cf2b",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/00e4d3595a3b0dfea022c144e1bfa10bea60b006",
+                "reference": "00e4d3595a3b0dfea022c144e1bfa10bea60b006",
                 "shasum": ""
             },
             "require": {
@@ -1292,7 +1292,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.0.x-dev"
+                    "dev-master": "0.0.04-dev"
                 },
                 "symfony": {
                     "allow-contrib": "true"
@@ -1325,7 +1325,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T11:41:48+00:00"
+            "time": "2018-02-06T12:40:55+00:00"
         },
         {
             "name": "hillrange/security",
