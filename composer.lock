@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "95bafe2a474c32402cf26275bab39f4c",
+    "content-hash": "dae239f3438322ca9512a522f6cf2b51",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1274,16 +1274,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "b7c97eb79a12cc8cbdc1fd68007c68fbb2805d63"
+                "reference": "df679e2f33d34914825fdccac0abed51bf51c07c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/b7c97eb79a12cc8cbdc1fd68007c68fbb2805d63",
-                "reference": "b7c97eb79a12cc8cbdc1fd68007c68fbb2805d63",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/df679e2f33d34914825fdccac0abed51bf51c07c",
+                "reference": "df679e2f33d34914825fdccac0abed51bf51c07c",
                 "shasum": ""
             },
             "require": {
-                "hillrange/json-builder": "dev-master",
                 "php": "^7.1.3",
                 "symfony/flex": "^1.0",
                 "symfony/form": "^4.0",
@@ -1325,64 +1324,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T06:26:36+00:00"
-        },
-        {
-            "name": "hillrange/json-builder",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/crayner/json-builder.git",
-                "reference": "72e6afb07e0f78128aa65fa34bdaf752ac444eb6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/crayner/json-builder/zipball/72e6afb07e0f78128aa65fa34bdaf752ac444eb6",
-                "reference": "72e6afb07e0f78128aa65fa34bdaf752ac444eb6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/property-access": "^4.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.0.x-dev"
-                },
-                "symfony": {
-                    "allow-contrib": "true"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hillrange\\JSONBuilder\\": "/"
-                },
-                "exclude-from-classmap": [
-                    "/tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eric GELOEN",
-                    "email": "geloen.eric@gmail.com"
-                },
-                {
-                    "name": "Craig Rayner",
-                    "email": "hillrange@craigrayner.com"
-                }
-            ],
-            "description": "JSON builder with escaping control for PHP 7.0+ and Symfony 4+",
-            "homepage": "http://www.craigrayner.com",
-            "keywords": [
-                "builder",
-                "json"
-            ],
-            "time": "2018-02-06T06:27:01+00:00"
+            "time": "2018-02-06T11:28:53+00:00"
         },
         {
             "name": "hillrange/security",
@@ -1455,12 +1397,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/symfony-form.git",
-                "reference": "858a2e2740f8abdf3f121866ad762614cea4068e"
+                "reference": "0d8c1f773bb451ce0daa14e1cd985dfdef3f90e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/858a2e2740f8abdf3f121866ad762614cea4068e",
-                "reference": "858a2e2740f8abdf3f121866ad762614cea4068e",
+                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/0d8c1f773bb451ce0daa14e1cd985dfdef3f90e6",
+                "reference": "0d8c1f773bb451ce0daa14e1cd985dfdef3f90e6",
                 "shasum": ""
             },
             "require": {
@@ -1501,7 +1443,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T05:56:47+00:00"
+            "time": "2018-02-06T11:29:54+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -5941,7 +5883,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hillrange/ckeditor": 20,
-        "hillrange/json-builder": 20,
         "hillrange/security": 20,
         "hillrange/symfony-form": 20,
         "symfony/lts": 20
