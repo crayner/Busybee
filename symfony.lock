@@ -81,13 +81,13 @@
         "version": "1.4.2"
     },
     "hillrange/ckeditor": {
-        "version": "0.0.x-dev"
+        "version": "dev-master"
     },
     "hillrange/security": {
         "version": "dev-master"
     },
     "hillrange/symfony-form": {
-        "version": "0.0.x-dev"
+        "version": "dev-master"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
