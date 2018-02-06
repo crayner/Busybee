@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/json-builder.git",
-                "reference": "edc54c97e07efce27c4a5cfdf1dc8b4af97d27c9"
+                "reference": "f3a723f015037636bc8d799b8000abc1804df8d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/json-builder/zipball/edc54c97e07efce27c4a5cfdf1dc8b4af97d27c9",
-                "reference": "edc54c97e07efce27c4a5cfdf1dc8b4af97d27c9",
+                "url": "https://api.github.com/repos/crayner/json-builder/zipball/f3a723f015037636bc8d799b8000abc1804df8d5",
+                "reference": "f3a723f015037636bc8d799b8000abc1804df8d5",
                 "shasum": ""
             },
             "require": {
@@ -1381,7 +1381,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T02:56:16+00:00"
+            "time": "2018-02-06T03:50:15+00:00"
         },
         {
             "name": "hillrange/security",
