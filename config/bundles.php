@@ -5,7 +5,6 @@ return [
     Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle::class   => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class             => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
-    Hillrange\JSONBuilder\HillrangeJSONBuilderBundle::class          => ['all' => true],
     Hillrange\CKEditor\HillrangeCKEditorBundle::class                => ['all' => true],
     Hillrange\Form\HillrangeFormBundle::class                        => ['all' => true],
     Hillrange\Security\HillrangeSecurityBundle::class                => ['all' => true],

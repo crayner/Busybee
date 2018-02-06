@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "8f88c519850ddcc63c587d01e9dc28ea88ad2658"
+                "reference": "b7c97eb79a12cc8cbdc1fd68007c68fbb2805d63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/8f88c519850ddcc63c587d01e9dc28ea88ad2658",
-                "reference": "8f88c519850ddcc63c587d01e9dc28ea88ad2658",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/b7c97eb79a12cc8cbdc1fd68007c68fbb2805d63",
+                "reference": "b7c97eb79a12cc8cbdc1fd68007c68fbb2805d63",
                 "shasum": ""
             },
             "require": {
@@ -1325,7 +1325,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T05:00:47+00:00"
+            "time": "2018-02-06T06:26:36+00:00"
         },
         {
             "name": "hillrange/json-builder",
@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/json-builder.git",
-                "reference": "1d9b35d00b18427d2d309564f5697ec4c4cadd3d"
+                "reference": "72e6afb07e0f78128aa65fa34bdaf752ac444eb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/json-builder/zipball/1d9b35d00b18427d2d309564f5697ec4c4cadd3d",
-                "reference": "1d9b35d00b18427d2d309564f5697ec4c4cadd3d",
+                "url": "https://api.github.com/repos/crayner/json-builder/zipball/72e6afb07e0f78128aa65fa34bdaf752ac444eb6",
+                "reference": "72e6afb07e0f78128aa65fa34bdaf752ac444eb6",
                 "shasum": ""
             },
             "require": {
@@ -1382,7 +1382,7 @@
                 "builder",
                 "json"
             ],
-            "time": "2018-02-06T05:55:34+00:00"
+            "time": "2018-02-06T06:27:01+00:00"
         },
         {
             "name": "hillrange/security",
