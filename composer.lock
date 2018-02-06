@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7137b81daa22f7895071e5c8a3ce047a",
+    "content-hash": "95bafe2a474c32402cf26275bab39f4c",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1269,6 +1269,121 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "hillrange/ckeditor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crayner/CKEditor.git",
+                "reference": "b65ead7bd8c5dd972a32d7435acfe87ffe2c1894"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/b65ead7bd8c5dd972a32d7435acfe87ffe2c1894",
+                "reference": "b65ead7bd8c5dd972a32d7435acfe87ffe2c1894",
+                "shasum": ""
+            },
+            "require": {
+                "hillrange/json-builder": "dev-master",
+                "php": "^7.1.3",
+                "symfony/flex": "^1.0",
+                "symfony/form": "^4.0",
+                "symfony/validator": "^4.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.0.x-dev"
+                },
+                "symfony": {
+                    "allow-contrib": "true"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hillrange\\CKEditor\\": "/"
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
+                },
+                {
+                    "name": "Craig Rayner",
+                    "email": "hillrange@craigrayner.com"
+                }
+            ],
+            "description": "CKEditor for Symfony 4.x",
+            "homepage": "http://www.craigrayner.com",
+            "keywords": [
+                "form"
+            ],
+            "time": "2018-02-06T02:55:45+00:00"
+        },
+        {
+            "name": "hillrange/json-builder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crayner/json-builder.git",
+                "reference": "edc54c97e07efce27c4a5cfdf1dc8b4af97d27c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crayner/json-builder/zipball/edc54c97e07efce27c4a5cfdf1dc8b4af97d27c9",
+                "reference": "edc54c97e07efce27c4a5cfdf1dc8b4af97d27c9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/property-access": "^4.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.0.x-dev"
+                },
+                "symfony": {
+                    "allow-contrib": "true"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hillrange\\CKEditor\\": "/"
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
+                },
+                {
+                    "name": "Craig Rayner",
+                    "email": "hillrange@craigrayner.com"
+                }
+            ],
+            "description": "JSON builder with escaping control for PHP 7.0+ and Symfony 4+",
+            "homepage": "http://www.craigrayner.com",
+            "keywords": [
+                "form"
+            ],
+            "time": "2018-02-06T02:56:16+00:00"
+        },
+        {
             "name": "hillrange/security",
             "version": "dev-master",
             "source": {
@@ -1339,12 +1454,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/symfony-form.git",
-                "reference": "842066c1b772ab00f35a2e9fb7948fe470f93e73"
+                "reference": "72bd57f242803bb0d7ffe5de09dac8d9dec44812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/842066c1b772ab00f35a2e9fb7948fe470f93e73",
-                "reference": "842066c1b772ab00f35a2e9fb7948fe470f93e73",
+                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/72bd57f242803bb0d7ffe5de09dac8d9dec44812",
+                "reference": "72bd57f242803bb0d7ffe5de09dac8d9dec44812",
                 "shasum": ""
             },
             "require": {
@@ -1385,7 +1500,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-05T20:16:25+00:00"
+            "time": "2018-02-05T23:53:02+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -5824,6 +5939,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "hillrange/ckeditor": 20,
+        "hillrange/json-builder": 20,
         "hillrange/security": 20,
         "hillrange/symfony-form": 20,
         "symfony/lts": 20

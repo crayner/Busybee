@@ -2,6 +2,7 @@
 namespace App\Core\Util;
 
 use App\Entity\Calendar;
+use App\Entity\Person;
 use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Security\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -13,6 +14,11 @@ class UserManager
 	 * @var User
 	 */
 	private $user;
+
+	/**
+	 * @var Person
+	 */
+	private $person;
 
 	/**
 	 * @var EntityManagerInterface
@@ -45,6 +51,18 @@ class UserManager
 	 */
 	public function formatUserName(UserInterface $user = null): string
 	{
+		if ($user instanceof User)
+			$id = $user->getId();
+
+		if ($this->user)
+			$id = $this->user->getId();
+
+		if (empty($this->person))
+			$this->person = $this->entityManager->getRepository(Person::class)->findOneByUser($id);
+
+		if ($this->person instanceof Person)
+			return $this->person->formatName();
+
 		if ($user instanceof User)
 			return $user->formatName();
 

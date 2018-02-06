@@ -2,7 +2,7 @@
 
 namespace App\Address\Form;
 
-use App\Core\Type\EntityType;
+use Hillrange\Form\Type\EntityType;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\TextType;
 use App\Entity\Locality;

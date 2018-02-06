@@ -2,7 +2,8 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
-use App\Core\Type\EntityType;
+use Hillrange\CKEditor\Form\CKEditorType;
+use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Department;
@@ -11,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -84,7 +84,7 @@ class DepartmentType extends AbstractType
 					'fileName'    => 'departmentLogo'
 				]
 			)
-			->add('blurb', TextareaType::class,
+			->add('blurb', CKEditorType::class,
 				[
 					'label'    => 'department.blurb.label',
 					'attr'     => [

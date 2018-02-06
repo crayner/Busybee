@@ -2,7 +2,7 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
-use App\Core\Type\EntityType;
+use Hillrange\Form\Type\EntityType;
 use App\Entity\Campus;
 use App\School\Form\Subscriber\CampusSubscriber;
 use Symfony\Component\Form\AbstractType;

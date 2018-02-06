@@ -20,7 +20,6 @@ class DepartmentMemberType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$options['staff_type'] = $options['staff_type'] == 'Learning Area' ? 'Learning' : 'Administration';
-dump($options);
 		$builder
 			->add('staff', EntityType::class,
 				[

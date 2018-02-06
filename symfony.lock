@@ -80,6 +80,12 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "hillrange/ckeditor": {
+        "version": "0.0.x-dev"
+    },
+    "hillrange/json-builder": {
+        "version": "0.0.x-dev"
+    },
     "hillrange/security": {
         "version": "dev-master"
     },

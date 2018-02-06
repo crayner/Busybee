@@ -3,7 +3,7 @@ namespace App\Address\Form;
 
 use App\Address\Form\Subscriber\AddressSubscriber;
 use App\Core\Type\AutoCompleteType;
-use App\Core\Type\EntityType;
+use Hillrange\Form\Type\EntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Address;
 use App\Entity\Locality;
