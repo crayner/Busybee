@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "b65ead7bd8c5dd972a32d7435acfe87ffe2c1894"
+                "reference": "cfda18cb1501febdf419d0e52deb291257f5f4e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/b65ead7bd8c5dd972a32d7435acfe87ffe2c1894",
-                "reference": "b65ead7bd8c5dd972a32d7435acfe87ffe2c1894",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/cfda18cb1501febdf419d0e52deb291257f5f4e6",
+                "reference": "cfda18cb1501febdf419d0e52deb291257f5f4e6",
                 "shasum": ""
             },
             "require": {
@@ -1325,7 +1325,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T02:55:45+00:00"
+            "time": "2018-02-06T03:42:38+00:00"
         },
         {
             "name": "hillrange/json-builder",

@@ -17,4 +17,5 @@ return [
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
     Hillrange\Form\HillrangeFormBundle::class => ['all' => true],
     Hillrange\CKEditor\HillrangeCKEditorBundle::class => ['all' => true],
+    Hillrange\JsonBuilder\HillrangeJsonBuilderBundle::class => ['all' => true],
 ];
