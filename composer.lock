@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "cfda18cb1501febdf419d0e52deb291257f5f4e6"
+                "reference": "122badf349987196242f074cefb2d112d42350d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/cfda18cb1501febdf419d0e52deb291257f5f4e6",
-                "reference": "cfda18cb1501febdf419d0e52deb291257f5f4e6",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/122badf349987196242f074cefb2d112d42350d9",
+                "reference": "122badf349987196242f074cefb2d112d42350d9",
                 "shasum": ""
             },
             "require": {
@@ -1325,7 +1325,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T03:42:38+00:00"
+            "time": "2018-02-06T04:48:17+00:00"
         },
         {
             "name": "hillrange/json-builder",
@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/json-builder.git",
-                "reference": "abb51035f64d99f39a3055a3f968813a58d6b34e"
+                "reference": "920b7728fe57a4e78e481ccb2e9fcdb8a870c9de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/json-builder/zipball/abb51035f64d99f39a3055a3f968813a58d6b34e",
-                "reference": "abb51035f64d99f39a3055a3f968813a58d6b34e",
+                "url": "https://api.github.com/repos/crayner/json-builder/zipball/920b7728fe57a4e78e481ccb2e9fcdb8a870c9de",
+                "reference": "920b7728fe57a4e78e481ccb2e9fcdb8a870c9de",
                 "shasum": ""
             },
             "require": {
@@ -1356,7 +1356,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Hillrange\\CKEditor\\": "/"
+                    "Hillrange\\Jsonbuilder\\": "/"
                 },
                 "exclude-from-classmap": [
                     "/Tests/"
@@ -1381,7 +1381,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T04:06:25+00:00"
+            "time": "2018-02-06T04:49:30+00:00"
         },
         {
             "name": "hillrange/security",

@@ -16,6 +16,6 @@ return [
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
     Hillrange\Form\HillrangeFormBundle::class => ['all' => true],
-    Hillrange\Jsonbuilder\HillrangeJsonbuilderBundle::class => ['all' => true],
+    Hillrange\JSONBuilder\HillrangeJSONBuilderBundle::class => ['all' => true],
     Hillrange\CKEditor\HillrangeCKEditorBundle::class => ['all' => true],
 ];
