@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "122badf349987196242f074cefb2d112d42350d9"
+                "reference": "8f88c519850ddcc63c587d01e9dc28ea88ad2658"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/122badf349987196242f074cefb2d112d42350d9",
-                "reference": "122badf349987196242f074cefb2d112d42350d9",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/8f88c519850ddcc63c587d01e9dc28ea88ad2658",
+                "reference": "8f88c519850ddcc63c587d01e9dc28ea88ad2658",
                 "shasum": ""
             },
             "require": {
@@ -1303,7 +1303,7 @@
                     "Hillrange\\CKEditor\\": "/"
                 },
                 "exclude-from-classmap": [
-                    "/Tests/"
+                    "/tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1325,7 +1325,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T04:48:17+00:00"
+            "time": "2018-02-06T05:00:47+00:00"
         },
         {
             "name": "hillrange/json-builder",
@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/json-builder.git",
-                "reference": "920b7728fe57a4e78e481ccb2e9fcdb8a870c9de"
+                "reference": "1d9b35d00b18427d2d309564f5697ec4c4cadd3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/json-builder/zipball/920b7728fe57a4e78e481ccb2e9fcdb8a870c9de",
-                "reference": "920b7728fe57a4e78e481ccb2e9fcdb8a870c9de",
+                "url": "https://api.github.com/repos/crayner/json-builder/zipball/1d9b35d00b18427d2d309564f5697ec4c4cadd3d",
+                "reference": "1d9b35d00b18427d2d309564f5697ec4c4cadd3d",
                 "shasum": ""
             },
             "require": {
@@ -1356,10 +1356,10 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Hillrange\\Jsonbuilder\\": "/"
+                    "Hillrange\\JSONBuilder\\": "/"
                 },
                 "exclude-from-classmap": [
-                    "/Tests/"
+                    "/tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1379,9 +1379,10 @@
             "description": "JSON builder with escaping control for PHP 7.0+ and Symfony 4+",
             "homepage": "http://www.craigrayner.com",
             "keywords": [
-                "form"
+                "builder",
+                "json"
             ],
-            "time": "2018-02-06T04:49:30+00:00"
+            "time": "2018-02-06T05:55:34+00:00"
         },
         {
             "name": "hillrange/security",
@@ -1454,12 +1455,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/symfony-form.git",
-                "reference": "72bd57f242803bb0d7ffe5de09dac8d9dec44812"
+                "reference": "858a2e2740f8abdf3f121866ad762614cea4068e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/72bd57f242803bb0d7ffe5de09dac8d9dec44812",
-                "reference": "72bd57f242803bb0d7ffe5de09dac8d9dec44812",
+                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/858a2e2740f8abdf3f121866ad762614cea4068e",
+                "reference": "858a2e2740f8abdf3f121866ad762614cea4068e",
                 "shasum": ""
             },
             "require": {
@@ -1482,7 +1483,7 @@
                     "Hillrange\\Form\\": "/"
                 },
                 "exclude-from-classmap": [
-                    "/Tests/"
+                    "/tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1500,7 +1501,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-05T23:53:02+00:00"
+            "time": "2018-02-06T05:56:47+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
