@@ -14,16 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
 class FacilityController extends Controller
 {
 	/**
-	 * @Route("/campus/manage/", name="campus_manage")
+	 * @Route("/campus/manage/{id}/", name="campus_manage")
 	 * @IsGranted("ROLE_REGISTRAR")
 	 */
-	public function campusManage(Request $request)
+	public function campusManage(Request $request, $id = 'Add')
 	{
 		$campus = new Campus();
-		$id     = $request->get('id');
+
 		if (intval($id) > 0)
 			$campus = $this->getDoctrine()->getManager()->getRepository(Campus::class)->find($id);
-
 
 		$form = $this->createForm(CampusType::class, $campus);
 		if (intval($id) > 0)
@@ -36,6 +35,9 @@ class FacilityController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($campus);
 			$em->flush();
+
+			if ($id === 'Add')
+			    return $this->redirectToRoute('campus_manage', ['id' => $campus->getId()]);
 
 		}
 

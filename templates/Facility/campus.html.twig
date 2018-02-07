@@ -6,21 +6,18 @@
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
 %}
 
-{% block title %}{{ 'campus.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'campus.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'campus.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ 'campus.header.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'campus.header.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'campus.header.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissable show hide") }}
     {{ form_start(form) }}
     {% set h3Content = '' %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_manage', {'id': 'Add'})}}) %}{% endif %}
     {% set h3Content = h3Content ~ resetButton() %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% set locationValue = 'Add' %}
-    {% if app.request.attributes.get('id') is not empty %}{% set locationValue = 'Add' %}{% endif %}
-    {% set h3Content = h3Content ~ form_widget(form.locationList, {'value': app.request.attributes.get('id')}) %}
-    {% include 'Page/panelStart.html.twig' with {header: 'campus.title', transDomain: 'Facility'} %}
+    {% set h3Content = h3Content ~ form_widget(form.locationList, {'value': app.request.get('id')}) %}
+    {% include 'Page/panelStart.html.twig' with {header: 'campus.header.title', transDomain: 'Facility'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-6 card">
@@ -44,8 +41,10 @@
             </div>
             <div class="col-6 card">
                 {% if app.request.get('id') == 'Add' %}
-                    {{ form_row(form.country, {value: get_setting('country')}) }}
+                    {% dump(app.request.get('id')) %}
+                    {{ form_row(form.country, {value: get_parameter('country')}) }}
                 {% else %}
+                    {% dump(app.request.get('id')) %}
                     {{ form_row(form.country) }}
                 {% endif %}
             </div>

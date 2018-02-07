@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "00e4d3595a3b0dfea022c144e1bfa10bea60b006"
+                "reference": "36049197730ebad1f35d18f2be422a7f2e6d7365"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/00e4d3595a3b0dfea022c144e1bfa10bea60b006",
-                "reference": "00e4d3595a3b0dfea022c144e1bfa10bea60b006",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/36049197730ebad1f35d18f2be422a7f2e6d7365",
+                "reference": "36049197730ebad1f35d18f2be422a7f2e6d7365",
                 "shasum": ""
             },
             "require": {
@@ -1287,12 +1287,17 @@
                 "symfony/flex": "^1.0",
                 "symfony/form": "^4.0",
                 "symfony/property-access": "^4.0",
-                "symfony/validator": "^4.0"
+                "symfony/templating": "^4.0",
+                "symfony/twig-bridge": "^4.0",
+                "symfony/twig-bundle": "^4.0",
+                "symfony/validator": "^4.0",
+                "twig/extensions": "^1.5",
+                "twig/twig": "^2.4"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.0.04-dev"
+                    "dev-master": "0.1-dev"
                 },
                 "symfony": {
                     "allow-contrib": "true"
@@ -1325,7 +1330,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-06T12:40:55+00:00"
+            "time": "2018-02-07T01:00:08+00:00"
         },
         {
             "name": "hillrange/security",
@@ -2154,16 +2159,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v5.1.4",
+            "version": "v5.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "072c00c52b947e88a1e619e9ff426cee6c8c482b"
+                "reference": "93ae48d5f4b567105bcc058c3a8ba506176eca8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/072c00c52b947e88a1e619e9ff426cee6c8c482b",
-                "reference": "072c00c52b947e88a1e619e9ff426cee6c8c482b",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/93ae48d5f4b567105bcc058c3a8ba506176eca8a",
+                "reference": "93ae48d5f4b567105bcc058c3a8ba506176eca8a",
                 "shasum": ""
             },
             "require": {
@@ -2219,7 +2224,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2018-01-12T13:08:16+00:00"
+            "time": "2018-02-06T19:53:10+00:00"
         },
         {
             "name": "sensiolabs/security-checker",

@@ -91,7 +91,6 @@ class DepartmentType extends AbstractType
 						'rows' => 4,
 					],
 					'required' => false,
-
 				]
 			)
 			->add('importIdentifier', HiddenType::class);

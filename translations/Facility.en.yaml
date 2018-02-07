@@ -42,3 +42,28 @@ space:
     changeRecord.placeholder: Edit another Resource
 menu:
     campus.manage.title: Manage Campuses
+    space.list.title: Manage Facilities
+campus:
+    identifier:
+        label: Campus Identifier
+        help: (Must be unique.)
+    name:
+        label: Campus Name
+        help: ''
+    locality:
+        label: Campus Locality
+        help: Suburb, Town or City.
+    territory:
+        label: State, Provence or County
+        help: ''
+    postcode:
+        label: Post Code
+        help: ''
+    country:
+        label: Country
+        help: ''
+    locations:
+        placeholder: Select a Campus to Edit or add a new Campus
+    header:
+        title: Campus Management
+        description: Create, edit and remove Campus details.

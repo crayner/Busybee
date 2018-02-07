@@ -5,7 +5,9 @@ use App\Core\Manager\SettingManager;
 use Hillrange\Form\Type\EntityType;
 use App\Entity\Campus;
 use App\School\Form\Subscriber\CampusSubscriber;
+use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -31,69 +33,69 @@ class CampusType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('identifier', null, array(
-					'label' => 'campus.label.identifier',
+			->add('identifier', TextType::class, [
+					'label' => 'campus.identifier.label',
 					'attr'  => array(
-						'help'  => 'campus.help.identifier',
 						'class' => 'locationForm monitorChange',
 					),
-				)
+                    'help'  => 'campus.identifier.help',
+				]
 			)
-			->add('name', null, array(
-					'label' => 'campus.label.name',
+			->add('name', TextType::class, [
+					'label' => 'campus.name.label',
 					'attr'  => array(
-						'help'  => 'campus.help.name',
 						'class' => 'locationForm monitorChange',
 					),
-				)
+                    'help'  => 'campus.name.help',
+				]
 			)
-			->add('postcode', null, array(
-					'label' => 'campus.label.postcode',
+			->add('postcode', TextType::class, [
+					'label' => 'campus.postcode.label',
 					'attr'  => array(
-						'help'  => 'campus.help.postcode',
 						'class' => 'locationForm monitorChange',
 					),
-				)
+                    'help'  => 'campus.postcode.help',
+				]
 			)
-			->add('territory', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-					'label'    => 'campus.label.territory',
+			->add('territory', ChoiceType::class, [
+					'label'    => 'campus.territory.label',
 					'required' => false,
 					'choices'  => $this->sm->get('Address.TerritoryList'),
 					'attr'     => array(
-						'help'  => 'campus.help.territory',
 						'class' => 'locationForm monitorChange',
 					),
-				)
+                    'help'  => 'campus.territory.help',
+				]
 			)
-			->add('locality', null, array(
-					'label' => 'campus.label.locality',
+			->add('locality', TextType::class, [
+					'label' => 'campus.locality.label',
 					'attr'  => array(
-						'help'  => 'campus.help.locality',
 						'class' => 'locationForm monitorChange',
 					),
-				)
+                    'help'  => 'campus.locality.help',
+				]
 			)
-			->add('country', $this->sm->get('CountryType'), array(
-					'label' => 'campus.label.country',
+			->add('country', $this->sm->get('CountryType'), [
+					'label' => 'campus.country.label',
 					'attr'  => array(
-						'help'  => 'campus.help.country',
 						'class' => 'locationForm monitorChange',
 					),
-				)
+                    'help'  => 'campus.country.help',
+				]
 			)
 			->add('locationList', EntityType::class, array(
 					'class'         => Campus::class,
 					'attr'          => array(
-						'class' => 'locationList changeRecord formChanged',
+						'class' => 'locationList changeRecord formChanged form-control-sm',
 					),
-					'label'         => '',
+					'label'         => false,
 					'mapped'        => false,
 					'choice_label'  => 'name',
 					'query_builder' => function (EntityRepository $er) {
 						return $er->createQueryBuilder('c')
 							->orderBy('c.name', 'ASC');
 					},
-					'placeholder'   => 'campus.placeholder.locations',
+					'placeholder'   => 'campus.locations.placeholder',
 					'required'      => false,
 					'data'          => $options['data']->getId(),
 				)
