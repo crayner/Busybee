@@ -49,7 +49,6 @@ parameters:
         ROLE_SYSTEM_ADMIN:
             - ROLE_REGISTRAR
             - ROLE_PARENT
-    upload_path: 'uploads/%current_year%/%current_month%'
 
 services:
     # default configuration for services in *this* file

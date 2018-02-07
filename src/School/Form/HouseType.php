@@ -55,8 +55,8 @@ class HouseType extends AbstractType
 			->add('logo', ImageType::class,
 				[
 					'label'       => 'school.house.logo.label',
+                    'help'       => 'school.house.logo.help',
 					'attr'        => [
-						'help'       => 'school.house.logo.help',
 						'imageClass' => 'smallLogo',
 					],
 					'constraints' => [
@@ -64,7 +64,7 @@ class HouseType extends AbstractType
 					],
 					'required'    => false,
 					'deletePhoto' => $options['deletePhoto'],
-					'fileName'    => 'house',
+					'fileName'    => 'house_logo',
 				]
 			);
 		$builder->addEventSubscriber($this->houseSubscriber);

@@ -10,6 +10,11 @@
 {% block headerTitle %}{{ 'space.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'space.edit.description'|trans }}{% endblock headerLead %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@HillrangeForm/Toggle/style.html.twig' %}
+{% endblock %}
+
 {% block contentContainer %}
     {{ form_start(form, {'attr': {'id': 'SpaceForm'}}) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('space_list')}}) %}
@@ -52,7 +57,7 @@
         </div>
         <div class="row">
             <div class="col-3 card">
-                {{ form_row(form.computer) }}
+                {{ form_row(form.computer) }}{% dump(form.computer) %}
             </div>
             <div class="col-3 card">
                 {{ form_row(form.projector) }}
@@ -94,7 +99,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'Script/toggle.html.twig' %}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include 'Script/monitorForm.html.twig' with {'route': 'space_edit'} %}
     {% include 'Facility/spacesScript.html.twig' %}
 {% endblock javascripts %}

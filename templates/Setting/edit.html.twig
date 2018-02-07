@@ -45,7 +45,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'Script/toggle.html.twig' %}
+    {% include 'Script/script.html.twig' %}
     <script type="text/javascript">
         $('.changeSetting').change(function ($e) {
             $("#setting_nameSelect").prop('disabled', true);

@@ -38,6 +38,8 @@ class Kernel extends BaseKernel
     {
 	    $container->setParameter('container.autowiring.strict_mode', true);
 	    $container->setParameter('container.dumper.inline_class_loader', true);
+        $container->setParameter('current_year', date('Y'));
+        $container->setParameter('current_month', date('m'));
 
         $confDir = $this->getProjectDir().'/config';
         $loader->load($confDir.'/packages/*'.self::CONFIG_EXTS, 'glob');
@@ -47,8 +49,6 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/services'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/services_'.$this->environment.self::CONFIG_EXTS, 'glob');
 
-	    $container->setParameter('current_year', date('Y'));
-	    $container->setParameter('current_month', date('m'));
 
     }
 

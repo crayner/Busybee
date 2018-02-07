@@ -92,12 +92,11 @@ class FacilityController extends Controller
 			$em->persist($space);
 			$em->flush();
 
-
 			if ($id === 'Add')
-				return new RedirectResponse($this->get('router')->generate('space_edit', array('id' => $space->getId())));
+				return $this->redirectToRoute('space_edit', ['id' => $space->getId()]);
 		}
 
-		return $this->render('Facility/spaceEdit.html.twig', array('id' => $id, 'form' => $form->createView()));
+		return $this->render('Facility/spaceEdit.html.twig', ['id' => $id, 'form' => $form->createView()]);
 	}
 	/**
 	 * @Route("/space/duplicate/", name="space_duplicate")

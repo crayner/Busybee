@@ -1,4 +1,9 @@
-twig:
-    paths:
-        '%kernel.project_dir%/templates/bundles/HillrangeForm': HillrangeForm
-        '%kernel.project_dir%/vendor/hillrange/symfony-form/Resources/views': HillrangeForm
+
+hillrange_form:
+    upload_path: 'uploads/%current_year%/%current_month%'
+    button_class_off: 'btn btn-danger toggle toggle-thumbs-down'
+    button_toggle_swap:
+        - 'btn-danger'
+        - 'btn-success'
+        - 'toggle-thumbs-down'
+        - 'toggle-thumbs-up'

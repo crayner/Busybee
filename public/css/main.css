@@ -36,16 +36,6 @@ p {
 .form-group {
 	margin-bottom: 0;
 }
-
-.toggleRight {
-	float: right ;
-	margin-left: 5px;
-}
-
-.toggleLeft {
-    float: left;
-    margin-right: 5px;
-}
 .withAdd {
 	display: block!important;
 }

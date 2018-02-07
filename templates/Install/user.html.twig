@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include 'Style/toggle.html.twig' %}
+    {% include 'Style/script.html.twig' %}
 {% endblock stylesheets %}
 
 {% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
@@ -60,7 +60,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'Script/toggle.html.twig' %}
+    {% include 'Script/script.html.twig' %}
     {% include 'Script/fadeAlert.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $("#generatePassword").on('click', function () {
