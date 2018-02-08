@@ -1,0 +1,39 @@
+language: php
+
+php:
+    - 7.1
+
+branches:
+    only: master
+
+env:
+    global:
+        - SYMFONY_VERSION=4.0.*
+
+matrix:
+    include:
+        - php: 7.1
+          env: SYMFONY_VERSION=4.0.*@dev
+    exclude:
+        - php: 5.6
+          env: SYMFONY_VERSION=v4
+        - php: 7.0
+          env: SYMFONY_VERSION=v4
+
+notifications:
+    email: craig@craigrayner.com
+
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+
+before_install:
+    - composer self-update
+
+install:
+    - if [ "$SYMFONY_VERSION" != "" ]; then composer require "dunglas/symfony-lock:${SYMFONY_VERSION}" --no-update; fi;
+    - composer update --prefer-source
+
+script: vendor/bin/phpunit --coverage-clover=coverage.clover

@@ -1274,23 +1274,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "6961dcfffd8c922eca90fc2ec0b3713d186f0d7f"
+                "reference": "d12c7ea61565144a0d9fefcd179dc01fe1dd7233"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/6961dcfffd8c922eca90fc2ec0b3713d186f0d7f",
-                "reference": "6961dcfffd8c922eca90fc2ec0b3713d186f0d7f",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/d12c7ea61565144a0d9fefcd179dc01fe1dd7233",
+                "reference": "d12c7ea61565144a0d9fefcd179dc01fe1dd7233",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1|^7.2",
+                "php": "^7.1",
                 "symfony/flex": "^1.0",
-                "symfony/form": "^3.4|^4.0",
-                "symfony/property-access": "^3.4|^4.0",
-                "symfony/templating": "^3.4|^4.0",
-                "symfony/twig-bridge": "^3.4|^4.0",
-                "symfony/twig-bundle": "^3.4|^4.0",
-                "symfony/validator": "^3.4|^4.0",
+                "symfony/form": "^4.0",
+                "symfony/property-access": "^4.0",
+                "symfony/templating": "^4.0",
+                "symfony/twig-bridge": "^4.0",
+                "symfony/twig-bundle": "^4.0",
+                "symfony/validator": "^4.0",
                 "twig/extensions": "^1.5",
                 "twig/twig": "^2.4"
             },
@@ -1330,7 +1330,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-07T10:43:32+00:00"
+            "time": "2018-02-07T11:48:51+00:00"
         },
         {
             "name": "hillrange/security",
@@ -1403,24 +1403,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/symfony-form.git",
-                "reference": "33f1b0c868d4fb7d2f506495a817e65266ec4260"
+                "reference": "b72352c7b9b26d8ee62acb795363547b7c689887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/33f1b0c868d4fb7d2f506495a817e65266ec4260",
-                "reference": "33f1b0c868d4fb7d2f506495a817e65266ec4260",
+                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/b72352c7b9b26d8ee62acb795363547b7c689887",
+                "reference": "b72352c7b9b26d8ee62acb795363547b7c689887",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
+                "php": "^7.1",
                 "symfony/flex": "^1.0",
                 "symfony/form": "^4.0",
+                "symfony/templating": "^4.0",
                 "symfony/validator": "^4.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.0.x-dev"
+                    "dev-master": "0.0-dev"
                 },
                 "symfony": {
                     "allow-contrib": "true"
@@ -1449,7 +1450,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-07T02:39:08+00:00"
+            "time": "2018-02-07T11:49:36+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
