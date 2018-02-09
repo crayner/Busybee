@@ -9,7 +9,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class Yaml extends Constraint
 {
-	public $message = 'array.error';
+	public $message = 'yaml.validation.error';
+
+	public $transDomain = 'validators'   ;
 
 	/**
 	 * @return string

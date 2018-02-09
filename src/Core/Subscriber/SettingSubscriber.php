@@ -5,14 +5,13 @@ use App\Core\Manager\SettingManager;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\TextType;
-use App\Core\Type\TimeType;
+use Hillrange\Form\Type\TimeType;
 use Hillrange\Form\Type\ToggleType;
-use App\Core\Validator\Integer;
+use Hillrange\Form\Validator\Integer;
 use App\Core\Validator\Regex;
 use App\Core\Validator\Twig;
 use App\Core\Validator\Yaml;
 use App\Entity\Setting;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
@@ -78,18 +77,6 @@ class SettingSubscriber implements EventSubscriberInterface
 				$w = $data->getValidator();
 				$constraints[] = new $w();
 			}
-			switch ($data->getType())
-			{
-				case 'array':
-					$constraints[] = new \App\Core\Validator\Yaml();
-					break;
-				case 'twig':
-					$constraints[] = new Twig();
-					break;
-				case 'regex':
-					$constraints[] = new Regex();
-					break;
-			}
 
 			if (count($constraints) > 0) $options['constraints'] = $constraints;
 
@@ -123,9 +110,9 @@ class SettingSubscriber implements EventSubscriberInterface
 								'data'        => $data->getValue(),
 								'help'        => 'system.setting.image.help',
 								'attr'        => array_merge($attr,
-									array(
+									[
 										'imageClass' => 'mediumLogo',
-									)
+									]
 								),
 								'fileName'    => 'setting',
 								'deletePhoto' => $this->router->generate('setting_delete_image', ['id' => $data->getId()]),
@@ -155,7 +142,7 @@ class SettingSubscriber implements EventSubscriberInterface
 								'constraints' => array_merge(
 									$constraints,
 									array(
-										new Yaml(),
+										new Yaml(['transDomain' => 'Setting']),
 									)
 								),
 								'data'        => \Symfony\Component\Yaml\Yaml::dump($this->settingManager->get($data->getName())),
@@ -252,9 +239,7 @@ class SettingSubscriber implements EventSubscriberInterface
 					);
 					break;
 				default:
-					dump($data);
-					dump($form);
-					die();
+					throw new \Exception('Setting Type not defined. ' . $data->getType());
 			}
 		}
 	}

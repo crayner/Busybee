@@ -28,6 +28,7 @@ class YamlValidator extends ConstraintValidator
 		{
 			$this->context->buildViolation($constraint->message)
 				->setParameter('%systemMessage%', $message)
+                ->setTranslationDomain($constraint->transDomain)
 				->addViolation();
 		}
 	}

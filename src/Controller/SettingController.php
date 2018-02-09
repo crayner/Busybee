@@ -99,64 +99,31 @@ class SettingController extends Controller
 	 *
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function edit($id, $closeWindow = null, Request $request, EntityManagerInterface $entityManager)
+	public function edit($id, $closeWindow = null, Request $request, EntityManagerInterface $entityManager, SettingManager $settingManager)
 	{
-		$setting = $entityManager->getRepository(Setting::class)->find($id);
+		$setting = $settingManager->find($id);
 
 		if (is_null($setting))
 			throw new \InvalidArgumentException('The System setting of identifier: ' . $id . ' was not found');
 
-		if (is_null($setting->getRole())) $setting->setRole('ROLE_SYSTEM_ADMIN');
-
-		$this->denyAccessUnlessGranted($setting->getRole(), null);
-
-
-		$data  = $request->request->get('setting');
-		$valid = true;
-
-		if (!is_null($data))
-		{
-			switch ($setting->getType())
-			{
-				case 'array':
-					try
-					{
-						$x = Yaml::parse($data['value']);
-					}
-					catch (\Exception $e)
-					{
-						$errorMsg = $e->getMessage();
-						$valid    = false;
-					}
-					break;
-			}
-		}
+		$this->denyAccessUnlessGranted($setting->getRole() ?: 'ROLE_SYSTEM_ADMIN', null);
 
 		$form = $this->createForm(SettingType::class, $setting, ['cancelURL' => $this->generateUrl('setting_manage')]);
 
 		$form->handleRequest($request);
 
-		if (! $valid)
-		{
-		    dump($form->get('value'));
-			$form->get('value')->addError(new FormError($errorMsg));
-		}
-dump($form);
-		dump($valid);
-		if ($form->isSubmitted() && $form->isValid() && $valid)
+		if ($form->isSubmitted() && $form->isValid())
 		{
 			$entityManager->persist($setting);
 			$entityManager->flush();
-			$session                       = $request->getSession();
-			$settings                      = $session->get('settings', []);
 
-			$settings[$setting->getName()] = $setting->getValue();
-
-			$session->set('settings', $settings);
+			$settingManager->find($setting->getId());
 
 			if ($setting->getType() == 'image')
 				return $this->redirectToRoute('setting_edit', ['id' => $id]);
 		}
+
+        $setting = $settingManager->find($id);
 
 		return $this->render('Setting/edit.html.twig', [
 				'form'       => $form->createView(),
@@ -219,7 +186,7 @@ dump($form);
 	 * @Route("/setting/{name}/edit/{closeWindow}", name="setting_edit_name")
 	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 */
-	public function editName($name, $closeWindow = null,  Request $request, SettingRepository $settingRepository, EntityManagerInterface $entityManager, SettingManager $settingManager)
+	public function editName($name, $closeWindow = null,  Request $request, SettingRepository $settingRepository)
 	{
 		$setting = null;
 		$original = $name;

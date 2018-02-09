@@ -55,14 +55,14 @@ class SettingType extends AbstractType
 			)
 			->add('nameSelect', ChoiceType::class,
 				array(
-					'label'       => '',
+					'label' => '',
 					'placeholder' => 'system.setting.name.placeholder',
-					'choices'     => $this->getSettingNameChoices(),
-					'attr'        => array(
+					'choices' => $this->getSettingNameChoices(),
+					'attr' => array(
 						'class' => 'changeRecord form-control-sm',
 					),
-					'mapped'      => false,
-					'data'        => $options['data']->getNameSelect(),
+					'mapped' => false,
+					'data' => $options['data']->getNameSelect(),
 				)
 			)
 			->add('displayName', null,

@@ -208,7 +208,7 @@ class SettingManager implements ContainerAwareInterface
 				if (is_null($value)) $value = '{{ empty }}';
 				try
 				{
-					$x = $this->twig->createTemplate($value)->render(array());
+					$x = $this->twig->createTemplate($value)->render([]);
 				}
 				catch (\Twig_Error_Syntax $e)
 				{
@@ -223,6 +223,7 @@ class SettingManager implements ContainerAwareInterface
 				$value = (bool) $value;
 				break;
 			case 'array':
+			    dump($value);
 				break;
 			default:
 				throw new Exception('The Setting Type (' . $this->setting->getType() . ') has not been defined.');
@@ -626,7 +627,7 @@ class SettingManager implements ContainerAwareInterface
 			$em = $this->container->get('doctrine')->getManager();
 			if ($setting->getType() == 'array' && is_array($setting->getValue()))
 				$setting->setValue(Yaml::dump($setting->getValue()));
-
+dump($setting);
 			$em->persist($setting);
 			$em->flush();
 		}
@@ -925,4 +926,22 @@ class SettingManager implements ContainerAwareInterface
 
 		$this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource], 'System');
 	}
+
+    /**
+     * @param int $id
+     * @return Setting|null
+     */
+    public function find(int $id): ?Setting
+    {
+        $this->setting = $this->settingRepo->find($id);
+
+        if ($this->setting instanceof Setting)
+        {
+            $this->settings[$this->setting->getName()] = $this->setting;
+            $this->writeSettingToSession($this->setting->getName());
+            $this->settingExists[$this->setting->getName()] = true;
+        }
+
+        return $this->setting;
+    }
 }
