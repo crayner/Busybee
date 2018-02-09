@@ -115,7 +115,7 @@ class SpaceType extends AbstractType
 					'attr'  => array(
 						'class' => 'monitorChange',
 					),
-				)
+                )
 			)
 			->add('speakers', ToggleType::class, array(
 					'label' => 'space.speakers.label',
