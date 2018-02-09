@@ -9,6 +9,11 @@
 {% block headerTitle %}{{ 'system.setting.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@HillrangeForm/Toggle/style.html.twig' %}
+{% endblock stylesheets %}
+
 {% block contentContainer %}
     {{ form_start(form) }}
     {% if closeWindow is defined and closeWindow == 'closeWindow' %}
@@ -45,7 +50,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'Script/script.html.twig' %}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
     <script type="text/javascript">
         $('.changeSetting').change(function ($e) {
             $("#setting_nameSelect").prop('disabled', true);

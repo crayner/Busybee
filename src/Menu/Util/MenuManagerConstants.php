@@ -116,6 +116,19 @@ School Admin:
 	        route: space_list
 	        params: {}
 	        translate: Facility
+        space_type:
+	        label: menu.space.type.title
+	        name: Space Management
+	        role: ROLE_SYSTEM_ADMIN
+	        route: setting_edit_name
+	        params:
+                name: space.type
+                closeWindow: closeWindow
+	        translate: Setting
+	        target:
+                name: Setting_Facility_Type
+                options: width=1200,height=900
+
     years_days_times:
         calendar_years:
             label: menu.calendar.manage

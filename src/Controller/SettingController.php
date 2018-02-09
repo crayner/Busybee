@@ -99,7 +99,7 @@ class SettingController extends Controller
 	 *
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function edit($id, $closeWindow = null, Request $request, EntityManagerInterface $entityManager, SettingManager $settingManager)
+	public function edit($id, $closeWindow = null, Request $request, EntityManagerInterface $entityManager)
 	{
 		$setting = $entityManager->getRepository(Setting::class)->find($id);
 
@@ -132,16 +132,18 @@ class SettingController extends Controller
 			}
 		}
 
-		$form               = $this->createForm(SettingType::class, $setting, ['cancelURL' => $this->generateUrl('setting_manage')]);
+		$form = $this->createForm(SettingType::class, $setting, ['cancelURL' => $this->generateUrl('setting_manage')]);
 
 		$form->handleRequest($request);
 
 		if (! $valid)
 		{
+		    dump($form->get('value'));
 			$form->get('value')->addError(new FormError($errorMsg));
 		}
-
-		if ($form->isSubmitted() && $form->isValid())
+dump($form);
+		dump($valid);
+		if ($form->isSubmitted() && $form->isValid() && $valid)
 		{
 			$entityManager->persist($setting);
 			$entityManager->flush();
