@@ -6,11 +6,6 @@
 {% block headerTitle %}{{ 'system.setting.manage.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.setting.manage.description'|trans }}{% endblock headerLead %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% include '@HillrangeForm/Toggle/style.html.twig' %}
-{% endblock stylesheets %}
-
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}

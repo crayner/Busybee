@@ -1,4 +1,3 @@
-{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form "@HillrangeForm/FormTheme/bootstrap.html.twig" %}
@@ -10,14 +9,9 @@
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% include 'Style/script.html.twig' %}
-{% endblock stylesheets %}
-
-{% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
 
 {% block contentContainer %}
+    {% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
     {{ form_start(form) }}
     {% set h3Content = '' %}
     {% if config.proceed %}
@@ -114,7 +108,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'Script/script.html.twig' %}
-    {% include 'Script/fadeAlert.html.twig' %}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include 'Script/messages.html.twig' %}
 {% endblock javascripts %}

@@ -8,11 +8,6 @@
 {% block headerTitle %}{{ 'system.setting.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% include '@HillrangeForm/Toggle/style.html.twig' %}
-{% endblock stylesheets %}
-
 {% block contentContainer %}
     {{ form_start(form) }}
     {% if closeWindow is defined and closeWindow == 'closeWindow' %}

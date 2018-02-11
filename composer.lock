@@ -1274,12 +1274,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/CKEditor.git",
-                "reference": "d12c7ea61565144a0d9fefcd179dc01fe1dd7233"
+                "reference": "354edef6ebb13faef7213838f6676ccb75e6c58a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/d12c7ea61565144a0d9fefcd179dc01fe1dd7233",
-                "reference": "d12c7ea61565144a0d9fefcd179dc01fe1dd7233",
+                "url": "https://api.github.com/repos/crayner/CKEditor/zipball/354edef6ebb13faef7213838f6676ccb75e6c58a",
+                "reference": "354edef6ebb13faef7213838f6676ccb75e6c58a",
                 "shasum": ""
             },
             "require": {
@@ -1330,7 +1330,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-07T11:48:51+00:00"
+            "time": "2018-02-08T04:14:07+00:00"
         },
         {
             "name": "hillrange/security",
@@ -1338,12 +1338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "22b63c8778c7eab9209b9c0c950ce92aa0da62bd"
+                "reference": "eef0bbf673ea20b0266aecf99f15af7a4588d138"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/22b63c8778c7eab9209b9c0c950ce92aa0da62bd",
-                "reference": "22b63c8778c7eab9209b9c0c950ce92aa0da62bd",
+                "url": "https://api.github.com/repos/crayner/security/zipball/eef0bbf673ea20b0266aecf99f15af7a4588d138",
+                "reference": "eef0bbf673ea20b0266aecf99f15af7a4588d138",
                 "shasum": ""
             },
             "require": {
@@ -1395,7 +1395,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-02-05T23:43:46+00:00"
+            "time": "2018-02-08T04:15:50+00:00"
         },
         {
             "name": "hillrange/symfony-form",
@@ -1403,12 +1403,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/symfony-form.git",
-                "reference": "b72352c7b9b26d8ee62acb795363547b7c689887"
+                "reference": "954c30e46bb20264bf958a626a49d746b517a838"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/b72352c7b9b26d8ee62acb795363547b7c689887",
-                "reference": "b72352c7b9b26d8ee62acb795363547b7c689887",
+                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/954c30e46bb20264bf958a626a49d746b517a838",
+                "reference": "954c30e46bb20264bf958a626a49d746b517a838",
                 "shasum": ""
             },
             "require": {
@@ -1450,7 +1450,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-07T11:49:36+00:00"
+            "time": "2018-02-11T22:36:52+00:00"
         },
         {
             "name": "jdorn/sql-formatter",

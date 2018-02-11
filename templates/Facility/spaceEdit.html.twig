@@ -10,11 +10,6 @@
 {% block headerTitle %}{{ 'space.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'space.edit.description'|trans }}{% endblock headerLead %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% include '@HillrangeForm/Toggle/style.html.twig' %}
-{% endblock %}
-
 {% block contentContainer %}
     {{ form_start(form, {'attr': {'id': 'SpaceForm'}}) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('space_list')}}) %}
