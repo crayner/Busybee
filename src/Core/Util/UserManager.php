@@ -38,12 +38,9 @@ class UserManager
 	 */
 	public function __construct(TokenStorageInterface $tokenStorage, EntityManagerInterface $entityManager)
 	{
-		if ($tokenStorage->getToken())
-			$this->user = $tokenStorage->getToken()->getUser();
-		else
-			$this->user = null;
 		$this->entityManager = $entityManager;
 		$this->tokenStorage = $tokenStorage;
+		$this->getUser();
 	}
 
 	/**
@@ -54,7 +51,7 @@ class UserManager
 		if ($user instanceof User)
 			$id = $user->getId();
 
-		if ($this->user)
+		if ($this->getUser())
 			$id = $this->user->getId();
 
 		if (empty($this->person))
@@ -66,27 +63,35 @@ class UserManager
 		if ($user instanceof User)
 			return $user->formatName();
 
-		if ($this->user)
-			return $this->user->formatName();
+		if ($this->getUser())
+			return $this->getUser()->formatName();
 
 		return '';
 	}
 
-	/**
-	 * @return null|object
-	 */
-	public function getSystemCalendar()
-	{
-		if (! $this->user)
-			return $this->entityManager->getRepository(Calendar::class)->findOneBy(['status' => 'current']);
+    /**
+     * @return null|object
+     */
+    public function getSystemCalendar()
+    {
+        if (! $this->getUser())
+            return $this->entityManager->getRepository(Calendar::class)->findOneBy(['status' => 'current']);
 
-		$calendar = $this->user->getUserSettings('calendar');
-		$cal = is_null($calendar) ? null : $this->entityManager->getRepository(Calendar::class)->find($calendar) ;
-		if (is_null($cal))
-			$cal = $this->entityManager->getRepository(Calendar::class)->loadCurrentCalendar();
+        $calendar = $this->user->getUserSettings('calendar');
+        $cal = is_null($calendar) ? null : $this->entityManager->getRepository(Calendar::class)->find($calendar) ;
+        if (is_null($cal))
+            $cal = $this->entityManager->getRepository(Calendar::class)->loadCurrentCalendar();
 
-		return $cal;
-	}
+        return $cal;
+    }
+
+    /**
+     * @return null|object
+     */
+    public function getCurrentCalendar()
+    {
+        return $this->getSystemCalendar();
+    }
 
 	/**
 	 * @param $name
@@ -95,13 +100,19 @@ class UserManager
 	 */
 	public function getUserSetting($name)
 	{
-		if (! $this->user)
-		{
-			if ($this->tokenStorage->getToken())
-				$this->user = $this->tokenStorage->getToken()->getUser();
-			else
-				$this->user = null;
-		}
-		return $this->user ? $this->user->getUserSettings($name) : null;
+		return $this->getUser() ? $this->getUser()->getUserSettings($name) : null;
 	}
+
+	private function getUser()
+    {
+        if (! $this->user)
+        {
+            if ($this->tokenStorage->getToken())
+                $this->user = $this->tokenStorage->getToken()->getUser();
+            else
+                $this->user = null;
+        }
+
+        return $this->user;
+    }
 }
