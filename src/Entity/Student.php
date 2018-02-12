@@ -154,12 +154,19 @@ class Student extends StudentExtension
 	 */
 	private $dayType;
 
+    /**
+     * @var ArrayCollection
+     */
+    private $rolls;
+
 	/**
 	 * Student constructor.
 	 */
 	public function __construct()
 	{
 		$this->calendarGroups = new ArrayCollection();
+		$this->rolls = new ArrayCollection();
+		parent::__construct();
 	}
 
 	/**
@@ -818,4 +825,50 @@ class Student extends StudentExtension
 
 		return $this;
 	}
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRolls(): ArrayCollection
+    {
+        return $this->rolls;
+    }
+
+    /**
+     * @param ArrayCollection $rolls
+     * @return Student
+     */
+    public function setRolls(ArrayCollection $rolls): Student
+    {
+        $this->rolls = $rolls;
+        return $this;
+    }
+
+    /**
+     * @param RoleGroup $roleGroup
+     * @param bool $addRollGroup
+     * @return Student
+     */
+    public function addRoll(RoleGroup $roleGroup, $addRollGroup = true): Student
+    {
+        if ($addRollGroup)
+            $roleGroup->addStudent($this, false);
+
+        if (! $this->rolls->contains($roleGroup))
+            $this->rolls->add($roleGroup);
+
+        return $this;
+    }
+
+    /**
+     * @param RoleGroup $roleGroup
+     * @return Student
+     */
+    public function removeRoll(RoleGroup $roleGroup): Student
+    {
+        if ($this->rolls->contains($roleGroup))
+            $this->rolls->removeElement($roleGroup);
+
+        return $this;
+    }
 }

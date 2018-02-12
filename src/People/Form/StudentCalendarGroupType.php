@@ -5,7 +5,7 @@ use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\CalendarGroup;
 use App\Entity\Student;
-use App\Entity\StudentCalendarGroup;
+use App\Entity\RollGroup;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -58,7 +58,7 @@ class StudentCalendarGroupType extends AbstractType
 		$resolver
 			->setDefaults(
 				[
-					'data_class'         => StudentCalendarGroup::class,
+					'data_class'         => RollGroup::class,
 					'translation_domain' => 'Student',
 					'error_bubbling'     => true,
 				]

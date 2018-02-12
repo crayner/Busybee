@@ -8,7 +8,7 @@ use App\Entity\Family;
 use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
-use App\Entity\StudentCalendarGroup;
+use App\Entity\RollGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Security\Entity\User;
@@ -364,7 +364,7 @@ user:
 			return false;
 		if ($this->isGradesInstalled())
 		{
-			$grades = $this->entityManager->getRepository(StudentCalendarGroup::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
+			$grades = $this->entityManager->getRepository(RollGroup::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
 
 			if (is_array($grades) && count($grades) > 0)
 				return false;
@@ -616,9 +616,9 @@ user:
 	 */
 	public function isGradesInstalled(): bool
 	{
-		if (class_exists('App\Entity\StudentCalendarGroup'))
+		if (class_exists('App\Entity\RollGroup'))
 		{
-			$metaData = $this->getEntityManager()->getClassMetadata('App\Entity\StudentCalendarGroup');
+			$metaData = $this->getEntityManager()->getClassMetadata('App\Entity\RollGroup');
 			$schema   = $this->getEntityManager()->getConnection()->getSchemaManager();
 
 			return $schema->tablesExist([$metaData->table['name']]);

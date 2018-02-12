@@ -106,8 +106,7 @@ App\Entity\Student:
         transportNotes:
             nullable: true
             type: text
-    oneToMany:
-        calendarGroups:
-            targetEntity: App\Entity\StudentCalendarGroup
-            mappedBy: student
-            cascade: ['persist']
+    manyToMany:
+        rolls:
+            targetEntity: App\Entity\RollGroup
+            inversedBy: students

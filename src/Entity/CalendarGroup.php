@@ -4,7 +4,7 @@ namespace App\Entity;
 use App\Calendar\Entity\CalendarGroupExtension;
 use App\Entity\Space;
 use App\Entity\Staff;
-use App\Entity\StudentCalendarGroup;
+use App\Entity\RollGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Hillrange\Security\Util\UserTrackInterface;
@@ -45,7 +45,7 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	/**
 	 * @var ArrayCollection
 	 */
-	private $students;
+	private $rollGroups;
 
 	/**
 	 * @var Staff
@@ -62,7 +62,7 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	 */
 	public function __construct()
 	{
-		$this->students = new ArrayCollection();
+		$this->rollGroups = new ArrayCollection();
 	}
 
 	/**
@@ -175,25 +175,25 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	}
 
 	/**
-	 * Get Students
+	 * Get rollGroups
 	 *
 	 * @return Collection
 	 */
-	public function getStudents()
+	public function getRollGroups()
 	{
-		return $this->students;
+		return $this->rollGroups;
 	}
 
 	/**
-	 * Set Students
+	 * Set rollGroups
 	 *
-	 * @param ArrayCollection $students
+	 * @param ArrayCollection $rollGroups
 	 *
 	 * @return CalendarGroup
 	 */
-	public function setStudents(ArrayCollection $students): CalendarGroup
+	public function setRollGroups(ArrayCollection $rollGroupsCalendarGroups): CalendarGroup
 	{
-		$this->students = $students;
+		$this->rollGroups = $rollGroupsCalendarGroups;
 
 		return $this;
 	}
@@ -201,23 +201,23 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	/**
 	 * Add Student
 	 *
-	 * @param StudentCalendarGroup|null $student
+	 * @param RollGroup|null $rollGroups
 	 *
 	 * @return CalendarGroup
 	 */
-	public function addStudent(StudentCalendarGroup $student = null, $add = true): CalendarGroup
+	public function addRollGroup(RollGroup $rollGroups = null, $add = true): CalendarGroup
 	{
-		if (!$student instanceof StudentCalendarGroup)
+		if (!$rollGroups instanceof RollGroup)
 			return $this;
 
 		if ($add)
-			$student->setCalendarGroup($this, false);
+			$rollGroups->setCalendarGroup($this, false);
 
-		if (is_null($this->students))
-			$this->students = new ArrayCollection();
+		if (is_null($this->rollGroups))
+			$this->rollGroups = new ArrayCollection();
 
-		if (!$this->students->contains($student))
-			$this->students->add($student);
+		if (!$this->rollGroups->contains($rollGroups))
+			$this->rollGroups->add($rollGroups);
 
 		return $this;
 	}
@@ -225,13 +225,13 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	/**
 	 * Remove Student
 	 *
-	 * @param StudentCalendarGroup $student
+	 * @param RollGroup $rollGroups
 	 *
 	 * @return CalendarGroup
 	 */
-	public function removeStudent(StudentCalendarGroup $student): CalendarGroup
+	public function removeRollGroup(RollGroup $rollGroups): CalendarGroup
 	{
-		$this->students->removeElement($student);
+		$this->rollGroups->removeElement($rollGroups);
 
 		return $this;
 	}

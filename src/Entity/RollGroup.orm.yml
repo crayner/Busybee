@@ -1,0 +1,65 @@
+App\Entity\RollGroup:
+    type: entity
+    table: roll_group
+    repositoryClass: App\Repository\RollGroupRepository
+#    uniqueConstraints:
+#         student_roll:
+#             columns:
+#                 - student_id
+#                 - calendar_group_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            length: 16
+        nameShort:
+            length: 8
+            column: name_short
+        status:
+            length: 32
+        website:
+            length: 200
+    manyToOne:
+        calendarGroup:
+            targetEntity: App\Entity\CalendarGroup
+            inversedBy: rollGroups
+            joinColumns:
+                calendar_group_id:
+                    referencedColumnName: id
+        rollTutor1:
+            targetEntity: App\Entity\Staff
+            cascade: ['persist']
+            inversedBy: RollGroups1
+            joinColumns:
+                roll_tutor_1:
+                    referencedColumnName: id
+        rollTutor2:
+            targetEntity: App\Entity\Staff
+            cascade: ['persist']
+            inversedBy: RollGroups2
+            joinColumns:
+                roll_tutor_2:
+                    referencedColumnName: id
+        rollTutor3:
+            targetEntity: App\Entity\Staff
+            cascade: ['persist']
+            inversedBy: RollGroups3
+            joinColumns:
+                roll_tutor_3:
+                    referencedColumnName: id
+    manyToMany:
+        students:
+            targetEntity: App\Entity\Student
+            inversedBy: rolls
+            joinTable:
+                name: student_roll_link
+                joinColumns:
+                    roll_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    student_id:
+                        referencedColumnName: id

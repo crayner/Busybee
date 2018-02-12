@@ -28,8 +28,8 @@ App\Entity\CalendarGroup:
             length: 200
             nullable: true
     oneToMany:
-        students:
-            targetEntity: App\Entity\StudentCalendarGroup
+        rollGroups:
+            targetEntity: App\Entity\RollGroup
             mappedBy: calendarGroup
     manyToOne:
         calendar:

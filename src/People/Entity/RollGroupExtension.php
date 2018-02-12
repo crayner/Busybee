@@ -5,7 +5,7 @@ use App\Entity\Calendar;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
-abstract class StudentCalendarGroupExtension implements UserTrackInterface
+abstract class RollGroupExtension implements UserTrackInterface
 {
 	use UserTrackTrait;
 	/**

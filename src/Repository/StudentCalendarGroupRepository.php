@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-use App\Entity\StudentCalendarGroup;
+use App\Entity\RollGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,6 +20,6 @@ class StudentCalendarGroupRepository extends ServiceEntityRepository
 	 */
 	public function __construct(RegistryInterface $registry)
 	{
-		parent::__construct($registry, StudentCalendarGroup::class);
+		parent::__construct($registry, RollGroup::class);
 	}
 }
