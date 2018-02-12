@@ -99,16 +99,6 @@ abstract class PaginationManager implements PaginationInterface
 	private $control = array();
 
 	/**
-	 * @var array
-	 */
-	private $join = array();
-
-	/**
-	 * @var array
-	 */
-	private $select = array();
-
-	/**
 	 * @var string
 	 */
 	private $sortByName;
@@ -1022,10 +1012,10 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	protected function setQueryJoin()
 	{
-		if (!is_array($this->join)) return $this;
+        if (!is_array($this->join) || empty($this->join)) return $this;
 		foreach ($this->join as $name => $pars)
 		{
-			$type = empty($pars['type']) ? 'join' : $pars['type'];
+            $type = empty($pars['type']) ? 'join' : $pars['type'];
 			$this->query->$type($name, $pars['alias']);
 		}
 

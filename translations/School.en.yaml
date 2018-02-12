@@ -50,6 +50,11 @@ school:
         logo:
             label: House Logo
             help: 'Max file size of 750k and ratio of 0.75 <= x <= 1.25'
+    roll:
+        list:
+            title: Roll List
+            description: ''
+            help: 'This page shows all roll groups in the current school calendar.'
 department:
     edit:
         title: Manage Department
@@ -95,3 +100,8 @@ department:
         label: Department Blurb
     logo:
         label: Department Logo
+menu.roll.groups: Manage Roll Groups
+roll.sort:
+    name: Roll Name
+    name_short: Roll Short Name
+    calendar_group: Calendar Group

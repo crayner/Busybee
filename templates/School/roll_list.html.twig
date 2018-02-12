@@ -1,0 +1,60 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'School' %}
+
+{% block title %}{{ 'school.roll.list.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.roll.list.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.roll.list.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Pagination/index.html.twig' %}
+    {% if is_granted('ROLE_SYSTEM_ADMIN') %}
+        {% set h3Content = miscButton({windowOpen: {route: path('roll_edit', {id: 'Add'})}, class: 'btn btn-primary halflings halflings-plus-sign' }) %}
+    {% endif %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
+    <div class="container-fluid">
+        <div class="row row-header">
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'roll.sort.name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ pagination.getSortByName|trans }}
+                {% else %}
+                    {{ 'roll.sort.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'roll.sort.name_short'%}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ pagination.getSortByName|trans }}
+                {% else %}
+                    {{ 'roll.sort.name_short'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'roll.sort.calendar_group'%}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ pagination.getSortByName|trans }}
+                {% else %}
+                    {{ 'roll.sort.calendar_group'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3 withAdd">
+                {{ 'system.setting.manage.actions'|trans({}, 'System') }}
+            </div>
+        </div>
+        {% for setting in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-3 form-inline">
+                    {{ setting.displayName }}
+                </div>
+                <div class="col-6 form-inline">
+                    {{ setting.description }}
+                </div>
+                <div class="col-3 form-inline">
+                    <button title='{{ 'system.setting.edit.title'|trans }}' type="button"
+                            class="halflings halflings-edit btn btn-warning"
+                            onClick="window.open('{{ path('setting_edit', {'id': setting.id}) }}','_self')"></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+

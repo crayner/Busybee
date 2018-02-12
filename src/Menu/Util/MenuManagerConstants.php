@@ -101,6 +101,12 @@ School Admin:
             params:
                 id: current
                 _fragment: calendarGroups
+        manage_roll_groups:
+            label: menu.roll.groups
+            role: ROLE_REGISTRAR
+            route: roll_list
+            params: {}
+            translate: School
     others:
         campus_manage:
 	        label: menu.campus.manage.title

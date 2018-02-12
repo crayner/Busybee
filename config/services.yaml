@@ -63,7 +63,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Voter,Core/Util}'
+        exclude: '../src/{Entity,Migrations,Tests,Voter}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -101,10 +101,6 @@ services:
         tags:
             - { name: security.voter, priority: 250 }
         public: true
-    App\Core\Util\UserManager:
-        arguments:
-            - '@security.token_storage'
-            - '@doctrine.orm.default_entity_manager'
     App\Core\Validator\BackgroundImage:
         public: true
     app.voter.current_user_voter:

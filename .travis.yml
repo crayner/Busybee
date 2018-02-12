@@ -33,5 +33,6 @@ before_install:
     - composer self-update
 
 install:
-    - if [ "$SYMFONY_VERSION" != "" ]; then composer require "dunglas/symfony-lock:${SYMFONY_VERSION}" --no-update; fi;
     - composer update --prefer-source
+    - php bin/console doctrine:database:create --env=test
+    - php bin/console doctrine:schema:create --env=test
