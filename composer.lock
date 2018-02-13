@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "01605cb92f73212722f134e02be6eea9",
+    "content-hash": "ad6746db6a4edcefd10a8a53be467d5d",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1333,17 +1333,17 @@
             "time": "2018-02-08T04:14:07+00:00"
         },
         {
-            "name": "hillrange/gibbon-pull",
+            "name": "hillrange/gibbon",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/gibbon-pull.git",
-                "reference": "c4a6cb3f4d13773ea990e99be2836783ff5b7be9"
+                "reference": "1faaf2df0c17dc1933144ab8b2c9bf16b30d5b85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/gibbon-pull/zipball/c4a6cb3f4d13773ea990e99be2836783ff5b7be9",
-                "reference": "c4a6cb3f4d13773ea990e99be2836783ff5b7be9",
+                "url": "https://api.github.com/repos/crayner/gibbon-pull/zipball/1faaf2df0c17dc1933144ab8b2c9bf16b30d5b85",
+                "reference": "1faaf2df0c17dc1933144ab8b2c9bf16b30d5b85",
                 "shasum": ""
             },
             "require": {
@@ -1361,7 +1361,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Hillrange\\GibbonPull\\": "/"
+                    "Hillrange\\Gibbon\\": "/"
                 },
                 "exclude-from-classmap": [
                     "/tests/"
@@ -1380,9 +1380,10 @@
             "description": "Gibbon Database Pull for Busybee App",
             "homepage": "http://www.craigrayner.com",
             "keywords": [
-                "busybee"
+                "busybee",
+                "gibbon"
             ],
-            "time": "2018-02-13T03:27:53+00:00"
+            "time": "2018-02-13T04:22:24+00:00"
         },
         {
             "name": "hillrange/security",
@@ -5942,7 +5943,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hillrange/ckeditor": 20,
-        "hillrange/gibbon-pull": 20,
+        "hillrange/gibbon": 20,
         "hillrange/security": 20,
         "hillrange/symfony-form": 20
     },
