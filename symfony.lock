@@ -83,6 +83,9 @@
     "hillrange/ckeditor": {
         "version": "dev-master"
     },
+    "hillrange/gibbon-pull": {
+        "version": "0.0-dev"
+    },
     "hillrange/security": {
         "version": "dev-master"
     },

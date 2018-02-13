@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8da5310cf7247a1fca23c741213bb5ea",
+    "content-hash": "01605cb92f73212722f134e02be6eea9",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1331,6 +1331,58 @@
                 "form"
             ],
             "time": "2018-02-08T04:14:07+00:00"
+        },
+        {
+            "name": "hillrange/gibbon-pull",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crayner/gibbon-pull.git",
+                "reference": "c4a6cb3f4d13773ea990e99be2836783ff5b7be9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crayner/gibbon-pull/zipball/c4a6cb3f4d13773ea990e99be2836783ff5b7be9",
+                "reference": "c4a6cb3f4d13773ea990e99be2836783ff5b7be9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "symfony/flex": "^1.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.0-dev"
+                },
+                "symfony": {
+                    "allow-contrib": "true"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hillrange\\GibbonPull\\": "/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Craig Rayner",
+                    "email": "hillrange@craigrayner.com"
+                }
+            ],
+            "description": "Gibbon Database Pull for Busybee App",
+            "homepage": "http://www.craigrayner.com",
+            "keywords": [
+                "busybee"
+            ],
+            "time": "2018-02-13T03:27:53+00:00"
         },
         {
             "name": "hillrange/security",
@@ -5890,6 +5942,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hillrange/ckeditor": 20,
+        "hillrange/gibbon-pull": 20,
         "hillrange/security": 20,
         "hillrange/symfony-form": 20
     },
