@@ -552,7 +552,13 @@ class Person extends PersonExtension
 
 	private function createIdentifier($identifier)
     {
-        if ((empty($identifier) || false !== mb_strpos($identifier, '*')) && (empty($this->identifier) || false !== mb_strpos($this->identifier, '*')))
+        if (!$this instanceof Student)
+            return $this->identifier;
+
+        if (! empty($identifier))
+            $this->identifier = $identifier;
+
+        if (empty($this->identifier) || mb_strpos($this->identifier, '*') || (mb_substr($this->identifier, 1, 1) === '_' && $this->getDob() instanceof \DateTime))
         {
             $identifier = mb_substr($this->surname, 0, 4);
             while (mb_strlen($identifier) < 4)
@@ -564,13 +570,9 @@ class Person extends PersonExtension
                 $identifier .= mb_substr($name, 0, 1);
             while (mb_strlen($identifier) < 6)
                 $identifier .= '*';
-            $mon = '**';
+            $mon = '****';
             if ($this->getDob() instanceof \DateTime)
-                $mon = $this->getDob()->format('m');
-            $identifier .= $mon;
-            $mon = '**';
-            if ($this->getDob() instanceof \DateTime)
-                $mon = $this->getDob()->format('d');
+                $mon = $this->getDob()->format('md');
             $identifier .= $mon;
 
             while (mb_strlen($identifier) < 10)

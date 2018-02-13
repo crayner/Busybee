@@ -1338,12 +1338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/gibbon-pull.git",
-                "reference": "8b6ec993fb9d54f25345d498f3e8bfe11f748fdf"
+                "reference": "0e2266286cdb5a0b494a024479541ab64feb0891"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/gibbon-pull/zipball/8b6ec993fb9d54f25345d498f3e8bfe11f748fdf",
-                "reference": "8b6ec993fb9d54f25345d498f3e8bfe11f748fdf",
+                "url": "https://api.github.com/repos/crayner/gibbon-pull/zipball/0e2266286cdb5a0b494a024479541ab64feb0891",
+                "reference": "0e2266286cdb5a0b494a024479541ab64feb0891",
                 "shasum": ""
             },
             "require": {
@@ -1383,7 +1383,7 @@
                 "busybee",
                 "gibbon"
             ],
-            "time": "2018-02-13T05:10:53+00:00"
+            "time": "2018-02-13T06:34:46+00:00"
         },
         {
             "name": "hillrange/security",
