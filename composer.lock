@@ -1361,7 +1361,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Hillrange\\GibbonPull\\": "/"
+                    "Hillrange\\Gibbon\\": "/"
                 },
                 "exclude-from-classmap": [
                     "/tests/"
