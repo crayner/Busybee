@@ -202,7 +202,8 @@ class SettingManager implements ContainerAwareInterface
 			case 'image':
 			case 'file':
 			case 'text':
-			case 'system':
+            case 'system':
+            case 'array':
 				break;
 			case 'twig':
 				if (is_null($value)) $value = '{{ empty }}';
@@ -221,9 +222,6 @@ class SettingManager implements ContainerAwareInterface
 				break;
 			case 'boolean':
 				$value = (bool) $value;
-				break;
-			case 'array':
-			    dump($value);
 				break;
 			default:
 				throw new Exception('The Setting Type (' . $this->setting->getType() . ') has not been defined.');

@@ -528,6 +528,7 @@ class Person extends PersonExtension
 	 */
 	public function getIdentifier()
 	{
+        $this->identifier = $this->createIdentifier($this->identifier);
 		if (empty($this->identifier) || false !== mb_strpos($this->identifier, '*'))
 			$this->setIdentifier('');
 
@@ -543,36 +544,41 @@ class Person extends PersonExtension
 	 */
 	public function setIdentifier($identifier)
 	{
-		if ((empty($identifier) || false !== mb_strpos($identifier, '*')) && (empty($this->identifier) || false !== mb_strpos($this->identifier, '*')))
-		{
-			$identifier = mb_substr($this->surname, 0, 4);
-			while (mb_strlen($identifier) < 4)
-				$identifier .= '_';
-			$given = explode(' ', $this->firstName);
-			while(count($given) > 2)
-				array_pop($given);
-			foreach($given as $name)
-				$identifier .= mb_substr($name, 0, 1);
-			while (mb_strlen($identifier) < 6)
-				$identifier .= '*';
-			$mon = '**';
-			if ($this->getDob() instanceof \DateTime)
-				$mon = $this->getDob()->format('m');
-			$identifier .= $mon;
-			$mon = '**';
-			if ($this->getDob() instanceof \DateTime)
-				$mon = $this->getDob()->format('d');
-			$identifier .= $mon;
 
-			while (mb_strlen($identifier) < 10)
-				$identifier .= '*';
-		}
-
-		$this->identifier = strtoupper($identifier);
+		$this->identifier = strtoupper($this->createIdentifier($identifier));
 
 		return $this;
 	}
 
+	private function createIdentifier($identifier)
+    {
+        if ((empty($identifier) || false !== mb_strpos($identifier, '*')) && (empty($this->identifier) || false !== mb_strpos($this->identifier, '*')))
+        {
+            $identifier = mb_substr($this->surname, 0, 4);
+            while (mb_strlen($identifier) < 4)
+                $identifier .= '_';
+            $given = explode(' ', $this->firstName);
+            while(count($given) > 2)
+                array_pop($given);
+            foreach($given as $name)
+                $identifier .= mb_substr($name, 0, 1);
+            while (mb_strlen($identifier) < 6)
+                $identifier .= '*';
+            $mon = '**';
+            if ($this->getDob() instanceof \DateTime)
+                $mon = $this->getDob()->format('m');
+            $identifier .= $mon;
+            $mon = '**';
+            if ($this->getDob() instanceof \DateTime)
+                $mon = $this->getDob()->format('d');
+            $identifier .= $mon;
+
+            while (mb_strlen($identifier) < 10)
+                $identifier .= '*';
+        }
+
+        return $identifier;
+    }
 	/**
 	 * Get importIdentifier
 	 *
