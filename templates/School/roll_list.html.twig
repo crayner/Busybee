@@ -39,18 +39,19 @@
                 {{ 'system.setting.manage.actions'|trans({}, 'System') }}
             </div>
         </div>
-        {% for setting in pagination.getResult %}
+        {% for roll in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-3 form-inline">
-                    {{ setting.displayName }}
-                </div>
-                <div class="col-6 form-inline">
-                    {{ setting.description }}
+                    {{ roll.name }}
                 </div>
                 <div class="col-3 form-inline">
-                    <button title='{{ 'system.setting.edit.title'|trans }}' type="button"
-                            class="halflings halflings-edit btn btn-warning"
-                            onClick="window.open('{{ path('setting_edit', {'id': setting.id}) }}','_self')"></button>
+                    {{ roll.nameShort }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ roll.0.calendarGroup.fullName }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ editButton({class: 'halflings halflings-edit btn btn-warning', title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}

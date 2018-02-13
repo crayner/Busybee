@@ -6,6 +6,9 @@ php:
 branches:
     only: master
 
+services:
+    - mysql
+
 env:
     global:
         - SYMFONY_VERSION=4.0.*
@@ -16,9 +19,9 @@ matrix:
           env: SYMFONY_VERSION=4.0.*@dev
     exclude:
         - php: 5.6
-          env: SYMFONY_VERSION=v4
+          env: SYMFONY_VERSION=4.0.*
         - php: 7.0
-          env: SYMFONY_VERSION=v4
+          env: SYMFONY_VERSION=4.0.*
 
 notifications:
     email: craig@craigrayner.com
@@ -34,5 +37,6 @@ before_install:
 
 install:
     - composer update --prefer-source
+    - cp config/packages/doctrine.yaml.travis onfig/packages/doctrine.yaml
     - php bin/console doctrine:database:create --env=test
     - php bin/console doctrine:schema:create --env=test

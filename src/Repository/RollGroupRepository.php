@@ -22,4 +22,15 @@ class RollGroupRepository extends ServiceEntityRepository
 	{
 		parent::__construct($registry, RollGroup::class);
 	}
+
+    /**
+     * @param int:string $id
+     * @param null $lockMode
+     * @param null $lockVersion
+     * @return RollGroup|null|object
+     */
+    public function find($id, $lockMode = null, $lockVersion = null)
+    {
+        return $id === 'Add' ? new RollGroup() : parent::find($id, $lockMode, $lockVersion);
+    }
 }

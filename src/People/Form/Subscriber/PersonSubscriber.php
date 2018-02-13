@@ -6,10 +6,10 @@ use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\TextType;
 use App\Core\Validator\SettingChoice;
-use App\People\Form\StudentCalendarGroupType;
+use App\People\Form\StudentCalendarType;
 use App\People\Form\UserType;
 use App\People\Util\PersonManager;
-use App\People\Validator\CalendarGroups;
+use App\People\Validator\StudentCalendars;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -134,7 +134,7 @@ class PersonSubscriber implements EventSubscriberInterface
 			}
 		}
 
-		//photo management
+            //photo management
 		if (empty($data['photo']))
 		{
 			$data['photo'] = $form->get('photo')->getNormData();
@@ -375,18 +375,18 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_data_value'        => 'name',
 				]
 			)
-			->add('calendarGroups', CollectionType::class,
+			->add('studentCalendars', CollectionType::class,
 				[
-					'label'         => 'student.calendar_groups.label',
+					'label'         => 'student.student_calendars.label',
 					'allow_add'     => true,
 					'allow_delete'  => true,
-					'entry_type'    => StudentCalendarGroupType::class,
+					'entry_type'    => StudentCalendarType::class,
 					'attr'          => [
-						'class' => 'calendarGroupList',
+						'class' => 'studentCalendarList',
 					],
-					'help'  => 'student.calendar_groups.help',
+					'help'  => 'student.student_calendars.help',
 					'constraints'   => [
-						new CalendarGroups(),
+						new StudentCalendars(),
 					],
 				]
 			);

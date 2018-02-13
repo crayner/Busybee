@@ -94,10 +94,10 @@ person:
         help: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
     address:
         placeholder: Start typing any address.
-    calendar_group:
+    student_calendar:
         title: 'Student Grade Details:<br/><small>%name%</small>'
         description: Links the student to the calendar via the grade/year/form that they are enrolled in for that calendar.
-        tab: Calendar Group
+        tab: Calendar
     add:
         title: Add Person
     edit:
@@ -199,6 +199,7 @@ student:
     validator:
         email:
             unique: 'The email %string% already exists in the database.'
+    calendar.label: Calendar
 phone:
     type:
         label: 'Type of Phone'

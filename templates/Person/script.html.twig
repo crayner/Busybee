@@ -120,31 +120,31 @@
     });
 
 
-    {% if form.calendarGroups is defined %}
-    $(".calendarGroupList").collection({
-        name_prefix: '{{ form.calendarGroups.vars.full_name }}',
+    {% if form.studentCalendars is defined %}
+    $(".studentCalendarList").collection({
+        name_prefix: '{{ form.studentCalendars.vars.full_name }}',
         allow_up: false,
         allow_down: false,
-        add: '{{ addButton({title: 'calendar_group.add', transDomain: 'Student'})|raw }}',
-        remove: '{{ deleteButton({class: 'display _none', style: ''})|raw }}',
+        add: '{{ addButton({title: 'student_calendar.add', transDomain: 'Student'})|raw }}',
+        remove: '{{ deleteButton({class: 'display_none', style: ''})|raw }}',
         add_at_the_end: true,
         before_remove: function (collection, element) {
-            var source = $(element[0]).find('.removeCalendarGroup');
+            var source = $(element[0]).find('.removeStudentCalendar');
             var id = source.attr('id');
-            id = id.replace('removeCalendarGroup', '');
+            id = id.replace('removeStudentCalendar', '');
             if (id === '') {
                 return true;
             }
-            return removeCalendarGroup(id);
+            return removeStudentCalendar(id);
         }
     });
 
-    function removeCalendarGroup(id) {
+    function removeStudentCalendar(id) {
         var xx = true;
 
         if (id > 0) {
 
-            var path = '{{ path('delete_student_calendar_group', {'id': '__id__'}) }}';
+            var path = '{{ path('remove_student_calendar', {'id': '__id__'}) }}';
             path = path.replace('__id__', id);
 
             $.ajax({

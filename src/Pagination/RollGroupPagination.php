@@ -58,6 +58,7 @@ class RollGroupPagination extends PaginationManager
 	protected $select = [
 		'r.name',
 		'r.nameShort',
+        'r.id',
 	];
 
     /**

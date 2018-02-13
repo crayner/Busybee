@@ -2,8 +2,11 @@
 namespace App\Controller;
 
 use App\Pagination\RollGroupPagination;
+use App\Repository\RollGroupRepository;
 use App\School\Form\DaysTimesType;
+use App\School\Form\RollGroupType;
 use App\School\Util\DaysTimesManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -61,11 +64,26 @@ class SchoolController extends Controller
      * @param int|string $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function rollEdit(Request $request, $id = 'Add')
+    public function rollEdit(Request $request, $id = 'Add', RollGroupRepository $rollGroupRepository, EntityManagerInterface $entityManager)
     {
+        $rollGroup = $rollGroupRepository->find($id);
+
+        $form = $this->createForm(RollGroupType::class, $rollGroup);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($rollGroup);
+            $entityManager->flush();
+
+            if ($id === 'Add')
+                return $this->redirectToRoute('roll_edit', ['id' => $rollGroup->getId()]);
+        }
 
         return $this->render('School/roll_edit.html.twig',
             [
+                'form' => $form->createView(),
             ]
         );
     }

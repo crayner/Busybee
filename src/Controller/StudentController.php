@@ -173,10 +173,10 @@ class StudentController extends Controller
 	/**
 	 * @param $id
 	 * @param $groupId
-	 * @Route("/student/remove/calendar/group/{id}", name="delete_student_calendar_group")
+	 * @Route("/student/remove/calendar/{id}/", name="remove_student_calendar")
 	 * @IsGranted("ROLE_ADMIN")
 	 */
-	public function removeCalendarGroup($id)
+	public function removeStudentCalendar($id)
 	{
 		$studentManager = $this->get('busybee_people_student.model.student_manager');
 

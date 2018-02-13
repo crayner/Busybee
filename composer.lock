@@ -1338,12 +1338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/security.git",
-                "reference": "eef0bbf673ea20b0266aecf99f15af7a4588d138"
+                "reference": "a960729aac6a49dd78e68c8216faf8829e05aef6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/security/zipball/eef0bbf673ea20b0266aecf99f15af7a4588d138",
-                "reference": "eef0bbf673ea20b0266aecf99f15af7a4588d138",
+                "url": "https://api.github.com/repos/crayner/security/zipball/a960729aac6a49dd78e68c8216faf8829e05aef6",
+                "reference": "a960729aac6a49dd78e68c8216faf8829e05aef6",
                 "shasum": ""
             },
             "require": {
@@ -1395,7 +1395,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2018-02-08T04:15:50+00:00"
+            "time": "2018-02-13T01:07:10+00:00"
         },
         {
             "name": "hillrange/symfony-form",
@@ -1403,12 +1403,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crayner/symfony-form.git",
-                "reference": "f43842fe5274417e13afc35886de03a4aba8b71d"
+                "reference": "0f2936b936a8d6b29238fb03498ddcc6dcdc0a10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/f43842fe5274417e13afc35886de03a4aba8b71d",
-                "reference": "f43842fe5274417e13afc35886de03a4aba8b71d",
+                "url": "https://api.github.com/repos/crayner/symfony-form/zipball/0f2936b936a8d6b29238fb03498ddcc6dcdc0a10",
+                "reference": "0f2936b936a8d6b29238fb03498ddcc6dcdc0a10",
                 "shasum": ""
             },
             "require": {
@@ -1450,7 +1450,7 @@
             "keywords": [
                 "form"
             ],
-            "time": "2018-02-11T23:21:50+00:00"
+            "time": "2018-02-11T23:33:37+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1504,16 +1504,16 @@
         },
         {
             "name": "knpuniversity/oauth2-client-bundle",
-            "version": "1.16.1",
+            "version": "1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/knpuniversity/oauth2-client-bundle.git",
-                "reference": "86084234deb173c10d2258777037dddf958f8875"
+                "reference": "2c1187323e7852279cfc8b982f6ea95715314a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/knpuniversity/oauth2-client-bundle/zipball/86084234deb173c10d2258777037dddf958f8875",
-                "reference": "86084234deb173c10d2258777037dddf958f8875",
+                "url": "https://api.github.com/repos/knpuniversity/oauth2-client-bundle/zipball/2c1187323e7852279cfc8b982f6ea95715314a7e",
+                "reference": "2c1187323e7852279cfc8b982f6ea95715314a7e",
                 "shasum": ""
             },
             "require": {
@@ -1554,7 +1554,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2018-01-22T16:50:52+00:00"
+            "time": "2018-02-12T19:02:54+00:00"
         },
         {
             "name": "league/oauth2-client",

@@ -1,21 +1,21 @@
 {% trans_default_domain "Student" %}
 
-{% block calendar_group_by_student_label %}{% endblock %}
-{% block calendar_group_by_student_errors %}{% endblock %}
+{% block student_calendar_label %}{% endblock %}
+{% block student_calendar_errors %}{% endblock %}
 
-{% block calendar_group_by_student_widget %}
+{% block student_calendar_widget %}
     {% set panelStyle = 'info' %}
     {% set transDomain = 'Student' %}
-    {% set header = 'calendar_group.title' %}
-    {% set h3Content = '<div class="collection-actions collection-panel craig">' %}
+    {% set header = 'student_calendar.title' %}
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
     {% set id = '' %}
     {% set calendarName = '(New)' %}
     {% if data is not null %}
-        {% set calendarName = data.getCalendarGroupName %}
+        {% set calendarName = data.fullName %}
         {% set id = data.getId() %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton({style: ''}) %}
-    {% set h3Content = h3Content ~ deleteButton({title: 'calendar_group.remove', transDomain: 'Student', mergeClass: 'removeCalendarGroup collection-remove collection-action', additional: {id: 'removeCalendarGroup' ~ id}, colour: 'warning', style: ''}) %}
+    {% set h3Content = h3Content ~ deleteButton({title: 'student_calendar.remove', transDomain: 'Student', mergeClass: 'removeStudentCalendar collection-remove collection-action', additional: {id: 'removeStudentCalendar' ~ id}, colour: 'warning', style: ''}) %}
     {% set h3Content = h3Content ~ '</div>' %}
     {% include 'Page/panelStart.html.twig' with {name: calendarName} %}
     <div class="container-fluid">
@@ -30,4 +30,4 @@
         </div>
     </div>
     {% include 'Page/panelEnd.html.twig' %}
-{% endblock calendar_group_by_student_widget %}
+{% endblock student_calendar_widget %}

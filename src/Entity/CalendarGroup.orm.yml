@@ -31,6 +31,9 @@ App\Entity\CalendarGroup:
         rollGroups:
             targetEntity: App\Entity\RollGroup
             mappedBy: calendarGroup
+        studentCalendars:
+            targetEntity: App\Entity\StudentCalendar
+            mappedBy: calendarGroup
     manyToOne:
         calendar:
             targetEntity: App\Entity\Calendar

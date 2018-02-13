@@ -3,6 +3,8 @@ namespace App\People\Util;
 
 use App\Address\Util\AddressManager;
 use App\Core\Manager\SettingManager;
+use App\Core\Util\UserManager;
+use App\Entity\Calendar;
 use App\Entity\CareGiver;
 use App\Entity\Family;
 use App\Entity\Person;
@@ -37,16 +39,22 @@ class PersonManager
 	 */
 	private $settingManager;
 
+    /**
+     * @var UserManager
+     */
+	private $userManager;
+
 	/**
 	 * PersonManager constructor.
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
-	public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager, SettingManager $settingManager)
+	public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager, SettingManager $settingManager, UserManager $userManager)
 	{
 		$this->entityManager = $entityManager;
 		$this->addressManager = $addressManager;
 		$this->settingManager = $settingManager;
+        $this->userManager = $userManager;
 	}
 
 	/**
@@ -107,10 +115,10 @@ student:
     include: Person/student.html.twig
     message: studentMessage
     translation: Person
-calendar_group:
-    label: person.calendar_group.tab
-    include: Person/calendarGroup.html.twig
-    message: calendarGroupMessage
+student_calendar:
+    label: person.student_calendar.tab
+    include: Student/studentCalendars.html.twig
+    message: studentCalendarMessage
     translation: Person
 user:
     label: person.user.tab
@@ -462,7 +470,7 @@ user:
 			$result .= $person->getHonorific() . '<br/>';
 
 		if ($person instanceof Student)
-			$result .= is_null($this->getCurrentGroup($person)) ? '' : $this->getCurrentGroup($person)->getFullName() . '<br />';
+			$result .= is_null($this->getCurrentStudentCalendarName($person)) ? '' : $this->getCurrentStudentCalendarName($person) . '<br />';
 
 		if (! empty($person->getEmail()))
 			$result .= $person->getEmail() . '<br/>';
@@ -629,20 +637,20 @@ user:
 	}
 
 	/**
-	 * Get Current Group
+	 * Get Student Calendar (Current) Name
 	 *
 	 * @param $person
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function getCurrentGroup($person)
+	public function getCurrentStudentCalendarName($person)
 	{
-		if (!$person instanceof Student || ! $this->isGradesInstalled())
+		if (! $person instanceof Student)
 			return null;
 
-		foreach ($person->getCalendarGroups()->toArray() as $group)
-			if ($group->getStatus() == 'Current')
-				return $group->getCalendarGroup();
+		foreach ($person->getStudentCalendars()->toArray() as $sg)
+            if ($sg->getCalendarGroup()->getCalendar()->getId() == $this->getCurrentCalendar()->getId() && $sg->getStatus() === 'Current')
+				return $sg->getFullName();
 
 		return null;
 	}
@@ -686,4 +694,12 @@ user:
 	{
 		return $this->settingManager;
 	}
+
+    /**
+     * @return Calendar|object
+     */
+	public function getCurrentCalendar(): Calendar
+    {
+        return $this->userManager->getCurrentCalendar();
+    }
 }

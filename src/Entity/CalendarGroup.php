@@ -2,9 +2,6 @@
 namespace App\Entity;
 
 use App\Calendar\Entity\CalendarGroupExtension;
-use App\Entity\Space;
-use App\Entity\Staff;
-use App\Entity\RollGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Hillrange\Security\Util\UserTrackInterface;
@@ -52,10 +49,15 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	 */
 	private $calendarTutor;
 
-	/**
-	 * @var string
-	 */
-	private $website;
+    /**
+     * @var string
+     */
+    private $website;
+
+    /**
+     * @var collection
+     */
+    private $studentCalendars;
 
 	/**
 	 * Constructor
@@ -63,6 +65,7 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 	public function __construct()
 	{
 		$this->rollGroups = new ArrayCollection();
+		$this->studentCalendars = new ArrayCollection();
 	}
 
 	/**
@@ -275,4 +278,40 @@ class CalendarGroup extends CalendarGroupExtension implements UserTrackInterface
 		return $this;
 	}
 
+    /**
+     * @return Collection
+     */
+    public function getStudentCalendars(): Collection
+    {
+        return $this->studentCalendars;
+    }
+
+    /**
+     * @param Collection $studentCalendars
+     * @return CalendarGroup
+     */
+    public function setStudentCalendars(Collection $studentCalendars): CalendarGroup
+    {
+        $this->studentCalendars = $studentCalendars;
+
+        return $this;
+    }
+
+    public function addStudentCalendar(StudentCalendar $studentCalendar): CalendarGroup
+    {
+        $studentCalendar->setCalendarGroup($this);
+
+        if (! $this->studentCalendars->contains($studentCalendar))
+            $this->studentCalendars->add($studentCalendar);
+
+        return $this;
+    }
+
+    public function removeStudentCalendar(StudentCalendar $studentCalendar): CalendarGroup
+    {
+        if ($this->studentCalendars->contains($studentCalendar))
+            $this->studentCalendars->removeElement($studentCalendar);
+
+        return $this;
+    }
 }

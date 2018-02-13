@@ -24,7 +24,7 @@
                 <div class="input-group input-group-sm">
                     {{ form_widget(form.searchData) }}
                     <span class="input-group-append">
-                        {{ saveButton({class: 'btn btn-success halflings halflings-search', additional: {id: "paginator_startSearch", name: "paginator[startSearch]"}})|raw }}
+                        {{ saveButton({class: 'btn btn-success halflings halflings-search', additional: {id: "paginator_startSearch", name: "paginator[startSearch]"}, style: "margin-top: -2px;"})|raw }}
                     </span>
                 </div>
             {% endif %}

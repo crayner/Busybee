@@ -128,7 +128,7 @@ class CalendarType extends AbstractType
 					'label'         => false,
 					'allow_delete'  => true,
 					'attr'          => array(
-						'class' => 'calendarGroupList'
+						'class' => 'studentCalendarList'
 					),
 					'by_reference'  => false,
 				)

@@ -3,6 +3,7 @@ namespace App\Pagination;
 
 use App\Entity\Staff;
 use App\Entity\Student;
+use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,11 +34,16 @@ class StudentPagination extends PaginationManager
 			'p.firstName' => 'ASC',
 			'p.surname'   => 'ASC',
 		],
-		'person.email.label'     => [
-			'p.email'     => 'ASC',
-			'p.surname'   => 'ASC',
-			'p.firstName' => 'ASC',
-		],
+        'person.email.label'     => [
+            'p.email'     => 'ASC',
+            'p.surname'   => 'ASC',
+            'p.firstName' => 'ASC',
+        ],
+        'student.calendar.label'     => [
+            'c.firstDay'    => 'ASC',
+            'p.surname'     => 'ASC',
+            'p.firstName'   => 'ASC',
+        ],
 	];
 	/**
 	 * @var int
@@ -51,6 +57,9 @@ class StudentPagination extends PaginationManager
 		'p.surname',
 		'p.firstName',
 		'p.email',
+        'c.name',
+        'cg.name',
+        'cg.nameShort',
 	];
 
 	/**
@@ -81,6 +90,18 @@ class StudentPagination extends PaginationManager
 				'type' => 'leftJoin',
 				'alias' =>'ph',
 			],
+            'p.studentCalendars' => [
+                'type' => 'leftJoin',
+                'alias' => 'sc',
+            ],
+            'sc.calendarGroup' => [
+                'type' => 'leftJoin',
+                'alias' => 'cg',
+            ],
+            'cg.calendar' => [
+                'type' => 'leftJoin',
+                'alias' => 'c'
+            ],
 		];
 
 	/**
@@ -141,7 +162,16 @@ class StudentPagination extends PaginationManager
 		return $this->getQuery();
 	}
 
-	public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
+    /**
+     * StudentPagination constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param SessionInterface $session
+     * @param RouterInterface $router
+     * @param RequestStack $requestStack
+     * @param FormFactoryInterface $formFactory
+     * @param PersonManager $personManager
+     */
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
 	{
 		parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
 		$this->setDisplayChoice(true);

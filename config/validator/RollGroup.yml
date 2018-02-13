@@ -1,21 +1,24 @@
-App\Entity\CalendarGroup:
+App\Entity\RollGroup:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
-                - name_short
-                - calendar_group_id
+                - nameShort
+                - calendarGroup
             message: calendar.group.nameshort.unique
             errorPath: nameShort
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - name
-                - calendar_group_id
+                - calendarGroup
             message: calendar.group.sequence.unique
             errorPath: name
+        - App\People\Validator\UniqueStudentRoll: ~
     properties:
         website:
             - Url: ~
         name:
             - NotBlank: ~
         nameShort:
+            - NotBlank: ~
+        calendarGroup:
             - NotBlank: ~

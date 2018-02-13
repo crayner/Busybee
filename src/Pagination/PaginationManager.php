@@ -961,12 +961,16 @@ abstract class PaginationManager implements PaginationInterface
 	}
 
 	/**
-	 * @param string $sortByName
+	 * @param string|null $sortByName
 	 *
 	 * @return PaginationManager
 	 */
-	public function setSortByName(string $sortByName): PaginationManager
+	public function setSortByName(string $sortByName = null): PaginationManager
 	{
+        if (empty($sortByName)) {
+            reset($this->sortByList);
+            $sortByName = key($this->sortByList);
+        }
 		$this->sortByName = $sortByName;
 
 		return $this;
@@ -998,7 +1002,7 @@ abstract class PaginationManager implements PaginationInterface
 	 * @since      27th October 2016
 	 * @return    string
 	 */
-	public function getAlias()
+	public function getAlias(): ?string
 	{
 		return $this->alias;
 	}
@@ -1006,13 +1010,13 @@ abstract class PaginationManager implements PaginationInterface
 	/**
 	 * set Join
 	 *
-	 * @version    27th October 2016
-	 * @since      27th October 2016
-	 * @return    PaginationManager
+	 * @version     13th February 2018
+	 * @since       27th October 2016
+	 * @return      PaginationManager
 	 */
 	protected function setQueryJoin()
 	{
-        if (!is_array($this->join) || empty($this->join)) return $this;
+        if (empty($this->join) || !is_array($this->join)) return $this;
 		foreach ($this->join as $name => $pars)
 		{
             $type = empty($pars['type']) ? 'join' : $pars['type'];
@@ -1025,13 +1029,13 @@ abstract class PaginationManager implements PaginationInterface
 	/**
 	 * set Query Select
 	 *
-	 * @version    27th October 2016
-	 * @since      27th October 2016
-	 * @return    PaginationManager
+	 * @version     13th February 2018
+	 * @since       27th October 2016
+	 * @return      PaginationManager
 	 */
 	protected function setQuerySelect()
 	{
-		if (!is_array($this->select) || empty($this->select)) return $this;
+		if (empty($this->select)  || !is_array($this->select)) return $this;
 		foreach ($this->select as $name)
 		{
 			if (is_string($name))

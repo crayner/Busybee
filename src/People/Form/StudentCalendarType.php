@@ -1,18 +1,18 @@
 <?php
 namespace App\People\Form;
 
+use App\Entity\StudentCalendar;
 use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\CalendarGroup;
 use App\Entity\Student;
-use App\Entity\RollGroup;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StudentCalendarGroupType extends AbstractType
+class StudentCalendarType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -23,9 +23,9 @@ class StudentCalendarGroupType extends AbstractType
 			->add('status', SettingChoiceType::class,
 				[
 					'setting_name' => 'student.enrolment.status',
-					'label'        => 'calendar_group.status.label',
-					'placeholder'  => 'calendar_group.status.placeholder',
-					'help' => 'calendar_group.status.help',
+					'label'        => 'student_calendar.status.label',
+					'placeholder'  => 'student_calendar.status.placeholder',
+					'help' => 'student_calendar.status.help',
 				]
 			)
 			->add('student', HiddenEntityType::class,
@@ -43,9 +43,9 @@ class StudentCalendarGroupType extends AbstractType
 							->orderBy('c.firstDay', 'DESC')
 							->addOrderBy('g.sequence', 'ASC');
 					},
-					'placeholder'   => 'student.calendar_group.placeholder',
-					'label'         => 'student.calendar_group.label',
-					'help' => 'student.calendar_group.help',
+					'placeholder'   => 'student_calendar.calendar_group.placeholder',
+					'label'         => 'student_calendar.calendar_group.label',
+					'help' => 'student_calendar.calendar_group.help',
 				]
 			);
 	}
@@ -58,7 +58,7 @@ class StudentCalendarGroupType extends AbstractType
 		$resolver
 			->setDefaults(
 				[
-					'data_class'         => RollGroup::class,
+					'data_class'         => StudentCalendar::class,
 					'translation_domain' => 'Student',
 					'error_bubbling'     => true,
 				]
@@ -70,7 +70,7 @@ class StudentCalendarGroupType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'calendar_group_by_student';
+		return 'student_calendar';
 	}
 
 

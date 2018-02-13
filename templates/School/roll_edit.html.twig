@@ -2,11 +2,46 @@
 
 {% trans_default_domain 'School' %}
 
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
 {% block title %}{{ 'school.roll.edit.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'sschool.roll.edit.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'sschool.roll.edit.description'|trans }}{% endblock headerLead %}
+{% block headerTitle %}{{ 'school.roll.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.roll.edit.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-{% dump %}
+    {{ form_start(form) }}
+    {% set h3Content = saveButton() %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.edit.title', transDomain: 'School'} %}
+    <div class="row">
+        <div class="col-4 card">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-4 card">
+            {{ form_row(form.nameShort) }}
+        </div>
+        <div class="col-4 card">
+            {{ form_row(form.calendarGroup) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 card">
+            {{ form_row(form.rollTutor1) }}
+        </div>
+        <div class="col-4 card">
+            {{ form_row(form.rollTutor2) }}
+        </div>
+        <div class="col-4 card">
+            {{ form_row(form.rollTutor3) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 card">
+            {{ form_row(form.website) }}
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
 {% endblock contentContainer %}
 

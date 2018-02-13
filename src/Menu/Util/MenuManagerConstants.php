@@ -134,7 +134,7 @@ School Admin:
 	        target:
                 name: Setting_Facility_Type
                 options: width=1200,height=900
-
+    
     years_days_times:
         calendar_years:
             label: menu.calendar.manage
@@ -175,6 +175,7 @@ School Admin:
         - edit_grade
         - student_add_to_calendar_group
         - space_edit
+        - roll_edit
 Person Admin:
     people_manage:
 #        family_manage:

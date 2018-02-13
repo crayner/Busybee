@@ -1,5 +1,0 @@
-{% include "Person/panelHeader.html.twig"  with {header: 'person.calendar_group.title', name: personManager.person.formatName, panelParagraph: 'person.calendar_group.description'} %}
-<div class="calendarGroupsMessage"></div>
-{{ form_widget(form.calendarGroups) }}
-{% do form.calendarGroups.setRendered %}
-{% include 'Page/panelEnd.html.twig' %}

@@ -3,6 +3,8 @@ namespace App\Entity;
 
 use App\People\Entity\StudentExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Student
@@ -114,11 +116,6 @@ class Student extends StudentExtension
 	 */
 	private $house;
 
-	/*
-	 * @var
-	 */
-	private $calendarGroups;
-
 	/**
 	 * @var string
 	 */
@@ -159,13 +156,17 @@ class Student extends StudentExtension
      */
     private $rolls;
 
+    /**
+     * @var Collection
+     */
+    private $studentCalendars;
 	/**
 	 * Student constructor.
 	 */
 	public function __construct()
 	{
-		$this->calendarGroups = new ArrayCollection();
 		$this->rolls = new ArrayCollection();
+		$this->studentCalendars = new ArrayCollection();
 		parent::__construct();
 	}
 
@@ -681,24 +682,6 @@ class Student extends StudentExtension
 	}
 
 	/**
-	 * @return mixed
-	 */
-	public function getCalendarGroups()
-	{
-		return $this->calendarGroups;
-	}
-
-	/**
-	 * @param mixed $calendarGroups
-	 */
-	public function setCalendarGroups($calendarGroups): Student
-	{
-		$this->calendarGroups = $calendarGroups;
-
-		return $this;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getStatus(): string
@@ -827,9 +810,9 @@ class Student extends StudentExtension
 	}
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getRolls(): ArrayCollection
+    public function getRolls(): Collection
     {
         return $this->rolls;
     }
@@ -868,6 +851,43 @@ class Student extends StudentExtension
     {
         if ($this->rolls->contains($roleGroup))
             $this->rolls->removeElement($roleGroup);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getStudentCalendars(): Collection
+    {
+        return $this->studentCalendars;
+    }
+
+    /**
+     * @param Collection $studentCalendars
+     * @return CalendarGroup
+     */
+    public function setStudentCalendars(Collection $studentCalendars): Student
+    {
+        $this->studentCalendars = $studentCalendars;
+
+        return $this;
+    }
+
+    public function addStudentCalendar(StudentCalendar $studentCalendar): Student
+    {
+        $studentCalendar->setCalendarGroup($this);
+
+        if (! $this->studentCalendars->contains($studentCalendar))
+            $this->studentCalendars->add($studentCalendar);
+
+        return $this;
+    }
+
+    public function removeStudentCalendar(StudentCalendar $studentCalendar): Student
+    {
+        if ($this->studentCalendars->contains($studentCalendar))
+            $this->studentCalendars->removeElement($studentCalendar);
 
         return $this;
     }

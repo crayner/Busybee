@@ -2,11 +2,15 @@ App\Entity\RollGroup:
     type: entity
     table: roll_group
     repositoryClass: App\Repository\RollGroupRepository
-#    uniqueConstraints:
-#         student_roll:
-#             columns:
-#                 - student_id
-#                 - calendar_group_id
+    uniqueConstraints:
+         calendar_name:
+             columns:
+                 - name
+                 - calendar_group_id
+         calendar_name_short:
+             columns:
+                 - name_short
+                 - calendar_group_id
     id:
         id:
             type: integer
@@ -19,10 +23,9 @@ App\Entity\RollGroup:
         nameShort:
             length: 8
             column: name_short
-        status:
-            length: 32
         website:
             length: 200
+            nullable: true
     manyToOne:
         calendarGroup:
             targetEntity: App\Entity\CalendarGroup

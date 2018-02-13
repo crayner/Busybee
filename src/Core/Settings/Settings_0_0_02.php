@@ -314,15 +314,6 @@ Phone.Format:
     description: "A template to convert phone numbers into full display version."
     role: 'ROLE_REGISTRAR'
     value: '{{ phoneNumber }}'
-Student.Status.List:
-    type: 'array'
-    displayName: 'Student Status List'
-    description: "List of the valid student status: es)"
-    role: 'ROLE_ADMIN'
-    value:
-        Future: Future
-        Current: Current
-        Alumni: Past
 Student.CareGiver.Relationship.List:
     type: 'array'
     displayName: 'List of Student - Care Giver Relationship'

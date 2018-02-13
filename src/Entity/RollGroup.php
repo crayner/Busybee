@@ -14,18 +14,13 @@ class RollGroup extends RollGroupExtension
 	 */
 	private $id;
 
-	/**
-	 * @var string
-	 */
-	private $status;
-
     /**
-     * @var string
+     * @var string!null
      */
 	private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $nameShort;
 
@@ -59,6 +54,9 @@ class RollGroup extends RollGroupExtension
      */
     private $students;
 
+    /**
+     * RollGroup constructor.
+     */
     public function __construct()
     {
         $this->students = new ArrayCollection();
@@ -72,30 +70,6 @@ class RollGroup extends RollGroupExtension
 	public function getId()
 	{
 		return $this->id;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return string
-	 */
-	public function getStatus()
-	{
-		return $this->status;
-	}
-
-	/**
-	 * Set status
-	 *
-	 * @param string $status
-	 *
-	 * @return RollGroup
-	 */
-	public function setStatus($status): RollGroup
-	{
-		$this->status = $status;
-
-		return $this;
 	}
 
 	/**
@@ -115,11 +89,8 @@ class RollGroup extends RollGroupExtension
 	 *
 	 * @return RollGroup
 	 */
-	public function setCalendarGroup(CalendarGroup $calendarGroup = null, $add = true): RollGroup
+	public function setCalendarGroup(CalendarGroup $calendarGroup = null): RollGroup
 	{
-		if ($add)
-			$calendarGroup->addStudent($this, false);
-
 		$this->calendarGroup = $calendarGroup;
 
 		return $this;
@@ -128,7 +99,7 @@ class RollGroup extends RollGroupExtension
     /**
      * @return Staff
      */
-    public function getRollTutor1(): Staff
+    public function getRollTutor1(): ?Staff
     {
         return $this->rollTutor1;
     }
@@ -146,7 +117,7 @@ class RollGroup extends RollGroupExtension
     /**
      * @return Staff
      */
-    public function getRollTutor2(): Staff
+    public function getRollTutor2(): ?Staff
     {
         return $this->rollTutor2;
     }
@@ -164,7 +135,7 @@ class RollGroup extends RollGroupExtension
     /**
      * @return Staff
      */
-    public function getRollTutor3(): Staff
+    public function getRollTutor3(): ?Staff
     {
         return $this->rollTutor3;
     }
@@ -182,7 +153,7 @@ class RollGroup extends RollGroupExtension
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -200,7 +171,7 @@ class RollGroup extends RollGroupExtension
     /**
      * @return string
      */
-    public function getNameShort(): string
+    public function getNameShort(): ?string
     {
         return $this->nameShort;
     }
@@ -216,9 +187,9 @@ class RollGroup extends RollGroupExtension
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getWebsite(): string
+    public function getWebsite(): ?string
     {
         return $this->website;
     }

@@ -1,15 +1,15 @@
 <?php
 namespace App\People\Validator;
 
-use App\People\Validator\Constraints\CalendarGroupsValidator;
+use App\People\Validator\Constraints\StudentCalendarsValidator;
 use Symfony\Component\Validator\Constraint;
 
-class CalendarGroups extends Constraint
+class StudentCalendars extends Constraint
 {
 	public $message = 'student.grades.error';
 
 	public function validatedBy()
 	{
-		return CalendarGroupsValidator::class;
+		return StudentCalendarsValidator::class;
 	}
 }

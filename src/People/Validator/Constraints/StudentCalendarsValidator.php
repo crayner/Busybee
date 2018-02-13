@@ -4,7 +4,7 @@ namespace App\People\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class CalendarGroupsValidator extends ConstraintValidator
+class StudentCalendarsValidator extends ConstraintValidator
 {
 	public function validate($value, Constraint $constraint)
 	{
@@ -17,7 +17,6 @@ class CalendarGroupsValidator extends ConstraintValidator
 
 		foreach ($value->toArray() as $q => $group)
 		{
-dump($group);
 			if (empty($group->getStudent()) || empty($group->getCalendarGroup()))
 			{
 
@@ -42,7 +41,7 @@ dump($group);
 				}
 			}
 
-			$gy = $group->getCalendar()->getName();
+			$gy = $group->getCalendarGroup()->getCalendar()->getName();
 
 			if (!is_null($gy))
 			{

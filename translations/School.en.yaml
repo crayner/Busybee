@@ -55,6 +55,9 @@ school:
             title: Roll List
             description: ''
             help: 'This page shows all roll groups in the current school calendar.'
+        edit:
+            title: Manage Roll
+            description: ''
 department:
     edit:
         title: Manage Department
@@ -100,8 +103,30 @@ department:
         label: Department Blurb
     logo:
         label: Department Logo
-menu.roll.groups: Manage Roll Groups
-roll.sort:
-    name: Roll Name
-    name_short: Roll Short Name
-    calendar_group: Calendar Group
+menu:
+    roll.groups: Roll Groups
+roll:
+    sort:
+        name: Roll Name
+        name_short: Roll Short Name
+        calendar_group: Calendar Group
+    name:
+        label: Roll Name
+        help: Must be Unique
+    name_short:
+        label: Roll Short Name
+        help: Must be Unique
+    tutor.placeholder: Select a Tutor
+    tutor1:
+        label: Principal Tutor
+        help: Must be unique in the calendar year.
+    tutor2:
+        label: Additional Tutor
+        help: Only staff that are not selected as a principal tutor are available as additional tutors.
+    tutor3:
+        label: Additional Tutor
+        help: Only staff that are not selected as a principal tutor are available as additional tutors.
+    website.label: Roll Web Site
+    calendar_group:
+        label: Calendar Year
+        help: ''
