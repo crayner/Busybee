@@ -594,9 +594,9 @@ user:
 	 * @param Person|null $person
 	 * @param bool        $persist
 	 *
-	 * @return Person|null
+	 * @return Student|null
 	 */
-	public function switchToStudent(Person $person = null, $persist = false)
+	public function switchToStudent(Person $person = null, $persist = false): ?Student
 	{
 		$this->checkPerson($person);
 
@@ -701,5 +701,36 @@ user:
 	public function getCurrentCalendar(): Calendar
     {
         return $this->userManager->getCurrentCalendar();
+    }
+
+    /**
+     * Switch to Staff
+     *
+     * @param Person|null $person
+     * @param bool        $persist
+     *
+     * @return Staff|null
+     */
+    public function switchToStaff(Person $person = null, $persist = false): ?Staff
+    {
+        $this->checkPerson($person);
+
+        if ($this->person instanceof Person && !is_subclass_of($this->person, Person::class))
+        {
+            $tableName = $this->entityManager->getClassMetadata(Person::class)->getTableName();
+
+            $x = $this->entityManager->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+            if ($persist)
+            {
+                $this->entityManager->persist($this->person);
+                $this->entityManager->flush();
+            }
+
+            $this->entityManager->refresh($this->person);
+
+        }
+
+        return $this->person;
     }
 }

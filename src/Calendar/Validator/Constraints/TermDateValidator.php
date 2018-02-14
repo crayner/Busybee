@@ -84,14 +84,14 @@ class TermDateValidator extends ConstraintValidator
 			}
 			if ($term->getFirstDay() < $firstDay)
 			{
-				$this->context->buildViolation('year.term.error.outsideYear', array('%term_date%' => $term->getFirstDay()->format('jS M Y'), '%year_date%' => $yearStart->format('jS M Y'), '%operator%' => '<'))
+				$this->context->buildViolation('year.term.error.outsideYear', array('%term_date%' => $term->getFirstDay()->format('jS M Y'), '%year_date%' => $firstDay->format('jS M Y'), '%operator%' => '<'))
 					->addViolation();
 
 				return;
 			}
 			if ($term->getLastDay() > $lastDay)
 			{
-				$this->context->buildViolation('year.term.error.outsideYear', array('%term_date%' => $term->getLastDay()->format('jS M Y'), '%year_date%' => $yearEnd->format('jS M Y'), '%operator%' => '>'))
+				$this->context->buildViolation('year.term.error.outsideYear', array('%term_date%' => $term->getLastDay()->format('jS M Y'), '%year_date%' => $lastDay->format('jS M Y'), '%operator%' => '>'))
 					->addViolation();
 
 				return;

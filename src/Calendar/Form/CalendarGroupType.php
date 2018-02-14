@@ -2,6 +2,9 @@
 namespace App\Calendar\Form;
 
 use App\Calendar\Listener\CalendarGroupSubscriber;
+use App\Entity\Staff;
+use Doctrine\ORM\EntityRepository;
+use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Calendar;
@@ -36,13 +39,13 @@ class CalendarGroupType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder
+	    $builder
 			->add('nameShort', SettingChoiceType::class,
 				[
-					'label'        => 'calendar.group.nameshort.label',
+					'label'        => 'calendar_group.nameshort.label',
 					'setting_name' => 'student.groups',
 					'required'     => true,
-					'placeholder'  => 'calendar.group.nameshort.placeholder',
+					'placeholder'  => 'calendar_group.nameshort.placeholder',
 				]
 			)
 			->add('name', HiddenType::class)
@@ -54,10 +57,25 @@ class CalendarGroupType extends AbstractType
 			->add('sequence', HiddenType::class)
 			->add('website', UrlType::class,
 				[
-					'label'    => 'calendar.group.website.label',
+					'label'    => 'calendar_group.website.label',
 					'required' => false,
 				]
-			);
+			)
+            ->add('calendarTutor', EntityType::class,
+                [
+                    'class' => Staff::class,
+                    'choice_label' => 'formatName',
+                    'label' => 'calendar_group.tutor.label',
+                    'placeholder' => 'calendar_group.tutor.placeholder',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->orderBy('s.surname', 'ASC')
+                            ->addOrderBy('s.firstName', 'ASC');
+                    },
+                    'required' => false,
+                ]
+            )
+        ;
 
 		$builder->addEventSubscriber($this->calendarGroupSubscriber);
 	}

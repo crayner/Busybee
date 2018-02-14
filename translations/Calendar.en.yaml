@@ -42,22 +42,24 @@ calendar:
     groups:
         title: "Manage Calendar Groups in %name%"
         help: "To sort, drag and drop the Calendar Group to the required position and save the form."
-    group:
-        add:
-            title: Group Details
-        website:
-            label: Web Site
-        nameshort:
-            label: Group Name
-            placeholder: Select a Group
-            unique: The name of the year must be unique for this calendar.
     success: The calendar was successfully saved.
     display:
         button: Display Calendar
         title: Display Calendar
         description: ''
         print: Print Calendar
-
+calendar_group:
+    add:
+        title: Group Details
+    website:
+        label: Web Site
+    nameshort:
+        label: Group Name
+        placeholder: Select a Group
+        unique: The name of the year must be unique for this calendar.
+    tutor:
+        label: Head Teacher
+        placeholder: Select Head Teacher
 calendars:
     title: Adademic Calendar Definitions
     description: ''

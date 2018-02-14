@@ -5,6 +5,7 @@ use App\People\Entity\PersonExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Person
@@ -528,7 +529,10 @@ class Person extends PersonExtension
 	 */
 	public function getIdentifier()
 	{
-        $this->identifier = $this->createIdentifier($this->identifier);
+        $this->identifier = $this->createStudentIdentifier($this->identifier);
+
+        $this->identifier = strtoupper($this->generateIdentifier());
+
 		if (empty($this->identifier) || false !== mb_strpos($this->identifier, '*'))
 			$this->setIdentifier('');
 
@@ -545,20 +549,29 @@ class Person extends PersonExtension
 	public function setIdentifier($identifier)
 	{
 
-		$this->identifier = strtoupper($this->createIdentifier($identifier));
+		$this->identifier = strtoupper($this->createStudentIdentifier($identifier));
+
+		$this->identifier = strtoupper($this->generateIdentifier());
 
 		return $this;
 	}
 
-	private function createIdentifier($identifier)
+    /**
+     * @param $identifier
+     * @return string
+     */
+    private function createStudentIdentifier($identifier)
     {
-        if (!$this instanceof Student)
-            return $this->identifier;
-
         if (! empty($identifier))
             $this->identifier = $identifier;
 
-        if (empty($this->identifier) || mb_strpos($this->identifier, '*') || (mb_substr($this->identifier, 1, 1) === '_' && $this->getDob() instanceof \DateTime))
+        if (!$this instanceof Student)
+            return $this->identifier;
+
+        if (empty($this->getDob()))
+            return $this->identifier;
+
+        if (empty($this->identifier) || mb_strpos($this->identifier, '*') || mb_substr($this->identifier, 1, 1) === '_')
         {
             $identifier = mb_substr($this->surname, 0, 4);
             while (mb_strlen($identifier) < 4)
@@ -579,8 +592,71 @@ class Person extends PersonExtension
                 $identifier .= '*';
         }
 
+        $this->identifier = $identifier;
+
         return $identifier;
     }
+
+    /**
+     * @return string
+     */
+    private function generateIdentifier(): string
+    {
+        if (! empty($this->identifier))
+            return $this->identifier;
+
+        $index = $this->getIdentifierIndex();
+
+        return mb_substr($this->getSurname(), 0, 1) . '_' . $index ;
+    }
+
+    /**
+     * @return string
+     */
+    private function incrementIndex($index): string
+    {
+        $index = mb_substr($index, 0, 3) . chr(ord(mb_substr($index,3)) + 1);
+        if (mb_substr($index,3) === '[')
+        {
+            $index = mb_substr($index, 0, 2) . chr(ord(mb_substr($index, 2, 1)) + 1) . 'A';
+            if (mb_substr($index,2,1) === '[')
+            {
+                $index = str_replace('[', 'A', $index);
+                $index = str_pad(strval(intval($index) + 1), 2, '0', STR_PAD_LEFT) . mb_substr($index, -2);
+            }
+        }
+        return $index;
+    }
+
+    /**
+     * @return string
+     */
+    private function getIdentifierIndex()
+    {
+        // Read index in busybee.yaml
+        $file = realpath('../config/packages/busybee.yaml');
+
+        $params = Yaml::parse(file_get_contents( $file));
+        if (isset($params['parameters']['person_identifier_index']))
+        {
+            $index = $params['parameters']['person_identifier_index'];
+            if (mb_substr($index, 0, 4) !== date('ym'))
+                $index = '00AA';
+            else
+                $index = $this->incrementIndex(mb_substr($index, 4));
+        } else
+            $index = '00AA';
+
+        $index = date('ym') . $index;
+
+        $params['parameters']['person_identifier_index'] = $index;
+
+        // Write index in busybee.yaml
+        file_put_contents( $file, Yaml::dump($params));
+
+        return $index;
+    }
+
 	/**
 	 * Get importIdentifier
 	 *

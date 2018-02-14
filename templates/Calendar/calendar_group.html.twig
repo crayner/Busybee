@@ -27,20 +27,20 @@
             {{ form_row(form.website) }}
         </div>
         <div class="col-4 card">
-            {% if form.yearTutor is defined %}
-                {% set value = form.yearTutor.vars.value %}
+            {% if form.calendarTutor is defined %}
+                {% set value = form.calendarTutor.vars.value %}
                 {% if value is empty %}
-                    {% set value = form.yearTutor.vars.data %}
+                    {% set value = form.calendarTutor.vars.data %}
                 {% endif %}
-                {{ form_row(form.yearTutor, {value: value}) }}
+                {{ form_row(form.calendarTutor, {value: value}) }}
             {% endif %}
         </div>
     </div>
     {% if form.nameShort.vars.value is not empty and manager.isStudentInstalled %}
         <div class="row">
             <div class="col-12 card card-info">
-                <div>{% if form.vars.value.id is not empty %}{{ editButton({title: 'calendar.group.manage.label', transDomain: 'Student', windowOpen: {route: path('student_add_to_calendar_group', {id: form.vars.value.id})}})|raw }}{% endif %}
-                    {{ 'calendar.group.students.count'|trans({'%{count}': form.vars.value.students.count}) }}</div>
+                <div>{% if form.vars.value.id is not empty %}{{ editButton({title: 'calendar_group.manage.label', transDomain: 'Student', windowOpen: {route: path('student_add_to_calendar_group', {id: form.vars.value.id})}})|raw }}{% endif %}
+                    {{ 'calendar_group.students.count'|trans({'%{count}': form.vars.value.students.count}) }}</div>
             </div>
         </div>
     {% endif %}

@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use App\Calendar\Entity\CalendarExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 
 class Calendar extends CalendarExtension
 {
@@ -205,14 +206,16 @@ class Calendar extends CalendarExtension
 	/**
 	 * Add specialDay
 	 *
-	 * @param SpecialDay $specialDay
+	 * @param SpecialDay|null $specialDay
 	 *
-	 * @return Term
+	 * @return Calendar
 	 */
-	public function addSpecialDay(SpecialDay $specialDay): Calendar
+	public function addSpecialDay(SpecialDay $specialDay = null): Calendar
 	{
-		if (!is_null($specialDay->getName()))
-			$this->specialDays[] = $specialDay;
+		if (! $this->specialDays->contains($specialDay)) {
+            $specialDay->setCalendar($this);
+            $this->specialDays->add($specialDay);
+        }
 
 		return $this;
 	}
