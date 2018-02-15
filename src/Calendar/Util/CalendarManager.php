@@ -225,10 +225,10 @@ specialDays:
     label: calendar.specialDays.tab
     include: Calendar/specialDays.html.twig
     message: specialDayMessage
-calendarGroups:
-    label: calendar.calendarGroups.tab
-    include: Calendar/groups.html.twig
-    message: calendarGroupMessage
+rollGroups:
+    label: calendar.roll_groups.tab
+    include: Calendar/roll_groups.html.twig
+    message: rollGroupMessage
 ");
 	}
 

@@ -3,6 +3,8 @@ namespace App\Entity;
 
 use App\People\Entity\RollGroupExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Student Calendar Group
@@ -30,9 +32,9 @@ class RollGroup extends RollGroupExtension
     private $website;
 
     /**
-     * @var CalendarGroup
+     * @var Calendar
      */
-    private $calendarGroup;
+    private $calendar;
 
     /**
      * @var Staff
@@ -55,6 +57,21 @@ class RollGroup extends RollGroupExtension
     private $students;
 
     /**
+     * @var null|integer
+     */
+    private $importIdentifier;
+
+    /**
+     * @var null|RollGroup
+     */
+    private $nextRoll;
+
+    /**
+     * @var null|string
+     */
+    private $grade;
+
+    /**
      * RollGroup constructor.
      */
     public function __construct()
@@ -73,25 +90,25 @@ class RollGroup extends RollGroupExtension
 	}
 
 	/**
-	 * Get calendarGroup
+	 * Get calendar
 	 *
-	 * @return CalendarGroup
+	 * @return Calendar|null
 	 */
-	public function getCalendarGroup()
+	public function getCalendar(): ?Calendar
 	{
-		return $this->calendarGroup;
+		return $this->calendar;
 	}
 
 	/**
-	 * Set calendarGroup
+	 * Set calendar
 	 *
-	 * @param CalendarGroup $calendarGroup
+	 * @param Calendar $calendar
 	 *
 	 * @return RollGroup
 	 */
-	public function setCalendarGroup(CalendarGroup $calendarGroup = null): RollGroup
+	public function setCalendar(Calendar $calendar = null): RollGroup
 	{
-		$this->calendarGroup = $calendarGroup;
+		$this->calendar = $calendar;
 
 		return $this;
 	}
@@ -200,15 +217,18 @@ class RollGroup extends RollGroupExtension
      */
     public function setWebsite(string $website): RollGroup
     {
-        $this->website = $website;
+        $this->website = $website ?: null;
         return $this;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getStudents(): ArrayCollection
+    public function getStudents(): Collection
     {
+        if ($this->students instanceof PersistentCollection)
+            $this->students->initialize();
+
         return $this->students;
     }
 
@@ -240,12 +260,69 @@ class RollGroup extends RollGroupExtension
 
     /**
      * @param Student $student
-     * @return Student
+     * @return RollGroup
      */
-    public function removeStudent(Student $student): Student
+    public function removeStudent(Student $student): RollGroup
     {
         if ($this->students->contains($student))
             $this->students->removeElement($student);
+
+        return $this;
+    }
+
+    /**
+     * @return null|int
+     */
+    public function getImportIdentifier(): ?int
+    {
+        return $this->importIdentifier;
+    }
+
+    /**
+     * @param int $importIdentifier
+     * @return RollGroup
+     */
+    public function setImportIdentifier(int $importIdentifier): RollGroup
+    {
+        $this->importIdentifier = $importIdentifier ?: null;
+
+        return $this;
+    }
+
+    /**
+     * @return null|RollGroup
+     */
+    public function getNextRoll(): ?RollGroup
+    {
+        return $this->nextRoll;
+    }
+
+    /**
+     * @param RollGroup $nextRoll
+     * @return RollGroup
+     */
+    public function setNextRoll(RollGroup $nextRoll): RollGroup
+    {
+        $this->nextRoll = $nextRoll ?: null;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getGrade(): ?string
+    {
+        return $this->grade;
+    }
+
+    /**
+     * @param null|string $grade
+     * @return RollGroup
+     */
+    public function setGrade(?string $grade): RollGroup
+    {
+        $this->grade = $grade;
 
         return $this;
     }

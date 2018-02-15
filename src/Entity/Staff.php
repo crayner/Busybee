@@ -50,11 +50,6 @@ class Staff extends StaffExtension
 	 */
 	private $employer;
 
-	/**
-	 * @var ArrayCollection
-	 */
-	private $calendarGroups;
-
     /**
      * @var RollGroup
      */
@@ -75,7 +70,6 @@ class Staff extends StaffExtension
 	 */
 	public function __construct()
 	{
-		$this->calendarGroups = new ArrayCollection();
 		$this->departments = new ArrayCollection();
 		parent::__construct();
 	}
@@ -228,54 +222,6 @@ class Staff extends StaffExtension
 	public function setHomeroom(Space $homeroom = null): Staff
 	{
 		$this->homeroom = $homeroom;
-
-		return $this;
-	}
-
-	/**
-	 * @return Collection
-	 */
-	public function getCalendarGroups()
-	{
-		return $this->calendarGroups;
-	}
-
-	/**
-	 * @param DepartmentMember $dept
-	 *
-	 * @return Staff
-	 */
-	public function removeCalendarGroups(CalendarGroup $dept): Staff
-	{
-		if ($this->calendarGroups->contains($dept))
-			$this->calendarGroups->removeElement($dept);
-
-		return $this;
-	}
-
-	/**
-	 * @param DepartmentMember $dept
-	 *
-	 * @return Staff
-	 */
-	public function addCalendarGroups(CalendarGroup $dept): Staff
-	{
-		$dept->setStaff($this);
-
-		if (!$this->calendarGroups->contains($dept))
-			$this->calendarGroups->add($dept);
-
-		return $this;
-	}
-
-	/**
-	 * @param Collection $depts
-	 *
-	 * @return Staff
-	 */
-	public function setCalendarGroups(Collection $depts): Staff
-	{
-		$this->calendarGroups = $depts;
 
 		return $this;
 	}

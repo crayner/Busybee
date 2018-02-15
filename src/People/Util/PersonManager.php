@@ -469,8 +469,29 @@ user:
 		if ($person instanceof Staff && !empty($person->getHonorific()))
 			$result .= $person->getHonorific() . '<br/>';
 
-		if ($person instanceof Student)
-			$result .= is_null($this->getCurrentStudentCalendarName($person)) ? '' : $this->getCurrentStudentCalendarName($person) . '<br />';
+		if ($person instanceof Student) {
+            $result .= is_null($this->getCurrentStudentCalendarName($person)) ? '' : $this->getCurrentStudentCalendarName($person) . '<br />';
+
+            $families = $this->entityManager->createQueryBuilder()
+                ->from(Family::class, 'f')
+                ->select('f')
+                ->innerJoin('f.students', 's', 'WITH', 's.id = :student_id')
+                ->setParameter('student_id', $person->getId())
+                ->getQuery()
+                ->getResult()
+            ;
+            foreach($families as $family)
+            $result .= 'Family: '.$family->getName() . '<br />';
+
+        }
+
+		if (! $person instanceof Staff && ! $person instanceof Student) {
+            if ($caregiver = $this->entityManager->getRepository(CareGiver::class)->findOneByPerson($person))
+                $result .= 'Family: '.$caregiver->getFamily()->getName() . '<br />';
+            else
+		        $result .= 'Contact<br />';
+
+		}
 
 		if (! empty($person->getEmail()))
 			$result .= $person->getEmail() . '<br/>';

@@ -2,8 +2,8 @@
 namespace App\Calendar\Form;
 
 use App\Calendar\Validator\CalendarDate;
-use App\Calendar\Validator\CalendarGroup;
 use App\Calendar\Validator\CalendarStatus;
+use App\Calendar\Validator\RollGroup;
 use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
 use App\Core\Manager\SettingManager;
@@ -115,23 +115,23 @@ class CalendarType extends AbstractType
 					'by_reference'  => false,
 				)
 			)
-			->add('calendarGroups', CollectionType::class, array(
-					'entry_type'    => CalendarGroupType::class,
+			->add('rollGroups', CollectionType::class, [
+					'entry_type'    => RollGroupType::class,
 					'allow_add'     => true,
 					'entry_options' => array(
 						'calendar_data' => $options['data'],
-						'manager'   => $options['calendarGroupManager'],
+						'manager'   => $options['rollGroupManager'],
 					),
 					'constraints'   => [
-						new CalendarGroup(['calendar' => $options['data']]),
+						new RollGroup(['calendar' => $options['data']]),
 					],
 					'label'         => false,
 					'allow_delete'  => true,
 					'attr'          => array(
-						'class' => 'studentCalendarList'
+						'class' => 'rollGroupList'
 					),
 					'by_reference'  => false,
-				)
+				]
 			)
 			->add('downloadCache', HiddenType::class);
 
@@ -151,7 +151,7 @@ class CalendarType extends AbstractType
 		);
 		$resolver->setRequired(
 			[
-				'calendarGroupManager',
+				'rollGroupManager',
 			]
 		);
 	}

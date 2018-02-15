@@ -382,7 +382,7 @@ class PersonSubscriber implements EventSubscriberInterface
 					'allow_delete'  => true,
 					'entry_type'    => StudentCalendarType::class,
 					'attr'          => [
-						'class' => 'studentCalendarList',
+						'class' => 'rollGroupList',
 					],
 					'help'  => 'student.student_calendars.help',
 					'constraints'   => [

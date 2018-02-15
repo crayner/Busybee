@@ -121,7 +121,7 @@
 
 
     {% if form.studentCalendars is defined %}
-    $(".studentCalendarList").collection({
+    $(".rollGroupList").collection({
         name_prefix: '{{ form.studentCalendars.vars.full_name }}',
         allow_up: false,
         allow_down: false,
@@ -158,12 +158,12 @@
                     message = message.replace('__message__', data['message']);
                     message = message.replace('__status__', data['status']);
                     if (data['status'] === 'success') {
-                        $('.calendarGroupMessage').html(message);
+                        $('.rollGroupMessage').html(message);
                     } else if (data['status'] === 'error') {
-                        $('.calendarGroupMessage').html(message);
+                        $('.rollGroupMessage').html(message);
                         xx = false;
                     } else if (data['status'] === 'warning') {
-                        $('.calendarGroupMessage').html(message);
+                        $('.rollGroupMessage').html(message);
                         xx = false;
                     }
                 }

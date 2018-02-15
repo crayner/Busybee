@@ -21,7 +21,10 @@ calendar:
     specialDays:
         tab: Special Days
         help: "The date of Special Days must exist in the year, and each special day must be a unique date."
-    calendarGroups.tab: Groups
+    roll_groups:
+        tab: Rolls
+        title: "Manage Rolls in %name%"
+        help: "To sort, drag and drop the Roll to the required position and save the form."
     year:
         title: 'Manage Calendar: %name%'
         return: Return
@@ -39,27 +42,28 @@ calendar:
         grades: ''
     title: Define Calendars
     description: Create and modify calendar definitions.
-    groups:
-        title: "Manage Calendar Groups in %name%"
-        help: "To sort, drag and drop the Calendar Group to the required position and save the form."
     success: The calendar was successfully saved.
     display:
         button: Display Calendar
         title: Display Calendar
         description: ''
         print: Print Calendar
-calendar_group:
-    add:
-        title: Group Details
-    website:
-        label: Web Site
+    edit.title: Manage Calendar
+    display.button: Display Calendar
+    roll_group:
+        add:
+            title: Add Roll
+        website:
+            label: Web Site
+roll_group:
     nameshort:
-        label: Group Name
-        placeholder: Select a Group
-        unique: The name of the year must be unique for this calendar.
-    tutor:
-        label: Head Teacher
-        placeholder: Select Head Teacher
+        label: Roll Abbreviation
+    name:
+        label: Roll Name
+    grade:
+        label: Grade/Form/Year
+        placeholder: Select a Grade/Form/Year
+    validation.name.duplicate: Duplicated value.
 calendars:
     title: Adademic Calendar Definitions
     description: ''

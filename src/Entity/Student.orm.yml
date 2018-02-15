@@ -107,11 +107,6 @@ App\Entity\Student:
             nullable: true
             type: text
     manyToMany:
-        rolls:
+        rollGroups:
             targetEntity: App\Entity\RollGroup
-            inversedBy: students
-    oneToMany:
-        studentCalendars:
-            targetEntity: App\Entity\StudentCalendar
-            mappedBy: student
-            cascade: [ 'all' ]
+            mappedBy: students

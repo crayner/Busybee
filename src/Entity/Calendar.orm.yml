@@ -38,8 +38,8 @@ App\Entity\Calendar:
             targetEntity: App\Entity\SpecialDay
             mappedBy: calendar
             cascade: [persist, remove]
-        calendarGroups:
-            targetEntity: App\Entity\CalendarGroup
+        rollGroups:
+            targetEntity: App\Entity\RollGroup
             mappedBy: calendar
             cascade: [persist, remove]
-            orderBy: { sequence: ASC }
+            orderBy: { name: ASC }

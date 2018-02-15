@@ -39,16 +39,16 @@
                     {{ Calendar.lastDay|date(get_setting('date.format.long')) }}
                 </div>
                 <div class="col-4 col-4">
-                    {{ editButton({'style': '', 'windowOpen': {'route': path('calendar_edit', {'id': Calendar.id})}, 'title': 'Calendar.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'Calendar'})|raw }}
+                    {{ editButton({'style': '', 'windowOpen': {'route': path('calendar_edit', {'id': Calendar.id})}, 'title': 'calendar.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'Calendar'})|raw }}
                     {% set additional = 'onclick="confirmDelete(\'' ~ path('calendar_delete', {'id': Calendar.id}) ~ '\')"' %}
                     {% if not manager.canDelete(Calendar) %}{% set additional = additional ~ ' disabled' %}{% endif %}
                     {{ deleteButton({additional: additional, style: ''})|raw }}
-                    {{ miscButton({title: 'Calendar.calendar.button',  class: 'halflings halflings-calendar btn btn-info', style: '', transDomain: 'Calendar', 'windowOpen': {'route': path('calendar_display', {'id': Calendar.id, 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw }}
+                    {{ miscButton({title: 'calendar.display.button',  class: 'halflings halflings-calendar btn btn-info', style: '', transDomain: 'Calendar', 'windowOpen': {'route': path('calendar_display', {'id': Calendar.id, 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw }}
                 </div>
             </div>
         {% endfor %}
         {% else %}
-        <p class="alert alert-warning">{{ 'years.empty'|trans }}<p>
+        <p class="alert alert-warning">{{ 'calendars.empty'|trans }}<p>
             {% endif %}
     </div>
     {% include '/Page/panelEnd.html.twig' %}
@@ -59,7 +59,7 @@
     {{ parent() }}
     <script>
         function confirmDelete(delUrl) {
-            if (confirm("{{ 'years.delete.confirm'|trans }}")) {
+            if (confirm("{{ 'calendar.delete.confirm'|trans }}")) {
                 document.location = delUrl;
             }
         }

@@ -5,7 +5,7 @@ use App\Entity\Calendar;
 use App\Entity\CalendarGroup;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CalendarGroupManager
+class RollGroupManager
 {
 	/**
 	 * @var EntityManagerInterface
@@ -18,7 +18,7 @@ class CalendarGroupManager
 	private $calendar;
 
 	/**
-	 * CalendarGroupManager constructor.
+	 * RollGroupManager constructor.
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 * @param CalendarManager          $calendarManager
@@ -44,7 +44,7 @@ class CalendarGroupManager
 	}
 
 	/**
-	 * Delete Student CalendarGroup
+	 * Delete Student RollGroup
 	 *
 	 * @param $id
 	 *

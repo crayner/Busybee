@@ -1,7 +1,7 @@
 language: php
 
 php:
-    - 7.1
+    - 7.2
 
 branches:
     only: master
@@ -15,12 +15,14 @@ env:
 
 matrix:
     include:
-        - php: 7.1
+        - php: 7.2
           env: SYMFONY_VERSION=4.0.*@dev
     exclude:
         - php: 5.6
           env: SYMFONY_VERSION=4.0.*
         - php: 7.0
+          env: SYMFONY_VERSION=4.0.*
+        - php: 7.1
           env: SYMFONY_VERSION=4.0.*
 
 notifications:

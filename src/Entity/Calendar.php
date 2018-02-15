@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use App\Calendar\Entity\CalendarExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
 
 class Calendar extends CalendarExtension
@@ -55,12 +56,12 @@ class Calendar extends CalendarExtension
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
-	private $calendarGroups;
+	private $rollGroups;
 
 	/**
 	 * @var boolean
 	 */
-	private $calendarGroupsSorted = false;
+	private $rollGroupsSorted = false;
 
 	/**
 	 * @var string
@@ -77,9 +78,9 @@ class Calendar extends CalendarExtension
 	 */
 	public function __construct()
 	{
-		$this->specialDays    = new ArrayCollection();
-		$this->terms          = new ArrayCollection();
-		$this->calendarGroups = new ArrayCollection();
+		$this->specialDays  = new ArrayCollection();
+		$this->terms        = new ArrayCollection();
+		$this->rollGroups   = new ArrayCollection();
 	}
 
 	/**
@@ -257,65 +258,77 @@ class Calendar extends CalendarExtension
 	}
 
 	/**
-	 * Add calendarGroups
+	 * Add rollGroups
 	 *
-	 * @param CalendarGroup $calendarGroups
+	 * @param RollGroup $rollGroups
 	 *
 	 * @return Calendar
 	 */
-	public function addCalendarGroup(CalendarGroup $calendarGroup): Calendar
+	public function addRollGroup(RollGroup $rollGroup): Calendar
 	{
-		if ($this->calendarGroups->contains($calendarGroup))
+		if ($this->rollGroups->contains($rollGroup))
 			return $this;
 
-		$calendarGroup->setCalendar($this);
+		$rollGroup->setCalendar($this);
 
-		$this->calendarGroups->add($calendarGroup);
+		$this->rollGroups->add($rollGroup);
 
 		return $this;
 	}
 
 	/**
-	 * Remove calendarGroup
+	 * Remove rollGroup
 	 *
-	 * @param CalendarGroup $calendarGroup
+	 * @param RollGroup $rollGroup
 	 */
-	public function removeCalendarGroup(CalendarGroup $calendarGroup)
+	public function removeRollGroup(RollGroup $rollGroup)
 	{
-		$this->calendarGroups->removeElement($calendarGroup);
+		$this->rollGroups->removeElement($rollGroup);
 	}
 
 	/**
-	 * Get calendarGroups
+	 * Get rollGroups
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getCalendarGroups()
+	public function getRollGroups(): ?Collection
 	{
-		if (count($this->calendarGroups) == 0)
+		if (count($this->rollGroups) == 0)
 		{
-			if ($this->calendarGroups instanceof PersistentCollection)
-				$this->calendarGroups->initialize();
-			$this->calendarGroupsSorted = false;
+			if ($this->rollGroups instanceof PersistentCollection)
+				$this->rollGroups->initialize();
+			$this->rollGroupsSorted = false;
 		}
 
-		if (count($this->calendarGroups) == 0)
+		if (count($this->rollGroups) == 0)
 			return null;
 
-		if ($this->calendarGroupsSorted)
-			return $this->calendarGroups;
+		if ($this->rollGroupsSorted)
+			return $this->rollGroups;
 
-		$iterator = $this->calendarGroups->getIterator();
+		$iterator = $this->rollGroups->getIterator();
 		$iterator->uasort(function ($a, $b) {
 			return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
 		});
 
-		$this->calendarGroups       = new ArrayCollection(iterator_to_array($iterator, false));
-		$this->calendarGroupsSorted = true;
+		$this->rollGroups       = new ArrayCollection(iterator_to_array($iterator, false));
+		$this->rollGroupsSorted = true;
 
-		return $this->calendarGroups;
+		return $this->rollGroups;
 
 	}
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $rollGroups
+     *
+     * @return Calendar
+     */
+    public function setRollGroups(\Doctrine\Common\Collections\Collection $rollGroups = null): Calendar
+    {
+        $this->rollGroups = $rollGroups;
+
+        return $this;
+    }
 
 	/**
 	 * Get name
@@ -402,18 +415,6 @@ class Calendar extends CalendarExtension
 	public function setImportIdentifier($importIdentifier): Calendar
 	{
 		$this->importIdentifier = $importIdentifier;
-
-		return $this;
-	}
-
-	/**
-	 * @param \Doctrine\Common\Collections\Collection $calendarGroups
-	 *
-	 * @return Calendar
-	 */
-	public function setCalendarGroups(\Doctrine\Common\Collections\Collection $calendarGroups = null): Calendar
-	{
-		$this->calendarGroups = $calendarGroups;
 
 		return $this;
 	}

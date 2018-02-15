@@ -26,10 +26,6 @@ App\Entity\Staff:
             length: '32'
             nullable: true
     oneToMany:
-        calendarGroups:
-            targetEntity: App\Entity\CalendarGroup
-            mappedBy: calendarTutor
-            cascade: ['persist']
         rollGroups1:
             targetEntity: App\Entity\RollGroup
             mappedBy: rollTutor1

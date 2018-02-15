@@ -154,19 +154,14 @@ class Student extends StudentExtension
     /**
      * @var ArrayCollection
      */
-    private $rolls;
+    private $rollGroups;
 
-    /**
-     * @var Collection
-     */
-    private $studentCalendars;
 	/**
 	 * Student constructor.
 	 */
 	public function __construct()
 	{
-		$this->rolls = new ArrayCollection();
-		$this->studentCalendars = new ArrayCollection();
+		$this->rollGroups = new ArrayCollection();
 		parent::__construct();
 	}
 
@@ -812,82 +807,46 @@ class Student extends StudentExtension
     /**
      * @return ArrayCollection|PersistentCollection
      */
-    public function getRolls(): Collection
+    public function getRollGroups(): Collection
     {
-        return $this->rolls;
+        return $this->rollGroups;
     }
 
     /**
-     * @param ArrayCollection $rolls
+     * @param Collection $rollGroups
      * @return Student
      */
-    public function setRolls(ArrayCollection $rolls): Student
+    public function setRollGroups(Collection $rollGroups): Student
     {
-        $this->rolls = $rolls;
+        $this->rollGroups = $rollGroups;
+        
         return $this;
     }
 
     /**
-     * @param RoleGroup $roleGroup
+     * @param RollGroup $rollGroup
      * @param bool $addRollGroup
      * @return Student
      */
-    public function addRoll(RoleGroup $roleGroup, $addRollGroup = true): Student
+    public function addRollGroup(RollGroup $rollGroup, $addRollGroup = true): Student
     {
         if ($addRollGroup)
-            $roleGroup->addStudent($this, false);
+            $rollGroup->addStudent($this, false);
 
-        if (! $this->rolls->contains($roleGroup))
-            $this->rolls->add($roleGroup);
+        if (! $this->rollGroups->contains($rollGroup))
+            $this->rollGroups->add($rollGroup);
 
         return $this;
     }
 
     /**
-     * @param RoleGroup $roleGroup
+     * @param RollGroup $rollGroup
      * @return Student
      */
-    public function removeRoll(RoleGroup $roleGroup): Student
+    public function removeRollGroup(RollGroup $rollGroup): Student
     {
-        if ($this->rolls->contains($roleGroup))
-            $this->rolls->removeElement($roleGroup);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getStudentCalendars(): Collection
-    {
-        return $this->studentCalendars;
-    }
-
-    /**
-     * @param Collection $studentCalendars
-     * @return CalendarGroup
-     */
-    public function setStudentCalendars(Collection $studentCalendars): Student
-    {
-        $this->studentCalendars = $studentCalendars;
-
-        return $this;
-    }
-
-    public function addStudentCalendar(StudentCalendar $studentCalendar): Student
-    {
-        $studentCalendar->setCalendarGroup($this);
-
-        if (! $this->studentCalendars->contains($studentCalendar))
-            $this->studentCalendars->add($studentCalendar);
-
-        return $this;
-    }
-
-    public function removeStudentCalendar(StudentCalendar $studentCalendar): Student
-    {
-        if ($this->studentCalendars->contains($studentCalendar))
-            $this->studentCalendars->removeElement($studentCalendar);
+        if ($this->rollGroups->contains($rollGroup))
+            $this->rollGroups->removeElement($rollGroup);
 
         return $this;
     }

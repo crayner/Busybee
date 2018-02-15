@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Core\Exception\Exception;
 use App\Calendar\Form\CalendarType;
-use App\Calendar\Util\CalendarGroupManager;
+use App\Calendar\Util\RollGroupManager;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
@@ -44,7 +44,7 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_REGISTRAR")
 	 * @return RedirectResponse|Response
 	 */
-	public function edit($id, Request $request, CalendarManager $calendarManager, CalendarGroupManager $calendarGroupManager, EntityManagerInterface $em, MessageManager $messageManager, FlashBagManager $flashBagManager)
+	public function edit($id, Request $request, CalendarManager $calendarManager, RollGroupManager $rollGroupManager, EntityManagerInterface $em, MessageManager $messageManager, FlashBagManager $flashBagManager)
 	{
 		if ($id === 'current')
 		{
@@ -55,7 +55,7 @@ class CalendarController extends Controller
 
 		$calendar = $id === 'Add' ? new Calendar() : $calendarManager->getCalendarRepository()->find($id);
 
-		$form = $this->createForm(CalendarType::class, $calendar, ['calendarGroupManager' => $calendarGroupManager]);
+		$form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager]);
 
 		$form->handleRequest($request);
 
@@ -69,12 +69,13 @@ class CalendarController extends Controller
 			$flashBagManager->addMessages($messageManager);
 
 			if ($id === 'Add')
-				return new RedirectResponse($this->generateUrl('year_edit', array('id' => $calendar->getId())));
+				return new RedirectResponse($this->generateUrl('calendar_edit', array('id' => $calendar->getId())));
 
 			$id = $calendar->getId();
 
-			$form = $this->createForm(CalendarType::class, $calendar, ['calendarGroupManager' => $calendarGroupManager]);
-		}
+			$form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager]);
+		} else
+		    $em->refresh($calendar);
 
 		return $this->render('Calendar/calendar.html.twig',
 			[
