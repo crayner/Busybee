@@ -77,6 +77,12 @@ class CalendarController extends Controller
 		} else
 		    $em->refresh($calendar);
 
+		/*
+            The calendar must be refreshed as the calendar will be written by the page loader from the cache
+            and will error on the write if the database restraints are violated.  The form data is NOT
+		    impacted by this refresh.
+        */
+
 		return $this->render('Calendar/calendar.html.twig',
 			[
 				'form'     => $form->createView(),

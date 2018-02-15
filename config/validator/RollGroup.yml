@@ -3,13 +3,13 @@ App\Entity\RollGroup:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - nameShort
-                - calendarGroup
+                - calendar
             message: calendar.group.nameshort.unique
             errorPath: nameShort
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - name
-                - calendarGroup
+                - calendar
             message: calendar.group.sequence.unique
             errorPath: name
         - App\People\Validator\UniqueStudentRoll: ~
@@ -20,5 +20,6 @@ App\Entity\RollGroup:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
-        calendarGroup:
+        calendar:
+            - Valid: ~
             - NotBlank: ~

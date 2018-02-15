@@ -44,44 +44,6 @@ class CalendarSubscriber implements EventSubscriberInterface
 		$form   = $event->getForm();
 		$entity = $form->getData();
 
-
-		if (!empty($data['calendarGroups']))
-		{
-			$cg  = $entity->getCalendarGroups();
-			$new = new ArrayCollection();
-			$seq = is_null($cg) || $cg->count() == 0 ? 0 : $cg->first()->getSequence() < 100 ? 100 : 0 ;
-
-
-			foreach ($data['calendarGroups'] as $q => $w)
-			{
-				$w['sequence'] = ++$seq;
-
-				$data['calendarGroups'][$q] = $w;
-
-				$exists = new CalendarGroup();
-
-				if (!is_null($cg))
-					foreach ($cg as $cal)
-						if ($cal->getNameShort() === $w['nameShort'])
-						{
-							$exists = $cal;
-							$cg->removeElement($exists);
-							break;
-						}
-
-				$exists->setSequence($seq);
-
-				if (empty($exists->getId()))
-				{
-					$exists->setName($w['name']);
-					$exists->setNameShort($w['nameShort']);
-					$exists->setCalendar($entity);
-				}
-				$new->add($exists);
-			}
-			$entity->setCalendarGroups($new);
-		}
-
 		$specDays = [];
 		if (isset($data['specialDays']) && !empty($entity->getSpecialDays()) && $entity->getSpecialDays()->count() > 0)
 		{

@@ -308,7 +308,7 @@ class Calendar extends CalendarExtension
 
 		$iterator = $this->rollGroups->getIterator();
 		$iterator->uasort(function ($a, $b) {
-			return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
+			return ($a->getName() < $b->getName()) ? -1 : 1;
 		});
 
 		$this->rollGroups       = new ArrayCollection(iterator_to_array($iterator, false));

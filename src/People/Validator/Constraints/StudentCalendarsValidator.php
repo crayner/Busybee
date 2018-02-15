@@ -23,7 +23,7 @@ class StudentCalendarsValidator extends ConstraintValidator
 				$this->context->buildViolation('student.grades.error.empty')
 					->setTranslationDomain('Person')
 					->atPath('[' . strval($q) . ']')
-					->atPath('calendarGroup')
+					->atPath('rollGroup')
 					->addViolation();
 			}
 
@@ -51,7 +51,7 @@ class StudentCalendarsValidator extends ConstraintValidator
 				{
 					$this->context->buildViolation('student.grades.error.year')
 						->atPath('[' . strval($q) . ']')
-						->atPath('calendarGroup')
+						->atPath('rollGroup')
 						->setTranslationDomain('Person')
 						->addViolation();
 				}

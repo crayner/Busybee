@@ -1,4 +1,4 @@
-App\Entity\Year:
+App\Entity\Calendar:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
             fields: [name]
@@ -9,5 +9,5 @@ App\Entity\Year:
             - Valid: ~
         specialDays:
             - Valid: ~
-        calendarGroups:
+        rollGroups:
             - Valid: ~
