@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-		"php": "^7.1|^7.2",
+		"php": "^7.2",
 		"hillrange/ckeditor": "dev-master",
 		"hillrange/gibbon": "dev-master",
 		"hillrange/security": "dev-master",
