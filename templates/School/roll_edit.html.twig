@@ -14,33 +14,59 @@
     {{ form_start(form) }}
     {% set h3Content = saveButton() %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.roll.edit.title', transDomain: 'School'} %}
+
     <div class="row">
-        <div class="col-4 card">
-            {{ form_row(form.name) }}
+        <div class="col-6 card">
+            <div class="row">
+                <div class="col-6 card">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.nameShort) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 card">
+                    {{ form_row(form.website) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.space) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12  card">
+                    {% set tutor_id = form.rollTutor1.vars.value %}
+                    {% if tutor_id is empty %}
+                        {% set tutor_id = form.rollTutor1.vars.data %}
+                    {% endif %}
+                    {{ form_row(form.rollTutor1, {value: tutor_id}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12  card">
+                    {% set tutor_id = form.rollTutor2.vars.value %}
+                    {% if tutor_id is empty %}
+                        {% set tutor_id = form.rollTutor2.vars.data %}
+                    {% endif %}
+                    {{ form_row(form.rollTutor2, {value: tutor_id}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12  card">
+                    {% set tutor_id = form.rollTutor3.vars.value %}
+                    {% if tutor_id is empty %}
+                        {% set tutor_id = form.rollTutor3.vars.data %}
+                    {% endif %}
+                    {{ form_row(form.rollTutor3, {value: tutor_id}) }}
+                </div>
+            </div>
+
         </div>
-        <div class="col-4 card">
-            {{ form_row(form.nameShort) }}
-        </div>
-        <div class="col-4 card">
-            {{ form_row(form.calendarGroup) }}
+        <div class="col-6 card">
+            {{ form_row(form.students) }}
         </div>
     </div>
-    <div class="row">
-        <div class="col-4 card">
-            {{ form_row(form.rollTutor1) }}
-        </div>
-        <div class="col-4 card">
-            {{ form_row(form.rollTutor2) }}
-        </div>
-        <div class="col-4 card">
-            {{ form_row(form.rollTutor3) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4 card">
-            {{ form_row(form.website) }}
-        </div>
-    </div>
+    {% dump(form) %}
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}

@@ -3,13 +3,17 @@ App\Entity\RollGroup:
     table: roll_group
     repositoryClass: App\Repository\RollGroupRepository
     uniqueConstraints:
-         roll_name:
+         calendar_name:
              columns:
                  - name
                  - calendar_id
          calendar_name_short:
              columns:
                  - name_short
+                 - calendar_id
+         calendar_space:
+             columns:
+                 - space_id
                  - calendar_id
     id:
         id:

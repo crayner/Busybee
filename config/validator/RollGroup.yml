@@ -4,14 +4,18 @@ App\Entity\RollGroup:
             fields:
                 - nameShort
                 - calendar
-            message: calendar.group.nameshort.unique
             errorPath: nameShort
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - name
                 - calendar
-            message: calendar.group.sequence.unique
             errorPath: name
+        - App\People\Validator\UniqueStudentRoll: ~
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - space
+                - calendar
+            errorPath: space
         - App\People\Validator\UniqueStudentRoll: ~
     properties:
         website:

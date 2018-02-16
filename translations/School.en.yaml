@@ -129,4 +129,7 @@ roll:
     website.label: Roll Web Site
     space:
         label: Location
-        help: ''
+        placeholder: Select Location
+    students:
+        label: Enrolled Students
+        help: Select students for this roll. Students are only listed if they are not in a roll in the current year or are already allocted to this roll.

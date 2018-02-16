@@ -2,12 +2,15 @@
 namespace App\School\Form;
 
 use App\Core\Util\UserManager;
+use App\Entity\Calendar;
 use App\Entity\CalendarGroup;
 use App\Entity\RollGroup;
+use App\Entity\Space;
 use App\Entity\Staff;
 use App\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
+use Hillrange\Form\Type\HiddenEntityType;
 use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -36,6 +39,8 @@ class RollGroupType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 	    $userManager = $this->userManager;
+	    $data = $options['data'];
+	    dump($data);
 		$builder
             ->add('name', TextType::class, [
                     'label' => 'roll.name.label',
@@ -53,14 +58,18 @@ class RollGroupType extends AbstractType
                     'placeholder' => 'roll.tutor.placeholder',
                     'class' => Staff::class,
                     'choice_label' => 'formatName',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userManager, $data) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.rollGroups1', 'r')
-                            ->leftJoin('r.calendarGroup', 'cg')
+                            ->leftJoin('r.calendar', 'c')
+                            ->where('(c.id IS NULL OR c.id = :calendar_id)')
+                            ->setParameter('calendar_id', $userManager->getCurrentCalendar()->getId())
+                            ->andWhere('(r.id IS NULL OR r.id = :roll_id)')
+                            ->setParameter('roll_id', $data->getId())
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
-                            ;
-                    }
+                        ;
+                    },
                 ]
             )
             ->add('rollTutor2', EntityType::class, [
@@ -69,13 +78,17 @@ class RollGroupType extends AbstractType
                     'placeholder' => 'roll.tutor.placeholder',
                     'class' => Staff::class,
                     'choice_label' => 'formatName',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userManager, $data) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.rollGroups1', 'r')
-                            ->leftJoin('r.calendarGroup', 'cg')
+                            ->leftJoin('r.calendar', 'c')
+                            ->where('(c.id IS NULL OR c.id = :calendar_id)')
+                            ->setParameter('calendar_id', $userManager->getCurrentCalendar()->getId())
+                            ->andWhere('(r.id IS NULL OR r.id = :roll_id)')
+                            ->setParameter('roll_id', $data->getId())
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
-                            ;
+                        ;
                     },
                     'required' => false,
                 ]
@@ -86,13 +99,17 @@ class RollGroupType extends AbstractType
                     'placeholder' => 'roll.tutor.placeholder',
                     'class' => Staff::class,
                     'choice_label' => 'formatName',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userManager, $data) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.rollGroups1', 'r')
-                            ->leftJoin('r.calendarGroup', 'cg')
+                            ->leftJoin('r.calendar', 'c')
+                            ->where('(c.id IS NULL OR c.id = :calendar_id)')
+                            ->setParameter('calendar_id', $userManager->getCurrentCalendar()->getId())
+                            ->andWhere('(r.id IS NULL OR r.id = :roll_id)')
+                            ->setParameter('roll_id', $data->getId())
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
-                            ;
+                        ;
                     },
                     'required' => false,
                 ]
@@ -102,39 +119,35 @@ class RollGroupType extends AbstractType
                     'required' => false,
                 ]
             )
-            ->add('calendarGroup', EntityType::class, [
-                    'label' => 'roll.calendar_group.label',
-                    'help' => 'roll.calendar_group.help',
-                    'placeholder' => 'roll.calendar_group.placeholder',
-                    'class' => CalendarGroup::class,
-                    'choice_label' => 'fullName',
-                    'query_builder' => function (EntityRepository $er) use ($userManager) {
-                        return $er->createQueryBuilder('cg')
-                            ->leftJoin('cg.calendar', 'c')
-                            ->orderBy('cg.sequence', 'ASC')
-                            ->where('c.id = :calendar_id')
-                            ->setParameter('calendar_id', $userManager->getCurrentCalendar()->getId())
-                            ;
-                    },
+            ->add('calendar', HiddenEntityType::class, [
+                    'class' => Calendar::class,
+                ]
+            )
+            ->add('space', EntityType::class,
+                [
+                    'class' => Space::class,
+                    'label' => 'roll.space.label',
+                    'placeholder' => 'roll.space.placeholder',
+                    'choice_label' => 'name',
                 ]
             )
             ->add('students', EntityType::class, [
                     'label' => 'roll.students.label',
-                    'help' => 'roll.calendar_group.help',
+                    'help' => 'roll.students.help',
                     'multiple' => true,
                     'expanded' => true,
                     'class' => Student::class,
                     'choice_label' => 'formatName',
-                    'query_builder' => function (EntityRepository $er) use ($userManager) {
+                    'query_builder' => function (EntityRepository $er) use ($data, $userManager) {
                         return $er->createQueryBuilder('s')
-                            ->leftJoin('s.rolls', 'r')
-                            ->leftJoin('r.calendarGroup', 'cg')
-                            ->leftJoin('cg.calendar', 'c')
+                            ->leftJoin('s.rollGroups', 'r')
+                            ->leftJoin('r.calendar', 'c')
                             ->where('c.id = :calendar_id')
                             ->setParameter('calendar_id', $userManager->getCurrentCalendar()->getId())
-                            ->andWhere()
-                            ->orderBy('surname', 'ASC')
-                            ->addOrderBy('firstName', 'ASC')
+                            ->andWhere('(r.id IS NULL OR r.id = :roll_id)')
+                            ->setParameter('roll_id', $data->getId())
+                            ->orderBy('s.surname', 'ASC')
+                            ->addOrderBy('s.firstName', 'ASC')
                             ;
                     },
                 ]
