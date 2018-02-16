@@ -23,8 +23,7 @@ App\Entity\Person:
             length: '10'
             unique: true
         importIdentifier:
-            type: string
-            length: '32'
+            type: integer
             nullable: true
         honorific:
             type: string

@@ -28,13 +28,6 @@ class RollGroupPagination extends PaginationManager
 		'roll.sort.name' => [
 			'r.name' => 'ASC',
 		],
-		'roll.sort.name_short' => [
-			'r.nameShort' => 'ASC',
-		],
-		'roll.sort.calendar_group' => [
-		    'cg.sequence' => 'ASC',
-			'r.name' => 'ASC',
-		],
 	];
 
 	/**
@@ -48,8 +41,8 @@ class RollGroupPagination extends PaginationManager
 	protected $searchList = [
 		'r.name',
         'r.nameShort',
-        'cg.name',
-        'cg.nameShort',
+        'r.website',
+        's.name',
 	];
 
 	/**
@@ -59,18 +52,20 @@ class RollGroupPagination extends PaginationManager
 		'r.name',
 		'r.nameShort',
         'r.id',
+        's.name as spaceName',
+        'r.website'
 	];
 
     /**
      * @var array
      */
 	protected $join = [
-        'r.calendarGroup' => [
-            'alias' => 'cg',
+        'r.calendar' => [
+            'alias' => 'c',
             'type' => 'leftJoin',
         ],
-        'cg.calendar' => [
-            'alias' => 'c',
+        'r.space' => [
+            'alias' => 's',
             'type' => 'leftJoin',
         ],
     ];

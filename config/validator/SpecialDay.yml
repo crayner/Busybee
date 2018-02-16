@@ -8,5 +8,4 @@ App\Entity\SpecialDay:
         name:
             - NotBlank: ~
         calendar:
-            - NotBlank:
-                message: 'blank.specialday.calendar'
+            - NotBlank: ~

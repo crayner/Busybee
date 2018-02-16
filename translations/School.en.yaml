@@ -127,6 +127,6 @@ roll:
         label: Additional Tutor
         help: Only staff that are not selected as a principal tutor are available as additional tutors.
     website.label: Roll Web Site
-    calendar_group:
-        label: Calendar Year
+    space:
+        label: Location
         help: ''

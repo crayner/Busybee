@@ -23,3 +23,5 @@ App\Entity\RollGroup:
         calendar:
             - Valid: ~
             - NotBlank: ~
+        grade:
+            - NotBlank: ~

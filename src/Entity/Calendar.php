@@ -264,14 +264,15 @@ class Calendar extends CalendarExtension
 	 *
 	 * @return Calendar
 	 */
-	public function addRollGroup(RollGroup $rollGroup): Calendar
+	public function addRollGroup(RollGroup $rollGroup, $add = true): Calendar
 	{
-		if ($this->rollGroups->contains($rollGroup))
-			return $this;
+		if ($add)
+		    $rollGroup->setCalendar($this);
 
-		$rollGroup->setCalendar($this);
+        if ($this->rollGroups->contains($rollGroup))
+            return $this;
 
-		$this->rollGroups->add($rollGroup);
+        $this->rollGroups->add($rollGroup);
 
 		return $this;
 	}

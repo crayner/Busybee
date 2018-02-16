@@ -809,6 +809,9 @@ class Student extends StudentExtension
      */
     public function getRollGroups(): Collection
     {
+        if ($this->rollGroups instanceof PersistentCollection)
+            $this->rollGroups->initialize();
+
         return $this->rollGroups;
     }
 
@@ -828,8 +831,13 @@ class Student extends StudentExtension
      * @param bool $addRollGroup
      * @return Student
      */
-    public function addRollGroup(RollGroup $rollGroup, $addRollGroup = true): Student
+    public function addRollGroup(?RollGroup $rollGroup, $addRollGroup = true): Student
     {
+        if (is_null($rollGroup))
+            return $this;
+
+        $this->getRollGroups();
+
         if ($addRollGroup)
             $rollGroup->addStudent($this, false);
 

@@ -57,11 +57,6 @@ class RollGroup extends RollGroupExtension
     private $students;
 
     /**
-     * @var null|integer
-     */
-    private $importIdentifier;
-
-    /**
      * @var null|RollGroup
      */
     private $nextRoll;
@@ -70,6 +65,11 @@ class RollGroup extends RollGroupExtension
      * @var null|string
      */
     private $grade;
+
+    /**
+     * @var null|Space
+     */
+    private $space;
 
     /**
      * RollGroup constructor.
@@ -106,9 +106,12 @@ class RollGroup extends RollGroupExtension
 	 *
 	 * @return RollGroup
 	 */
-	public function setCalendar(Calendar $calendar = null): RollGroup
+	public function setCalendar(Calendar $calendar = null, $add = true): RollGroup
 	{
 		$this->calendar = $calendar;
+
+		if ($add)
+		    $calendar->addRollGroup($this, false);
 
 		return $this;
 	}
@@ -125,7 +128,7 @@ class RollGroup extends RollGroupExtension
      * @param Staff $rollTutor1
      * @return RollGroup
      */
-    public function setRollTutor1(Staff $rollTutor1): RollGroup
+    public function setRollTutor1(?Staff $rollTutor1): RollGroup
     {
         $this->rollTutor1 = $rollTutor1;
         return $this;
@@ -143,7 +146,7 @@ class RollGroup extends RollGroupExtension
      * @param Staff $rollTutor2
      * @return RollGroup
      */
-    public function setRollTutor2(Staff $rollTutor2): RollGroup
+    public function setRollTutor2(?Staff $rollTutor2): RollGroup
     {
         $this->rollTutor2 = $rollTutor2;
         return $this;
@@ -161,7 +164,7 @@ class RollGroup extends RollGroupExtension
      * @param Staff $rollTutor3
      * @return RollGroup
      */
-    public function setRollTutor3(Staff $rollTutor3): RollGroup
+    public function setRollTutor3(?Staff $rollTutor3): RollGroup
     {
         $this->rollTutor3 = $rollTutor3;
         return $this;
@@ -239,6 +242,7 @@ class RollGroup extends RollGroupExtension
     public function setStudents(ArrayCollection $students): RollGroup
     {
         $this->students = $students;
+
         return $this;
     }
 
@@ -247,10 +251,15 @@ class RollGroup extends RollGroupExtension
      * @param bool $addStudent
      * @return Student
      */
-    public function addStudent(Student $student, $addStudent = true): Student
+    public function addStudent(?Student $student, $addStudent = true): RollGroup
     {
+        $this->getStudents();
+
+        if (is_null($student))
+            return $this;
+
         if ($addStudent)
-            $student->addRoll($this, false);
+            $student->addRollGroup($this, false);
 
         if (! $this->students->contains($student))
             $this->students->add($student);
@@ -266,25 +275,6 @@ class RollGroup extends RollGroupExtension
     {
         if ($this->students->contains($student))
             $this->students->removeElement($student);
-
-        return $this;
-    }
-
-    /**
-     * @return null|int
-     */
-    public function getImportIdentifier(): ?int
-    {
-        return $this->importIdentifier;
-    }
-
-    /**
-     * @param int $importIdentifier
-     * @return RollGroup
-     */
-    public function setImportIdentifier(int $importIdentifier): RollGroup
-    {
-        $this->importIdentifier = $importIdentifier ?: null;
 
         return $this;
     }
@@ -324,6 +314,24 @@ class RollGroup extends RollGroupExtension
     {
         $this->grade = $grade;
 
+        return $this;
+    }
+
+    /**
+     * @return Space|null
+     */
+    public function getSpace(): ?Space
+    {
+        return $this->space;
+    }
+
+    /**
+     * @param Space|null $space
+     * @return RollGroup
+     */
+    public function setSpace(?Space $space): RollGroup
+    {
+        $this->space = $space;
         return $this;
     }
 }

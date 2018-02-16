@@ -1,11 +1,11 @@
 App\Entity\Term:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [name, year]
+            fields: [name, calendar]
             errorPath: name
             message: 'The Term Name must be unique within the year.'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [nameShort, year]
+            fields: [nameShort, calendar]
             errorPath: nameShort
             message: 'The term Short Name must be unique within the year.'
     properties:
@@ -14,5 +14,4 @@ App\Entity\Term:
         nameShort:
             - NotBlank: ~
         calendar:
-            - NotBlank:
-                message: 'blank.term.calendar'
+            - NotBlank: ~

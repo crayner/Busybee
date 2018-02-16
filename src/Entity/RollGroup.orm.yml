@@ -26,11 +26,6 @@ App\Entity\RollGroup:
         website:
             length: 200
             nullable: true
-        importIdentifier:
-            length: 10
-            type: integer
-            nullable: true
-            column: import_identifier
         grade:
             length: 16
     manyToOne:
@@ -68,10 +63,16 @@ App\Entity\RollGroup:
             joinColumn:
                 name: calendar_id
                 referencedColumnName: id
+        space:
+            targetEntity: App\Entity\Space
+            joinColumns:
+                space_id:
+                    referencedColumnName: id
     manyToMany:
         students:
             targetEntity: App\Entity\Student
             inversedBy: rollGroups
+            cascade: [ 'all' ]
             joinTable:
                 name: student_roll_group_link
                 joinColumns:
