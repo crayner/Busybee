@@ -2,6 +2,7 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
+use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\ToggleType;
 use App\Entity\Campus;
 use App\Entity\Space;
@@ -52,13 +53,14 @@ class SpaceType extends AbstractType
 					),
 				)
 			)
-			->add('type', ChoiceType::class, array(
-					'choices'     => $this->sm->get('space.type'),
+			->add('type', SettingChoiceType::class, array(
 					'label'       => 'space.type.label',
 					'placeholder' => 'space.type.placeholder',
 					'attr'        => array(
 						'class' => 'monitorChange',
 					),
+                    'setting_name' => 'space.type',
+                    'translation_prefix' => false,
 				)
 			)
 			->add('capacity', IntegerType::class, array(
@@ -202,7 +204,7 @@ class SpaceType extends AbstractType
 						'class' => 'formChanged changeRecord form-control-sm',
 					),
 					'class'         => Space::class,
-					'choice_label'  => 'name',
+					'choice_label'  => 'fullName',
 					'choice_value'  => 'id',
 					'mapped'        => false,
 					'required'      => false,

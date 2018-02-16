@@ -332,6 +332,7 @@ class RollGroup extends RollGroupExtension
     public function setSpace(?Space $space): RollGroup
     {
         $this->space = $space;
+
         return $this;
     }
 }

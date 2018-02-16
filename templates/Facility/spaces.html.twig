@@ -29,10 +29,10 @@
         {% for resource in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-3 form-inline">
-                    {{ resource.campus.name ~ ' - ' ~ resource.name }}
+                    {{ resource.0.fullName }}
                 </div>
                 <div class="col-6 form-inline">
-                    {{ resource.comment }}
+                    {{ resource.0.comment }}
                 </div>
                 <div class="col-3 form-inline">
                     {{ editButton({title: 'space.edit.title', transDomain: 'Facility', windowOpen: {route: path('space_edit', {id: resource.id})}})|raw }}
