@@ -1,6 +1,7 @@
 <?php
 namespace App\School\Form;
 
+use App\Core\Type\SettingChoiceType;
 use App\Core\Util\UserManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGroup;
@@ -131,6 +132,14 @@ class RollGroupType extends AbstractType
                     'choice_label' => 'name',
                 ]
             )
+            ->add('grade', SettingChoiceType::class,
+                [
+                    'setting_name' => 'student.groups',
+                    'label' => 'roll_group.grade.label',
+                    'placeholder' => 'roll_group.grade.placeholder',
+                    'translation_domain' => 'Calendar',
+                ]
+            )
             ->add('students', EntityType::class, [
                     'label' => 'roll.students.label',
                     'help' => 'roll.students.help',
@@ -138,6 +147,9 @@ class RollGroupType extends AbstractType
                     'expanded' => true,
                     'class' => Student::class,
                     'choice_label' => 'formatName',
+                    'attr' => [
+                        'class' => 'small',
+                    ],
                     'query_builder' => function (EntityRepository $er) use ($data, $userManager) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.rollGroups', 'r')

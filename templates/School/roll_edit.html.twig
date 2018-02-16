@@ -11,8 +11,10 @@
 {% block headerLead %}{{ 'school.roll.edit.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {{ form_start(form) }}
-    {% set h3Content = saveButton() %}
+    {{ form_start(form) }}{% dump(form) %}
+    {% set h3Content = '' %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('calendar_edit', {id: form.calendar.vars.value, _fragment: 'rollGroups'})}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.roll.edit.title', transDomain: 'School'} %}
 
     <div class="row">
@@ -31,6 +33,11 @@
                 </div>
                 <div class="col-6 card">
                     {{ form_row(form.space) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 offset-6 card">
+                    {{ form_row(form.grade) }}
                 </div>
             </div>
             <div class="row">

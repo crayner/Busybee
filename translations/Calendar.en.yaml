@@ -64,6 +64,8 @@ roll_group:
         label: Grade/Form/Year
         placeholder: Select a Grade/Form/Year
     validation.name.duplicate: Duplicated value.
+    students.count: '%{count} students in this roll.'
+    manage.label: Manage Roll
 calendars:
     title: Adademic Calendar Definitions
     description: ''
