@@ -29,7 +29,7 @@ class UserManagerExtension extends AbstractExtension
 		return [
 			new \Twig_SimpleFunction('formatUserName', [$this->userManager, 'formatUserName']),
 			new \Twig_SimpleFunction('get_userManager', [$this, 'getUserManager']),
-			new \Twig_SimpleFunction('get_SystemCalendar', [$this->userManager, 'getSystemCalendar']),
+			new \Twig_SimpleFunction('get_CurrentCalendar', [$this->userManager, 'getCurrentCalendar']),
 			new \Twig_SimpleFunction('get_UserSetting', [$this->userManager, 'getUserSetting']),
 		];
 	}

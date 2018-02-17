@@ -404,7 +404,7 @@ rollGroups:
 	 */
 	public function getCalendarList()
 	{
-		$results = $this->getEntityManager()->getRepository(Calendar::class)->findBy([], ['firstDay' => 'ASC']);
+		$results = $this->getEntityManager()->getRepository(Calendar::class)->findBy([], ['firstDay' => 'DESC']);
 		return empty($results) ? [] : $results ;
 	}
 

@@ -2,12 +2,13 @@
 {% set headerNotices = '' %}
 {% spaceless %}
 {% if app.user is not null %}
+    {% dump(get_UserSetting('Calendar')) %}
     {% set route = get_parameter('security.routes')['security_user_edit'] %}
     {% if get_UserSetting('Calendar') is not null %}
-        {% set headerNotices = headerNotices ~ miscButton({transDomain: 'home', style: 'float: left;', title: 'user.calendar.warning', class: 'btn btn-warning btn-header', prompt: {message: 'user.calendar.name', 'params': {'%{name}': get_SystemCalendar(get_UserSetting('Calendar')).name }}, windowOpen: {route: path(route, {id: app.user.id})}}) %}
+        {% set headerNotices = headerNotices ~ miscButton({transDomain: 'home', style: 'float: left;', title: 'user.calendar.warning', class: 'btn btn-warning btn-header', prompt: {message: 'user.calendar.name', 'params': {'%{name}': get_CurrentCalendar().name }}, windowOpen: {route: path(route, {id: app.user.id})}}) %}
         {% set containerThemeOverwrite = ' containerWarning' %}
     {% else %}
-        {% set headerNotices = headerNotices ~ miscButton({transDomain: 'home', style: 'float: left;', title: 'user.calendar.current', class: 'btn btn-success btn-header', prompt: {message: 'user.calendar.name', params: {'%{name}': get_SystemCalendar(get_UserSetting('calendar')).name }}, windowOpen: {route: path(route, {id: app.user.id})}}) %}
+        {% set headerNotices = headerNotices ~ miscButton({transDomain: 'home', style: 'float: left;', title: 'user.calendar.current', class: 'btn btn-success btn-header', prompt: {message: 'user.calendar.name', params: {'%{name}': get_CurrentCalendar().name }}, windowOpen: {route: path(route, {id: app.user.id})}}) %}
     {% endif %}
 {% endif %}
 {% endspaceless %}

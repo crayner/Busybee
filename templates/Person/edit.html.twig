@@ -29,7 +29,6 @@
                 {% set translation = 'Person' %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 {% set disabled = '' %}
-                {% dump(name) %}
                 {% if name == 'staff' and not isStaff() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'student' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'immigration' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
