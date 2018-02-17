@@ -1,8 +1,10 @@
 <?php
 namespace App\Entity;
 
+use App\Core\Exception\Exception;
 use App\School\Entity\DepartmentExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Department
@@ -145,18 +147,25 @@ class Department extends DepartmentExtension
 		return $this;
 	}
 
-	/**
-	 * Add member
-	 *
-	 * @param DepartmentMember $member
-	 *
-	 * @return Department
-	 */
-	public function addMember(DepartmentMember $member): Department
+    /**
+     * Add member
+     *
+     * @param DepartmentMember $member
+     * @param bool $add
+     * @return Department
+     * @throws Exception
+     */
+	public function addMember(DepartmentMember $member, $add = true): Department
 	{
-		$member->setDepartment($this);
+	    $this->getMembers();
 
-		if ($this->members->contains($member))
+	    if ($add)
+		    $member->setDepartment($this);
+
+	    if (is_null($member->getStaff()))
+	        throw new Exception('The staff member must be set in the DepartmentMember entity before the DepartmentMember can be added to the Department.');
+
+		if ($this->members->contains($member) || isset($this->getStaff()[intval($member->getStaff()->getId())]))
 			return $this;
 
 		$this->members->add($member);
@@ -181,9 +190,12 @@ class Department extends DepartmentExtension
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getMembers($sorted = true)
+	public function getMembers($sort = true)
 	{
-		if ($sorted)
+		if ($this->members instanceof PersistentCollection)
+		    $this->memberInitialise($this->members);
+
+	    if ($sort)
 			return $this->sortMembers();
 
 		return $this->members;
@@ -208,8 +220,14 @@ class Department extends DepartmentExtension
 	 *
 	 * @return Department
 	 */
-	public function addCourse(Course $course)
+	public function addCourse(Course $course, $add = true)
 	{
+	    if (empty($course))
+	        return $this ;
+
+	    if ($add)
+	        $course->addDepartment($this, false);
+
 		if ($this->courses->contains($course))
 			return $this;
 
@@ -223,9 +241,15 @@ class Department extends DepartmentExtension
 	 *
 	 * @param Course $course
 	 */
-	public function removeCourse(Course $course)
+	public function removeCourse(Course $course, $remove = true): Department
 	{
-		$this->courses->removeElement($course);
+	    if (empty($course))
+	        return $this;
+
+		if ($remove)
+	        $this->courses->removeElement($course);
+
+		return $this;
 	}
 
 	/**
@@ -307,9 +331,9 @@ class Department extends DepartmentExtension
 	 * @return Department
 	 */
 	public function setLogo(string $logo = null): Department
-	{
-		$this->logo = $logo;
+    {
+        $this->logo = $logo;
 
-		return $this;
-	}
+        return $this;
+    }
 }

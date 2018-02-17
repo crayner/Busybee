@@ -1,0 +1,12 @@
+App\Entity\Department:
+    properties:
+        courses:
+            - Valid: ~
+        members:
+            - Valid: ~
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~
+            - Length:
+                max: 4

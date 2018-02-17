@@ -40,6 +40,14 @@ class MenuManagerConstants
     node: 1
     order: 11
     route: setting_manage
+12:
+    label: menu.timetable.manage
+    name: Timatable Management
+    role: ROLE_REGISTRAR
+    node: 1
+    order: 11
+    route: course_list
+    translate: School
 20:
     label: menu.people.manage
     name: People Admin

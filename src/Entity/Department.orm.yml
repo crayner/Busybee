@@ -20,8 +20,8 @@ App\Entity\Department:
             length: '4'
             unique: true
         importIdentifier:
-            type: string
-            length: '12'
+            type: integer
+            length: 12
             nullable: true
         blurb:
             type: text
@@ -35,15 +35,7 @@ App\Entity\Department:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: department
             cascade: [ all ]
-#    manyToMany:
-#        courses:
-#            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
-#            joinTable:
-#                name: department_course
-#                joinColumns:
-#                    dept_id:
-#                        referencedColumnName: id
-#                inverseJoinColumns:
-#                    course_id:
-#                        referencedColumnName: id
-#                        unique: true
+    manyToMany:
+        courses:
+            targetEntity: App\Entity\Course
+            mappedBy: departments

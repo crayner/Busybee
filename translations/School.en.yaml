@@ -58,6 +58,10 @@ school:
         edit:
             title: Manage Roll
             description: ''
+    course:
+        list:
+            title: Course List
+            help: ''
 department:
     edit:
         title: Manage Department
@@ -105,6 +109,7 @@ department:
         label: Department Logo
 menu:
     roll.groups: Roll Groups
+    timetable.manage: Timetable Manage
 roll:
     sort:
         name: Roll Name
@@ -139,3 +144,10 @@ roll:
         placeholder: Transfer to
     details:
         label: Details
+course:
+    name:
+        label: Name
+        sort: Name
+    code:
+        label: Code
+        sort: Code

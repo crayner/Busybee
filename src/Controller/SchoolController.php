@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Pagination\CoursePagination;
 use App\Pagination\RollGroupPagination;
 use App\Repository\RollGroupRepository;
 use App\School\Form\DaysTimesType;
@@ -84,6 +85,45 @@ class SchoolController extends Controller
         }
 
         return $this->render('School/roll_edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     *
+     * @Route("/school/course/list/", name="course_list")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param CoursePagination $coursePagination
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function courseList(CoursePagination $coursePagination, Request $request)
+    {
+        $coursePagination->injectRequest($request);
+
+        $coursePagination->getDataSet();
+
+        return $this->render('School/course_list.html.twig',
+            [
+                'pagination' => $coursePagination,
+            ]
+        );
+    }
+
+    /**
+     *
+     * @Route("/school/course/{id}/edit/", name="course_edit")
+     * @IsGranted("ROLE_REGISTRAR")
+     */
+    public function courseEdit($id, Request $request)
+    {
+
+
+
+
+        return $this->render('School/course_edit.html.twig',
             [
                 'form' => $form->createView(),
             ]

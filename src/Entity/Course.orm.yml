@@ -21,7 +21,35 @@ App\Entity\Course:
             length: '3'
         version:
             type: string
-            length: '10'
-        targetYear:
-            type: string
-            length: '255'
+            length: 10
+            nullable: true
+        targetYears:
+            type: object
+        map:
+            type: boolean
+        description:
+            type: text
+            nullable: true
+    manyToMany:
+        calendars:
+            targetEntity: App\Entity\Calendar
+            joinTable:
+                name: course_calendar
+                joinColumns:
+                    course_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    calendar_id:
+                        referencedColumnName: id
+        departments:
+            targetEntity: App\Entity\Department
+            inversedBy: courses
+            joinTable:
+                name: course_department
+                joinColumns:
+                    course_id:
+                        referencedColumnName: id
+                        unique: true
+                inverseJoinColumns:
+                    department_id:
+                        referencedColumnName: id

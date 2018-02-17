@@ -19,6 +19,11 @@ abstract class DepartmentExtension implements UserTrackInterface
     protected $coursesSorted = false;
 
     /**
+     * @var array
+     */
+    private $staff;
+
+    /**
      * Sort Members
      *
      * @return ArrayCollection
@@ -62,5 +67,25 @@ abstract class DepartmentExtension implements UserTrackInterface
         $this->setCourses($courses);
 
         return $this->getCourses(false);
+    }
+
+    protected function memberInitialise($members)
+    {
+        $members->initialize();
+        $staff = new ArrayCollection();
+
+        foreach($members->toArray() as $member)
+            $staff[intval($member->getId())] =  $member;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStaff(): array
+    {
+        if (empty($this->staff))
+            $this->staff = [];
+
+        return $this->staff;
     }
 }

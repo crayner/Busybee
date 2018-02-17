@@ -2,23 +2,23 @@
 
 {% trans_default_domain 'School' %}
 
-{% block title %}{{ 'school.roll.list.title'|trans({'%{calendar}': manager.calendar.name}) }}{% endblock title %}
-{% block headerTitle %}{{ 'school.roll.list.title'|trans({'%{calendar}': manager.calendar.name}) }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'school.roll.list.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ 'school.course.list.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.course.list.title'|trans}}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.course.list.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
-        {% set h3Content = addButton({windowOpen: {route: path('roll_edit', {id: 'Add'})}}) %}
+        {% set h3Content = addButton({windowOpen: {route: path('course_edit', {id: 'Add'})}}) %}
     {% endif %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': manager.calendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.course.list.title', transDomain: 'School', panelParagraph: 'school.course.list.help'} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-3 text-center" style="display: inline-block;">
-                   {{ 'roll.name.label'|trans }}<br /><small>{{ 'roll.name_short.label'|trans }}</small>
+                   {{ 'course.name.label'|trans }}
             </div>
             <div class="col-3">
-                {{ 'roll.space.label'|trans({}) }}
+                {{ 'course.code.label'|trans({}) }}
             </div>
             <div class="col-3">
                 {{ 'roll.details.label'|trans({}) }}
@@ -27,10 +27,10 @@
                 {{ 'system.setting.manage.actions'|trans({}, 'System') }}
             </div>
         </div>
-        {% for roll in pagination.getResult %}
+        {% for course in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-3 form-inline text-center">
-                    {{ roll.name }}<br /><small>{{ roll.nameShort }}</small>
+                    {{ course.name }}
                 </div>
                 <div class="col-3 form-inline">
                     {{ roll.spaceName }}
@@ -39,7 +39,7 @@
                     {{ manager.details(roll.0)|raw }}
                 </div>
                 <div class="col-3 form-inline">
-                    {{ editButton({class: 'halflings halflings-edit btn btn-warning', title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}})|raw }}
+                    {{ editButton({class: 'halflings halflings-edit btn btn-warning', title: 'school.course.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}

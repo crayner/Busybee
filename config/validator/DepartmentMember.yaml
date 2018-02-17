@@ -1,0 +1,10 @@
+App\Entity\DepartmentMember:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - staff
+                - department
+    properties:
+        staffType:
+            - App\Core\Validator\SettingChoice:
+                name: 'department.staff.type.list'
