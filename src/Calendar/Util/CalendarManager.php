@@ -1,8 +1,6 @@
 <?php
 namespace App\Calendar\Util;
 
-use App\Calendar\Util\Day;
-use App\Calendar\Util\Year;
 use App\Entity\Calendar;
 use App\Repository\CalendarRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -42,10 +40,15 @@ class CalendarManager
 	 */
 	private $currentUser;
 
-	/**
-	 * @var Calendar
-	 */
-	private $currentCalendar;
+    /**
+     * @var Calendar
+     */
+    private $currentCalendar;
+
+    /**
+     * @var Calendar
+     */
+    private $nextCalendar;
 
 	/**
 	 * @var CalendarRepository
@@ -404,4 +407,25 @@ rollGroups:
 		$results = $this->getEntityManager()->getRepository(Calendar::class)->findBy([], ['firstDay' => 'ASC']);
 		return empty($results) ? [] : $results ;
 	}
+
+    /**
+     * @return Calendar
+     */
+    public function getNextCalendar()
+    {
+        if ($this->nextCalendar)
+            return $this->nextCalendar;
+
+        $this->getCurrentCalendar();
+
+        $result = $this->getCalendarRepository()->createQueryBuilder('c')
+            ->where('c.firstDay > :firstDay')
+            ->setParameter('firstDay', $this->getCurrentCalendar()->getFirstDay()->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
+
+        $this->nextCalendar = $result ? $result[0] : null ;
+        dump($this);
+        return $this->nextCalendar;
+    }
 }

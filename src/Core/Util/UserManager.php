@@ -103,7 +103,10 @@ class UserManager
 		return $this->getUser() ? $this->getUser()->getUserSettings($name) : null;
 	}
 
-	private function getUser()
+    /**
+     * @return User|mixed|null
+     */
+    private function getUser()
     {
         if (! $this->user)
         {

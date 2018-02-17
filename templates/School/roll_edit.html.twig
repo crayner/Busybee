@@ -18,7 +18,7 @@
     {% include 'Page/panelStart.html.twig' with {header: 'school.roll.edit.title', transDomain: 'School'} %}
 
     <div class="row">
-        <div class="col-6 card">
+        <div class="col-8 card">
             <div class="row">
                 <div class="col-6 card">
                     {{ form_row(form.name) }}
@@ -36,7 +36,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 offset-6 card">
+                <div class="col-6 card">
+                    {{ form_row(form.nextRoll) }}
+                </div>
+                <div class="col-6 card">
                     {{ form_row(form.grade) }}
                 </div>
             </div>
@@ -69,7 +72,7 @@
             </div>
 
         </div>
-        <div class="col-6 card">
+        <div class="col-4 card">
             {{ form_row(form.students) }}
         </div>
     </div>

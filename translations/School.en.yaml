@@ -52,7 +52,7 @@ school:
             help: 'Max file size of 750k and ratio of 0.75 <= x <= 1.25'
     roll:
         list:
-            title: Roll List
+            title: 'Roll List for %{calendar}'
             description: ''
             help: 'This page shows all roll groups in the current school calendar.'
         edit:
@@ -133,3 +133,9 @@ roll:
     students:
         label: Enrolled Students
         help: Select students for this roll. Students are only listed if they are not in a roll in the current year or are already allocted to this roll.
+    next_roll:
+        label:  Next Roll
+        help: Students will be transferred to this roll on the year change.
+        placeholder: Transfer to
+    details:
+        label: Details

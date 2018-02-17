@@ -14,7 +14,7 @@ abstract class RollGroupExtension implements UserTrackInterface
      */
     public function getFullName(): string
     {
-        return $this->getName() . ' ('.$this->getNameShort().')';
+        return $this->getName() . ' ('.$this->getNameShort().') - in ' . $this->getCalendar()->getName();
     }
 
 	/**

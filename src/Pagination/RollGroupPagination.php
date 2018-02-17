@@ -1,6 +1,7 @@
 <?php
 namespace App\Pagination;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Util\UserManager;
 use App\Entity\RollGroup;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,7 +79,7 @@ class RollGroupPagination extends PaginationManager
     /**
      * @var UserManager
      */
-	private $userManager;
+	private $calendarManager;
 
 	/**
 	 * @var string
@@ -111,9 +112,9 @@ class RollGroupPagination extends PaginationManager
 
         $this->getQuery()
             ->andWhere('c.id = :calendar_id')
-            ->setParameter('calendar_id', $this->userManager->getCurrentCalendar()->getId())
+            ->setParameter('calendar_id', $this->calendarManager->getCurrentCalendar()->getId())
         ;
-
+dump($this);
 		return $this->getQuery();
 	}
 
@@ -124,11 +125,11 @@ class RollGroupPagination extends PaginationManager
      * @param RouterInterface $router
      * @param RequestStack $requestStack
      * @param FormFactoryInterface $formFactory
-     * @param UserManager $userManager
+     * @param UserManager $calendarManager
      */
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory, UserManager $userManager)
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory, CalendarManager $calendarManager)
     {
-        $this->userManager = $userManager;
+        $this->calendarManager = $calendarManager;
         parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
     }
 }

@@ -3,11 +3,11 @@ namespace App\Controller;
 
 use App\Core\Exception\Exception;
 use App\Calendar\Form\CalendarType;
-use App\Calendar\Util\RollGroupManager;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
+use App\School\Util\RollGroupManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

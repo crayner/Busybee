@@ -2,8 +2,8 @@
 
 {% trans_default_domain 'School' %}
 
-{% block title %}{{ 'school.roll.list.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'school.roll.list.title'|trans }}{% endblock headerTitle %}
+{% block title %}{{ 'school.roll.list.title'|trans({'%{calendar}': manager.calendar.name}) }}{% endblock title %}
+{% block headerTitle %}{{ 'school.roll.list.title'|trans({'%{calendar}': manager.calendar.name}) }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'school.roll.list.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
@@ -11,7 +11,7 @@
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
         {% set h3Content = miscButton({windowOpen: {route: path('roll_edit', {id: 'Add'})}, class: 'btn btn-primary halflings halflings-plus-sign' }) %}
     {% endif %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': manager.calendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-3 text-center" style="display: inline-block;">
@@ -21,7 +21,7 @@
                 {{ 'roll.space.label'|trans({}) }}
             </div>
             <div class="col-3">
-                {{ 'roll.website.label'|trans({}) }}
+                {{ 'roll.details.label'|trans({}) }}
             </div>
             <div class="col-3 withAdd">
                 {{ 'system.setting.manage.actions'|trans({}, 'System') }}
@@ -35,8 +35,8 @@
                 <div class="col-3 form-inline">
                     {{ roll.spaceName }}
                 </div>
-                <div class="col-3 form-inline">
-                    {{ roll.website }}
+                <div class="col-3 form-inline small">
+                    {{ manager.details(roll.0)|raw }}
                 </div>
                 <div class="col-3 form-inline">
                     {{ editButton({class: 'halflings halflings-edit btn btn-warning', title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}})|raw }}

@@ -6,6 +6,7 @@ use App\Repository\RollGroupRepository;
 use App\School\Form\DaysTimesType;
 use App\School\Form\RollGroupType;
 use App\School\Util\DaysTimesManager;
+use App\School\Util\RollGroupManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,7 +44,7 @@ class SchoolController extends Controller
      * @param RollGroupPagination $rollGroupPagination
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function rollList(Request $request, RollGroupPagination $rollGroupPagination)
+    public function rollList(Request $request, RollGroupPagination $rollGroupPagination, RollGroupManager $rollGroupManager)
     {
         $rollGroupPagination->injectRequest($request);
 
@@ -53,6 +54,7 @@ class SchoolController extends Controller
         return $this->render('School/roll_list.html.twig',
             [
                 'pagination' => $rollGroupPagination,
+                'manager' => $rollGroupManager,
             ]
         );
     }

@@ -288,10 +288,10 @@ class RollGroup extends RollGroupExtension
     }
 
     /**
-     * @param RollGroup $nextRoll
+     * @param null|RollGroup $nextRoll
      * @return RollGroup
      */
-    public function setNextRoll(RollGroup $nextRoll): RollGroup
+    public function setNextRoll(?RollGroup $nextRoll): RollGroup
     {
         $this->nextRoll = $nextRoll ?: null;
 
