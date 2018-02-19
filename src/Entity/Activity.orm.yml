@@ -1,0 +1,70 @@
+App\Entity\Activity:
+    type: entity
+    table: activity
+    repositoryClass: App\Repository\ActivityRepository
+    uniqueConstraints:
+        name_calendar:
+            columns: [name, calendar_id]
+        name_short_calendar:
+            columns: [name_short, calendar_id]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        nameShort:
+            type: string
+            length: '8'
+            column: name_short
+        teachingLoad:
+            type: smallint
+        grades:
+            type: object
+        reportable:
+            type: boolean
+        attendance:
+            type: boolean
+    manyToMany:
+        students:
+            targetEntity: App\Entity\Student
+            inversedBy: activities
+            joinTable:
+                name: activity_students
+                joinColumns:
+                    activity_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    student_id:
+                        referencedColumnName: id
+        tutors:
+            targetEntity: App\Entity\Staff
+            joinTable:
+                name: activity_tutor
+                joinColumns:
+                    activity_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    tutor_id:
+                        referencedColumnName: id
+    manyToOne:
+        space:
+            targetEntity: App\Entity\Space
+            joinColumns:
+                space_id:
+                    referencedColumnName: id
+        calendar:
+            targetEntity: App\Entity\Calendar
+            orderBy: {'firstDay': 'DESC'}
+            joinColumns:
+                calendar_id:
+                    referencedColumnName: id
+        studentReference:
+            targetEntity: App\Entity\Activity
+            joinColumns:
+                student_reference_id:
+                    referencedColumnName: id

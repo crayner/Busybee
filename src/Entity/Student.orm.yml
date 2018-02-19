@@ -110,3 +110,6 @@ App\Entity\Student:
         rollGroups:
             targetEntity: App\Entity\RollGroup
             mappedBy: students
+        activities:
+            mappedBy: students
+            targetEntity: App\Entity\Activity

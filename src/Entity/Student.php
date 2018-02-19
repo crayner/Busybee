@@ -156,12 +156,18 @@ class Student extends StudentExtension
      */
     private $rollGroups;
 
+    /**
+     * @var null|ArrayCollection
+     */
+    private $activities;
+
 	/**
 	 * Student constructor.
 	 */
 	public function __construct()
 	{
-		$this->rollGroups = new ArrayCollection();
+        $this->rollGroups = new ArrayCollection();
+        $this->activities = new ArrayCollection();
 		parent::__construct();
 	}
 
@@ -856,6 +862,24 @@ class Student extends StudentExtension
         if ($this->rollGroups->contains($rollGroup))
             $this->rollGroups->removeElement($rollGroup);
 
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|null
+     */
+    public function getActivities(): ?ArrayCollection
+    {
+        return $this->activities;
+    }
+
+    /**
+     * @param ArrayCollection|null $activities
+     * @return Student
+     */
+    public function setActivities(?ArrayCollection $activities): Student
+    {
+        $this->activities = $activities;
         return $this;
     }
 }
