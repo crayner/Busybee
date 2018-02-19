@@ -104,7 +104,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions                              = array();
 		$newOptions['choices']                   = $choices;
 		$newOptions['label']                     = isset($options['label']) ? $options['label'] : null;
-		$newOptions['attr']                      = isset($options['attr']) ? $options['attr'] : [];
+        $newOptions['attr']                      = isset($options['attr']) ? $options['attr'] : [];
+        $newOptions['help']                      = isset($options['help']) ? $options['help'] : '';
 		$newOptions['translation_domain']        = isset($options['translation_domain']) ? $options['translation_domain'] : null;
 		$newOptions['placeholder']               = isset($options['placeholder']) ? $options['placeholder'] : null;
 		$newOptions['required']                  = isset($options['required']) ? $options['required'] : false;

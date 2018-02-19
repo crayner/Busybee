@@ -52,9 +52,9 @@ class Course extends CourseExtension
     private $calendars;
 
     /**
-     * @var null|Collection
+     * @var null|Department
      */
-    private $departments;
+    private $department;
 
     /**
      * Course constructor.
@@ -62,7 +62,6 @@ class Course extends CourseExtension
     public function __construct()
     {
         $this->calendars =  new ArrayCollection();
-        $this->departments =  new ArrayCollection();
         $this->targetYears =  new ArrayCollection();
     }
 
@@ -242,57 +241,6 @@ class Course extends CourseExtension
     }
 
     /**
-     * @return Collection|null
-     */
-    public function getDepartments(): ?Collection
-    {
-        if ($this->departments instanceof PersistentCollection)
-            $this->departments->initialize();
-
-        return $this->departments;
-    }
-
-    /**
-     * @param Collection|null $departments
-     * @return Course
-     */
-    public function setDepartments(?Collection $departments): Course
-    {
-        $this->departments = $departments;
-        return $this;
-    }
-
-    public function addDepartment(?Department $department, $add = true): Course
-    {
-        if (empty($department))
-            return $this;
-
-        $this->getDepartments();
-
-        if ($add)
-            $department->addCourse($this, false);
-
-        if (!$this->departments->contains($department))
-            $this->departments->add($department);
-
-        return $this;
-    }
-
-    public function removeDepartment(?Department $department, $remove = true): Course
-    {
-        if (empty($department))
-            return $this;
-
-        $this->getDepartments();
-        if ($remove)
-            $department->removeCourse($this, false);
-
-        $this->departments->removeElement($department);
-
-        return $this;
-    }
-
-    /**
      * Get targetYears
      *
      * @return ArrayCollection
@@ -307,49 +255,16 @@ class Course extends CourseExtension
     /**
      * Set targetYears
      *
-     * @param null|array $targetYear
+     * @param null|ArrayCollection $targetYear
      *
      * @return Course
      */
-    public function setTargetYears(?array $targetYears)
+    public function setTargetYears(?ArrayCollection $targetYears)
     {
         if(empty($targetYears))
-            $targetYears = [];
+            $targetYears = $this->getTargetYears();
 
         $this->targetYears = $targetYears;
-
-        $this->getTargetYears();
-
-        return $this;
-    }
-
-    /**
-     * @param string $targetYear
-     * @return Course
-     */
-    public function addTargetYear(string $targetYear): Course
-    {
-        if (empty($targetYear))
-            return $this;
-
-        if ($this->getTargetYears()->contains($targetYear))
-            return $this;
-
-        $this->getTargetYears()->add($targetYear);
-
-        return $this;
-    }
-
-    /**
-     * @param string $targetYear
-     * @return Course
-     */
-    public function removeTargetYear(string $targetYear): Course
-    {
-        if (empty($targetYear))
-            return $this;
-
-        $this->getTargetYears()->removeElement($targetYear);
 
         return $this;
     }
@@ -366,5 +281,24 @@ class Course extends CourseExtension
             $this->targetYears = new ArrayCollection($this->targetYears);
 
         return $this->targetYears;
+    }
+
+    /**
+     * @return Department|null
+     */
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    /**
+     * @param Department|null $department
+     * @return Course
+     */
+    public function setDepartment(?Department $department): Course
+    {
+        $this->department = $department;
+
+        return $this;
     }
 }

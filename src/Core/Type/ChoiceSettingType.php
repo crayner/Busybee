@@ -1,8 +1,10 @@
 <?php
 namespace App\Core\Type;
 
+use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -49,4 +51,13 @@ class ChoiceSettingType extends AbstractType
 		$view->vars['setting_name'] = strtolower($options['setting_name']);
 		$view->vars['setting_display_name'] = $options['setting_display_name'];
 	}
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->addModelTransformer(new CollectionToArrayTransformer());
+    }
 }

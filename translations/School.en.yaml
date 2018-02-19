@@ -62,6 +62,10 @@ school:
         list:
             title: Course List
             help: ''
+            description: ''
+        edit:
+            title: Manage Course
+            description: Create, edit and remove course details.
 department:
     edit:
         title: Manage Department
@@ -151,3 +155,20 @@ course:
     code:
         label: Code
         sort: Code
+    target_years.label: Target Years
+    department:
+        label: Learning Area
+        placeholder: Select Learning Area
+        sort: Learning Area
+    version:
+        label: Version
+        help: 'Use a standardised version system to generate versions. An example is the Semantic Versioning System. See https://semver.org/'
+    targetYears:
+        label: Year Group
+        help: 'A course can be over one or more year groups.'
+    description.label: Description
+    map.label: Include in Curriculum Map
+    list.menu.label: Course Management
+    calendars:
+        label: Use in Year
+        help: The course is available for selection in any school calendar selected here.

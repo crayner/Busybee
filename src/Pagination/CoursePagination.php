@@ -23,10 +23,14 @@ class CoursePagination extends PaginationManager
 			'c.name' => 'ASC',
 			'c.code' => 'ASC',
 		],
-		'course.code.sort' => [
-			'c.code' => 'ASC',
-			'c.name' => 'ASC',
-		],
+        'course.code.sort' => [
+            'c.code' => 'ASC',
+            'c.name' => 'ASC',
+        ],
+        'course.department.sort' => [
+            'd.name' => 'ASC',
+            'c.name' => 'ASC',
+        ],
 	];
 	/**
 	 * @var int
@@ -51,13 +55,14 @@ class CoursePagination extends PaginationManager
 		'c.code',
 		'd.name as departmentName',
 		'c.id',
+        'c.targetYears',
 	];
 
     /**
      * @var array
      */
 	protected $join = [
-	    'c.departments' => [
+	    'c.department' => [
 	        'type' => 'leftJoin',
             'alias' => 'd',
         ],

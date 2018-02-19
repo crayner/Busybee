@@ -1,0 +1,64 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'School' %}
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
+{% block title %}{{ 'school.course.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.course.edit.title'|trans}}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.course.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, 'div') }}
+    {{ form_start(form, {'attr': {'id': 'course'}}) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('course_list')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('course_edit', {id: 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({type: 'button', windowOpen: {route: path('course_edit', {'id': app.request.get('id')})}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.course.edit.title', transDomain: 'School', panelParagraph: 'school.course.edit.description'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.code) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.map) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 card">
+                {% set dept = form.department.vars.value %}
+                {% if dept is empty %}
+                    {% set dept = form.department.vars.data %}
+                {% endif %}
+                {{ form_row(form.department, {value: dept}) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.calendars) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.version) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 card">
+                {{ form_row(form.targetYears) }}
+            </div>
+            <div class="col-9 card">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
+{% endblock %}

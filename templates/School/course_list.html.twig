@@ -14,32 +14,36 @@
     {% include 'Page/panelStart.html.twig' with {header: 'school.course.list.title', transDomain: 'School', panelParagraph: 'school.course.list.help'} %}
     <div class="container-fluid">
         <div class="row row-header">
-            <div class="col-3 text-center" style="display: inline-block;">
-                   {{ 'course.name.label'|trans }}
+            <div class="col-3" style="display: inline-block;">
+                {{ 'course.name.label'|trans }}<br /><small>{{ 'course.code.label'|trans({}) }}</small>
             </div>
             <div class="col-3">
-                {{ 'course.code.label'|trans({}) }}
+                {{ 'course.target_years.label'|trans }}
             </div>
             <div class="col-3">
-                {{ 'roll.details.label'|trans({}) }}
+                {{ 'course.department.label'|trans({}) }}
             </div>
-            <div class="col-3 withAdd">
+            <div class="col-3 withAdd text-center">
                 {{ 'system.setting.manage.actions'|trans({}, 'System') }}
             </div>
         </div>
         {% for course in pagination.getResult %}
             <div class="row row-striped">
-                <div class="col-3 form-inline text-center">
-                    {{ course.name }}
-                </div>
                 <div class="col-3 form-inline">
-                    {{ roll.spaceName }}
+                    {{ course.name }}<br /><small>{{ course.code }}</small>
                 </div>
                 <div class="col-3 form-inline small">
-                    {{ manager.details(roll.0)|raw }}
+                    {% for year in course.targetYears.toArray() %}
+                        {{ year }}&nbsp;
+                    {% endfor %}
                 </div>
                 <div class="col-3 form-inline">
-                    {{ editButton({class: 'halflings halflings-edit btn btn-warning', title: 'school.course.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}})|raw }}
+                    {% if course.0.department is not empty %}
+                    {{ course.0.department.name }}
+                    {% endif %}
+                </div>
+                <div class="col-3 form-inline text-center">
+                    {{ editButton({title: 'school.course.edit.title', transDomain: 'School', windowOpen: {route: path('course_edit', {id: course.id})}, style: ''})|raw }}
                 </div>
             </div>
         {% endfor %}

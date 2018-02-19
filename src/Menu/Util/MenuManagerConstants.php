@@ -142,7 +142,6 @@ School Admin:
 	        target:
                 name: Setting_Facility_Type
                 options: width=1200,height=900
-    
     years_days_times:
         calendar_years:
             label: menu.calendar.manage
@@ -202,5 +201,15 @@ Person Admin:
         - student_manage
         - staff_manage
         - family_edit
+Timetable Admin:
+    course_class_manage:
+        course_list:
+            route: course_list
+            label: course.list.menu.label
+            translate: School
+            role: ROLE_REGISTRAR
+            params: {}
+    hidden:
+        - course_edit
 ';
 }

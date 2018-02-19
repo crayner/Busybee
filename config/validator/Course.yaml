@@ -1,0 +1,26 @@
+App\Entity\Course:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [name, version]
+            errorPath: version
+            message: 'course.validation.name_version.message'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code, version]
+            errorPath: version
+            message: 'course.validation.code_version.message'
+    properties:
+        department:
+            - Valid: ~
+            - NotBlank: ~
+        calendars:
+            - Valid: ~
+            - Count:
+                min: 1
+        targetYears:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 3
+        name:
+            - NotBlank: ~

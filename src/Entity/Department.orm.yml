@@ -35,7 +35,7 @@ App\Entity\Department:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: department
             cascade: [ all ]
-    manyToMany:
         courses:
             targetEntity: App\Entity\Course
-            mappedBy: departments
+            mappedBy: department
+            cascade: [ all ]

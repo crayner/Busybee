@@ -10,13 +10,11 @@ App\Entity\RollGroup:
                 - name
                 - calendar
             errorPath: name
-        - App\People\Validator\UniqueStudentRoll: ~
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - space
                 - calendar
             errorPath: space
-        - App\People\Validator\UniqueStudentRoll: ~
     properties:
         website:
             - Url: ~
