@@ -50,11 +50,6 @@ calendar:
         print: Print Calendar
     edit.title: Manage Calendar
     display.button: Display Calendar
-    roll_group:
-        add:
-            title: Add Roll
-        website:
-            label: Web Site
     calendar_grades:
         tab: Grade/Form/Year
         title: Manage Grades/Forms/Years in the Calendar
@@ -71,17 +66,6 @@ calendar_grade:
         label: Next Calendar Grade/Form/Year
         placeholder: Select Grade/Form/Year
         help: Use to transfer from one calendar to the next calendar when the current calendar is changed.
-roll_group:
-    nameshort:
-        label: Roll Abbreviation
-    name:
-        label: Roll Name
-    grade:
-        label: Grade/Form/Year
-        placeholder: Select a Grade/Form/Year
-    validation.name.duplicate: Duplicated value.
-    students.count: '%{count} students in this roll.'
-    manage.label: Manage Roll
 calendars:
     title: Adademic Calendar Definitions
     description: ''

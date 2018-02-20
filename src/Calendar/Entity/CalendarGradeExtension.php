@@ -8,4 +8,13 @@ abstract class CalendarGradeExtension
     {
         return $this->getGrade() . ' ('.$this->getCalendar()->getName().')';
     }
+
+    /**
+     * @return bool
+     * @todo  Test canDelete
+     */
+    public function canDelete()
+    {
+        return false;
+    }
 }

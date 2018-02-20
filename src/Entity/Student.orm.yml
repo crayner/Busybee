@@ -107,9 +107,6 @@ App\Entity\Student:
             nullable: true
             type: text
     manyToMany:
-        rollGroups:
-            targetEntity: App\Entity\RollGroup
-            mappedBy: students
         activities:
             mappedBy: students
             targetEntity: App\Entity\Activity

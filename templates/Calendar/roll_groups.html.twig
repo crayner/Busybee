@@ -1,6 +1,0 @@
-{% trans_default_domain "Calendar" %}
-
-{% include 'Calendar/calendarMenu.html.twig' with {header: 'calendar.roll_groups.title', name: form.name.vars.value, panelParagraph: 'calendar.roll_groups.help'} %}
-    {{ form_widget(form.rollGroups) }}
-{% include 'Page/panelEnd.html.twig' %}
-{% do form.rollGroups.setRendered %}

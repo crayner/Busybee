@@ -54,16 +54,6 @@ class Calendar extends CalendarExtension
 	private $specialDaysSorted = false;
 
 	/**
-	 * @var \Doctrine\Common\Collections\Collection
-	 */
-	private $rollGroups;
-
-	/**
-	 * @var boolean
-	 */
-	private $rollGroupsSorted = false;
-
-	/**
 	 * @var string
 	 */
 	private $downloadCache;
@@ -85,7 +75,7 @@ class Calendar extends CalendarExtension
 	{
 		$this->specialDays  = new ArrayCollection();
 		$this->terms        = new ArrayCollection();
-		$this->rollGroups   = new ArrayCollection();
+		$this->calendarGrades   = new ArrayCollection();
 	}
 
 	/**
@@ -261,80 +251,6 @@ class Calendar extends CalendarExtension
 
 		return $this->specialDays;
 	}
-
-	/**
-	 * Add rollGroups
-	 *
-	 * @param RollGroup $rollGroups
-	 *
-	 * @return Calendar
-	 */
-	public function addRollGroup(RollGroup $rollGroup, $add = true): Calendar
-	{
-		if ($add)
-		    $rollGroup->setCalendar($this);
-
-        if ($this->rollGroups->contains($rollGroup))
-            return $this;
-
-        $this->rollGroups->add($rollGroup);
-
-		return $this;
-	}
-
-	/**
-	 * Remove rollGroup
-	 *
-	 * @param RollGroup $rollGroup
-	 */
-	public function removeRollGroup(RollGroup $rollGroup)
-	{
-		$this->rollGroups->removeElement($rollGroup);
-	}
-
-	/**
-	 * Get rollGroups
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getRollGroups(): ?Collection
-	{
-		if (count($this->rollGroups) == 0)
-		{
-			if ($this->rollGroups instanceof PersistentCollection)
-				$this->rollGroups->initialize();
-			$this->rollGroupsSorted = false;
-		}
-
-		if (count($this->rollGroups) == 0)
-			return null;
-
-		if ($this->rollGroupsSorted)
-			return $this->rollGroups;
-
-		$iterator = $this->rollGroups->getIterator();
-		$iterator->uasort(function ($a, $b) {
-			return ($a->getName() < $b->getName()) ? -1 : 1;
-		});
-
-		$this->rollGroups       = new ArrayCollection(iterator_to_array($iterator, false));
-		$this->rollGroupsSorted = true;
-
-		return $this->rollGroups;
-
-	}
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $rollGroups
-     *
-     * @return Calendar
-     */
-    public function setRollGroups(\Doctrine\Common\Collections\Collection $rollGroups = null): Calendar
-    {
-        $this->rollGroups = $rollGroups;
-
-        return $this;
-    }
 
 	/**
 	 * Get name

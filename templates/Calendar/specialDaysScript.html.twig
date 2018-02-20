@@ -40,11 +40,22 @@
         }
     });
 
-    {% for name,value in form.specialDays.children %}
-        var value = $('.alterType{{ name }}').val();
+    $(document).ready(function () {
+        $('.alterType').each( function() {
+            var value = $(this).val();
+            var id = $(this).prop('id');
 
-        if (value == 'alter') {
-            $('.alterTime{{ name }}').fadeIn(200);
-        }
-    {% endfor %}
+            id = id.replace('calendar_specialDays_', '');
+            id = id.replace('_type', '');
+            var alter = '.alterTime' + id;
+            if (value == 'alter') {
+                $(alter).fadeIn(200);
+            } else {
+                $(alter).fadeOut(200);
+
+            }
+
+
+        });
+    });
 </script>

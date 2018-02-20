@@ -152,11 +152,6 @@ class Student extends StudentExtension
 	private $dayType;
 
     /**
-     * @var ArrayCollection
-     */
-    private $rollGroups;
-
-    /**
      * @var null|ArrayCollection
      */
     private $activities;
@@ -815,61 +810,6 @@ class Student extends StudentExtension
 
 		return $this;
 	}
-
-    /**
-     * @return ArrayCollection|PersistentCollection
-     */
-    public function getRollGroups(): Collection
-    {
-        if ($this->rollGroups instanceof PersistentCollection)
-            $this->rollGroups->initialize();
-
-        return $this->rollGroups;
-    }
-
-    /**
-     * @param Collection $rollGroups
-     * @return Student
-     */
-    public function setRollGroups(Collection $rollGroups): Student
-    {
-        $this->rollGroups = $rollGroups;
-        
-        return $this;
-    }
-
-    /**
-     * @param RollGroup $rollGroup
-     * @param bool $addRollGroup
-     * @return Student
-     */
-    public function addRollGroup(?RollGroup $rollGroup, $addRollGroup = true): Student
-    {
-        if (is_null($rollGroup))
-            return $this;
-
-        $this->getRollGroups();
-
-        if ($addRollGroup)
-            $rollGroup->addStudent($this, false);
-
-        if (! $this->rollGroups->contains($rollGroup))
-            $this->rollGroups->add($rollGroup);
-
-        return $this;
-    }
-
-    /**
-     * @param RollGroup $rollGroup
-     * @return Student
-     */
-    public function removeRollGroup(RollGroup $rollGroup): Student
-    {
-        if ($this->rollGroups->contains($rollGroup))
-            $this->rollGroups->removeElement($rollGroup);
-
-        return $this;
-    }
 
     /**
      * @return ArrayCollection|null

@@ -50,21 +50,6 @@ class Staff extends StaffExtension
 	 */
 	private $employer;
 
-    /**
-     * @var RollGroup
-     */
-	private $rollGroups1;
-
-    /**
-     * @var RollGroup
-     */
-	private $rollGroups2;
-
-    /**
-     * @var RollGroup
-     */
-	private $rollGroups3;
-
 	/**
 	 * Staff constructor.
 	 */
@@ -273,59 +258,4 @@ class Staff extends StaffExtension
 
 		return $this;
 	}
-
-    /**
-     * @return RollGroup
-     */
-    public function getRollGroups1(): RollGroup
-    {
-        return $this->rollGroups1;
-    }
-
-    /**
-     * @param RollGroup $rollGroups1
-     * @return Staff
-     */
-    public function setRollGroups1(RollGroup $rollGroups1): Staff
-    {
-        $this->rollGroups1 = $rollGroups1;
-        return $this;
-    }
-
-    /**
-     * @return RollGroup
-     */
-    public function getRollGroups2(): RollGroup
-    {
-        return $this->rollGroups2;
-    }
-
-    /**
-     * @param RollGroup $rollGroups2
-     * @return Staff
-     */
-    public function setRollGroups2(RollGroup $rollGroups2): Staff
-    {
-        $this->rollGroups2 = $rollGroups2;
-        return $this;
-    }
-
-    /**
-     * @return RollGroup
-     */
-    public function getRollGroups3(): RollGroup
-    {
-        return $this->rollGroups3;
-    }
-
-    /**
-     * @param RollGroup $rollGroups3
-     * @return Staff
-     */
-    public function setRollGroups3(RollGroup $rollGroups3): Staff
-    {
-        $this->rollGroups3 = $rollGroups3;
-        return $this;
-    }
-
 }

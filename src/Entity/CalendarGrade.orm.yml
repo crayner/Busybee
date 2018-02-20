@@ -41,7 +41,7 @@ App\Entity\CalendarGrade:
     manyToMany:
         students:
             targetEntity: App\Entity\Student
-            inversedByedBy: calendarGrades
+            inversedBy: calendarGrades
             joinTable:
                 name: calendar_grade_student
                 joinColumns:

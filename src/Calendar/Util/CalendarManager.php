@@ -231,10 +231,6 @@ calendarGrades:
     label: calendar.calendar_grades.tab
     include: Calendar/calendar_grades.html.twig
     message: calendarGradeMessage
-rollGroups:
-    label: calendar.roll_groups.tab
-    include: Calendar/roll_groups.html.twig
-    message: rollGroupMessage
 ");
 	}
 

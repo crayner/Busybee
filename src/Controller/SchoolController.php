@@ -42,59 +42,6 @@ class SchoolController extends Controller
 	}
 
     /**
-     * @Route("/school/roll/list/", name="roll_list")
-     * @IsGranted("ROLE_REGISTRAR")
-     * @param Request $request
-     * @param RollGroupPagination $rollGroupPagination
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function rollList(Request $request, RollGroupPagination $rollGroupPagination, RollGroupManager $rollGroupManager)
-    {
-        $rollGroupPagination->injectRequest($request);
-
-        $rollGroupPagination->getDataSet();
-
-
-        return $this->render('School/roll_list.html.twig',
-            [
-                'pagination' => $rollGroupPagination,
-                'manager' => $rollGroupManager,
-            ]
-        );
-    }
-
-    /**
-     * @Route("/school/roll/{id}/edit/", name="roll_edit")
-     * @IsGranted("ROLE_REGISTRAR")
-     * @param Request $request
-     * @param int|string $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function rollEdit(Request $request, $id = 'Add', RollGroupRepository $rollGroupRepository, EntityManagerInterface $entityManager)
-    {
-        $rollGroup = $rollGroupRepository->find($id);
-
-        $form = $this->createForm(RollGroupType::class, $rollGroup);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $entityManager->persist($rollGroup);
-            $entityManager->flush();
-
-            if ($id === 'Add')
-                return $this->redirectToRoute('roll_edit', ['id' => $rollGroup->getId()]);
-        }
-
-        return $this->render('School/roll_edit.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        );
-    }
-
-    /**
      *
      * @Route("/school/course/list/", name="course_list")
      * @IsGranted("ROLE_REGISTRAR")
@@ -131,8 +78,6 @@ class SchoolController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-dump($course);
-dump($form->get('targetYears'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($course);
             $em->flush();

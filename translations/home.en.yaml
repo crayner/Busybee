@@ -33,7 +33,7 @@ menu:
         timetable: Timetable Admin
     calendar:
         manage: Manage Calendars
-        groups: Calendar Groups
+        grades: Calendar Grades
         display: Display Calendar
         special_days: Manage Special Days
         terms: Manage Terms

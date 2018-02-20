@@ -102,19 +102,13 @@ School Admin:
             role: ROLE_REGISTRAR
             route: houses_edit
             params: {}
-        manage_year_groups:
-            label: menu.calendar.groups
+        manage_calendar_grades:
+            label: menu.calendar.grades
             role: ROLE_REGISTRAR
             route: calendar_edit
             params:
                 id: current
-                _fragment: calendarGroups
-        manage_roll_groups:
-            label: menu.roll.groups
-            role: ROLE_REGISTRAR
-            route: roll_list
-            params: {}
-            translate: School
+                _fragment: calendarGrades
     others:
         campus_manage:
 	        label: menu.campus.manage.title

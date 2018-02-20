@@ -3,28 +3,21 @@ namespace App\Calendar\Form;
 
 use App\Calendar\Validator\CalendarDate;
 use App\Calendar\Validator\CalendarStatus;
-use App\Calendar\Validator\RollGroup;
 use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
-use App\Core\Manager\SettingManager;
-use App\Calendar\Listener\CalendarSubscriber;
-use App\Entity\CalendarGrade;
+use App\Calendar\Form\Listener\CalendarSubscriber;
+use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\DateType;
 use App\Entity\Calendar;
+use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class CalendarType extends AbstractType
 {
-	/**
-	 * @var array
-	 */
-	private $statusList;
-
 	/**
 	 * @var CalendarSubscriber
 	 */
@@ -33,12 +26,10 @@ class CalendarType extends AbstractType
 	/**
 	 * CalendarType constructor.
 	 *
-	 * @param SettingManager     $settingManager
 	 * @param CalendarSubscriber $calendarSubscriber
 	 */
-	public function __construct(SettingManager $settingManager, CalendarSubscriber $calendarSubscriber)
+	public function __construct(CalendarSubscriber $calendarSubscriber)
 	{
-		$this->statusList = $settingManager->get('calendar.status.list');
 		$this->calendarSubscriber = $calendarSubscriber;
 	}
 
@@ -47,21 +38,20 @@ class CalendarType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-
 		$builder
-			->add('name', null,
-				array(
+			->add('name', TextType::class,
+				[
 					'label' => 'calendar.name.label',
-					'attr'  => array(
+					'attr'  => [
 						'help' => 'calendar.name.help',
-					),
-				)
+					],
+				]
 			)
 			->add('firstDay', DateType::class,
-				array(
+				[
 					'label' => 'calendar.firstDay.label',
 					'help' => 'calendar.firstDay.help',
-				)
+				]
 			)
 			->add('lastDay', DateType::class,
 				array(
@@ -72,15 +62,17 @@ class CalendarType extends AbstractType
 					),
 				)
 			)
-			->add('status', ChoiceType::class,
+			->add('status', SettingChoiceType::class,
 				array(
-					'label'       => 'calendar.status.label',
-					'help' => 'calendar.status.help',
-					'choices'     => $this->statusList,
-					'placeholder' => 'calendar.status.placeholder',
-					'constraints' => array(
+					'label'         => 'calendar.status.label',
+					'help'          => 'calendar.status.help',
+					'setting_name'  => 'calendar.status.list',
+					'placeholder'   => 'calendar.status.placeholder',
+					'constraints'   => [
 						new CalendarStatus(array('id' => is_null($options['data']->getId()) ? 'Add' : $options['data']->getId())),
-					),
+					],
+                    'translation_prefix' => false,
+                    'choice_translation_domain' => 'Calendar',
 				)
 			)
 			->add('terms', CollectionType::class, array(
@@ -122,6 +114,7 @@ class CalendarType extends AbstractType
                     'entry_options' => [
                         'calendar_data' => $options['data'],
                         'manager'   => $options['calendarGradeManager'],
+                        'rollGroupManager' => $options['rollGroupManager'],
                     ],
                     'label'         => false,
                     'allow_delete'  => true,
@@ -131,25 +124,8 @@ class CalendarType extends AbstractType
                     'by_reference'  => false,
                 ]
             )
-            ->add('rollGroups', CollectionType::class, [
-                    'entry_type'    => RollGroupType::class,
-                    'allow_add'     => true,
-                    'entry_options' => array(
-                        'calendar_data' => $options['data'],
-                        'manager'   => $options['rollGroupManager'],
-                    ),
-                    'constraints'   => [
-                        new RollGroup(['calendar' => $options['data']]),
-                    ],
-                    'label'         => false,
-                    'allow_delete'  => true,
-                    'attr'          => array(
-                        'class' => 'rollGroupList'
-                    ),
-                    'by_reference'  => false,
-                ]
-            )
-			->add('downloadCache', HiddenType::class);
+			->add('downloadCache', HiddenType::class)
+        ;
 
 		$builder->addEventSubscriber($this->calendarSubscriber);
 	}
@@ -163,6 +139,7 @@ class CalendarType extends AbstractType
 			array(
 				'data_class'         => Calendar::class,
 				'translation_domain' => 'Calendar',
+                'calendar_data' => null,
 			)
 		);
 		$resolver->setRequired(

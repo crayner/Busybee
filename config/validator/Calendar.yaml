@@ -9,5 +9,3 @@ App\Entity\Calendar:
             - Valid: ~
         specialDays:
             - Valid: ~
-        rollGroups:
-            - Valid: ~

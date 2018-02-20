@@ -20,15 +20,15 @@ abstract class CalendarExtension implements UserTrackInterface
 			foreach ($this->getTerms()->toArray() as $term)
 				if (!$term->canDelete())
 					return false;
-		if (!empty($this->getRollGroups()))
-			foreach ($this->getRollGroups()->toArray() as $grade)
+		if (!empty($this->getCalendarGrades()))
+			foreach ($this->getCalendarGrades()->toArray() as $grade)
 				if (!$grade->canDelete())
 					return false;
 		if (!empty($this->getSpecialDays()))
 			foreach ($this->getSpecialDays()->toArray() as $specialDay)
 				if (!$specialDay->canDelete())
 					return false;
-		if (!empty($this->getTerms()) && !empty($this->getRollGroups()) && !empty($this->getSpecialDays()))
+		if (!empty($this->getTerms()) && !empty($this->getCalendarGrades()) && !empty($this->getSpecialDays()))
 			return false;
 
 		return true;

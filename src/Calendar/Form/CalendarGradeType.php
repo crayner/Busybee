@@ -9,6 +9,7 @@ use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Calendar;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -69,13 +70,14 @@ class CalendarGradeType extends AbstractType
 			[
 				'data_class'         => CalendarGrade::class,
 				'translation_domain' => 'Calendar',
-				'calendar_data'      => null,
 				'error_bubbling'     => true,
 			]
 		);
 		$resolver->setRequired(
 			[
 				'manager',
+                'rollGroupManager',
+                'calendar_data',
 			]
 		);
 	}

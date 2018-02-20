@@ -75,6 +75,16 @@ class Activity extends ActivityExtension
     private $attendance;
 
     /**
+     * @var null|string
+     */
+    private $website;
+
+    /**
+     * @var null|Collection
+     */
+    private $calendarGrades;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -375,6 +385,42 @@ class Activity extends ActivityExtension
     {
         $this->attendance = $attendance ? true : false ;
 
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    /**
+     * @param null|string $website
+     * @return Activity
+     */
+    public function setWebsite(?string $website): Activity
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getCalendarGrades(): ?Collection
+    {
+        return $this->calendarGrades;
+    }
+
+    /**
+     * @param Collection|null $calendarGrades
+     * @return Activity
+     */
+    public function setCalendarGrades(?Collection $calendarGrades): Activity
+    {
+        $this->calendarGrades = $calendarGrades;
         return $this;
     }
 }

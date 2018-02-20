@@ -2,11 +2,6 @@ App\Entity\Activity:
     type: entity
     table: activity
     repositoryClass: App\Repository\ActivityRepository
-    uniqueConstraints:
-        name_calendar:
-            columns: [name, calendar_id]
-        name_short_calendar:
-            columns: [name_short, calendar_id]
     id:
         id:
             type: integer
@@ -23,18 +18,19 @@ App\Entity\Activity:
             column: name_short
         teachingLoad:
             type: smallint
-        grades:
-            type: object
         reportable:
             type: boolean
         attendance:
             type: boolean
+        website:
+            length: 200
+            nullable: true
     manyToMany:
         students:
             targetEntity: App\Entity\Student
             inversedBy: activities
             joinTable:
-                name: activity_students
+                name: activity_student
                 joinColumns:
                     activity_id:
                         referencedColumnName: id
@@ -51,17 +47,21 @@ App\Entity\Activity:
                 inverseJoinColumns:
                     tutor_id:
                         referencedColumnName: id
+        calendarGrades:
+            targetEntity: App\Entity\CalendarGrade
+            joinTable:
+                name: activity_calendar_grade
+                joinColumns:
+                    activity_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    calendar_grade_id:
+                        referencedColumnName: id
     manyToOne:
         space:
             targetEntity: App\Entity\Space
             joinColumns:
                 space_id:
-                    referencedColumnName: id
-        calendar:
-            targetEntity: App\Entity\Calendar
-            orderBy: {'firstDay': 'DESC'}
-            joinColumns:
-                calendar_id:
                     referencedColumnName: id
         studentReference:
             targetEntity: App\Entity\Activity

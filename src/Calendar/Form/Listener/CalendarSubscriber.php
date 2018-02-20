@@ -1,5 +1,5 @@
 <?php
-namespace App\Calendar\Listener;
+namespace App\Calendar\Form\Listener;
 
 use App\Calendar\Util\CalendarManager;
 use App\Entity\CalendarGroup;

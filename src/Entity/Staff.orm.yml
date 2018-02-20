@@ -26,18 +26,6 @@ App\Entity\Staff:
             length: '32'
             nullable: true
     oneToMany:
-        rollGroups1:
-            targetEntity: App\Entity\RollGroup
-            mappedBy: rollTutor1
-            cascade: ['persist']
-        rollGroups2:
-            targetEntity: App\Entity\RollGroup
-            mappedBy: rollTutor2
-            cascade: ['persist']
-        rollGroups3:
-            targetEntity: App\Entity\RollGroup
-            mappedBy: rollTutor3
-            cascade: ['persist']
         departments:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: staff

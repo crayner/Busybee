@@ -7,8 +7,4 @@ notifications:
     email: craig@craigrayner.com
 
 before_script:
-    - composer install --no-interaction --optimize-autoloader
-
-
-#script:
-#   - ./bin/phpunit
+    - composer update

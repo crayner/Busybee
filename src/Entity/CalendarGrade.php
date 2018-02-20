@@ -179,4 +179,6 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
         $this->sequence = $sequence;
         return $this;
     }
+
+    private $activities;
 }
