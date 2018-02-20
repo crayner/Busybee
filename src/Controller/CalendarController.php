@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Calendar\Util\CalendarGradeManager;
 use App\Core\Exception\Exception;
 use App\Calendar\Form\CalendarType;
 use App\Calendar\Util\CalendarManager;
@@ -44,7 +45,10 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_REGISTRAR")
 	 * @return RedirectResponse|Response
 	 */
-	public function edit($id, Request $request, CalendarManager $calendarManager, RollGroupManager $rollGroupManager, EntityManagerInterface $em, MessageManager $messageManager, FlashBagManager $flashBagManager)
+	public function edit($id, Request $request,
+                         CalendarManager $calendarManager, RollGroupManager $rollGroupManager,
+                         EntityManagerInterface $em, MessageManager $messageManager,
+                         FlashBagManager $flashBagManager, CalendarGradeManager $calendarGradeManager)
 	{
 		if ($id === 'current')
 		{
@@ -55,7 +59,7 @@ class CalendarController extends Controller
 
 		$calendar = $id === 'Add' ? new Calendar() : $calendarManager->getCalendarRepository()->find($id);
 
-		$form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager]);
+		$form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager, 'calendarGradeManager' => $calendarGradeManager]);
 
 		$form->handleRequest($request);
 
@@ -71,9 +75,9 @@ class CalendarController extends Controller
 			if ($id === 'Add')
 				return new RedirectResponse($this->generateUrl('calendar_edit', array('id' => $calendar->getId())));
 
-			$id = $calendar->getId();
+            $em->refresh($calendar);
 
-			$form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager]);
+            $form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager, 'calendarGradeManager' => $calendarGradeManager]);
 		} else
 		    $em->refresh($calendar);
 

@@ -1,0 +1,38 @@
+{% trans_default_domain "Calendar" %}
+
+{% block calendar_grade_label %}{% endblock %}
+{% block calendar_grade_errors %}{% endblock %}
+
+{% block calendar_grade_widget %}
+    {% spaceless %}
+        {% set count = manager.studentCount %}
+        {% if form.vars.value is empty %}{% set gradeTitle = 'calendar.calendar_grade.add.title'|trans %}{% else %}{% set gradeTitle = form.vars.value.fullName %}{% endif %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {% if form.vars.value is not empty %}
+            {% set h3Content = h3Content ~ editButton({title: 'calendar_grade.manage.label', transDomain: 'Student', windowOpen: {route: path('roll_edit', {id: form.vars.value.id})}}) %}
+        {% endif %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'calendar.calendar_grade.remove.title', transDomain: 'Calendar', class: 'halflings halflings-erase btn btn-warning collection-remove collection-action', style: 'float: right;'}) %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton() %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% include 'Page/panelStart.html.twig' with {header: gradeTitle, panelStyle: 'info', panelParagraph: 'calendar_grade.students.count', panelParams: {'%{count}': count}, transDomain: 'Calendar'} %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 card">
+            {{ form_row(form.grade) }}
+        </div>
+        <div class="col-6 card">
+            {{ form_row(form.calendar, {'value': app.request.get('id') }) }}
+            {{ form_row(form.sequence) }}
+            {% set next = form.nextGrade.vars.value %}
+            {% if next is empty %}
+                {% set next = form.nextGrade.vars.data %}
+            {% endif %}
+            {{ form_row(form.nextGrade, {value: next}) }}
+        </div>
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock calendar_grade_widget %}

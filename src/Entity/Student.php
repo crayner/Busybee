@@ -161,6 +161,11 @@ class Student extends StudentExtension
      */
     private $activities;
 
+    /**
+     * @var null|Collection
+     */
+    private $calendarGrades;
+
 	/**
 	 * Student constructor.
 	 */
@@ -168,6 +173,7 @@ class Student extends StudentExtension
 	{
         $this->rollGroups = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->calendarGrades = new ArrayCollection();
 		parent::__construct();
 	}
 
@@ -880,6 +886,62 @@ class Student extends StudentExtension
     public function setActivities(?ArrayCollection $activities): Student
     {
         $this->activities = $activities;
+        return $this;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getCalendarGrades(): ?Collection
+    {
+        return $this->calendarGrades;
+    }
+
+    /**
+     * @param Collection|null $calendarGrades
+     * @return Student
+     */
+    public function setCalendarGrades(?Collection $calendarGrades): Student
+    {
+        $this->calendarGrades = $calendarGrades;
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $calendarGrade
+     * @param bool $add
+     * @return CalendarGrade
+     */
+    public function addCalendarGrade(?CalendarGrade $calendarGrade, $add = true): Student
+    {
+        if (empty($calendarGrade))
+            return $this;
+
+        if ($add)
+            $calendarGrade->addStudent($this, false);
+
+        if (!$this->calendarGrades->contains($calendarGrade))
+            $this->calendarGrades->add($calendarGrade);
+
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $calendarGrade
+     * @param bool $remove
+     * @return CalendarGrade
+     */
+    public function removeCalendarGrade(?CalendarGrade $calendarGrade, $remove = true): Student
+    {
+        if (empty($calendarGrade))
+            return $this;
+
+        if ($this->calendarGrades->contains($calendarGrade)) {
+            if ($remove)
+                $calendarGrade->removeStudent($this, false);
+            $this->calendarGrades->removeElement($calendarGrade);
+        }
+
         return $this;
     }
 }

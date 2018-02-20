@@ -1,19 +1,19 @@
 <?php
 namespace App\Repository;
 
-use App\Entity\CalendarGroup;
+use App\Entity\CalendarGrade;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class CalendarGroupRepository extends ServiceEntityRepository
+class CalendarGradeRepository extends ServiceEntityRepository
 {
 	/**
-	 * CalendarGroupRepository constructor.
+	 * CalendarRepository constructor.
 	 *
 	 * @param RegistryInterface $registry
 	 */
 	public function __construct(RegistryInterface $registry)
 	{
-		parent::__construct($registry, CalendarGroup::class);
+		parent::__construct($registry, CalendarGrade::class);
 	}
 }

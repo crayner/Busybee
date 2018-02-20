@@ -115,11 +115,11 @@ student:
     include: Person/student.html.twig
     message: studentMessage
     translation: Person
-student_calendar:
-    label: person.student_calendar.tab
-    include: Student/studentCalendars.html.twig
-    message: studentCalendarMessage
-    translation: Person
+calendar_grade:
+    label: student.calendar_grade.tab
+    include: Student/calendar_grade.html.twig
+    message: calendarGradeMessage
+    translation: Student
 user:
     label: person.user.tab
     include: Person/user.html.twig
@@ -470,7 +470,7 @@ user:
 			$result .= $person->getHonorific() . '<br/>';
 
 		if ($person instanceof Student) {
-            $result .= is_null($this->getCurrentStudentCalendarName($person)) ? '' : $this->getCurrentStudentCalendarName($person) . '<br />';
+ //           $result .= is_null($this->getCurrentStudentCalendarName($person)) ? '' : $this->getCurrentStudentCalendarName($person) . '<br />';
 
             $families = $this->entityManager->createQueryBuilder()
                 ->from(Family::class, 'f')
@@ -655,25 +655,6 @@ user:
 		}
 
 		return false;
-	}
-
-	/**
-	 * Get Student Calendar (Current) Name
-	 *
-	 * @param $person
-	 *
-	 * @return string|null
-	 */
-	public function getCurrentStudentCalendarName($person)
-	{
-		if (! $person instanceof Student)
-			return null;
-
-		foreach ($person->getStudentCalendars()->toArray() as $sg)
-            if ($sg->getCalendarGroup()->getCalendar()->getId() == $this->getCurrentCalendar()->getId() && $sg->getStatus() === 'Current')
-				return $sg->getFullName();
-
-		return null;
 	}
 
 	/**

@@ -51,13 +51,4 @@ class ChoiceSettingType extends AbstractType
 		$view->vars['setting_name'] = strtolower($options['setting_name']);
 		$view->vars['setting_display_name'] = $options['setting_display_name'];
 	}
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->addModelTransformer(new CollectionToArrayTransformer());
-    }
 }

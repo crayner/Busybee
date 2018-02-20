@@ -39,11 +39,6 @@ class StudentPagination extends PaginationManager
             'p.surname'   => 'ASC',
             'p.firstName' => 'ASC',
         ],
-        'student.calendar.label'     => [
-            'c.firstDay'    => 'ASC',
-            'p.surname'     => 'ASC',
-            'p.firstName'   => 'ASC',
-        ],
 	];
 	/**
 	 * @var int
@@ -57,9 +52,8 @@ class StudentPagination extends PaginationManager
 		'p.surname',
 		'p.firstName',
 		'p.email',
-        'c.name',
-        'cg.name',
-        'cg.nameShort',
+        'rg.name',
+        'rg.nameShort',
 	];
 
 	/**
@@ -90,17 +84,9 @@ class StudentPagination extends PaginationManager
 				'type' => 'leftJoin',
 				'alias' =>'ph',
 			],
-            'p.studentCalendars' => [
+            'p.rollGroups' => [
                 'type' => 'leftJoin',
-                'alias' => 'sc',
-            ],
-            'sc.calendarGroup' => [
-                'type' => 'leftJoin',
-                'alias' => 'cg',
-            ],
-            'cg.calendar' => [
-                'type' => 'leftJoin',
-                'alias' => 'c'
+                'alias' => 'rg'
             ],
 		];
 

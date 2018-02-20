@@ -73,6 +73,11 @@ class Calendar extends CalendarExtension
 	 */
 	private $importIdentifier;
 
+    /**
+     * @var null|Collection
+     */
+    private $calendarGrades;
+
 	/**
 	 * Constructor
 	 */
@@ -419,4 +424,61 @@ class Calendar extends CalendarExtension
 
 		return $this;
 	}
+
+    /**
+     * @return Collection|null
+     */
+    public function getCalendarGrades(): ?Collection
+    {
+        return $this->calendarGrades;
+    }
+
+    /**
+     * @param Collection|null $calendarGrades
+     * @return Calendar
+     */
+    public function setCalendarGrades(?Collection $calendarGrades): Calendar
+    {
+        $this->calendarGrades = $calendarGrades;
+        return $this;
+    }
+
+
+    /**
+     * @param CalendarGrade|null $calendarGrade
+     * @param bool $add
+     * @return Calendar
+     */
+    public function addCalendarGrade(?CalendarGrade $calendarGrade, $add = true): Calendar
+    {
+        if (empty($calendarGrade))
+            return $this;
+
+        if ($add)
+            $calendarGrade->setCalendar($this);
+
+        if (!$this->calendarGrades->contains($calendarGrade))
+            $this->calendarGrades->add($calendarGrade);
+
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $calendarGrade
+     * @param bool $remove
+     * @return Calendar
+     */
+    public function removeCalendarGrade(?CalendarGrade $calendarGrade, $remove = true): Calendar
+    {
+        if (empty($calendarGrade))
+            return $this;
+
+        if ($this->calendarGrades->contains($calendarGrade)) {
+            if ($remove)
+                $calendarGrade->setCalendar(null);
+            $this->calendarGrades->removeElement($calendarGrade);
+        }
+
+        return $this;
+    }
 }

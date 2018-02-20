@@ -78,6 +78,33 @@ class CalendarSubscriber implements EventSubscriberInterface
 		if (!empty($entity->getDownloadCache()) && file_exists($entity->getDownloadCache()))
 			unlink($entity->getDownloadCache());
 
+		if ($data['calendarGrades']) {
+            $seq = 0;
+		    foreach ($data['calendarGrades'] as $q=>$grade)
+                $seq = $data['calendarGrades'][$q]['sequence'] > $seq ? $data['calendarGrades'][$q]['sequence'] : $seq ;
+
+		    $seq = $seq > 99 ? 1 : 101 ;
+            foreach ($data['calendarGrades'] as $q=>$grade)
+                $data['calendarGrades'][$q]['sequence'] = $seq++;
+
+            $xx = [];
+            foreach($form->get('calendarGrades')->getData()->toArray() as $current)
+            {
+                $g = $current->getGrade();
+
+                foreach ($data['calendarGrades'] as $q=>$grade)
+                {
+                    if ($grade['grade'] === $g)
+                    {
+                        $xx[] = $grade;
+                        unset($data['calendarGrades'][$q]);
+                        break ;
+                    }
+                }
+            }
+            $data['calendarGrades'] = array_merge($xx, $data['calendarGrades']);
+        }
+
 		$event->setData($data);
 		$form->setData($entity);
 	}

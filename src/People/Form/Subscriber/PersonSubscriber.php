@@ -6,7 +6,7 @@ use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\TextType;
 use App\Core\Validator\SettingChoice;
-use App\People\Form\StudentCalendarType;
+use App\People\Form\CalendarGradeType;
 use App\People\Form\UserType;
 use App\People\Util\PersonManager;
 use App\People\Validator\StudentCalendars;
@@ -375,20 +375,6 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_data_value'        => 'name',
 				]
 			)
-			->add('studentCalendars', CollectionType::class,
-				[
-					'label'         => 'student.student_calendars.label',
-					'allow_add'     => true,
-					'allow_delete'  => true,
-					'entry_type'    => StudentCalendarType::class,
-					'attr'          => [
-						'class' => 'rollGroupList',
-					],
-					'help'  => 'student.student_calendars.help',
-					'constraints'   => [
-						new StudentCalendars(),
-					],
-				]
-			);
+        ;
 	}
 }

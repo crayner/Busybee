@@ -55,6 +55,22 @@ calendar:
             title: Add Roll
         website:
             label: Web Site
+    calendar_grades:
+        tab: Grade/Form/Year
+        title: Manage Grades/Forms/Years in the Calendar
+        help: Roll Groups are linked to these details, and rolls will only be linked to the calendar once these details are available.
+    calendar_grade:
+        add.title: Attach Grade/Form/Year to Calendar
+calendar_grade:
+    students.count: 'Students in this Grade/Form/Year. %{count}'
+    grade:
+        label: Student Grade/Form/Year
+        placeholder: Select Grade/Form/Year
+        help: This detail must be unique in the calendar.
+    next_grade:
+        label: Next Calendar Grade/Form/Year
+        placeholder: Select Grade/Form/Year
+        help: Use to transfer from one calendar to the next calendar when the current calendar is changed.
 roll_group:
     nameshort:
         label: Roll Abbreviation

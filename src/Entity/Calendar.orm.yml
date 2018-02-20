@@ -43,3 +43,8 @@ App\Entity\Calendar:
             mappedBy: calendar
             cascade: [persist, remove]
             orderBy: { name: ASC }
+        calendarGrades:
+            targetEntity: App\Entity\CalendarGrade
+            mappedBy: calendar
+            cascade: [ 'all' ]
+            orderBy: { sequence: ASC }

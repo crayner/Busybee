@@ -31,29 +31,32 @@ class PhoneType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('phoneType', SettingChoiceType::class,
-				array(
-					'label'        => 'phone.type.label',
-					'setting_name' => 'phone.typelist',
-					'placeholder' => 'phone.type.placeholder',
-				)
-			)
 			->add('phoneNumber', TextType::class,
-				array(
+				[
 					'label' => 'phone.number.label',
-					'attr'  => array(
+					'attr'  => [
 						'help' => 'phone.number.help',
-					),
-				)
+					],
+				]
 			)
 			->add('countryCode', SettingChoiceType::class,
-				array(
+				[
 					'label'        => 'phone.country.label',
 					'required'     => false,
 					'setting_name' => 'phone.countrylist',
 					'translation_prefix' => false,
-				)
-			);
+                    'placeholder' => 'phone.country.placeholder',
+				]
+			)
+            ->add('phoneType', SettingChoiceType::class,
+                [
+                    'label'        => 'phone.type.label',
+                    'setting_name' => 'phone.typelist',
+                    'placeholder' => 'phone.type.placeholder',
+                    'translation_prefix' => false,
+                ]
+            )
+        ;
 		$builder->get('phoneNumber')
 			->addModelTransformer(new PhoneTransformer());
 		$builder->addEventSubscriber($this->phoneSubscriber);

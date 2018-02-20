@@ -1,18 +1,17 @@
 <?php
 namespace App\People\Form;
 
+use App\Entity\CalendarGrade;
 use App\Entity\StudentCalendar;
 use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
-use App\Entity\CalendarGroup;
 use App\Entity\Student;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StudentCalendarType extends AbstractType
+class CalendarGradeType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -33,9 +32,9 @@ class StudentCalendarType extends AbstractType
 					'class' => Student::class,
 				]
 			)
-			->add('calendarGroup', EntityType::class,
+			->add('grade', SettingChoiceType::class,
 				[
-					'class'         => CalendarGroup::class,
+					'setting_name'         => CalendarGroup::class,
 					'choice_label'  => 'fullName',
 					'query_builder' => function (EntityRepository $er) {
 						return $er->createQueryBuilder('g')
@@ -47,7 +46,8 @@ class StudentCalendarType extends AbstractType
 					'label'         => 'student_calendar.calendar_group.label',
 					'help' => 'student_calendar.calendar_group.help',
 				]
-			);
+			)
+        ;
 	}
 
 	/**
@@ -58,7 +58,7 @@ class StudentCalendarType extends AbstractType
 		$resolver
 			->setDefaults(
 				[
-					'data_class'         => StudentCalendar::class,
+					'data_class'         => CalendarGrade::class,
 					'translation_domain' => 'Student',
 					'error_bubbling'     => true,
 				]
@@ -70,7 +70,7 @@ class StudentCalendarType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'student_calendar';
+		return 'calendar_grade';
 	}
 
 

@@ -114,7 +114,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
 		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'Setting';
 
-		$newOptions['setting_name'] = $options['setting_name'];
+		$newOptions['data'] = $event->getData() ?: '0';
+ 		$newOptions['setting_name'] = $options['setting_name'];
 		$newOptions['setting_display_name'] = $options['setting_display_name'] ? $options['setting_display_name'] : $setting->getDisplayName();
 
 		$newOptions['constraints'] = empty($newOptions['constraints']) ? [] : $newOptions['constraints'];

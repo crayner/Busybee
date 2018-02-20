@@ -1,0 +1,52 @@
+App\Entity\CalendarGrade:
+    type: entity
+    table: calendar_grade
+    repositoryClass: App\Repository\CalendarGradeRepository
+    uniqueConstraints:
+         calendar_grade:
+             columns:
+                 - grade
+                 - calendar_id
+         calendar_sequence:
+             columns:
+                 - sequence
+                 - calendar_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        grade:
+            type: string
+            length: 16
+        sequence:
+            type: integer
+            length: 3
+    oneToOne:
+        nextGrade:
+            targetEntity: App\Entity\CalendarGrade
+            joinColumn:
+                name: next_grade_id
+                referencedColumnName: id
+                nullable: true
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            inversedBy: calendar
+            joinColumns:
+                calendar_id:
+                    referencedColumnName: id
+    manyToMany:
+        students:
+            targetEntity: App\Entity\Student
+            inversedByedBy: calendarGrades
+            joinTable:
+                name: calendar_grade_student
+                joinColumns:
+                    calendar_grade_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    student_id:
+                        referencedColumnName: id

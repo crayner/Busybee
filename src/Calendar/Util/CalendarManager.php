@@ -132,17 +132,16 @@ class CalendarManager
 		{
 			$query->execute();
 		}
-		catch (PDOException $e)
-		{
-			if (!in_array($e->getErrorCode(), ['1146']))
-				throw new \Exception($e->getMessage());
-		}
 		catch (DriverException $e)
 		{
 			if (!in_array($e->getErrorCode(), ['1091']))
 				throw new \Exception($e->getMessage());
 		}
-
+        catch (PDOException $e)
+        {
+            if (!in_array($e->getErrorCode(), ['1146']))
+                throw new \Exception($e->getMessage());
+        }
 	}
 
 	/**
@@ -228,6 +227,10 @@ specialDays:
     label: calendar.specialDays.tab
     include: Calendar/specialDays.html.twig
     message: specialDayMessage
+calendarGrades:
+    label: calendar.calendar_grades.tab
+    include: Calendar/calendar_grades.html.twig
+    message: calendarGradeMessage
 rollGroups:
     label: calendar.roll_groups.tab
     include: Calendar/roll_groups.html.twig
@@ -409,23 +412,24 @@ rollGroups:
 	}
 
     /**
-     * @return Calendar
+     * @param Calendar|null $calendar
+     * @return null|Calendar
      */
-    public function getNextCalendar()
+    public function getNextCalendar(?Calendar $calendar): ?Calendar
     {
-        if ($this->nextCalendar)
+        if ($this->nextCalendar && is_null($calendar))
             return $this->nextCalendar;
 
-        $this->getCurrentCalendar();
+        $calendar = $calendar ?: $this->getCurrentCalendar();
 
         $result = $this->getCalendarRepository()->createQueryBuilder('c')
             ->where('c.firstDay > :firstDay')
-            ->setParameter('firstDay', $this->getCurrentCalendar()->getFirstDay()->format('Y-m-d'))
+            ->setParameter('firstDay', $calendar->getFirstDay()->format('Y-m-d'))
             ->getQuery()
             ->getResult();
 
         $this->nextCalendar = $result ? $result[0] : null ;
-        dump($this);
+
         return $this->nextCalendar;
     }
 }

@@ -8,6 +8,7 @@ use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
 use App\Core\Manager\SettingManager;
 use App\Calendar\Listener\CalendarSubscriber;
+use App\Entity\CalendarGrade;
 use Hillrange\Form\Type\DateType;
 use App\Entity\Calendar;
 use Symfony\Component\Form\AbstractType;
@@ -115,24 +116,39 @@ class CalendarType extends AbstractType
 					'by_reference'  => false,
 				)
 			)
-			->add('rollGroups', CollectionType::class, [
-					'entry_type'    => RollGroupType::class,
-					'allow_add'     => true,
-					'entry_options' => array(
-						'calendar_data' => $options['data'],
-						'manager'   => $options['rollGroupManager'],
-					),
-					'constraints'   => [
-						new RollGroup(['calendar' => $options['data']]),
-					],
-					'label'         => false,
-					'allow_delete'  => true,
-					'attr'          => array(
-						'class' => 'rollGroupList'
-					),
-					'by_reference'  => false,
-				]
-			)
+            ->add('calendarGrades', CollectionType::class, [
+                    'entry_type'    => CalendarGradeType::class,
+                    'allow_add'     => true,
+                    'entry_options' => [
+                        'calendar_data' => $options['data'],
+                        'manager'   => $options['calendarGradeManager'],
+                    ],
+                    'label'         => false,
+                    'allow_delete'  => true,
+                    'attr'          => array(
+                        'class' => 'calendarGradeList'
+                    ),
+                    'by_reference'  => false,
+                ]
+            )
+            ->add('rollGroups', CollectionType::class, [
+                    'entry_type'    => RollGroupType::class,
+                    'allow_add'     => true,
+                    'entry_options' => array(
+                        'calendar_data' => $options['data'],
+                        'manager'   => $options['rollGroupManager'],
+                    ),
+                    'constraints'   => [
+                        new RollGroup(['calendar' => $options['data']]),
+                    ],
+                    'label'         => false,
+                    'allow_delete'  => true,
+                    'attr'          => array(
+                        'class' => 'rollGroupList'
+                    ),
+                    'by_reference'  => false,
+                ]
+            )
 			->add('downloadCache', HiddenType::class);
 
 		$builder->addEventSubscriber($this->calendarSubscriber);
@@ -152,6 +168,7 @@ class CalendarType extends AbstractType
 		$resolver->setRequired(
 			[
 				'rollGroupManager',
+                'calendarGradeManager',
 			]
 		);
 	}
