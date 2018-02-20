@@ -3,6 +3,7 @@ namespace App\Pagination;
 
 use App\Calendar\Util\CalendarManager;
 use App\Core\Util\UserManager;
+use App\Entity\Roll;
 use App\Entity\RollGroup;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -10,12 +11,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class RollGroupPagination extends PaginationManager
+class RollPagination extends PaginationManager
 {
 	/**
 	 * @var string
 	 */
-	protected $paginationName = 'RollGroup';
+	protected $paginationName = 'Roll';
 
 	/**
 	 * @var string
@@ -61,12 +62,16 @@ class RollGroupPagination extends PaginationManager
      * @var array
      */
 	protected $join = [
-        'r.calendar' => [
-            'alias' => 'c',
+        'r.calendarGrades' => [
+            'alias' => 'g',
             'type' => 'leftJoin',
         ],
         'r.space' => [
             'alias' => 's',
+            'type' => 'leftJoin',
+        ],
+        'g.calendar' => [
+            'alias' => 'c',
             'type' => 'leftJoin',
         ],
     ];
@@ -74,7 +79,7 @@ class RollGroupPagination extends PaginationManager
 	/**
 	 * @var string
 	 */
-	protected $repositoryName = RollGroup::class;
+	protected $repositoryName = Roll::class;
 
     /**
      * @var UserManager
@@ -114,12 +119,12 @@ class RollGroupPagination extends PaginationManager
             ->andWhere('c.id = :calendar_id')
             ->setParameter('calendar_id', $this->calendarManager->getCurrentCalendar()->getId())
         ;
-dump($this);
+
 		return $this->getQuery();
 	}
 
     /**
-     * RollGroupPagination constructor.
+     * RollPagination constructor.
      * @param EntityManagerInterface $entityManager
      * @param SessionInterface $session
      * @param RouterInterface $router
@@ -131,5 +136,13 @@ dump($this);
     {
         $this->calendarManager = $calendarManager;
         parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
+    }
+
+    /**
+     * @return CalendarManager
+     */
+    public function getCalendarManager(): CalendarManager
+    {
+        return $this->calendarManager;
     }
 }

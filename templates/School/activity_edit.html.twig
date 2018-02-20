@@ -1,0 +1,56 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'School' %}
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
+{% block title %}{{ 'school.activity.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.activity.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.activity.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = '' %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path(activity_type)}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.activity.edit.title', transDomain: 'School'} %}
+
+    <div class="row">
+        <div class="col-8 card">
+            <div class="row">
+                <div class="col-6 card">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.nameShort) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 card">
+                    {{ form_row(form.website) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.space) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 card">
+                    {% if form.nextRoll is defined %}
+                    {{ form_row(form.nextRoll) }}
+                    {% endif %}
+                </div>
+                <div class="col-6 card">
+                </div>
+            </div>
+        </div>
+        <div class="col-4 card">
+            {{ form_row(form.students) }}
+        </div>
+    </div>
+    {% dump(form) %}
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+

@@ -1,0 +1,10 @@
+App\Entity\Roll:
+    type: entity
+    repositoryClass: App\Repository\RollRepository
+    oneToOne:
+        nextRoll:
+            targetEntity: Roll
+            nullable: true
+            joinColumn:
+                name: next_roll_id
+                referencedColumnName: id

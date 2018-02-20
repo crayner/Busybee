@@ -2,16 +2,16 @@
 
 {% trans_default_domain 'School' %}
 
-{% block title %}{{ 'school.roll.list.title'|trans({'%{calendar}': manager.calendar.name}) }}{% endblock title %}
-{% block headerTitle %}{{ 'school.roll.list.title'|trans({'%{calendar}': manager.calendar.name}) }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'school.roll.list.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ 'school.roll.list.title'|trans({'%{calendar}': pagination.calendarManager.currentCalendar.name}) }}{% endblock title %}
+{% block headerTitle %}{{ 'school.roll.list.title'|trans({'%{calendar}': pagination.calendarManager.currentCalendar.name}) }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.roll.list.description'|trans  }}{% endblock headerLead %}
 
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
-        {% set h3Content = addButton({windowOpen: {route: path('roll_edit', {id: 'Add'})}}) %}
+        {% set h3Content = addButton({windowOpen: {route: path('activity_edit', {id: 'Add', activityType: 'roll_list'})}}) %}
     {% endif %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': manager.calendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': pagination.calendarManager.currentCalendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-3 text-center" style="display: inline-block;">

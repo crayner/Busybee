@@ -109,6 +109,12 @@ School Admin:
             params:
                 id: current
                 _fragment: calendarGrades
+        manage_rolls:
+            label: roll.menu.list
+            translate: School
+            route: roll_list
+            params: {}
+            role: ROLE_REGISTRAR
     others:
         campus_manage:
 	        label: menu.campus.manage.title
@@ -176,7 +182,7 @@ School Admin:
         - edit_grade
         - student_add_to_calendar_group
         - space_edit
-        - roll_edit
+        - activity_edit
 Person Admin:
     people_manage:
 #        family_manage:

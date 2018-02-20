@@ -111,5 +111,5 @@ App\Entity\Student:
             mappedBy: students
             targetEntity: App\Entity\Activity
         calendarGrades:
-            mappedBy: Students
+            mappedBy: students
             targetEntity: App\Entity\CalendarGrade

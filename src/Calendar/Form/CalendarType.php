@@ -114,7 +114,6 @@ class CalendarType extends AbstractType
                     'entry_options' => [
                         'calendar_data' => $options['data'],
                         'manager'   => $options['calendarGradeManager'],
-                        'rollGroupManager' => $options['rollGroupManager'],
                     ],
                     'label'         => false,
                     'allow_delete'  => true,
@@ -144,7 +143,6 @@ class CalendarType extends AbstractType
 		);
 		$resolver->setRequired(
 			[
-				'rollGroupManager',
                 'calendarGradeManager',
 			]
 		);

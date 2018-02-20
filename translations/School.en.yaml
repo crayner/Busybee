@@ -66,6 +66,17 @@ school:
         edit:
             title: Manage Course
             description: Create, edit and remove course details.
+    activity:
+        edit:
+            title: Activity Management
+            description: ''
+    grade.student.button: Allocate Students
+    calendar_grade:
+        edit:
+            title: Student Grade Management
+            description: ''
+        manage.title: 'Manage Students in Grade %name%'
+
 department:
     edit:
         title: Manage Department
@@ -148,6 +159,7 @@ roll:
         placeholder: Transfer to
     details:
         label: Details
+    menu.list: Manage Attendance Lists
 course:
     name:
         label: Name
@@ -172,3 +184,17 @@ course:
     calendars:
         label: Use in Year
         help: The course is available for selection in any school calendar selected here.
+activity:
+    name:
+        label: Name
+        help: Must be unique in the Calendar.
+    name_short:
+        label: Short Name
+        help: Must be unique in the calendar and no more than 8 characters long.
+    website.label: Website Link
+    space:
+        label: Location
+        placeholder: Select Location
+    next_roll.label: Roll next Calendar
+    students:
+        label: Possible Students

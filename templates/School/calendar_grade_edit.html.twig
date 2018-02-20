@@ -1,0 +1,29 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'School' %}
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
+{% set fullPage = true %}
+{% set headerOff = true %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, 'div') }}
+    {{ form_start(form, {'attr': {'id': 'course'}}) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('course_list')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('course_edit', {id: 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({type: 'button', windowOpen: {route: path('course_edit', {'id': app.request.get('id')})}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.calendar_grade.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.calendar_grade.edit.description'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-3 col-6 card">
+                {{ form_row(form.students) }}
+            </div>
+        </div>
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}

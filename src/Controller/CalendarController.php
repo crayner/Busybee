@@ -46,7 +46,7 @@ class CalendarController extends Controller
 	 * @return RedirectResponse|Response
 	 */
 	public function edit($id, Request $request,
-                         CalendarManager $calendarManager, RollGroupManager $rollGroupManager,
+                         CalendarManager $calendarManager,
                          EntityManagerInterface $em, MessageManager $messageManager,
                          FlashBagManager $flashBagManager, CalendarGradeManager $calendarGradeManager)
 	{
@@ -59,7 +59,7 @@ class CalendarController extends Controller
 
 		$calendar = $id === 'Add' ? new Calendar() : $calendarManager->getCalendarRepository()->find($id);
 
-		$form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager, 'calendarGradeManager' => $calendarGradeManager]);
+		$form = $this->createForm(CalendarType::class, $calendar, [ 'calendarGradeManager' => $calendarGradeManager]);
 
 		$form->handleRequest($request);
 
@@ -77,7 +77,7 @@ class CalendarController extends Controller
 
             $em->refresh($calendar);
 
-            $form = $this->createForm(CalendarType::class, $calendar, ['rollGroupManager' => $rollGroupManager, 'calendarGradeManager' => $calendarGradeManager]);
+            $form = $this->createForm(CalendarType::class, $calendar, ['calendarGradeManager' => $calendarGradeManager]);
 		} else
 		    $em->refresh($calendar);
 

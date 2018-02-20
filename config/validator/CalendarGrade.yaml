@@ -1,0 +1,5 @@
+App\Entity\CalendarGrade:
+    properties:
+        nameShort:
+            - length:
+                max: 8

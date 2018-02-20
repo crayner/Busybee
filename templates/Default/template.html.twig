@@ -19,20 +19,24 @@
 
     <body>
 
-    {% block menuContainer %}
-        {% include 'Menu/main-menu.html.twig' %}
-    {% endblock menuContainer %}
+    {% if not(headerOff is defined and headerOff) %}
+        {% block menuContainer %}
+            {% include 'Menu/main-menu.html.twig' %}
+        {% endblock menuContainer %}
+    {% endif %}
 
-    <div class="container theme-showcase" role="main">
+    <div class="container theme-showcase" role="main"{% if headerOff is defined and headerOff %} style="margin-top: -50px;"{% endif %}>
 
-        {% block titleContainer %}
-            <div class="jumbotron hideSection{{ containerThemeOverwrite }}">
-                <img src="{{ asset(get_setting('org.logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo"/>
-                <h2>{% block headerTitle %}Busybee - {{ get_setting('org.name.long') }}{% endblock headerTitle %}</h2>
-                <p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
-                {% if headerNotices is not empty %}<p>{{ headerNotices|raw }}</p>{% endif %}
-            </div>
-        {% endblock titleContainer %}
+        {% if not(headerOff is defined and headerOff) %}
+            {% block titleContainer %}
+                <div class="jumbotron hideSection{{ containerThemeOverwrite }}">
+                    <img src="{{ asset(get_setting('org.logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo"/>
+                    <h2>{% block headerTitle %}Busybee - {{ get_setting('org.name.long') }}{% endblock headerTitle %}</h2>
+                    <p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
+                    {% if headerNotices is not empty %}<p>{{ headerNotices|raw }}</p>{% endif %}
+                </div>
+            {% endblock titleContainer %}
+        {% endif %}
 
         <div class="row-fluid row">
             {% if fullPage is defined and fullPage %}

@@ -9,6 +9,11 @@
         {% if form.vars.value is empty %}{% set gradeTitle = 'calendar.calendar_grade.add.title'|trans %}{% else %}{% set gradeTitle = form.vars.value.fullName %}{% endif %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% set h3Content = h3Content ~ saveButton() %}
+        {% set cg_id = 0 %}
+        {% if form.vars.value is not empty %}
+            {% set cg_id = form.vars.value.id %}
+        {% endif %}
+        {% set h3Content = h3Content ~ editButton({windowOpen: {route: path('student_grade', {id: cg_id}), target: 'Student_Grade', params: 'width=1200,height=900'}, title: 'school.grade.student.button', transDomain: 'School'}) %}
         {% set h3Content = h3Content ~ deleteButton({title: 'calendar.calendar_grade.remove.title', transDomain: 'Calendar', class: 'halflings halflings-erase btn btn-warning collection-remove collection-action', style: 'float: right;'}) %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton() %}

@@ -1,5 +1,13 @@
 App\Entity\Activity:
     type: entity
+    inheritanceType: single_table
+    discriminatorColumn:
+        name: activity_type
+        type: string
+        length: 32
+    discriminatorMap:
+        activity: Activity
+        roll: Roll
     table: activity
     repositoryClass: App\Repository\ActivityRepository
     id:

@@ -6,9 +6,9 @@ App\Entity\Person:
         type: string
     discriminatorMap:
         person: Person
-        student: App\Entity\Student
-        staff: App\Entity\Staff
-        contact: App\Entity\Contact
+        student: Student
+        staff: Staff
+        contact: Contact
     table: person
     repositoryClass: App\Repository\PersonRepository
     id:

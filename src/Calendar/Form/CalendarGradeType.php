@@ -76,7 +76,6 @@ class CalendarGradeType extends AbstractType
 		$resolver->setRequired(
 			[
 				'manager',
-                'rollGroupManager',
                 'calendar_data',
 			]
 		);
