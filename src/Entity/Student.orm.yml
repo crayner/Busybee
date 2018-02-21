@@ -110,6 +110,7 @@ App\Entity\Student:
         activities:
             mappedBy: students
             targetEntity: App\Entity\Activity
+            cascade: [ 'persist' ]
         calendarGrades:
             mappedBy: students
             targetEntity: App\Entity\CalendarGrade

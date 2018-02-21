@@ -3,6 +3,7 @@ namespace App\School\Form;
 
 use App\Entity\Activity;
 use App\Entity\Space;
+use App\Entity\Staff;
 use App\Entity\Student;
 use App\School\Form\Subscriber\ActivitySubscriber;
 use Doctrine\ORM\EntityRepository;
@@ -76,9 +77,12 @@ class ActivityType extends AbstractType
                     },
                 ]
             )
-            ->add('tutors', CollectionType::class,
+            ->add('tutors', EntityType::class,
                 [
                     'label' => 'activity.tutors.label',
+                        'class' => Staff::class,
+                        'choice_label' => 'fullName',
+                        'multiple' => true,
                 ]
             )
         ;

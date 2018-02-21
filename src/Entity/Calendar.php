@@ -371,7 +371,7 @@ class Calendar extends CalendarExtension
             return $this;
 
         if ($add)
-            $calendarGrade->setCalendar($this);
+            $calendarGrade->setCalendar($this, false);
 
         if (!$this->calendarGrades->contains($calendarGrade))
             $this->calendarGrades->add($calendarGrade);

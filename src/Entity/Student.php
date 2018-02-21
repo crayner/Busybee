@@ -812,10 +812,12 @@ class Student extends StudentExtension
 	}
 
     /**
-     * @return ArrayCollection|null
+     * @return Collection
      */
-    public function getActivities(): ?ArrayCollection
+    public function getActivities(): Collection
     {
+        $this->activities = $this->activities instanceof Collection ? $this->activities : new ArrayCollection();
+
         return $this->activities;
     }
 
@@ -826,6 +828,29 @@ class Student extends StudentExtension
     public function setActivities(?ArrayCollection $activities): Student
     {
         $this->activities = $activities;
+        return $this;
+    }
+
+    public function addActivity(Activity $activity, $add = true): Student
+    {
+        if ($add)
+            $activity->addStudent($this, false);
+
+        if ($this->getActivities()->contains($activity))
+            return $this;
+
+        $this->activities->add($activity);
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity, $remove = true): Student
+    {
+        if ($remove)
+            $activity->removeStudent($this, false);
+
+        $this->getActivities()->removeElement($activity);
+
         return $this;
     }
 

@@ -1,8 +1,8 @@
 <?php
 namespace App\Entity;
 
-
 use App\Calendar\Entity\CalendarGradeExtension;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
@@ -80,8 +80,10 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
      * @param Calendar|null $calendar
      * @return CalendarGrade
      */
-    public function setCalendar(?Calendar $calendar): CalendarGrade
+    public function setCalendar(?Calendar $calendar, $add = true): CalendarGrade
     {
+        if ($add)
+            $calendar->addCalendarGrade($this, false);
         $this->calendar = $calendar;
 
         return $this;
@@ -92,7 +94,9 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
      */
     public function getStudents(): ?Collection
     {
-        return $this->students;
+        $this->students = $this->students instanceof Collection ? $this->students : new ArrayCollection();
+
+        return $this->students ;
     }
 
     /**
@@ -117,6 +121,8 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
 
         if ($add)
             $student->addCalendarGrade($this, false);
+
+        $this->students = $this->getStudents();
 
         if (!$this->students->contains($student))
             $this->students->add($student);
@@ -179,6 +185,4 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
         $this->sequence = $sequence;
         return $this;
     }
-
-    private $activities;
 }

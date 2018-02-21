@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use App\School\Entity\ActivityExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Activity
@@ -45,11 +46,6 @@ class Activity extends ActivityExtension
     private $tutors;
 
     /**
-     * @var ArrayCollection
-     */
-    private $grades;
-
-    /**
      * @var Space
      */
     private $space;
@@ -90,7 +86,6 @@ class Activity extends ActivityExtension
     public function __construct()
     {
         $this->students = new ArrayCollection();
-        $this->grades = new ArrayCollection();
         $this->setTeachingLoad(0);
         $this->studentsSorted = false;
         parent::__construct();
@@ -161,7 +156,7 @@ class Activity extends ActivityExtension
      *
      * @return Activity
      */
-	public function setCalendar(\App\Entity\Calendar $calendar = null)
+    public function setCalendar(\App\Entity\Calendar $calendar = null)
     {
         $this->calendar = $calendar;
 
@@ -175,8 +170,11 @@ class Activity extends ActivityExtension
      *
      * @return Activity
      */
-	public function addStudent(Student $student)
+    public function addStudent(Student $student, $add = true): Activity
     {
+        if ($add)
+            $student->addActivity($this, false);
+
         if ($this->students->contains($student))
             return $this;
 
@@ -189,10 +187,17 @@ class Activity extends ActivityExtension
      * Remove student
      *
      * @param Student $student
+     * @param bool $remove
+     * @return Activity
      */
-	public function removeStudent(Student $student)
+    public function removeStudent(Student $student, $remove = true): Activity
     {
+        if ($remove)
+            $student->removeActivity($this, false);
+
         $this->students->removeElement($student);
+
+        return $this;
     }
 
     /**
@@ -265,8 +270,10 @@ class Activity extends ActivityExtension
      *
      * @return null|ArrayCollection
      */
-    public function getTutors(): ?ArrayCollection
+    public function getTutors(): ?Collection
     {
+        $this->tutors = $this->tutors instanceof Collection ? $this->tutors : new ArrayCollection();
+
         return $this->tutors;
     }
 
@@ -277,9 +284,38 @@ class Activity extends ActivityExtension
      *
      * @return Activity
      */
-	public function setTutors(?ArrayCollection $tutors)
+    public function setTutors(?ArrayCollection $tutors)
     {
         $this->tutors = $tutors;
+
+        return $this;
+    }
+
+    /**
+     * @param Staff|null $tutor
+     * @return Activity
+     */
+    public function addTutor(?Staff $tutor): Activity
+    {
+        if (empty($tutor))
+            return $this;
+
+        if (!$this->getTutors()->contains($tutor))
+            $this->tutors->add($tutor);
+
+        return $this;
+    }
+
+    /**
+     * @param Staff|null $tutor
+     * @return Activity
+     */
+    public function removeTutor(?Staff $tutor): Activity
+    {
+        if (empty($tutor))
+            return $this;
+
+        $this->getTutors()->removeElement($tutor);
 
         return $this;
     }
@@ -301,7 +337,7 @@ class Activity extends ActivityExtension
      *
      * @return Activity
      */
-	public function setSpace(Space $space = null)
+    public function setSpace(Space $space = null)
     {
         $this->space = $space;
 
@@ -365,7 +401,7 @@ class Activity extends ActivityExtension
      */
     public function setReportable(?bool $reportable): Activity
     {
-        $this->reportable = $reportable ? true : false ;
+        $this->reportable = $reportable ? true : false;
         return $this;
     }
 
@@ -374,7 +410,7 @@ class Activity extends ActivityExtension
      */
     public function isAttendance(): bool
     {
-        return $this->attendance ? true : false ;
+        return $this->attendance ? true : false;
     }
 
     /**
@@ -383,7 +419,7 @@ class Activity extends ActivityExtension
      */
     public function setAttendance(bool $attendance): Activity
     {
-        $this->attendance = $attendance ? true : false ;
+        $this->attendance = $attendance ? true : false;
 
         return $this;
     }
@@ -411,6 +447,8 @@ class Activity extends ActivityExtension
      */
     public function getCalendarGrades(): ?Collection
     {
+        $this->calendarGrades = $this->calendarGrades instanceof Collection ? $this->calendarGrades : new ArrayCollection();
+
         return $this->calendarGrades;
     }
 
@@ -421,6 +459,32 @@ class Activity extends ActivityExtension
     public function setCalendarGrades(?Collection $calendarGrades): Activity
     {
         $this->calendarGrades = $calendarGrades;
+
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $calendarGrade
+     * @return Activity
+     */
+    public function addCalendarGrade(?CalendarGrade $calendarGrade): Activity
+    {
+        if (empty($calendarGrade))
+            return $this;
+
+        if (!$this->getCalendarGrades()->contains($calendarGrade))
+            $this->calendarGrades->add($calendarGrade);
+
+        return $this;
+    }
+
+    public function removeCalendarGrade(?CalendarGrade $calendarGrade): Activity
+    {
+        if (empty($calendarGrade))
+            return $this;
+
+        $this->getCalendarGrades()->removeElement($calendarGrade);
+
         return $this;
     }
 }

@@ -127,7 +127,7 @@ class SchoolController extends Controller
     public function activityEdit(Request $request, $id = 'Add', $activityType, EntityManagerInterface $entityManager)
     {
         switch ($activityType){
-            case 'roll_list':
+            case 'roll':
                 $activity = $entityManager->getRepository(Roll::class)->find($id) ?: new Roll();
                 break;
             default:

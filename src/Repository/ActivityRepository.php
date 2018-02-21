@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Entity\Activity;
+use App\Entity\CalendarGrade;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -22,4 +23,23 @@ class ActivityRepository extends ServiceEntityRepository
 	{
 		parent::__construct($registry, Activity::class);
 	}
+
+    /**
+     * @param string $name
+     * @param CalendarGrade $calendarGrade
+     * @return Activity|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function seekCalendarGradeName(string $name, CalendarGrade $calendarGrade): ?Activity
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.calendarGrades', 'cg')
+            ->where('cg.id = :cg_id')
+            ->setParameter('cg_id', $calendarGrade->getId())
+            ->andWhere('a.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

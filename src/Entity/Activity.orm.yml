@@ -57,6 +57,7 @@ App\Entity\Activity:
                         referencedColumnName: id
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade
+            inversedBy: activities
             joinTable:
                 name: activity_calendar_grade
                 joinColumns:

@@ -23,7 +23,7 @@
             <div class="col-3">
                 {{ 'roll.details.label'|trans({}) }}
             </div>
-            <div class="col-3 withAdd">
+            <div class="col-3 withAdd text-center">
                 {{ 'system.setting.manage.actions'|trans({}, 'System') }}
             </div>
         </div>
@@ -36,10 +36,10 @@
                     {{ roll.spaceName }}
                 </div>
                 <div class="col-3 form-inline small">
-                    {{ manager.details(roll.0)|raw }}
+
                 </div>
-                <div class="col-3 form-inline">
-                    {{ editButton({class: 'halflings halflings-edit btn btn-warning', title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}})|raw }}
+                <div class="col-3 form-inline text-center">
+                    {{ editButton({title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('activity_edit', {id: roll.id, activityType: 'roll_list'})}, style: ''})|raw }}
                 </div>
             </div>
         {% endfor %}
