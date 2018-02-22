@@ -428,4 +428,17 @@ calendarGrades:
 
         return $this->nextCalendar;
     }
+
+    /**
+     * @param Calendar $calendar
+     * @return bool
+     */
+    public function isCurrentCalendar(Calendar $calendar)
+    {
+        $current = $this->getCurrentCalendar();
+
+        if ($current->getId() === $calendar->getId() && $current->getName() === $calendar->getName())
+            return true;
+        return false;
+    }
 }

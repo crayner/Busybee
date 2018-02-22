@@ -19,7 +19,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.04';
+	const VERSION = '0.0.05';
 
 	/**
 	 * @var SettingManager
@@ -71,7 +71,8 @@ class VersionManager
 			'0.0.01' => new Settings_0_0_01(),
 			'0.0.02' => new Settings_0_0_02(),
 			'0.0.03' => new Settings_0_0_03(),
-			'0.0.04' => new Settings_0_0_04(),
+            '0.0.04' => new Settings_0_0_04(),
+            '0.0.05' => new Settings_0_0_05(),
 		];
 
 	}

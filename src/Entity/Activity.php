@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\School\Entity\ActivityExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Activity
@@ -447,7 +448,10 @@ class Activity extends ActivityExtension
      */
     public function getCalendarGrades(): ?Collection
     {
-        $this->calendarGrades = $this->calendarGrades instanceof Collection ? $this->calendarGrades : new ArrayCollection();
+        $this->calendarGrades = $this->calendarGrades ?: new ArrayCollection();
+
+        if ($this->calendarGrades instanceof PersistentCollection)
+            $this->calendarGrades->initialize();
 
         return $this->calendarGrades;
     }
@@ -459,7 +463,6 @@ class Activity extends ActivityExtension
     public function setCalendarGrades(?Collection $calendarGrades): Activity
     {
         $this->calendarGrades = $calendarGrades;
-
         return $this;
     }
 
@@ -469,21 +472,24 @@ class Activity extends ActivityExtension
      */
     public function addCalendarGrade(?CalendarGrade $calendarGrade): Activity
     {
-        if (empty($calendarGrade))
+        if (empty($calendarGrade) || $this->getCalendarGrades()->contains($calendarGrade))
             return $this;
 
-        if (!$this->getCalendarGrades()->contains($calendarGrade))
-            $this->calendarGrades->add($calendarGrade);
+        $this->calendarGrades->add($calendarGrade);
 
         return $this;
     }
 
+    /**
+     * @param CalendarGrade|null $calendarGrade
+     * @return Activity
+     */
     public function removeCalendarGrade(?CalendarGrade $calendarGrade): Activity
     {
-        if (empty($calendarGrade))
+        if (empty($calendarGrade) || ! $this->getCalendarGrades()->contains($calendarGrade))
             return $this;
 
-        $this->getCalendarGrades()->removeElement($calendarGrade);
+        $this->calendarGrades->removeElement($calendarGrade);
 
         return $this;
     }

@@ -8,6 +8,7 @@ App\Entity\Activity:
     discriminatorMap:
         activity: Activity
         roll: Roll
+        external: ExternalActivity
     table: activity
     repositoryClass: App\Repository\ActivityRepository
     id:

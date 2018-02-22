@@ -219,14 +219,14 @@ org.logo:
     displayName: 'Organisation Logo'
     description: 'The organisation Logo'
     role: 'ROLE_ADMIN'
-    validator: 'busybee_core_template.validator.logo'
+    validator: 'App\Core\Validator\Logo'
     value: 'img/bee.png'
-org.logo.transparent:
+org.transparent.logo:
     type: 'image'
     displayName: 'Organisation Transparent Logo'
     description: 'The organisation Logo in a transparent form.  Recommended to be 80% opacity. Only PNG or GIF image formats support transparency.'
     role: 'ROLE_ADMIN'
-    validator: 'busybee_core_template.validator.logo'
+    validator: 'App\Core\Validator\Logo'
     value: 'img/bee-transparent.png'
 background.image:
     type: 'image'

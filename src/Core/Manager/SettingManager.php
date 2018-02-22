@@ -386,9 +386,9 @@ class SettingManager implements ContainerAwareInterface
 	 *
 	 * @return    mixed    Value
 	 */
-	public function get($name, $default = null, $options = [])
+	public function get($name, $default = null, $options = [], $full = false)
 	{
-		return $this->getSetting($name, $default, $options);
+		return $this->getSetting($name, $default, $options, $full);
 	}
 
 
@@ -405,7 +405,7 @@ class SettingManager implements ContainerAwareInterface
 	 * @return    mixed    Value
 	 * @throws  \Exception
 	 */
-	public function getSetting($name, $default = null, $options = [])
+	public function getSetting($name, $default = null, $options = [], $full = false)
 	{
 		$this->loadSettingsFromSession();
 
@@ -436,8 +436,8 @@ class SettingManager implements ContainerAwareInterface
 				return array_flip($this->setting->getValue());
 
 			return empty($this->setting->getValue()) ? $default : $this->setting->getValue() ;
-		} elseif (! $this->settingExists[$name] && $this->setting->getType() === 'array') {
-			return $this->getSettingArray($name, $default);
+		} elseif (! $this->settingExists[$name] && $this->setting instanceof Setting && $this->setting->getType() === 'array') {
+			return $this->getSettingArray($name, $default, $full);
 		} elseif ($this->settingExists[$name] && $name === $this->setting->getName() && $this->setting->getType() === 'twig') {
 			try
 			{
@@ -620,7 +620,7 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	public function createSetting(Setting $setting)
 	{
-		if (!$this->settingExists($setting->getName()))
+		if (!$this->settingExists($setting->getName(), true))
 		{
 			$em = $this->container->get('doctrine')->getManager();
 			if ($setting->getType() == 'array' && is_array($setting->getValue()))
@@ -646,9 +646,9 @@ dump($setting);
 	 *
 	 * @return bool
 	 */
-	public function settingExists($name)
+	public function settingExists($name, $full = false)
 	{
-		$this->get($name);
+		$this->get($name, null, [], $full);
 
 		return $this->settingExists[$name];
 	}
@@ -823,9 +823,12 @@ dump($setting);
 	 *
 	 * @return mixed
 	 */
-	private function getSettingArray($name)
-	{
-		$x = explode('.', $name);
+	private function getSettingArray($name, $full = false)
+    {
+        if ($full)
+            return null;
+
+        $x = explode('.', $name);
 		$key = array_pop($x);
 		$name = implode('.', $x);
 		$value = $this->setting->getValue();

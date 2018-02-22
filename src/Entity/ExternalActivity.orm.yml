@@ -1,0 +1,69 @@
+App\Entity\ExternalActivity:
+    type: entity
+    repositoryClass: App\Repository\ExternalActivityRepository
+    fields:
+        active:
+            type: boolean
+            options:
+                default: 1
+        registration:
+            type: boolean
+            options:
+                comment: Can a parent/student select this for registration?
+                default: 1
+        provider:
+            type: string
+            length: 32
+            options:
+                default: school
+        listingStart:
+            type: date
+            nullable: true
+            column: listing_start
+        listingEnd:
+            type: date
+            nullable: true
+            column: listing_end
+        programStart:
+            type: date
+            nullable: true
+            column: program_start
+        programEnd:
+            type: date
+            nullable: true
+            column: program_end
+        maxParticipants:
+            type: integer
+            options:
+                default: 0
+            length: 3
+        description:
+            type: text
+            nullable: true
+        payment:
+            type: decimal
+            precision: 8
+            scale: 2
+            options:
+                default: 0
+        paymentType:
+            type: string
+            column: payment_type
+            options:
+                default: program
+        paymentFirmness:
+            type: string
+            column: payment_firmness
+            options:
+                default: finalised
+    manyToMany:
+        terms:
+            targetEntity: App\Entity\Term
+            joinTable:
+                name: activity_term
+                joinColumns:
+                    activity_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    term_id:
+                        referencedColumnName: id
