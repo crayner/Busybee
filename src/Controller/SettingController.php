@@ -74,10 +74,8 @@ class SettingController extends Controller
 				$setting->setName($name);
 				foreach ($values as $field => $value)
 				{
-					$b = 'set' . ucfirst($field);
-					if ($field == 'value' && is_array($value))
-						$value = Yaml::dump($value);
-					$setting->$b($value);
+					$func = 'set' . ucfirst($field);
+					$setting->$func($value);
 				}
 				$sm->createSetting($setting);
 			}
@@ -94,12 +92,11 @@ class SettingController extends Controller
 	/**
 	 * @param         $id
 	 * @param Request $request
-	 * @Route("/setting/edit/{id}/{closeWindow}", name="setting_edit")
-	 * @IsGranted("ROLE_SYSTEM_ADMIN")
+	 * @Route("/setting/manage/{id}/edit/{closeWindow}", name="setting_edit")
 	 *
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function edit($id, $closeWindow = null, Request $request, EntityManagerInterface $entityManager, SettingManager $settingManager)
+	public function edit($id, $closeWindow = null, Request $request, SettingManager $settingManager)
 	{
 		$setting = $settingManager->find($id);
 
@@ -114,16 +111,15 @@ class SettingController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$entityManager->persist($setting);
-			$entityManager->flush();
+			$settingManager->createSetting($setting);
 
-			$settingManager->find($setting->getId());
+			$setting = $settingManager->getSetting();
 
 			if ($setting->getType() == 'image')
-				return $this->redirectToRoute('setting_edit', ['id' => $id]);
+				return $this->redirectToRoute('setting_edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
 		}
 
-        $setting = $settingManager->find($id);
+        $setting = $settingManager->find($setting->getId());
 
 		return $this->render('Setting/edit.html.twig', [
 				'form'       => $form->createView(),
@@ -140,33 +136,24 @@ class SettingController extends Controller
 	 * @param EntityManagerInterface $em
 	 *
 	 * @return RedirectResponse
-	 * @Route("/setting/image/{id}/delete/", name="setting_delete_image")
-	 * @IsGranted("ROLE_SYSTEM_ADMIN")
+	 * @Route("/setting/image/{id}/delete/{closeWindow}", name="setting_delete_image")
 	 */
-	public function deleteImage($id, Request $request, EntityManagerInterface $em, FlashBagManager $flashBagManager)
+	public function deleteImage($id, $closeWindow = null, Request $request, SettingManager $settingManager, FlashBagManager $flashBagManager)
 	{
-		$setting = $em->getRepository(Setting::class)->find($id);
+		$setting = $settingManager->find($id);
+
+        $this->denyAccessUnlessGranted($setting->getRole() ?: 'ROLE_SYSTEM_ADMIN', null);
 
 		if ($setting instanceof Setting)
 		{
 			$file = $setting->getValue();
 
-			if (0 === strpos($file, 'uploads/'))
+			if (0 === strpos($file, 'uploads/'))  // check that
 			{
 				if (file_exists($file))
 					unlink($file);
 
-				$setting->setValue(null);
-				$em->persist($setting);
-				$em->flush();
-				$session                       = $request->getSession();
-				$settings                      = $session->get('settings', []);
-				$settings[$setting->getName()] = null;
-
-				$session->set('settings', $settings);
-
-				$fs = new Filesystem();
-				$fs->remove($this->get('kernel')->getCacheDir());
+				$settingManager->set($setting->getName(), null);
 			}
 		} else
 		{
@@ -175,7 +162,7 @@ class SettingController extends Controller
 			$flashBagManager->addMessages($messages);
 		}
 
-		return $this->redirectToRoute('setting_edit', ['id' => $id]);
+        return $this->forward(SettingController::class.'::edit', ['id' => $id, 'closeWindow' => $closeWindow]);
 	}
 
 	/**

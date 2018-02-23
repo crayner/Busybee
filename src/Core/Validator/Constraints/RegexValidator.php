@@ -16,7 +16,8 @@ class RegexValidator extends ConstraintValidator
 
 		try
 		{
-			$test = preg_match($value, 'qwlrfhfriwegtiwebnf934htr 5965tb');
+			$test = preg_match($value, null);
+			return ;
 		}
 		catch (\Exception $e)
 		{
@@ -27,6 +28,7 @@ class RegexValidator extends ConstraintValidator
 		{
 			$this->context->buildViolation($constraint->message)
 				->setParameter('%systemMessage%', $message)
+                ->setTranslationDomain($constraint->transDomain)
 				->addViolation();
 		}
 	}

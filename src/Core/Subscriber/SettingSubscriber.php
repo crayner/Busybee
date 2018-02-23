@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Subscriber;
 
+use App\Core\Exception\Exception;
 use App\Core\Manager\SettingManager;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
@@ -65,12 +66,14 @@ class SettingSubscriber implements EventSubscriberInterface
 
 		if ($data instanceof Setting)
 		{
-
-
-			$options = [
-				'label' => 'system.setting.value.label',
-			];
-			$attr    = ['class' => 'changeSetting'];
+            $options = [
+                'label' => 'system.setting.value.label',
+            ];
+            $defaultOptions = [
+                'label' => 'system.setting.default_value.label',
+                'required' => false,
+            ];
+            $attr    = ['class' => 'changeSetting'];
 
 			$constraints = [];
 			if (! empty($data->getValidator()) && class_exists($data->getValidator())){
@@ -84,26 +87,44 @@ class SettingSubscriber implements EventSubscriberInterface
 			switch ($data->getType())
 			{
 				case 'boolean':
-					$form->add('value', ToggleType::class, array_merge($options, [
-								'data'       => $this->settingManager->get($data->getName()),
-								'help'       => 'system.setting.boolean.help',
-							]
-						)
-					);
+                    $form->add('value', ToggleType::class, array_merge($options, [
+                                'data'       => $this->settingManager->get($data->getName()),
+                                'help'       => 'system.setting.boolean.help',
+                            ]
+                        )
+                    )
+                        ->add('defaultValue', ToggleType::class, array_merge($defaultOptions, [
+                                'data'       => $this->settingManager->get($data->getName()),
+                                'help'       => 'system.setting.boolean.help',
+                            ]
+                        )
+                    );
 					break;
 				case 'integer':
-					$form->add('value', NumberType::class, array_merge($options, array(
-								'data'        => $this->settingManager->get($data->getName()),
-								'help'        => 'system.setting.integer.help',
-								'constraints' => array_merge(
-									$constraints,
-									array(
-										new Integer(),
-									)
-								),
-							)
-						)
-					);
+                    $form->add('value', NumberType::class, array_merge($options, array(
+                                'data'        => $this->settingManager->get($data->getName()),
+                                'help'        => 'system.setting.integer.help',
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Integer(),
+                                    )
+                                ),
+                            )
+                        )
+                    )
+                        ->add('defaultValue', NumberType::class, array_merge($defaultOptions, array(
+                                'data'        => $this->settingManager->get($data->getName()),
+                                'help'        => 'system.setting.integer.help',
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Integer(),
+                                    )
+                                ),
+                            )
+                        )
+                    );
 					break;
 				case 'image':
 					$form->add('value', ImageType::class, array_merge($options, array(
@@ -132,114 +153,207 @@ class SettingSubscriber implements EventSubscriberInterface
 					);
 					break;
 				case 'array':
-					$form->add('value', TextareaType::class, array_merge($options, [
-								'attr'        => array_merge($attr,
-									array(
-										'rows' => 8,
-									)
-								),
-								'help'        => 'system.setting.array.help',
-								'constraints' => array_merge(
-									$constraints,
-									array(
-										new Yaml(['transDomain' => 'Setting']),
-									)
-								),
-								'data'        => \Symfony\Component\Yaml\Yaml::dump($this->settingManager->get($data->getName())),
-							]
-						)
-					);
+				    $value = \Symfony\Component\Yaml\Yaml::dump($this->settingManager->get($data->getName()));
+				    $setting = $this->settingManager->getSetting();
+				    $defaultValue = $setting->getDefaultValue();
+				    if (empty($defaultValue))
+				        $defaultValue = null;
+				    if (is_array($defaultValue))
+				        $defaultValue = \Symfony\Component\Yaml\Yaml::dump($defaultValue);
+
+                    $form->add('value', TextareaType::class, array_merge($options, [
+                                'attr'        => array_merge($attr,
+                                    [
+                                        'rows' => 8,
+                                    ]
+                                ),
+                                'help'        => 'system.setting.array.help',
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    [
+                                        new Yaml(['transDomain' => 'Setting']),
+                                    ]
+                                ),
+                                'data' => $value,
+                            ]
+                        )
+                    )
+                        ->add('defaultValue', TextareaType::class, array_merge($defaultOptions, [
+                                'attr'        => array_merge($attr,
+                                    array(
+                                        'rows' => 8,
+                                    )
+                                ),
+                                'help'        => 'system.setting.array.help',
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Yaml(['transDomain' => 'Setting']),
+                                    )
+                                ),
+                                'data' => $defaultValue,
+                            ]
+                        )
+                    );
 					break;
 				case 'twig':
-					$form->add('value', TextareaType::class, array_merge($options, array(
-								'attr'        => array_merge($attr,
-									[
-										'rows' => 5,
-									]
-								),
-								'help'        => 'system.setting.twig.help',
-								'constraints' => array_merge(
-									$constraints,
-									array(
-										new Twig(),
-									)
-								),
-							)
-						)
-					);
+                    $form->add('value', TextareaType::class, array_merge($options, array(
+                                'attr'        => array_merge($attr,
+                                    [
+                                        'rows' => 5,
+                                    ]
+                                ),
+                                'help'        => 'system.setting.twig.help',
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Twig(),
+                                    )
+                                ),
+                            )
+                        )
+                    )
+                        ->add('defaultValue', TextareaType::class, array_merge($defaultOptions, array(
+                                'attr'        => array_merge($attr,
+                                    [
+                                        'rows' => 5,
+                                    ]
+                                ),
+                                'help'        => 'system.setting.twig.help',
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Twig(),
+                                    )
+                                ),
+                            )
+                        )
+                    );
 					break;
 				case 'system':
-					$form->add('value', TextType::class, array_merge($options, array(
-								'attr'        => array_merge($attr,
-									[
-										'maxLength' => 25,
-										'readonly'  => 'readonly',
-									]
-								),
-								'constraints' => $constraints,
-							)
-						)
-					);
+                    $form->add('value', TextType::class, array_merge($options, array(
+                                'attr'        => array_merge($attr,
+                                    [
+                                        'maxLength' => 25,
+                                        'readonly'  => 'readonly',
+                                    ]
+                                ),
+                                'constraints' => $constraints,
+                            )
+                        )
+                    )
+                        ->add('defaultValue', TextType::class, array_merge($defaultOptions, array(
+                                'attr'        => array_merge($attr,
+                                    [
+                                        'maxLength' => 25,
+                                        'readonly'  => 'readonly',
+                                    ]
+                                ),
+                                'constraints' => $constraints,
+                            )
+                        )
+                    );
 					break;
-				case 'string':
-					$form->add('value', TextType::class, array_merge($options, array(
-								'attr'        => array_merge($attr,
-									array(
-										'maxLength' => 25,
-									)
-								),
-								'constraints' => $constraints,
-							)
-						)
-					);
+                case 'string':
+                    $form->add('value', TextType::class, array_merge($options, array(
+                                'attr'        => array_merge($attr,
+                                    array(
+                                        'maxLength' => 25,
+                                    )
+                                ),
+                                'constraints' => $constraints,
+                            )
+                        )
+                    );
+                case 'string':
+                    $form->add('value', TextType::class, array_merge($options, array(
+                                'attr'        => array_merge($attr,
+                                    array(
+                                        'maxLength' => 25,
+                                    )
+                                ),
+                                'constraints' => $constraints,
+                            )
+                        )
+                    )
+                        ->add('defaultValue', TextType::class, array_merge($defaultOptions, array(
+                                'attr'        => array_merge($attr,
+                                    array(
+                                        'maxLength' => 25,
+                                    )
+                                ),
+                                'constraints' => $constraints,
+                            )
+                        )
+                    );
 					break;
-				case 'enum':
-					$choice = $this->settingManager->getSettingEntity($data->getChoice());
-					$form->add('value', SettingChoiceType::class, array_merge($options, [
-								'setting_name'         => $choice->getName(),
-								'setting_display_name' => $choice->getDisplayName(),
-								'constraints'          => $constraints,
-								'attr'                 => $attr,
-							]
-						)
-					);
+                case 'enum':
+                    $choice = $this->settingManager->getSettingEntity($data->getChoice());
+                    $form->add('value', SettingChoiceType::class, array_merge($options, [
+                                'setting_name'         => $choice->getName(),
+                                'setting_display_name' => $choice->getDisplayName(),
+                                'constraints'          => $constraints,
+                                'attr'                 => $attr,
+                            ]
+                        )
+                    )
+                        ->add('defaultValue', SettingChoiceType::class, array_merge($defaultOptions, [
+                                'setting_name'         => $choice->getName(),
+                                'setting_display_name' => $choice->getDisplayName(),
+                                'constraints'          => $constraints,
+                                'attr'                 => $attr,
+                            ]
+                        )
+                    );
 					break;
 				case 'regex':
-					$form->add('value', TextareaType::class, array_merge($options, array(
-								'attr'        => array_merge($attr,
-									array(
-										'rows' => 5,
-									)
-								),
-								'constraints' => array_merge(
-									$constraints,
-									array(
-										new Regex(),
-									)
-								),
-							)
-						)
-					);
+                    $form->add('value', TextareaType::class, array_merge($options, array(
+                                'attr'        => array_merge($attr,
+                                    array(
+                                        'rows' => 5,
+                                    )
+                                ),
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Regex(['transDomain' => 'Setting', 'message' => 'setting.validator.regex.error']),
+                                    )
+                                ),
+                            )
+                        )
+                    );
 					break;
 				case 'text':
-					$form->add('value', TextType::class, array_merge($options, array(
-								'constraints' => $constraints,
-								'attr'        => $attr,
-							)
-						)
-					);
+                    $form->add('value', TextType::class, array_merge($options, array(
+                                'constraints' => $constraints,
+                                'attr'        => $attr,
+                            )
+                        )
+                    )
+                        ->add('defaultValue', TextType::class, array_merge($defaultOptions, array(
+                                'constraints' => $constraints,
+                                'attr'        => $attr,
+                            )
+                        )
+                    );
 					break;
 				case 'time':
-					$form->add('value', TimeType::class, array_merge($options, array(
-								'data'        => $this->settingManager->get($data->getName()),
-								'constraints' => $constraints,
-								'attr'        => $attr,
-							)
-						)
-					);
+                    $form
+                        ->add('value', TimeType::class, array_merge($options, array(
+                                    'data'        => $this->settingManager->get($data->getName()),
+                                    'constraints' => $constraints,
+                                    'attr'        => $attr,
+                                )
+                            )
+                        )
+                        ->add('defaultValue', TextType::class, array_merge($defaultOptions, array(
+                                'attr'        => $attr,
+                            )
+                        )
+                    );
 					break;
 				default:
-					throw new \Exception('Setting Type not defined. ' . $data->getType());
+					throw new Exception('Setting Type not defined. ' . $data->getType());
 			}
 		}
 	}

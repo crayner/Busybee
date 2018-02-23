@@ -84,9 +84,9 @@ class Setting implements UserTrackInterface
 	 *
 	 * @return string
 	 */
-	public function getType()
+	public function getType(): ?string
 	{
-		return $this->type;
+		return strtolower($this->type);
 	}
 
 	/**
@@ -96,9 +96,9 @@ class Setting implements UserTrackInterface
 	 *
 	 * @return Setting
 	 */
-	public function setType($type)
+	public function setType($type): Setting
 	{
-		$this->type = $type;
+		$this->type = strtolower($type);
 
 		return $this;
 	}

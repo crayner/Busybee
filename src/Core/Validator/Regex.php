@@ -9,6 +9,8 @@ class Regex extends Constraint
 {
 	public $message = 'regex.error';
 
+	public $transDomain = 'validator';
+
 	/**
 	 * @return string
 	 */
@@ -16,5 +18,4 @@ class Regex extends Constraint
 	{
 		return RegexValidator::class;
 	}
-
 }

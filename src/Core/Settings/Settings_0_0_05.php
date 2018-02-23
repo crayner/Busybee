@@ -23,7 +23,7 @@ activity.provider.type:
     value:
         school: school
         external: external
-    choice: school
+    defaultValue: school
 activity.type.type:
     type: array
     displayName: Activity Type List
@@ -38,7 +38,7 @@ activity.payment.type:
     displayName: Activity Payment Type List
     description: Activity Payment Type List - The name will be translated.
     role: 'ROLE_REGISTRAR'
-    choice: program
+    defaultValue: program
     value:
         program: program
         session: session
@@ -49,7 +49,7 @@ activity.payment.firmness:
     displayName: Activity Payment Firmness List
     description: Activity Payment Firmness List - The name will be translated.
     role: 'ROLE_REGISTRAR'
-    choice: finalised
+    defaultValue: finalised
     value:
         finalised: finalised
         estimated: estimated

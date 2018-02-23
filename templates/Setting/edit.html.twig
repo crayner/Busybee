@@ -31,10 +31,25 @@
         </div>
         <div class="row">
             <div class="col-6 card">
-                {{ form_row(form.description) }}
+                {% if form.defaultValue is defined %}
+                    {{ form_row(form.defaultValue) }}
+                {% endif %}
             </div>
             <div class="col-6 card">
-                {{ form_row(form.value) }}
+                {{ form_row(form.value, {required: false}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.choice) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.validator) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 card">
+                {{ form_row(form.description) }}
             </div>
         </div>
     </div>

@@ -1,12 +1,14 @@
 <?php
 namespace App\Core\Form;
 
+use App\Core\Form\Transform\SettingToStringTransformer;
 use App\Core\Subscriber\SettingSubscriber;
+use Doctrine\ORM\EntityRepository;
+use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -53,51 +55,78 @@ class SettingType extends AbstractType
 					]
 				]
 			)
-			->add('nameSelect', ChoiceType::class,
+			->add('nameSelect', EntityType::class,
 				array(
 					'label' => '',
 					'placeholder' => 'system.setting.name.placeholder',
-					'choices' => $this->getSettingNameChoices(),
 					'attr' => array(
 						'class' => 'changeRecord form-control-sm',
 					),
 					'mapped' => false,
-					'data' => $options['data']->getNameSelect(),
+                    'choice_label' => 'displayName',
+                    'class' => Setting::class,
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->where('s.type != :system')
+                            ->setParameter('system', 'system')
+                            ->orderBy('s.displayName', 'ASC');
+                    },
+                    'required' => false,
 				)
 			)
-			->add('displayName', null,
-				array(
-					'label' => 'system.setting.displayName.label',
-					'attr'  => array(
-						'help'  => 'system.setting.displayName.help',
-						'class' => 'changeSetting',
-					)
-				)
-			)
-			->add('description', TextareaType::class,
-				array(
-					'label' => 'system.setting.description.label',
-					'attr'  => array(
-						'help'  => 'system.setting.description.help',
-						'rows'  => '5',
-						'class' => 'changeSetting',
-					)
-				)
-			);
+            ->add('displayName', null,
+                array(
+                    'label' => 'system.setting.displayName.label',
+                    'help'  => 'system.setting.displayName.help',
+                    'attr'  => array(
+                        'class' => 'changeSetting',
+                    )
+                )
+            )
+            ->add('description', TextareaType::class,
+                array(
+                    'label' => 'system.setting.description.label',
+                    'help'  => 'system.setting.description.help',
+                    'attr'  => array(
+                        'rows'  => '5',
+                        'class' => 'changeSetting',
+                    )
+                )
+            )
+            ->add('choice', EntityType::class,
+                array(
+                    'label' => 'system.setting.choice.label',
+                    'help'  => 'system.setting.choice.help',
+                    'class' => Setting::class,
+                    'choice_label' => 'displayName',
+                    'choice_value' => 'name',
+                    'placeholder' => 'system.setting.choice.placeholder',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->where('s.type = :arrayOnly')
+                            ->setParameter('arrayOnly', 'array')
+                            ->orderBy('s.displayName', 'ASC')
+                        ;
+                    },
+                    'attr'  => [
+                        'class' => 'changeSetting',
+                    ],
+                    'required' => false,
+                )
+            )
+            ->add('validator', TextType::class,
+                array(
+                    'label' => 'system.setting.validator.label',
+                    'help'  => 'system.setting.validator.help',
+                    'attr'  => [
+                        'class' => 'changeSetting',
+                    ],
+                    'required' => false,
+                )
+            )
+        ;
 		$builder->addEventSubscriber($this->settingSubscriber);
-	}
-
-	/**
-	 * @return array
-	 */
-	private function getSettingNameChoices()
-	{
-		$names    = [];
-		$settings = $this->repo->findBy([], ['name' => 'ASC']);
-		foreach ($settings as $setting)
-			$names[$setting->getDisplayName()] = $setting->getId();
-
-		return $names;
+		$builder->get('choice')->addModelTransformer(new SettingToStringTransformer());
 	}
 
 	/**

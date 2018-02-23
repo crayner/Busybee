@@ -48,4 +48,12 @@ system:
         image.help: 'Upload an image.'
         file.help: File are usually set by the system.  As such, file management should only be attempted with extreme care.
         integer.help: Enter a vaild integer value.
+        default_value.label: Default Value
+        choice:
+            label: Choice
+            help: The value is choosen from this choice list.
+            placeholder: Limit the value to this choice.
+        validator:
+            label: Validator
+            help: This validator will be applied to the value when it is changed.
 photo.delete: Delete Photo

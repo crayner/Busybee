@@ -4,3 +4,12 @@ App\Entity\Setting:
             fields: [name]
             errorPath: name
             message: 'unique.setting.name'
+    properties:
+        validator:
+            - App\Core\Validator\FileExists:
+                transDomain: 'Setting'
+                message: setting.validator.class.error
+        name:
+            - NotBlank: ~
+        displayName:
+            - NotBlank: ~
