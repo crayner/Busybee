@@ -56,6 +56,10 @@ App\Entity\ExternalActivity:
             column: payment_firmness
             options:
                 default: finalised
+        type:
+            type: string
+            length: 25
+            nullable: true
     manyToMany:
         terms:
             targetEntity: App\Entity\Term

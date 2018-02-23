@@ -87,5 +87,6 @@ activity.payment.firmness:
     finalised: Finalised
     estimated: Estimated
 setting.validator:
-    class.error: The validator was not found.
-    regex.error: 'The regex is not valid. %systemMessage%'
+    class.error: The validator was not found!
+    regex.error: 'The regex is not valid!  %systemMessage%'
+    choice.invalid: The choice is not valid!

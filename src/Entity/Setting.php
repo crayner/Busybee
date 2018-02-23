@@ -285,6 +285,16 @@ class Setting implements UserTrackInterface
 		return $this;
 	}
 
+    /**
+     * @return bool
+     */
+    public function hasChoice(): bool
+    {
+        if (empty($this->choice))
+            return false;
+        return true;
+    }
+
 	/**
 	 * Get validator
 	 *

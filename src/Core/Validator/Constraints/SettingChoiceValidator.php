@@ -11,16 +11,16 @@ class SettingChoiceValidator extends ConstraintValidator
 	/**
 	 * @var SettingManager
 	 */
-	private $sm;
+	private $settingManager;
 
 	/**
 	 * SettingValidator constructor.
 	 *
-	 * @param SettingManager $sm
+	 * @param SettingManager $settingManager
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $settingManager)
 	{
-		$this->sm = $sm;
+		$this->settingManager = $settingManager;
 	}
 
 	/**
@@ -34,7 +34,7 @@ class SettingChoiceValidator extends ConstraintValidator
 
 		$s = [];
 
-		$list = $this->sm->get($constraint->name);
+		$list = $this->settingManager->get($constraint->name);
 
 		foreach ($list as $q => $w)
 		{
@@ -52,7 +52,7 @@ class SettingChoiceValidator extends ConstraintValidator
 
 		$this->context->buildViolation($constraint->message)
 			->setParameter('%string%', $value)
-			->setTranslationDomain('Setting')
+			->setTranslationDomain($constraint->transDomain)
 			->addViolation();
 	}
 }

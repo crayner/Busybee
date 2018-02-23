@@ -355,4 +355,28 @@ class ExternalActivity extends Activity
 
         return $this;
     }
+
+    /**
+     * @var null|string
+     */
+    private $type;
+
+    /**
+     * @return null|string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param null|string $type
+     * @return ExternalActivity
+     */
+    public function setType(?string $type): ExternalActivity
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 }

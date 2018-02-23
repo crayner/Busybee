@@ -59,11 +59,10 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$options = $form->getConfig()->getOptions();
 		$name    = $form->getName();
 
-		$setting = $this->settingManager->getSettingEntity($options['setting_name']);
+        $choices = $this->settingManager->get($options['setting_name']);
+		$setting = $this->settingManager->getSetting();
 		if (is_null($setting))
 			throw new Exception('The setting '.$options['setting_name'].' was not found.');
-
-		$choices = $this->settingManager->get($options['setting_name']);
 
 		$newChoices = [];
 		if (!is_null($options['setting_data_value']))
@@ -101,7 +100,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 			$choices = $x;
 		}
 
-		$newOptions                              = array();
+		$newOptions                              = [];
+        $newOptions['constraints']               = [];
 		$newOptions['choices']                   = $choices;
 		$newOptions['label']                     = isset($options['label']) ? $options['label'] : null;
         $newOptions['attr']                      = isset($options['attr']) ? $options['attr'] : [];
@@ -113,12 +113,14 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['expanded']                  = isset($options['expanded']) ? $options['expanded'] : false;
 		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
 		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'Setting';
+        if ($setting->hasChoice())
+            $newOptions['constraints'][] = new SettingChoice(['name' => $setting->getChoice()]);
 
-		$newOptions['data'] = $event->getData() ?: '0';
+        $newOptions['data'] = $event->getData() ?: '0';
  		$newOptions['setting_name'] = $options['setting_name'];
 		$newOptions['setting_display_name'] = $options['setting_display_name'] ? $options['setting_display_name'] : $setting->getDisplayName();
 
-		$newOptions['constraints'] = empty($newOptions['constraints']) ? [] : $newOptions['constraints'];
+		$newOptions['constraints'] = array_merge(is_array($options['constraints']) ? $options['constraints'] : [], $newOptions['constraints']);
 
 		//  Now replace the existing setting form element with a straight Choice
 		$form->getParent()->add($name, ChoiceSettingType::class, $newOptions);

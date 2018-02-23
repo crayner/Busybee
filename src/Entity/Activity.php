@@ -59,17 +59,17 @@ class Activity extends ActivityExtension
     /**
      * @var integer
      */
-    private $teachingLoad;
+    private $teachingLoad = 0;
 
     /**
      * @var boolean
      */
-    private $reportable;
+    private $reportable = 0;
 
     /**
      * @var boolean
      */
-    private $attendance;
+    private $attendance = 1;
 
     /**
      * @var null|string

@@ -20,17 +20,24 @@ App\Entity\Activity:
     fields:
         name:
             type: string
-            length: '100'
+            length: 100
         nameShort:
             type: string
-            length: '8'
+            length: 8
             column: name_short
         teachingLoad:
-            type: smallint
+            type: integer
+            length: 2
+            options:
+                default: 0
         reportable:
             type: boolean
+            options:
+                default: 0
         attendance:
             type: boolean
+            options:
+                default: 1
         website:
             length: 200
             nullable: true
