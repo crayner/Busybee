@@ -1,8 +1,8 @@
 <?php
 namespace App\School\Form;
 
-use App\Core\Type\SettingChoiceType;
-use App\Entity\Calendar;
+use App\Calendar\Util\CalendarManager;
+use App\Entity\CalendarGrade;
 use App\Entity\Course;
 use App\Entity\Department;
 use Doctrine\ORM\EntityRepository;
@@ -10,18 +10,31 @@ use Hillrange\CKEditor\Form\CKEditorType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
 use Hillrange\Form\Type\ToggleType;
-use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CourseType extends AbstractType
 {
+    /**
+     * @var \App\Entity\Calendar
+     */
+    private $currentCalendar;
+
+    /**
+     * CourseType constructor.
+     * @param CalendarManager $calendarManager
+     */
+    public function __construct(CalendarManager $calendarManager)
+    {
+        $this->currentCalendar = $calendarManager->getCurrentCalendar();
+    }
 	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+	    $cal = $this->currentCalendar;
 		$builder
 			->add('name', TextType::class,
 				array(
@@ -40,16 +53,6 @@ class CourseType extends AbstractType
                     'help'  => 'course.code.help',
 				)
 			)
-            ->add('version', TextType::class,
-                array(
-                    'label' => 'course.version.label',
-                    'attr'  => array(
-                        'class' => 'monitorChange',
-                    ),
-                    'required' => false,
-                    'help' => 'course.version.help',
-                )
-            )
             ->add('description', CKEditorType::class,
                 array(
                     'label' => 'course.description.label',
@@ -74,42 +77,30 @@ class CourseType extends AbstractType
                     'placeholder' => 'course.department.placeholder',
                 ]
             )
-			->add('targetYears', SettingChoiceType::class,
+			->add('calendarGrades', EntityType::class,
 				[
-					'label'                     => 'course.targetYears.label',
-                    'help'                      => 'course.targetYears.help',
+				    'class'                     => CalendarGrade::class,
+					'label'                     => 'course.calendar_grades.label',
+                    'help'                      => 'course.calendar_grades.help',
+                    'placeholder'                      => 'course.calendar_grades.placeholder',
 					'attr'                      => [
 						'class' => 'monitorChange small',
 					],
 					'multiple'                  => true,
 					'expanded'                  => true,
-					'setting_name'              => 'student.groups',
-					'choice_translation_domain' => 'School',
-                    'translation_prefix'        => false,
+                    'choice_label'              => 'fullName',
+                    'query_builder'             => function (EntityRepository $er) use ($cal)
+                    {
+                        return $er->createQueryBuilder('g')
+                            ->leftJoin('g.calendar', 'c')
+                            ->where('c.id = :cal_id')
+                            ->setParameter('cal_id', $cal->getId())
+                            ->orderBy('g.sequence', 'ASC')
+                        ;
+                    },
 				]
 			)
-            ->add('calendars', EntityType::class,
-                [
-                    'class' => Calendar::class,
-                    'multiple' => true,
-                    'attr' => [
-                        'class' => 'monitorChange small',
-                    ],
-                    'label' => 'course.calendars.label',
-                    'help' => 'course.calendars.help',
-                    'expanded' => true,
-                    'choice_label' => 'name',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('c')
-                            ->where('c.firstDay >= :dateList')
-                            ->setParameter('dateList', date('Y-m-d', strtotime('-5 Years')))
-                            ->orderBy('c.firstDay', 'ASC');
-                    },
-                ]
-            )
         ;
-
-		$builder->get('targetYears')->addModelTransformer(new CollectionToArrayTransformer());
 	}
 
 	/**

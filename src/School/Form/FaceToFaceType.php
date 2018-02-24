@@ -6,16 +6,17 @@ use App\Entity\Space;
 use App\Entity\Staff;
 use App\Entity\Student;
 use App\School\Form\Subscriber\ActivitySubscriber;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
+use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActivityType extends AbstractType
+class FaceToFaceType extends AbstractType
 {
     /**
      * @var ActivitySubscriber
@@ -36,6 +37,10 @@ class ActivityType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+	    $course = $options['data']->getCourse();
+	    $grades = $course->getCalendarGrades()->toArray();
+	    foreach($grades as $q=>$w)
+	        $grades[$q] = $w->getId();
 		$builder
             ->add('name', TextType::class,
                 [
@@ -70,20 +75,36 @@ class ActivityType extends AbstractType
                     'expanded' => true,
                     'class' => Student::class,
                     'choice_label' => 'fullName',
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function(EntityRepository $er) use ($grades) {
                         return $er->createQueryBuilder('s')
+                            ->leftJoin('s.calendarGrades', 'cg')
+                            ->where('cg.id in (:grades)')
+                            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+                            ->leftJoin('s.courses', 'c')
+
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
                         ;
                     },
+                    'help' =>  'activity.students.help',
                 ]
             )
             ->add('tutors', EntityType::class,
                 [
                     'label' => 'activity.tutors.label',
-                        'class' => Staff::class,
-                        'choice_label' => 'fullName',
-                        'multiple' => true,
+                    'class' => Staff::class,
+                    'choice_label' => 'fullName',
+                    'multiple' => true,
+                ]
+            )
+            ->add('reportable', ToggleType::class,
+                [
+                    'label' => 'activity.reportable.label',
+                ]
+            )
+            ->add('attendance', ToggleType::class,
+                [
+                    'label' => 'activity.attendance.label',
                 ]
             )
         ;

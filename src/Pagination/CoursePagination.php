@@ -55,7 +55,6 @@ class CoursePagination extends PaginationManager
 		'c.code',
 		'd.name as departmentName',
 		'c.id',
-        'c.targetYears',
 	];
 
     /**

@@ -5,13 +5,16 @@ use App\Calendar\Util\CalendarManager;
 use App\Entity\Activity;
 use App\Entity\CalendarGrade;
 use App\Entity\Course;
+use App\Entity\FaceToFace;
 use App\Entity\Roll;
+use App\Pagination\ClassPagination;
 use App\Pagination\CoursePagination;
 use App\Pagination\RollPagination;
 use App\School\Form\ActivityType;
 use App\School\Form\CalendarGradeType;
 use App\School\Form\CourseType;
 use App\School\Form\DaysTimesType;
+use App\School\Form\FaceToFaceType;
 use App\School\Util\CourseManager;
 use App\School\Util\DaysTimesManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,7 +74,7 @@ class SchoolController extends Controller
      * @Route("/school/course/{id}/edit/", name="course_edit")
      * @IsGranted("ROLE_REGISTRAR")
      */
-    public function courseEdit($id, Request $request)
+    public function courseEdit($id, Request $request, ClassPagination $classPagination)
     {
         $course = $this->getDoctrine()->getRepository(Course::class)->find($id) ?: new Course();
 
@@ -89,10 +92,18 @@ class SchoolController extends Controller
                 return $this->redirectToRoute('course_edit', ['id' => $course->getId()]);
         }
 
+        $classPagination->setCourse($course);
+
+        $classPagination->injectRequest($request);
+
+        $classPagination->getDataSet();
+
+
         return $this->render('School/course_edit.html.twig',
             [
                 'form' => $form->createView(),
                 'fullForm' => $form,
+                'pagination' => $classPagination,
             ]
         );
     }
@@ -175,6 +186,37 @@ class SchoolController extends Controller
             [
                 'form' => $form->createView(),
                 'fullForm' => $form,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param Request $request
+     * @param int|string $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id, EntityManagerInterface $entityManager)
+    {
+        $face = $entityManager->getRepository(FaceToFace::class)->find($id) ?: new FaceToFace();
+        $form = $this->createForm(FaceToFaceType::class, $face);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($face);
+            $entityManager->flush();
+
+            if ($id === 'Add')
+                return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'course_id' => $course_id]);
+        }
+
+        return $this->render('School/class_edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'course_id' => $course_id,
             ]
         );
     }

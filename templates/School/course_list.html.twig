@@ -33,8 +33,8 @@
                     {{ course.name }}<br /><small>{{ course.code }}</small>
                 </div>
                 <div class="col-3 form-inline small">
-                    {% for year in course.targetYears.toArray() %}
-                        {{ year }}&nbsp;
+                    {% for year in course.0.calendarGrades.toArray() %}
+                        {{ year.fullName }}&nbsp;
                     {% endfor %}
                 </div>
                 <div class="col-3 form-inline">

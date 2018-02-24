@@ -42,7 +42,8 @@ class SettingExtension extends AbstractExtension
 			new \Twig_SimpleFunction('test_menuItem', array($this, 'testMenuItem')),
 			new \Twig_SimpleFunction('menu_required', array($this, 'menuRequired')),
 			new \Twig_SimpleFunction('array_flip', array($this, 'arrayFlip')),
-			new \Twig_SimpleFunction('get_section', array($this->menuManager, 'getSection')),
+            new \Twig_SimpleFunction('get_section', array($this->menuManager, 'getSection')),
+            new \Twig_SimpleFunction('displayBoolean', array($this, 'displayBoolean')),
 		);
 	}
 
@@ -92,8 +93,23 @@ class SettingExtension extends AbstractExtension
 		return 'system_twig_extension';
 	}
 
-	public function arrayFlip($data)
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function arrayFlip(array $data): array
 	{
 		return array_flip($data);
 	}
+
+    /**
+     * @param bool $value
+     * @param string $true
+     * @param string $false
+     * @return string
+     */
+    public function displayBoolean(bool $value, string $true = 'Yes', string $false = 'No'): string
+    {
+        return $value ? $true : $false ;
+    }
 }

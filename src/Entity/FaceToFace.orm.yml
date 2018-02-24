@@ -1,0 +1,25 @@
+App\Entity\FaceToFace:
+    type: entity
+    repositoryClass: App\Repository\FaceToFaceRepository
+    uniqueConstraints:
+        name_course:
+            columns:
+                - name
+                - course_id
+        name_short_course:
+            columns:
+                - name_short
+                - course_id
+    manyToOne:
+        course:
+            targetEntity: App\Entity\Course
+            nullable: true
+            joinColumns:
+                course_id:
+                    referencedColumnName: id
+        scale:
+            targetEntity: App\Entity\Scale
+            nullable: true
+            joinColumns:
+                scale_id:
+                    referencedColumnName: id

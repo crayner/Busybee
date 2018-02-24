@@ -23,6 +23,6 @@ class CourseExtension implements UserTrackInterface
      */
     public function getFullName()
     {
-        return $this->getName() . ' (' . $this->getCode() . ') ' . $this->getVersion();
+        return $this->getName() . ' (' . $this->getCode() . ')';
     }
 }

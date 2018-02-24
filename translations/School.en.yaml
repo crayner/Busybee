@@ -66,6 +66,11 @@ school:
         edit:
             title: Manage Course
             description: Create, edit and remove course details.
+    face_to_face:
+        edit:
+            title: Edit Class
+            description: Face to Face Class Management
+        manage.title: 'Manage %name%'
     activity:
         edit:
             title: Activity Management
@@ -175,9 +180,10 @@ course:
     version:
         label: Version
         help: 'Use a standardised version system to generate versions. An example is the Semantic Versioning System. See https://semver.org/'
-    targetYears:
-        label: Year Group
-        help: 'A course can be over one or more year groups.'
+    calendar_grades:
+        label: Grade Group
+        help: 'A course can be over one or more grade groups.'
+        placeholder: Select Grade Group
     description.label: Description
     map.label: Include in Curriculum Map
     list.menu.label: Course Management
@@ -198,3 +204,8 @@ activity:
     next_roll.label: Roll next Calendar
     students:
         label: Possible Students
+        help: 'The system found %{count} students available for this class.'
+    participants.label: Participants
+    reportable.label: Reportable
+    attendance.label: Record Attendance
+    tutors.label: Tutors

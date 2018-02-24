@@ -9,6 +9,7 @@ App\Entity\Activity:
         activity: Activity
         roll: Roll
         external: ExternalActivity
+        class: FaceToFace
     table: activity
     repositoryClass: App\Repository\ActivityRepository
     id:

@@ -2,11 +2,6 @@ App\Entity\Course:
     type: entity
     table: course
     repositoryClass: App\Repository\CourseRepository
-    uniqueConstraints:
-        name_version:
-            columns: [ name, version ]
-        code_version:
-            columns: [ code, version ]
     id:
         id:
             type: integer
@@ -16,30 +11,32 @@ App\Entity\Course:
         name:
             type: string
             length: 100
+            unique: true
         code:
             type: string
-            length: 3
-        version:
-            type: string
-            length: 10
-            nullable: true
-        targetYears:
-            type: object
+            length: 8
+            unique: true
         map:
             type: boolean
         description:
             type: text
             nullable: true
+        sortBy:
+            type: integer
+            length: 3
+            column: sort_by
+            options:
+                default: 0
     manyToMany:
-        calendars:
-            targetEntity: App\Entity\Calendar
+        calendarGrades:
+            targetEntity: CalendarGrade
             joinTable:
-                name: course_calendar
+                name: course_calendar_grade
                 joinColumns:
                     course_id:
                         referencedColumnName: id
                 inverseJoinColumns:
-                    calendar_id:
+                    calendar_grade_id:
                         referencedColumnName: id
     manyToOne:
         department:

@@ -1,5 +1,4 @@
 App\Entity\CalendarGrade:
     properties:
-        nameShort:
-            - length:
-                max: 8
+        grade:
+            - NotBlank: ~
