@@ -41,6 +41,12 @@ class FaceToFaceType extends AbstractType
 	    $grades = $course->getCalendarGrades()->toArray();
 	    foreach($grades as $q=>$w)
 	        $grades[$q] = $w->getId();
+	    $activities = $course->getActivities()->toArray();
+        foreach($activities as $q=>$w)
+            $activities[$q] = $w->getId();
+        $key = array_search($options['data']->getId(), $activities);
+        unset($activities[$key]);
+
 		$builder
             ->add('name', TextType::class,
                 [
@@ -75,13 +81,17 @@ class FaceToFaceType extends AbstractType
                     'expanded' => true,
                     'class' => Student::class,
                     'choice_label' => 'fullName',
-                    'query_builder' => function(EntityRepository $er) use ($grades) {
+                    'query_builder' => function(EntityRepository $er) use ($grades, $course, $activities) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.calendarGrades', 'cg')
                             ->where('cg.id in (:grades)')
                             ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
-                            ->leftJoin('s.courses', 'c')
-
+                            ->leftJoin('s.activities', 'a')
+                            ->leftJoin('a.course', 'c')
+                            ->andWhere('c.id = :course_id')
+                            ->setParameter('course_id', $course->getId())
+                            ->andWhere('a.id IS NULL OR a.id NOT IN (:activities)')
+                            ->setParameter('activities', $activities, Connection::PARAM_STR_ARRAY)
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
                         ;

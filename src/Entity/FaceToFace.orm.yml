@@ -11,15 +11,9 @@ App\Entity\FaceToFace:
                 - name_short
                 - course_id
     manyToOne:
-        course:
-            targetEntity: App\Entity\Course
-            nullable: true
-            joinColumns:
-                course_id:
-                    referencedColumnName: id
         scale:
             targetEntity: App\Entity\Scale
-            nullable: true
             joinColumns:
                 scale_id:
                     referencedColumnName: id
+                    nullable: true

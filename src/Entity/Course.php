@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use App\School\Entity\CourseExtension;
+use App\School\Form\FaceToFaceType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
@@ -234,6 +235,71 @@ class Course extends CourseExtension
     public function setSortBy(int $sortBy): Course
     {
         $this->sortBy = $sortBy;
+
+        return $this;
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $activities;
+
+    /**
+     * @return Collection|null
+     */
+    public function getActivities(): ?Collection
+    {
+        if (empty($this->activities))
+            $this->activities = new ArrayCollection();
+
+        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
+            $this->activities->initialize();
+
+        return $this->activities;
+    }
+
+    /**
+     * @param Collection|null $activities
+     * @return Course
+     */
+    public function setActivities(?Collection $activities): Course
+    {
+        $this->activities = $activities;
+
+        return $this;
+    }
+
+    /**
+     * @param FaceToFace $activity
+     * @param bool $add
+     * @return Course
+     */
+    public function addActivity(FaceToFace $activity, $add = true): Course
+    {
+        if (empty($activity))
+            return $this;
+
+        if ($add)
+            $activity->setCourse($this, false);
+
+        if ($this-->$this->getActivities()->contains($activity))
+            return $this;
+
+        $this->activities->add($activity);
+
+        return $this;
+    }
+
+    /**
+     * @param FaceToFace $activity
+     * @return Course
+     */
+    public function removeActivity(FaceToFace $activity): Course
+    {
+        if (empty($activity))
+            return $this;
+
+        $this->activities->removeElement($activity);
 
         return $this;
     }
