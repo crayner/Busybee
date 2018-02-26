@@ -34,7 +34,7 @@ App\Entity\CalendarGrade:
     manyToOne:
         calendar:
             targetEntity: App\Entity\Calendar
-            inversedBy: calendar
+            inversedBy: calendarGrades
             joinColumns:
                 calendar_id:
                     referencedColumnName: id

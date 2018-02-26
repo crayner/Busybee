@@ -28,13 +28,13 @@ App\Entity\ActivityTutor:
     manyToOne:
         activity:
             targetEntity: App\Entity\FaceToFace
-            invertedBy: tutors
+            inversedBy: tutors
             joinColumn:
                 name: activity_id
                 referencedColumnName: id
         tutor:
             targetEntity: App\Entity\Person
-            invertedBy: commitments
+            inversedBy: commitments
             joinColumn:
                 name: tutor_id
                 referencedColumnName: id

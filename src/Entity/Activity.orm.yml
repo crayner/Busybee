@@ -47,6 +47,8 @@ App\Entity\Activity:
             targetEntity: App\Entity\ActivityTutor
             mappedBy: activity
             cascade: [ 'all' ]
+            orderBy:
+                sequence: 'ASC'
     manyToMany:
         students:
             targetEntity: App\Entity\Student
@@ -61,7 +63,6 @@ App\Entity\Activity:
                         referencedColumnName: id
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade
-            inversedBy: activities
             joinTable:
                 name: activity_calendar_grade
                 joinColumns:
