@@ -243,7 +243,8 @@ class SettingManager implements ContainerAwareInterface
     public function has($name): bool
     {
         $this->get($name);
-        return (bool)$this->settingExists[$name];
+        $this->settingExists[$name] = isset($this->settingExists[$name]) ?  $this->settingExists[$name] : false ;
+        return (bool) $this->settingExists[$name];
     }
 
     /**

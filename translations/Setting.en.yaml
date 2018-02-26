@@ -90,3 +90,8 @@ setting.validator:
     class.error: The validator was not found!
     regex.error: 'The regex is not valid!  %systemMessage%'
     choice.invalid: The choice is not valid!
+tutor.type.list:
+    teacher: Teacher
+    assistant: Assistant
+    technician: Technician
+    parent: Parent

@@ -1,0 +1,12 @@
+{% trans_default_domain "School" %}
+
+<script type="text/javascript" language="JavaScript">
+    $(".tutorCollection").collection({
+        name_prefix: '{{ form.tutors.vars.full_name }}',
+        allow_up: true,
+        allow_down: true,
+        add: '{{ addButton({transDomain: 'School', title: 'activity.activity_tutor.add.title'})|raw }}',
+        remove: '{{ deleteButton({transDomain: 'School', title: 'activity.activity_tutor.remove.title'})|raw }}',
+        add_at_the_end: true
+    });
+</script>

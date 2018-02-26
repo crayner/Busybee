@@ -1,0 +1,40 @@
+App\Entity\ActivityTutor:
+    type: entity
+    table: activity_tutor
+    repositoryClass: App\Repository\ActivityTutorRepository
+    uniqueConstraints:
+        activity_tutor:
+            columns:
+                - activity_id
+                - tutor_id
+        activity_sequence:
+            columns:
+                - activity_id
+                - sequence
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        role:
+            type: string
+            length: 32
+            nullable: true
+        sequence:
+            type: integer
+            length: 3
+    manyToOne:
+        activity:
+            targetEntity: App\Entity\FaceToFace
+            invertedBy: tutors
+            joinColumn:
+                name: activity_id
+                referencedColumnName: id
+        tutor:
+            targetEntity: App\Entity\Person
+            invertedBy: commitments
+            joinColumn:
+                name: tutor_id
+                referencedColumnName: id

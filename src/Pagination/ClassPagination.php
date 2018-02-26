@@ -25,6 +25,7 @@ class ClassPagination extends PaginationManager
 			'f.nameShort' => 'ASC',
 		],
 	];
+
 	/**
 	 * @var int
 	 */
@@ -128,7 +129,6 @@ class ClassPagination extends PaginationManager
      */
     public function getParticipants(FaceToFace $entity): int
     {
-        dump($entity);
         return $entity->getStudents()->count();
     }
 }

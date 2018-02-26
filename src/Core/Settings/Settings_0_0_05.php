@@ -53,6 +53,16 @@ activity.payment.firmness:
     value:
         finalised: finalised
         estimated: estimated
+tutor.type.list:
+    type: array
+    displayName: Tutor Type List
+    description: Tutor Type List - The name will be translated.
+    role: 'ROLE_REGISTRAR'
+    value:
+        teacher: teacher
+        assistant: assistant
+        technician: technician
+        parent: parent
 LLL;
 	}
 

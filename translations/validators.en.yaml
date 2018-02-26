@@ -1,1 +1,2 @@
 space.unique.name: '{{ value }} Must be Unique'
+tutor.activity.link.duplicate: That person is already linked to this activity.

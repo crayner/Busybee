@@ -42,6 +42,11 @@ App\Entity\Activity:
         website:
             length: 200
             nullable: true
+    oneToMany:
+        tutors:
+            targetEntity: App\Entity\ActivityTutor
+            mappedBy: activity
+            cascade: [ 'all' ]
     manyToMany:
         students:
             targetEntity: App\Entity\Student
@@ -53,16 +58,6 @@ App\Entity\Activity:
                         referencedColumnName: id
                 inverseJoinColumns:
                     student_id:
-                        referencedColumnName: id
-        tutors:
-            targetEntity: App\Entity\Staff
-            joinTable:
-                name: activity_tutor
-                joinColumns:
-                    activity_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    tutor_id:
                         referencedColumnName: id
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade

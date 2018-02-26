@@ -182,7 +182,7 @@ class SchoolController extends Controller
 
         $form = $this->createForm(CalendarGradeType::class, $cg, ['calendar_data' => $calendarManager->getCurrentCalendar()]);
 
-        return $this->render('School/calendar_grade_edit.html.twig',
+        return $this->render('activity_tutor_edit.html.twig',
             [
                 'form' => $form->createView(),
                 'fullForm' => $form,

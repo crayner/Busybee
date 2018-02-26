@@ -1,0 +1,16 @@
+App\Entity\ActivityTutor:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [tutor, activity]
+            errorPath: role
+            message: tutor.activity.link.duplicate
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [sequence, activity]
+            errorPath: role
+            message: tutor.activity.sequence.duplicate
+    properties:
+        role:
+            - App\Core\Validator\SettingChoice:
+                message: 'role.validator.type.unavailable'
+                transDomain: 'School'
+                name: 'tutor.type.list'

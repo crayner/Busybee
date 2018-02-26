@@ -209,3 +209,12 @@ activity:
     reportable.label: Reportable
     attendance.label: Record Attendance
     tutors.label: Tutors
+activity_tutor:
+    role:
+        label: Role
+        placeholder: Select Role
+        help: ''
+    tutor:
+        label: Tutor
+        placeholder: Select Tutor
+        help: ''

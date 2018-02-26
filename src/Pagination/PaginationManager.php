@@ -356,6 +356,13 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	public function getSortByName()
 	{
+	    if (empty($this->sortByName))
+            if (is_array($this->sortByList))
+            {
+                reset($this->sortByList);
+                $this->sortByName = key($this->sortByList);
+            }
+
 		return $this->sortByName;
 	}
 
@@ -388,7 +395,7 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	public function getSortBy(): array
 	{
-		if (!empty($this->sortByList[$this->sortByName]))
+		if (!empty($this->sortByList[$this->getSortByName()]))
 			return $this->sortByList[$this->sortByName];
 
 		return [];

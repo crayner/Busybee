@@ -42,7 +42,7 @@ class Activity extends ActivityExtension
     private $studentsSorted = false;
 
     /**
-     * @var null|ArrayCollection
+     * @var null|Collection
      */
     private $tutors;
 
@@ -269,11 +269,14 @@ class Activity extends ActivityExtension
     /**
      * Get tutors
      *
-     * @return null|ArrayCollection
+     * @return Collection
      */
-    public function getTutors(): ?Collection
+    public function getTutors(): Collection
     {
         $this->tutors = $this->tutors instanceof Collection ? $this->tutors : new ArrayCollection();
+
+        if ($this->tutors instanceof PersistentCollection && ! $this->tutors->isInitialized())
+            $this->tutors->initialize();
 
         return $this->tutors;
     }
@@ -281,11 +284,11 @@ class Activity extends ActivityExtension
     /**
      * Set tutors
      *
-     * @param ArrayCollection|null $tutors
+     * @param Collection|null $tutors
      *
      * @return Activity
      */
-    public function setTutors(?ArrayCollection $tutors)
+    public function setTutors(?Collection $tutors)
     {
         $this->tutors = $tutors;
 
@@ -293,10 +296,10 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @param Staff|null $tutor
+     * @param Person|null $tutor
      * @return Activity
      */
-    public function addTutor(?Staff $tutor): Activity
+    public function addTutor(?Person $tutor): Activity
     {
         if (empty($tutor))
             return $this;
@@ -308,10 +311,10 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @param Staff|null $tutor
+     * @param Person|null $tutor
      * @return Activity
      */
-    public function removeTutor(?Staff $tutor): Activity
+    public function removeTutor(?Person $tutor): Activity
     {
         if (empty($tutor))
             return $this;
