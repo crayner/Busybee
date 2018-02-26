@@ -27,7 +27,7 @@ App\Entity\ActivityTutor:
             length: 3
     manyToOne:
         activity:
-            targetEntity: App\Entity\FaceToFace
+            targetEntity: App\Entity\Activity
             inversedBy: tutors
             joinColumn:
                 name: activity_id

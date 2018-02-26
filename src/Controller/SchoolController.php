@@ -220,4 +220,24 @@ class SchoolController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/school/external/activity/list/", name="external_activity_list")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param Request $request
+     * @param RollPagination $activityPagination
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function extenalActivityList(Request $request, ExternalActivityPagination $activityPagination)
+    {
+        $activityPagination->injectRequest($request);
+
+        $activityPagination->getDataSet();
+
+        return $this->render('School/roll_list.html.twig',
+            [
+                'pagination' => $activityPagination,
+            ]
+        );
+    }
 }

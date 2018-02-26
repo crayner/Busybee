@@ -63,6 +63,7 @@ tutor.type.list:
         assistant: assistant
         technician: technician
         parent: parent
+        coach: coach
 LLL;
 	}
 

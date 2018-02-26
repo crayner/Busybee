@@ -296,13 +296,16 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @param Person|null $tutor
+     * @param ActivityTutor|null $tutor
      * @return Activity
      */
-    public function addTutor(?Person $tutor): Activity
+    public function addTutor(?ActivityTutor $tutor, $add = true): Activity
     {
         if (empty($tutor))
             return $this;
+
+        if ($add)
+            $tutor->setActivity($this, false);
 
         if (!$this->getTutors()->contains($tutor))
             $this->tutors->add($tutor);
@@ -311,10 +314,10 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @param Person|null $tutor
+     * @param ActivityTutor|null $tutor
      * @return Activity
      */
-    public function removeTutor(?Person $tutor): Activity
+    public function removeTutor(?ActivityTutor $tutor): Activity
     {
         if (empty($tutor))
             return $this;

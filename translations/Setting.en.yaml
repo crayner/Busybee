@@ -95,3 +95,4 @@ tutor.type.list:
     assistant: Assistant
     technician: Technician
     parent: Parent
+    coach: Coach

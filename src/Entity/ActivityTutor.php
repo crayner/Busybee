@@ -81,10 +81,10 @@ class ActivityTutor
     }
 
     /**
-     * @param FaceToFace|null $activity
+     * @param Activity|null $activity
      * @return ActivityTutor
      */
-    public function setActivity(?FaceToFace $activity, $add = true): ActivityTutor
+    public function setActivity(?Activity $activity, $add = true): ActivityTutor
     {
         if (empty($activity))
             return $this;
