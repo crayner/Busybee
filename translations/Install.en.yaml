@@ -35,6 +35,7 @@ install:
         check: 'Checking if system requires updating.'
         setting:
             file: 'The class %{class} was processed correctly.'
+            file_missing: 'The class %{class} was processed correctly, but no setting file was found.'
     mailer:
         parameters: Email Settings
     misc:
@@ -239,3 +240,4 @@ session:
     auto_start:
         off: Session auto start should not be set in php.ini
         on: Session auto start should not be set in php.ini
+update.setting.required: The system has been updated.  Please confirm update.

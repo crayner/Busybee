@@ -15,7 +15,7 @@ class Settings_0_0_02 implements SettingInterface
 		return <<<LLL
 version:
     value: 0.0.02
-Address.Format:
+address.format:
     type: 'twig'
     displayName: 'Address Format'
     description: 'A template for displaying an address.'

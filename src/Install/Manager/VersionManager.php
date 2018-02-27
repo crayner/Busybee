@@ -70,6 +70,7 @@ class VersionManager
 			'0.0.03' => new Setting\Settings_0_0_03(),
             '0.0.04' => new Setting\Settings_0_0_04(),
             '0.0.05' => new Setting\Settings_0_0_05(),
+            '0.0.06' => new Setting\Settings_0_0_06(),
 		];
 
 	}

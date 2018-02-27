@@ -187,34 +187,32 @@ class SystemBuildManager extends InstallManager
 		{
 			foreach($list as $version=>$class)
 			{
-				if (! $class instanceof SettingInterface)
-					trigger_error('The setting class '.$version.' is not correctly formatted as a SettingInterface.');
+			    if (version_compare($version, $installed, '>=')) {
+                    if (!$class instanceof SettingInterface)
+                        trigger_error('The setting class ' . $version . ' is not correctly formatted as a SettingInterface.');
 
-				if (version_compare($installed, $version, '<'))
-				{
-					$data = Yaml::parse($class->getSettings());
+                    if (version_compare($installed, $version, '<')) {
+                        $data = Yaml::parse($class->getSettings());
 
-					foreach ($data as $name => $datum)
-					{
-						$entity = $this->settingManager->getSettingEntity($name);
-						if (!$entity instanceof Setting)
-						{
-							$entity = new Setting();
-							if (empty($datum['type']))
-								trigger_error('When creating a setting the type must be defined. ' . $name);
-							$entity->setType($datum['type']);
-						}
-						$entity->setName($name);
-						foreach ($datum as $field => $value)
-						{
-							$w = 'set' . ucwords($field);
-							$entity->$w($value);
-						}
-						$this->settingManager->createSetting($entity);
-					}
-				}
-				$this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
-				$installed = $version;
+                        foreach ($data as $name => $datum) {
+                            $entity = $this->settingManager->getSetting($name);
+                            if (!$entity instanceof Setting) {
+                                $entity = new Setting();
+                                if (empty($datum['type']))
+                                    trigger_error('When creating a setting the type must be defined. ' . $name);
+                                $entity->setType($datum['type']);
+                            }
+                            $entity->setName($name);
+                            foreach ($datum as $field => $value) {
+                                $w = 'set' . ucwords($field);
+                                $entity->$w($value);
+                            }
+                            $this->settingManager->createSetting($entity);
+                        }
+                    }
+                    $this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
+                    $installed = $version;
+                }
 			}
 
 			if (version_compare($installed, $software, '='))
