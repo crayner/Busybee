@@ -5,15 +5,18 @@ use App\Calendar\Util\CalendarManager;
 use App\Entity\Activity;
 use App\Entity\CalendarGrade;
 use App\Entity\Course;
+use App\Entity\ExternalActivity;
 use App\Entity\FaceToFace;
 use App\Entity\Roll;
 use App\Pagination\ClassPagination;
 use App\Pagination\CoursePagination;
+use App\Pagination\ExternalActivityPagination;
 use App\Pagination\RollPagination;
 use App\School\Form\ActivityType;
 use App\School\Form\CalendarGradeType;
 use App\School\Form\CourseType;
 use App\School\Form\DaysTimesType;
+use App\School\Form\ExternalActivityType;
 use App\School\Form\FaceToFaceType;
 use App\School\Util\CourseManager;
 use App\School\Util\DaysTimesManager;
@@ -228,15 +231,45 @@ class SchoolController extends Controller
      * @param RollPagination $activityPagination
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function extenalActivityList(Request $request, ExternalActivityPagination $activityPagination)
+    public function externalActivityList(Request $request, ExternalActivityPagination $activityPagination)
     {
         $activityPagination->injectRequest($request);
 
         $activityPagination->getDataSet();
 
-        return $this->render('School/roll_list.html.twig',
+        return $this->render('School/external_activity_list.html.twig',
             [
                 'pagination' => $activityPagination,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/school/external/activity/{id}/edit/", name="external_activity_edit")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param Request $request
+     * @param int|string $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function externalActivityEdit(Request $request, $id = 'Add', EntityManagerInterface $entityManager)
+    {
+        $face = $entityManager->getRepository(ExternalActivity::class)->find($id) ?: new ExternalActivity();
+        $form = $this->createForm(ExternalActivityType::class, $face);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($face);
+            $entityManager->flush();
+
+            if ($id === 'Add')
+                return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $face->getId()]);
+        }
+
+        return $this->render('School/external_activity_edit.html.twig',
+            [
+                'form' => $form->createView(),
             ]
         );
     }

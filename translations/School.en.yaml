@@ -81,7 +81,13 @@ school:
             title: Student Grade Management
             description: ''
         manage.title: 'Manage Students in Grade %name%'
-
+    external_activity.list:
+        title: Activities (External)
+        description: ''
+        help: The activity list is limited to the current year.
+    external_activity:
+        edit.title: Edit Activity
+        manage.title: '%name%'
 department:
     edit:
         title: Manage Department
@@ -218,3 +224,22 @@ activity_tutor:
         label: Tutor
         placeholder: Select Tutor
         help: ''
+external_activity:
+    name.label: Activity
+    name_short.label: Code
+    terms:
+        label: Terms
+        help: Terms in which the activity will run.
+    grades.label: Grades
+    cost.label: Cost
+    registration:
+        label: Registration?
+        help: Assuming system-wide registration is open, should this activity be open for registration?
+    active.label: Active?
+    provider:
+        label: Provider
+        placeholder: Select Provider
+    students:
+        label: Participants
+        help: Select the students for this activity.
+    max_participants.label: Maximum Participants.

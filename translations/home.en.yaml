@@ -52,6 +52,8 @@ menu:
         manage: People Admin
         title: PEOPLE
     space.list.title: Manage Facilities
+    learn.title: Learn
+    external_activity.manage: Activities
 section:
     header:
         years_days_times: 'Years, Days & Times'

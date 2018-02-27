@@ -68,14 +68,14 @@ class ActivityTutor
     }
 
     /**
-     * @var null|FaceToFace
+     * @var null|Activity
      */
     private $activity;
 
     /**
-     * @return FaceToFace|null
+     * @return Activity|null
      */
-    public function getActivity(): ?FaceToFace
+    public function getActivity(): ?Activity
     {
         return $this->activity;
     }

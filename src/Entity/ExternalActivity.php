@@ -74,7 +74,7 @@ class ExternalActivity extends Activity
     {
         $this->provider = $this->provider ?: 'school';
 
-        return $this->provider;
+        return strtolower($this->provider);
     }
 
     /**

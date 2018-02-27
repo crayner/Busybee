@@ -5,8 +5,8 @@ App\Entity\Term:
     uniqueConstraints:
         name_calendar:
             columns: [ name, calendar_id ]
-        nameShort_calendar:
-            columns: [ nameShort, calendar_id ]
+        name_short_calendar:
+            columns: [ name_short, calendar_id ]
     id:
         id:
             type: integer
@@ -19,10 +19,13 @@ App\Entity\Term:
         nameShort:
             type: string
             length: '6'
+            column: name_short
         firstDay:
             type: date
+            column: first_day
         lastDay:
             type: date
+            column: last_day
     manyToOne:
         calendar:
             targetEntity: App\Entity\Calendar

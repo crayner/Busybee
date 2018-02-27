@@ -1,0 +1,56 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'School' %}
+
+{% block title %}{{ 'school.external_activity.list.title'|trans({'%{calendar}': pagination.calendarManager.currentCalendar.name}) }}{% endblock title %}
+{% block headerTitle %}{{ 'school.external_activity.list.title'|trans({'%{calendar}': pagination.calendarManager.currentCalendar.name}) }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.external_activity.list.description'|trans  }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Pagination/index.html.twig' %}
+    {% if is_granted('ROLE_SYSTEM_ADMIN') %}
+        {% set h3Content = addButton({windowOpen: {route: path('external_activity_edit', {id: 'Add'})}}) %}
+    {% endif %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.external_activity.list.title', transDomain: 'School', panelParagraph: 'school.external_activity.list.help'} %}
+    <div class="container-fluid">
+        <div class="row row-header text-center">
+            <div class="col-4 text-center" style="display: inline-block;">
+                   {{ 'external_activity.name.label'|trans }}<br /><small>{{ 'external_activity.name_short.label'|trans }}</small>
+            </div>
+            <div class="col-2">
+                {{ 'external_activity.provider.label'|trans({}) }}
+            </div>
+            <div class="col-2">
+                {{ 'external_activity.terms.label'|trans({}) }}<br />
+                {{ 'external_activity.grades.label'|trans({}) }}
+            </div>
+            <div class="col-2">
+                {{ 'external_activity.cost.label'|trans({}) }}
+            </div>
+            <div class="col-2 withAdd text-center">
+                {{ 'system.setting.manage.actions'|trans({}, 'System') }}
+            </div>
+        </div>
+        {% for activity in pagination.getResult %}
+            <div class="row row-striped small text-center">
+                <div class="col-4 form-inline">
+                    {{ activity.name }}<br /><small>{{ activity.nameShort }}</small>
+                </div>
+                <div class="col-2 form-inline">
+                    {{ activity.provider }}
+                </div>
+                <div class="col-2 form-inline">
+                    {{ pagination.termsGrades(activity.0)|raw }}
+                </div>
+                <div class="col-2 form-inline">
+                    {{ activity.payment }}
+                </div>
+                <div class="col-2 form-inline text-center">
+                    {{ editButton({title: 'school.external_activity.edit.title', transDomain: 'School', windowOpen: {route: path('external_activity_edit', {id: activity.id})}, style: ''})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+

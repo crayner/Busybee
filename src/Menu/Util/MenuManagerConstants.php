@@ -17,6 +17,12 @@ class MenuManagerConstants
     role: ROLE_USER
     order: 2
     menu: 2
+4:
+    name: Learn
+    label: menu.learn.title
+    role: ROLE_USER
+    order: 4
+    menu: 4
 9:
     name: Miscellaneous
     label: menu.miscellaneous
@@ -55,6 +61,13 @@ class MenuManagerConstants
     node: 2
     order: 20
     route: person_manage
+40:
+    label: menu.external_activity.manage
+    name: External Activity Manage
+    role: ROLE_PRINCIPAL
+    node: 4
+    order: 40
+    route: external_activity_list
 90:
     label: menu.template_design
     name: Template Design

@@ -904,6 +904,9 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	public function isDisplaySort(): bool
 	{
+	    if (!is_array($this->sortByList) || count($this->sortByList))
+	        $this->setDisplaySort(false);
+
 		return $this->displaySort;
 	}
 
