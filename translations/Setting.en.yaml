@@ -96,3 +96,7 @@ tutor.type.list:
     technician: Technician
     parent: Parent
     coach: Coach
+    organiser: Organiser
+activity.provider.type:
+    school: '!!!this_school!!!'
+    external: External

@@ -64,6 +64,14 @@ tutor.type.list:
         technician: technician
         parent: parent
         coach: coach
+        organiser: organiser
+school.translate:
+    type: array
+    displayName: School Translate List
+    description: School Translate List.
+    role: 'ROLE_SYSTEM_ADMIN'
+    value:
+        this_school: This School
 LLL;
 	}
 

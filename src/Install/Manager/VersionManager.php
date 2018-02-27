@@ -2,10 +2,7 @@
 namespace App\Install\Manager;
 
 use App\Core\Manager\SettingManager;
-use App\Core\Settings\Settings_0_0_01;
-use App\Core\Settings\Settings_0_0_02;
-use App\Core\Settings\Settings_0_0_03;
-use App\Core\Settings\Settings_0_0_04;
+use App\Core\Settings as Setting;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -19,7 +16,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.05';
+	const VERSION = '0.0.06';
 
 	/**
 	 * @var SettingManager
@@ -68,11 +65,11 @@ class VersionManager
 	static function listSettings()
 	{
 		return [
-			'0.0.01' => new Settings_0_0_01(),
-			'0.0.02' => new Settings_0_0_02(),
-			'0.0.03' => new Settings_0_0_03(),
-            '0.0.04' => new Settings_0_0_04(),
-            '0.0.05' => new Settings_0_0_05(),
+			'0.0.01' => new Setting\Settings_0_0_01(),
+			'0.0.02' => new Setting\Settings_0_0_02(),
+			'0.0.03' => new Setting\Settings_0_0_03(),
+            '0.0.04' => new Setting\Settings_0_0_04(),
+            '0.0.05' => new Setting\Settings_0_0_05(),
 		];
 
 	}

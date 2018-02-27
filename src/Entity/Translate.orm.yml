@@ -1,0 +1,25 @@
+App\Entity\Translate:
+    type: entity
+    table: translate
+    repositoryClass: App\Repository\TranslateRepository
+    uniqueConstraints:
+        locality:
+            columns:
+                - source
+                - locale
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        source:
+            type: string
+            length: 150
+        locale:
+            type: string
+            length: 5
+        value:
+            type: string
+            length: 150

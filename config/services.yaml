@@ -116,3 +116,11 @@ services:
             - '@App\Core\Manager\MessageManager'
             - '@App\Core\Manager\SettingManager'
             - '@monolog.logger.security'
+    app.core.manager.translation_manager:
+        class: App\Core\Manager\TranslationManager
+        decorates: 'translator'
+        arguments:
+            - '@app.core.manager.translation_manager.inner'
+            - '@doctrine.orm.default_entity_manager'
+            - '@App\Core\Manager\SettingManager'
+        public: false
