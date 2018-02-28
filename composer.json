@@ -11,7 +11,6 @@
     "require": {
 		"php": "^7.2",
 		"hillrange/ckeditor": "^0.1",
-		"hillrange/gibbon": "dev-master",
 		"hillrange/security": "^0.0",
 		"hillrange/symfony-form": "^0.0",
 		"knpuniversity/oauth2-client-bundle": "^1.16",

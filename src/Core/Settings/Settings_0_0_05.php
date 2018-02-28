@@ -71,7 +71,8 @@ school.translate:
     description: School Translate List.
     role: 'ROLE_SYSTEM_ADMIN'
     value:
-        this_school: This School
+        this_school: 'This School'
+        form_grade: 'Form/Grade'
 LLL;
 	}
 

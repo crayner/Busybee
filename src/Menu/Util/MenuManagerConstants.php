@@ -93,6 +93,11 @@ System Admin:
             role: []
             params: {}
     settings:
+        string_replacement:
+            label: menu.string_replacement.manage
+            role: ROLE_SYSTEM_ADMIN
+            route: string_replacement
+            params: {}
         setting_manage:
             label: menu.setting.manage
             role: ROLE_SYSTEM_ADMIN

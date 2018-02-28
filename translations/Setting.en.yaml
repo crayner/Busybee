@@ -98,5 +98,8 @@ tutor.type.list:
     coach: Coach
     organiser: Organiser
 activity.provider.type:
-    school: '!!!this_school!!!'
+    school: '!!!org.name.short!!!'
     external: External
+school.translate:
+    this_school: This School
+    form_grade: Form/Grade/Year

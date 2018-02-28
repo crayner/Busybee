@@ -1,0 +1,34 @@
+{% trans_default_domain "System" %}
+
+{% block translate_label %}{% endblock %}
+{% block translate_errors %}{% endblock %}
+
+
+{% block translate_widget %}
+    {% set type = type|default('phone') %}
+        <div class="row">
+            <div class="col-3 card">
+                {{ form_row(form.source) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.locale) }}
+            </div>
+            <div class="col-3 card">
+                {% set choice = form.value.vars.value %}
+                {% if choice is empty %}
+                    {% set choice = form.value.vars.data %}
+                {% endif %}
+                {% if choice is empty %}
+                    {% set choice = 'mercury' %}
+                {% endif %}
+                {{ form_row(form.value, {help_params: {'%{source}': choice}}) }}
+            </div>
+            <div class="col-3 collection-actions card text-center">
+				<span class="align-middle">
+                    {{ deleteButton({title: 'string_replacement.remove.button', transDomain: 'System', mergeClass: 'collection-remove collection-action', style: '', colour: 'warning'})|raw }}
+                    {{ saveButton({style: ''})|raw }}
+				</span>
+                <small class="form-text text-muted text-left">{{ 'string_replacement.remove.help'|trans }}</small>
+            </div>
+        </div>
+{% endblock translate_widget %}

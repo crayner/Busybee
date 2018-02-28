@@ -1,0 +1,41 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'System' %}
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    'Setting/translateCollection.html.twig'
+%}
+
+{% block title %}{{ 'system.string_replacement.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.string_replacement.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.string_replacement.description'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div") }}
+    {{ form_start(form) }}
+    {% include 'Page/panelStart.html.twig' with {header: 'string_replacement.edit.title', transDomain: 'System', panelParagraph: 'string_replacement.edit.help'} %}
+
+    {{ form_row(form.strings) }}
+
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+{{ parent() }}
+{% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
+<script type="text/javascript" language="JavaScript">
+    $(".translateCollection").collection({
+        name_prefix: '{{ form.strings.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '{{ addButton({transDomain: 'System', title: 'string_replacement.add.button'})|raw }}',
+        remove: '{{ deleteButton({transDomain: 'System', title: 'string_replacement.remove.button'})|raw }}',
+        add_at_the_end: true
+    });
+</script>
+{% endblock javascripts %}

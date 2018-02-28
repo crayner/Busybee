@@ -56,4 +56,30 @@ system:
         validator:
             label: Validator
             help: This validator will be applied to the value when it is changed.
+    string_replacement:
+        title: String Replacement
+        description: ''
 photo.delete: Delete Photo
+translate:
+    locale:
+        label: Language
+        help: Select a language.  The language and source must be unique.
+    source:
+        label: Source String
+        help: These source strings are set by the programme.  You can select but not add to them.
+    value:
+        label: Replacement String
+        help: 'Translation is: %{source}'
+string_replacement:
+    edit:
+        title: List of String to Translate
+        help: "String replacement is treated as a system wide search and replace that happens at the end of the normal
+        translation process.  The program contains a number of pre-defined codes that can be searched for and replaced
+        with your replacements strings set on this page. As well as the pre-defined list of codes, you can use data in
+        the settings to complete the replacement of these source strings. The replacement string can match the
+        programmer replacement code for any string in the settings.  An example is to set the 'this_school' source with
+        the organisation name.  To do this, add the setting name between a pair of 3 exclamation marks. The name of any
+        setting must return a string value, so to capture the organisation short name use
+        &excl;&excl;&excl;org.name.short&excl;&excl;&excl;"
+    remove.help: You must save the form to confirm deletion of a string replacement.
+    add.button: Add String Replacement

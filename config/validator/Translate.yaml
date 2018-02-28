@@ -1,0 +1,13 @@
+App\Entity\Translate:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [source, locale]
+            errorPath: source
+            message: 'translate.source.duplicate.error'
+    properties:
+        source:
+            - NotBlank: ~
+        locale:
+            - NotBlank: ~
+        value:
+            - NotBlank: ~

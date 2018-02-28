@@ -4,9 +4,9 @@ namespace App\School\Form;
 use App\Core\Subscriber\SequenceSubscriber;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
-use App\Entity\Space;
 use App\Entity\Student;
 use App\Entity\Term;
+use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Hillrange\Form\Type\EntityType;
@@ -21,12 +21,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ExternalActivityType extends AbstractType
 {
     /**
+     * @var StudentRepository
+     */
+    private $studentRepository;
+
+    /**
+     * ExternalActivityType constructor.
+     * @param StudentRepository $studentRepository
+     */
+    public function __construct(StudentRepository $studentRepository)
+    {
+        $this->studentRepository = $studentRepository;
+    }
+
+    /**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-	    $grades = [];
-	    $activities = [];
+        $grades = $options['data']->getCalendarGrades()->toArray();
+        foreach($grades as $q=>$w)
+            $grades[$q] = $w->getId();
 
 		$builder
             ->add('name', TextType::class,
@@ -41,7 +56,7 @@ class ExternalActivityType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'class' => Student::class,
-                    'choices' => $this->getStudents($grades, $activities),
+                    'choices' => $this->getStudents($grades),
                     'help' =>  'external_activity.students.help',
                     'choice_label' => 'fullName',
                 ]
@@ -116,9 +131,8 @@ class ExternalActivityType extends AbstractType
 		return 'activity';
 	}
 
-    private function getStudents(array $grades, array $activities)
+    private function getStudents(array $grades)
     {
-        return [];
         $er = $this->studentRepository;
 
         $xx = $er->createQueryBuilder('s')
@@ -130,18 +144,6 @@ class ExternalActivityType extends AbstractType
             ->getQuery()
             ->getResult();
 
-        $yy = $er->createQueryBuilder('s')
-            ->leftJoin('s.activities', 'a')
-            ->andWhere('a.id IN (:activities)')
-            ->setParameter('activities', $activities, Connection::PARAM_STR_ARRAY)
-            ->getQuery()
-            ->getResult();
-
-        $xx = new ArrayCollection($xx);
-
-        foreach($yy as $student)
-            $xx->removeElement($student);
-
-        return $xx->toArray();
+        return $xx;
     }
 }

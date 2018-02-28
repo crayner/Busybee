@@ -3,6 +3,8 @@ namespace App\Core\Manager;
 
 use App\Entity\Translate;
 use App\Repository\TranslateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -97,7 +99,12 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
         foreach($matches[1] as $q=>$source)
         {
             $translate = null;
-            if (! empty($locale)) // translate override
+            if ($this->settingManager->has($source))
+            {
+                $translate = new Translate();
+                $translate->setValue($this->settingManager->get($source));
+            }
+            if (empty($translate) && ! empty($locale)) // translate override
                 $translate = $this->translateRepository->findOneBy(['source' => $source, 'locale' => $locale]);
             if (empty($translate) && ! empty($this->getLocale())) // system locale
                 $translate = $this->translateRepository->findOneBy(['source' => $source, 'locale' => $this->getLocale()]);
@@ -155,5 +162,71 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
         $this->translateRepository = $entityManager->getRepository(Translate::class);
         $this->settingManager = $settingManager;
         $this->entityManager = $entityManager;
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $strings;
+
+    /**
+     * @return Collection|null
+     */
+    public function getStrings($refresh = false): ?Collection
+    {
+        if (empty($this->strings) || $refresh)
+            $this->strings = new ArrayCollection($this->entityManager->getRepository(Translate::class)->findBy([],['source' => 'ASC', 'locale' => 'ASC']));
+
+        return $this->strings;
+    }
+
+    /**
+     * @param Collection|null $strings
+     * @return TranslationManager
+     */
+    public function setStrings(?Collection $strings): TranslationManager
+    {
+        if (empty($strings))
+            $strings = new ArrayCollection();
+
+        $this->strings = $strings;
+
+        return $this;
+    }
+
+    /**
+     * @param Translate|null $translate
+     * @return TranslationManager
+     */
+    public function addString(?Translate $translate): TranslationManager
+    {
+        if (empty($translate) || ! $translate instanceof Translate)
+            return $this;
+
+        if ($this->getStrings()->contains($translate))
+            return $this;
+
+        $this->strings->add($translate);
+
+        return $this;
+    }
+
+    /**
+     * @param Translate|null $translate
+     * @return TranslationManager
+     */
+    public function removeString(?Translate $translate): TranslationManager
+    {
+        $this->getStrings()->removeElement($translate);
+
+        return $this;
+    }
+
+    /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
     }
 }
