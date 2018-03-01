@@ -69,13 +69,13 @@ translate:
         help: These search strings are set by the programme.  You can select but not add to them.
     value:
         label: Replacement String
-        help: 'Translation is: %{source}'
+        help: 'Replacement is: %{source}'
 string_replacement:
     edit:
-        title: List of String to Translate
+        title: List of Strings being Replaced
         help: 'String replacement is treated as a system wide search and replace.  The replacement can be a fixed word
         or phrase, or you can use terms defined in the settings.  The search strings are defined by the programme and
-        can be selected below, paired with a language and a replacement word or phrase. <br/> To use a setting value
+        can be selected below, paired with a language and a replacement word, phrase or setting. <br/> To use a setting value
         as a replacement string, enclose the setting name (e.g. org.name.short) inside a pair of three exclamation
         marks. &excl;&excl;&excl;org.name.short&excl;&excl;&excl; Settings can be defined and managed on the
         <a href="%{path}">Setting Manage<a> page.  The help for the replacement will show the final replacement value.'

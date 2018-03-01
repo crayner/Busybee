@@ -41,7 +41,7 @@ class SettingChoiceValidator extends ConstraintValidator
 			if (is_array($w) && empty($constraint->settingDataValue))
 				$s = array_merge($s, $w);
 			elseif (is_array($w) && ! empty($constraint->settingDataValue))
-				$s[$q] = $w[$constraint->valueIn];
+				$s[$q] = $w[$constraint->settingDataValue];
 			elseif ($constraint->useLabelAsValue)
                 $s[$q] = $q;
 			else

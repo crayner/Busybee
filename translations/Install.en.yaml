@@ -4,10 +4,10 @@ system:
         description: Test and install the system architecture.
     build:
         database:
-            success: 'The database has been built. %count% queries occurred.'
+            success: 'The database has been built. %count% queries executed.'
             warning: 'The database has failed to build. %count% tables were attempted but the errors shown above occurred.'
             error: '%error%'
-            count: 'The database needs %count% alterations to meet the latest version.'
+            count: 'The database needs %count% alterations to meet the latest version %{software}.'
             done: 'The database altered %count% transactions in the database.'
 parameter:
     file:
@@ -240,4 +240,4 @@ session:
     auto_start:
         off: Session auto start should not be set in php.ini
         on: Session auto start should not be set in php.ini
-update.setting.required: The system has been updated.  Please confirm update.
+update.setting.required: 'The system has been updated.  Please confirm update from version %{current} to version %{software}.'

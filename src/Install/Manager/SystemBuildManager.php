@@ -90,7 +90,7 @@ class SystemBuildManager extends InstallManager
 		$count = count($xx);
 		if (! $this->isAction())
 		{
-			$this->addMessage('info', 'system.build.database.count', ['%count%' => $count]);
+			$this->addMessage('info', 'system.build.database.count', ['%count%' => $count, '%{software}' => VersionManager::VERSION]);
 			return true;
 		}
 		else
@@ -176,12 +176,15 @@ class SystemBuildManager extends InstallManager
 
 		if (! $this->isAction())
 		{
-			$this->messages->add('info', 'update.setting.required');
+			$this->messages->add('info', 'update.setting.required', ['%{software}' => $software, '%{current}' => $current]);
 			return false;
 		}
 
-		while (version_compare($current, $software, '<'))
+
+        while (version_compare($current, $software, '<'))
 		{
+            $current = VersionManager::incrementVersion($current);
+
 		    $class = 'App\\Core\\Settings\\Settings_' . str_replace('.', '_', $current);
 
 			if (class_exists($class))
@@ -212,16 +215,15 @@ class SystemBuildManager extends InstallManager
 			} else
                 $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $current]);
 
-            $current = VersionManager::incrementVersion($current);
-dump($current);
+
 			if (version_compare($current, $software, '='))
 			{
 				$this->systemSettingsInstalled = true;
                 $this->settingManager->set('version', $current);
 				sleep(1);
-			}elseif (version_compare($current, $software, '<')) {
+			} elseif (version_compare($current, $software, '<')) {
                 $this->settingManager->set('version', $current);
-            }elseif (version_compare($current, $software, '>'))
+            } elseif (version_compare($current, $software, '>'))
 				trigger_error('The setting class is trying to install a version ('.$current.') greater than the software version ('.$software.').');
         }
 

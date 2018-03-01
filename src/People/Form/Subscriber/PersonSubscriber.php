@@ -392,8 +392,8 @@ class PersonSubscriber implements EventSubscriberInterface
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('g')
                                 ->leftJoin('g.calendar', 'c')
-                                ->orderBy('c.firstDay', 'DESC')
-                                ->addOrderBy('g.sequence', 'DESC')
+                                ->orderBy('c.firstDay', 'ASC')
+                                ->addOrderBy('g.sequence', 'ASC')
                             ;
                         },
                     ],

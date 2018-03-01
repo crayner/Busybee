@@ -603,3 +603,6 @@ body.loading .showLoader {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+.card-primary a {
+    color: darkgray;
+}
