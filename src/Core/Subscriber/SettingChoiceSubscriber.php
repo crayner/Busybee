@@ -92,15 +92,26 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
 		$choices = $newChoices;
 
-		if ($options['use_label_as_value'])
-		{
-			$x = [];
-			foreach ($choices as $label)
-				$x[$label] = $label;
-			$choices = $x;
-		}
+		if ($options['use_label_as_value'] && $options['use_value_as_label'])
+		    throw new Exception('The Setting Choice must not set both `use_label_as_value` and `use_value_as_label`');
 
-		$newOptions                              = [];
+        if ($options['use_label_as_value'])
+        {
+            $x = [];
+            foreach ($choices as $label)
+                $x[$label] = $label;
+            $choices = $x;
+        }
+
+        if ($options['use_value_as_label'])
+        {
+            $x = [];
+            foreach ($choices as $value=>$label)
+                $x[$value] = $value;
+            $choices = $x;
+        }
+
+        $newOptions                              = [];
         $newOptions['constraints']               = [];
 		$newOptions['choices']                   = $choices;
 		$newOptions['label']                     = isset($options['label']) ? $options['label'] : null;
@@ -114,7 +125,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
 		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'Setting';
         if ($setting->hasChoice())
-            $newOptions['constraints'][] = new SettingChoice(['name' => $setting->getChoice()]);
+            $newOptions['constraints'][] = new SettingChoice(['name' => $setting->getChoice(), 'useLabelAsValue' => $options['use_label_as_value'], 'valueIn' => $options['setting_data_value']]);
 
         $newOptions['data'] = $event->getData() ?: '0';
  		$newOptions['setting_name'] = $options['setting_name'];

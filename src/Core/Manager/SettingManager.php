@@ -136,8 +136,6 @@ class SettingManager implements ContainerAwareInterface
             return $this->get($name, $default, $options);
         }
 
-        dump($this);
-
         return $default;
     }
 

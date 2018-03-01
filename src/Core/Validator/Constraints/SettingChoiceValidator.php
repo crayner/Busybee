@@ -38,10 +38,12 @@ class SettingChoiceValidator extends ConstraintValidator
 
 		foreach ($list as $q => $w)
 		{
-			if (is_array($w) && empty($constraint->valueIn))
+			if (is_array($w) && empty($constraint->settingDataValue))
 				$s = array_merge($s, $w);
-			elseif (is_array($w) && ! empty($constraint->valueIn))
+			elseif (is_array($w) && ! empty($constraint->settingDataValue))
 				$s[$q] = $w[$constraint->valueIn];
+			elseif ($constraint->useLabelAsValue)
+                $s[$q] = $q;
 			else
 				$s[$q] = $w;
 		}

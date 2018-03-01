@@ -1,5 +1,3 @@
-{# src/Busybee/PersonBundle/Resources/views/Person/edit.html.twig #}
-
 {% trans_default_domain "Person" %}
 
 {% extends "Default/template.html.twig" %}
@@ -7,6 +5,7 @@
 {% form_theme form
     "@HillrangeForm/FormTheme/jquery.collection.html.twig"
     "Phone/phoneCollection.html.twig"
+    "Student/calendar_grade_collection.html.twig"
     "@HillrangeForm/FormTheme/bootstrap.html.twig"
 %}
 
@@ -84,7 +83,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-    {% include "Script/jquery_collection.html.twig" %}
+    {% include "@HillrangeForm/Script/jquery_collection.html.twig" %}
     {% include 'Person/script.html.twig' %}
     {% include 'Script/monitorForm.html.twig' with {'route': 'person_manage'} %}
     {% include 'Script/formTabSubmitScript.html.twig' with {'route': 'person_edit'} %}

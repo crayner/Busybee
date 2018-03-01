@@ -65,8 +65,8 @@ translate:
         label: Language
         help: Select a language.  The language and source must be unique.
     source:
-        label: Source String
-        help: These source strings are set by the programme.  You can select but not add to them.
+        label: Search String
+        help: These search strings are set by the programme.  You can select but not add to them.
     value:
         label: Replacement String
         help: 'Translation is: %{source}'

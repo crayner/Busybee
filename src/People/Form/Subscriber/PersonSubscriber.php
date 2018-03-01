@@ -1,15 +1,15 @@
 <?php
 namespace App\People\Form\Subscriber;
 
+use App\Entity\CalendarGrade;
+use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\DateType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\TextType;
-use App\Core\Validator\SettingChoice;
 use App\People\Form\CalendarGradeType;
 use App\People\Form\UserType;
 use App\People\Util\PersonManager;
-use App\People\Validator\StudentCalendars;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -375,6 +375,30 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_data_value'        => 'name',
 				]
 			)
+            ->add('calendarGrades', CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => CalendarGradeType::class,
+                    'attr' => [
+                        'class' => 'calendarGradeCollection',
+                    ],
+                    'entry_options' => [
+                        'class' => CalendarGrade::class,
+                        'choice_label' => 'fullName',
+                        'placeholder' => 'calendar_grades.grade.placeholder',
+                        'label' => 'calendar_grades.grade.label',
+                        'help' => 'calendar_grades.grade.help',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('g')
+                                ->leftJoin('g.calendar', 'c')
+                                ->orderBy('c.firstDay', 'DESC')
+                                ->addOrderBy('g.sequence', 'DESC')
+                            ;
+                        },
+                    ],
+                ]
+            )
         ;
 	}
 }

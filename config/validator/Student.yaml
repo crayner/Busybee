@@ -9,6 +9,7 @@ App\Entity\Student:
         house:
             - App\Core\Validator\SettingChoice:
                 name: 'house.list'
+                settingDataValue: 'name'
         citizenship1PassportScan:
             - App\People\Validator\PassportImage: ~
         nationalIDCardScan:

@@ -1,0 +1,18 @@
+{% trans_default_domain "Person" %}
+
+{% block calendar_grade_label %}{% endblock %}
+{% block calendar_grade_errors %}{% endblock %}
+
+{% block calendar_grade_widget %}
+        <div class="row">
+            <div class="col-5 offset-5 card">
+                {{ form_row(form) }}
+            </div>
+            <div class="col-2 collection-actions text-center">
+				<span class="align-middle">
+                    {{ deleteButton({title: 'calendar_grade.remove.button', transDomain: 'Person', mergeClass: 'collection-remove collection-action', colour: 'warning', style: ''})|raw }}
+                    {{ saveButton({style: ''})|raw }}
+				</span>
+            </div>
+        </div>
+{% endblock calendar_grade_widget %}

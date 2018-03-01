@@ -26,7 +26,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-    {% include 'Script/jquery_collection.html.twig' %}
+    {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'Script/monitorForm.html.twig' with {'route': 'houses_edit'} %}
     {% include 'House/script.html.twig' %}
 {% endblock javascripts %}

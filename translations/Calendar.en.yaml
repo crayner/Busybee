@@ -51,20 +51,20 @@ calendar:
     edit.title: Manage Calendar
     display.button: Display Calendar
     calendar_grades:
-        tab: Grade/Form/Year
-        title: Manage Grades/Forms/Years in the Calendar
+        tab: '!!!forms_grades!!!'
+        title: Manage !!!forms_grades!!! in the Calendar
         help: Roll Groups are linked to these details, and rolls will only be linked to the calendar once these details are available.
     calendar_grade:
-        add.title: Attach Grade/Form/Year to Calendar
+        add.title: 'Attach !!!form_grade!!! to Calendar'
 calendar_grade:
-    students.count: 'Students in this Grade/Form/Year. %{count}'
+    students.count: 'Students in this !!!form_grade!!!. %{count}'
     grade:
-        label: Student Grade/Form/Year
-        placeholder: Select Grade/Form/Year
+        label: 'Student !!!form_grade!!!'
+        placeholder: 'Select !!!form_grade!!!'
         help: This detail must be unique in the calendar.
     next_grade:
-        label: Next Calendar Grade/Form/Year
-        placeholder: Select Grade/Form/Year
+        label: 'Next Calendar !!!form_grade!!!'
+        placeholder: 'Select !!!form_grade!!!'
         help: Use to transfer from one calendar to the next calendar when the current calendar is changed.
 calendars:
     title: Adademic Calendar Definitions

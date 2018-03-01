@@ -202,5 +202,15 @@
 
         window.open(path,'_self');
     }
+
+    $(".calendarGradeCollection").collection({
+        name_prefix: '{{ form.calendarGrades.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '{{ addButton({title: 'student.calendar_grade.add', transDomain: 'Person'})|raw }}',
+        remove: '{{ deleteButton({transDomain: 'Person', title: 'student.calendar_grade.remove'})|raw }}',
+        add_at_the_end: true
+    });
+
 </script>
 {% include 'Person/toggleScript.html.twig' %}

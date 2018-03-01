@@ -10,9 +10,9 @@ class SettingChoice extends Constraint
 	public $strict = true;
 	public $extra_choices = [];  // Add additional choices not found in the setting.
 	public $message = 'setting.validator.choice.invalid';
-	public $valueIn = null;  //  use this key in a layered array
+	public $settingDataValue = null;  //  use this key in a layered array
     public $transDomain = 'Setting';
-
+    public $useLabelAsValue = false;
 	/**
 	 * @return string
 	 */

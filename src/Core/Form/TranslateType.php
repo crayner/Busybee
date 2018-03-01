@@ -19,11 +19,12 @@ class TranslateType extends AbstractType
 		$builder
             ->add('source', SettingChoiceType::class,
                 [
-                    'label'       => 'translate.source.label',
-                    'help' => 'translate.source.help',
-                    'setting_name' => 'school.translate',
+                    'label'                     => 'translate.source.label',
+                    'help'                      => 'translate.source.help',
+                    'setting_name'              => 'school.search.replace',
                     'choice_translation_domain' => false,
-                    'translation_prefix' => false,
+                    'translation_prefix'        => false,
+                    'use_value_as_label'        => true,
                 ]
             )
             ->add('value', TextType::class,

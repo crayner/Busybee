@@ -119,7 +119,7 @@ calendar_grade:
     label: student.calendar_grade.tab
     include: Student/calendar_grade.html.twig
     message: calendarGradeMessage
-    translation: Student
+    translation: Person
 user:
     label: person.user.tab
     include: Person/user.html.twig

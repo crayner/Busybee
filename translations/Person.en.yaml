@@ -200,6 +200,9 @@ student:
         email:
             unique: 'The email %string% already exists in the database.'
     calendar.label: Calendar
+    calendar_grade:
+        tab: '!!!forms_grades!!!'
+        title: 'Student !!!form_grade!!! Details:<br /><small>%name%</small>'
 phone:
     type:
         label: 'Type of Phone'

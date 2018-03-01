@@ -90,7 +90,7 @@
     {{ parent() }}
     {% set route = 'department_edit' %}
     {% include 'Script/monitorForm.html.twig' %}
-    {% include 'Script/jquery_collection.html.twig' %}
+    {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'Department/memberCollection.js.html.twig' %}
     {% if form.courses is defined %}
         {% include 'Department/courseCollection.js.html.twig' %}

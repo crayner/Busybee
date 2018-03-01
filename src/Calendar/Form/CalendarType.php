@@ -6,6 +6,7 @@ use App\Calendar\Validator\CalendarStatus;
 use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
 use App\Calendar\Form\Listener\CalendarSubscriber;
+use App\Core\Subscriber\SequenceSubscriber;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\DateType;
 use App\Entity\Calendar;
@@ -125,6 +126,8 @@ class CalendarType extends AbstractType
             )
 			->add('downloadCache', HiddenType::class)
         ;
+
+		$builder->get('calendarGrades')->addEventSubscriber(new SequenceSubscriber());
 
 		$builder->addEventSubscriber($this->calendarSubscriber);
 	}

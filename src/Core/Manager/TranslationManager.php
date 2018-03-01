@@ -106,8 +106,10 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
             }
             if (empty($translate) && ! empty($locale)) // translate override
                 $translate = $this->translateRepository->findOneBy(['source' => $source, 'locale' => $locale]);
+
             if (empty($translate) && ! empty($this->getLocale())) // system locale
                 $translate = $this->translateRepository->findOneBy(['source' => $source, 'locale' => $this->getLocale()]);
+
             if (empty($translate) && ! empty($this->settingManager->getParameter('locale')))  // fallBack Locale
                 $translate = $this->translateRepository->findOneBy(['source' => $source, 'locale' => $this->settingManager->getParameter('locale')]);
 
