@@ -16,7 +16,7 @@
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div") }}
     {{ form_start(form) }}
-    {% include 'Page/panelStart.html.twig' with {header: 'string_replacement.edit.title', transDomain: 'System', panelParagraph: 'string_replacement.edit.help'} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'string_replacement.edit.title', transDomain: 'System', panelParagraph: 'string_replacement.edit.help', panelParams: {'%{path}': path('setting_manage')}} %}
 
     {{ form_row(form.strings) }}
 
