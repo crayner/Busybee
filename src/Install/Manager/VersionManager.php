@@ -2,7 +2,6 @@
 namespace App\Install\Manager;
 
 use App\Core\Manager\SettingManager;
-use App\Core\Settings as Setting;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -16,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.07';
+	const VERSION = '0.0.08';
 
 	/**
 	 * @var SettingManager

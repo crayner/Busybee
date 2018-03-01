@@ -161,16 +161,15 @@ class SystemBuildManager extends InstallManager
 	public function buildSystemSettings()
 	{
 		if ($this->getSettingManager()->has('version'))
-			$version = $this->getSettingManager()->get('version', '0.0.00');
+			$current = $this->getSettingManager()->get('version', '0.0.00');
 		else
-			$version = '0.0.00';
+			$current = '0.0.00';
 
-		$installed = $version;
 		$software = VersionManager::VERSION;
 
 		$this->systemSettingsInstalled = true;
 
-		if (version_compare($installed, $software, '>='))
+		if (version_compare($current, $software, '>='))
 			return true;
 
 		$this->systemSettingsInstalled = false;
@@ -181,49 +180,50 @@ class SystemBuildManager extends InstallManager
 			return false;
 		}
 
-		while (version_compare($installed, $software, '<'))
+		while (version_compare($current, $software, '<'))
 		{
-		    $version = $installed;
-		    $class = 'App\\Core\\Setting\\Setting_' . str_replace('.', '_', $version);
+		    $class = 'App\\Core\\Settings\\Settings_' . str_replace('.', '_', $current);
+
 			if (class_exists($class))
 			{
+			    $class = new $class();
+
                 if (!$class instanceof SettingInterface)
-                    trigger_error('The setting class ' . $version . ' is not correctly formatted as a SettingInterface.');
+                    trigger_error('The setting class ' . $class->getClassName() . ' is not correctly formatted as a SettingInterface.');
 
-                if (version_compare($installed, $version, '<')) {
-                    $data = Yaml::parse($class->getSettings());
+                $data = Yaml::parse($class->getSettings());
 
-                    foreach ($data as $name => $datum) {
-                        $entity = $this->settingManager->getSetting($name);
-                        if (!$entity instanceof Setting) {
-                            $entity = new Setting();
-                            if (empty($datum['type']))
-                                trigger_error('When creating a setting the type must be defined. ' . $name);
-                            $entity->setType($datum['type']);
-                        }
-                        $entity->setName($name);
-                        foreach ($datum as $field => $value) {
-                            $w = 'set' . ucwords($field);
-                            $entity->$w($value);
-                        }
-                        $this->settingManager->createSetting($entity);
+                foreach ($data as $name => $datum) {
+                    $entity = $this->settingManager->findOneByName($name);
+                    if (!$entity instanceof Setting) {
+                        $entity = new Setting();
+                        if (empty($datum['type']))
+                            trigger_error('When creating a setting the type must be defined. ' . $name);
+                        $entity->setType($datum['type']);
                     }
+                    $entity->setName($name);
+                    foreach ($datum as $field => $value) {
+                        $w = 'set' . ucwords($field);
+                        $entity->$w($value);
+                    }
+                    $this->settingManager->createSetting($entity);
                 }
                 $this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
-                $installed = $version;
-			}
-            $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $installed]);
-			$installed = VersionManager::incrementVersion($installed);
+			} else
+                $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $current]);
 
-			if (version_compare($installed, $software, '='))
+            $current = VersionManager::incrementVersion($current);
+dump($current);
+			if (version_compare($current, $software, '='))
 			{
 				$this->systemSettingsInstalled = true;
-				sleep(1);//$this->getSettingManager()->set('version', $installed);
-			}elseif (version_compare($installed, $software, '<')) {
-                $this->settingManager->set('version', $installed);
-            }elseif (version_compare($installed, $software, '>'))
-				trigger_error('The setting class is trying to install a version ('.$installed.') greater than the software version ('.$software.').');
-		}
+                $this->settingManager->set('version', $current);
+				sleep(1);
+			}elseif (version_compare($current, $software, '<')) {
+                $this->settingManager->set('version', $current);
+            }elseif (version_compare($current, $software, '>'))
+				trigger_error('The setting class is trying to install a version ('.$current.') greater than the software version ('.$software.').');
+        }
 
 		return false;
 	}

@@ -35,7 +35,7 @@ install:
         check: 'Checking if system requires updating.'
         setting:
             file: 'The class %{class} was processed correctly.'
-            file_missing: 'The class %{class} was processed correctly, but no setting file was found.'
+        version.updated: 'No settings required for Version %{version}.'
     mailer:
         parameters: Email Settings
     misc:

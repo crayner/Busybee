@@ -430,7 +430,7 @@ class SettingManager implements ContainerAwareInterface
      * @param $name
      * @return Setting|null
      */
-    private function findOneByName($name): ?Setting
+    public function findOneByName($name): ?Setting
     {
         return $this->settingRepository->findOneByName($name);
 
