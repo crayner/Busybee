@@ -818,6 +818,9 @@ class Student extends StudentExtension
     {
         $this->activities = $this->activities instanceof Collection ? $this->activities : new ArrayCollection();
 
+        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
+            $this->activities->initialize();
+
         return $this->activities;
     }
 
@@ -831,10 +834,10 @@ class Student extends StudentExtension
         return $this;
     }
 
-    public function addActivity(Activity $activity, $add = true): Student
+    public function addActivity(ActivityStudent $activity, $add = true): Student
     {
         if ($add)
-            $activity->addStudent($this, false);
+            $activity->setStudent($this, false);
 
         if ($this->getActivities()->contains($activity))
             return $this;
@@ -844,10 +847,10 @@ class Student extends StudentExtension
         return $this;
     }
 
-    public function removeActivity(Activity $activity, $remove = true): Student
+    public function removeActivity(ActivityStudent $activity, $remove = true): Student
     {
         if ($remove)
-            $activity->removeStudent($this, false);
+            $activity->setStudent(null, false);
 
         $this->getActivities()->removeElement($activity);
 

@@ -106,11 +106,12 @@ App\Entity\Student:
         transportNotes:
             nullable: true
             type: text
-    manyToMany:
+    oneToMany:
         activities:
-            mappedBy: students
-            targetEntity: App\Entity\Activity
-            cascade: [ 'persist' ]
+            mappedBy: student
+            targetEntity: App\Entity\ActivityStudent
+            cascade: [ 'all' ]
+    manyToMany:
         calendarGrades:
             mappedBy: students
             targetEntity: App\Entity\CalendarGrade

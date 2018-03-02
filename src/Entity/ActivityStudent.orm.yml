@@ -1,0 +1,28 @@
+App\Entity\ActivityStudent:
+    type: entity
+    table: activity_student
+    repositoryClass: App\Repository\ActivityStudentRepository
+    uniqueConstraints:
+        activity_student:
+            columns:
+                - activity_id
+                - student_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        activity:
+            targetEntity: App\Entity\Activity
+            inversedBy: students
+            joinColumn:
+                name: activity_id
+                referencedColumnName: id
+        student:
+            targetEntity: App\Entity\Student
+            inversedBy: activities
+            joinColumn:
+                name: student_id
+                referencedColumnName: id

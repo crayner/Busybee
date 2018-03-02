@@ -49,18 +49,11 @@ App\Entity\Activity:
             cascade: [ 'all' ]
             orderBy:
                 sequence: 'ASC'
-    manyToMany:
         students:
-            targetEntity: App\Entity\Student
-            inversedBy: activities
-            joinTable:
-                name: activity_student
-                joinColumns:
-                    activity_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    student_id:
-                        referencedColumnName: id
+            targetEntity: App\Entity\ActivityStudent
+            mappedBy: activity
+            cascade: ['all']
+    manyToMany:
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade
             joinTable:

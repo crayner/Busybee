@@ -167,14 +167,14 @@ class Activity extends ActivityExtension
     /**
      * Add student
      *
-     * @param Student $student
+     * @param ActivityStudent $student
      *
      * @return Activity
      */
-    public function addStudent(Student $student, $add = true): Activity
+    public function addStudent(ActivityStudent $student, $add = true): Activity
     {
         if ($add)
-            $student->addActivity($this, false);
+            $student->setActivity($this, false);
 
         if ($this->students->contains($student))
             return $this;
@@ -187,14 +187,14 @@ class Activity extends ActivityExtension
     /**
      * Remove student
      *
-     * @param Student $student
+     * @param ActivityStudent $student
      * @param bool $remove
      * @return Activity
      */
-    public function removeStudent(Student $student, $remove = true): Activity
+    public function removeStudent(ActivityStudent $student, $remove = true): Activity
     {
         if ($remove)
-            $student->removeActivity($this, false);
+            $student->setActivity(null, false);
 
         $this->students->removeElement($student);
 
@@ -204,19 +204,25 @@ class Activity extends ActivityExtension
     /**
      * Get students
      *
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getStudents()
+    public function getStudents(): Collection
     {
+        if (empty($this->students))
+            $this->students = new ArrayCollection();
+
+        if ($this->students instanceof PersistentCollection && ! $this->students->isInitialized())
+            $this->students->initialize();
+
         if ($this->getStudentReference() instanceof Activity)
             $this->students = $this->getStudentReference()->getStudents();
 
-        if (!$this->studentsSorted && $this->students->count() > 0) {
+        if (! $this->studentsSorted && $this->students->count() > 0) {
 
             $iterator = $this->students->getIterator();
             $iterator->uasort(
                 function ($a, $b) {
-                    return ($a->formatName(['surnameFirst' => true]) < $b->formatName(['surnameFirst' => true])) ? -1 : 1;
+                    return ($a->getStudent()->formatName(['surnameFirst' => true]) < $b->getStudent()->formatName(['surnameFirst' => true])) ? -1 : 1;
                 }
             );
 
@@ -241,11 +247,11 @@ class Activity extends ActivityExtension
     /**
      * Set studentReference
      *
-     * @param \App\Entity\Activity $studentReference
+     * @param Activity $studentReference
      *
      * @return Activity
      */
-    public function setStudentReference(\App\Entity\Activity $studentReference = null)
+    public function setStudentReference(Activity $studentReference = null)
     {
         // stop self reference
         if ($studentReference instanceof Activity && $studentReference->getId() == $this->getId())
@@ -528,6 +534,17 @@ class Activity extends ActivityExtension
             $course->addActivity($this, false);
 
         $this->course = $course;
+
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $students
+     * @return Activity
+     */
+    public function setStudents(ArrayCollection $students): Activity
+    {
+        $this->students = $students;
 
         return $this;
     }
