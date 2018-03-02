@@ -203,6 +203,7 @@
         window.open(path,'_self');
     }
 
+    {% if form.calendarGrades is defined %}
     $(".calendarGradeCollection").collection({
         name_prefix: '{{ form.calendarGrades.vars.full_name }}',
         allow_up: false,
@@ -211,6 +212,7 @@
         remove: '{{ deleteButton({transDomain: 'Person', title: 'student.calendar_grade.remove'})|raw }}',
         add_at_the_end: true
     });
+    {% endif %}
 
 </script>
 {% include 'Person/toggleScript.html.twig' %}

@@ -204,7 +204,7 @@ misc:
             help: "The password requires at least one Punctuation Character. #?!@$%^+=&*-"
     google:
         title: Google OAuth
-        description: 'If your school uses Google Suite (or GAFE) you can set up authenticationi using Google Authentication. <br/><a href="https://developers.google.com/identity/protocols/OAuth2" target="_blank">Using OAuth 2.0 to Access Google API`s</a>'
+        description: 'If your school uses Google Suite (or GAFE) you can set up authentication using Google Authentication. <br/><a href="https://developers.google.com/identity/protocols/OAuth2" target="_blank">Using OAuth 2.0 to Access Google API`s</a>'
         oauth:
             label: 'Use Google Authentication'
             help: ''

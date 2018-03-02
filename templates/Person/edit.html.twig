@@ -30,7 +30,7 @@
                 {% if name == 'staff' and not isStaff() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'student' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'immigration' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
-                {% if name == 'student_calendar' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
+                {% if name == 'calendar_grade' and not isStudent() %}{% set disabled = ' disabled' %}{% endif %}
                 {% if name == 'user' and not isUser() %}{% set disabled = ' disabled' %}{% endif %}
                 <li class="nav-item" role="presentation"><a href="#{{ name }}" role="tab"
                                                          data-toggle="tab" class="nav-link{{ disabled }}">{{ tab.label|trans({}, translation) }}</a>
@@ -54,7 +54,7 @@
                     <div class="tab-pane" id="{{ name }}">
                         {% include 'FormTheme/emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
-                {% elseif name == 'student_calendar' and not isStudent() %}
+                {% elseif name == 'calendar_grade' and not isStudent() %}
                     <div class="tab-pane" id="{{ name }}">
                         {% include 'FormTheme/emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>

@@ -59,6 +59,20 @@ system:
     string_replacement:
         title: String Replacement
         description: ''
+    timezone:
+        label: Time Zone
+        help: Time zone of the school.
+    country:
+        label: Country
+        help: Country of the school.
+    currency:
+        label: Currency
+        help: Currency of the school.
+    settings:
+        title: System Settings
+        description: 'Set these values for your school so we can get some sensible defaults.'
+    org_name.label: Organisation Name
+    org_name_short.label: Short Organisation Name
 photo.delete: Delete Photo
 translate:
     locale:

@@ -1,8 +1,8 @@
 parameters:
     locale: en
     secret: ekonf9935ty43576hbfhfo3e856t
-    session_name: busybee_session
-    session_remember_me_name: busybee_session_remember
+    session_name: koala_session
+    session_remember_me_name: koala_session_remember
     session_max_idle_time: 900
     country: AU
     sign_in_count_minimum: 3
@@ -13,7 +13,4 @@ parameters:
     password_mixed_case: 1
     password_specials: 0
     hemisphere: South
-    google_o_auth: 1
-    google_client_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com
-    google_client_secret: EZ9oJc3uuvHh_2X27lkMexZ-
-    person_identifier_index: 180201AB
+    person_identifier_index: 180301LB

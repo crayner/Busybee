@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateController extends Controller
 {
-
 	/**
 	 * @param Request $request
 	 * @Route("/update/system/settings/", name="update_system_settings")

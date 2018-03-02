@@ -24,13 +24,6 @@ calendar.status.list:
         calendar.status.past: past
         calendar.status.current: current
         calendar.status.future: future
-google.oauth:
-    type: boolean
-    displayName: Google O-Auth
-    description: Allow integration with Google Apps.  Your institute must have a Google Apps Account. 
-    role: ROLE_SYSTEM_ADMIN
-    value: 0
-    defaultValue: 0
 LLL;
 	}
 

@@ -15,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.09';
+	const VERSION = '0.0.10';
 
 	/**
 	 * @var SettingManager
@@ -54,7 +54,7 @@ class VersionManager
 	{
 		$this->connection     = $entityManager->getConnection();
 		$this->settingManager = $settingManager;
-		$this->version        = $this->settingManager->get('version', '0.0.00');
+        $this->version = $this->settingManager->get('version', '0.0.00');
 		$this->translator     = $translator;
 		$this->entityManager = $entityManager;
 
@@ -309,6 +309,8 @@ class VersionManager
 				$parts[0]++;
 			}
 		}
+
+		$parts[2] = str_pad($parts[2], 2, '0', STR_PAD_LEFT);
 
 		return implode('.', $parts);
 	}

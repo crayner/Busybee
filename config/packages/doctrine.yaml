@@ -8,9 +8,10 @@ parameters:
     db_host: 172.16.0.222
     db_port: 3306
     db_name: craigray_core
+    db2_name: craigray_gibbon
     db_user: craigray_core
     db_pass: 'fAxNp7hdYsBwJ54y'
-    db_prefix: bee_
+    db_prefix: koala_
     db_server: mysql
     db_charset: 'utf8mb4'
 

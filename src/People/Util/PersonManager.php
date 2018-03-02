@@ -2,15 +2,16 @@
 namespace App\People\Util;
 
 use App\Address\Util\AddressManager;
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\SettingManager;
 use App\Core\Util\UserManager;
 use App\Entity\Calendar;
+use App\Entity\CalendarGrade;
 use App\Entity\CareGiver;
 use App\Entity\Family;
 use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
-use App\Entity\RollGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Security\Entity\User;
@@ -44,17 +45,23 @@ class PersonManager
      */
 	private $userManager;
 
+    /**
+     * @var CalendarManager
+     */
+	private $calendarManager;
+
 	/**
 	 * PersonManager constructor.
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
-	public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager, SettingManager $settingManager, UserManager $userManager)
+	public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager, SettingManager $settingManager, UserManager $userManager, CalendarManager $calendarManager)
 	{
 		$this->entityManager = $entityManager;
 		$this->addressManager = $addressManager;
 		$this->settingManager = $settingManager;
         $this->userManager = $userManager;
+        $this->calendarManager = $calendarManager;
 	}
 
 	/**
@@ -482,6 +489,21 @@ user:
             ;
             foreach($families as $family)
             $result .= 'Family: '.$family->getName() . '<br />';
+
+            $grade = $this->entityManager->createQueryBuilder()
+                ->from(CalendarGrade::class, 'cg')
+                ->select('cg')
+                ->leftJoin('cg.students', 's')
+                ->leftJoin('cg.calendar', 'c')
+                ->where('s.id = :student_id')
+                ->setParameter('student_id', $person->getId())
+                ->andWhere('c.id = :calendar_id')
+                ->setParameter('calendar_id', $this->calendarManager->getCurrentCalendar()->getId())
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if ($grade instanceof CalendarGrade)
+                $result .= $grade->getFullName().'<br />';
 
         }
 

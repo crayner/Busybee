@@ -43,7 +43,7 @@ class PhoneType extends AbstractType
 				[
 					'label'        => 'phone.country.label',
 					'required'     => false,
-					'setting_name' => 'phone.countrylist',
+					'setting_name' => 'phone.country.list',
 					'translation_prefix' => false,
                     'placeholder' => 'phone.country.placeholder',
 				]

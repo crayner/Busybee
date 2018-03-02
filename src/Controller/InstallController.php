@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
+use App\Entity\Person;
 use App\Install\Form\MailerType;
 use App\Install\Form\MiscellaneousType;
 use App\Install\Form\UserType;
@@ -14,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Yaml\Yaml;
 
 class InstallController extends Controller
 {
@@ -279,10 +280,14 @@ class InstallController extends Controller
 	 */
 	public function installDatabase(SystemBuildManager $systemBuildManager)
 	{
+        $systemBuildManager->setAction(true);
+
+        $installed = $systemBuildManager->buildDatabase();
+
 		return $this->render('Install/database.html.twig',
 			[
+				'installed' => $installed,
 				'manager' => $systemBuildManager,
-				'projectDir' => $systemBuildManager->getSettingManager()->getParameter('kernel.project_dir'),
 			]
 		);
 	}
@@ -293,8 +298,21 @@ class InstallController extends Controller
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function installUser(Request $request, SystemBuildManager $systemBuildManager, AuthenticationUtils $authUtils = null)
-	{
+	public function installUser(Request $request, SystemBuildManager $systemBuildManager)
+    {
+        if (version_compare($systemBuildManager->getSystemVersion(), '0.0.00', '='))
+        {
+            $systemBuildManager->writeSystemUser();
+            $systemBuildManager->setAction(true);
+            $systemBuildManager->getSettingManager()->setInstallMode(true);
+            $systemBuildManager->buildSystemSettings();
+            return $this->render('Install/system_settings.html.twig',
+                [
+                    'manager' => $systemBuildManager,
+                ]
+            );
+        }
+
 		$user = new User();
 
 		$user->setPasswordNumbers($systemBuildManager->getSettingManager()->getParameter('password_numbers'));
@@ -308,17 +326,59 @@ class InstallController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$systemBuildManager->writeSystemUser($systemBuildManager->getSettingManager()->getParameter('kernel.project_dir'), $request->get('install_user'));
+            $data = $request->get('install_user');
 
-			$data = $request->get('install_user');
-			$request->request->set('_username', $data['_username']);
-			$request->request->set('_password', $data['_password']);
-			$request->request->set('_target_path', $this->generateUrl('install_user'));
+			$systemBuildManager->writeSystemUser($data);
 
-			// get the login error if there is one
-			$error = is_null($authUtils) ? null : $authUtils->getLastAuthenticationError();
-			if (! empty($error))
-				$systemBuildManager->getMessages()->add('danger', $error);
+            $em = $this->get('doctrine')->getManager();
+
+            $user1 = $em->getRepository(\Hillrange\Security\Entity\User::class)->find(1);
+
+            $user1->setCredentialsExpireAt(null);
+            $user1->setCredentialsExpired(false);
+
+            $person = new Person();
+            $person->setHonorific($data['title']);
+            $person->setUser($user1);
+            $person->setEmail($data['_email']);
+            $person->setSurname($data['surname']);
+            $person->setFirstName($data['firstName']);
+            $person->setPreferredName($data['firstName']);
+            $person->setOfficialName($data['firstName'] . ' ' . $data['surname']);
+
+            $settingManager = $systemBuildManager->getSettingManager();
+
+            $settingManager->setInstallMode(true);
+
+            $settingManager->set('currency', $data['currency']);
+            $orgName = [];
+            $orgName['long'] = $data['orgName'];
+            $orgName['short'] = $data['orgNameShort'];
+            $settingManager->set('org.name', $orgName);
+
+            $google = [];
+            $google['o_auth'] = $data['googleOAuth'];
+            $google['client_id'] = $data['googleClientId'];
+            $google['client_secret'] = $data['googleClientSecret'];
+            $settingManager->set('google', $google);
+
+            $params = Yaml::parse(file_get_contents($settingManager->getParameter('kernel.project_dir').'/config/packages/busybee.yaml'));
+
+            $params['parameters']['country'] = $data['country'];
+            $params['parameters']['timezone'] = $data['timezone'];
+
+            file_put_contents($settingManager->getParameter('kernel.project_dir').'/config/packages/busybee.yaml', Yaml::dump($params));
+
+            $person->setIdentifier('');
+
+            $em->persist($user1);
+            $em->persist($person);
+            $em->flush();
+
+            $request->getSession()->clear();
+
+            return $this->redirectToRoute('home');
+
 		}
 
 

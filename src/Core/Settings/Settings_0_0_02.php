@@ -41,7 +41,7 @@ Person.GenderList:
         'Male': 'M'
         'Female': 'F'
         'Other': '0'
-Person.TitleList:
+person.titlelist:
     type: 'array'
     displayName: 'List of Titles'
     description: 'List of personal titles used in the system.'
@@ -262,7 +262,7 @@ SchoolDay.Close:
     role: 'ROLE_ADMIN'
     validator: null
     value: '17:00'
-Campus.Space.Type:
+space.type:
     type: 'array'
     displayName: 'Type of Space'
     description: 'Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms.'

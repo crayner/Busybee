@@ -306,13 +306,15 @@ class InstallManager
 		{
 			foreach ($request->get('install_mailer') as  $name => $value)
 			{
-				$name = explode('_', $name);
-				foreach($name as $q=>$w)
-					$name[$q] = ucfirst($w);
-				$name = implode('', $name);
-				$set = 'set' . ucfirst($name);
+			    if ($name !== '_token') {
+                    $name = explode('_', $name);
+                    foreach ($name as $q => $w)
+                        $name[$q] = ucfirst($w);
+                    $name = implode('', $name);
+                    $set = 'set' . ucfirst($name);
 
-				$this->mailer->$set($value);
+                    $this->mailer->$set($value);
+                }
 			}
 
 			if ($this->mailer->getHost() === 'empty')
@@ -391,8 +393,10 @@ class InstallManager
 			$params = Yaml::parse(file_get_contents($this->projectDir.'/config/packages/busybee.yaml'));
 			foreach($request->get('install_miscellaneous') as $name=>$value)
 			{
-				$set = 'set'.ucfirst($name);
-				$this->misc->$set($value);
+			    if ($name !== '_token') {
+                    $set = 'set' . ucfirst($name);
+                    $this->misc->$set($value);
+                }
 			}
 
 			$params['parameters'] = $this->misc->dumpMiscellaneousSettings($params['parameters']);

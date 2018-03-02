@@ -85,21 +85,6 @@ class Miscellaneous
 	private $userPassword;
 
 	/**
-	 * @var boolean
-	 */
-	private $googleOAuth = false;
-
-	/**
-	 * @var string
-	 */
-	private $googleClientId;
-
-	/**
-	 * @var string
-	 */
-	private $googleClientSecret;
-
-	/**
 	 * Miscellaneous constructor.
 	 */
 	public function __construct()
@@ -429,66 +414,6 @@ class Miscellaneous
 
 		return $this;
 }
-
-	/**
-	 * @return bool
-	 */
-	public function isGoogleOAuth(): bool
-	{
-		return $this->googleOAuth;
-	}
-
-	/**
-	 * @param bool $googleOAuth
-	 *
-	 * @return Miscellaneous
-	 */
-	public function setGoogleOAuth(bool $googleOAuth): Miscellaneous
-	{
-		$this->googleOAuth = $googleOAuth;
-
-		return $this;
-}
-
-	/**
-	 * @return string
-	 */
-	public function getGoogleClientId(): ?string
-	{
-		return $this->googleClientId;
-	}
-
-	/**
-	 * @param string $googleClientId
-	 *
-	 * @return Miscellaneous
-	 */
-	public function setGoogleClientId(string $googleClientId = null): Miscellaneous
-	{
-		$this->googleClientId = $googleClientId;
-
-		return $this;
-}
-
-	/**
-	 * @return string
-	 */
-	public function getGoogleClientSecret(): ?string
-	{
-		return $this->googleClientSecret;
-	}
-
-	/**
-	 * @param string $googleClientSecret
-	 *
-	 * @return Miscellaneous
-	 */
-	public function setGoogleClientSecret(string $googleClientSecret = null): Miscellaneous
-	{
-		$this->googleClientSecret = $googleClientSecret;
-
-		return $this;
-	}
 
 	/**
 	 * @param array $params

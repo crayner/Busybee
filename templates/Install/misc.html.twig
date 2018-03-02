@@ -85,22 +85,6 @@
 
         {% include 'Page/panelEnd.html.twig' %}
 
-
-        {% include 'Page/panelStart.html.twig' with {'transDomain': 'Install', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
-            <div class="row">
-                <div class="card col-2">
-                    {{ form_row(form.googleOAuth) }}
-                </div>
-                <div class="card col-5">
-                    {{ form_row(form.googleClientId) }}
-                </div>
-                <div class="card col-5">
-                    {{ form_row(form.googleClientSecret) }}
-                </div>
-            </div>
-        </div>
-        {% include 'Page/panelEnd.html.twig' %}
-
     </div>
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}

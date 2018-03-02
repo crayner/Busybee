@@ -10,6 +10,7 @@ use Hillrange\Security\Entity\User;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use Hillrange\Security\Util\ParameterInjector;
 use Hillrange\Security\Util\PasswordManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
@@ -49,6 +50,10 @@ class SystemBuildManager extends InstallManager
 	 */
 	private $action = false;
 
+    /**
+     * @var ParameterInjector
+     */
+	private $parameterInjector;
 	/**
 	 * DatabaseManager constructor.
 	 *
@@ -56,13 +61,14 @@ class SystemBuildManager extends InstallManager
 	 * @param SettingManager               $settingManager
 	 * @param UserPasswordEncoderInterface $encoder
 	 */
-	public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager, ContainerInterface $container, PasswordManager $passwordManager)
+	public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager, ContainerInterface $container, PasswordManager $passwordManager, ParameterInjector $parameterInjector)
 	{
 		$this->entityManager = $entityManager;
 		$this->messages = new MessageManager('Install');
 		$this->settingManager = $settingManager;
 		$this->passwordManager = $passwordManager;
-		parent::__construct($container->getParameter('kernel.project_dir'));
+        $this->parameterInjector = $parameterInjector;
+		parent::__construct($parameterInjector->getParameter('kernel.project_dir'));
 	}
 
 	/**
@@ -103,8 +109,8 @@ class SystemBuildManager extends InstallManager
 			{
 				if ($this->isAction())
 					$conn->executeQuery($sql);
-			} catch (DriverException $e){
-				if ($e->getErrorCode() == '1823')
+			} catch (\Exception $e){
+				if ($e->getPrevious() instanceof DriverException && $e->getErrorCode() == '1823')
 				{
 					$ok = false;
 					$this->addMessage('danger', 'system.build.database.error', ['%error%' => $e->getMessage()]);
@@ -160,10 +166,7 @@ class SystemBuildManager extends InstallManager
 	 */
 	public function buildSystemSettings()
 	{
-		if ($this->getSettingManager()->has('version'))
-			$current = $this->getSettingManager()->get('version', '0.0.00');
-		else
-			$current = '0.0.00';
+	    $current = $this->getSystemVersion();
 
 		$software = VersionManager::VERSION;
 
@@ -212,18 +215,17 @@ class SystemBuildManager extends InstallManager
                     $this->settingManager->createSetting($entity);
                 }
                 $this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
-			} else
+			} else {
+			    sleep(1);
+                $entity = $this->settingManager->findOneByName('version');
+                $entity->setValue($current);
+                $this->settingManager->createSetting($entity);
                 $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $current]);
-
+            }
 
 			if (version_compare($current, $software, '='))
-			{
 				$this->systemSettingsInstalled = true;
-                $this->settingManager->set('version', $current);
-				sleep(1);
-			} elseif (version_compare($current, $software, '<')) {
-                $this->settingManager->set('version', $current);
-            } elseif (version_compare($current, $software, '>'))
+            elseif (version_compare($current, $software, '>'))
 				trigger_error('The setting class is trying to install a version ('.$current.') greater than the software version ('.$software.').');
         }
 
@@ -236,17 +238,16 @@ class SystemBuildManager extends InstallManager
 	 *
 	 * @return void
 	 */
-	public function writeSystemUser(string $projectDir, array $userParams = [])
+	public function writeSystemUser(array $userParams = [
+        '_username' => 'admin',
+        '_password' => 'pass_word',
+        '_email' => 'no@no_domain.com.nz',
+    ])
 	{
-		$this->projectDir = $projectDir;
-
 		$user = $this->entityManager->getRepository(User::class)->find(1);
 
-		if (empty($userParams) || empty($userParams['_username']))
-			return ;
-
 		if (! $user instanceof User)
-			$user = new User();
+			$user = new User($this->parameterInjector);
 
 		$user->setInstaller(true);
 		$user->setUsername($userParams['_username']);
@@ -280,7 +281,6 @@ class SystemBuildManager extends InstallManager
 			$this->entityManager->persist($cal);
 			$this->entityManager->flush();
 		}
-		$user->setUserSetting('Calendar', $cal, 'object');
 
 		$user->setCreatedBy($user);
 		$user->setModifiedBy($user);
@@ -319,7 +319,6 @@ class SystemBuildManager extends InstallManager
 	public function handleUserParameters(Request $request, Form $form)
 	{
 		$form->handleRequest($request);
-
 	}
 
 	/**
@@ -360,5 +359,16 @@ class SystemBuildManager extends InstallManager
 		$this->action = $action;
 
 		return $this;
-}
+    }
+
+    /**
+     * @return string
+     */
+    public function getSystemVersion(): string
+    {
+        if ($this->getSettingManager()->has('version'))
+            return $this->getSettingManager()->get('version', '0.0.00');
+        else
+            return '0.0.00';
+    }
 }

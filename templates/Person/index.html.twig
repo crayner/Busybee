@@ -32,12 +32,12 @@
                 {% else %}
                     {{ 'person.familyName.title'|trans }}
                 {% endif %}
-            <br />
+            <br /><small>
                 {% if pagination.getSortByName == 'person.firstName.label' %}
                     <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.givenName.title'|trans }}
                 {% else %}
                     {{ 'person.givenName.title'|trans }}
-                {% endif %}
+                {% endif %}</small>
             </div>
             <div class="col-4 hidden-sm hidden-xs" style="display: inline-block;">
                 {% if pagination.getSortByName == 'person.email.label' %}

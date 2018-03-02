@@ -10,7 +10,6 @@
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% block flashMessages %}{% include 'Default/messages.html.twig' %}{% endblock flashMessages %}
     {{ form_start(form) }}
     {% set h3Content = '' %}
     {% if manager.isUserDefined %}
@@ -21,7 +20,7 @@
 
     <div id="form_body">
         {% set h3Content = '' %}
-        {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
+        {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.user.title', panelStyle: 'info', panelParagraph: 'misc.user.description' } %}
         <div class="container-fluid">
             <div class="row">
                 <div class="card col-6">
@@ -43,9 +42,61 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="card col-2 ">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="card col-5 ">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="card col-5">
+                    {{ form_row(form.surname) }}
+                </div>
+            </div>
         </div>
         {% include 'Page/panelEnd.html.twig' %}
+        {% set h3Content = '' %}
+        {% include 'Page/panelStart.html.twig' with {transDomain: 'System', header: 'system.settings.title', panelStyle: 'success', panelParagraph: 'system.settings.description' } %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-6">
+                    {{ form_row(form.country) }}
+                </div>
+                <div class="card col-6">
+                    {{ form_row(form.currency) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6">
+                    {{ form_row(form.timezone) }}
+                </div>
+                <div class="card col-6">
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6">
+                    {{ form_row(form.orgName) }}
+                </div>
+                <div class="card col-6">
+                    {{ form_row(form.orgNameShort) }}
+                </div>
+            </div>
+        </div>
+        {% include 'Page/panelEnd.html.twig' %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
 
+    {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.google.title', panelStyle: 'default', panelParagraph: 'misc.google.description' } %}
+    <div class="row">
+        <div class="card col-2">
+            {{ form_row(form.googleOAuth) }}
+        </div>
+        <div class="card col-5">
+            {{ form_row(form.googleClientId) }}
+        </div>
+        <div class="card col-5">
+            {{ form_row(form.googleClientSecret) }}
+        </div>
     </div>
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
@@ -54,7 +105,6 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-    {% include 'Script/fadeAlert.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $("#generatePassword").on('click', function () {
             $('#install_user_userPassword').val('{{ manager.generatePassword }}');

@@ -10,8 +10,8 @@ App\Entity\Phone:
         phoneType:
             - NotBlank: ~
             - \App\Core\Validator\SettingChoice:
-                name: 'phone.typelist'
+                name: 'phone.type.list'
         countryCode:
             - NotBlank: ~
             - \App\Core\Validator\SettingChoice:
-                name: 'phone.countrylist'
+                name: 'phone.country.list'

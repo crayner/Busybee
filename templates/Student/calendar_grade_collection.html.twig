@@ -6,7 +6,11 @@
 {% block calendar_grade_widget %}
         <div class="row">
             <div class="col-5 offset-5 card">
-                {{ form_row(form) }}
+                {% set grade = form.vars.value %}
+                {% if grade is empty %}
+                    {% set grade = form.vars.data %}
+                {% endif %}
+                {{ form_row(form, {value: grade}) }}
                 <label class="form-control-label" for="{{ form.vars.name }}">{{ form.vars.label|trans }} <span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span></label>
 
                 <small class="form-text text-muted">{{ form.vars.help|trans }}</small>

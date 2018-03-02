@@ -29,7 +29,7 @@ class SettingChoiceValidator extends ConstraintValidator
 	 */
 	public function validate($value, Constraint $constraint)
 	{
-		if (empty($value))
+		if (! $constraint->strict && empty($value))
 			return;
 
 		$s = [];

@@ -1,9 +1,9 @@
 <?php
 namespace App\Core\Manager;
 
-use App\Core\Exception\Exception;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
+use Doctrine\DBAL\Driver\PDOException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Form\FormInterface;
@@ -50,6 +50,11 @@ class SettingManager implements ContainerAwareInterface
      * @var \Twig_Environment
      */
     private $twig;
+
+    /**
+     * @var bool
+     */
+    private $installMode = false;
 
     /**
      * SettingManager constructor.
@@ -289,6 +294,24 @@ class SettingManager implements ContainerAwareInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isInstallMode(): bool
+    {
+        return $this->installMode;
+    }
+
+    /**
+     * @param bool $installMode
+     * @return SettingManager
+     */
+    public function setInstallMode(bool $installMode): SettingManager
+    {
+        $this->installMode = $installMode;
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */
@@ -430,8 +453,13 @@ class SettingManager implements ContainerAwareInterface
      */
     public function findOneByName($name): ?Setting
     {
-        return $this->settingRepository->findOneByName($name);
-
+        try {
+            return $this->settingRepository->findOneByName($name);
+        } catch (\Exception $e) {
+            if ($e->getPrevious() instanceof PDOException && in_array($e->getErrorCode(),['1146', '1045']))
+                return null;
+            throw $e;
+        }
     }
 
     /**
@@ -486,8 +514,9 @@ class SettingManager implements ContainerAwareInterface
         if (is_null($this->setting) || empty($this->setting->getName()))
             return $this;
 
-        if (! $this->authorisation->isGranted($this->setting->getRole(), $this->setting))
-            return $this;
+        if (! $this->isInstallMode())
+            if (! $this->authorisation->isGranted($this->setting->getRole(), $this->setting))
+                return $this;
 
         $func = 'set' . ucfirst(strtolower($this->setting->getType()));
         $value = $this->$func($value);
@@ -648,5 +677,15 @@ class SettingManager implements ContainerAwareInterface
             $value = $value->format('H:i');
 
         return $value;
+    }
+
+    private function getEnum(string $name, $default, $options)
+    {
+        return $this->getString($name, $default, $options);
+    }
+
+    private function setEnum($value): ?string
+    {
+        return $this->setString($value);
     }
 }

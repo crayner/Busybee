@@ -3,20 +3,16 @@ namespace App\Install\Form;
 
 use Hillrange\Form\Type\TextType;
 use Hillrange\Form\Type\ToggleType;
-use App\Core\Validator\Password;
 use App\Install\Organism\Miscellaneous;
 use App\Install\Subscriber\MiscellaneousSubscriber;
-use App\Install\Validator\GoogleOAuth;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MiscellaneousType extends AbstractType
@@ -136,32 +132,7 @@ class MiscellaneousType extends AbstractType
 						'help' => 'misc.password.specials.help',
 				]
 			)
-			->add('googleOAuth', ToggleType::class,
-				[
-					'label'  => 'misc.google.oauth.label',
-					'help' => 'misc.google.oauth.help',
-				]
-			)
-			->add('googleClientId', TextType::class,
-				[
-					'label'    => 'misc.google.client_id.label',
-					'attr'     => array(
-						'class' => 'googleSetting',
-					),
-					'help'  => 'misc.google.client_id.help',
-					'required' => false,
-				]
-			)
-			->add('googleClientSecret', TextType::class,
-				[
-					'label'    => 'misc.google.client_secret.label',
-					'attr'     => array(
-						'class' => 'googleSetting',
-					),
-					'help'  => 'misc.google.client_secret.help',
-					'required' => false,
-				]
-			);
+        ;
 		$builder->addEventSubscriber(new MiscellaneousSubscriber());
 	}
 
@@ -173,9 +144,6 @@ class MiscellaneousType extends AbstractType
 		$resolver->setDefaults([
 			'translation_domain' => 'Install',
 			'data_class'         => Miscellaneous::class,
-			'constraints'   => [
-				new GoogleOAuth(),
-			],
 		]);
 	}
 

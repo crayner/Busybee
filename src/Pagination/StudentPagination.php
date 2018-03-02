@@ -20,24 +20,24 @@ class StudentPagination extends PaginationManager
 	/**
 	 * @var string
 	 */
-	protected $alias = 'p';
+	protected $alias = 's';
 
 	/**
 	 * @var array
 	 */
 	protected $sortByList = [
 		'person.surname.label'   => [
-			'p.surname'   => 'ASC',
-			'p.firstName' => 'ASC',
+			's.surname'   => 'ASC',
+			's.firstName' => 'ASC',
 		],
 		'person.firstName.label' => [
-			'p.firstName' => 'ASC',
-			'p.surname'   => 'ASC',
+			's.firstName' => 'ASC',
+			's.surname'   => 'ASC',
 		],
         'person.email.label'     => [
-            'p.email'     => 'ASC',
-            'p.surname'   => 'ASC',
-            'p.firstName' => 'ASC',
+            's.email'     => 'ASC',
+            's.surname'   => 'ASC',
+            's.firstName' => 'ASC',
         ],
 	];
 	/**
@@ -49,20 +49,19 @@ class StudentPagination extends PaginationManager
 	 * @var array
 	 */
 	protected $searchList = [
-		'p.surname',
-		'p.firstName',
-		'p.email',
-        'rg.name',
-        'rg.nameShort',
+		's.surname',
+		's.firstName',
+		's.email',
+        'cg.grade',
 	];
 
 	/**
 	 * @var array
 	 */
 	protected $select = [
-		'p.surname',
-		'p.firstName',
-		'p.id',
+		's.surname',
+		's.firstName',
+		's.id',
 		'u.id as user_id',
 	];
 
@@ -76,17 +75,17 @@ class StudentPagination extends PaginationManager
 	 */
 	protected $join =
 		[
-			'p.user' => [
+			's.user' => [
 				'type'  => 'leftJoin',
 				'alias' => 'u',
 			],
-			'p.phone' => [
+			's.phone' => [
 				'type' => 'leftJoin',
 				'alias' =>'ph',
 			],
-            'p.rollGroups' => [
+            's.calendarGrades' => [
                 'type' => 'leftJoin',
-                'alias' => 'rg'
+                'alias' => 'cg'
             ],
 		];
 

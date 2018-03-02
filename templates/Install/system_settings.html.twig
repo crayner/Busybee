@@ -9,18 +9,26 @@
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% if not installed %}
-        {% set h3Content = proceedButton({'windowOpen': {'route': path("install_database")}})|raw %}
+    {% set h3Content = '' %}
+    {% if not manager.systemSettingsInstalled %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_user")}})|raw %}
     {% else %}
-        {% set h3Content = proceedButton({'windowOpen': {'route': path("install_user")}})|raw %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_user")}})|raw %}
     {% endif %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
+
     {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'system.install.title'} %}
     <div class="container-fluid">
-        <p class="alert alert-info">{{ 'install.database.progress'|trans }}</p>
-    {% set messages = manager.messages %}
-    {% include 'Default/messages.html.twig' with {element: 'p'} %}
+        {% if manager.action %}
+            <p class="alert alert-info">{{ 'install.system.progress'|trans }}</p>
+        {% else %}
+            <p class="alert alert-info">{{ 'install.system.check'|trans }}</p>
+        {% endif %}
+        {% set messages = manager.messages %}
+        {% include 'Default/messages.html.twig' with {element: 'p'} %}
     </div>
     {% include 'Page/panelEnd.html.twig' %}
+
 
 {% endblock contentContainer %}
 

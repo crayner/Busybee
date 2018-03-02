@@ -32,12 +32,14 @@ class HomeController extends Controller
 			else
 				$messages->add('warning', $error->getMessage());
 		}
+
+
+
 		return $this->render('home.html.twig');
 	}
 
 	/**
 	 * @Route("/template/", name="home_template")
-	 * @IsGranted("ROLE_ADMIN")
 	 */
 	public function template()
 	{

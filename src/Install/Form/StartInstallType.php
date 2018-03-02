@@ -2,8 +2,8 @@
 namespace App\Install\Form;
 
 use Hillrange\Form\Type\TextType;
-use App\Core\Validator\NoWhiteSpace;
 use App\Install\Organism\Database;
+use Hillrange\Form\Validator\NoWhiteSpace;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -55,7 +55,7 @@ class StartInstallType extends AbstractType
 						'help' => 'sql.database.name.help',
 					'constraints' => [
 						new NotBlank(),
-						new \App\Core\Validator\NoWhiteSpace(
+						new NoWhiteSpace(
 							['repair' => false,]
 						),
 					],

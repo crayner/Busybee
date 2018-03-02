@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityRepository;
-use stdClass;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -904,7 +903,7 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	public function isDisplaySort(): bool
 	{
-	    if (!is_array($this->sortByList) || count($this->sortByList))
+	    if (!is_array($this->sortByList) || count($this->sortByList) <= 1)
 	        $this->setDisplaySort(false);
 
 		return $this->displaySort;

@@ -22,7 +22,7 @@
                        placeholder="{{ 'Password'|trans }}" />
                 <span class="input-group-append"><button type="submit" class="btn btn-success halflings halflings-log-in"></button></span>
 
-                {% if get_setting('google.oauth', false) %}
+                {% if get_setting('google.o_auth', false) %}
                 <span class="input-group-append">
                     <a href="{{ path('google_oauth') }}" title="{{ 'google.oauth'|trans({}, 'security') }}"><img
                                 src="{{ asset('img/Google_icon_2015.png') }}" height="31"/></a></span>

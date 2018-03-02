@@ -5,7 +5,7 @@ doctrine:
                 driver:   '%db_driver%'
                 host:     '%db_host%'
                 port:     '%db_port%'
-                dbname:   'craigray_gibbon'
+                dbname:   '%db2_name%'
                 user:     '%db_user%'
                 password: '%db_pass%'
                 charset:  '%db_charset%'
