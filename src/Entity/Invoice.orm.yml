@@ -1,0 +1,10 @@
+App\Entity\Invoice:
+    type: entity
+    table: invoice
+    repositoryClass: App\Repository\InvoiceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO

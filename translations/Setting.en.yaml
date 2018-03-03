@@ -104,3 +104,8 @@ school.search.replace:
     this_school: This School
     form_grade: Form/Grade/Year
     forms_grades: Forms/Grades/Years
+external.activity.status.list:
+        accepted: Accepted
+        panding: Pending
+        waiting_list: Waiting List
+        not_accepted: Not Accepted

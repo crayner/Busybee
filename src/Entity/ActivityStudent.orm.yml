@@ -13,16 +13,57 @@ App\Entity\ActivityStudent:
             id: true
             generator:
                 strategy: AUTO
+    fields:
+        externalStatus:
+            type: string
+            options:
+                default: 'pending'
+            length: 24
+            column: external_status
+            nullable: true
+        externalTimestamp:
+            type: datetime
+            nullable: true
+            column: external_timestamp
+        externalInvoiceGenerated:
+            type: boolean
+            options:
+                default: 0
+            column: external_invoice_generated
+            nullable: true
+        classReportable:
+            type: boolean
+            options:
+                default: 0
+            column: class_reportable
+            nullable: true
+    oneToOne:
+        externalActivityBackup:
+            targetEntity: App\Entity\Activity
+            joinColumn:
+                name: external_activity_backup_id
+                referencedColumnName: id
+                nullable: true
+            cascade: ['persist']
+        externalInvoiceID:
+            targetEntity: App\Entity\Invoice
+            joinColumn:
+                name: external_activity_invoice_id
+                referencedColumnName: id
+                nullable: true
+            cascade: ['persist']
     manyToOne:
         activity:
             targetEntity: App\Entity\Activity
             inversedBy: students
+            cascade: ['persist']
             joinColumn:
                 name: activity_id
                 referencedColumnName: id
         student:
             targetEntity: App\Entity\Student
             inversedBy: activities
+            cascade: ['persist']
             joinColumn:
                 name: student_id
                 referencedColumnName: id
