@@ -21,4 +21,27 @@ class Invoice implements UserTrackInterface
     {
         return $this->id;
     }
+
+    /**
+     * @var null|string
+     */
+    private $identifier;
+
+    /**
+     * @return null|string
+     */
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param null|string $identifier
+     * @return Invoice
+     */
+    public function setIdentifier(?string $identifier): Invoice
+    {
+        $this->identifier = $identifier;
+        return $this;
+    }
 }

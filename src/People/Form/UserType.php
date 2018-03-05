@@ -1,6 +1,7 @@
 <?php
 namespace App\People\Form;
 
+use Hillrange\Form\Type\DateType;
 use Hillrange\Form\Type\TextType;
 use Hillrange\Form\Type\ToggleType;
 use Hillrange\Security\Entity\User;
@@ -8,7 +9,6 @@ use Hillrange\Security\Form\DirectRoleType;
 use Hillrange\Security\Form\GroupType;
 use Hillrange\Security\Form\Subscriber\UserSubscriber;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormBuilderInterface;

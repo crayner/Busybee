@@ -1,0 +1,44 @@
+{% trans_default_domain "School" %}
+
+{% block external_activity_student_label %}{% endblock %}
+{% block external_activity_student_errors %}{% endblock %}
+
+{% block external_activity_student_widget %}
+    {% spaceless %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set title = 'activity.student.title'|trans %}
+        {% if form.vars.value is not empty %}
+            {% set title = form.vars.value.tutor.fullName %}
+        {% endif %}
+        {% set h3Content = h3Content ~ title %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton() %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        <div class="container-fluid">
+            <div class="row row-header">
+                <div class="col-12">{{ h3Content|raw }}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 card">
+                    {{ form_row(form.externalStatus) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.externalTimestamp) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 card">
+                    {{ form_row(form.externalActivityBackup) }}
+                </div>
+                <div class="col-2 card">
+                    {{ form_row(form.externalInvoiceGenerated) }}
+                </div>
+                <div class="col-5 card">
+                    {{ form_row(form.externalInvoiceID) }}
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    {% endspaceless %}
+{% endblock external_activity_student_widget %}

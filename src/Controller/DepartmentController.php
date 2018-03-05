@@ -64,10 +64,10 @@ class DepartmentController extends Controller
 
 		$flashBagManager->addMessages();
 
-		return $this->render('Department/edit.html.twig', array(
+		return $this->render('Department/edit.html.twig', [
 				'form'     => $form->createView(),
 				'fullForm' => $form,
-			)
+			]
 		);
 	}
 

@@ -112,14 +112,14 @@ duplicate:
     additional: ''
     prompt: ''
 up:
-    class: "collection-up collection-action halflings halflings-arrow-up btn btn-dark"
+    class: "collection-up collection-action halflings halflings-arrow-up btn btn-light"
     type: button
     title: 'form.up'
     style: 'float: right;'
     additional: ''
     prompt: ''
 down:
-    class: "collection-down collection-action halflings halflings-arrow-down btn btn-dark"
+    class: "collection-down collection-action halflings halflings-arrow-down btn btn-light"
     type: button
     title: 'form.down'
     style: 'float: right;'

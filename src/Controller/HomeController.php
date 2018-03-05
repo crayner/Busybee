@@ -33,8 +33,6 @@ class HomeController extends Controller
 				$messages->add('warning', $error->getMessage());
 		}
 
-
-
 		return $this->render('home.html.twig');
 	}
 

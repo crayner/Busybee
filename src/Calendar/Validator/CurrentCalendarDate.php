@@ -4,9 +4,9 @@ namespace App\Calendar\Validator;
 use App\Calendar\Validator\Constraints\CalendarDateValidator;
 use Symfony\Component\Validator\Constraint;
 
-class CalendarDate extends Constraint
+class CurrentCalendarDate extends Constraint
 {
-	public $message = 'calendar.validation.not_one_year';
+	public $message = 'calendar.current.validation.not_valid_date';
 
 	public $fields;
 

@@ -3,3 +3,7 @@ App\Entity\ActivityStudent:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [activity, student]
             message: activity.student.validation.duplicate
+    fields:
+        externalTimestamp:
+            - DateTime: ~
+            - App\Calendar\Validator\CurrentCalendarDate: ~

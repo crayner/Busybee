@@ -18,6 +18,7 @@ use App\School\Form\CourseType;
 use App\School\Form\DaysTimesType;
 use App\School\Form\ExternalActivityType;
 use App\School\Form\FaceToFaceType;
+use App\School\Util\ActivityManager;
 use App\School\Util\CourseManager;
 use App\School\Util\DaysTimesManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -112,7 +113,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/roll/list/", name="roll_list")
+     * @Route("/roll/list/", name="roll_list")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param RollPagination $activityPagination
@@ -132,21 +133,15 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/activity/{id}/edit/{activityType}/", name="activity_edit")
+     * @Route("/activity/{id}/edit/{activityType}/", name="activity_edit")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param int|string $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function activityEdit(Request $request, $id = 'Add', $activityType, EntityManagerInterface $entityManager)
+    public function activityEdit(Request $request, $id = 'Add', $activityType, ActivityManager $activityManager)
     {
-        switch ($activityType){
-            case 'roll':
-                $activity = $entityManager->getRepository(Roll::class)->find($id) ?: new Roll();
-                break;
-            default:
-                $activity = $entityManager->getRepository(Activity::class)->find($id) ?: new Activity();
-        }
+        $activity = $activityManager->setActivityType($activityType)->findActivity($id);
 
         $form = $this->createForm(ActivityType::class, $activity);
     
@@ -225,7 +220,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/external/activity/list/", name="external_activity_list")
+     * @Route("/external/activity/list/", name="external_activity_list")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param RollPagination $activityPagination
@@ -245,31 +240,33 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/external/activity/{id}/edit/", name="external_activity_edit")
+     * @Route("/activity/external/{id}/edit/", name="external_activity_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param int|string $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function externalActivityEdit(Request $request, $id = 'Add', EntityManagerInterface $entityManager)
+    public function externalActivityEdit(Request $request, $id = 'Add', ActivityManager $activityManager)
     {
-        $face = $entityManager->getRepository(ExternalActivity::class)->find($id) ?: new ExternalActivity();
-        $form = $this->createForm(ExternalActivityType::class, $face);
+        $activity = $activityManager->setActivityType('external')->findActivity($id);
+
+        $form = $this->createForm(ExternalActivityType::class, $activity);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $entityManager->persist($face);
-            $entityManager->flush();
+            $activityManager->getEntityManager()->persist($activity);
+            $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
-                return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $face->getId()]);
+                return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $activity->getId()]);
         }
 
         return $this->render('School/external_activity_edit.html.twig',
             [
                 'form' => $form->createView(),
+                'manager' => $activityManager,
             ]
         );
     }

@@ -441,4 +441,12 @@ calendarGrades:
             return true;
         return false;
     }
+
+    public function getCurrentYears(): array
+    {
+        $x = [];
+        $x[] = $this->getCurrentCalendar()->getFirstDay()->format('Y');
+        $x[] = $this->getCurrentCalendar()->getLastDay()->format('Y');
+        return $x;
+    }
 }

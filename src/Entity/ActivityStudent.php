@@ -8,6 +8,10 @@ class ActivityStudent implements UserTrackInterface
 {
     use UserTrackTrait;
 
+    public function __construct()
+    {
+        $this->setExternalStatus('pending');
+    }
     /**
      * @var null|int
      */

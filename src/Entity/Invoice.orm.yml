@@ -8,3 +8,7 @@ App\Entity\Invoice:
             id: true
             generator:
                 strategy: AUTO
+    fields:
+        identifier:
+            type: string
+            length: 32

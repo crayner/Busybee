@@ -1,0 +1,9 @@
+{% trans_default_domain 'School' %}
+
+{% include 'Page/panelStart.html.twig' with {header: 'activity.external.tutors.tab', panelParagraph: 'school.external_activity.manage.title', panelParams: {'%name%': form.vars.value.fullName}, transDomain: 'School'} %}
+<div class="row">
+    <div class="col-12 card">
+        {{ form_row(form.tutors) }}
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}

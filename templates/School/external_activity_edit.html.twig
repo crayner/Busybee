@@ -6,68 +6,84 @@
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     'School/activity_tutor.html.twig'
+    'School/external_activity_student.html.twig'
 %}
 
-{% block title %}{{ 'school.face_to_face.edit.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'school.face_to_face.edit.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'school.face_to_face.edit.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ 'school.external_activity.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.external_activity.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.external_activity.edit.description'|trans }}{% endblock headerLead %}
+
+{% set tabs = manager.tabs %}
+{% set h3Content = '' %}
+{% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('external_activity_list')}}) %}
+{% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}, title: 'reset.button', transDomain: 'home'})|raw %}
+{% set h3Content = h3Content ~ saveButton() %}
 
 {% block contentContainer %}
     {{ form_start(form) }}
-    {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('external_activity_list')}}) %}
-    {% set h3Content = h3Content ~ saveButton() %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.external_activity.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
-
-    <div class="row">
-        <div class="col-8 card">
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.name) }}
+    <div id="formTabs">
+        <ul class="nav nav-pills" role="tablist">
+            {% set active = ' active' %}
+            {% for name,tab in tabs %}
+                {% set translation = 'School' %}
+                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+                {% set disabled = '' %}
+                <li class="nav-item" role="presentation">
+                    <a href="#{{ name }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{{ tab.label|trans({}, translation) }}</a>
+                </li>
+                {% set active = '' %}
+            {% endfor %}
+        </ul>
+        {% set active = ' active' %}
+        <div class="tab-content">
+            {% for name,tab in tabs %}
+                {% set translation = 'School' %}
+                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+                <div class="tab-pane{{ active }}" id="{{ name }}">
+                    {% if tab.message is defined %}
+                        <div class="container-fluid">
+                            <div class='row' id="{{ tab.message }}" style="display: none;">
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% include tab.include %}
                 </div>
-                <div class="col-6 card">
-                    {{ form_row(form.provider) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.active) }}
-                </div>
-                <div class="col-6 card">
-                    {{ form_row(form.registration) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.terms) }}
-                </div>
-                <div class="col-6 card">
-                    {{ form_row(form.maxParticipants) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 card">
-                </div>
-                <div class="col-6 card">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 card">
-                    {{ form_row(form.tutors) }}
-                </div>
-            </div>
-        </div>
-        <div class="col-4 card">
-            {{ form_row(form.students, {help_params: {'%{count}': form.students.vars.choices|length}}) }}
+                {% set active = '' %}
+            {% endfor %}
         </div>
     </div>
-    {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'School/activity_tutor_script.html.twig' %}
+    {% include 'School/activity_student_script.html.twig' %}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (window.location.hash) {
+            var hash = window.location.hash;
+            hash = 'a[href="' + hash.replace('#', '#') + '"]';
+            $(hash).tab('show');
+        }
+    });
+
+    function resetForm() {
+        var fragment = $('.tab-content > .active').attr('id');
+        var id = '{{ app.request.get('id') }}';
+
+        if (id.length === 0) {
+            id = '0';
+        }
+
+        var path = '{{ path('external_activity_edit', {'id': '__id__', '_fragment': '__fragment__'}) }}';
+        path = path.replace('__id__', id);
+        path = path.replace('__fragment__', fragment);
+
+        location.assign(path);
+        location.reload(true);
+    }
+    </script>
 {% endblock %}

@@ -86,7 +86,9 @@ school:
         description: ''
         help: The activity list is limited to the current year.
     external_activity:
-        edit.title: Edit Activity
+        edit:
+            title: Edit Activity
+            description: ''
         manage.title: '%name%'
 department:
     edit:
@@ -208,6 +210,15 @@ activity:
         label: Location
         placeholder: Select Location
     next_roll.label: Roll next Calendar
+    student:
+        title: 'Student Record'
+        external:
+            status:
+                label: Status
+                placeholder: Pending
+            activity_backup:
+                label: Alternative
+                placeholder: Select Alternative Activity
     students:
         label: Possible Students
         help: 'The system found %{count} students available for this class.'
@@ -215,6 +226,10 @@ activity:
     reportable.label: Reportable
     attendance.label: Record Attendance
     tutors.label: Tutors
+    external:
+        details.tab: Details
+        students.tab: Students
+        tutors.tab: Tutors
 activity_tutor:
     role:
         label: Role
@@ -243,3 +258,9 @@ external_activity:
         label: Participants
         help: Select the students for this activity.
     max_participants.label: Maximum Participants.
+    description.label: Description
+    payment:
+        label: Payment
+        help: 'In !!!currency!!!'
+    payment_type.label: Payment Type
+    payment_firmness.label: Payment Status
