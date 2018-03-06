@@ -4,6 +4,7 @@ App\Entity\ActivityStudent:
             fields: [activity, student]
             message: activity.student.validation.duplicate
     fields:
-        externalTimestamp:
-            - DateTime: ~
-            - App\Calendar\Validator\CurrentCalendarDate: ~
+        activity:
+            - NotBlank: ~
+        student:
+            - NotBlank: ~

@@ -31,7 +31,7 @@ class SchoolController extends Controller
 {
 	/**
 	 * @param Request $request
-	 * @Route("/school/days/times/", name="school_days_times")
+	 * @Route("/school/school/days/times/", name="school_days_times")
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function daysAndTimes(Request $request, DaysTimesManager $dtm)
@@ -53,7 +53,7 @@ class SchoolController extends Controller
 
     /**
      *
-     * @Route("/school/course/list/", name="course_list")
+     * @Route("/school/school/course/list/", name="course_list")
      * @IsGranted("ROLE_REGISTRAR")
      * @param CoursePagination $coursePagination
      * @param Request $request
@@ -75,7 +75,7 @@ class SchoolController extends Controller
 
     /**
      *
-     * @Route("/school/course/{id}/edit/", name="course_edit")
+     * @Route("/school/school/course/{id}/edit/", name="course_edit")
      * @IsGranted("ROLE_REGISTRAR")
      */
     public function courseEdit($id, Request $request, ClassPagination $classPagination)
@@ -113,7 +113,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/roll/list/", name="roll_list")
+     * @Route("/school/roll/list/", name="roll_list")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param RollPagination $activityPagination
@@ -133,7 +133,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/activity/{id}/edit/{activityType}/", name="activity_edit")
+     * @Route("/school/activity/{id}/edit/{activityType}/", name="activity_edit")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param int|string $id
@@ -164,9 +164,8 @@ class SchoolController extends Controller
         );
     }
 
-
     /**
-     * @Route("/school/calendar_grade/{id}/students/", name="student_grade")
+     * @Route("/school/school/calendar_grade/{id}/students/", name="student_grade")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param int|string $id
@@ -189,7 +188,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
+     * @Route("/school/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param int|string $id
@@ -220,7 +219,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/external/activity/list/", name="external_activity_list")
+     * @Route("/school/external/activity/list/", name="external_activity_list")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param RollPagination $activityPagination
@@ -240,7 +239,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/activity/external/{id}/edit/", name="external_activity_edit")
+     * @Route("/school/activity/external/{id}/edit/", name="external_activity_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param int|string $id
@@ -267,6 +266,7 @@ class SchoolController extends Controller
             [
                 'form' => $form->createView(),
                 'manager' => $activityManager,
+                'fullForm' => $form,
             ]
         );
     }

@@ -216,9 +216,10 @@ activity:
             status:
                 label: Status
                 placeholder: Pending
-            activity_backup:
-                label: Alternative
-                placeholder: Select Alternative Activity
+            student:
+                label: Student
+                placeholder: Select Student
+            created.label: Created
     students:
         label: Possible Students
         help: 'The system found %{count} students available for this class.'
@@ -264,3 +265,7 @@ external_activity:
         help: 'In !!!currency!!!'
     payment_type.label: Payment Type
     payment_firmness.label: Payment Status
+    calendar_grade:
+        label: '!!!forms_grades!!!'
+        help: 'Students choice is limited by this list. No selection is assumed as all !!!forms_grades!!!.'
+menu.activities.external.list: View Activities

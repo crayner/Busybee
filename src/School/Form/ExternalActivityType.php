@@ -5,8 +5,10 @@ use App\Calendar\Util\CalendarManager;
 use App\Core\Subscriber\SequenceSubscriber;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
+use App\Entity\CalendarGrade;
 use App\Entity\Student;
 use App\Entity\Term;
+use App\People\Util\StudentManager;
 use App\Repository\StudentRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
@@ -23,23 +25,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ExternalActivityType extends AbstractType
 {
     /**
-     * @var StudentRepository
+     * @var StudentManager
      */
-    private $studentRepository;
-
-    /**
-     * @var CalendarManager
-     */
-    private $calendarManager;
+    private $studentManager;
 
     /**
      * ExternalActivityType constructor.
-     * @param StudentRepository $studentRepository
+     * @param StudentManager $studentManager
      */
-    public function __construct(StudentRepository $studentRepository, CalendarManager $calendarManager)
+    public function __construct(StudentManager $studentManager)
     {
-        $this->studentRepository = $studentRepository;
-        $this->calendarManager = $calendarManager;
+        $this->studentManager = $studentManager;
     }
 
     /**
@@ -51,7 +47,7 @@ class ExternalActivityType extends AbstractType
         foreach($grades as $q=>$w)
             $grades[$q] = $w->getId();
 
-        $currentCalendar = $this->calendarManager->getCurrentCalendar();
+        $currentCalendar = $this->studentManager->getCalendarManager()->getCurrentCalendar();
 
 		$builder
             ->add('name', TextType::class,
@@ -69,6 +65,9 @@ class ExternalActivityType extends AbstractType
                         'class' => 'studentCollection',
                     ],
                     'entry_type' => ExternalActivityStudentsType::class,
+                    'entry_options' => [
+                        'student_list' => $this->studentManager->generateStudentList($options['data']->getCalendarGrades()),
+                    ],
                 ]
             )
             ->add('provider', SettingChoiceType::class,
@@ -109,7 +108,7 @@ class ExternalActivityType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'attr' => [
-                        'class' => 'form-control-sm text-right',
+                        'class' => 'form-control-sm',
                     ],
                     'query_builder' => function (EntityRepository $er) use ($currentCalendar) {
                         return $er->createQueryBuilder('t')
@@ -118,6 +117,28 @@ class ExternalActivityType extends AbstractType
                             ->setParameter('calendar_id', $currentCalendar->getId())
                             ->orderBy('t.firstDay', 'ASC')
                         ;
+                    },
+                ]
+            )
+            ->add('calendarGrades', EntityType::class,
+                [
+                    'label' => 'external_activity.calendar_grade.label',
+                    'help' => 'external_activity.calendar_grade.help',
+                    'class' => CalendarGrade::class,
+                    'choice_label' => 'grade',
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'attr' => [
+                        'class' => 'form-control-sm',
+                    ],
+                    'query_builder' => function (EntityRepository $er) use ($currentCalendar) {
+                        return $er->createQueryBuilder('g')
+                            ->leftJoin('g.calendar', 'c')
+                            ->where('c.id = :calendar_id')
+                            ->setParameter('calendar_id', $currentCalendar->getId())
+                            ->orderBy('g.sequence', 'ASC')
+                            ;
                     },
                 ]
             )
@@ -178,20 +199,4 @@ class ExternalActivityType extends AbstractType
 	{
 		return 'activity';
 	}
-
-    private function getStudents(array $grades)
-    {
-        $er = $this->studentRepository;
-
-        $xx = $er->createQueryBuilder('s')
-            ->leftJoin('s.calendarGrades', 'cg')
-            ->where('cg.id IN (:grades)')
-            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
-            ->orderBy('s.surname', 'ASC')
-            ->addOrderBy('s.firstName', 'ASC')
-            ->getQuery()
-            ->getResult();
-
-        return $xx;
-    }
 }

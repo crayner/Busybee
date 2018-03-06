@@ -13,30 +13,42 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-4 card">
+    <div class="col-3 card">
         {{ form_row(form.active) }}
     </div>
-    <div class="col-4 card">
+    <div class="col-3 card">
         {{ form_row(form.registration) }}
     </div>
-    <div class="col-4 card">
+    <div class="col-3 card">
         {{ form_row(form.terms) }}
     </div>
-</div>
-<div class="row">
-    <div class="col-4 card">
-        {{ form_row(form.payment) }}
-    </div>
-    <div class="col-4 card">
-        {{ form_row(form.paymentType) }}
-    </div>
-    <div class="col-4 card">
-        {{ form_row(form.paymentFirmness) }}
+    <div class="col-3 card">
+        {{ form_row(form.calendarGrades) }}
     </div>
 </div>
 <div class="row">
     <div class="col-12 card">
         {{ form_row(form.description) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 card">
+        <div class="row row-header">
+            <div class="col-12 card">
+                {{ 'Payment Details'|trans }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.payment) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.paymentType) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.paymentFirmness) }}
+            </div>
+        </div>
     </div>
 </div>
 {% include 'Page/panelEnd.html.twig' %}

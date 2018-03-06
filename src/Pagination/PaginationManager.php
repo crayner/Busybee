@@ -228,15 +228,19 @@ abstract class PaginationManager implements PaginationInterface
 		return $this->result;
 	}
 
-	/**
-	 * get Total
-	 *
-	 * @version    25th October 2016
-	 * @since      25th October 2016
-	 * @return    integer
-	 */
-	public function getTotal(): int
+    /**
+     * get Total
+     *
+     * @version    25th October 2016
+     * @since      25th October 2016
+     * @param bool $raw
+     * @return    null|integer
+     */
+	public function getTotal($raw = false): ?int
 	{
+	    if ($raw)
+	        return $this->total;
+
 		if (empty($this->total))
 		{
 			$query = $this->buildQuery(true)
@@ -327,7 +331,7 @@ abstract class PaginationManager implements PaginationInterface
 	/**
 	 * @return $this
 	 */
-	private function writeSession()
+	protected function writeSession()
 	{
 		$pag = empty($this->session->get('pagination')) ? [] : $this->session->get('pagination');
 
@@ -985,7 +989,35 @@ abstract class PaginationManager implements PaginationInterface
 		return $this;
 	}
 
-	/**
+    /**
+     * @param int $pages
+     * @return PaginationManager
+     */
+    public function setPages(int $pages): PaginationManager
+    {
+        $this->pages = $pages;
+        return $this;
+    }
+
+    /**
+     * @return null|array
+     */
+    public function getInjectedSearch(): ?array
+    {
+        return $this->injectedSearch;
+    }
+
+    /**
+     * @param array $injectedSearch
+     * @return PaginationManager
+     */
+    public function setInjectedSearch(array $injectedSearch): PaginationManager
+    {
+        $this->injectedSearch = $injectedSearch;
+        return $this;
+    }
+
+    /**
 	 * initiate Query
 	 *
 	 * @version    25th October 2016
@@ -1044,6 +1076,8 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	protected function setQuerySelect()
 	{
+	    $this->query->select($this->getAlias() . ' AS entity');
+
 		if (empty($this->select)  || !is_array($this->select)) return $this;
 		foreach ($this->select as $name)
 		{
@@ -1051,7 +1085,9 @@ abstract class PaginationManager implements PaginationInterface
 				$this->query->addSelect($name);
 			elseif (is_array($name))
 			{
-				$k      = key($name);
+				$k      = key($name);dump($k);
+				if ($k == '0')
+				    $k = 'entity';
 				$concat = new Query\Expr\Func('CONCAT', $name[$k]);
 				$concat .= ' as ' . $k;
 				$concat = str_replace(',', ',\' \',', $concat);

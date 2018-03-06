@@ -229,5 +229,15 @@ Timetable Admin:
             params: {}
     hidden:
         - course_edit
+Activities:
+    activities:
+        external_activities:
+            route: external_activity_list
+            label: menu.activities.external.list
+            role: ROLE_ADMIN
+            params: {}
+            translate: School
+    hidden:
+        - external_activity_edit
 ';
 }

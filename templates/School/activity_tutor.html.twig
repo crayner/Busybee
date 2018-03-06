@@ -11,7 +11,7 @@
             {% set title = form.vars.value.tutor.fullName %}
         {% endif %}
         {% set h3Content = h3Content ~ title %}
-        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ saveButton({type: 'button', javascript: {function: 'saveForm', options: {}}}) %}
         {% set h3Content = h3Content ~ deleteButton({title: 'activity.activity_tutor.remove.title', transDomain: 'Calendar', class: 'halflings halflings-erase btn btn-warning collection-remove collection-action'}) %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton() %}
@@ -22,11 +22,7 @@
             </div>
             <div class="row">
                 <div class="col-7 card">
-                    {% set data = form.tutor.vars.value %}
-                    {% if data is empty %}
-                        {% set data = form.tutor.vars.data %}
-                    {% endif %}
-                    {{ form_row(form.tutor, {value: data}) }}
+                    {{ form_row(form.tutor, {value: transformData(form.tutor.vars.data)}) }}
                     {{ form_row(form.activity) }}
                     {{ form_row(form.sequence) }}
                 </div>

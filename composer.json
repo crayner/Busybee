@@ -13,7 +13,7 @@
         "hillrange/ckeditor": "^0.1",
         "hillrange/gibbon": "dev-master",
 		"hillrange/security": "^0.0",
-		"hillrange/symfony-form": "^0.0",
+		"hillrange/symfony-form": "^0.1",
 		"knpuniversity/oauth2-client-bundle": "^1.16",
 		"league/oauth2-google": "^2.0",
 		"sensio/framework-extra-bundle": "^5.1",
@@ -45,7 +45,7 @@
 		"symfony/var-dumper": "^4.0",
 		"symfony/yaml": "^4.0",
 		"twig/extensions": "^1.5",
-		"twig/twig": "2.4.4"
+		"twig/twig": "^2.4"
 	},
     "require-dev": {
         "symfony/dotenv": "^4.0"

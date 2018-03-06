@@ -21,10 +21,6 @@ App\Entity\ActivityStudent:
             length: 24
             column: external_status
             nullable: true
-        externalTimestamp:
-            type: datetime
-            nullable: true
-            column: external_timestamp
         externalInvoiceGenerated:
             type: boolean
             options:

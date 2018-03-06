@@ -1,15 +1,11 @@
 <?php
 namespace App\School\Form;
 
-use App\Calendar\Util\CalendarManager;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\ActivityStudent;
-use App\Entity\ExternalActivity;
-use App\Entity\Invoice;
-use Doctrine\ORM\EntityRepository;
-use Hillrange\Form\Type\DateTimeType;
+use App\Entity\Student;
+use App\People\Util\StudentManager;
 use Hillrange\Form\Type\EntityType;
-use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,48 +13,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ExternalActivityStudentsType extends AbstractType
 {
     /**
-     * @var CalendarManager
-     */
-    private $calendarManager;
-
-    /**
-     * ExternalActivityStudentsType constructor.
-     * @param CalendarManager $calendarManager
-     */
-    public function __construct(CalendarManager $calendarManager)
-    {
-        $this->calendarManager = $calendarManager;
-    }
-    /**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-	    $current = $this->calendarManager->getCurrentCalendar();
 	    $builder
+            ->add('student', EntityType::class,
+                [
+                    'label' => 'activity.student.external.student.label',
+                    'placeholder' => 'activity.student.external.student.placeholder',
+                    'choice_label' => 'fullName',
+                    'class' => Student::class,
+                    'attr' => [
+                        'class' => 'form-control-sm',
+                    ],
+                    'query_builder' => $options['student_list'],
+                    'choice_value' => 'id',
+                ]
+            )
             ->add('externalStatus', SettingChoiceType::class,
                 [
                     'setting_name' => 'external.activity.status.list',
                     'label' => 'activity.student.external.status.label',
                     'placeholder' => 'activity.student.external.status.placeholder',
                     'empty_data' => 'pending',
-                ]
-            )
-            ->add('externalActivityBackup', EntityType::class,
-                [
-                    'label' => 'activity.student.external.activity_backup.label',
-                    'placeholder' => 'activity.student.external.activity_backup.placeholder',
-                    'class' => ExternalActivity::class,
-                    'choice_label' => 'name',
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) use ($current) {
-                        return $er->createQueryBuilder('e')
-                            ->leftJoin('e.calendarGrades', 'cg')
-                            ->leftJoin('cg.calendar', 'c')
-                            ->where('c.id = :calendar_id')
-                            ->setParameter('calendar_id', $current->getId())
-                        ;
-                    },
+                    'attr' => [
+                        'class' => 'form-control-sm',
+                    ],
                 ]
             )
         ;
@@ -75,6 +57,11 @@ class ExternalActivityStudentsType extends AbstractType
 				'translation_domain' => 'School',
 			]
 		);
+		$resolver->setRequired(
+		    [
+		        'student_list',
+            ]
+        );
 	}
 
 	/**

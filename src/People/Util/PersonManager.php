@@ -757,4 +757,12 @@ user:
 
         return $this->person;
     }
+
+    /**
+     * @return CalendarManager
+     */
+    public function getCalendarManager(): CalendarManager
+    {
+        return $this->calendarManager;
+    }
 }

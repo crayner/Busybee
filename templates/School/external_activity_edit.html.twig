@@ -17,10 +17,11 @@
 {% set h3Content = '' %}
 {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('external_activity_list')}}) %}
 {% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}, title: 'reset.button', transDomain: 'home'})|raw %}
-{% set h3Content = h3Content ~ saveButton() %}
+{% set h3Content = h3Content ~ saveButton({type: 'button', javascript: {function: 'saveForm', options: {}}}) %}
 
 {% block contentContainer %}
-    {{ form_start(form) }}
+    {{ all_form_errors(fullForm, 'div') }}
+    {{ form_start(form, {attr: {id: 'saveForm'}}) }}
     <div id="formTabs">
         <ul class="nav nav-pills" role="tablist">
             {% set active = ' active' %}
@@ -84,6 +85,22 @@
 
         location.assign(path);
         location.reload(true);
+    }
+
+    function saveForm() {
+        var fragment = $('.tab-content > .active').attr('id');
+        var id = '{{ app.request.get('id') }}';
+
+        if (id.length === 0) {
+            id = '0';
+        }
+
+        var path = '{{ path('external_activity_edit', {'id': '__id__', '_fragment': '__fragment__'}) }}';
+        path = path.replace('__id__', id);
+        path = path.replace('__fragment__', fragment);
+
+        $("#saveForm").attr('action', path);
+        $("#saveForm").submit();
     }
     </script>
 {% endblock %}

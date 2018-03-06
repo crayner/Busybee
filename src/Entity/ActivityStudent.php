@@ -109,29 +109,6 @@ class ActivityStudent implements UserTrackInterface
     }
 
     /**
-     * @var null|\DateTime
-     */
-    private $externalTimestamp;
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getExternalTimestamp(): ?\DateTime
-    {
-        return $this->externalTimestamp;
-    }
-
-    /**
-     * @param \DateTime|null $externalTimestamp
-     * @return ActivityStudent
-     */
-    public function setExternalTimestamp(?\DateTime $externalTimestamp): ActivityStudent
-    {
-        $this->externalTimestamp = $externalTimestamp;
-        return $this;
-    }
-
-    /**
      * @var boolean
      */
     private $externalInvoiceGenerated;

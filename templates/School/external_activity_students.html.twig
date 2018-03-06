@@ -3,7 +3,17 @@
 {% include 'Page/panelStart.html.twig' with {header: 'activity.external.students.tab', panelParagraph: 'school.external_activity.manage.title', panelParams: {'%name%': form.vars.value.fullName}, transDomain: 'School'} %}
 <div class="row">
     <div class="col-12 card">
-        {{ form_row(form.students) }}
+        <div class="container-fluid">
+            <div class="row row-header">
+                <div class="col-4">{{ 'activity.student.external.student.label'|trans }}</div>
+                <div class="col-3">{{ 'activity.student.external.status.label'|trans }}</div>
+                <div class="col-3">{{ 'activity.student.external.created.label'|trans }}</div>
+                <div class="col-2">{{ 'actions'|trans({}, 'home') }}</div>
+            </div>
+
+            {{ form_widget(form.students) }}
+
+        </div>
     </div>
 </div>
 {% include 'Page/panelEnd.html.twig' %}
