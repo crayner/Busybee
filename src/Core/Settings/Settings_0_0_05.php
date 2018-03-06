@@ -65,15 +65,6 @@ tutor.type.list:
         parent: parent
         coach: coach
         organiser: organiser
-school.search.replace:
-    type: array
-    displayName: Search and Replace List
-    description: Internal organisation string replacement list.  This list provides the keys which can be used and is set by the program.
-    role: 'ROLE_SYSTEM_ADMIN'
-    value:
-        this_school: 'This School'
-        form_grade: 'Form/Grade'
-        forms_grades: 'Forms/Grades'
 LLL;
 	}
 

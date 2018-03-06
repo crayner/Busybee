@@ -115,10 +115,10 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
 
             if (empty($translate))
             {
-                if ($this->settingManager->has('school.translate.' . $source))
+                if (in_array($source, $this->source))
                 {
                     $translate = new Translate();
-                    $translate->setValue($this->settingManager->get('school.translate.' . $source));
+                    $translate->setValue($this->trans('school.search.replace.' . $source, [], 'home'));
                     $translate->setSource( $source );
                     $translate->setLocale($this->settingManager->getParameter('locale'));
                     $this->entityManager->persist($translate);
@@ -231,4 +231,11 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
     {
         return $this->entityManager;
     }
+
+    private $source = [
+        'this_school' => 'this_school',
+        'form_grade' => 'form_grade',
+        'forms_grades' => 'forms_grades',
+        'unique' => 'unique',
+    ];
 }

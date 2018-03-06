@@ -100,10 +100,6 @@ tutor.type.list:
 activity.provider.type:
     school: '!!!org.name.short!!!'
     external: External
-school.search.replace:
-    this_school: This School
-    form_grade: Form/Grade/Year
-    forms_grades: Forms/Grades/Years
 external.activity.status.list:
         accepted: Accepted
         panding: Pending
@@ -117,3 +113,7 @@ schoolweek:
     friday: Friday
     saturday: Saturday
     sunday: Sunday
+external.activity.type.list:
+    creative: Creative
+    action: Action
+    service: Service
