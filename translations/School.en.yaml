@@ -254,13 +254,20 @@ activity_tutor:
         placeholder: Select Tutor
         help: ''
 external_activity:
-    name.label: Activity
-    name_short.label: Code
+    name:
+        label: Activity
+        help: '!!!unique!!!'
+    name_short:
+        label: Code
+        help: '!!!unique!!!'
     terms:
         label: Terms
-        help: Terms in which the activity will run.
+        help: Terms in which the activity will run. When nothing is selected, all terms are assumed.
     grades.label: Grades
     cost.label: Cost
+    type:
+        label: Type
+        placeholder: Select Type
     registration:
         label: Registration?
         help: Assuming system-wide registration is open, should this activity be open for registration?

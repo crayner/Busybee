@@ -32,6 +32,7 @@
                 <div class="col-4 offset-1 card">
                     {{ form_row(form.type) }}
                     {{ form_row(form.activity, {value: app.request.get('id')}) }}
+                    {{ form_row(form.id) }}
                 </div>
                 <div class="col-6 card" id="internalType_{{ form.vars.name }}">
                     <div id="internal_{{ form.vars.name }}">

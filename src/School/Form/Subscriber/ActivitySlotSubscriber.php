@@ -32,7 +32,7 @@ class ActivitySlotSubscriber implements EventSubscriberInterface
             $data['space'] = null;
         else
             $data['externalLocation'] = null;
-        dump($data);
+
         $event->setData($data);
     }
 

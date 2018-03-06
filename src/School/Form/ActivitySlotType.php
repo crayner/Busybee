@@ -12,6 +12,7 @@ use Hillrange\Form\Type\TimeType;
 use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -96,6 +97,7 @@ class ActivitySlotType extends AbstractType
                     'class' => ExternalActivity::class,
                 ]
             )
+            ->add('id', HiddenType::class)
         ;
 	    $builder->addEventSubscriber(new ActivitySlotSubscriber());
 	}

@@ -119,4 +119,14 @@ class ActivityTutor
         $this->sequence = $sequence;
         return $this;
     }
+
+    /**
+     * @param int|null $id
+     * @return ActivityTutor
+     */
+    public function setId(?int $id): ActivityTutor
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

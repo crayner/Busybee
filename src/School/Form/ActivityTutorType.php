@@ -2,8 +2,8 @@
 namespace App\School\Form;
 
 use App\Core\Type\SettingChoiceType;
+use App\Entity\Activity;
 use App\Entity\ActivityTutor;
-use App\Entity\FaceToFace;
 use App\Entity\Person;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
@@ -30,7 +30,7 @@ class ActivityTutorType extends AbstractType
             )
             ->add('activity', HiddenEntityType::class,
                 [
-                    'class' => FaceToFace::class,
+                    'class' => Activity::class,
                 ]
             )
             ->add('tutor', EntityType::class,
@@ -43,6 +43,7 @@ class ActivityTutorType extends AbstractType
                 ]
             )
             ->add('sequence', HiddenType::class)
+            ->add('id', HiddenType::class)
         ;
 	}
 

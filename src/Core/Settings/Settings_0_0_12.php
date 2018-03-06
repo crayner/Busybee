@@ -19,7 +19,7 @@ version:
 external.activity.status.list:
     type: array
     displayName: External Activity Status List
-    description: Stati applied to external activity.
+    description: Status applied to external activity.
     role: 'ROLE_SYSTEM_ADMIN'
     value: 
         accepted: accepted
@@ -27,6 +27,15 @@ external.activity.status.list:
         waiting_list: waiting_list
         not_accepted: not_accepted
     defaultValue: pending
+external.activity.type.list:
+    type: array
+    displayName: External Activity Type List
+    description: Type of external activity.
+    role: 'ROLE_SYSTEM_ADMIN'
+    value: 
+        creative: creative
+        action: action
+        service: service
 LLL;
 	}
 

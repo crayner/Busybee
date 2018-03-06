@@ -15,9 +15,13 @@
 <div class="row">
     <div class="col-3 card">
         {{ form_row(form.active) }}
+        <hr />
+        {{ form_row(form.registration) }}
     </div>
     <div class="col-3 card">
-        {{ form_row(form.registration) }}
+        {{ form_row(form.nameShort) }}
+        <hr />
+        {{ form_row(form.type) }}
     </div>
     <div class="col-3 card">
         {{ form_row(form.terms) }}

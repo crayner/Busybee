@@ -16,6 +16,7 @@
                 </div>
                 <div class="col-3 card">
                     {{ form_widget(form.externalStatus) }}
+                    {{ form_row(form.id) }}
                 </div>
                 <div class="col-3 card small">
                     {% if form.vars.value is not empty %}

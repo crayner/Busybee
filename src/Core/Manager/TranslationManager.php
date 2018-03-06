@@ -12,6 +12,17 @@ use Symfony\Component\Translation\TranslatorInterface;
 class TranslationManager implements TranslatorInterface, TranslatorBagInterface
 {
     /**
+     * @var array
+     * Ensure that your add an entry in the translation home.en.yaml file under school.search.replace for each new entry.
+     */
+    private $source = [
+        'this_school' => 'this_school',
+        'form_grade' => 'form_grade',
+        'forms_grades' => 'forms_grades',
+        'unique' => 'unique',
+    ];
+
+    /**
      * Translates the given message.
      *
      * @param string      $id         The message id (may also be an object that can be cast to string)
@@ -231,11 +242,4 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
     {
         return $this->entityManager;
     }
-
-    private $source = [
-        'this_school' => 'this_school',
-        'form_grade' => 'form_grade',
-        'forms_grades' => 'forms_grades',
-        'unique' => 'unique',
-    ];
 }

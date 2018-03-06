@@ -22,6 +22,16 @@ class ActivitySlot implements UserTrackInterface
     }
 
     /**
+     * @param int|null $id
+     * @return ActivitySlot
+     */
+    public function setId(?int $id): ActivitySlot
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @var string|null
      */
     private $externalLocation;

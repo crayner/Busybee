@@ -145,7 +145,7 @@ class Person extends PersonExtension
 	/**
 	 * @param int $id
 	 */
-	public function setId(int $id)
+	public function setId(int $id): Person
 	{
 		$this->id = $id;
 

@@ -1,23 +1,23 @@
 <?php
 namespace App\School\Form;
 
-use App\Calendar\Util\CalendarManager;
 use App\Core\Subscriber\SequenceSubscriber;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
+use App\Entity\ActivitySlot;
+use App\Entity\ActivityStudent;
 use App\Entity\CalendarGrade;
+use App\Entity\Staff;
 use App\Entity\Student;
 use App\Entity\Term;
 use App\People\Util\StudentManager;
-use App\Repository\StudentRepository;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\CKEditor\Form\CKEditorType;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
 use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -56,6 +56,12 @@ class ExternalActivityType extends AbstractType
                     'help' => 'external_activity.name.help',
                 ]
             )
+            ->add('nameShort', TextType::class,
+                [
+                    'label' => 'external_activity.name_short.label',
+                    'help' => 'external_activity.name_short.help',
+                ]
+            )
             ->add('students', CollectionType::class,
                 [
                     'label' => 'external_activity.students.label',
@@ -68,6 +74,7 @@ class ExternalActivityType extends AbstractType
                     'entry_options' => [
                         'student_list' => $this->studentManager->generateStudentList($options['data']->getCalendarGrades()),
                     ],
+                    'remove_manage' => true,
                 ]
             )
             ->add('provider', SettingChoiceType::class,
@@ -85,12 +92,21 @@ class ExternalActivityType extends AbstractType
                     'attr' => [
                         'class' => 'tutorCollection'
                     ],
+                    'sequence_manage' => true,
+                    'remove_manage' => true,
                 ]
             )
             ->add('registration', ToggleType::class,
                 [
                     'label' => 'external_activity.registration.label',
                     'help' => 'external_activity.registration.help',
+                ]
+            )
+            ->add('type', SettingChoiceType::class,
+                [
+                    'label' => 'external_activity.type.label',
+                    'placeholder' => 'external_activity.type.placeholder',
+                    'setting_name' => 'external.activity.type.list',
                 ]
             )
             ->add('active', ToggleType::class,
@@ -176,17 +192,17 @@ class ExternalActivityType extends AbstractType
             )
             ->add('activitySlots', CollectionType::class,
                 [
-                    'label' => 'external_activity.slots.label',
+                    'label' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'attr' => [
                         'class' => 'slotCollection',
                     ],
                     'entry_type' => ActivitySlotType::class,
+                    'remove_manage' => true,
                 ]
             )
         ;
-        $builder->get('tutors')->addEventSubscriber(new SequenceSubscriber());
 	}
 
 	/**

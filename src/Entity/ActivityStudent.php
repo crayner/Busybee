@@ -200,4 +200,14 @@ class ActivityStudent implements UserTrackInterface
 
         return $this;
     }
+
+    /**
+     * @param int|null $id
+     * @return ActivityStudent
+     */
+    public function setId(?int $id): ActivityStudent
+    {
+        $this->id = $id;
+        return $this;
+    }
 }
