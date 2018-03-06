@@ -380,4 +380,62 @@ class ExternalActivity extends Activity
 
         return $this;
     }
+
+    /**
+     * @var null|Collection
+     */
+    private $activitySlots;
+
+    /**
+     * @return Collection
+     */
+    public function getActivitySlots(): Collection
+    {
+        if (empty($this->activitySlots))
+            $this->activitySlots =  new ArrayCollection();
+
+        if ($this->activitySlots instanceof PersistentCollection && ! $this->activitySlots->isInitialized())
+            $this->activitySlots->initialize();
+
+        return $this->activitySlots;
+    }
+
+    /**
+     * @param Collection|null $activitySlots
+     * @return ExternalActivity
+     */
+    public function setActivitySlots(?Collection $activitySlots): ExternalActivity
+    {
+        $this->activitySlots = $activitySlots;
+
+        return $this;
+    }
+
+    /**
+     * @param ActivitySlot|null $slot
+     * @param bool $add
+     * @return ExternalActivity
+     */
+    public function addActivitySlot(?ActivitySlot $slot, $add = true): ExternalActivity
+    {
+        if (empty($slot))
+            return $this;
+
+        if ($add)
+            $slot->setActivity($this, false);
+
+        if ($this->getActivitySlots()->contains($slot))
+            return $this;
+
+        $this->activitySlots->add($slot);
+
+        return $this;
+    }
+
+    public function removeActivitySlot(ActivitySlot $slot): ExternalActivity
+    {
+        $this->getActivitySlots()->removeElement($slot);
+
+        return $this;
+    }
 }

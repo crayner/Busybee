@@ -231,6 +231,19 @@ activity:
         details.tab: Details
         students.tab: Students
         tutors.tab: Tutors
+        slots.tab: Time Slots
+        slot:
+            day:
+                label: Day of the Week
+                placeholder: Select Day
+            start.label: Start Time
+            end.label: Finish Time
+            type.label: Internal Space /External Location
+            space:
+                label: Internal Space
+                placeholder: Select Space
+            external_location.label: External Location
+    slot.title: Time Slot
 activity_tutor:
     role:
         label: Role

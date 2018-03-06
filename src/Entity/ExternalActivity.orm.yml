@@ -71,3 +71,8 @@ App\Entity\ExternalActivity:
                 inverseJoinColumns:
                     term_id:
                         referencedColumnName: id
+    oneToMany:
+        activitySlots:
+            targetEntity: App\Entity\ActivitySlot
+            mappedBy: activity
+            cascade: [ 'persist' ]

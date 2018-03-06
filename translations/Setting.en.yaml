@@ -109,3 +109,11 @@ external.activity.status.list:
         panding: Pending
         waiting_list: Waiting List
         not_accepted: Not Accepted
+schoolweek:
+    monday: Monday
+    tuesday: Tuesday
+    wednesday: Wednesday
+    thursday: Thursday
+    friday: Friday
+    saturday: Saturday
+    sunday: Sunday

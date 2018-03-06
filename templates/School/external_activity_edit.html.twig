@@ -7,6 +7,7 @@
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     'School/activity_tutor.html.twig'
     'School/external_activity_student.html.twig'
+    'School/activity_slot.html.twig'
 %}
 
 {% block title %}{{ 'school.external_activity.edit.title'|trans }}{% endblock title %}
@@ -60,6 +61,7 @@
     {{ parent() }}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'School/activity_tutor_script.html.twig' %}
+    {% include 'School/activity_slot_script.html.twig' %}
     {% include 'School/activity_student_script.html.twig' %}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
 <script type="text/javascript">

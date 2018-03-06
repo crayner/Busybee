@@ -93,6 +93,11 @@ external_activity_tutors:
     include: School/external_activity_tutors.html.twig
     message: activityTutorMessage
     translation: School
+external_activity_slots:
+    label: activity.external.slots.tab
+    include: School/external_activity_slots.html.twig
+    message: activitySlotMessage
+    translation: School
 ");
                 break;
             default:

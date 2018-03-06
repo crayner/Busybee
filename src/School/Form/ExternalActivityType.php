@@ -174,9 +174,19 @@ class ExternalActivityType extends AbstractType
                     'setting_name' => 'activity.payment.firmness',
                 ]
             )
+            ->add('activitySlots', CollectionType::class,
+                [
+                    'label' => 'external_activity.slots.label',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'attr' => [
+                        'class' => 'slotCollection',
+                    ],
+                    'entry_type' => ActivitySlotType::class,
+                ]
+            )
         ;
         $builder->get('tutors')->addEventSubscriber(new SequenceSubscriber());
-//		$builder->addEventSubscriber($this->activitySubscriber);
 	}
 
 	/**

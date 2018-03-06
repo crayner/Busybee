@@ -1,0 +1,36 @@
+App\Entity\ActivitySlot:
+    type: entity
+    table: activity_slot
+    repositoryClass: App\Repository\ActivitySlotRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        externalLocation:
+            type: string
+            column: external_location
+        day:
+            type: string
+            length: 16
+        startTime:
+            type: time
+        endTime:
+            type: time
+    manyToOne:
+        activity:
+            targetEntity: App\Entity\ExternalActivity
+            inversedBy: activitySlots
+            joinColumn:
+                name: activity_slot_id
+                referencedColumnName: id
+                nullable: false
+        space:
+            targetEntity: App\Entity\Space
+            orderBy: {name: ASC}
+            joinColumn:
+                name: space_id
+                referencedColumnName: id
+                nullable: true

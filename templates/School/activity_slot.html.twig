@@ -1,0 +1,47 @@
+{% trans_default_domain "School" %}
+
+{% block activity_slot_label %}{% endblock %}
+{% block activity_slot_errors %}{% endblock %}
+
+{% block activity_slot_widget %}
+    {% spaceless %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set title = 'activity.slot.title'|trans %}
+        {% set h3Content = h3Content ~ title %}
+        {% set h3Content = h3Content ~ saveButton({type: 'button', javascript: {function: 'saveForm', options: {}}}) %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'activity.activity_slot.remove.title', transDomain: 'Calendar', class: 'halflings halflings-erase btn btn-warning collection-remove collection-action'}) %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton() %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        <div class="container-fluid">
+            <div class="row row-header">
+                <div class="col-12"> {{ h3Content|raw }}</div>
+            </div>
+            <div class="row">
+                <div class="col-4 card">
+                    {{ form_row(form.day) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.startTime) }}
+                </div>
+                <div class="col-4 card">
+                    {{ form_row(form.endTime) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-1 card">
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.activity, {value: app.request.get('id')}) }}
+                </div>
+                <div class="col-6 card" id="internalType_{{ form.vars.name }}">
+                    <div id="internal_{{ form.vars.name }}">
+                        {{ form_row(form.space) }}
+                    </div>
+                    <div id="external_{{ form.vars.name }}" style="display: none">
+                        {{ form_row(form.externalLocation) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock activity_slot_widget %}

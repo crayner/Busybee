@@ -1,10 +1,18 @@
 language: php
 
-php:
-    - 7.2
+matrix:
+    include:
+        - php: 7.0
+        - php: 7.1
+        - php: 7.2
+    fast_finish: true
 
 notifications:
     email: craig@craigrayner.com
 
-before_script:
-    - composer update
+before_install:
+    # turn off XDebug
+    - phpenv config-rm xdebug.ini || return 0
+
+install:
+    - travis_retry composer install
