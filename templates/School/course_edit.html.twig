@@ -73,10 +73,10 @@
         {% for face in pagination.getResult %}
             <div class="row row-striped text-center">
                 <div class="col-3 form-inline">
-                    {{ face.0.fullName }}<br /><small>{{ face.nameShort }}</small>
+                    {{ face.entity.fullName }}<br /><small>{{ face.nameShort }}</small>
                 </div>
                 <div class="col-3 form-inline">
-                    {{ pagination.getParticipants(face.0) }}
+                    {{ pagination.getParticipants(face.entity) }}
                 </div>
                 <div class="col-3 form-inline">
                     {{ displayBoolean(face.reportable) }}
