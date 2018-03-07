@@ -337,6 +337,13 @@ class SettingManager implements ContainerAwareInterface
 
         $extension = explode('.', $extension);
 
+        $x = [];
+        if (is_array($value)) {
+            foreach ($value as $q => $w)
+                $x[strtolower($q)] = $w;
+            $value = $x;
+        }
+
         foreach($extension as $ext)
         {
             if (isset($value[$ext]))
