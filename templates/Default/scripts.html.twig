@@ -19,6 +19,15 @@
             if (hide) {
                 $('.hideSection').fadeOut(5);
             }
+
+            if (document.createStyleSheet){  // Bloody IE
+                document.createStyleSheet('{{ asset('css/main.css') }}');
+            }
+            else {
+                $("head").append($("<link rel='stylesheet' href='{{ asset('css/main.css') }}' type='text/css' media='screen' />"));
+            }
+
+
         });
         $('[data-submenu]').submenupicker();
 
@@ -34,6 +43,7 @@
         $(window).scroll(menuSectionSlide);
 
         $(".alert").alert();
+
     </script>
 {% endif %}
 {% if script is defined %}
