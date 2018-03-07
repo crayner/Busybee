@@ -33,13 +33,13 @@
                     {{ course.name }}<br /><small>{{ course.code }}</small>
                 </div>
                 <div class="col-3 form-inline small">
-                    {% for year in course.0.calendarGrades.toArray() %}
+                    {% for year in course.entity.calendarGrades.toArray() %}
                         {{ year.fullName }}&nbsp;
                     {% endfor %}
                 </div>
                 <div class="col-3 form-inline">
-                    {% if course.0.department is not empty %}
-                    {{ course.0.department.name }}
+                    {% if course.entity.department is not empty %}
+                    {{ course.entity.department.name }}
                     {% endif %}
                 </div>
                 <div class="col-3 form-inline text-center">
