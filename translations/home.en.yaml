@@ -75,7 +75,7 @@ Close Message: Close Message
 actions: Actions
 reset.button: Reset
 school.search.replace:
-    this_school: !!!org.name.short!!!
+    this_school: '!!!org.name.short!!!'
     form_grade: Form/Grade/Year
     forms_grades: Forms/Grades/Years
     unique: 'Must be unique!'

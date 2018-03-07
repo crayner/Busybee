@@ -11,6 +11,7 @@ use App\Entity\Staff;
 use App\Entity\Student;
 use App\Entity\Term;
 use App\People\Util\StudentManager;
+use App\School\Form\Subscriber\ActivitySubscriber;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\CKEditor\Form\CKEditorType;
 use Hillrange\Form\Type\CollectionType;
@@ -30,12 +31,17 @@ class ExternalActivityType extends AbstractType
     private $studentManager;
 
     /**
+     * @var ActivitySubscriber
+     */
+    private $activitySubscriber;
+    /**
      * ExternalActivityType constructor.
      * @param StudentManager $studentManager
      */
-    public function __construct(StudentManager $studentManager)
+    public function __construct(StudentManager $studentManager, ActivitySubscriber $activitySubscriber)
     {
         $this->studentManager = $studentManager;
+        $this->activitySubscriber = $activitySubscriber;
     }
 
     /**
@@ -203,6 +209,7 @@ class ExternalActivityType extends AbstractType
                 ]
             )
         ;
+		$builder->addEventSubscriber($this->activitySubscriber);
 	}
 
 	/**

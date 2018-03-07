@@ -59,6 +59,9 @@ class ActivityTutor
      */
     public function setTutor(?Person $tutor, $add = true): ActivityTutor
     {
+        if (empty($tutor))
+            return $this;
+
         if ($add)
             $tutor->addCommitment($this, false);
 

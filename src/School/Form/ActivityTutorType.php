@@ -5,6 +5,10 @@ use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
 use App\Entity\ActivityTutor;
 use App\Entity\Person;
+use App\Entity\Student;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
 use Symfony\Component\Form\AbstractType;
@@ -40,6 +44,14 @@ class ActivityTutorType extends AbstractType
                     'label' => 'activity_tutor.tutor.label',
                     'help' => 'activity_tutor.tutor.help',
                     'placeholder' => 'activity_tutor.tutor.placeholder',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('p')
+                            ->where('p NOT INSTANCE OF :student')
+                            ->setParameter('student', Student::class)
+                            ->orderBy('p.surname')
+                            ->addOrderBy('p.firstName')
+                        ;
+                    },
                 ]
             )
             ->add('sequence', HiddenType::class)

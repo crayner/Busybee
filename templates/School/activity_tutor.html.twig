@@ -22,7 +22,7 @@
             </div>
             <div class="row">
                 <div class="col-7 card">
-                    {{ form_row(form.tutor, {value: transformData(form.tutor.vars.data)}) }}
+                    {{ form_row(form.tutor, {value: transformData(form.tutor.vars)}) }}
                     {{ form_row(form.activity, {value: app.request.get('id')}) }}
                     {{ form_row(form.sequence) }}
                     {{ form_row(form.id) }}

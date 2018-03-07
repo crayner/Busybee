@@ -14,3 +14,9 @@ App\Entity\ActivityTutor:
                 message: 'role.validator.type.unavailable'
                 transDomain: 'School'
                 name: 'tutor.type.list'
+        sequence:
+            - NotBlank: ~
+        activity:
+            - NotBlank: ~
+        tutor:
+            - NotBlank: ~

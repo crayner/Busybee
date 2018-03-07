@@ -227,6 +227,8 @@ activity:
     reportable.label: Reportable
     attendance.label: Record Attendance
     tutors.label: Tutors
+    tutor.title: Tutor
+    activity_tutor.remove.title: Remove Tutor
     external:
         details.tab: Details
         students.tab: Students

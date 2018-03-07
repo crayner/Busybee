@@ -2,6 +2,7 @@
 namespace App\School\Form\Subscriber;
 
 use App\Calendar\Util\CalendarManager;
+use App\Entity\ExternalActivity;
 use App\Entity\Roll;
 use Hillrange\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -42,6 +43,23 @@ class ActivitySubscriber implements EventSubscriberInterface
      */
     public function preSubmit(FormEvent $event)
     {
+        if ($event->getForm()->getData() instanceof ExternalActivity)
+        {
+            $data = $event->getData();
+            if (!isset($data['terms']))
+            {
+                $terms = $this->calendarManager->getCurrentCalendar()->getTerms();
+                foreach($terms->getIterator() as $term)
+                    $data['terms'][] = $term->getId();
+            }
+            if (!isset($data['calendarGrades']))
+            {
+                $terms = $this->calendarManager->getCurrentCalendar()->getCalendarGrades();
+                foreach($terms->getIterator() as $term)
+                    $data['calendarGrades'][] = $term->getId();
+            }
+            $event->setData($data);
+        }
     }
 
     /**
