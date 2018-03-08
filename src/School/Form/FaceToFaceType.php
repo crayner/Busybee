@@ -94,7 +94,6 @@ class FaceToFaceType extends AbstractType
                     ],
                     'required' => false,
                     'remove_manage' => true,
-                    'entity_class' => ActivityStudent::class,
                 ]
             )
             ->add('tutors', CollectionType::class,
@@ -107,7 +106,6 @@ class FaceToFaceType extends AbstractType
                     ],
                     'sequence_manage' => true,
                     'remove_manage' => true,
-                    'entity_class' => ActivityTutor::class,
                 ]
             )
             ->add('reportable', ToggleType::class,
