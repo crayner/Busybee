@@ -1,11 +1,12 @@
 <?php
 namespace App\Entity;
 
+use App\School\Entity\FaceToFaceExtension;
 
 /**
  * Face to Face Class
  */
-class FaceToFace extends Activity
+class FaceToFace extends FaceToFaceExtension
 {
     /**
      * @var null|Scale

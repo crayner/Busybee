@@ -1,0 +1,38 @@
+{% trans_default_domain 'School' %}
+
+{% set h3Content = '' %}
+{% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
+{% set h3Content = h3Content ~ resetButton({javascript: {function: 'resetForm', options: {}}, type: 'button'}) %}
+{% set h3Content = h3Content ~ saveButton() %}
+{% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
+
+<div class="row">
+    <div class="col-6 card">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col-6 card">
+        {{ form_row(form.nameShort) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 card">
+        {{ form_row(form.attendance) }}
+    </div>
+    <div class="col-6 card">
+        {{ form_row(form.reportable) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 card">
+        {{ form_row(form.website) }}
+    </div>
+    <div class="col-6 card">
+        {{ form_row(form.space) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 card">
+        {{ form_row(form.tutors) }}
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}

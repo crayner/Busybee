@@ -111,6 +111,12 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             $choices = $x;
         }
 
+        if (empty($choices))
+        {
+            dump([$choices, $this->settingManager]);
+            die();
+        }
+
         $newOptions                              = [];
         $newOptions['constraints']               = [];
 		$newOptions['choices']                   = $choices;

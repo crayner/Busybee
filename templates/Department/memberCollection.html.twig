@@ -5,37 +5,24 @@
 
 {% block department_member_widget %}
     {% spaceless %}
-        {% set panelStyle = 'default' %}
-        {% set transDomain = 'School' %}
-        {% set header = 'department.members.member.name' %}
-        {% set staffName = 'department.members.member.placeholder'|trans %}
-        {% if data is not empty %}
-            {% set staffName = data.staff.formatName %}
-        {% endif %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set staff_id = 'memberRemove0' %}
-        {% if form.vars.value is not null %}
-            {% set staff_id = 'memberRemove' ~ form.vars.value.id %}
-        {% endif %}
-        {% set h3Content = h3Content ~ deleteButton({title: 'department.member.remove.button', transDomain: 'School', class: 'memberRemove collection-remove collection-action halflings halflings-erase btn btn-warning', additional: {id: staff_id}})|raw %}
-        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ deleteButton({transDomain: 'School', title: 'department.member.remove.button', mergeClass: 'collection-remove collection-action', colour: 'warning'})|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ '</div>' %}
-
-        {% include 'Page/panelStart.html.twig' with {panelStyle: 'default', name: staffName} %}
-        <div class="container-fluid departmentMember">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-6 card">
+                <div class="col-5 card">
                     {{ form_row(form.staff) }}
                 </div>
-                <div class="col-6 card">
+                <div class="col-4 card">
                     {{ form_row(form.staffType) }}
-                    {% set dept_id = '' %}
-                    {% if app.request.get('id') != 'Add' %}{% set dept_id = app.request.get('id') %}{% endif %}
-                    {{ form_row(form.department, {'id': dept_id}) }}
+                    {{ form_row(form.department, {'id': app.request.get('id')}) }}
+                </div>
+                <div class="col-3 card">
+                    {{ h3Content|raw }}
+                    {{ form_row(form.id) }}
                 </div>
             </div>
         </div>
-        {% include 'Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock department_member_widget %}

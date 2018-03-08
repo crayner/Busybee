@@ -150,9 +150,16 @@ class Course extends CourseExtension
      * @param Department|null $department
      * @return Course
      */
-    public function setDepartment(?Department $department): Course
+    public function setDepartment(?Department $department, $add = true): Course
     {
+        if (empty($department))
+            return $this;
+
+        if ($add)
+            $department->addCourse($this, false);
+
         $this->department = $department;
+
 
         return $this;
     }

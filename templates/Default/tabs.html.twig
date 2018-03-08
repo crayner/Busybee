@@ -1,0 +1,36 @@
+{% if translation is not defined %}
+    {% set translation = 'home' %}
+{% endif %}
+
+{% trans_default_domain translation %}
+
+<div id="formTabs">
+    <ul class="nav nav-pills" role="tablist">
+        {% set active = ' active' %}
+        {% for name,tab in tabs %}
+            {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+            {% set disabled = '' %}
+            <li class="nav-item" role="presentation">
+                <a href="#{{ name }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{{ tab.label|trans({}, translation) }}</a>
+            </li>
+            {% set active = '' %}
+        {% endfor %}
+    </ul>
+    {% set active = ' active' %}
+    <div class="tab-content">
+        {% for name,tab in tabs %}
+            {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+            <div class="tab-pane{{ active }}" id="{{ name }}">
+                {% if tab.message is defined %}
+                    <div class="container-fluid">
+                        <div class='row' id="{{ tab.message }}" style="display: none;">
+                        </div>
+                    </div>
+                {% endif %}
+                {% include tab.include %}
+            </div>
+            {% set active = '' %}
+        {% endfor %}
+    </div>
+</div>
+

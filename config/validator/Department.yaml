@@ -1,7 +1,5 @@
 App\Entity\Department:
     properties:
-        courses:
-            - Valid: ~
         members:
             - Valid: ~
         name:

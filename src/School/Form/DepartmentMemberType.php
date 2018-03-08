@@ -1,6 +1,7 @@
 <?php
 namespace App\School\Form;
 
+use App\Entity\ActivityTutor;
 use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Department;
@@ -46,7 +47,13 @@ class DepartmentMemberType extends AbstractType
 				[
 					'class' => Department::class,
 				]
-			);
+			)
+            ->add('id', HiddenEntityType::class,
+                [
+                    'class' => ActivityTutor::class,
+                ]
+            )
+        ;
 
 	}
 

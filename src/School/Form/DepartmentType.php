@@ -2,7 +2,9 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
+use App\Entity\Course;
 use Hillrange\CKEditor\Form\CKEditorType;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
@@ -93,7 +95,25 @@ class DepartmentType extends AbstractType
 					'required' => false,
 				]
 			)
-			->add('importIdentifier', HiddenType::class);
+			->add('courses', CollectionType::class,
+                [
+                    'help' => 'department.course.help',
+                    'label' => false,
+                    'entry_type' => EntityType::class,
+                    'entry_options' => [
+                        'class' => Course::class,
+                        'choice_label' => 'fullName',
+                    ],
+                    'attr' => [
+                        'class' => 'courseCollection'
+                    ],
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'remove_manage' => true,
+                    'remove_key' => false,
+                ]
+            )
+        ;
 
 		$builder->addEventSubscriber($this->ds);
 	}

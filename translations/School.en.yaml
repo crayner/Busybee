@@ -71,6 +71,7 @@ school:
             title: Edit Class
             description: Face to Face Class Management
         manage.title: 'Manage %name%'
+        students.title: Manage Students
     activity:
         edit:
             title: Activity Management
@@ -135,6 +136,10 @@ department:
         label: Department Blurb
     logo:
         label: Department Logo
+    details:
+        tab: Details
+    staff.tab: Staff
+    courses.tab: Courses
 menu:
     roll.groups: Roll Groups
     timetable.manage: Timetable Manage
@@ -228,7 +233,12 @@ activity:
     attendance.label: Record Attendance
     tutors.label: Tutors
     tutor.title: Tutor
-    activity_tutor.remove.title: Remove Tutor
+    activity_tutor:
+        remove.title: Remove Tutor
+        add.title: Add Tutor
+    activity_student:
+        remove.title: Remove Student
+        add.title: Add Student
     external:
         details.tab: Details
         students.tab: Students
@@ -255,6 +265,9 @@ activity_tutor:
         label: Tutor
         placeholder: Select Tutor
         help: ''
+activity_student.class_reportable:
+    label: Reportable
+    help: ''
 external_activity:
     name:
         label: Activity
@@ -291,3 +304,6 @@ external_activity:
         label: '!!!forms_grades!!!'
         help: 'Students choice is limited by this list. No selection is assumed as all !!!forms_grades!!!.'
 menu.activities.external.list: View Activities
+class.details.tab: Details
+class.students.tab: Students
+remove_student_on_save: 'You must save the form to complete the removal of the student.'

@@ -23,6 +23,7 @@
 {% block contentContainer %}
     {{ all_form_errors(fullForm, 'div') }}
     {{ form_start(form, {attr: {id: 'saveForm'}}) }}
+    {% include 'Default/tabs.html.twig' with {translation: 'School'} %}
     <div id="formTabs">
         <ul class="nav nav-pills" role="tablist">
             {% set active = ' active' %}

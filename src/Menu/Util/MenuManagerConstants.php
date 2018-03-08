@@ -68,6 +68,15 @@ class MenuManagerConstants
     node: 4
     order: 40
     route: external_activity_list
+41:
+    label: menu.department.manage
+    name: Department Manage
+    role: ROLE_REGISTRAR
+    node: 4
+    order: 41
+    route: department_edit
+    parameters:
+        id: Add
 90:
     label: menu.template_design
     name: Template Design
@@ -229,6 +238,7 @@ Timetable Admin:
             params: {}
     hidden:
         - course_edit
+        - face_to_face_edit
 Activities:
     activities:
         external_activities:
@@ -237,6 +247,13 @@ Activities:
             role: ROLE_ADMIN
             params: {}
             translate: School
+    departments:
+        department_edit:
+            label: menu.school.department.edit
+            role: ROLE_REGISTRAR
+            route: department_edit
+            params:
+                id: Add
     hidden:
         - external_activity_edit
 ';

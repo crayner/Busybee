@@ -1,7 +1,7 @@
 {% trans_default_domain 'School' %}
 {% if form.members is defined %}
     <script type="text/javascript">
-        $(".memberList").collection({
+        $(".memberCollection").collection({
             name_prefix: '{{ form.members.vars.full_name }}',
             allow_up: false,
             allow_down: false,

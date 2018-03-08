@@ -5,6 +5,7 @@ use Hillrange\Security\Util\PageManager;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use Symfony\Component\Yaml\Yaml;
@@ -12,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 class MenuManager extends MenuManagerConstants
 {
 	/**
-	 * @var object|\Symfony\Component\Security\Core\Authorization\AuthorizationChecker
+	 * @var object|AuthorizationChecker
 	 */
 	private $checker;
 
@@ -136,7 +137,7 @@ class MenuManager extends MenuManagerConstants
 		{
 			if ($w['node'] == $node && $this->itemCheck($w))
 			{
-				$w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array();
+                $w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array();
 				if (isset($w['route']))
 					$w['role'] = $this->getRouteAccess($w['route'], empty($w['role']) ? null : $w['role']);
 				if (empty($w['role']))

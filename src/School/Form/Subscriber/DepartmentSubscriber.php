@@ -1,10 +1,8 @@
 <?php
 namespace App\School\Form\Subscriber;
 
-use App\Core\Manager\SettingManager;
 use App\School\Form\DepartmentMemberType;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Hillrange\Form\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -68,7 +66,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 					'entry_type'    => DepartmentMemberType::class,
 					'attr'          =>
 						[
-							'class' => 'memberList',
+							'class' => 'memberCollection',
 						],
 					'allow_add'     => true,
 					'allow_delete'  => true,
@@ -76,6 +74,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 					'entry_options' => [
 						'staff_type' => $data->getType(),
 					],
+                    'remove_manage' => true,
 				]
 			);
 		}

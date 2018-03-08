@@ -226,7 +226,7 @@ class Department extends DepartmentExtension
 	        return $this ;
 
 	    if ($add)
-	        $course->addDepartment($this, false);
+	        $course->setDepartment($this, false);
 
 		if ($this->courses->contains($course))
 			return $this;
@@ -241,13 +241,12 @@ class Department extends DepartmentExtension
 	 *
 	 * @param Course $course
 	 */
-	public function removeCourse(Course $course, $remove = true): Department
+	public function removeCourse(Course $course): Department
 	{
 	    if (empty($course))
 	        return $this;
 
-		if ($remove)
-	        $this->courses->removeElement($course);
+	    $this->getCourses()->removeElement($course);
 
 		return $this;
 	}
@@ -259,6 +258,9 @@ class Department extends DepartmentExtension
 	 */
 	public function getCourses($sorted = true)
 	{
+	    if (empty($this->courses))
+	        $this->courses = new ArrayCollection();
+
 		if ($sorted)
 			return $this->sortCourses();
 

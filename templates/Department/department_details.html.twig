@@ -1,0 +1,35 @@
+{% trans_default_domain 'School' %}
+
+{% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: '', panelStyle: 'success'} %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12 card">
+                    {{ form_row(form.name) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 card">
+                    {{ form_row(form.nameShort) }}
+                </div>
+                <div class="col-6 card">
+                    {{ form_row(form.type) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-6 card">
+            <div class="row">
+                <div class="col-12">
+                    {{ form_row(form.logo) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {{ form_row(form.blurb) }}
+        </div>
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}

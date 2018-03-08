@@ -83,13 +83,14 @@
                 </div>
                 <div class="col-3 form-inline text-center">
                     {{ editButton({title: 'school.face_to_face.edit.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: face.id, course_id: app.request.get('id')})}, style: ''})|raw }}
+                    {{ editButton({title: 'school.face_to_face.students.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: face.id, course_id: app.request.get('id'), '_fragment': 'class_students'})}, style: '', class: 'btn btn-info halflings halflings-group'})|raw }}
                 </div>
             </div>
         {% endfor %}
 
     </div>
     {% include 'Page/panelEnd.html.twig' %}
-    {{ form_end(form) }}{% dump %}
+    {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}

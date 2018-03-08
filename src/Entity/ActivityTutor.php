@@ -18,6 +18,16 @@ class ActivityTutor
     }
 
     /**
+     * @param int|null $id
+     * @return ActivityTutor
+     */
+    public function setId(?int $id): ActivityTutor
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @var null|string
      */
     private $role;
@@ -120,16 +130,6 @@ class ActivityTutor
     public function setSequence(?int $sequence): ActivityTutor
     {
         $this->sequence = $sequence;
-        return $this;
-    }
-
-    /**
-     * @param int|null $id
-     * @return ActivityTutor
-     */
-    public function setId(?int $id): ActivityTutor
-    {
-        $this->id = $id;
         return $this;
     }
 }

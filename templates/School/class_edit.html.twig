@@ -6,6 +6,7 @@
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     'School/activity_tutor.html.twig'
+    'School/class_student.html.twig'
 %}
 
 {% block title %}{{ 'school.face_to_face.edit.title'|trans }}{% endblock title %}
@@ -13,49 +14,8 @@
 {% block headerLead %}{{ 'school.face_to_face.edit.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {{ form_start(form) }}
-    {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
-    {% set h3Content = h3Content ~ saveButton() %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
-
-    <div class="row">
-        <div class="col-8 card">
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.name) }}
-                </div>
-                <div class="col-6 card">
-                    {{ form_row(form.nameShort) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.attendance) }}
-                </div>
-                <div class="col-6 card">
-                    {{ form_row(form.reportable) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 card">
-                    {{ form_row(form.website) }}
-                </div>
-                <div class="col-6 card">
-                    {{ form_row(form.space) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 card">
-                    {{ form_row(form.tutors) }}
-                </div>
-            </div>
-        </div>
-        <div class="col-4 card">
-            {{ form_row(form.students, {help_params: {'%{count}': form.students.vars.choices|length}}) }}
-        </div>
-    </div>
-    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_start(form, {attr: {id: 'saveForm'}}) }}
+    {% include 'Default/tabs.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -64,4 +24,6 @@
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'School/activity_tutor_script.html.twig' %}
+    {% include 'School/activity_student_script.html.twig' %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {'course_id': app.request.get('course_id')}} %}
 {% endblock %}

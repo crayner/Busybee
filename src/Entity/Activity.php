@@ -206,7 +206,7 @@ class Activity extends ActivityExtension
      *
      * @return Collection
      */
-    public function getStudents(): Collection
+    public function getStudents($sort = false): Collection
     {
         if (empty($this->students))
             $this->students = new ArrayCollection();
@@ -216,6 +216,9 @@ class Activity extends ActivityExtension
 
         if ($this->getStudentReference() instanceof Activity)
             $this->students = $this->getStudentReference()->getStudents();
+
+        if ($sort)
+            $this->studentsSorted = false;
 
         if (! $this->studentsSorted && $this->students->count() > 0) {
 

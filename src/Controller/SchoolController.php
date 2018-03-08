@@ -208,12 +208,16 @@ class SchoolController extends Controller
 
             if ($id === 'Add')
                 return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'course_id' => $course_id]);
+
+            $face->getStudents(true);
+            $form = $this->createForm(FaceToFaceType::class, $face);
         }
 
         return $this->render('School/class_edit.html.twig',
             [
                 'form' => $form->createView(),
                 'course_id' => $course_id,
+                'tabs' => $face->getTabs(),
             ]
         );
     }

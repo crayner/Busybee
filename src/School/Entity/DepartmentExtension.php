@@ -4,6 +4,7 @@ namespace App\School\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
+use Symfony\Component\Yaml\Yaml;
 
 abstract class DepartmentExtension implements UserTrackInterface
 {
@@ -87,5 +88,29 @@ abstract class DepartmentExtension implements UserTrackInterface
             $this->staff = [];
 
         return $this->staff;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTabs(): array
+    {
+        return Yaml::parse("
+department_details:
+    label: department.details.tab
+    include: Department/department_details.html.twig
+    message: departmentDetailsMessage
+    translation: School
+department_staff:
+    label: department.staff.tab
+    include: Department/department_staff.html.twig
+    message: departmentStaffMessage
+    translation: School
+department_courses:
+    label: department.courses.tab
+    include: Department/department_courses.html.twig
+    message: departmentCoursesMessage
+    translation: School
+");
     }
 }
