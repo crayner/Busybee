@@ -1,9 +1,13 @@
 <?php
 namespace App\Entity;
 
+use App\School\Entity\ActivityTutorExtension;
+use Hillrange\Security\Util\UserTrackInterface;
+use Hillrange\Security\Util\UserTrackTrait;
 
-class ActivityTutor
+class ActivityTutor extends ActivityTutorExtension implements UserTrackInterface
 {
+    use UserTrackTrait;
     /**
      * @var null|int
      */

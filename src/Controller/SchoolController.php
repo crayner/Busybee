@@ -25,6 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class SchoolController extends Controller
@@ -243,35 +244,138 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/activity/external/{id}/edit/", name="external_activity_edit")
+     * @Route("/school/activity/external/{id}/edit/{refresh}", name="external_activity_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param int|string $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function externalActivityEdit(Request $request, $id = 'Add', ActivityManager $activityManager)
+    public function externalActivityEdit(Request $request, $id = 'Add', $refresh = 0, ActivityManager $activityManager)
     {
         $activity = $activityManager->setActivityType('external')->findActivity($id);
 
         $form = $this->createForm(ExternalActivityType::class, $activity);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
+        if (!$refresh)
         {
-            $activityManager->getEntityManager()->persist($activity);
-            $activityManager->getEntityManager()->flush();
+            $form->handleRequest($request);
 
-            if ($id === 'Add')
-                return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $activity->getId()]);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $activityManager->getEntityManager()->persist($activity);
+                $activityManager->getEntityManager()->flush();
+
+                if ($id === 'Add')
+                    return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $activity->getId()]);
+            }
         }
-
         return $this->render('School/external_activity_edit.html.twig',
             [
                 'form' => $form->createView(),
                 'manager' => $activityManager,
                 'fullForm' => $form,
             ]
+        );
+    }
+
+    /**
+     * @param string $id
+     * @param string $cid
+     * @param ActivityManager $activityManager
+     * @return JsonResponse
+     * @Route("/school/activity/external/{id}/tutor/{cid}/manage/", name="external_activity_tutor_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function externalActivityTutorManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    {
+        //if cid != ignore, then remove cid from collection
+        $activity = $activityManager->setActivityType('external')->findActivity($id);
+
+        if (intval($cid) > 0)
+            $activityManager->removeTutor($cid);
+
+        $form = $this->createForm(ExternalActivityType::class, $activity);
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("School/external_activity_collection.html.twig",
+                    [
+                        'collection' => $form->get('tutors')->createView(),
+                        'route' => 'external_activity_tutor_manage',
+                        'contentTarget' => 'tutorCollection',
+                    ]
+                ),
+                'message' => $activityManager->getMessageManager()->renderView($twig),
+                'status' => $activityManager->getStatus(),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @param string $id
+     * @param string $cid
+     * @param ActivityManager $activityManager
+     * @return JsonResponse
+     * @Route("/school/activity/external/{id}/student/{cid}/manage/", name="external_activity_student_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function externalActivityStudentManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    {
+        //if cid != ignore, then remove cid from collection
+        $activity = $activityManager->setActivityType('external')->findActivity($id);
+
+        if (intval($cid) > 0)
+            $activityManager->removeStudent($cid);
+
+        $form = $this->createForm(ExternalActivityType::class, $activity);
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("School/external_activity_collection.html.twig",
+                    [
+                        'collection' => $form->get('students')->createView(),
+                        'route' => 'external_activity_student_manage',
+                        'contentTarget' => 'studentCollection',
+                    ]
+                ),
+                'message' => $activityManager->getMessageManager()->renderView($twig),
+                'status' => $activityManager->getStatus(),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @param string $id
+     * @param string $cid
+     * @param ActivityManager $activityManager
+     * @return JsonResponse
+     * @Route("/school/activity/external/{id}/slot/{cid}/manage/", name="external_activity_slot_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function externalActivitySlotManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    {
+        //if cid != ignore, then remove cid from collection
+        $activity = $activityManager->setActivityType('external')->findActivity($id);
+
+        if (intval($cid) > 0)
+            $activityManager->removeActivitySlot($cid);
+
+        $form = $this->createForm(ExternalActivityType::class, $activity);
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("School/external_activity_collection.html.twig",
+                    [
+                        'collection' => $form->get('activitySlots')->createView(),
+                        'route' => 'external_activity_slot_manage',
+                        'contentTarget' => 'slotCollection',
+                    ]
+                ),
+                'message' => $activityManager->getMessageManager()->renderView($twig),
+                'status' => $activityManager->getStatus(),
+            ],
+            200
         );
     }
 }

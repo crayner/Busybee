@@ -10,8 +10,8 @@
                 <div class="col-3">{{ 'activity.student.external.created.label'|trans }}</div>
                 <div class="col-2">{{ 'actions'|trans({}, 'home') }}</div>
             </div>
-
-            {{ form_widget(form.students) }}
+            <div id="studentCollection"></div>
+            {%  do form.students.setRendered() %}
         </div>
     </div>
 </div>

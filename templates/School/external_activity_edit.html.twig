@@ -32,9 +32,27 @@
     {{ parent() }}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'School/activity_slot_script.html.twig' %}
-    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.tutors, parentClass: 'ExternalActivity', pid: app.request.get('id'), childClass: 'ActivityTutor'} %}
-    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.activitySlots, parentClass: 'ExternalActivity', pid: app.request.get('id'), childClass: 'ActivitySlot'} %}
-    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.students, parentClass: 'ExternalActivity', pid: app.request.get('id'), childClass: 'ActivityStudent'} %}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {route: 'external_activity_edit'} %}
+<script>
+$(document).ready(function(){
+    var path = '{{ path('external_activity_tutor_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+    var target = 'tutorCollection';
+
+    collectionRemoveElement(path, target, '');
+
+    path = '{{ path('external_activity_student_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+    target = 'studentCollection';
+
+    collectionRemoveElement(path, target, '');
+
+    path = '{{ path('external_activity_slot_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+    target = 'slotCollection';
+
+    collectionRemoveElement(path, target, '');
+});
+</script>
 {% endblock %}

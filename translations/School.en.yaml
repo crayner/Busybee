@@ -232,7 +232,9 @@ activity:
     reportable.label: Reportable
     attendance.label: Record Attendance
     tutors.label: Tutors
-    tutor.title: Tutor
+    tutor:
+        title: Tutor
+        removed.message: "%{tutor} was removed as a tutor from this activity."
     activity_tutor:
         remove.title: Remove Tutor
         add.title: Add Tutor

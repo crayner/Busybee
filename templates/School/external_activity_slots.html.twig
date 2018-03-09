@@ -2,8 +2,8 @@
 
 {% include 'Page/panelStart.html.twig' with {header: 'activity.external.slots.tab', panelParagraph: 'school.external_activity.manage.title', panelParams: {'%name%': form.vars.value.fullName}, transDomain: 'School'} %}
 <div class="row">
-    <div class="col-12 card">
-        {{ form_widget(form.activitySlots) }}
+    <div class="col-12 card" id="slotCollection">
+        {% do form.activitySlots.setRendered() %}
     </div>
 </div>
 {% include 'Page/panelEnd.html.twig' %}

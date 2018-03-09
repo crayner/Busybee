@@ -1,10 +1,11 @@
 <?php
 namespace App\Entity;
 
+use App\School\Entity\ActivityStudentExtension;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
-class ActivityStudent implements UserTrackInterface
+class ActivityStudent extends ActivityStudentExtension implements UserTrackInterface
 {
     use UserTrackTrait;
 

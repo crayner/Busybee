@@ -2,7 +2,11 @@
 namespace App\School\Util;
 
 use App\Core\Exception\Exception;
+use App\Core\Manager\MessageManager;
 use App\Entity\Activity;
+use App\Entity\ActivitySlot;
+use App\Entity\ActivityStudent;
+use App\Entity\ActivityTutor;
 use App\Entity\ExternalActivity;
 use App\Entity\Roll;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,13 +36,25 @@ class ActivityManager
     private $activity;
 
     /**
+     * @var MessageManager
+     */
+    private $messageManager;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+    /**
      * ActivityManager constructor.
      * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager)
+    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, MessageManager $messageManager)
     {
         $this->translator = $translator;
         $this->entityManager = $entityManager;
+        $this->messageManager = $messageManager;
+        $this->messageManager->setDomain('School');
     }
 
     /**
@@ -180,6 +196,113 @@ external_activity_slots:
     private function isActivityType()
     {
         if (empty($this->getActivityType()))
-            throw new Exception('Failed to see an activity type.');
+            throw new Exception('Failed to see a valid activity type.');
+    }
+
+    /**
+     * @param $id
+     * @throws \App\People\Entity\CommonException
+     */
+    public function removeTutor($id)
+    {
+        $tutor = $this->getEntityManager()->getRepository(ActivityTutor::class)->find($id);
+        if (! $tutor instanceof ActivityTutor) {
+            $this->messageManager->add('danger', 'activity.tutor.missing.message');
+            $this->setStatus('danger');
+            return;
+        }
+        if (! $tutor->canDelete()) {
+            $this->messageManager->add('warning', 'activity.tutor.remove.restricted', ['%{tutor}' => $tutor->getTutor()->getFullName()]);
+            $this->setStatus('warning');
+            return;
+        }
+        $this->getActivity()->removeTutor($tutor);
+        $this->getEntityManager()->remove($tutor);
+        $this->getEntityManager()->persist($this->getActivity());
+        $this->getEntityManager()->flush();
+
+        $this->messageManager->add('success', 'activity.tutor.removed.message', ['%{tutor}' => $tutor->getTutor()->getFullName()]);
+        $this->setStatus('success');
+        return;
+    }
+
+    /**
+     * @return MessageManager
+     */
+    public function getMessageManager(): MessageManager
+    {
+        return $this->messageManager;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return empty($this->status) ? 'default' : $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return ActivityManager
+     */
+    public function setStatus(string $status): ActivityManager
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @param $id
+     */
+    public function removeStudent($id)
+    {
+        $student = $this->getEntityManager()->getRepository(ActivityStudent::class)->find($id);
+        if (! $student instanceof ActivityStudent) {
+            $this->messageManager->add('danger', 'activity.student.missing.message');
+            $this->setStatus('danger');
+            return;
+        }
+        if (! $student->canDelete()) {
+            $this->messageManager->add('warning', 'activity.student.remove.restricted', ['%{tutor}' => $student->getTutor()->getFullName()]);
+            $this->setStatus('warning');
+            return;
+        }
+
+        $this->getActivity()->removeStudent($student);
+        $this->getEntityManager()->remove($student);
+        $this->getEntityManager()->persist($this->getActivity());
+        $this->getEntityManager()->flush();
+
+        $this->messageManager->add('success', 'activity.student.removed.message', ['%{tutor}' => $student->getTutor()->getFullName()]);
+        $this->setStatus('success');
+        return;
+    }
+
+    /**
+     * @param $id
+     */
+    public function removeActivitySlot($id)
+    {
+        $slot = $this->getEntityManager()->getRepository(ActivitySlot::class)->find($id);
+        if (! $slot instanceof ActivitySlot) {
+            $this->messageManager->add('danger', 'activity.slot.missing.message');
+            $this->setStatus('danger');
+            return;
+        }
+        if (! $slot->canDelete()) {
+            $this->messageManager->add('warning', 'activity.slot.remove.restricted', ['%{tutor}' => $slot->getTutor()->getFullName()]);
+            $this->setStatus('warning');
+            return;
+        }
+
+        $this->getActivity()->removeStudent($slot);
+        $this->getEntityManager()->remove($slot);
+        $this->getEntityManager()->persist($this->getActivity());
+        $this->getEntityManager()->flush();
+
+        $this->messageManager->add('success', 'activity.slot.removed.message', ['%{tutor}' => $slot->getTutor()->getFullName()]);
+        $this->setStatus('success');
+        return;
     }
 }

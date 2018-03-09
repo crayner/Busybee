@@ -195,4 +195,13 @@ class ActivitySlot implements UserTrackInterface
         $this->type = $type == '1' ? '1' : '0';
         return $this;
     }
+
+    /**
+     * @return bool
+     * @todo Activity Slot canDelete
+     */
+    public function canDelete(): bool
+    {
+        return true;
+    }
 }
