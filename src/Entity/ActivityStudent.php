@@ -210,4 +210,10 @@ class ActivityStudent implements UserTrackInterface
         $this->id = $id;
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getStudent()->getFullName() . ' - ' . $this->getActivity()->getFullName();
+    }
+
 }

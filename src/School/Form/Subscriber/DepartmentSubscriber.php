@@ -74,7 +74,6 @@ class DepartmentSubscriber implements EventSubscriberInterface
 					'entry_options' => [
 						'staff_type' => $data->getType(),
 					],
-                    'remove_manage' => true,
 				]
 			);
 		}

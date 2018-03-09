@@ -1,15 +1,6 @@
 {% trans_default_domain "School" %}
 
 <script type="text/javascript" language="JavaScript">
-    $(".slotCollection").collection({
-        name_prefix: '{{ form.activitySlots.vars.full_name }}',
-        allow_up: false,
-        allow_down: false,
-        add: '{{ addButton({transDomain: 'School', title: 'activity.activity_slot.add.title'})|raw }}',
-        remove: '{{ deleteButton({transDomain: 'School', title: 'activity.activity_slot.remove.title'})|raw }}',
-        add_at_the_end: true
-    });
-
     $(document).ready(function () {
         {% for slot in form.activitySlots %}
             var id = '{{ slot.vars.name }}';

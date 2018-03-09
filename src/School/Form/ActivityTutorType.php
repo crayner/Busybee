@@ -55,7 +55,13 @@ class ActivityTutorType extends AbstractType
                 ]
             )
             ->add('sequence', HiddenType::class)
-            ->add('id', HiddenType::class)
+            ->add('id', HiddenType::class,
+                [
+                    'attr' => [
+                        'class' => 'removeElement',
+                    ],
+                ]
+            )
         ;
 	}
 

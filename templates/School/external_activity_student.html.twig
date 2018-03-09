@@ -6,7 +6,7 @@
 {% block external_activity_student_widget %}
     {% spaceless %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set h3Content = h3Content ~ saveButton({type: 'button', javascript: {function: 'saveForm', options: {}}}) %}
+        {% set h3Content = h3Content ~ saveButton() %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton() %}
         {% set h3Content = h3Content ~ '</div>' %}
@@ -26,6 +26,7 @@
                 </div>
                 <div class="col-2 card">
                     {{ h3Content|raw }}
+                    {{ form_row(form.activity, {value: app.request.get('id')}) }}
                 </div>
             </div>
         {{ form_rest(form) }}

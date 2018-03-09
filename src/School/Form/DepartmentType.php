@@ -109,8 +109,6 @@ class DepartmentType extends AbstractType
                     ],
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'remove_manage' => true,
-                    'remove_key' => false,
                 ]
             )
         ;

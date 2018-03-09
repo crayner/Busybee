@@ -1,6 +1,8 @@
 <?php
 namespace App\School\Entity;
 
+use App\Entity\ActivityStudent;
+use App\Entity\ActivityTutor;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -138,5 +140,19 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
     public function canDelete()
     {
         return true;
+    }
+
+    public function removeActivityStudent(ActivityStudent $student): ActivityExtension
+    {
+        $this->removeStudent($student, false);
+
+        return $this;
+    }
+
+    public function removeActivityTutor(ActivityTutor $tutor): ActivityExtension
+    {
+        $this->removeTutor($tutor, false);
+
+        return $this;
     }
 }

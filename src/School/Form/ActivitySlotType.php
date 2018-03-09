@@ -97,7 +97,13 @@ class ActivitySlotType extends AbstractType
                     'class' => ExternalActivity::class,
                 ]
             )
-            ->add('id', HiddenType::class)
+            ->add('id', HiddenType::class,
+                [
+                    'attr' => [
+                        'class' => 'removeElement',
+                    ],
+                ]
+            )
         ;
 	    $builder->addEventSubscriber(new ActivitySlotSubscriber());
 	}

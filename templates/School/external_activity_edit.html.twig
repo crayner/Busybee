@@ -18,92 +18,23 @@
 {% set h3Content = '' %}
 {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('external_activity_list')}}) %}
 {% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}, title: 'reset.button', transDomain: 'home'})|raw %}
-{% set h3Content = h3Content ~ saveButton({type: 'button', javascript: {function: 'saveForm', options: {}}}) %}
+{% set h3Content = h3Content ~ saveButton() %}
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, 'div') }}
     {{ form_start(form, {attr: {id: 'saveForm'}}) }}
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {% include 'Default/tabs.html.twig' with {translation: 'School'} %}
-    <div id="formTabs">
-        <ul class="nav nav-pills" role="tablist">
-            {% set active = ' active' %}
-            {% for name,tab in tabs %}
-                {% set translation = 'School' %}
-                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
-                {% set disabled = '' %}
-                <li class="nav-item" role="presentation">
-                    <a href="#{{ name }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{{ tab.label|trans({}, translation) }}</a>
-                </li>
-                {% set active = '' %}
-            {% endfor %}
-        </ul>
-        {% set active = ' active' %}
-        <div class="tab-content">
-            {% for name,tab in tabs %}
-                {% set translation = 'School' %}
-                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
-                <div class="tab-pane{{ active }}" id="{{ name }}">
-                    {% if tab.message is defined %}
-                        <div class="container-fluid">
-                            <div class='row' id="{{ tab.message }}" style="display: none;">
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% include tab.include %}
-                </div>
-                {% set active = '' %}
-            {% endfor %}
-        </div>
-    </div>
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
-    {% include 'School/activity_tutor_script.html.twig' %}
     {% include 'School/activity_slot_script.html.twig' %}
-    {% include 'School/activity_student_script.html.twig' %}
+    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.tutors, parentClass: 'ExternalActivity', pid: app.request.get('id'), childClass: 'ActivityTutor'} %}
+    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.activitySlots, parentClass: 'ExternalActivity', pid: app.request.get('id'), childClass: 'ActivitySlot'} %}
+    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.students, parentClass: 'ExternalActivity', pid: app.request.get('id'), childClass: 'ActivityStudent'} %}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-<script type="text/javascript">
-    $(document).ready(function () {
-        if (window.location.hash) {
-            var hash = window.location.hash;
-            hash = 'a[href="' + hash.replace('#', '#') + '"]';
-            $(hash).tab('show');
-        }
-    });
-
-    function resetForm() {
-        var fragment = $('.tab-content > .active').attr('id');
-        var id = '{{ app.request.get('id') }}';
-
-        if (id.length === 0) {
-            id = '0';
-        }
-
-        var path = '{{ path('external_activity_edit', {'id': '__id__', '_fragment': '__fragment__'}) }}';
-        path = path.replace('__id__', id);
-        path = path.replace('__fragment__', fragment);
-
-        location.assign(path);
-        location.reload(true);
-    }
-
-    function saveForm() {
-        var fragment = $('.tab-content > .active').attr('id');
-        var id = '{{ app.request.get('id') }}';
-
-        if (id.length === 0) {
-            id = '0';
-        }
-
-        var path = '{{ path('external_activity_edit', {'id': '__id__', '_fragment': '__fragment__'}) }}';
-        path = path.replace('__id__', id);
-        path = path.replace('__fragment__', fragment);
-
-        $("#saveForm").attr('action', path);
-        $("#saveForm").submit();
-    }
-    </script>
+    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'external_activity_edit'} %}
 {% endblock %}

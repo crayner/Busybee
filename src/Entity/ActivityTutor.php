@@ -132,4 +132,9 @@ class ActivityTutor
         $this->sequence = $sequence;
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getTutor()->getFullName() . ' - ' . $this->getActivity()->getFullName();
+    }
 }
