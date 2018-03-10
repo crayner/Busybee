@@ -201,7 +201,6 @@ external_activity_slots:
 
     /**
      * @param $id
-     * @throws \App\People\Entity\CommonException
      */
     public function removeTutor($id)
     {

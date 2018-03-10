@@ -40,19 +40,19 @@ $(document).ready(function(){
 
     var target = 'tutorCollection';
 
-    collectionRemoveElement(path, target, '');
+    manageCollection(path, target, '');
 
     path = '{{ path('external_activity_student_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
 
     target = 'studentCollection';
 
-    collectionRemoveElement(path, target, '');
+    manageCollection(path, target, '');
 
     path = '{{ path('external_activity_slot_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
 
     target = 'slotCollection';
 
-    collectionRemoveElement(path, target, '');
+    manageCollection(path, target, '');
 });
 </script>
 {% endblock %}

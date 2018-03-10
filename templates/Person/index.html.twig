@@ -55,41 +55,41 @@
             {% set xx = manager.getPerson(person.id) %}
             <div class="row row-striped">
                 <div class="col-2 hidden-sm">
-                    {{ person.0.getPhoto75('left')|raw }}
+                    {{ person.entity.getPhoto75('left')|raw }}
                 </div>
                 <div class="col-3" style="display: inline-block;">
                     {{ person.surname }}<br/>
                     <span class="small">{{ person.firstName }}</span>
                 </div>
                 <div class="col-4 hidden-sm small" style="display: inline-block;">
-                    {{ manager.getDetails(person.0)|raw }}
+                    {{ manager.getDetails(person.entity)|raw }}
                 </div>
                 <div class="col-3 text-center">
                     <div class="container-fluid">
                         <div class="row text-center">
                             <div class="p-12 justify-content-center col-12">
                             {% set staffOn = false %}
-                            {% if isStaff(person.0) %}
+                            {% if isStaff(person.entity) %}
                                 {% set staffOn = true %}
                             {% endif %}
                             {% set additional = {id: 'staffToggle' ~ person.id} %}
-                            {% if not manager.canBeStaff(person.0) %}
+                            {% if not manager.canBeStaff(person.entity) %}
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
                             {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}, title: 'person.staff.toggle.button', transDomain: 'Person'})|raw }}
 
                             {% set studentOn = false %}
-                            {% if isStudent(person.0) %}
+                            {% if isStudent(person.entity) %}
                                 {% set studentOn = true %}
                             {% endif %}
                             {% set additional = {id: 'studentToggle' ~ person.id} %}
-                            {% if not manager.canBeStudent(person.0) %}
+                            {% if not manager.canBeStudent(person.entity) %}
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
                             {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}, title: 'person.student.toggle.button', transDomain: 'Person'})|raw }}
 
                             {% set userOn = false %}
-                            {% if isUser(person.0) %}
+                            {% if isUser(person.entity) %}
                                 {% set userOn = true %}
                             {% endif %}
                             {% set additional = {id: 'userToggle' ~ person.id} %}
@@ -107,9 +107,9 @@
                             {% set route = path('person_edit', {'id': person.id, }) %}
                             {{ editButton({'title': 'person.edit.title', 'transDomain': 'Person', 'windowOpen': {'route': route}, 'colour': 'warning'})|raw }}
                                 {% if person.user_id is not empty %}
-                                {% set route = path(app.request.get('_route')) ~ '?_switch_user=' ~ person.0.person.user.username %}
+                                {% set route = path(app.request.get('_route')) ~ '?_switch_user=' ~ person.entity.person.user.username %}
                                 {% set additional = '' %}
-                                {% if not manager.canImpersonateUser(app.user, person.0.user) %}{% set additional = 'disabled' %}{% endif %}
+                                {% if not manager.canImpersonateUser(app.user, person.entity.user) %}{% set additional = 'disabled' %}{% endif %}
                                 {{ miscButton({transDomain: 'security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button', additional: additional})|raw }}
                                 {{ editButton({ title: 'user.request.passwordReset', 'class': 'btn btn-warning  x-halflings glyphicons glyphicons-user-key', transDomain: 'security', windowOpen: {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.user_id})}})|raw }}
                             {% endif %}

@@ -6,8 +6,6 @@ use App\Entity\Activity;
 use App\Entity\ActivityTutor;
 use App\Entity\Person;
 use App\Entity\Student;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
@@ -54,14 +52,6 @@ class ActivityTutorType extends AbstractType
                     },
                 ]
             )
-            ->add('sequence', HiddenType::class)
-            ->add('id', HiddenType::class,
-                [
-                    'attr' => [
-                        'class' => 'removeElement',
-                    ],
-                ]
-            )
         ;
 	}
 
@@ -74,6 +64,7 @@ class ActivityTutorType extends AbstractType
 			[
 				'data_class'         => ActivityTutor::class,
 				'translation_domain' => 'School',
+                'allow_extra_fields' => true,
 			]
 		);
 	}
@@ -85,6 +76,4 @@ class ActivityTutorType extends AbstractType
 	{
 		return 'activity_tutor';
 	}
-
-
 }

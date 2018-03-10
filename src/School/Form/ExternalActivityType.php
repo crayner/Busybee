@@ -93,7 +93,7 @@ class ExternalActivityType extends AbstractType
                     'allow_delete' => true,
                     'allow_up' => true,
                     'allow_down' => true,
-                    'sequence_manage' => true,
+                    'sort_manage' => true,
                 ]
             )
             ->add('registration', ToggleType::class,

@@ -89,9 +89,6 @@ class FaceToFaceType extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => ClassStudentType::class,
-                    'attr' => [
-                        'class' => 'studentCollection'
-                    ],
                     'required' => false,
                 ]
             )
@@ -102,10 +99,7 @@ class FaceToFaceType extends AbstractType
                     'allow_delete' => true,
                     'allow_up' => true,
                     'allow_down' => true,
-                    'attr' => [
-                        'class' => 'tutorCollection'
-                    ],
-                    'sequence_manage' => true,
+                    'sort_manage' => true,
                 ]
             )
             ->add('reportable', ToggleType::class,

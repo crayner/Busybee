@@ -16,14 +16,13 @@
                 <div class="col-5 card">
                     {{ form_widget(form.tutor, {value: transformData(form.tutor.vars)}) }}
                     {{ form_row(form.activity, {value: app.request.get('id')}) }}
-                    {{ form_row(form.sequence) }}
                 </div>
                 <div class="col-3 card">
                     {{ form_widget(form.role) }}
                 </div>
                 <div class="col-4 card">
                     {{ h3Content|raw }}
-                    {{ form_row(form.id) }}
+                    {{ form_rest(form) }}
                 </div>
             </div>
         </div>

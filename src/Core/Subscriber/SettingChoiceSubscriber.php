@@ -51,6 +51,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
 	/**
 	 * @param FormEvent $event
+     * @throws Exception
 	 */
 	public function preSetData(FormEvent $event)
 	{
@@ -112,10 +113,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
         }
 
         if (empty($choices))
-        {
-            dump([$choices, $this->settingManager]);
-            die();
-        }
+            throw new Exception('No choices found for the setting. '. $options['setting_name']);
 
         $newOptions                              = [];
         $newOptions['constraints']               = [];
