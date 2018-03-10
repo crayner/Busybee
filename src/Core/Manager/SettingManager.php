@@ -329,7 +329,6 @@ class SettingManager implements ContainerAwareInterface
     private function getArray(string $name, $default, $options)
     {
         $value = $this->setting->getValue();
-
         if ($this->name === $name)
             return $value;
 
@@ -346,7 +345,7 @@ class SettingManager implements ContainerAwareInterface
 
         foreach($extension as $ext)
         {
-            if (isset($value[$ext]))
+            if (key_exists($ext, $value))
             {
                 $this->setting = new Setting();
                 $name .= '.' . $ext;
@@ -358,6 +357,10 @@ class SettingManager implements ContainerAwareInterface
                 $value = $value[$ext];
                 $this->setting->setValue($value);
                 $this->flushToSession($this->setting);
+                if ($this->name === $name)
+                    return $value;
+
+                dump($this);
             }
             else
             {
