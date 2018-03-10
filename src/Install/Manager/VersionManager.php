@@ -15,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.18';
+	const VERSION = '0.0.19';
 
 	/**
 	 * @var SettingManager
@@ -54,9 +54,9 @@ class VersionManager
 	{
 		$this->connection     = $entityManager->getConnection();
 		$this->settingManager = $settingManager;
-        $this->version = $this->settingManager->get('version', '0.0.00');
+        $this->version        = $this->settingManager->get('version', '0.0.00');
 		$this->translator     = $translator;
-		$this->entityManager = $entityManager;
+		$this->entityManager  = $entityManager;
 
 		return $this;
 	}

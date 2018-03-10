@@ -17,7 +17,6 @@
 		"knpuniversity/oauth2-client-bundle": "^1.16",
 		"league/oauth2-google": "^2.0",
 		"sensio/framework-extra-bundle": "^5.1",
-		"sensiolabs/security-checker": "^4.1",
 		"spipu/html2pdf": "^5.0",
 		"symfony/asset": "^4.0",
 		"symfony/config": "^4.0",
