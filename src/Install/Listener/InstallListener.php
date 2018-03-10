@@ -55,6 +55,7 @@ class InstallListener implements EventSubscriberInterface
 					'install_user',
 					'update_system_settings',
 					'login',
+                    'google_oauth'
 				]
 			)
 		) return;

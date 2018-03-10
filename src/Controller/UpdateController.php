@@ -14,13 +14,15 @@ class UpdateController extends Controller
 	/**
 	 * @param Request $request
 	 * @Route("/update/system/settings/", name="update_system_settings")
-	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function updateSystemSettings(SystemBuildManager $systemBuildManager, Request $request)
 	{
-		$form = $this->createForm(UpdateType::class);
+		if (! $this->isGranted('ROLE_SYSTEM_ADMIN'))
+		    return $this->redirectToRoute('_locked');
+
+	    $form = $this->createForm(UpdateType::class);
 
 		$form->handleRequest($request);
 

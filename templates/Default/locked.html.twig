@@ -1,0 +1,11 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'home' %}
+
+{% block title %}{{ 'lockedPage.heading'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'lockedPage.heading'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'lockedPage.lead'|trans }}.{% endblock headerLead %}
+
+{% block contentContainer %}
+    <p class="alert alert-warning">{{ 'lockedPage.para1'|trans({'%{installed}': version.installedVersion, '%{software}': version.version}) }}</p>
+{% endblock contentContainer %}

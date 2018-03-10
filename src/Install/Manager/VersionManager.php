@@ -15,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.19';
+	const VERSION = '0.0.21';
 
 	/**
 	 * @var SettingManager
@@ -41,6 +41,11 @@ class VersionManager
 	 * @var EntityManagerInterface
 	 */
 	private $entityManager;
+
+    /**
+     * @var int
+     */
+	private $SQLCount = 0;
 
 	/**
 	 * VersionManager constructor.
@@ -276,13 +281,21 @@ class VersionManager
 		return $test;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getVersion(): string
-	{
-		return self::VERSION;
-	}
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return self::VERSION;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstalledVersion(): string
+    {
+        return $this->version;
+    }
 
 	/**
 	 * @param $version
@@ -324,9 +337,9 @@ class VersionManager
 
 		$metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
 
-		$xx = $schemaTool->getUpdateSchemaSql($metaData);
+        $this->SQLCount = $schemaTool->getUpdateSchemaSql($metaData);
 
-		if (count($xx) > 0)
+		if (count($this->SQLCount) > 0)
 			return false;
 
 		return version_compare(self::VERSION, $this->version, '<=');
@@ -339,4 +352,12 @@ class VersionManager
 	{
 		return $this->settingManager;
 	}
+
+    /**
+     * @return int
+     */
+    public function getSQLCount(): int
+    {
+        return $this->SQLCount;
+    }
 }

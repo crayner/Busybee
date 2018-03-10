@@ -89,4 +89,17 @@ class HomeController extends Controller
 
 		throw new \Exception('The file is not available to download. ' . base64_decode($file));
 	}
+    /**
+     * @Route("/locked/", name="_locked")
+     */
+    public function locked(VersionManager $versionManager)
+    {
+        return $this->render('Default/locked.html.twig',
+            [
+                'version' => $versionManager,
+            ]
+        );
+    }
+
+
 }
