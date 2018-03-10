@@ -1,4 +1,0 @@
-hillrange_form:
-    resource: '../../vendor/hillrange/symfony-form/Controller/'
-    type: annotation
-    prefix: /hillrange/form/
