@@ -1,22 +1,12 @@
 {% trans_default_domain 'School' %}
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12 card">
-            {% set h3Content = '' %}
-            {% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}})|raw %}
-            {% set h3Content = h3Content ~ saveButton()|raw %}
-            {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: form.courses.vars.help, panelStyle: 'info'} %}
-            {% for error in form.courses.parent.vars.errors %}
-                {% set printMe = error.messageTemplate|replace({'department.course.unique': 'print_me'}) %}
-                {% if printMe == 'print_me' %}
-                    <p class="alert alert-danger">
-                        <span class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}
-                    </p>
-                {% endif %}
-            {% endfor %}
-            {{ form_widget(form.courses) }}
-            {% include 'Page/panelEnd.html.twig' %}
-        </div>
+    {% set h3Content = '' %}
+    {% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}})|raw %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
+    {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: form.courses.vars.help, panelStyle: 'info'} %}
+    <div id="courseCollection">
+        {% do form.courses.setRendered() %}
     </div>
+    {% include 'Page/panelEnd.html.twig' %}
 </div>

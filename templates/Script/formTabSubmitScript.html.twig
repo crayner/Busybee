@@ -34,8 +34,7 @@
             id = '0';
         }
 
-        var path = "{{ path(route, options|merge({'id': app.request.get('id'), refresh: 1,  _fragment: '__fragment__'})) }}";
-
+        var path = "{{ path(route, options|merge({'id': app.request.get('id'), _fragment: '__fragment__'})) }}";
         path = path.replace('__fragment__', fragment);
 
         location.assign(path);

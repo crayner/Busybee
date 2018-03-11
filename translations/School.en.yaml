@@ -107,10 +107,14 @@ department:
         label: Short Department Name
     course:
         title: Course Information
-        help: Link the department to the selected courses.
+        help: Link the selected courses to this department.
         name:
             placeholder: Select a Course
         member: '%name%'
+        missing.error: 'The course was not found. [%{course}]'
+        missing.warning: 'The course was not available to remove. [%{course}]'
+        removed.success: 'The course, %{course}, was removed successfully.'
+        removed.info: 'The course, %{course}, was found but is not in this department.'
     member:
         add:
             button: Add Staff

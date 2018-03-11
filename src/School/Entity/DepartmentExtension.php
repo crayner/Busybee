@@ -101,12 +101,12 @@ department_details:
     include: Department/department_details.html.twig
     message: departmentDetailsMessage
     translation: School
-department_staff:
+department_tutor_collection:
     label: department.staff.tab
     include: Department/department_staff.html.twig
     message: departmentStaffMessage
     translation: School
-department_courses:
+department_course_collection:
     label: department.courses.tab
     include: Department/department_courses.html.twig
     message: departmentCoursesMessage

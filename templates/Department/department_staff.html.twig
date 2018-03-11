@@ -6,16 +6,8 @@
 {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: '', panelStyle: 'success', panelStyle: 'info'} %}
 <div class="container-fluid">
     {% if form.members is defined %}
-        <div class="memberMessage"></div>
-        {% for error in form.members.parent.vars.errors %}
-            {% set printMe = error.messageTemplate|replace({'department.member.uniquestaff': 'print_me'}) %}
-            {% if printMe == 'print_me' %}
-                <p class="alert alert-danger">
-                    <span class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}
-                </p>
-            {% endif %}
-        {% endfor %}
-        {{ form_widget(form.members) }}
+        <div class="memberCollection"></div>
+        {% do form.members.setRendered %}
     {% endif %}
 </div>
 {% include 'Page/panelEnd.html.twig' %}

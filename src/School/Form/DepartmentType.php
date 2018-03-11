@@ -2,7 +2,6 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
-use App\Entity\Course;
 use Hillrange\CKEditor\Form\CKEditorType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
@@ -13,7 +12,6 @@ use App\School\Form\Subscriber\DepartmentSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -99,14 +97,7 @@ class DepartmentType extends AbstractType
                 [
                     'help' => 'department.course.help',
                     'label' => false,
-                    'entry_type' => EntityType::class,
-                    'entry_options' => [
-                        'class' => Course::class,
-                        'choice_label' => 'fullName',
-                    ],
-                    'attr' => [
-                        'class' => 'courseCollection'
-                    ],
+                    'entry_type' => DepartmentCourseType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                 ]

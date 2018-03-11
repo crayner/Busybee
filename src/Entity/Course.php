@@ -310,4 +310,14 @@ class Course extends CourseExtension
 
         return $this;
     }
+
+    /**
+     * @param int $id
+     * @return Course
+     */
+    public function setId(int $id): Course
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

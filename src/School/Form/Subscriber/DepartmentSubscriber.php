@@ -64,10 +64,6 @@ class DepartmentSubscriber implements EventSubscriberInterface
 			$form->add('members', CollectionType::class,
 				[
 					'entry_type'    => DepartmentMemberType::class,
-					'attr'          =>
-						[
-							'class' => 'memberCollection',
-						],
 					'allow_add'     => true,
 					'allow_delete'  => true,
 					'help'  => 'department.members.help',

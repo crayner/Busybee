@@ -6,6 +6,7 @@ use App\Core\Manager\MessageManager;
 use App\Entity\Department;
 use App\Entity\DepartmentMember;
 use App\School\Form\DepartmentType;
+use App\School\Util\DepartmentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -135,6 +136,69 @@ class DepartmentController extends Controller
 		$data['status']  = 'warning';
 
 		return new JsonResponse($data, 200);
-
 	}
+
+    /**
+     * @param $cid
+     * @param $id
+     * @Route("/department/courses/{id}/manage/{cid}", name="department_courses_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function manageCourseCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, \Twig_Environment $twig)
+    {
+        $entity = $departmentManager ->findDepartment($id);
+
+        $departmentManager->removeCourse($cid);
+
+        $form = $this->createForm(DepartmentType::class, $entity, ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("Department/department_collection.html.twig",
+                    [
+                        'collection' => $form->get('courses')->createView(),
+                        'route' => 'department_courses_manage',
+                        'contentTarget' => 'courseCollection',
+                    ]
+                ),
+                'message' => $departmentManager->getMessageManager()->renderView($twig),
+                'status' => $departmentManager->getStatus(),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @param $cid
+     * @param $id
+     * @Route("/department/members/{id}/manage/{cid}", name="department_members_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function manageMemberCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, \Twig_Environment $twig)
+    {
+        $entity = $departmentManager ->findDepartment($id);
+
+        $departmentManager->removeMember($cid);
+
+        $form = $this->createForm(DepartmentType::class, $entity, ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
+
+        $collection = $form->has('members') ? $form->get('members')->createView() : '';
+        if (empty($collection))
+            $departmentManager->getMessageManager()->add('warning', 'department.members.not_defined');
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("Department/department_collection.html.twig",
+                    [
+                        'collection' => $collection,
+                        'route' => 'department_members_manage',
+                        'contentTarget' => 'memberCollection',
+                    ]
+                ),
+                'message' => $departmentManager->getMessageManager()->renderView($twig),
+                'status' => $departmentManager->getStatus(),
+            ],
+            200
+        );
+    }
 }
