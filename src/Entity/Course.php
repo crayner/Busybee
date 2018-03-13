@@ -93,7 +93,7 @@ class Course extends CourseExtension
 	 *
 	 * @return Course
 	 */
-	public function setName($name)
+	public function setName(?string $name): Course
 	{
 		$this->name = $name;
 
@@ -152,14 +152,10 @@ class Course extends CourseExtension
      */
     public function setDepartment(?Department $department, $add = true): Course
     {
-        if (empty($department))
-            return $this;
-
-        if ($add)
+        if ($add && ! empty($department))
             $department->addCourse($this, false);
 
         $this->department = $department;
-
 
         return $this;
     }

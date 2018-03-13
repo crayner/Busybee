@@ -56,16 +56,7 @@ class Department extends DepartmentExtension
 	 */
 	private $logo;
 
-	/**
-	 * Department constructor.
-	 */
-	public function __construct()
-	{
-		$this->members = new ArrayCollection();
-		$this->courses = new ArrayCollection();
-	}
-
-	/**
+    /**
 	 * Get id
 	 *
 	 * @return integer
@@ -192,6 +183,9 @@ class Department extends DepartmentExtension
 	 */
 	public function getMembers($sort = true)
 	{
+	    if (empty($this->members))
+            $this->members = new ArrayCollection();
+
 		if ($this->members instanceof PersistentCollection)
 		    $this->memberInitialise($this->members);
 
@@ -248,6 +242,8 @@ class Department extends DepartmentExtension
 
 	    $this->getCourses()->removeElement($course);
 
+	    $course->setDepartment(null, false);
+
 		return $this;
 	}
 
@@ -260,6 +256,9 @@ class Department extends DepartmentExtension
 	{
 	    if (empty($this->courses))
 	        $this->courses = new ArrayCollection();
+
+	    if ($this->courses instanceof PersistentCollection && $this->courses->isInitialized())
+            $this->courses->initialize();
 
 		if ($sorted)
 			return $this->sortCourses();

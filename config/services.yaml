@@ -124,3 +124,6 @@ services:
             - '@doctrine.orm.default_entity_manager'
             - '@App\Core\Manager\SettingManager'
         public: false
+    App\Core\Form\Extension\ResetTypeExtension:
+        tags:
+            - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\FormType', priority: -16 }

@@ -16,7 +16,7 @@
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissable show hide") }}
     {{ form_start(form) }}
     {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}})|raw %}
+    {% set h3Content = h3Content ~ resetButton()|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}
@@ -33,17 +33,17 @@
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
 <script>
     $(document).ready(function(){
-    var path = '{{ path('department_courses_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+        var path = '{{ path('department_courses_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
 
-    var target = 'courseCollection';
+        var target = 'courseCollection';
 
-    manageCollection(path, target, '');
+        manageCollection(path, target, '');
 
-//    path = '{{ path('department_members_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+        path = '{{ path('department_members_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
 
-//    target = 'memberCollection';
+        target = 'memberCollection';
 
-//    manageCollection(path, target, '');
+        manageCollection(path, target, '');
     });
 </script>
 {% endblock javascripts %}

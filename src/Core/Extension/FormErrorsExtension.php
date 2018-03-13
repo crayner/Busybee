@@ -117,13 +117,17 @@ class FormErrorsExtension extends AbstractExtension
 	 */
 	private function handleErrors($item, $tag, $class)
 	{
-		$return = '';
+        $return = '';
 		$errors = $item['errors'];
-		if (count($errors) > 0)
+        if (count($errors) > 0)
 		{
 			/** @var FormError $error */
 			foreach ($errors as $error)
 			{
+                $constraint = $error->getCause()->getConstraint();
+                if (property_exists($constraint, 'severity'))
+                    $class = str_replace('danger', $constraint->severity, $class);
+
 				$return .= '<' . $tag . ' class="' . $class . '">';
 				$return .= $this->trans->trans($item['label'], array(), $item['translation']);
 				$return .= ': ';

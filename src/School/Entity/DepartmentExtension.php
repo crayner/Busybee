@@ -113,4 +113,17 @@ department_course_collection:
     translation: School
 ");
     }
+
+    /**
+     * @return DepartmentExtension
+     */
+    public function refresh(): DepartmentExtension
+    {
+        $this->coursesSorted = false;
+        $this->getCourses();
+        $this->membersSorted = false;
+        $this->getMembers();
+
+        return $this;
+    }
 }

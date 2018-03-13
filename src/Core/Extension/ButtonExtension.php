@@ -32,6 +32,7 @@ save:
     type: submit
     title: 'form.save'
     style: 'float: right;'
+    name: Save
     additional: ''
     prompt: ''
 cancel:
@@ -85,9 +86,10 @@ delete:
     prompt: ''
 reset:
     class: "halflings halflings-refresh btn btn-warning"
-    type: reset
+    type: submit
     title: 'form.reset'
     style: 'float: right;'
+    name: Reset
     additional: ''
     prompt: ''
 misc:
@@ -197,7 +199,7 @@ XXX;
 	 */
 	private function generateButton($defaults, $details = array())
 	{
-		$button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%>%prompt%</button>';
+		$button = '<button name="%name%" title="%title%" type="%type%" class="%class%" style="%style%" %additional%>%prompt%</button>';
 
 		if (isset($details['mergeClass']))
 		{
@@ -236,11 +238,16 @@ XXX;
 			$details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
 		}
 
+		if (!isset($defaults['name']))
+            $defaults['name'] = '';
+
 		foreach ($defaults as $q => $w)
 		{
 			if (isset($details[$q]))
 				$defaults[$q] = $details[$q];
-			if (empty($defaults[$q]))
+			if ($q == 'name')
+                $details['additional'] = empty($details['additional']) ? '' : trim($details['additional'] . ' ' . $w);
+            if (empty($defaults[$q]))
 			{
 				unset($defaults[$q]);
 				$button = str_replace(array($q . '="%' . $q . '%"', '%' . $q . '%'), '', $button);

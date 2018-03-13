@@ -38,6 +38,17 @@ class DepartmentMember
 		return $this->id;
 	}
 
+    /**
+     * @param int $id
+     * @return DepartmentMember
+     */
+    public function setId(?int $id): DepartmentMember
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
 	/**
 	 * Get staffType
 	 *
@@ -110,10 +121,21 @@ class DepartmentMember
 	 *
 	 * @return DepartmentMember
 	 */
-	public function setDepartment(Department $department = null): DepartmentMember
+	public function setDepartment(?Department $department, $add = true): DepartmentMember
 	{
 		$this->department = $department;
 
+		if ($add && ! empty($department))
+		    $department->addMember($this, false);
+
 		return $this;
 	}
+
+	public function getFullStaffName(): ?string
+    {
+        if ($this->getStaff())
+            return $this->getStaff()->getFullName();
+
+        return '';
+    }
 }

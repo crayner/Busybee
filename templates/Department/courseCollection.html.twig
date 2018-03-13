@@ -6,15 +6,15 @@
 {% block department_course_widget %}
     {% spaceless %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ deleteButton({title: 'department.course.remove.title', transDomain: 'School', mergeClass: 'collection-remove collection-action', colour: 'warning'})|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         <div class="row">
             <div class="col-9 card">
-                {{ form_row(form.name, {value: transformData(form.vars, form.parent.vars.unique_key)}) }}
+                {{ form_row(form, {value: transformData(form.vars)}) }}
             </div>
             <div class="col-3 card">
                 {{ h3Content|raw }}
-                {{ form_rest(form) }}
             </div>
         </div>
     {% endspaceless %}

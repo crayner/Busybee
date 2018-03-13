@@ -272,4 +272,19 @@ abstract class PersonExtension implements UserTrackInterface
 	{
 		return $this->getUser() ? $this->getUser()->getId() : null;
 	}
+
+    /**
+     * get Format Name
+     *
+     * @version    21st November 2016
+     * @since      21st November 2016
+     *
+     * @param   array $options
+     *
+     * @return    string
+     */
+    public function fullName($options = array())
+    {
+        return $this->formatName($options);
+    }
 }

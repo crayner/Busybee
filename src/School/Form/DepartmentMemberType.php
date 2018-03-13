@@ -26,7 +26,7 @@ class DepartmentMemberType extends AbstractType
 				[
 					'label'         => 'department.members.member.label',
 					'class'         => Staff::class,
-					'choice_label'  => 'formatName',
+					'choice_label'  => 'fullName',
 					'query_builder' => function (EntityRepository $er) {
 						return $er->createQueryBuilder('s')
 							->orderBy('s.surname', 'ASC')
@@ -48,11 +48,6 @@ class DepartmentMemberType extends AbstractType
 					'class' => Department::class,
 				]
 			)
-            ->add('id', HiddenEntityType::class,
-                [
-                    'class' => ActivityTutor::class,
-                ]
-            )
         ;
 
 	}

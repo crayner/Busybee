@@ -6,22 +6,20 @@
 {% block department_member_widget %}
     {% spaceless %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set h3Content = h3Content ~ deleteButton({transDomain: 'School', title: 'department.member.remove.button', mergeClass: 'collection-remove collection-action', colour: 'warning'})|raw %}
-        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'department.member.remove.title', transDomain: 'School', mergeClass: 'collection-remove collection-action', colour: 'warning'})|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-5 card">
-                    {{ form_row(form.staff) }}
-                </div>
-                <div class="col-4 card">
-                    {{ form_row(form.staffType) }}
-                    {{ form_row(form.department, {'id': app.request.get('id')}) }}
-                </div>
-                <div class="col-3 card">
-                    {{ h3Content|raw }}
-                    {{ form_row(form.id) }}
-                </div>
+        <div class="row">
+            <div class="col-5 card">
+                {{ form_widget(form.staff) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_widget(form.staffType) }}
+                {{ form_row(form.department, {'id': app.request.get('id')}) }}
+            </div>
+            <div class="col-3 card">
+                {{ h3Content|raw }}
+                {{ form_rest(form) }}
             </div>
         </div>
     {% endspaceless %}

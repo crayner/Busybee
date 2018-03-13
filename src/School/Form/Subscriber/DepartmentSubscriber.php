@@ -18,7 +18,8 @@ class DepartmentSubscriber implements EventSubscriberInterface
 		// event and that the preSetData method should be called.
 		return array(
 			FormEvents::PRE_SUBMIT   => 'preSubmit',
-			FormEvents::PRE_SET_DATA => 'preSetData',
+            FormEvents::PRE_SET_DATA => 'preSetData',
+            FormEvents::SUBMIT => 'submit',
 		);
 	}
 
@@ -37,18 +38,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 				$data['members'][$q]['department'] = strval($dept->getId());
 			}
 		}
-
-		if (isset($data['courses']) && is_array($data['courses']))
-		{
-			$items = [];
-			foreach ($data['courses'] as $q => $w)
-				if (!in_array($w, $items))
-					$items[$q] = $w;
-			$data['courses'] = $items;
-		}
-
-		$event->setData($data);
-	}
+    }
 
 	/**
 	 * @param FormEvent $event
@@ -74,4 +64,27 @@ class DepartmentSubscriber implements EventSubscriberInterface
 			);
 		}
 	}
+
+
+    /**
+     * @param FormEvent $event
+     */
+    public function submit(FormEvent $event)
+    {
+        $dept = $event->getData();
+        $courses = $dept->getCourses();
+
+        $courses = $courses->filter(function($entry){
+            return empty($entry->getDepartment());
+        });
+        foreach($courses->getIterator() as $course)
+            $course->setDepartment($dept);
+
+        $members = $dept->getMembers();
+        $members = $members->filter(function($entry){
+            return empty($entry->getDepartment());
+        });
+        foreach($members->getIterator() as $member)
+            $member->setDepartment($dept);
+    }
 }

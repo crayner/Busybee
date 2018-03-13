@@ -112,8 +112,8 @@ department:
             placeholder: Select a Course
         member: '%name%'
         missing.error: 'The course was not found. [%{course}]'
-        missing.warning: 'The course was not available to remove. [%{course}]'
-        removed.success: 'The course, %{course}, was removed successfully.'
+        missing.warning: 'No record of the course was found. [%{course}]'
+        removed.success: 'The course, %{course}, was removed successfully from the department.'
         removed.info: 'The course, %{course}, was found but is not in this department.'
     member:
         add:
@@ -124,6 +124,10 @@ department:
             failure: The staff member was not remomoved from the database.
             missing: The staff member was not found to remove.
         added.success: 'Staff Members were added.'
+        missing.error: 'The staff member was not found. [%{member}]'
+        missing.warning: 'No record of the staff member was found. [%{member}]'
+        removed.success: 'The staff member, %{member}, was removed successfully from the department.'
+        removed.info: 'The staff member, %{member}, was found but is not in this department.'
     members:
         title: Staff Information
         help: Link the department to the selected staff members.
@@ -136,6 +140,7 @@ department:
             label: Staff Type
             placeholder: Select Staff Type
             help: Staff type is used to set system security.
+        not_defined: Member management is available when the department is saved successfully.
     blurb:
         label: Department Blurb
     logo:

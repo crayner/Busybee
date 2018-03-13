@@ -16,12 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DepartmentController extends Controller
 {
-	/**
-	 * @param Request $request
-	 * @Route("/institute/department/edit/{id}/", name="department_edit")
-	 * @IsGranted("ROLE_PRINCIPAL")
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * @param Request $request
+     * @param $id
+     * @param FlashBagManager $flashBagManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/institute/department/edit/{id}/", name="department_edit")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
 	public function edit(Request $request, $id, FlashBagManager $flashBagManager)
 	{
 		$entity = new Department();
@@ -33,7 +35,7 @@ class DepartmentController extends Controller
 
 		$form->handleRequest($request);
 
-		if ($form->isSubmitted() && $form->isValid())
+        if ($form->isSubmitted() && $form->isValid())
 		{
 			$em = $this->get('doctrine')->getManager();
 			$em->persist($entity);
@@ -47,6 +49,7 @@ class DepartmentController extends Controller
 				foreach ($entity->getStaff()->toArray() as $deptStaff)
 				{
 					$deptStaff->setDepartment($entity);
+
 					$em->persist($deptStaff);
 					$em->flush();
 					$count++;
@@ -74,12 +77,13 @@ class DepartmentController extends Controller
 	}
 
 
-	/**
-	 * @param $id
-	 * @Route("/institute/department/logo/delete/{id}/", name="department_logo_delete")
-	 * @IsGranted("ROLE_PRINCIPAL")
-	 * @return Response
-	 */
+    /**
+     * @param $id
+     * @param Request $request
+     * @return Response
+     * @Route("/institute/department/logo/delete/{id}/", name="department_logo_delete")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
 	public function deleteLogo($id, Request $request)
 	{
 		$om     = $this->getDoctrine()->getManager();
@@ -99,12 +103,14 @@ class DepartmentController extends Controller
 		return $this->forward('App\Controller\DepartmentController::edit', ['id' => $id, 'request' => $request]);
 	}
 
-	/**
-	 * @param $id
-	 * @Route("/institute/department/remove/member/{id}/", name="department_member_remove")
-	 * @IsGranted("ROLE_PRINCIPAL")
-	 * @return JsonResponse
-	 */
+    /**
+     * @param $id
+     * @param MessageManager $messageManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
+     * @Route("/institute/department/remove/member/{id}/", name="department_member_remove")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
 	public function removeMember($id, MessageManager $messageManager, \Twig_Environment $twig)
 	{
 		$om = $this->getDoctrine()->getManager();
@@ -139,8 +145,11 @@ class DepartmentController extends Controller
 	}
 
     /**
-     * @param $cid
+     * @param string $cid
      * @param $id
+     * @param DepartmentManager $departmentManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
      * @Route("/department/courses/{id}/manage/{cid}", name="department_courses_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      */
@@ -169,34 +178,40 @@ class DepartmentController extends Controller
     }
 
     /**
-     * @param $cid
+     * @param string $cid
      * @param $id
+     * @param DepartmentManager $departmentManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
      * @Route("/department/members/{id}/manage/{cid}", name="department_members_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function manageMemberCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, \Twig_Environment $twig)
     {
-        $entity = $departmentManager ->findDepartment($id);
+        $departmentManager ->findDepartment($id);
 
         $departmentManager->removeMember($cid);
 
-        $form = $this->createForm(DepartmentType::class, $entity, ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
+        $form = $this->createForm(DepartmentType::class, $departmentManager->refreshDepartment(), ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
 
-        $collection = $form->has('members') ? $form->get('members')->createView() : '';
+        $collection = $form->has('members') ? $form->get('members')->createView() : null;
+
         if (empty($collection))
             $departmentManager->getMessageManager()->add('warning', 'department.members.not_defined');
 
+        $content = $this->renderView("Department/department_collection.html.twig",
+            [
+                'collection'    => $collection,
+                'route'         => 'department_members_manage',
+                'contentTarget' => 'memberCollection',
+            ]
+        );
+
         return new JsonResponse(
             [
-                'content' => $this->renderView("Department/department_collection.html.twig",
-                    [
-                        'collection' => $collection,
-                        'route' => 'department_members_manage',
-                        'contentTarget' => 'memberCollection',
-                    ]
-                ),
+                'content' => $content,
                 'message' => $departmentManager->getMessageManager()->renderView($twig),
-                'status' => $departmentManager->getStatus(),
+                'status'  => $departmentManager->getStatus(),
             ],
             200
         );

@@ -22,14 +22,11 @@ class RegexValidator extends ConstraintValidator
 		catch (\Exception $e)
 		{
 			$message = $e->getMessage();
-		}
-
-		if (!empty($message))
-		{
-			$this->context->buildViolation($constraint->message)
-				->setParameter('%systemMessage%', $message)
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('%systemMessage%', $message)
                 ->setTranslationDomain($constraint->transDomain)
-				->addViolation();
-		}
+                ->addViolation();
+
+        }
 	}
 }

@@ -4,6 +4,8 @@ namespace App\School\Util;
 use App\Core\Manager\MessageManager;
 use App\Entity\Course;
 use App\Entity\Department;
+use App\Entity\DepartmentMember;
+use App\Entity\Staff;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DepartmentManager
@@ -32,6 +34,11 @@ class DepartmentManager
      * @var string
      */
     private $status;
+
+    /**
+     * @var null|Staff
+     */
+    private $member;
 
     /**
      * DepartmentManager constructor.
@@ -86,8 +93,10 @@ class DepartmentManager
         if ($this->department->getCourses()->contains($this->course)) {
             // Course is NOT Deleted, only removed from Department.
             $this->department->removeCourse($this->course);
+            $this->entityManager->persist($this->course);
             $this->entityManager->persist($this->department);
             $this->entityManager->flush();
+            $this->entityManager->refresh($this->department);
             $this->setStatus('success');
 
             $this->messageManager->add('success', 'department.course.removed.success', ['%{course}' => $this->course->getFullName()]);
@@ -140,5 +149,64 @@ class DepartmentManager
     {
         $this->status = $status;
         return $this;
+    }
+
+    /**
+     * @param $cid
+     */
+    public function removeMember($cid)
+    {
+        if ($cid === 'ignore')
+            return ;
+
+        $this->getDepartment();
+
+        $this->findMember($cid);
+        $this->setStatus('warning');
+
+        if (empty($this->member)) {
+            $this->messageManager->add('warning', 'department.member.missing.warning', ['%{member}' => $cid]);
+            return;
+        }
+
+        if ($this->department->getMembers()->contains($this->member)) {
+            // Staff is NOT Deleted, but the DepartmentMember link is deleted.
+            $this->department->removeMember($this->member);
+            $this->entityManager->remove($this->member);
+            $this->entityManager->persist($this->department);
+            $this->entityManager->flush();
+            $this->setStatus('success');
+
+            $this->messageManager->add('success', 'department.member.removed.success', ['%{member}' => $this->member->getFullStaffName()]);
+        } else {
+            $this->setStatus('info');
+            $this->messageManager->add('info', 'department.member.removed.info', ['%{member}' => $this->member->getFullStaffName()]);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return Department
+     */
+    public function findMember($id): ?DepartmentMember
+    {
+        $this->member = $this->entityManager->getRepository(DepartmentMember::class)->find(intval($id));
+
+        return $this->getMember();
+    }
+
+    /**
+     * @return Staff|null
+     */
+    public function getMember(): ?DepartmentMember
+    {
+        return $this->member;
+    }
+
+    public function refreshDepartment(): Department
+    {
+        $this->entityManager->refresh($this->department);
+
+        return $this->department->refresh();
     }
 }

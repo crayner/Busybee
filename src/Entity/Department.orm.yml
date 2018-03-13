@@ -38,4 +38,3 @@ App\Entity\Department:
         courses:
             targetEntity: App\Entity\Course
             mappedBy: department
-            cascade: [ all ]

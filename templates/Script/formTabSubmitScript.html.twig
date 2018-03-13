@@ -25,19 +25,4 @@
         $("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
         $(this).attr("clicked", "true");
     });
-
-    function resetForm() {
-        var fragment = $('.tab-content > .active').attr('id');
-        var id = '{{ app.request.get('id') }}';
-
-        if (id.length === 0) {
-            id = '0';
-        }
-
-        var path = "{{ path(route, options|merge({'id': app.request.get('id'), _fragment: '__fragment__'})) }}";
-        path = path.replace('__fragment__', fragment);
-
-        location.assign(path);
-        location.reload(true);
-    }
 </script>

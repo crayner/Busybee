@@ -2,7 +2,9 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
+use App\Entity\Course;
 use Hillrange\CKEditor\Form\CKEditorType;
+use Hillrange\Form\Type\CollectionEntityType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\ImageType;
@@ -38,6 +40,7 @@ class DepartmentType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+        $dept_id = $options['data'] instanceof Department ? $options['data']->getId() : 0;
 		$builder
 			->add('name', null,
 				[
@@ -97,9 +100,23 @@ class DepartmentType extends AbstractType
                 [
                     'help' => 'department.course.help',
                     'label' => false,
-                    'entry_type' => DepartmentCourseType::class,
+                    'entry_type' => CollectionEntityType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'entry_options' => [
+                        'query_builder' => function (EntityRepository $er) use ($dept_id) {
+                            return $er->createQueryBuilder('c')
+                                ->leftJoin('c.department', 'd')
+                                ->where('(d.id IS NULL OR d.id = :dept_id)')
+                                ->setParameter('dept_id', $dept_id)
+                                ->orderBy('c.name')
+                            ;
+                        },
+                        'class' => Course::class,
+                        'block_prefix' => 'department_course',
+                        'choice_label' => 'fullName',
+                        'placeholder' => 'department.course.name.placeholder',
+                    ],
                 ]
             )
         ;
@@ -117,6 +134,9 @@ class DepartmentType extends AbstractType
 				'data_class'         => Department::class,
 				'translation_domain' => 'School',
 				'deletePhoto'        => null,
+                'attr'               => [
+                    'novalidate' => '',
+                ],
 			]
 		);
 	}
