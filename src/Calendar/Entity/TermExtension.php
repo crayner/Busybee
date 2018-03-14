@@ -15,11 +15,26 @@ abstract class TermExtension implements UserTrackInterface
 	 */
 	public function canDelete()
 	{
-		return true;
+		return false;
 	}
 
-	public function getLabel()
+    /**
+     * @return string
+     */
+    public function getLabel(): string
 	{
 		return $this->getName();
 	}
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        $name = '';
+        if ($this->getCalendar())
+            $name = $this->getCalendar()->getName();
+        $name = trim($name . ' ' . $this->getName());
+        return $name;
+    }
 }

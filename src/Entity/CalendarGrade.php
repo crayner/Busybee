@@ -185,4 +185,14 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
         $this->sequence = $sequence;
         return $this;
     }
+
+    /**
+     * @param int|null $id
+     * @return CalendarGrade
+     */
+    public function setId(?int $id): CalendarGrade
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

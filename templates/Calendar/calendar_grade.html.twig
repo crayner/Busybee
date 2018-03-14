@@ -26,12 +26,12 @@
         </div>
         <div class="col-6 card">
             {{ form_row(form.calendar, {'value': app.request.get('id') }) }}
-            {{ form_row(form.sequence) }}
             {% set next = form.nextGrade.vars.value %}
             {% if next is empty %}
                 {% set next = form.nextGrade.vars.data %}
             {% endif %}
             {{ form_row(form.nextGrade, {value: next}) }}
+            {{ form_rest(form) }}
         </div>
     </div>
 </div>

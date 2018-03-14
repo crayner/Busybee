@@ -168,4 +168,14 @@ class Term extends TermExtension
 
 		return $this;
 	}
+
+    /**
+     * @param int $id
+     * @return Term
+     */
+    public function setId(int $id): Term
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

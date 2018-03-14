@@ -284,4 +284,14 @@ class SpecialDay extends SpecialDayExtension
 
 		return $this;
 	}
+
+    /**
+     * @param int $id
+     * @return SpecialDay
+     */
+    public function setId(int $id): SpecialDay
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

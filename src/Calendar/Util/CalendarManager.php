@@ -1,19 +1,24 @@
 <?php
 namespace App\Calendar\Util;
 
+use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
+use App\Entity\CalendarGrade;
+use App\Entity\SpecialDay;
+use App\Entity\Term;
 use App\Repository\CalendarRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Form\Util\CollectionInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class CalendarManager
+class CalendarManager implements CollectionInterface
 {
 	/**
 	 * @var EntityManagerInterface
@@ -65,17 +70,28 @@ class CalendarManager
 	 */
 	private $calendar;
 
+    /**
+     * @var MessageManager
+     */
+	private $messageManager;
+
+    /**
+     * @var string
+     */
+    private $status;
+
 	/**
 	 * YearManager constructor.
 	 *
 	 * @param ObjectManager $manager
 	 */
-	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year)
+	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year, MessageManager $messageManager)
 	{
 		$this->manager = $manager;
 		$this->tokenStorage = $tokenStorage;
 		$this->calendarRepository = $manager->getRepository(Calendar::class);
 		$this->year = $year;
+        $this->messageManager = $messageManager;
 	}
 
 	/**
@@ -120,7 +136,65 @@ class CalendarManager
 
 	}
 
-	/**
+    /**
+     * @return Calendar
+     */
+    public function getCalendar(): ?Calendar
+    {
+        return $this->calendar;
+    }
+
+    /**
+     * @return CalendarGrade|null
+     */
+    public function getCalendarGrade(): ?CalendarGrade
+    {
+        return $this->calendarGrade;
+    }
+
+    /**
+     * @return MessageManager
+     */
+    public function getMessageManager(): MessageManager
+    {
+        return $this->messageManager;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return CalendarManager
+     */
+    public function setStatus(string $status): CalendarManager
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return Term|null
+     */
+    public function getTerm(): ?Term
+    {
+        return $this->term;
+    }
+
+    /**
+     * @return Term|null
+     */
+    public function getSpecialDay(): ?SpecialDay
+    {
+        return $this->specialDay;
+    }
+
+    /**
 	 * @param $sql
 	 * @param $rsm
 	 */
@@ -219,18 +293,22 @@ calendar:
     label: calendar.calendar.tab
     include: Calendar/calendarTab.html.twig
     message: calendarMessage
+    translation: Calendar
 terms:
     label: calendar.terms.tab
     include: Calendar/terms.html.twig
     message: termMessage
+    translation: Calendar
 specialDays:
     label: calendar.specialDays.tab
     include: Calendar/specialDays.html.twig
     message: specialDayMessage
+    translation: Calendar
 calendarGrades:
     label: calendar.calendar_grades.tab
     include: Calendar/calendar_grades.html.twig
     message: calendarGradeMessage
+    translation: Calendar
 ");
 	}
 
@@ -442,11 +520,202 @@ calendarGrades:
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function getCurrentYears(): array
     {
         $x = [];
         $x[] = $this->getCurrentCalendar()->getFirstDay()->format('Y');
         $x[] = $this->getCurrentCalendar()->getLastDay()->format('Y');
         return $x;
+    }
+
+    /**
+     * @param $id
+     * @return Calendar|null
+     */
+    public function find($id): ?Calendar
+    {
+        if ($id === 'Add')
+            $this->calendar = new Calendar();
+        if (empty($id))
+            $this->calendar = null;
+        if (intval($id) > 0)
+            $this->calendar = $this->getEntityManager()->getRepository(Calendar::class)->find($id);
+
+        return $this->getCalendar();
+    }
+
+    /**
+     * @param $cid
+     */
+    public function removeCalendarGrade($cid)
+    {
+        $this->setStatus('default');
+        if ($cid === 'ignore')
+            return ;
+
+        if (! $this->getCalendar())
+            return ;
+
+        $this->findCalendarGrade($cid);
+
+        $this->setStatus('warning');
+
+        if (empty($this->calendarGrade)) {
+            $this->messageManager->add('warning', 'calendar.grades.missing.warning', ['%{calendarGrade}' => $cid]);
+            return;
+        }
+
+        if ($this->calendar->getCalendarGrades()->contains($this->calendarGrade) || $this->calendarGrade->canDelete()) {
+            // Staff is NOT Deleted, but the DepartmentMember link is deleted.
+            $this->calendar->removeCalendarGrade($this->calendarGrade);
+            $this->entityManager->remove($this->calendarGrade);
+            $this->entityManager->persist($this->calendar);
+            $this->entityManager->flush();
+
+            $this->setStatus('success');
+            $this->messageManager->add('success', 'calendar.calendar_grade.removed.success', ['%{calendarGrade}' => $this->calendarGrade->getFullName()]);
+        } else {
+            $this->setStatus('info');
+            $this->messageManager->add('info', 'calendar.calendar_grade.removed.info', ['%{calendarGrade}' => $this->calendarGrade->getFullName()]);
+        }
+    }
+
+    /**
+     * @var null|CalendarGrade
+     */
+    private $calendarGrade;
+
+    /**
+     * @param $id
+     * @return null|CalendarGrade
+     */
+    public function findCalendarGrade($id): ?CalendarGrade
+    {
+        $this->calendarGrade = $this->getEntityManager()->getRepository(CalendarGrade::class)->find(intval($id));
+
+        return $this->getCalendarGrade();
+    }
+
+    /**
+     * @return Calendar|null
+     */
+    public function refreshCalendarGrades(): ?Calendar
+    {
+        if (empty($this->calendar))
+            return $this->calendar;
+
+        try {
+            $this->getEntityManager()->refresh($this->calendar);
+            return $this->calendar->refresh();
+        } catch (\Exception $e) {
+            return $this->calendar;
+        }
+    }
+
+    /**
+     * @param $cid
+     */
+    public function removeTerm($cid)
+    {
+        $this->setStatus('default');
+        if ($cid === 'ignore')
+            return ;
+
+        if (! $this->getCalendar())
+            return ;
+
+        $this->findTerm($cid);
+
+        $this->setStatus('warning');
+
+        if (empty($this->term)) {
+            $this->messageManager->add('warning', 'calendar.term.missing.warning', ['%{term}' => $cid]);
+            return ;
+        }
+
+        if ($this->calendar->getTerms()->contains($this->term) || $this->term->canDelete()) {
+            // Staff is NOT Deleted, but the DepartmentMember link is deleted.
+            $this->calendar->removeTerm($this->term);
+            $this->entityManager->remove($this->term);
+            $this->entityManager->persist($this->calendar);
+            $this->entityManager->flush();
+
+            $this->setStatus('success');
+            $this->messageManager->add('success', 'calendar.term.removed.success', ['%{term}' => $this->term->getFullName()]);
+        } else {
+            $this->setStatus('info');
+            $this->messageManager->add('info', 'calendar.term.removed.info', ['%{term}' => $this->term->getFullName()]);
+        }
+    }
+
+    /**
+     * @var null|Term
+     */
+    private $term;
+
+    /**
+     * @param $id
+     * @return null|CalendarGrade
+     */
+    public function findTerm($id): ?Term
+    {
+        $this->term = $this->getEntityManager()->getRepository(Term::class)->find(intval($id));
+
+        return $this->getTerm();
+    }
+
+    /**
+     * @param $cid
+     */
+    public function removeSpecialDay($cid)
+    {
+        $this->setStatus('default');
+        if ($cid === 'ignore')
+            return ;
+
+        if (! $this->getCalendar())
+            return ;
+
+        $this->findSpecialDay($cid);
+
+        $this->setStatus('warning');
+
+        if (empty($this->specialDay)) {
+            $this->messageManager->add('warning', 'calendar.special_day.missing.warning', ['%{specialDay}' => $cid]);
+            return ;
+        }
+
+        if ($this->calendar->getTerms()->contains($this->specialDay) || $this->specialDay->canDelete()) {
+            // Staff is NOT Deleted, but the DepartmentMember link is deleted.
+            $this->calendar->removeTerm($this->specialDay);
+            $this->entityManager->remove($this->specialDay);
+            $this->entityManager->persist($this->calendar);
+            $this->entityManager->flush();
+
+            $this->setStatus('success');
+            $this->messageManager->add('success', 'calendar.special_day.removed.success', ['%{specialDay}' => $this->specialDay->getFullName()]);
+        } else {
+            $this->setStatus('info');
+            $this->messageManager->add('info', 'calendar.special_day.removed.info', ['%{specialDay}' => $this->specialDay->getFullName()]);
+        }
+    }
+
+    /**
+     * @var null|SpecialDay
+     */
+    private $specialDay;
+
+    /**
+     * @param $id
+     * @return null|CalendarGrade
+     */
+    public function findSpecialDay($id): ?SpecialDay
+    {
+        $this->specialDay = $this->getEntityManager()->getRepository(SpecialDay::class)->find(intval($id));
+
+        return $this->getSpecialDay();
     }
 }

@@ -7,8 +7,9 @@ use App\Entity\Department;
 use App\Entity\DepartmentMember;
 use App\Entity\Staff;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Form\Util\CollectionInterface;
 
-class DepartmentManager
+class DepartmentManager implements CollectionInterface
 {
     /**
      * @var EntityManagerInterface
@@ -203,6 +204,9 @@ class DepartmentManager
         return $this->member;
     }
 
+    /**
+     * @return Department|null
+     */
     public function refreshDepartment(): ?Department
     {
         if (empty($this->department))

@@ -6,8 +6,8 @@ use App\Calendar\Validator\CalendarStatus;
 use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
 use App\Calendar\Form\Listener\CalendarSubscriber;
-use App\Core\Subscriber\SequenceSubscriber;
 use App\Core\Type\SettingChoiceType;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\DateType;
 use App\Entity\Calendar;
 use Hillrange\Form\Type\TextType;
@@ -15,7 +15,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class CalendarType extends AbstractType
 {
@@ -86,9 +85,6 @@ class CalendarType extends AbstractType
 						new TermDate(['calendar' => $options['data']]),
 					),
 					'label'         => false,
-					'attr'          => array(
-						'class' => 'termList'
-					),
 					'by_reference'  => false,
 				)
 			)
@@ -103,9 +99,6 @@ class CalendarType extends AbstractType
 					),
 					'label'         => false,
 					'allow_delete'  => true,
-					'attr'          => array(
-						'class' => 'specialDayList'
-					),
 					'by_reference'  => false,
 				)
 			)
@@ -118,16 +111,14 @@ class CalendarType extends AbstractType
                     ],
                     'label'         => false,
                     'allow_delete'  => true,
-                    'attr'          => array(
-                        'class' => 'calendarGradeList'
-                    ),
+                    'allow_up'      => true,
+                    'allow_down'    => true,
                     'by_reference'  => false,
+                    'sort_manage'   => true,
                 ]
             )
 			->add('downloadCache', HiddenType::class)
         ;
-
-		$builder->get('calendarGrades')->addEventSubscriber(new SequenceSubscriber());
 
 		$builder->addEventSubscriber($this->calendarSubscriber);
 	}

@@ -78,7 +78,7 @@ class CalendarSubscriber implements EventSubscriberInterface
 		if (!empty($entity->getDownloadCache()) && file_exists($entity->getDownloadCache()))
 			unlink($entity->getDownloadCache());
 
-		if ($data['calendarGrades']) {
+/*		if ($data['calendarGrades']) {
             $xx = [];
             foreach($form->get('calendarGrades')->getData()->toArray() as $current)
             {
@@ -96,6 +96,7 @@ class CalendarSubscriber implements EventSubscriberInterface
             }
             $data['calendarGrades'] = array_merge($xx, $data['calendarGrades']);
         }
+*/
 
 		$event->setData($data);
 		$form->setData($entity);

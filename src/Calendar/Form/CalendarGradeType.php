@@ -57,7 +57,6 @@ class CalendarGradeType extends AbstractType
 					'class'         => Calendar::class,
 				]
 			)
-            ->add('sequence', HiddenType::class)
         ;
 	}
 

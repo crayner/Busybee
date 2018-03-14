@@ -24,35 +24,8 @@
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-disappear show hide") }}
     {{ form_start(form, {'action': path('calendar_edit', {'id': calendar_id} ) } ) }}
-    <div id="formTabs">
-        <ul class="nav nav-pills" role="tablist">
-            {% set active = ' active' %}
-            {% for name,tab in tabs %}
-                {% set translation = 'Calendar' %}
-                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
-                <li class="nav-item"><a href="#{{ name }}" role="tab" data-toggle="tab"
-                       class="{{ name }} nav-link{{ active }}" id="{{ name }}_tab">{{ tab.label|trans({}, translation) }}</a></li>
-                {% set active = '' %}
-            {% endfor %}
-        </ul>
-        <div class="tab-content">
-            {% set active = ' active' %}
-            {% for name,tab in tabs %}
-                {% set translation = 'Calendar' %}
-                {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
-                <div class="tab-pane{{ active }}" id="{{ name }}">
-                    {% if tab.message is defined %}
-                        <div class="container-fluid">
-                            <div class='row' id="{{ tab.message }}" style="display: none;">
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% include(tab.include) %}
-                </div>
-                {% set active = '' %}
-            {% endfor %}
-        </div>
-    </div>
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
+    {% include 'Default/tabs.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -60,9 +33,30 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
-    {% include 'Calendar/calendar_grade_script.html.twig' %}
     {% include 'Calendar/termScript.html.twig' %}
     {% include "Calendar/specialDaysScript.html.twig" %}
     {% include 'Calendar/script.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {'route': 'calendar_edit'} %}
+    <script>
+        $(document).ready(function(){
+            var path = '{{ path('calendar_grade_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+            var target = 'gradeCollection';
+
+            manageCollection(path, target, '');
+
+            path = '{{ path('calendar_term_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+            target = 'termCollection';
+
+            manageCollection(path, target, '');
+
+            path = '{{ path('calendar_special_day_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+            target = 'specialDayCollection';
+
+            manageCollection(path, target, '');
+        });
+    </script>
+
 {% endblock javascripts %}

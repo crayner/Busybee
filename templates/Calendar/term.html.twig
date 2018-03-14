@@ -31,6 +31,7 @@
                 <div class="col-6 offset-6 card">
                     {{ form_row(form.lastDay) }}
                     {{ form_row(form.calendar, {'value': app.request.get('id')}) }}
+                    {{ form_rest(form) }}
                 </div>
             </div>
         </div>

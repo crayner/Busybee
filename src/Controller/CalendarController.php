@@ -38,6 +38,7 @@ class CalendarController extends Controller
 			]
 		);
 	}
+
 	/**
 	 * @param         $id
 	 * @param Request $request
@@ -236,4 +237,133 @@ class CalendarController extends Controller
 			throw new Exception($formatter->getHtmlMessage());
 		}
 	}
+
+    /**
+     * @Route("/calendar/grade/{id}/manage/{cid}/", name="calendar_grade_manage")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param $id
+     * @param string $cid
+     * @param CalendarManager $calendarManager
+     * @param \Twig_Environment $twig
+     * @param CalendarGradeManager $calendarGradeManager
+     * @return JsonResponse
+     */
+    public function manageCalendarGrade($id, $cid = 'ignore', CalendarManager $calendarManager, \Twig_Environment $twig, CalendarGradeManager $calendarGradeManager)
+    {
+        $calendarManager->find($id);
+
+        $calendarManager->removeCalendarGrade($cid);
+
+        $form = $this->createForm(CalendarType::class, $calendarManager->getCalendar(), [ 'calendarGradeManager' => $calendarGradeManager]);
+
+        $collection = $form->has('calendarGrades') ? $form->get('calendarGrades')->createView() : null;
+
+        if (empty($collection)) {
+            $calendarManager->getMessageManager()->add('warning', 'calendar.grades.not_defined');
+            $calendarManager->setStatus('warning');
+        }
+
+        $content = $this->renderView("Calendar/calendar_collection.html.twig",
+            [
+                'collection'    => $collection,
+                'route'         => 'calendar_grade_manage',
+                'contentTarget' => 'gradeCollection',
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'message' => $calendarManager->getMessageManager()->renderView($twig),
+                'status'  => $calendarManager->getStatus(),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @Route("/calendar/term/{id}/manage/{cid}/", name="calendar_term_manage")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param $id
+     * @param string $cid
+     * @param CalendarManager $calendarManager
+     * @param \Twig_Environment $twig
+     * @param CalendarGradeManager $calendarGradeManager
+     * @return JsonResponse
+     */
+    public function manageTerm($id, $cid = 'ignore', CalendarManager $calendarManager, \Twig_Environment $twig, CalendarGradeManager $calendarGradeManager)
+    {
+        $calendarManager->find($id);
+
+        $calendarManager->removeTerm($cid);
+
+        $form = $this->createForm(CalendarType::class, $calendarManager->getCalendar(), [ 'calendarGradeManager' => $calendarGradeManager]);
+
+        $collection = $form->has('terms') ? $form->get('terms')->createView() : null;
+
+        if (empty($collection)) {
+            $calendarManager->getMessageManager()->add('warning', 'calendar.terms.not_defined');
+            $calendarManager->setStatus('warning');
+        }
+
+        $content = $this->renderView("Calendar/calendar_collection.html.twig",
+            [
+                'collection'    => $collection,
+                'route'         => 'calendar_term_manage',
+                'contentTarget' => 'termCollection',
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'message' => $calendarManager->getMessageManager()->renderView($twig),
+                'status'  => $calendarManager->getStatus(),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @Route("/calendar/special/day/{id}/manage/{cid}/", name="calendar_special_day_manage")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param $id
+     * @param string $cid
+     * @param CalendarManager $calendarManager
+     * @param \Twig_Environment $twig
+     * @param CalendarGradeManager $calendarGradeManager
+     * @return JsonResponse
+     */
+    public function manageSpecialDay($id, $cid = 'ignore', CalendarManager $calendarManager, \Twig_Environment $twig, CalendarGradeManager $calendarGradeManager)
+    {
+        $calendarManager->find($id);
+
+        $calendarManager->removeSpecialDay($cid);
+
+        $form = $this->createForm(CalendarType::class, $calendarManager->getCalendar(), [ 'calendarGradeManager' => $calendarGradeManager]);
+
+        $collection = $form->has('specialDays') ? $form->get('specialDays')->createView() : null;
+
+        if (empty($collection)) {
+            $calendarManager->getMessageManager()->add('warning', 'calendar.special_days.not_defined');
+            $calendarManager->setStatus('warning');
+        }
+
+        $content = $this->renderView("Calendar/calendar_collection.html.twig",
+            [
+                'collection'    => $collection,
+                'route'         => 'calendar_special_day_manage',
+                'contentTarget' => 'specialDayCollection',
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'message' => $calendarManager->getMessageManager()->renderView($twig),
+                'status'  => $calendarManager->getStatus(),
+            ],
+            200
+        );
+    }
 }
