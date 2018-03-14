@@ -99,6 +99,10 @@ class ActivityType extends AbstractType
 			[
 				'data_class'         => Activity::class,
 				'translation_domain' => 'School',
+                'attr' => [
+                    'novalidate' => '',
+                    'id' => 'saveForm',
+                ],
 			]
 		);
 	}

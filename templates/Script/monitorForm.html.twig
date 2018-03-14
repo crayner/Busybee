@@ -16,12 +16,13 @@
 
     $(".changeRecord").change(function () {
         {% if app.request.get('closeWindow') is not empty %}
-        var path = "{{ path(route, {'id': '__id__', 'closeWindow': '_closeWindow'}) }}";
+            var path = "{{ path(route, {'id': '__id__', 'closeWindow': '_closeWindow'}) }}";
         {% else %}
-        var path = "{{ path(route, {'id': '__id__'}) }}";
+            var path = "{{ path(route, {'id': '__id__'}) }}";
         {% endif %}
 
         var id = $(this).val();
+
         if (id == '') {
             id = 'Add';
         }
@@ -31,6 +32,4 @@
     $('button[title="Add"]').click(function (e) {
         $(".formChanged").prop("disabled", false);
     })
-
-
 </script>

@@ -36,6 +36,5 @@ class ResetSetValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)
                 ->setTranslationDomain('home')
                 ->addViolation();
-
     }
 }

@@ -5,6 +5,7 @@ use App\Core\Validator\ResetSet;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GroupSequence;
 
 class ResetTypeExtension extends AbstractTypeExtension
 {
@@ -23,8 +24,9 @@ class ResetTypeExtension extends AbstractTypeExtension
     {
         $resolver->setDefaults([
             'constraints' => [
-                new ResetSet(),
+                new ResetSet(['groups' => ['resetOnly']]),
             ],
+            'validation_groups' => new GroupSequence(['resetOnly', 'default']),
         ]);
     }
 }

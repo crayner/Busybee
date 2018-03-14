@@ -1,0 +1,8 @@
+hillrange_form:
+    upload_path: 'uploads/%current_year%/%current_month%'
+    button_class_off: 'btn btn-danger halflings halflings-thumbs-down'
+    button_toggle_swap:
+        - 'btn-danger'
+        - 'btn-success'
+        - 'halflings-thumbs-down'
+        - 'halflings-thumbs-up'

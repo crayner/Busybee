@@ -203,10 +203,16 @@ class DepartmentManager
         return $this->member;
     }
 
-    public function refreshDepartment(): Department
+    public function refreshDepartment(): ?Department
     {
-        $this->entityManager->refresh($this->department);
+        if (empty($this->department))
+            return $this->department;
 
-        return $this->department->refresh();
+        try {
+            $this->entityManager->refresh($this->department);
+            return $this->department->refresh();
+        } catch (\Exception $e) {
+            return $this->department;
+        }
     }
 }

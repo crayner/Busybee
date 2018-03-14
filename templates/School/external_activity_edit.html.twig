@@ -17,12 +17,12 @@
 {% set tabs = manager.tabs %}
 {% set h3Content = '' %}
 {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('external_activity_list')}}) %}
-{% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetForm', options: []}, title: 'reset.button', transDomain: 'home'})|raw %}
+{% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, 'div') }}
-    {{ form_start(form, {attr: {id: 'saveForm'}}) }}
+    {{ form_start(form) }}
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {% include 'Default/tabs.html.twig' with {translation: 'School'} %}
     {{ form_end(form) }}
