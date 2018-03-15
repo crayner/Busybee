@@ -23,11 +23,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CalendarController extends Controller
 {
-	/**
-	 * @Route("/calendar/list/", name="calendar_years")
-	 * @IsGranted("ROLE_REGISTRAR")
-	 * @return Response
-	 */
+    /**
+     * @Route("/calendar/list/", name="calendar_years")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param CalendarManager $calendarManager
+     * @return Response
+     */
 	public function calendars(CalendarManager $calendarManager)
 	{
 		$calendars = $calendarManager->getCalendarRepository()->findBy([], ['firstDay' => 'DESC']);
@@ -39,13 +40,18 @@ class CalendarController extends Controller
 		);
 	}
 
-	/**
-	 * @param         $id
-	 * @param Request $request
-	 * @Route("/calendar/edit/{id}/", name="calendar_edit")
-	 * @IsGranted("ROLE_REGISTRAR")
-	 * @return RedirectResponse|Response
-	 */
+    /**
+     * @Route("/calendar/edit/{id}/", name="calendar_edit")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param $id
+     * @param Request $request
+     * @param CalendarManager $calendarManager
+     * @param EntityManagerInterface $em
+     * @param MessageManager $messageManager
+     * @param FlashBagManager $flashBagManager
+     * @param CalendarGradeManager $calendarGradeManager
+     * @return RedirectResponse|Response
+     */
 	public function edit($id, Request $request,
                          CalendarManager $calendarManager,
                          EntityManagerInterface $em, MessageManager $messageManager,
@@ -98,34 +104,39 @@ class CalendarController extends Controller
 		);
 	}
 
-	/**
-	 * @param $id
-	 * @Route("/calendar/delete/{id}/", name="calendar_delete")
-	 * @IsGranted("ROLE_REGISTRAR")
-	 * @return RedirectResponse
-	 */
-	public function deleteYear($id)
+    /**
+     * @param $id
+     * @param CalendarManager $calendarManager
+     * @return RedirectResponse
+     * @Route("/calendar/delete/{id}/", name="calendar_delete")
+     * @IsGranted("ROLE_REGISTRAR")
+     */
+	public function deleteYear($id, CalendarManager $calendarManager, FlashBagManager $flashBagManager)
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$repo = $this->get('busybee_core_calendar.repository.year_repository');
+		$calendar = $calendarManager->find($id);
 
-		$calendar = $repo->find($id);
+        if ($calendarManager->canDelete($calendar)) {
+            $em = $calendarManager->getEntityManager();
+            $em->remove($calendar);
+            $em->flush();
+            $calendarManager->getMessageManager()->add('success', 'calendar.removal.success', ['%{name}' => $calendar->getName()]);
+        } else
+            $calendarManager->getMessageManager()->add('warning', 'calendar.removal.denied', ['%{name}' => $calendar->getName()]);
 
-		$em = $this->get('doctrine')->getManager();
-		$em->remove($calendar);
-		$em->flush();
+        $flashBagManager->addMessages($calendarManager->getMessageManager());
 
 		return new RedirectResponse($this->generateUrl('calendar_years'));
 	}
-
-	/**
-	 * @param   int  $id
-	 * @param   bool $closeWindow
-	 * @Route("/calendar/display/{id}/{closeWindow}", name="calendar_display")
-	 * @IsGranted("ROLE_USER")
-	 * @return  Response
-	 */
+    /**
+     * @param   int $id
+     * @param   bool $closeWindow
+     * @param CalendarManager $calendarManager
+     * @return  Response
+     * @Route("/calendar/display/{id}/{closeWindow}", name="calendar_display")
+     * @IsGranted("ROLE_USER")
+     */
 	public function display($id, $closeWindow = false, CalendarManager $calendarManager)
 	{
 		$repo = $calendarManager->getCalendarRepository();
@@ -150,7 +161,7 @@ class CalendarController extends Controller
 		 * To set default classes null should be passed as argument
 		 */
 
-		$calendar->initialiseTerms();
+		$calendar->getTerms();
 
 		$year = $calendarManager->generate($calendar); //Generate a calendar for specified year
 

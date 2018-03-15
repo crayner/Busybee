@@ -3,7 +3,7 @@ namespace App\School\Util;
 
 use Symfony\Component\Translation\TranslatorInterface;
 
-class Time
+class SchoolTime
 {
 	/**
 	 * @var \DateTime
@@ -28,7 +28,7 @@ class Time
 	private $translator;
 
 	/**
-	 * Time constructor.
+	 * SchoolTime constructor.
 	 *
 	 * @param TranslatorInterface $translator
 	 */
@@ -48,9 +48,9 @@ class Time
 	/**
 	 * @param \DateTime $open
 	 *
-	 * @return Time
+	 * @return SchoolTime
 	 */
-	public function setOpen(\DateTime $open): Time
+	public function setOpen(\DateTime $open): SchoolTime
 	{
 		$this->open = $open;
 
@@ -68,9 +68,9 @@ class Time
 	/**
 	 * @param \DateTime $begin
 	 *
-	 * @return Time
+	 * @return SchoolTime
 	 */
-	public function setBegin(\DateTime $begin): Time
+	public function setBegin(\DateTime $begin): SchoolTime
 	{
 		$this->begin = $begin;
 
@@ -88,9 +88,9 @@ class Time
 	/**
 	 * @param \DateTime $finish
 	 *
-	 * @return Time
+	 * @return SchoolTime
 	 */
-	public function setFinish(\DateTime $finish): Time
+	public function setFinish(\DateTime $finish): SchoolTime
 	{
 		$this->finish = $finish;
 
@@ -108,9 +108,9 @@ class Time
 	/**
 	 * @param \DateTime $close
 	 *
-	 * @return Time
+	 * @return SchoolTime
 	 */
-	public function setClose(\DateTime $close): Time
+	public function setClose(\DateTime $close): SchoolTime
 	{
 		$this->close = $close;
 

@@ -11,10 +11,12 @@ abstract class CalendarGradeExtension
 
     /**
      * @return bool
-     * @todo  Test canDelete
      */
     public function canDelete()
     {
-        return false;
+        if ($this->getStudents()->count() > 0)
+            return false;
+
+        return true;
     }
 }

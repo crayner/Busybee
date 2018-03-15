@@ -1,12 +1,9 @@
-{% if collection is not empty %}
-    {% form_theme collection
-        '@HillrangeForm/FormTheme/bootstrap.html.twig'
-        '@HillrangeForm/FormTheme/jquery.collection.html.twig'
-        'Calendar/calendar_grade.html.twig'
-        'Calendar/term.html.twig'
-        'Calendar/specialDay.html.twig'
-    %}
-    {{ form_widget(collection) }}
-
-    {% include '@HillrangeForm/Script/initiate_collection.html.twig' %}
-{% endif %}
+{% form_theme collection
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    'Calendar/calendar_grade.html.twig'
+    'Calendar/term.html.twig'
+    'Calendar/specialDay.html.twig'
+%}
+{{ form_widget(collection) }}
+{% include '@HillrangeForm/Script/initiate_collection.html.twig' %}

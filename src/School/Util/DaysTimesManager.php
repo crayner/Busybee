@@ -3,7 +3,6 @@ namespace App\School\Util;
 
 use App\Core\Manager\SettingManager;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class DaysTimesManager
 {
@@ -13,7 +12,7 @@ class DaysTimesManager
 	private $day;
 
 	/**
-	 * @var Time
+	 * @var SchoolTime
 	 */
 	private $time;
 
@@ -25,7 +24,7 @@ class DaysTimesManager
 	/**
 	 * HouseManager constructor.
 	 */
-	public function __construct(SettingManager $settingManager, Time $time)
+	public function __construct(SettingManager $settingManager, SchoolTime $time)
 	{
 		$this->setDay(new Day());
 		$this->setTime($time);
@@ -77,19 +76,19 @@ class DaysTimesManager
 	}
 
 	/**
-	 * @return Time
+	 * @return SchoolTime
 	 */
-	public function getTime(): Time
+	public function getTime(): SchoolTime
 	{
 		return $this->time;
 	}
 
 	/**
-	 * @param Time $time
+	 * @param SchoolTime $time
 	 *
 	 * @return DaysTimesManager
 	 */
-	public function setTime(Time $time): DaysTimesManager
+	public function setTime(SchoolTime $time): DaysTimesManager
 	{
 		$this->time = $time;
 

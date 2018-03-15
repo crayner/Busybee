@@ -1,13 +1,14 @@
 <?php
 namespace App\School\Form;
 
-use App\School\Util\Time;
+use App\School\Util\SchoolTime;
+use Hillrange\Form\Type\TimeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class TimeType extends AbstractType
+class SchoolTimeType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -15,7 +16,7 @@ class TimeType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('open', \App\Core\Type\TimeType::class,
+			->add('open', TimeType::class,
 				[
 					'label'       => 'school.day_time.open.label',
 					'constraints' => [
@@ -24,7 +25,7 @@ class TimeType extends AbstractType
 					'help' => 'school.day_time.open.help',
 				]
 			)
-			->add('begin', \App\Core\Type\TimeType::class,
+			->add('begin', TimeType::class,
 				[
 					'label'       => 'school.day_time.begin.label',
 					'constraints' => [
@@ -33,7 +34,7 @@ class TimeType extends AbstractType
 					'help' => 'school.day_time.begin.help',
 				]
 			)
-			->add('finish', \App\Core\Type\TimeType::class,
+			->add('finish', TimeType::class,
 				[
 					'label'       => 'school.day_time.finish.label',
 					'constraints' => [
@@ -42,7 +43,7 @@ class TimeType extends AbstractType
 					'help' => 'school.day_time.finish.help',
 				]
 			)
-			->add('close', \App\Core\Type\TimeType::class,
+			->add('close', TimeType::class,
 				[
 					'label'       => 'school.day_time.close.label',
 					'constraints' => [
@@ -61,7 +62,7 @@ class TimeType extends AbstractType
 		$resolver->setDefaults(
 			[
 				'translation_domain' => 'School',
-				'data_class'         => Time::class,
+				'data_class'         => SchoolTime::class,
 			]
 		);
 	}

@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: craig
- * Date: 9/12/2017
- * Time: 09:38
- */
-
 namespace App\Install\Organism;
-
 
 class Mailer
 {

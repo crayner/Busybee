@@ -80,6 +80,11 @@ class CalendarManager implements CollectionInterface
      */
     private $status;
 
+    /**
+     * @var CalendarGradeManager
+     */
+    private $calendarGradeManager;
+
 	/**
 	 * YearManager constructor.
 	 *
@@ -93,6 +98,7 @@ class CalendarManager implements CollectionInterface
 		$this->year = $year;
         $this->messageManager = $messageManager;
         $this->messageManager->setDomain('Calendar');
+        $this->calendarGradeManager = new CalendarGradeManager($this);
 	}
 
 	/**
@@ -226,7 +232,7 @@ class CalendarManager implements CollectionInterface
 	 *
 	 * @return bool
 	 */
-	public function canDelete(Calendar $calendar)
+	public function canDelete(Calendar $calendar): bool
 	{
 		if (! $calendar->canDelete())
 			return false;
@@ -564,12 +570,12 @@ calendarGrades:
 
         $this->setStatus('warning');
 
-        if (empty($this->calendarGrade)) {
+        if (empty($this->calendarGrade) || ! $this->calendarGrade instanceof CalendarGrade) {
             $this->messageManager->add('warning', 'calendar.grades.missing.warning', ['%{calendarGrade}' => $cid]);
             return;
         }
 
-        if ($this->calendar->getCalendarGrades()->contains($this->calendarGrade) && $this->calendarGrade->canDelete()) {
+        if ($this->calendar->getCalendarGrades()->contains($this->calendarGrade) && $this->calendarGradeManager->canDelete($this->calendarGrade)) {
             // Staff is NOT Deleted, but the DepartmentMember link is deleted.
             $this->calendar->removeCalendarGrade($this->calendarGrade);
             $this->getEntityManager()->remove($this->calendarGrade);
