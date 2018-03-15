@@ -10,12 +10,14 @@ use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
 use App\School\Util\RollGroupManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Form\Util\UploadFileManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -186,7 +188,7 @@ class CalendarController extends Controller
 	 * @IsGranted("ROLE_USER")
 	 * @return Response
 	 */
-	public function print($id, CalendarManager $calendarManager, EntityManagerInterface $om)
+	public function print($id, CalendarManager $calendarManager, EntityManagerInterface $om, UploadFileManager $fileManager)
 	{
 		$calendar = $calendarManager->getCalendarRepository()->find($id);
 
@@ -222,14 +224,9 @@ class CalendarController extends Controller
 
 			$pdf_content = $pdf->output('ignore_me.pdf', 'S');
 
-			$cName = 'calendar_' . $calendar->getName();
-			$fName = $cName . '_' . mb_substr(md5(uniqid()), mb_strlen($cName) + 1) . '.pdf';
+			$fileManager->dumpFile($fileManager->createFileName('calendar_' . $calendar->getName()), $pdf_content);
 
-			$path = $this->getParameter('upload_path');
-
-			file_put_contents($path . DIRECTORY_SEPARATOR . $fName, $pdf_content);
-
-			$calendar->setDownloadCache($path . DIRECTORY_SEPARATOR . $fName);
+			$calendar->setDownloadCache($fileManager->getFileName());
 
 			$om->persist($calendar);
 			$om->flush();
