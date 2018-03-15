@@ -79,7 +79,7 @@ class VersionManager
 		$versions = [];
 
 		$versions['Twig']                                 = \Twig_Environment::VERSION;
-		$versions['Symfony']                              = Kernel::VERSION;
+        $versions['Symfony']                              = Kernel::VERSION;
 		$versions['Doctrine']['ORM']                      = Version::VERSION;
 		$versions['Doctrine']['Common']                   = \Doctrine\Common\Version::VERSION;
 		$versions['Doctrine']['Cache']                    = \Doctrine\Common\Cache\Version::VERSION;
@@ -130,17 +130,19 @@ class VersionManager
 		}
 
 		$phpVersions                   = [];
-		$phpVersions['Core']['low']    = '7.1.0';
+		$phpVersions['Core']['low']    = '7.2';
 		$phpVersions['Core']['high']   = '7.2.99';
-		$phpVersions['Core']['string'] = '7.1';
-		$phpVersions['apcu']           = '5.1.9';
+		$phpVersions['Core']['string'] = '7.2';
+        $phpVersions['apcu']['low']    = '5.1.9';
+        $phpVersions['apcu']['high']   = '5.1.99';
+        $phpVersions['apcu']['string'] = '5.1';
 		$phpVersions['intl']           = '1.1.0';
-		$phpVersions['json']['low']    = '1.5.0';
+		$phpVersions['json']['low']    = '1.6';
 		$phpVersions['json']['high']   = '1.6.99';
-		$phpVersions['json']['string'] = '1.6.x';
-		$phpVersions['openssl']['low']    = '7.1.0';
+		$phpVersions['json']['string'] = '1.6';
+		$phpVersions['openssl']['low']    = '7.2.0';
 		$phpVersions['openssl']['high']   = '7.2.99';
-		$phpVersions['openssl']['string'] = '7.x';
+		$phpVersions['openssl']['string'] = '7.2';
 
 		foreach ($versions['PHP'] as $name => $w)
 			if (!isset($phpVersions[$name]))
@@ -190,9 +192,9 @@ class VersionManager
 			$versions['Database']['Driver']['flag'] = 'alert alert-success';
 
 		$version             = [];
-		$version['string']   = '4.x';
-		$version['low']      = '4.0.0';
-		$version['high']     = '4.9.99';
+		$version['string']   = '4.0';
+		$version['low']      = '4.0';
+		$version['high']     = '4.0.99';
 		$versions['Symfony'] = $this->fullCompare($versions['Symfony'], $version);
 
 		$version['string'] = '2.4.0 - 2.4.9';
