@@ -92,6 +92,7 @@ class CalendarManager implements CollectionInterface
 		$this->calendarRepository = $manager->getRepository(Calendar::class);
 		$this->year = $year;
         $this->messageManager = $messageManager;
+        $this->messageManager->setDomain('Calendar');
 	}
 
 	/**
@@ -568,12 +569,12 @@ calendarGrades:
             return;
         }
 
-        if ($this->calendar->getCalendarGrades()->contains($this->calendarGrade) || $this->calendarGrade->canDelete()) {
+        if ($this->calendar->getCalendarGrades()->contains($this->calendarGrade) && $this->calendarGrade->canDelete()) {
             // Staff is NOT Deleted, but the DepartmentMember link is deleted.
             $this->calendar->removeCalendarGrade($this->calendarGrade);
-            $this->entityManager->remove($this->calendarGrade);
-            $this->entityManager->persist($this->calendar);
-            $this->entityManager->flush();
+            $this->getEntityManager()->remove($this->calendarGrade);
+            $this->getEntityManager()->persist($this->calendar);
+            $this->getEntityManager()->flush();
 
             $this->setStatus('success');
             $this->messageManager->add('success', 'calendar.calendar_grade.removed.success', ['%{calendarGrade}' => $this->calendarGrade->getFullName()]);
@@ -636,12 +637,12 @@ calendarGrades:
             return ;
         }
 
-        if ($this->calendar->getTerms()->contains($this->term) || $this->term->canDelete()) {
+        if ($this->calendar->getTerms()->contains($this->term) && $this->term->canDelete()) {
             // Staff is NOT Deleted, but the DepartmentMember link is deleted.
             $this->calendar->removeTerm($this->term);
-            $this->entityManager->remove($this->term);
-            $this->entityManager->persist($this->calendar);
-            $this->entityManager->flush();
+            $this->getEntityManager()->remove($this->term);
+            $this->getEntityManager()->persist($this->calendar);
+            $this->getEntityManager()->flush();
 
             $this->setStatus('success');
             $this->messageManager->add('success', 'calendar.term.removed.success', ['%{term}' => $this->term->getFullName()]);
@@ -688,12 +689,12 @@ calendarGrades:
             return ;
         }
 
-        if ($this->calendar->getTerms()->contains($this->specialDay) || $this->specialDay->canDelete()) {
+        if ($this->calendar->getSpecialDays()->contains($this->specialDay) && $this->specialDay->canDelete()) {
             // Staff is NOT Deleted, but the DepartmentMember link is deleted.
             $this->calendar->removeTerm($this->specialDay);
-            $this->entityManager->remove($this->specialDay);
-            $this->entityManager->persist($this->calendar);
-            $this->entityManager->flush();
+            $this->getEntityManager()->remove($this->specialDay);
+            $this->getEntityManager()->persist($this->calendar);
+            $this->getEntityManager()->flush();
 
             $this->setStatus('success');
             $this->messageManager->add('success', 'calendar.special_day.removed.success', ['%{specialDay}' => $this->specialDay->getFullName()]);

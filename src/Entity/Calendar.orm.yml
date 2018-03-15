@@ -34,10 +34,12 @@ App\Entity\Calendar:
             targetEntity: App\Entity\Term
             mappedBy: calendar
             cascade: [persist, remove]
+            orderBy: { firstDay: ASC }
         specialDays:
             targetEntity: App\Entity\SpecialDay
             mappedBy: calendar
             cascade: [persist, remove]
+            orderBy: { day: ASC }
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade
             mappedBy: calendar

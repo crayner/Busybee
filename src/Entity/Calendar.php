@@ -5,6 +5,7 @@ use App\Calendar\Entity\CalendarExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
+use Hillrange\Form\Util\CollectionInterface;
 
 class Calendar extends CalendarExtension
 {
@@ -39,19 +40,9 @@ class Calendar extends CalendarExtension
 	private $terms;
 
 	/**
-	 * @var boolean
-	 */
-	private $termsSorted = false;
-
-	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
 	private $specialDays;
-
-	/**
-	 * @var boolean
-	 */
-	private $specialDaysSorted = false;
 
 	/**
 	 * @var string
@@ -67,16 +58,6 @@ class Calendar extends CalendarExtension
      * @var null|Collection
      */
     private $calendarGrades;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		$this->specialDays  = new ArrayCollection();
-		$this->terms        = new ArrayCollection();
-		$this->calendarGrades   = new ArrayCollection();
-	}
 
 	/**
 	 * Get id
@@ -168,35 +149,17 @@ class Calendar extends CalendarExtension
 	/**
 	 * Get terms
 	 *
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return Collection
 	 */
-	public function getTerms()
+	public function getTerms(): Collection
 	{
-		if (count($this->terms) == 0)
-			$this->initialiseTerms();
+	    if (empty($this->terms))
+	        $this->terms = new ArrayCollection();
 
-		if (count($this->terms) == 0 || $this->termsSorted)
-			return $this->terms;
-
-		$iterator = $this->terms->getIterator();
-		$iterator->uasort(function ($a, $b) {
-			return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
-		});
-
-		$this->terms = new ArrayCollection(iterator_to_array($iterator, false));
-
-		$this->termsSorted = true;
+	    if ($this->terms instanceof PersistentCollection && ! $this->terms->isInitialized())
+	        $this->terms->initialize();
 
 		return $this->terms;
-	}
-
-	/**
-	 * Initialise Terms
-	 */
-	public function initialiseTerms()
-	{
-		if ($this->terms instanceof PersistentCollection)
-			$this->terms->initialize();
 	}
 
 	/**
@@ -229,25 +192,15 @@ class Calendar extends CalendarExtension
 	/**
 	 * Get specialDays
 	 *
-	 * @return null|\Doctrine\Common\Collections\Collection
+	 * @return null|Collection
 	 */
-	public function getSpecialDays($renew = false)
+	public function getSpecialDays(): Collection
 	{
-		if ($this->specialDays instanceof PersistentCollection)
+	    if (empty($this->specialDays))
+	        $this->specialDays = new ArrayCollection();
+
+		if ($this->specialDays instanceof PersistentCollection && ! $this->specialDays->isInitialized())
 			$this->specialDays->initialize();
-
-		if (count($this->specialDays) == 0)
-			return null;
-
-		if ($this->specialDaysSorted && !$renew)
-			return $this->specialDays;
-
-		$iterator = $this->specialDays->getIterator();
-		$iterator->uasort(function ($a, $b) {
-			return ($a->getDay() < $b->getDay()) ? -1 : 1;
-		});
-		$this->specialDays       = new ArrayCollection(iterator_to_array($iterator, false));
-		$this->specialDaysSorted = true;
 
 		return $this->specialDays;
 	}
@@ -344,8 +297,14 @@ class Calendar extends CalendarExtension
     /**
      * @return Collection|null
      */
-    public function getCalendarGrades(): ?Collection
+    public function getCalendarGrades(): Collection
     {
+        if (empty($this->calendarGrades))
+            $this->calendarGrades = new ArrayCollection();
+
+        if ($this->calendarGrades instanceof PersistentCollection && ! $this->calendarGrades->isInitialized())
+            $this->calendarGrades->initialize();
+
         return $this->calendarGrades;
     }
 
@@ -373,8 +332,10 @@ class Calendar extends CalendarExtension
         if ($add)
             $calendarGrade->setCalendar($this, false);
 
-        if (!$this->calendarGrades->contains($calendarGrade))
-            $this->calendarGrades->add($calendarGrade);
+        if ($this->calendarGrades->contains($calendarGrade))
+            return $this;
+
+        $this->calendarGrades->add($calendarGrade);
 
         return $this;
     }

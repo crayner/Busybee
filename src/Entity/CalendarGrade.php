@@ -82,6 +82,9 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
      */
     public function setCalendar(?Calendar $calendar, $add = true): CalendarGrade
     {
+        if (empty($calendar))
+            return $this;
+
         if ($add)
             $calendar->addCalendarGrade($this, false);
         $this->calendar = $calendar;

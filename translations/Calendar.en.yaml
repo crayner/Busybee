@@ -53,9 +53,16 @@ calendar:
     calendar_grades:
         tab: '!!!forms_grades!!!'
         title: Manage !!!forms_grades!!! in the Calendar
-        help: Roll Groups are linked to these details, and rolls will only be linked to the calendar once these details are available.
+        help: Rolls, classes and activities are linked to these details.
     calendar_grade:
         add.title: 'Attach !!!form_grade!!! to Calendar'
+        remove.title: 'Remove Calendar !!!form_grade!!!'
+        removed:
+            success: 'The !!!form_grade!!! %{calendarGrade} was removed from the calendar.'
+            info: 'The !!!form_grade!!! %{calendarGrade} was not removed from the calendar.  It may be locked due to use in rolls, classes or activities.'
+calendar_calendarGrades:
+    add.title: 'Attach !!!form_grade!!! to Calendar'
+    remove.title: 'Remove Calendar !!!form_grade!!!'
 calendar_grade:
     students.count: 'Students in this !!!form_grade!!!. %{count}'
     grade:

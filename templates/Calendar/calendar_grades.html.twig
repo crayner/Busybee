@@ -1,6 +1,17 @@
 {% trans_default_domain "Calendar" %}
 
 {% include 'Calendar/calendarMenu.html.twig' with {header: 'calendar.calendar_grades.title', name: form.name.vars.value, panelParagraph: 'calendar.calendar_grades.help'} %}
+    <div class="row row-header">
+        <div class="col-4">
+            {{ 'calendar_grade.grade.label'|trans }}<br /><small>{{ 'calendar_grade.grade.help'|trans }}</small>
+        </div>
+        <div class="col-4">
+            {{ 'calendar_grade.next_grade.label'|trans }}<br /><small>{{ 'calendar_grade.next_grade.help'|trans }}</small>
+        </div>
+        <div class="col-4 text-center">
+            {{ 'actions'|trans({}, 'home') }}
+        </div>
+    </div>
     <div id="gradeCollection"></div>
 {% include 'Page/panelEnd.html.twig' %}
 {% do form.calendarGrades.setRendered %}

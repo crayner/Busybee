@@ -13,28 +13,23 @@
         {% if form.vars.value is not empty %}
             {% set cg_id = form.vars.value.id %}
         {% endif %}
-        {% set h3Content = h3Content ~ editButton({windowOpen: {route: path('student_grade', {id: cg_id}), target: 'Student_Grade', params: 'width=1200,height=900'}, title: 'school.grade.student.button', transDomain: 'School'}) %}
+        {% set h3Content = h3Content ~ editButton({windowOpen: {route: path('student_grade', {id: cg_id}), target: 'Student_Grade', params: 'width=1200,height=900'}, title: 'school.grade.student.button', transDomain: 'School', class: 'halflings halflings-group btn btn-info'}) %}
         {% set h3Content = h3Content ~ deleteButton({title: 'calendar.calendar_grade.remove.title', transDomain: 'Calendar', class: 'halflings halflings-erase btn btn-warning collection-remove collection-action', style: 'float: right;'}) %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton() %}
         {% set h3Content = h3Content ~ '</div>' %}
-        {% include 'Page/panelStart.html.twig' with {header: gradeTitle, panelStyle: 'info', panelParagraph: 'calendar_grade.students.count', panelParams: {'%{count}': count}, transDomain: 'Calendar'} %}
-<div class="container-fluid">
     <div class="row">
-        <div class="col-6 card">
-            {{ form_row(form.grade) }}
+        <div class="col-4 card">
+            {{ form_widget(form.grade) }}
         </div>
-        <div class="col-6 card">
+        <div class="col-4 card">
             {{ form_row(form.calendar, {'value': app.request.get('id') }) }}
-            {% set next = form.nextGrade.vars.value %}
-            {% if next is empty %}
-                {% set next = form.nextGrade.vars.data %}
-            {% endif %}
-            {{ form_row(form.nextGrade, {value: next}) }}
+            {{ form_widget(form.nextGrade, {value: transformData(form.nextGrade.vars)}) }}
             {{ form_rest(form) }}
         </div>
+        <div class="col-4 card">
+            {{ h3Content|raw }}
+        </div>
     </div>
-</div>
-{% include 'Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock calendar_grade_widget %}
