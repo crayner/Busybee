@@ -73,12 +73,17 @@ class GoogleAuthenticator implements AuthenticatorInterface
 
 	public function getCredentials(Request $request)
 	{
-		$this->logger->debug("Google Authentication: Google authentication attemped.");
+		$this->logger->debug("Google Authentication: Google authentication attempted.");
 
 		return $this->fetchAccessToken($this->getGoogleClient());
 	}
 
-	public function getUser($credentials, UserProviderInterface $userProvider)
+    /**
+     * @param mixed $credentials
+     * @param UserProviderInterface $userProvider
+     * @return UserInterface
+     */
+    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
 	{
 		/** @var GoogleUser $googleUser */
 		$this->google_user = $this->getGoogleClient()
@@ -126,12 +131,18 @@ class GoogleAuthenticator implements AuthenticatorInterface
 		return new RedirectResponse($this->router->generate($this->settingManager->getParameter('security.routes.security_user_login')));
 	}
 
-	public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    /**
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $providerKey
+     * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
 	{
 		$user = $token->getUser();
 		$this->logger->notice("Google Authentication: User #" . $user->getId() . " (" . $user->getEmail() . ") The user authenticated via Google.");
 
-		$user->setUserSetting('google_id', $this->google_user->getId(), 'string');
+        $user->setUserSetting('google_id', $this->google_user->getId(), 'string');
 
 		$this->em->persist($user);
 		$this->em->flush();
@@ -142,7 +153,12 @@ class GoogleAuthenticator implements AuthenticatorInterface
 		return new RedirectResponse($this->router->generate($this->settingManager->getParameter('security.routes.security_home')));
 	}
 
-	public function start(Request $request, AuthenticationException $authException = null)
+    /**
+     * @param Request $request
+     * @param AuthenticationException|null $authException
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function start(Request $request, AuthenticationException $authException = null)
 	{
 		return new RedirectResponse($this->router->generate($this->settingManager->getParameter('security.routes.security_user_login')));
 	}

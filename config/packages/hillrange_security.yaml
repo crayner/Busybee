@@ -1,3 +1,6 @@
 twig:
+    paths:
+        '%kernel.project_dir%/templates/bundles/HillrangeSecurity': HillrangeSecurity
+        '%kernel.project_dir%/vendor/hillrange/security/Resources/views': HillrangeSecurity
     globals:
         idleTimeout: '%idleTimeout%'
