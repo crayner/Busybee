@@ -16,7 +16,7 @@ class DaysTimesType extends AbstractType
 	{
 		$builder
 			->add('day', DayType::class, [])
-			->add('time', TimeType::class,
+			->add('time', SchoolTimeType::class,
 				[
 					'constraints' => [
 						new Times(),
