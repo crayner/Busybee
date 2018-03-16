@@ -130,7 +130,11 @@ class SettingManager implements ContainerAwareInterface
                 $this->setting = $this->settings[$name];
 
             $func = 'get' . ucfirst($this->setting->getType());
-            return $this->$func($name, $default, $options);
+            $value = $this->$func($name, $default, $options);
+            if ($this->flip && is_array($value))
+                return array_flip($value);
+            else
+                return $value;
         }
 
         if (mb_strpos($name, '.') !== false)
@@ -138,7 +142,11 @@ class SettingManager implements ContainerAwareInterface
             $n = explode('.', $name);
             array_pop($n);
             $name = implode('.', $n);
-            return $this->get($name, $default, $options);
+            $value = $this->get($name, $default, $options);
+            if ($this->flip && is_array($value))
+                return array_flip($value);
+            else
+                return $value;
         }
 
         return $default;
@@ -358,9 +366,10 @@ class SettingManager implements ContainerAwareInterface
                 $this->setting->setValue($value);
                 $this->flushToSession($this->setting);
                 if ($this->name === $name)
-                    return $value;
-
-                dump($this);
+                    if ($this->flip && is_array($value))
+                        return array_flip($value);
+                    else
+                        return $value;
             }
             else
             {

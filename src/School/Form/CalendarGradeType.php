@@ -3,10 +3,11 @@ namespace App\School\Form;
 
 use App\Entity\CalendarGrade;
 use App\Entity\Student;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
-use Hillrange\Form\Type\EntityType;
+use Hillrange\Form\Type\CollectionEntityType;
+use Hillrange\Form\Type\HiddenEntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -19,30 +20,41 @@ class CalendarGradeType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-	    $cal = $options['calendar_data'];
-	    $builder
-			->add('grade', HiddenType::class)
-            ->add('students', EntityType::class,
+	    $cg = $options['data'];
+	    $cal = $cg->getCalendar();
+	    $grades = [];
+	    foreach($cal->getCalendarGrades()->getIterator() as $grade)
+	        $grades[] = strval($grade->getId());
+        $builder
+            ->add('students', CollectionEntityType::class,
                 [
                     'class' => Student::class,
-                    'label' => 'school.calendar_grade.label',
-                    'help' => 'school.calendar_grade.help',
+                    'label' => 'calendar_grade.students.label',
+                    'help' => 'calendar_grade.students.help',
                     'multiple' => true,
                     'expanded' => true,
                     'choice_label' => 'fullName',
                     'attr' => [
                         'class' => 'small',
                     ],
-                    'query_builder' => function (EntityRepository $er) use ($cal) {
+                    'block_prefix' => 'calendar_student',
+                    'query_builder' => function (EntityRepository $er) use ($grades, $cg) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.calendarGrades', 'cg')
-                            ->leftJoin('cg.calendar', 'c')
-                            ->where('(c.id IS NULL OR c.id != :cal_id)')
-                            ->setParameter('cal_id', $cal->getId())
+                            ->where('(cg.id = :grade_id OR cg.id NOT IN (:exclude) OR cg.id IS NULL)')
+                            ->setParameter('exclude', $grades, Connection::PARAM_STR_ARRAY)
+                            ->setParameter('grade_id', $cg->getId() ?: 0)
+                            ->andWhere('s.status IN (:current)')
+                            ->setParameter('current', ['current', 'future'], Connection::PARAM_STR_ARRAY)
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
                         ;
                     },
+                ]
+            )
+            ->add('id', HiddenEntityType::class,
+                [
+                    'class' => CalendarGrade::class,
                 ]
             )
         ;
@@ -56,13 +68,8 @@ class CalendarGradeType extends AbstractType
 		$resolver->setDefaults(
 			[
 				'data_class'         => CalendarGrade::class,
-				'translation_domain' => 'School',
+				'translation_domain' => 'Calendar',
 				'error_bubbling'     => true,
-			]
-		);
-		$resolver->setRequired(
-			[
-                'calendar_data',
 			]
 		);
 	}
@@ -73,15 +80,5 @@ class CalendarGradeType extends AbstractType
 	public function getBlockPrefix()
 	{
 		return 'calendar_grade';
-	}
-
-	/**
-	 * @param FormView      $view
-	 * @param FormInterface $form
-	 * @param array         $options
-	 */
-	public function buildView(FormView $view, FormInterface $form, array $options)
-	{
-		$view->vars['calendar_data'] = $options['calendar_data'];
 	}
 }

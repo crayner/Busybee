@@ -43,6 +43,9 @@ calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.
     success: The calendar was successfully saved.
+    grade.students:
+        header: 'Students for %{name}'
+        help: 'The choice of students is limited to students in the grade already and those students not allocated to a grade in this calendar. The students must also have a status of current or future.'
     display:
         button: Display Calendar
         title: Display Calendar
@@ -60,18 +63,25 @@ calendar:
         removed:
             success: 'The !!!form_grade!!! %{calendarGrade} was removed from the calendar.'
             info: 'The !!!form_grade!!! %{calendarGrade} was not removed from the calendar.  It may be locked due to use in rolls, classes or activities.'
+    special_day.delete:
+        success: 'The special day %{name} was removed from the calendar and deleted.'
+        warning: 'The special day %{name} is locked and removal is prohibitied.'
+    students.title: 'Student !!!form_grade!!! Management'
 calendar_calendarGrades:
     add.title: 'Attach !!!form_grade!!! to Calendar'
     remove.title: 'Remove Calendar !!!form_grade!!!'
 calendar_grade:
-    students.count: 'Students in this !!!form_grade!!!. %{count}'
+    students:
+        count: 'Students in this !!!form_grade!!! %{count} of possible %{possible}'
+        help: ''
+        label: 'Students in !!!form_grade!!!'
     grade:
         label: 'Student !!!form_grade!!!'
         placeholder: 'Select !!!form_grade!!!'
         help: This detail must be unique in the calendar.
     next_grade:
         label: 'Next Calendar !!!form_grade!!!'
-        placeholder: 'Select !!!form_grade!!!'
+        placeholder: 'Leaving'
         help: Use to transfer from one calendar to the next calendar when the current calendar is changed.
 calendars:
     title: Adademic Calendar Definitions

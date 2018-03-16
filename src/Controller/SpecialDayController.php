@@ -32,16 +32,16 @@ class SpecialDayController extends Controller
 			$em->remove($sday);
 			$em->flush();
 			$flashBagManager->add(
-			'success', 'year.specialday.delete.success',
+			'success', 'calendar.special_day.delete.success',
 				[
-					'%name%' => $sday->getDay()->format($settingManager->get('date.format.short')),
+					'%{name}' => $sday->getDay()->format($settingManager->get('date.format.short')),
 				]
 			);
 		}
 		else
 		{
 			$flashBagManager->add(
-			'warning', 'year.specialday.delete.warning',
+			'warning', 'calendar.special_day.delete.warning',
 				[
 					'%name%' => $sday->getDay()->format($settingManager->get('date.format.short')),
 				]
@@ -49,6 +49,7 @@ class SpecialDayController extends Controller
 		}
 
 		$flashBagManager->addMessages();
+
 		return $this->redirectToRoute('calendar_edit', ['id' => $calendar->getId(), '_fragment' => 'specialDays']);
 	}
 }

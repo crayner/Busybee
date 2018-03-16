@@ -7,7 +7,7 @@
      style="background-image: url({{ asset(get_setting('org.transparent.logo', 'img/bee-transparent.png')) }});">
     <h3 style="text-align: center; ">{{ get_setting('Org.Name.long') }} {{ calendar.name }}
         {% if calendars|length > 0 %}
-            <select name='calendar' id='calendar' style="float: left; width: 70px" class="form-control form-control-sm">
+            <select name='calendar' id='calendar' style="float: left; width: 150px" class="form-control form-control-sm">
                 {% for calendarOption in calendars %}
                     <option value="{{ calendarOption.id }}"{% if calendarOption.id == calendar.id %} selected{% endif %}>{{ calendarOption.name }}</option>
                 {% endfor %}

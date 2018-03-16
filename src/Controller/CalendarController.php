@@ -8,7 +8,8 @@ use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
-use App\School\Util\RollGroupManager;
+use App\Entity\CalendarGrade;
+use App\School\Form\CalendarGradeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Form\Util\UploadFileManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,7 +18,6 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -182,6 +182,35 @@ class CalendarController extends Controller
 			)
 		);
 	}
+
+    /**
+     * @Route("/calendar/calendar_grade/{id}/students/", name="student_grade")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param int|string $id
+     * @param Request $request
+     * @param CalendarManager $calendarManager
+     * @param CalendarGradeManager $calendarGradeManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function studentGrade($id, Request $request, CalendarManager $calendarManager, CalendarGradeManager $calendarGradeManager)
+    {
+        $cg = $this->getDoctrine()->getRepository(CalendarGrade::class)->find($id);
+        if (! $cg)
+            $cg = new CalendarGrade();
+
+        $form = $this->createForm(CalendarGradeType::class, $cg);
+
+        $form->handleRequest($request);
+
+        return $this->render('Calendar\grade_students_connect.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+                'manager' => $calendarGradeManager,
+            ]
+        );
+    }
+
 	/**
 	 * @param $id
 	 * @Route("/calendar/print/{id}/", name="calendar_print")

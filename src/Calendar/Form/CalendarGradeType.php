@@ -1,7 +1,6 @@
 <?php
 namespace App\Calendar\Form;
 
-use App\Calendar\Form\Listener\CalendarGradeSubscriber;
 use App\Entity\CalendarGrade;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
@@ -9,8 +8,6 @@ use Hillrange\Form\Type\HiddenEntityType;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Calendar;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;

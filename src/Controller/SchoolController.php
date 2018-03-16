@@ -166,29 +166,6 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/school/calendar_grade/{id}/students/", name="student_grade")
-     * @IsGranted("ROLE_REGISTRAR")
-     * @param Request $request
-     * @param int|string $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function studentGrade($id, Request $request, CalendarManager $calendarManager)
-    {
-        $cg = $this->getDoctrine()->getRepository(CalendarGrade::class)->find($id);
-        if (! $cg)
-            $cg = new CalendarGrade();
-
-        $form = $this->createForm(CalendarGradeType::class, $cg, ['calendar_data' => $calendarManager->getCurrentCalendar()]);
-
-        return $this->render('activity_tutor_edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'fullForm' => $form,
-            ]
-        );
-    }
-
-    /**
      * @Route("/school/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request

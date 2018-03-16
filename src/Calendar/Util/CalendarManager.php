@@ -90,7 +90,7 @@ class CalendarManager implements CollectionInterface
 	 *
 	 * @param ObjectManager $manager
 	 */
-	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year, MessageManager $messageManager)
+	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year, MessageManager $messageManager, CalendarGradeManager $calendarGradeManager)
 	{
 		$this->manager = $manager;
 		$this->tokenStorage = $tokenStorage;
@@ -98,7 +98,8 @@ class CalendarManager implements CollectionInterface
 		$this->year = $year;
         $this->messageManager = $messageManager;
         $this->messageManager->setDomain('Calendar');
-        $this->calendarGradeManager = new CalendarGradeManager($this);
+        $this->calendarGradeManager = $calendarGradeManager;
+        $this->calendarGradeManager->setCalendarManager($this);
 	}
 
 	/**

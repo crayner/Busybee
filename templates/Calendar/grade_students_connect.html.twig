@@ -1,0 +1,59 @@
+{% trans_default_domain "Calendar" %}
+
+{% set flashClass = 'alert-dismissable show hide' %}
+{% set transDomain = 'Calendar' %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
+{% set headerOff = true %}
+{% set fullPage = true %}
+
+{% block title %}{{ parent() }}{{ 'calendar.students.title'|trans }}{% endblock title %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissable show hide") }}
+    {{ form_start(form) }}
+    {% set h3Content = closeButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set header = 'calendar.grade.students.header'|trans({'%{name}': manager.fullName(getObject(form))}) %}
+    {% set panelParagraph = 'calendar.grade.students.help' %}
+    {% include 'Page/panelStart.html.twig' %}
+    {{ form_row(form.id) }}
+    {% set x = (form.students|length / 4)|round(0, 'ceil') %}
+    {% set z = x %}
+    {% set y = 0 %}
+    <div class="row">
+        {% if form.students|length > 0 %}
+            <div class="card col-12">
+                <div class="row">
+                    <div class="card col-3">
+                        {% for student in form.students %}
+                            <div class="small">{{ form_widget(student) }}</div>
+                            {% set y = y + 1 %}
+                            {% if y >= z %}
+                                {% set z = z + x %}
+                                {% if y < x * 4 %}
+                                    </div>
+                                    <div class="card col-3">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="card col-12">
+            <label class="form-control-label required">{{ form.students.vars.label|trans }}</label>
+            <span class="field-required">&nbsp;Required </span>
+            <small class="form-text text-muted">{{ form.students.vars.help|trans }}{{ 'calendar_grade.students.count'|trans({'%{count}': manager.studentCount(getObject(form)), '%{possible}': form.students|length}) }}</small>
+        </div>
+    </div>
+    {% do form.students.setRendered %}
+    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
