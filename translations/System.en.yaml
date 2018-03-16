@@ -8,8 +8,9 @@ setting:
     twig:
         error: 'The setting %name% failed to run a twig template. Value = %value%, Error = %error%, Options = %options%'
     resource:
-        warning: The resource {{name}} was skipped due to incomplete data.
-        success: The resource {{name}} was loaded successfully.
+        warning: 'The resource {{name}} was skipped due to incomplete data.'
+        success: 'The resource {{name}} successfully loaded %{count} settings.'
+    settings.missing: 'The resource %{resource} has no settings.'
 system:
     setting:
         warning: "CAUTION: Changing System Settings can have unpredictable affects on the operation of the system, and should only be done with caution."

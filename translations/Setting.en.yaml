@@ -4,7 +4,7 @@ house.list:
     lawson: Lawson
     wentworth: Wentworth
 staff.categories:
-    not_specified: Select Staff Position Category
+    not specified: Select Staff Position Category
     teacher: Teacher
     ancillary: Ancillary
     cleaner: Cleaner

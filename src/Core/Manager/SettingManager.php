@@ -428,7 +428,7 @@ class SettingManager implements ContainerAwareInterface
                 return;
             }
 
-            $this->buildSettings($this->convertSettings($data['settings']), $data['name']);
+            $this->loadSettings($data['settings'], $data['name']);
         }
     }
 
@@ -706,5 +706,24 @@ class SettingManager implements ContainerAwareInterface
     private function setEnum($value): ?string
     {
         return $this->setString($value);
+    }
+
+    /**
+     * @param $data
+     * @param $resource
+     */
+    private function loadSettings($data, $resource)
+    {
+        if (empty($data)) {
+            $this->messageManager->addMessage('warning', 'setting.resource.settings.missing', ['%{resource}' => $resource], 'System');
+            return;
+        }
+        $count = 0;
+        foreach ($data as $name => $datum) {
+            $this->set($name, $datum);
+            $count++;
+        }
+
+        $this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource, "%{count}" => $count], 'System');
     }
 }
