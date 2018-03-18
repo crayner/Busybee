@@ -28,6 +28,10 @@
     {% set h3Content = '' %}
 {% endif %}
 
+{% if colour is defined %}
+    {% set panelStyle = colour %}
+{% endif %}
+
 {% if panelStyle is not defined %}
     {% set panelStyle = 'primary' %}
 {% endif %}

@@ -8,6 +8,7 @@ use App\Entity\ActivitySlot;
 use App\Entity\ActivityStudent;
 use App\Entity\ActivityTutor;
 use App\Entity\ExternalActivity;
+use App\Entity\FaceToFace;
 use App\Entity\Roll;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -162,6 +163,9 @@ external_activity_slots:
                 break;
             case 'external':
                 $activity = $this->entityManager->getRepository(ExternalActivity::class)->find($id) ?: new ExternalActivity();
+                break;
+            case 'class':
+                $activity = $this->entityManager->getRepository(FaceToFace::class)->find($id) ?: new FaceToFace();
                 break;
             default:
                 throw new Exception('Activity type is not defined. ' . $this->getActivityType() );

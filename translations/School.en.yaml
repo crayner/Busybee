@@ -72,6 +72,7 @@ school:
             description: Face to Face Class Management
         manage.title: 'Manage %name%'
         students.title: Manage Students
+        tutors.label: Class Tutors
     activity:
         edit:
             title: Activity Management

@@ -1,8 +1,6 @@
 <?php
 namespace App\School\Form;
 
-use App\Entity\ActivityStudent;
-use App\Entity\ActivityTutor;
 use App\Entity\FaceToFace;
 use App\Entity\Space;
 use App\School\Form\Subscriber\ActivitySubscriber;

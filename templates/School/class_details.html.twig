@@ -2,7 +2,7 @@
 
 {% set h3Content = '' %}
 {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
-{% set h3Content = h3Content ~ resetButton({javascript: {function: 'resetForm', options: {}}, type: 'button'}) %}
+{% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
 {% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
 
@@ -32,7 +32,13 @@
 </div>
 <div class="row">
     <div class="col-12 card">
-        {{ form_row(form.tutors) }}
+        {% set h3Content = '' %}
+        {% set h3Content = h3Content ~ resetButton() %}
+        {% include 'Page/panelStart.html.twig' with {colour: 'success', header: 'school.face_to_face.tutors.label', transDomain: 'School'} %}
+        <section id="tutorCollection">
+            {{ form_widget(form.tutors) }}
+        </section>
+        {% include 'Page/panelEnd.html.twig' %}
     </div>
 </div>
 {% include 'Page/panelEnd.html.twig' %}

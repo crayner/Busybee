@@ -150,8 +150,8 @@ class SchoolController extends Controller
     
         if ($form->isSubmitted() && $form->isValid())
         {
-            $entityManager->persist($activity);
-            $entityManager->flush();
+            $activityManager->getEntityManager()->persist($activity);
+            $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
                 return $this->redirectToRoute('activity_edit', ['id' => $activity->getId(), 'activityType' => $activityType]);
@@ -196,6 +196,7 @@ class SchoolController extends Controller
                 'form' => $form->createView(),
                 'course_id' => $course_id,
                 'tabs' => $face->getTabs(),
+                'fullForm' => $form,
             ]
         );
     }
@@ -355,4 +356,40 @@ class SchoolController extends Controller
             200
         );
     }
+
+    /**
+     * @Route("/school/class/{id}/tutor/{cid}/manage/", name="class_tutor_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param string $id
+     * @param string $cid
+     * @param ActivityManager $activityManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
+     */
+    public function classTutorManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    {
+        //if cid != ignore, then remove cid from collection
+        $activity = $activityManager->setActivityType('class')->findActivity($id);
+
+        if (intval($cid) > 0)
+            $activityManager->removeTutor($cid);
+
+        $form = $this->createForm(FaceToFaceType::class, $activity);
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("School/external_activity_collection.html.twig",
+                    [
+                        'collection' => $form->get('tutors')->createView(),
+                        'route' => 'class_tutor_manage',
+                        'contentTarget' => 'tutorCollection',
+                    ]
+                ),
+                'message' => $activityManager->getMessageManager()->renderView($twig),
+                'status' => $activityManager->getStatus(),
+            ],
+            200
+        );
+    }
+
 }

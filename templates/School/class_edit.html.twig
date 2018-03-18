@@ -14,7 +14,9 @@
 {% block headerLead %}{{ 'school.face_to_face.edit.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-disappear show hide") }}
     {{ form_start(form, {attr: {id: 'saveForm'}}) }}
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {% include 'Default/tabs.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
@@ -23,7 +25,14 @@
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
-    {% include 'School/activity_tutor_script.html.twig' %}
-    {% include 'School/activity_student_script.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {'course_id': app.request.get('course_id')}} %}
+    <script>
+        $(document).ready(function () {
+            var path = '{{ path('class_tutor_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+            var target = 'tutorCollection';
+
+            manageCollection(path, target, '');
+        })
+    </script>
 {% endblock %}
