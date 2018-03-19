@@ -10,7 +10,12 @@ use App\Entity\ActivityTutor;
 use App\Entity\ExternalActivity;
 use App\Entity\FaceToFace;
 use App\Entity\Roll;
+use App\Entity\Student;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
+use Monolog\Handler\GelfHandlerLegacyTest;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -49,6 +54,8 @@ class ActivityManager
     /**
      * ActivityManager constructor.
      * @param TranslatorInterface $translator
+     * @param EntityManagerInterface $entityManager
+     * @param MessageManager $messageManager
      */
     public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, MessageManager $messageManager)
     {
@@ -260,6 +267,12 @@ external_activity_slots:
      */
     public function removeStudent($id)
     {
+        if (empty($id) || $id == 'ignore')
+        {
+            $this->setStatus('info');
+            return;
+        }
+
         $student = $this->getEntityManager()->getRepository(ActivityStudent::class)->find($id);
         if (! $student instanceof ActivityStudent) {
             $this->messageManager->add('danger', 'activity.student.missing.message');
@@ -267,7 +280,7 @@ external_activity_slots:
             return;
         }
         if (! $student->canDelete()) {
-            $this->messageManager->add('warning', 'activity.student.remove.restricted', ['%{tutor}' => $student->getTutor()->getFullName()]);
+            $this->messageManager->add('warning', 'activity.student.remove.restricted', ['%{student}' => $student->getStudent()->getFullName()]);
             $this->setStatus('warning');
             return;
         }
@@ -277,7 +290,7 @@ external_activity_slots:
         $this->getEntityManager()->persist($this->getActivity());
         $this->getEntityManager()->flush();
 
-        $this->messageManager->add('success', 'activity.student.removed.message', ['%{tutor}' => $student->getTutor()->getFullName()]);
+        $this->messageManager->add('success', 'activity.student.removed.message', ['%{student}' => $student->getStudent()->getFullName()]);
         $this->setStatus('success');
         return;
     }
@@ -307,5 +320,87 @@ external_activity_slots:
         $this->messageManager->add('success', 'activity.slot.removed.message', ['%{tutor}' => $slot->getTutor()->getFullName()]);
         $this->setStatus('success');
         return;
+    }
+
+    /**
+     * @var int
+     */
+    private $possibleStudentCount = 0;
+
+    /**
+     * @param FaceToFace|null $activity
+     * @return Collection
+     */
+    public function generatePossibleStudents(FaceToFace $activity = null): Collection
+    {
+        $activity = $activity ?: $this->getActivity();
+
+        $students = new ArrayCollection();
+
+        $ca = $activity->getCourse()->getActivities();
+        $activities = [];
+        foreach($ca->getIterator() as $face)
+            $activities[] = $face->getId();
+
+        $result1 = $this->getPossibleStudents($activity);
+
+        $result2 = new ArrayCollection($this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
+            ->leftJoin('s.activities', 'sa')
+            ->leftJoin('sa.activity', 'a')
+            ->where('a.id IN (:activities)')
+            ->setParameter('activities', $activities, Connection::PARAM_STR_ARRAY)
+            ->getQuery()
+            ->getResult());
+
+        foreach($result1 as $student)
+            if (! $result2->contains($student))
+                $students->add($student);
+
+
+        foreach($activity->getStudents()->getIterator() as $student)
+            if (! $students->contains($student->getStudent()))
+                $students->add($student->getStudent());
+
+        $iterator = $students->getIterator();
+        $iterator->uasort(
+            function ($a, $b) {
+                return ($a->formatName(['surnameFirst' => true]) < $b->formatName(['surnameFirst' => true])) ? -1 : 1;
+            }
+        );
+
+        return new ArrayCollection(iterator_to_array($iterator, false));
+    }
+
+    /**
+     * @param Activity $activity
+     * @return array
+     */
+    public function getPossibleStudents(Activity $activity): array
+    {
+        $grades = [];
+        foreach($activity->getCourse()->getCalendarGrades()->getIterator() as $grade)
+            $grades[] = $grade->getId();
+
+        $result = $this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
+            ->leftJoin('s.calendarGrades', 'cg')
+            ->where('cg.id IN (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->getQuery()
+            ->getResult();
+
+        $this->possibleStudentCount = count($result);
+
+        return $result;
+    }
+
+    /**
+     * @param Activity|null $activity
+     * @return int
+     */
+    public function getPossibleStudentCount(Activity $activity = null): int
+    {
+        if ($activity instanceof Activity)
+            $this->getPossibleStudents($activity);
+        return $this->possibleStudentCount;
     }
 }

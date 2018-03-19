@@ -4,7 +4,7 @@ namespace App\School\Form;
 use App\Entity\FaceToFace;
 use App\Entity\Space;
 use App\School\Form\Subscriber\ActivitySubscriber;
-use Doctrine\ORM\EntityManagerInterface;
+use App\School\Util\ActivityManager;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
@@ -22,19 +22,19 @@ class FaceToFaceType extends AbstractType
     private $activitySubscriber;
 
     /**
-     * @var EntityManagerInterface
+     * @var ActivityManager
      */
-    private $entityManager;
+    private $activityManager;
 
     /**
-     * ActivityType constructor.
+     * FaceToFaceType constructor.
      * @param ActivitySubscriber $activitySubscriber
-     * @param EntityManagerInterface $entityManager
+     * @param ActivityManager $activityManager
      */
-    public function __construct(ActivitySubscriber $activitySubscriber, EntityManagerInterface $entityManager)
+    public function __construct(ActivitySubscriber $activitySubscriber, ActivityManager $activityManager)
     {
         $this->activitySubscriber = $activitySubscriber;
-        $this->entityManager = $entityManager;
+        $this->activityManager = $activityManager;
     }
 
     /**
@@ -88,6 +88,9 @@ class FaceToFaceType extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => ClassStudentType::class,
                     'required' => false,
+                    'entry_options' => [
+                        'student_list' => $this->activityManager->generatePossibleStudents($options['data']),
+                    ],
                 ]
             )
             ->add('tutors', CollectionType::class,

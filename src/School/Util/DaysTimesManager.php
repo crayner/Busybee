@@ -3,6 +3,7 @@ namespace App\School\Util;
 
 use App\Core\Manager\SettingManager;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 class DaysTimesManager
 {
@@ -95,7 +96,7 @@ class DaysTimesManager
 		return $this;
 	}
 
-	public function saveDaysTimes(Form $form): DaysTimesManager
+	public function saveDaysTimes(FormInterface $form): DaysTimesManager
 	{
 		$data = $form->getData();
 

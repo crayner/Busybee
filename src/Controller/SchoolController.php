@@ -1,19 +1,12 @@
 <?php
 namespace App\Controller;
 
-use App\Calendar\Util\CalendarManager;
-use App\Entity\Activity;
-use App\Entity\CalendarGrade;
 use App\Entity\Course;
-use App\Entity\ExternalActivity;
-use App\Entity\FaceToFace;
-use App\Entity\Roll;
 use App\Pagination\ClassPagination;
 use App\Pagination\CoursePagination;
 use App\Pagination\ExternalActivityPagination;
 use App\Pagination\RollPagination;
 use App\School\Form\ActivityType;
-use App\School\Form\CalendarGradeType;
 use App\School\Form\CourseType;
 use App\School\Form\DaysTimesType;
 use App\School\Form\ExternalActivityType;
@@ -21,7 +14,6 @@ use App\School\Form\FaceToFaceType;
 use App\School\Util\ActivityManager;
 use App\School\Util\CourseManager;
 use App\School\Util\DaysTimesManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,11 +22,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SchoolController extends Controller
 {
-	/**
-	 * @param Request $request
-	 * @Route("/school/school/days/times/", name="school_days_times")
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * @param Request $request
+     * @param DaysTimesManager $dtm
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/school/school/days/times/", name="school_days_times")
+     */
 	public function daysAndTimes(Request $request, DaysTimesManager $dtm)
 	{
 		$form = $this->createForm(DaysTimesType::class, $dtm);
@@ -58,6 +51,7 @@ class SchoolController extends Controller
      * @IsGranted("ROLE_REGISTRAR")
      * @param CoursePagination $coursePagination
      * @param Request $request
+     * @param CourseManager $courseManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function courseList(CoursePagination $coursePagination, Request $request, CourseManager $courseManager)
@@ -78,8 +72,12 @@ class SchoolController extends Controller
      *
      * @Route("/school/school/course/{id}/edit/", name="course_edit")
      * @IsGranted("ROLE_REGISTRAR")
+     * @param $id
+     * @param Request $request
+     * @param ClassPagination $classPagination
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function courseEdit($id, Request $request, ClassPagination $classPagination)
+    public function courseEdit($id, Request $request, ClassPagination $classPagination, CourseManager $courseManager)
     {
         $course = $this->getDoctrine()->getRepository(Course::class)->find($id) ?: new Course();
 
@@ -109,6 +107,7 @@ class SchoolController extends Controller
                 'form' => $form->createView(),
                 'fullForm' => $form,
                 'pagination' => $classPagination,
+                'manager' => $courseManager,
             ]
         );
     }
@@ -138,6 +137,8 @@ class SchoolController extends Controller
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param int|string $id
+     * @param $activityType
+     * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function activityEdit(Request $request, $id = 'Add', $activityType, ActivityManager $activityManager)
@@ -166,23 +167,32 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
+     * @Route("/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
-     * @param int|string $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param string $id
+     * @param $course_id
+     * @param ActivityManager $activityManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id, EntityManagerInterface $entityManager)
+    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id, ActivityManager $activityManager)
     {
-        $face = $entityManager->getRepository(FaceToFace::class)->find($id) ?: new FaceToFace();
+        $activityManager->setActivityType('class');
+        $face = $activityManager->findActivity($id);
+
         $form = $this->createForm(FaceToFaceType::class, $face);
 
         $form->handleRequest($request);
-
+dump($form->get('students'));
         if ($form->isSubmitted() && $form->isValid())
         {
-            $entityManager->persist($face);
-            $entityManager->flush();
+            die();
+            $face->setCalendarGrades(null);
+            foreach($face->getCourse()->getCalendarGrades()->getIterator() as $cg)
+                $face->addCalendarGrade($cg);
+
+            $activityManager->getEntityManager()->persist($face);
+            $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
                 return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'course_id' => $course_id]);
@@ -205,7 +215,7 @@ class SchoolController extends Controller
      * @Route("/school/external/activity/list/", name="external_activity_list")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
-     * @param RollPagination $activityPagination
+     * @param ExternalActivityPagination $activityPagination
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function externalActivityList(Request $request, ExternalActivityPagination $activityPagination)
@@ -226,6 +236,8 @@ class SchoolController extends Controller
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param int|string $id
+     * @param int $refresh
+     * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function externalActivityEdit(Request $request, $id = 'Add', $refresh = 0, ActivityManager $activityManager)
@@ -259,6 +271,7 @@ class SchoolController extends Controller
      * @param string $id
      * @param string $cid
      * @param ActivityManager $activityManager
+     * @param \Twig_Environment $twig
      * @return JsonResponse
      * @Route("/school/activity/external/{id}/tutor/{cid}/manage/", name="external_activity_tutor_manage")
      * @IsGranted("ROLE_PRINCIPAL")
@@ -293,6 +306,7 @@ class SchoolController extends Controller
      * @param string $id
      * @param string $cid
      * @param ActivityManager $activityManager
+     * @param \Twig_Environment $twig
      * @return JsonResponse
      * @Route("/school/activity/external/{id}/student/{cid}/manage/", name="external_activity_student_manage")
      * @IsGranted("ROLE_PRINCIPAL")
@@ -327,6 +341,7 @@ class SchoolController extends Controller
      * @param string $id
      * @param string $cid
      * @param ActivityManager $activityManager
+     * @param \Twig_Environment $twig
      * @return JsonResponse
      * @Route("/school/activity/external/{id}/slot/{cid}/manage/", name="external_activity_slot_manage")
      * @IsGranted("ROLE_PRINCIPAL")
@@ -392,4 +407,38 @@ class SchoolController extends Controller
         );
     }
 
+    /**
+     * @Route("/school/class/{id}/student{cid}/manage/", name="class_student_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param string $id
+     * @param string $cid
+     * @param ActivityManager $activityManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
+     */
+    public function classStudentManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    {
+        //if cid != ignore, then remove cid from collection
+        $activity = $activityManager->setActivityType('class')->findActivity($id);
+
+        if (intval($cid) > 0)
+            $activityManager->removeStudent($cid);
+
+        $form = $this->createForm(FaceToFaceType::class, $activity);
+
+        return new JsonResponse(
+            [
+                'content' => $this->renderView("School/external_activity_collection.html.twig",
+                    [
+                        'collection' => $form->get('students')->createView(),
+                        'route' => 'class_student_manage',
+                        'contentTarget' => 'studentCollection',
+                    ]
+                ),
+                'message' => $activityManager->getMessageManager()->renderView($twig),
+                'status' => $activityManager->getStatus(),
+            ],
+            200
+        );
+    }
 }

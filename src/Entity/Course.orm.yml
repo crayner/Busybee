@@ -29,7 +29,7 @@ App\Entity\Course:
                 default: 0
     manyToMany:
         calendarGrades:
-            targetEntity: CalendarGrade
+            targetEntity: App\Entity\CalendarGrade
             joinTable:
                 name: course_calendar_grade
                 joinColumns:

@@ -41,18 +41,20 @@ class ClassStudentType extends AbstractType
                 [
                     'class' => Student::class,
                     'choice_label' => 'fullName',
+                    'choice_value' => 'id',
                     'label' => 'activity_student.student.label',
                     'help' => 'activity_student.student.help',
                     'placeholder' => 'activity_student.student.placeholder',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('s')
-                            ->orderBy('s.surname')
-                            ->addOrderBy('s.firstName')
-                        ;
-                    },
+                    'choices' => $options['student_list'],
                 ]
             )
-            ->add('id', HiddenType::class)
+            ->add('id', HiddenType::class,
+                [
+                    'attr' => [
+                        'class' => 'removeElement',
+                    ],
+                ]
+            )
         ;
 	}
 
@@ -67,6 +69,11 @@ class ClassStudentType extends AbstractType
 				'translation_domain' => 'School',
 			]
 		);
+		$resolver->setRequired(
+		    [
+		        'student_list',
+            ]
+        );
 	}
 
 	/**

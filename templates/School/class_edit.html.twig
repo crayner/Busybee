@@ -33,6 +33,12 @@
             var target = 'tutorCollection';
 
             manageCollection(path, target, '');
+
+            path = '{{ path('class_student_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
+
+            target = 'studentCollection';
+
+            manageCollection(path, target, '');
         })
     </script>
 {% endblock %}

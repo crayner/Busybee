@@ -16,11 +16,11 @@
                 </div>
                 <div class="col-3 card">
                     {{ form_row(form.classReportable) }}
-                    {{ form_row(form.id) }}
-                    {{ form_row(form.activity, {value: app.request.get('id')}) }}
                 </div>
                 <div class="col-3 card">
                     {{ h3Content|raw }}
+                    {{ form_row(form.id) }}
+                    {{ form_row(form.activity, {value: app.request.get('id')}) }}
                 </div>
             </div>
         {{ form_rest(form) }}

@@ -3,6 +3,7 @@ namespace App\School\Form\Subscriber;
 
 use App\Calendar\Util\CalendarManager;
 use App\Entity\ExternalActivity;
+use App\Entity\FaceToFace;
 use App\Entity\Roll;
 use Hillrange\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -54,11 +55,22 @@ class ActivitySubscriber implements EventSubscriberInterface
             }
             if (!isset($data['calendarGrades']))
             {
-                $terms = $this->calendarManager->getCurrentCalendar()->getCalendarGrades();
-                foreach($terms->getIterator() as $term)
-                    $data['calendarGrades'][] = $term->getId();
+                $cgs = $this->calendarManager->getCurrentCalendar()->getCalendarGrades();
+                foreach($cgs->getIterator() as $cg)
+                    $data['calendarGrades'][] = $cg->getId();
             }
             $event->setData($data);
+        }
+
+        if ($event->getForm()->getData() instanceof FaceToFace)
+        {
+            if ($event->getForm()->getData()->isReportable())
+            {
+                $data = $event->getData();
+                foreach($data['students'] as $q=>$w)
+                    $data['students'][$q]['classReportable'] = '1';
+                $event->setData($data);
+            }
         }
     }
 

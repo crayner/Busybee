@@ -60,7 +60,7 @@
                 {{ 'activity.name.label'|trans }}<br /><small>{{ 'activity.name_short.label'|trans({}) }}</small>
             </div>
             <div class="col-3">
-                {{ 'activity.participants.label'|trans({}) }}
+                {{ 'activity.participants.label'|trans({}) }}<br /><small>{{ manager.possibleStudentCount(getObject(form)) }}</small>
             </div>
             <div class="col-3">
                 {{ 'activity.reportable.label'|trans({}) }}

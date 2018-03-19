@@ -70,7 +70,9 @@ school:
         edit:
             title: Edit Class
             description: Face to Face Class Management
-        manage.title: 'Manage %name%'
+        manage:
+            title: 'Manage %name%'
+            help: 'Possible students are limited to the selected !!!form_grade!!! in the course to which this activity belongs. Reportable will be set to true if the activity reportable is true.'
         students.title: Manage Students
         tutors.label: Class Tutors
     activity:
@@ -235,6 +237,10 @@ activity:
                 label: Student
                 placeholder: Select Student
             created.label: Created
+        removed:
+            message: 'The student %{student} was removed from the activity.'
+            restricted: 'The student %{student} is locked to activity and was not removed.'
+        missing.message: 'The student was not found to remove from the activity.'
     students:
         label: Possible Students
         help: 'The system found %{count} students available for this class.'
@@ -277,9 +283,12 @@ activity_tutor:
         label: Tutor
         placeholder: Select Tutor
         help: ''
-activity_student.class_reportable:
-    label: Reportable
-    help: ''
+activity_student:
+    class_reportable:
+        label: Reportable
+        help: ''
+    student:
+        placeholder: Select Student
 external_activity:
     name:
         label: Activity

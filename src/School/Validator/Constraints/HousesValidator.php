@@ -52,6 +52,7 @@ class HousesValidator extends ConstraintValidator
 				}
 				if (!$valid)
 					$this->context->buildViolation('school.houses.remove.locked', ['%name%' => $q])
+                        ->setTranslationDomain('School')
 						->addViolation();
 			}
 		}
