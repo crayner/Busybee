@@ -2,6 +2,7 @@
 namespace App\Calendar\Util;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TabManagerInterface;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\SpecialDay;
@@ -14,11 +15,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Form\Util\CollectionInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class CalendarManager implements CollectionInterface
+class CalendarManager implements CollectionInterface, TabManagerInterface
 {
 	/**
 	 * @var EntityManagerInterface
@@ -85,12 +88,23 @@ class CalendarManager implements CollectionInterface
      */
     private $calendarGradeManager;
 
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
+     * @var RequestStack
+     */
+    private $stack;
+
 	/**
 	 * YearManager constructor.
 	 *
 	 * @param ObjectManager $manager
 	 */
-	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year, MessageManager $messageManager, CalendarGradeManager $calendarGradeManager)
+	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, Year $year, MessageManager $messageManager,
+                                CalendarGradeManager $calendarGradeManager, RouterInterface $router, RequestStack $stack)
 	{
 		$this->manager = $manager;
 		$this->tokenStorage = $tokenStorage;
@@ -100,6 +114,8 @@ class CalendarManager implements CollectionInterface
         $this->messageManager->setDomain('Calendar');
         $this->calendarGradeManager = $calendarGradeManager;
         $this->calendarGradeManager->setCalendarManager($this);
+        $this->router = $router;
+        $this->stack = $stack;
 	}
 
 	/**
@@ -725,5 +741,18 @@ calendarGrades:
         $this->specialDay = $this->getEntityManager()->getRepository(SpecialDay::class)->find(intval($id));
 
         return $this->getSpecialDay();
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetScripts(): string
+    {
+        $request = $this->stack->getCurrentRequest();
+        $xx = "manageCollection('" . $this->router->generate("calendar_grade_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','gradeCollection', '')\n";
+        $xx .= "manageCollection('" . $this->router->generate("calendar_term_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','termCollection', '')\n";
+        $xx .= "manageCollection('" . $this->router->generate("calendar_special_day_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','specialDayCollection', '')\n";
+
+        return $xx;
     }
 }

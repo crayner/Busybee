@@ -17,13 +17,11 @@
 {% block headerTitle %}{{ 'calendar.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'calendar.description'|trans }}{% endblock headerLead %}
 
-{% set tabs = manager.getTabs() %}
-
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-disappear show hide") }}
     {{ form_start(form, {'action': path('calendar_edit', {'id': calendar_id} ) } ) }}
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}
-    {% include 'Default/tabs.html.twig' %}
+    {% include 'Default/tabs.html.twig' with {tabManager: manager} %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -35,26 +33,4 @@
     {% include "Calendar/specialDaysScript.html.twig" %}
     {% include 'Calendar/script.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {'route': 'calendar_edit'} %}
-    <script>
-        $(document).ready(function(){
-            var path = '{{ path('calendar_grade_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-            var target = 'gradeCollection';
-
-            manageCollection(path, target, '');
-
-            path = '{{ path('calendar_term_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-            target = 'termCollection';
-
-            manageCollection(path, target, '');
-
-            path = '{{ path('calendar_special_day_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-            target = 'specialDayCollection';
-
-            manageCollection(path, target, '');
-        });
-    </script>
-
 {% endblock javascripts %}
