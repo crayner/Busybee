@@ -215,6 +215,8 @@ course:
     calendars:
         label: Use in Year
         help: The course is available for selection in any school calendar selected here.
+    details.tab: Details
+    class_list.tab: Class List
 activity:
     name:
         label: Name

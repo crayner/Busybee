@@ -26,7 +26,7 @@ class SchoolController extends Controller
      * @param Request $request
      * @param DaysTimesManager $dtm
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/school/school/days/times/", name="school_days_times")
+     * @Route("/school/days/times/", name="school_days_times")
      */
 	public function daysAndTimes(Request $request, DaysTimesManager $dtm)
 	{
@@ -47,7 +47,7 @@ class SchoolController extends Controller
 
     /**
      *
-     * @Route("/school/school/course/list/", name="course_list")
+     * @Route("/school/course/list/", name="course_list")
      * @IsGranted("ROLE_REGISTRAR")
      * @param CoursePagination $coursePagination
      * @param Request $request
@@ -70,7 +70,7 @@ class SchoolController extends Controller
 
     /**
      *
-     * @Route("/school/school/course/{id}/edit/", name="course_edit")
+     * @Route("/school/course/{id}/edit/", name="course_edit")
      * @IsGranted("ROLE_REGISTRAR")
      * @param $id
      * @param Request $request
@@ -204,7 +204,7 @@ class SchoolController extends Controller
             [
                 'form' => $form->createView(),
                 'course_id' => $course_id,
-                'tabs' => $face->getTabs(),
+                'tabManager' => $activityManager,
                 'fullForm' => $form,
             ]
         );

@@ -1,0 +1,46 @@
+{% trans_default_domain 'School' %}
+
+{% set h3Content = returnButton({'windowOpen': {'route': path('course_list')}}) %}
+{% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('course_edit', {id: 'Add'})}}) %}{% endif %}
+{% set h3Content = h3Content ~ resetButton() %}
+{% set h3Content = h3Content ~ saveButton() %}
+{% include 'Page/panelStart.html.twig' with {header: 'school.course.edit.title', transDomain: 'School', panelParagraph: 'school.course.edit.description'} %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 card">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-3 card">
+            {{ form_row(form.code) }}
+        </div>
+        <div class="col-3 card">
+            {{ form_row(form.map) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 card">
+            <div class="row">
+                <div class="col-12 card">
+                    {% set dept = form.department.vars.value %}
+                    {% if dept is empty %}
+                        {% set dept = form.department.vars.data %}
+                    {% endif %}
+                    {{ form_row(form.department, {value: dept}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 card">
+                    {{ form_row(form.calendarGrades) }}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-8 card">
+            {{ form_row(form.description) }}
+
+        </div>
+    </div>
+
+</div>
+{% include 'Page/panelEnd.html.twig' %}

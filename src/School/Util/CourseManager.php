@@ -2,12 +2,13 @@
 namespace App\School\Util;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TabManagerInterface;
 use App\Entity\Course;
 use App\Entity\Student;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CourseManager
+class CourseManager implements TabManagerInterface
 {
     /**
      * @var int
@@ -83,5 +84,34 @@ class CourseManager
     public function getMessageManager(): MessageManager
     {
         return $this->messageManager;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTabs(): array
+    {
+        return [
+            'details' => [
+                'label' => 'course.details.tab',
+                'include' => 'School\course_details.html.twig',
+                'message' => 'courseDetailsMessage',
+                'translation' => 'School',
+            ],
+            'classList' => [
+                'label' => 'course.class_list.tab',
+                'include' => 'School\course_class_list.html.twig',
+                'message' => 'courseClassListMessage',
+                'translation' => 'School',
+            ],
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetScripts(): string
+    {
+        return '';
     }
 }

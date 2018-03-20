@@ -26,19 +26,4 @@
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {'course_id': app.request.get('course_id')}} %}
-    <script>
-        $(document).ready(function () {
-            var path = '{{ path('class_tutor_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-            var target = 'tutorCollection';
-
-            manageCollection(path, target, '');
-
-            path = '{{ path('class_student_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-            target = 'studentCollection';
-
-            manageCollection(path, target, '');
-        })
-    </script>
 {% endblock %}

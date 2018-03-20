@@ -12,88 +12,13 @@
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, 'div') }}
-    {{ form_start(form, {'attr': {'id': 'course'}}) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('course_list')}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('course_edit', {id: 'Add'})}}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({type: 'button', windowOpen: {route: path('course_edit', {'id': app.request.get('id')})}}) %}
-    {% set h3Content = h3Content ~ saveButton() %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.course.edit.title', transDomain: 'School', panelParagraph: 'school.course.edit.description'} %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-6 card">
-                {{ form_row(form.name) }}
-            </div>
-            <div class="col-3 card">
-                {{ form_row(form.code) }}
-            </div>
-            <div class="col-3 card">
-                {{ form_row(form.map) }}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4 card">
-                <div class="row">
-                    <div class="col-12 card">
-                        {% set dept = form.department.vars.value %}
-                        {% if dept is empty %}
-                            {% set dept = form.department.vars.data %}
-                        {% endif %}
-                        {{ form_row(form.department, {value: dept}) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 card">
-                        {{ form_row(form.calendarGrades) }}
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-8 card">
-                {{ form_row(form.description) }}
-
-            </div>
-        </div>
-
-        <div class="row row-header text-center">
-            <div class="col-3" style="display: inline-block;">
-                {{ 'activity.name.label'|trans }}<br /><small>{{ 'activity.name_short.label'|trans({}) }}</small>
-            </div>
-            <div class="col-3">
-                {{ 'activity.participants.label'|trans({}) }}<br /><small>{{ manager.possibleStudentCount(getObject(form)) }}</small>
-            </div>
-            <div class="col-3">
-                {{ 'activity.reportable.label'|trans({}) }}
-            </div>
-            <div class="col-3 withAdd text-center">
-                {{ 'system.setting.manage.actions'|trans({}, 'System') }}<br />
-                {{ addButton({title: 'school.face_to_face.add.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: 'Add', course_id: app.request.get('id')})}, style: ''})|raw }}
-            </div>
-        </div>
-        {% for face in pagination.getResult %}
-            <div class="row row-striped text-center">
-                <div class="col-3 form-inline">
-                    {{ face.entity.fullName }}<br /><small>{{ face.nameShort }}</small>
-                </div>
-                <div class="col-3 form-inline">
-                    {{ pagination.getParticipants(face.entity) }}
-                </div>
-                <div class="col-3 form-inline">
-                    {{ displayBoolean(face.reportable) }}
-                </div>
-                <div class="col-3 form-inline text-center">
-                    {{ editButton({title: 'school.face_to_face.edit.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: face.id, course_id: app.request.get('id')})}, style: ''})|raw }}
-                    {{ editButton({title: 'school.face_to_face.students.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: face.id, course_id: app.request.get('id'), '_fragment': 'class_students'})}, style: '', class: 'btn btn-info halflings halflings-group'})|raw }}
-                </div>
-            </div>
-        {% endfor %}
-
-    </div>
-    {% include 'Page/panelEnd.html.twig' %}
+    {{ form_start(form) }}
+    {% include 'Default/tabs.html.twig' with {tabManager: manager} %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'course_edit'} %}
 {% endblock %}

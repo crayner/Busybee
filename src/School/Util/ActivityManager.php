@@ -139,6 +139,20 @@ external_activity_slots:
     translation: School
 ");
                 break;
+            case 'class':
+                return Yaml::parse("
+class_details:
+    label: class.details.tab
+    include: School/class_details.html.twig
+    message: classDetailsMessage
+    translation: School
+class_students:
+    label: class.students.tab
+    include: School/class_students.html.twig
+    message: classStudentsMessage
+    translation: School
+");
+                break;
             default:
                 throw new Exception('Activity type is not defined. ' . $this->getActivityType() );
         }
@@ -425,10 +439,27 @@ external_activity_slots:
     public function getResetScripts(): string
     {
         $request = $this->stack->getCurrentRequest();
-        $xx = "manageCollection('" . $this->router->generate("external_activity_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
-        $xx .= "manageCollection('" . $this->router->generate("external_activity_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
-        $xx .= "manageCollection('" . $this->router->generate("external_activity_slot_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','slotCollection', '')\n";
 
-        return $xx;
+        switch ($this->getActivityType())
+        {
+            case 'external':
+                $xx = "manageCollection('" . $this->router->generate("external_activity_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
+                $xx .= "manageCollection('" . $this->router->generate("external_activity_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
+                $xx .= "manageCollection('" . $this->router->generate("external_activity_slot_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','slotCollection', '')\n";
+
+                return $xx;
+                break;
+            case 'class':
+                $xx = "manageCollection('" . $this->router->generate("class_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
+                $xx .= "manageCollection('" . $this->router->generate("class_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
+
+                return $xx;
+                break;
+            default:
+                throw new Exception('Activity type is not defined. ' . $this->getActivityType() );
+        }
+
+
+
     }
 }
