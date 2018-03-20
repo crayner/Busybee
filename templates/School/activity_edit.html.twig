@@ -13,7 +13,7 @@
 {% block contentContainer %}
     {{ form_start(form) }}
     {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path(activity_type)}}) %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('roll_list')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.activity.edit.title', transDomain: 'School'} %}
 

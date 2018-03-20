@@ -9,10 +9,14 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
 {
     use UserTrackTrait;
 
+    /**
+     * ActivityStudent constructor.
+     */
     public function __construct()
     {
         $this->setExternalStatus('pending');
     }
+
     /**
      * @var null|int
      */
@@ -209,6 +213,7 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
     public function setId(?int $id): ActivityStudent
     {
         $this->id = $id;
+
         return $this;
     }
 

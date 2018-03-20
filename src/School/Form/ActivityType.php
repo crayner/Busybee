@@ -2,6 +2,7 @@
 namespace App\School\Form;
 
 use App\Entity\Activity;
+use App\Entity\ActivityStudent;
 use App\Entity\Space;
 use App\Entity\Staff;
 use App\Entity\Student;
@@ -68,12 +69,17 @@ class ActivityType extends AbstractType
                     'label' => 'activity.students.label',
                     'multiple' => true,
                     'expanded' => true,
-                    'class' => Student::class,
-                    'choice_label' => 'fullName',
+                    'class' => ActivityStudent::class,
+                    'choice_label' => 'fullStudentName',
+                    'choice_value' => 'id',
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('s')
+                        return $er->createQueryBuilder('a')
+                            ->leftJoin('a.student', 's')
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
+                            ->groupBy('s.id')
+                            ->where('s.id > :zero')
+                            ->setParameter('zero', 0)
                         ;
                     },
                 ]
