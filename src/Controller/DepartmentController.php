@@ -24,7 +24,7 @@ class DepartmentController extends Controller
      * @Route("/institute/department/edit/{id}/", name="department_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-	public function edit(Request $request, $id, FlashBagManager $flashBagManager)
+	public function edit(Request $request, $id, FlashBagManager $flashBagManager, DepartmentManager $departmentManager)
 	{
 		$entity = new Department();
 
@@ -37,7 +37,8 @@ class DepartmentController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
 		{
-			$em = $this->get('doctrine')->getManager();
+dump([$form,$request]);
+            $em = $this->get('doctrine')->getManager();
 			$em->persist($entity);
 			$em->flush();
 
@@ -71,7 +72,7 @@ class DepartmentController extends Controller
 		return $this->render('Department/edit.html.twig', [
 				'form'      => $form->createView(),
 				'fullForm'  => $form,
-                'tabs'      => $entity->getTabs(),
+                'tabManager'      => $departmentManager,
 			]
 		);
 	}

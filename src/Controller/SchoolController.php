@@ -183,10 +183,9 @@ class SchoolController extends Controller
         $form = $this->createForm(FaceToFaceType::class, $face);
 
         $form->handleRequest($request);
-dump($form->get('students'));
+
         if ($form->isSubmitted() && $form->isValid())
         {
-            die();
             $face->setCalendarGrades(null);
             foreach($face->getCourse()->getCalendarGrades()->getIterator() as $cg)
                 $face->addCalendarGrade($cg);

@@ -2,6 +2,7 @@
 namespace App\Core\Extension;
 
 use App\Core\Exception\Exception;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Extension\AbstractExtension;
@@ -86,12 +87,12 @@ delete:
     prompt: ''
 reset:
     class: "halflings halflings-refresh btn btn-warning"
-    type: submit
+    type: reset
     title: 'form.reset'
     style: 'float: right;'
     name: Reset
-    additional: ''
     prompt: ''
+    additional: ''
 misc:
     class: ""
     type: button
@@ -243,9 +244,11 @@ XXX;
 
 		foreach ($defaults as $q => $w)
 		{
+            if ($q == 'additional')
+                $details['additional'] = empty($details['additional']) ? $w : trim($details['additional'] . ' ' . $w);
 			if (isset($details[$q]))
 				$defaults[$q] = $details[$q];
-			if ($q == 'name')
+            if ($q == 'name')
                 $details['additional'] = empty($details['additional']) ? '' : trim($details['additional'] . ' ' . $w);
             if (empty($defaults[$q]))
 			{
@@ -359,6 +362,7 @@ XXX;
 	 */
 	public function resetButton($details = array())
 	{
+	    $details['mergeClass'] = ! empty($details['mergeClass']) ? $details['mergeClass'] . ' resetButton' : 'resetButton';
 		return $this->generateButton($this->buttons['reset'], $details);
 	}
 

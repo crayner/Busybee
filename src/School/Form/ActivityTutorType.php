@@ -65,6 +65,9 @@ class ActivityTutorType extends AbstractType
 				'data_class'         => ActivityTutor::class,
 				'translation_domain' => 'School',
                 'allow_extra_fields' => true,
+                'validation_groups' => [
+                    'default'
+                ],
 			]
 		);
 	}

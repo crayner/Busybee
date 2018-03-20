@@ -2,14 +2,18 @@
 namespace App\School\Util;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TabManagerInterface;
 use App\Entity\Course;
 use App\Entity\Department;
 use App\Entity\DepartmentMember;
 use App\Entity\Staff;
 use Doctrine\ORM\EntityManagerInterface;
 use Hillrange\Form\Util\CollectionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Yaml\Yaml;
 
-class DepartmentManager implements CollectionInterface
+class DepartmentManager implements CollectionInterface, TabManagerInterface
 {
     /**
      * @var EntityManagerInterface
@@ -42,14 +46,26 @@ class DepartmentManager implements CollectionInterface
     private $member;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
+     * @var RequestStack
+     */
+    private $stack;
+
+    /**
      * DepartmentManager constructor.
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager, MessageManager $messageManager)
+    public function __construct(EntityManagerInterface $entityManager, MessageManager $messageManager, RouterInterface $router, RequestStack $stack)
     {
         $this->entityManager = $entityManager;
         $this->messageManager = $messageManager;
         $this->messageManager->setDomain('School');
+        $this->router = $router;
+        $this->stack = $stack;
     }
 
     /**
@@ -218,5 +234,42 @@ class DepartmentManager implements CollectionInterface
         } catch (\Exception $e) {
             return $this->department;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getTabs(): array
+    {
+        return Yaml::parse("
+department_details:
+    label: department.details.tab
+    include: Department/department_details.html.twig
+    message: departmentDetailsMessage
+    translation: School
+department_tutor_collection:
+    label: department.staff.tab
+    include: Department/department_staff.html.twig
+    message: departmentStaffMessage
+    translation: School
+department_course_collection:
+    label: department.courses.tab
+    include: Department/department_courses.html.twig
+    message: departmentCoursesMessage
+    translation: School
+");
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetScripts(): string
+    {
+        $request = $this->stack->getCurrentRequest();
+        $xx = "manageCollection('" . $this->router->generate("department_courses_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','courseCollection', '')\n";
+        $xx .= "manageCollection('" . $this->router->generate("department_members_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','memberCollection', '')\n";
+dump($xx);
+
+        return $xx;
     }
 }
