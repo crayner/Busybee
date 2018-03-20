@@ -4,10 +4,12 @@
 
 {% trans_default_domain translation %}
 
+{{ setTabManager(tabManager) }}
+
 <div id="formTabs">
     <ul class="nav nav-pills" role="tablist">
         {% set active = ' active' %}
-        {% for name,tab in tabs %}
+        {% for name,tab in getTabs() %}
             {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
             {% set disabled = '' %}
             <li class="nav-item" role="presentation">
@@ -18,7 +20,7 @@
     </ul>
     {% set active = ' active' %}
     <div class="tab-content">
-        {% for name,tab in tabs %}
+        {% for name,tab in getTabs()     %}
             {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
             <div class="tab-pane{{ active }}" id="{{ name }}">
                 {% if tab.message is defined %}

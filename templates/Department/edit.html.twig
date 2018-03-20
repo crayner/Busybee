@@ -4,9 +4,7 @@
 
 {% form_theme form
 "@HillrangeForm/FormTheme/bootstrap.html.twig"
-"@HillrangeForm/FormTheme/jquery.collection.html.twig"
-'Department/memberCollection.html.twig'
-'Department/courseCollection.html.twig' %}
+%}
 
 {% block title %}{{ 'department.edit.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'department.edit.title'|trans }}{% endblock headerTitle %}
@@ -31,19 +29,4 @@
     {% include 'Script/monitorForm.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' %}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
-<script>
-    $(document).ready(function(){
-        var path = '{{ path('department_courses_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-        var target = 'courseCollection';
-
-        manageCollection(path, target, '');
-
-        path = '{{ path('department_members_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-        target = 'memberCollection';
-
-        manageCollection(path, target, '');
-    });
-</script>
 {% endblock javascripts %}

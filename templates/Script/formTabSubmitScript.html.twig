@@ -8,6 +8,7 @@
             hash = 'a[href="' + hash.replace('#', '#') + '"]';
             $(hash).tab('show');
         }
+        {{ getResetScripts()|raw }}
     });
 
     $('form').submit(function () {
@@ -25,4 +26,8 @@
         $("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
         $(this).attr("clicked", "true");
     });
+
+    $("form button[type=reset]").click(function () {
+        {{ getResetScripts()|raw }}
+    })
 </script>

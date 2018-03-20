@@ -268,7 +268,6 @@ department_course_collection:
         $request = $this->stack->getCurrentRequest();
         $xx = "manageCollection('" . $this->router->generate("department_courses_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','courseCollection', '')\n";
         $xx .= "manageCollection('" . $this->router->generate("department_members_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','memberCollection', '')\n";
-dump($xx);
 
         return $xx;
     }

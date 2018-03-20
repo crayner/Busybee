@@ -14,7 +14,7 @@
 {% block headerTitle %}{{ 'school.external_activity.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'school.external_activity.edit.description'|trans }}{% endblock headerLead %}
 
-{% set tabs = manager.tabs %}
+
 {% set h3Content = '' %}
 {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('external_activity_list')}}) %}
 {% set h3Content = h3Content ~ resetButton() %}
@@ -24,7 +24,7 @@
     {{ all_form_errors(fullForm, 'div') }}
     {{ form_start(form) }}
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}
-    {% include 'Default/tabs.html.twig' with {translation: 'School'} %}
+    {% include 'Default/tabs.html.twig' with {translation: 'School', tabManager: manager} %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -34,25 +34,4 @@
     {% include 'School/activity_slot_script.html.twig' %}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {route: 'external_activity_edit'} %}
-<script>
-$(document).ready(function(){
-    var path = '{{ path('external_activity_tutor_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-    var target = 'tutorCollection';
-
-    manageCollection(path, target, '');
-
-    path = '{{ path('external_activity_student_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-    target = 'studentCollection';
-
-    manageCollection(path, target, '');
-
-    path = '{{ path('external_activity_slot_manage', {id: app.request.get('id'), cid: 'ignore'}) }}';
-
-    target = 'slotCollection';
-
-    manageCollection(path, target, '');
-});
-</script>
 {% endblock %}

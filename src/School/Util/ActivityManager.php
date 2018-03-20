@@ -3,6 +3,7 @@ namespace App\School\Util;
 
 use App\Core\Exception\Exception;
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TabManagerInterface;
 use App\Entity\Activity;
 use App\Entity\ActivitySlot;
 use App\Entity\ActivityStudent;
@@ -16,10 +17,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\GelfHandlerLegacyTest;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class ActivityManager
+class ActivityManager implements TabManagerInterface
 {
     /**
      * @var TranslatorInterface
@@ -52,17 +55,29 @@ class ActivityManager
     private $status;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
+     * @var RequestStack
+     */
+    private $stack;
+
+    /**
      * ActivityManager constructor.
      * @param TranslatorInterface $translator
      * @param EntityManagerInterface $entityManager
      * @param MessageManager $messageManager
      */
-    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, MessageManager $messageManager)
+    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, MessageManager $messageManager, RequestStack $stack, RouterInterface $router)
     {
         $this->translator = $translator;
         $this->entityManager = $entityManager;
         $this->messageManager = $messageManager;
         $this->messageManager->setDomain('School');
+        $this->router = $router;
+        $this->stack = $stack;
     }
 
     /**
@@ -402,5 +417,18 @@ external_activity_slots:
         if ($activity instanceof Activity)
             $this->getPossibleStudents($activity);
         return $this->possibleStudentCount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetScripts(): string
+    {
+        $request = $this->stack->getCurrentRequest();
+        $xx = "manageCollection('" . $this->router->generate("external_activity_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
+        $xx .= "manageCollection('" . $this->router->generate("external_activity_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
+        $xx .= "manageCollection('" . $this->router->generate("external_activity_slot_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','slotCollection', '')\n";
+
+        return $xx;
     }
 }
