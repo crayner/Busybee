@@ -114,4 +114,13 @@ class CourseManager implements TabManagerInterface
     {
         return '';
     }
+
+    /**
+     * @param string $method
+     * @return bool
+     */
+    public function isDisplay(string $method = ''): bool
+    {
+        return true;
+    }
 }

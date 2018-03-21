@@ -8,6 +8,7 @@ use App\People\Util\PersonManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class PersonController extends Controller
@@ -35,13 +36,15 @@ class PersonController extends Controller
 		);
 	}
 
-	/**
-	 * @param Request $request
-	 * @param         $id
-	 * @Route("/person/edit/{id}/", name="person_edit")
-	 * @IsGranted("ROLE_ADMIN")
-	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * @Route("/person/edit/{id}/", name="person_edit")
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @param $id
+     * @param PersonManager $personManager
+     * @param CalendarManager $calendarManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
 	public function edit(Request $request, $id, PersonManager $personManager, CalendarManager $calendarManager)
 	{
 		$person = $personManager->getPerson($id);

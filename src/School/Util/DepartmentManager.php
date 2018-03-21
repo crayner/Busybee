@@ -271,4 +271,13 @@ department_course_collection:
 
         return $xx;
     }
+
+    /**
+     * @param string $method
+     * @return bool
+     */
+    public function isDisplay(string $method = ''): bool
+    {
+        return true;
+    }
 }

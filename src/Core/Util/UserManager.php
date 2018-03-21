@@ -86,9 +86,9 @@ class UserManager
     }
 
     /**
-     * @return null|object
+     * @return null|Calendar
      */
-    public function getCurrentCalendar()
+    public function getCurrentCalendar(): ?Calendar
     {
         return $this->getSystemCalendar();
     }

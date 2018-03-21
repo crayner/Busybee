@@ -21,4 +21,10 @@ interface TabManagerInterface
      * @return string
      */
     public function getResetScripts(): string;
+
+    /**
+     * @param string $method
+     * @return bool
+     */
+    public function isDisplay(string $method = ''): bool;
 }

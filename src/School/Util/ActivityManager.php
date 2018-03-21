@@ -458,8 +458,14 @@ class_students:
             default:
                 throw new Exception('Activity type is not defined. ' . $this->getActivityType() );
         }
+    }
 
-
-
+    /**
+     * @param string $method
+     * @return bool
+     */
+    public function isDisplay(string $method = ''): bool
+    {
+        return true;
     }
 }

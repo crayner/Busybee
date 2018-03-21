@@ -4,6 +4,7 @@ namespace App\People\Util;
 use App\Address\Util\AddressManager;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\SettingManager;
+use App\Core\Manager\TabManagerInterface;
 use App\Core\Util\UserManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
@@ -18,7 +19,7 @@ use Hillrange\Security\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class PersonManager
+class PersonManager implements TabManagerInterface
 {
 	/**
 	 * @var EntityManagerInterface
@@ -112,26 +113,31 @@ staff:
     include: Person/staff.html.twig
     message: staffMessage
     translation: Person
-immigration:
-    label: person.immigration.tab
-    include: Person/immigration.html.twig
-    message: immigrationMessage
-    translation: Person
+    display: isStaff
 student:
     label: person.student.tab
     include: Person/student.html.twig
     message: studentMessage
     translation: Person
+    display: isStudent
+immigration:
+    label: person.immigration.tab
+    include: Person/immigration.html.twig
+    message: immigrationMessage
+    translation: Person
+    display: isStudent
 calendar_grade:
     label: student.calendar_grade.tab
     include: Student/calendar_grade.html.twig
     message: calendarGradeMessage
     translation: Person
+    display: isStudent
 user:
     label: person.user.tab
     include: Person/user.html.twig
     message: userMessage
     translation: Person
+    display: isUser
 ");
 	}
 
@@ -462,14 +468,13 @@ user:
 		return true;
 	}
 
-	/**
-	 * Get Details
-	 *
-	 * @param Person $person
-	 *
-	 * @return string
-	 */
-	public function getDetails(Person $person)
+    /**
+     * Get Details
+     * @param Person $person
+     * @return string
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+	public function getDetails(Person $person): string
 	{
 		$result = '';
 
@@ -531,15 +536,14 @@ user:
 		return $result;
 	}
 
-	/**
-	 * Create Staff
-	 *
-	 * @param Person|null $person
-	 * @param bool        $persist
-	 *
-	 * @return bool
-	 */
-	public function createStaff(Person $person = null, $persist = false)
+    /**
+     * Create Staff
+     * @param Person|null $person
+     * @param bool $persist
+     * @return bool
+     * @throws \Doctrine\DBAL\DBALException
+     */
+	public function createStaff(Person $person = null, $persist = false): bool
 	{
 		$this->checkPerson($person);
 
@@ -563,11 +567,11 @@ user:
 		return false;
 	}
 
-	/**
-	 * Create Staff
-	 *
-	 * @param Person|null $person
-	 */
+    /**
+     * Create Staff
+     * @param Person|null $person
+     * @throws \Doctrine\DBAL\DBALException
+     */
 	public function deleteStaff(Person $person = null)
 	{
 		$this->checkPerson($person);
@@ -578,15 +582,14 @@ user:
 		}
 	}
 
-	/**
-	 * Switch to Staff
-	 *
-	 * @param Person|null $person
-	 * @param bool        $persist
-	 *
-	 * @return Person|null
-	 */
-	public function switchToPerson(Person $person = null, $persist = false)
+    /**
+     * Switch to Person
+     * @param Person|null $person
+     * @param bool $persist
+     * @return Person|null
+     * @throws \Doctrine\DBAL\DBALException
+     */
+	public function switchToPerson(Person $person = null, $persist = false): ?Person
 	{
 		$this->checkPerson($person);
 
@@ -609,15 +612,14 @@ user:
 		return $this->person;
 	}
 
-	/**
-	 * Create Student
-	 *
-	 * @param Person|null $person
-	 * @param bool        $persist
-	 *
-	 * @return bool
-	 */
-	public function createStudent(Person $person = null, $persist = false)
+    /**
+     * Create Student
+     * @param Person|null $person
+     * @param bool $persist
+     * @return bool
+     * @throws \Doctrine\DBAL\DBALException
+     */
+	public function createStudent(Person $person = null, $persist = false): bool
 	{
 		$this->checkPerson($person);
 
@@ -631,14 +633,13 @@ user:
 		return false;
 	}
 
-	/**
-	 * Switch to Student
-	 *
-	 * @param Person|null $person
-	 * @param bool        $persist
-	 *
-	 * @return Student|null
-	 */
+    /**
+     * Switch to Student
+     * @param Person|null $person
+     * @param bool $persist
+     * @return Student|null
+     * @throws \Doctrine\DBAL\DBALException
+     */
 	public function switchToStudent(Person $person = null, $persist = false): ?Student
 	{
 		$this->checkPerson($person);
@@ -699,11 +700,11 @@ user:
 		return true;
 	}
 
-	/**
-	 * Create Staff
-	 *
-	 * @param Person|null $person
-	 */
+    /**
+     * Create Staff
+     * @param Person|null $person
+     * @throws \Doctrine\DBAL\DBALException
+     */
 	public function deleteStudent(Person $person = null)
 	{
 		$this->checkPerson($person);
@@ -714,13 +715,16 @@ user:
 		}
 	}
 
-	public function getSettingManager(): SettingManager
+    /**
+     * @return SettingManager
+     */
+    public function getSettingManager(): SettingManager
 	{
 		return $this->settingManager;
 	}
 
     /**
-     * @return Calendar|object
+     * @return Calendar
      */
 	public function getCurrentCalendar(): Calendar
     {
@@ -729,11 +733,10 @@ user:
 
     /**
      * Switch to Staff
-     *
      * @param Person|null $person
-     * @param bool        $persist
-     *
+     * @param bool $persist
      * @return Staff|null
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function switchToStaff(Person $person = null, $persist = false): ?Staff
     {
@@ -764,5 +767,26 @@ user:
     public function getCalendarManager(): CalendarManager
     {
         return $this->calendarManager;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetScripts(): string
+    {
+        return '';
+    }
+
+    /**
+     * @param string $method
+     * @return bool
+     */
+    public function isDisplay(string $method = ''): bool
+    {
+        if ($method === '')
+            return true;
+        if (method_exists($this, $method))
+            return (bool) $this->$method();
+        return false;
     }
 }

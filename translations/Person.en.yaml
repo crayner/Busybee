@@ -59,7 +59,7 @@ person:
         format:
             label: Format of Date Imported
     person:
-        tab: Person
+        tab: Details
         title: Manage Personal Details
         description: ''
     contact:
