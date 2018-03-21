@@ -548,6 +548,7 @@ abstract class PaginationManager implements PaginationInterface
 	public function injectRequest(Request $request)
 	{
 		$this->getForm()->handleRequest($request);
+
 		if (!$this->form->isSubmitted())
 		{
 			$this->post = false;
@@ -575,7 +576,6 @@ abstract class PaginationManager implements PaginationInterface
 		}
 		else
 		{
-
 			$this->post = true;
 			$this->setSearch($this->form['searchData']->getData());
 			$this->setLastSearch($this->form['lastSearch']->getData());
