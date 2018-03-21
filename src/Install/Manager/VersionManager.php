@@ -83,11 +83,13 @@ class VersionManager
 		$versions['Doctrine']['ORM']                      = Version::VERSION;
 		$versions['Doctrine']['Common']                   = \Doctrine\Common\Version::VERSION;
 		$versions['Doctrine']['Cache']                    = \Doctrine\Common\Cache\Version::VERSION;
-		$versions['Database']['Server']                   = str_replace('-MariaDB', '', $this->connection->getWrappedConnection()->getServerVersion());
+		$server = explode('-', $this->connection->getWrappedConnection()->getServerVersion());
+		$versions['Database']['Server']                   = $server[1];
 		$versions['Database']['Driver']                   = $this->connection->getParams()['driver'];
 		$versions['Database']['Character Set']            = $this->connection->getParams()['charset'];
 		$versions['Doctrine']['DBal']                     = \Doctrine\DBAL\Version::VERSION;
-		foreach (get_loaded_extensions() as $name)
+
+        foreach (get_loaded_extensions() as $name)
 			$versions['PHP'][$name] = phpversion($name);
 
 
@@ -168,9 +170,9 @@ class VersionManager
 				$versions['PHP'][$name] = $this->fullCompare($versions['PHP'][$name], $version);
 		}
 
-		$version['low']                 = '5.5.56';
-		$version['high']                = '5.7';
-		$version['string']              = '5.5 - 5.7';
+		$version['low']                 = '10.1.30';
+		$version['high']                = '10.1.99';
+		$version['string']              = '10.1.x - Maria';
 		$versions['Database']['Server'] = $this->fullCompare($versions['Database']['Server'], $version);
 
 		$version = 'utf8mb4';
