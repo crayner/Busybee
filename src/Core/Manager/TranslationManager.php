@@ -16,10 +16,10 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
      * Ensure that your add an entry in the translation home.en.yaml file under school.search.replace for each new entry.
      */
     private $source = [
-        'this_school' => 'this_school',
         'form_grade' => 'form_grade',
         'forms_grades' => 'forms_grades',
         'unique' => 'unique',
+        'this_school' => 'this_school',
     ];
 
     /**
@@ -241,5 +241,14 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->entityManager;
+    }
+
+    /**
+     * @return array
+     */
+    public function getChoices(): array
+    {
+        asort($this->source);
+        return $this->source;
     }
 }

@@ -94,5 +94,7 @@ string_replacement:
         as a replacement string, enclose the setting name (e.g. org.name.short) inside a pair of three exclamation
         marks. &excl;&excl;&excl;org.name.short&excl;&excl;&excl; Settings can be defined and managed on the
         <a href="%{path}">Setting Manage<a> page.  The help for the replacement will show the final replacement value.'
-    remove.help: You must save the form to confirm deletion of a string replacement.
+    remove:
+        help: You must save the form to confirm deletion of a string replacement.
+        button: Remove String Replacement
     add.button: Add String Replacement
