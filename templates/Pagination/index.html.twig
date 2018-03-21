@@ -9,9 +9,10 @@
 {% endif %}
 {% set form_array = form_array|merge({'attr': {'id': pagination.getIdName|lower}}) %}
 
-{% if pagination.getReDirect != false %}
-    <script type="javascript">
-        window.open('{{ pagination.getReDirect() }}', '_self');
+{% if pagination.reDirect != false %}
+    <script type="text/javascript" language="JavaScript">
+        // You should do this in the controller.
+        document.location.assign('{{ pagination.reDirect }}');
     </script>
 {% endif %}
 

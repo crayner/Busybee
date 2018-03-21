@@ -13,27 +13,29 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PersonController extends Controller
 {
-	/**
-	 * @param Request          $request
-	 * @param PersonPagination $personPagination
-	 * @param PersonManager    $personManager
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 * @Route("/person/all/list/", name="person_manage")
-	 * @IsGranted("ROLE_ADMIN")
-	 */
+    /**
+     * @Route("/person/all/list/", name="person_manage")
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @param PersonPagination $personPagination
+     * @param PersonManager $personManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
 	public function index(Request $request, PersonPagination $personPagination, PersonManager $personManager)
 	{
 		$personPagination->injectRequest($request);
 
 		$personPagination->getDataSet();
 
-		return $this->render('Person/index.html.twig',
-			array(
-				'pagination' => $personPagination,
-				'manager'    => $personManager,
-			)
-		);
+		if ($personPagination->getReDirect() !== false)
+		    return $this->redirect($personPagination->getReDirect());
+		else
+            return $this->render('Person/index.html.twig',
+                array(
+                    'pagination' => $personPagination,
+                    'manager'    => $personManager,
+                )
+            );
 	}
 
     /**
