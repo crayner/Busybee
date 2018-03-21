@@ -68,10 +68,13 @@ class FacilityController extends Controller
 		);
 	}
 
-	/**
-	 * @Route("/space/edit/{id}/", name="space_edit")
-	 * @IsGranted("ROLE_REGISTRAR")
-	 */
+    /**
+     * @Route("/space/edit/{id}/", name="space_edit")
+     * @IsGranted("ROLE_REGISTRAR")
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
 	public function editSpace($id, Request $request)
 	{
 		$space = new Space();

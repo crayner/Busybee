@@ -14,7 +14,7 @@
     {{ form_start(form, {'attr': {'id': 'SpaceForm'}}) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('space_list')}}) %}
     {% if id != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('space_edit', {'id': 'Add'})}}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('space_edit', {'id': id}) }}) %}
+    {% set h3Content = h3Content ~ resetButton() %}
     {% set h3Content = h3Content ~ saveButton({class: 'btn btn-success halflings halflings-duplicate', title: 'space.edit.duplicate', transDomain: 'Facility', additional: {id: 'duplicate'}}) %}
     {% set h3Content = h3Content ~ saveButton({additional: {id: 'save'}}) %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': id}) %}

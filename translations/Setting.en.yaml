@@ -117,3 +117,17 @@ external.activity.type.list:
     creative: Creative
     action: Action
     service: Service
+space.type:
+    classroom: Classroom
+    hall: Hall
+    laboratory: Laboratory
+    library: Library
+    'meeting room': Meeting Room
+    office: Office
+    other: Other
+    outdoor: Outdoor
+    performance: Performance
+    staffroom: Staffroom
+    storage: Storage
+    study: Study
+    undercover: Undercover

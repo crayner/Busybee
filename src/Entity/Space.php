@@ -142,24 +142,24 @@ class Space extends SpaceExtension
 
 	/**
 	 * Get type
-	 *
-	 * @return string
+     *
+     * @return null|string
 	 */
-	public function getType()
+	public function getType(): ?string
 	{
-		return $this->type;
+		return strtolower($this->type);
 	}
 
 	/**
 	 * Set type
 	 *
-	 * @param string $type
+	 * @param null|string $type
 	 *
 	 * @return Space
 	 */
-	public function setType($type)
+	public function setType(?string $type): Space
 	{
-		$this->type = $type;
+		$this->type = strtolower($type);
 
 		return $this;
 	}
@@ -169,9 +169,9 @@ class Space extends SpaceExtension
 	 *
 	 * @return integer
 	 */
-	public function getCapacity()
+	public function getCapacity(): int
 	{
-		return $this->capacity;
+		return intval($this->capacity);
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Space extends SpaceExtension
 	 *
 	 * @return Space
 	 */
-	public function setCapacity($capacity)
+	public function setCapacity($capacity): Space
 	{
 		$this->capacity = $capacity;
 

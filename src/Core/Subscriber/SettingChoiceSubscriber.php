@@ -117,6 +117,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
         $newOptions                              = [];
         $newOptions['constraints']               = [];
+        if ($options['sort_choice'])
+            asort($choices);
 		$newOptions['choices']                   = $choices;
 		$newOptions['label']                     = isset($options['label']) ? $options['label'] : null;
         $newOptions['attr']                      = isset($options['attr']) ? $options['attr'] : [];

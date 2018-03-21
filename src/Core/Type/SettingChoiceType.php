@@ -58,6 +58,7 @@ class SettingChoiceType extends AbstractType
 				'choice_translation_domain' => 'Setting',
 				'translation_prefix'        => true,
                 'use_value_as_label'        => false,
+                'sort_choice'               => true,
 			)
 		);
 	}

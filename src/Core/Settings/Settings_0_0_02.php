@@ -269,19 +269,19 @@ space.type:
     role: 'ROLE_ADMIN'
     validator: null
     value:
-        Classroom: Classroom
-        Hall: Hall
-        Laboratory: Laboratory
-        Library: Library
-        Office: Office
-        Outdoor: Outdoor
-        Meeting Room: Meeting Room
-        Performance: Performance
-        Staffroom: Staffroom
-        Storage: Storage
-        Study: Study
-        Undercover: Undercover
-        Other: Other
+        classroom: classroom
+        hall: hall
+        laboratory: laboratory
+        library: library
+        'meeting room': 'meeting room'
+        office: office
+        other: other
+        outdoor: outdoor
+        performance: performance
+        staffroom: staffroom
+        storage: storage
+        study: study
+        undercover: undercover
     choice: Classroom
 Staff.Categories:
     type: 'array'
