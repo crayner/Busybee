@@ -52,7 +52,7 @@ class MenuManagerConstants
     role: ROLE_REGISTRAR
     node: 1
     order: 11
-    route: course_list
+    route: timetable_list
     translate: School
 20:
     label: menu.people.manage
@@ -235,6 +235,13 @@ Timetable Admin:
             label: course.list.menu.label
             translate: School
             role: ROLE_REGISTRAR
+            params: {}
+    timetable_manage:
+        timetable_list:
+            route: timetable_list
+            label: timetable.list.menu.label
+            translate: Timetable
+            role: ROLE_PRINCIPAL
             params: {}
     hidden:
         - course_edit

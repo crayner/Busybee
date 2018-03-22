@@ -1,0 +1,39 @@
+{% trans_default_domain "Timetable" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'timetable.list.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'timetable.list.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'timetable.list.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% block paginationContent %}
+        {% include 'Pagination/index.html.twig' with {'form_array': {action: path('timetable_list') } } %}
+    {% endblock paginationContent %}
+    {% set transDomain = 'Person' %}
+    {% set h3Content = addButton({windowOpen: {route: path('timetable_manage', {id: 'Add'})}})|raw %}
+
+    {% if header is not defined %}{% set header = 'timetable.list.title' %}{% endif %}
+    {% include 'Page/panelStart.html.twig' with {'header': header, transDomain: 'Timetable'} %}
+        <div class="row row-header">
+            <div class="col-2">
+                {{ 'timetable.name.label'|trans }}
+            </div>
+            <div class="col-2">
+                {{ 'timetable.code.label'|trans }}
+            </div>
+            <div class="col-4">
+                {{ 'timetable.grades.label'|trans }}
+            </div>
+            <div class="col-2">
+                {{ 'timetable.active.label'|trans }}
+            </div>
+            <div class="col-2">
+                {{ 'actions'|trans({}, 'home') }}
+            </div>
+        </div>
+
+    {% for tt in pagination.getResult %}
+    {% endfor %}
+    {% include 'Page/panelEnd.html.twig' %}
+    {% endblock contentContainer %}

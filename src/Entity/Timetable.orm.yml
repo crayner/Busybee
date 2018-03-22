@@ -1,0 +1,38 @@
+App\Entity\Timetable:
+    type: entity
+    table: tt
+    repositoryClass: App\Repository\TimetableRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 30
+        code:
+            type: string
+            length: 12
+        active:
+            type: boolean
+            options:
+                default: false
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            joinColumn:
+                name: calendar_id
+                referencedColumnName: id
+    manyToMany:
+        calendarGrades:
+            targetEntity: App\Entity\CalendarGrade
+            orderBy: { grade: ASC }
+            joinTable:
+                name: tt_grade
+                joinColumns:
+                    tt_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    cg_id:
+                        referencedColumnName: id

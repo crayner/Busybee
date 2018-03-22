@@ -1,0 +1,9 @@
+timetable:
+    list:
+        title: Timetable List
+        description: ''
+        menu.label: Manage Timetables
+    name.label: Name
+    code.label: Code
+    grades.label: '!!!forms_grades!!!'
+    active.label: Active

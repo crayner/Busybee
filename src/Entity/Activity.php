@@ -37,6 +37,11 @@ class Activity extends ActivityExtension
     private $students;
 
     /**
+     * @var bool
+     */
+    private $studentsSorted = false;
+
+    /**
      * @var null|Collection
      */
     private $tutors;
@@ -82,6 +87,7 @@ class Activity extends ActivityExtension
     public function __construct()
     {
         $this->setTeachingLoad(0);
+        $this->studentsSorted = false;
         parent::__construct();
     }
 
@@ -199,7 +205,7 @@ class Activity extends ActivityExtension
      *
      * @return Collection
      */
-    public function getStudents(): Collection
+    public function getStudents($sort = false): Collection
     {
         if (empty($this->students))
             $this->students = new ArrayCollection();
@@ -209,6 +215,23 @@ class Activity extends ActivityExtension
 
         if ($this->getStudentReference() instanceof Activity)
             $this->students = $this->getStudentReference()->getStudents();
+
+        if ($sort)
+            $this->studentsSorted = false;
+
+        if (! $this->studentsSorted && $this->students->count() > 0) {
+
+            $iterator = $this->students->getIterator();
+            $iterator->uasort(
+                function ($a, $b) {
+                    return ($a->getStudent()->formatName(['surnameFirst' => true]) < $b->getStudent()->formatName(['surnameFirst' => true])) ? -1 : 1;
+                }
+            );
+
+            $this->students = new ArrayCollection(iterator_to_array($iterator, false));
+
+            $this->studentsSorted = true;
+        }
 
         return $this->students;
     }
