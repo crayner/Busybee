@@ -119,6 +119,16 @@ class Timetable implements UserTrackInterface
         if ($this->calendarGrades instanceof PersistentCollection && ! $this->calendarGrades->isInitialized())
             $this->calendarGrades->initialize();
 
+        $iterator =  $this->calendarGrades->getIterator();
+        $iterator->uasort(
+            function ($a, $b) {
+                return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
+            }
+        );
+
+        $this->calendarGrades = new ArrayCollection(iterator_to_array($iterator, false));
+
+
         return $this->calendarGrades;
     }
 

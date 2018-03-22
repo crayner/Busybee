@@ -2,6 +2,15 @@ App\Entity\Timetable:
     type: entity
     table: tt
     repositoryClass: App\Repository\TimetableRepository
+    uniqueConstraints:
+        name_calendar:
+            columns:
+                - 'name'
+                - 'calendar_id'
+        code_calendar:
+            columns:
+                - 'code'
+                - 'calendar_id'
     id:
         id:
             type: integer

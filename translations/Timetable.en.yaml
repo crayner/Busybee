@@ -5,5 +5,12 @@ timetable:
         menu.label: Manage Timetables
     name.label: Name
     code.label: Code
-    grades.label: '!!!forms_grades!!!'
+    grades:
+        label: '!!!forms_grades!!!'
+        help: '!!!forms_grades!!! are selected from the current year and will default to all !!!forms_grades!!! if no !!!forms_grades!!! are selected.'
+        validate.message: '!!!forms_grades!!! have to be unique within the same year. !!!form_grade!!! %{grade} is set in another timetable in the calendar.'
     active.label: Active
+    calendar.label: Calendar
+    manage:
+        title: Timetable Manage
+        description: ''

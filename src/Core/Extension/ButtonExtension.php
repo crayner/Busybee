@@ -187,7 +187,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function saveButton($details = array())
+	public function saveButton($details = [])
 	{
 		return $this->generateButton($this->buttons['save'], $details);
 	}
@@ -198,7 +198,7 @@ XXX;
 	 *
 	 * @return mixed|string
 	 */
-	private function generateButton($defaults, $details = array())
+	private function generateButton($defaults, $details = [])
 	{
 		$button = '<button name="%name%" title="%title%" type="%type%" class="%class%" style="%style%" %additional%>%prompt%</button>';
 
@@ -280,7 +280,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function cancelButton($details = array())
+	public function cancelButton($details = [])
 	{
 		return $this->generateButton($this->buttons['cancel'], $details);
 	}
@@ -290,7 +290,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function uploadButton($details = array())
+	public function uploadButton($details = [])
 	{
 		return $this->generateButton($this->buttons['upload'], $details);
 	}
@@ -300,7 +300,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function addButton($details = array())
+	public function addButton($details = [])
 	{
 		return $this->generateButton($this->buttons['add'], $details);
 	}
@@ -310,7 +310,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function editButton($details = array())
+	public function editButton($details = [])
 	{
 		return $this->generateButton($this->buttons['edit'], $details);
 	}
@@ -320,7 +320,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function proceedButton($details = array())
+	public function proceedButton($details = [])
 	{
 		return $this->generateButton($this->buttons['proceed'], $details);
 	}
@@ -330,8 +330,13 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function returnButton($details = array())
+	public function returnButton($details = [])
 	{
+	    if (! empty($details['returnTo']))
+        {
+            $details['windowOpen'] = ['route' => $details['returnTo']];
+            unset($details['returnTo']);
+        }
 		return $this->generateButton($this->buttons['return'], $details);
 	}
 
@@ -340,7 +345,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function deleteButton($details = array())
+	public function deleteButton($details = [])
 	{
 		return $this->generateButton($this->buttons['delete'], $details);
 	}
@@ -350,7 +355,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function miscButton($details = array())
+	public function miscButton($details = [])
 	{
 		return $this->generateButton($this->buttons['misc'], $details);
 	}
@@ -491,7 +496,7 @@ XXX;
 	 */
 	public function onOffButton($details = [])
 	{
-		if (!isset($details['value']))
+		if (!isset($details['value']) && ! is_bool($details['value']))
 			throw new Exception('You must set a boolean value for the On/Off Button.  value = ?');
 		$details['on'] = isset($details['on']) ? $details['on'] : [];
 		$details['off'] = isset($details['off']) ? $details['off'] : [];
@@ -524,7 +529,7 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function duplicateButton($details = array())
+	public function duplicateButton($details = [])
 	{
 		return $this->generateButton($this->buttons['duplicate'], $details);
 	}

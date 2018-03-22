@@ -1,7 +1,7 @@
 <?php
 namespace App\Pagination;
 
-use App\Entity\Course;
+use App\Entity\Timetable;
 
 class TimetablePagination extends PaginationManager
 {
@@ -48,6 +48,7 @@ class TimetablePagination extends PaginationManager
 		't.name',
 		't.code',
 		't.id',
+        't.active',
 	];
 
     /**
@@ -58,7 +59,7 @@ class TimetablePagination extends PaginationManager
 	/**
 	 * @var string
 	 */
-	protected $repositoryName = Course::class;
+	protected $repositoryName = Timetable::class;
 
 	/**
 	 * @var string

@@ -487,6 +487,41 @@ body.loading .showLoader {
     cursor: pointer;
     text-justify: none;
 }
+.row-striped {
+    border: 1px solid rgba(204,204,204,1);
+    border-radius: 8px;
+    min-height: 25px;
+}
+.row-striped:nth-of-type(odd){
+    background-color: rgba(204,204,204,0.5);
+}
+
+.row-striped:nth-of-type(odd) .row-hover:hover {
+    background-color: rgba(180, 200, 220, 0.5);
+}
+
+.row-striped:nth-of-type(even){
+    background-color: transparent;
+}
+.row-header {
+    font-size: 125%;
+    font-weight: bold;
+    background-color: rgba(204,204,204,1);
+    border: 1px solid rgba(204,204,204,1);
+    border-radius: 8px;
+    min-height: 25px;
+}
+.row-striped > [class*='col-'] {
+    display: block ;
+}
+.has-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.card-primary a {
+    color: darkgray;
+}
 .display_none {
     display: none;
 }
@@ -526,9 +561,9 @@ body.loading .showLoader {
 .card-default .card-header {
     background-color: rgba(210,210,210,1.0);
 }
-.card.alert-warning {
+.card.alert-warning, .row-warning {
     color: #856404;
-    background-color: #fff3cd;
+    background-color: #fff3cd!important;
     border-color: #ffeeba;
 }
 .card.alert-danger {
@@ -569,40 +604,4 @@ body.loading .showLoader {
 
 .nav-link.dropdown-toggle {
     font-variant: all-petite-caps;
-}
-
-.row-striped {
-    border: 1px solid rgba(204,204,204,1);
-    border-radius: 8px;
-    min-height: 25px;
-}
-.row-striped:nth-of-type(odd){
-    background-color: rgba(204,204,204,0.5);
-}
-
-.row-striped:nth-of-type(odd) .row-hover:hover {
-    background-color: rgba(180, 200, 220, 0.5);
-}
-
-.row-striped:nth-of-type(even){
-    background-color: transparent;
-}
-.row-header {
-    font-size: 125%;
-    font-weight: bold;
-    background-color: rgba(204,204,204,1);
-    border: 1px solid rgba(204,204,204,1);
-    border-radius: 8px;
-    min-height: 25px;
-}
-.row-striped > [class*='col-'] {
-    display: block ;
-}
-.has-danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-}
-.card-primary a {
-    color: darkgray;
 }
