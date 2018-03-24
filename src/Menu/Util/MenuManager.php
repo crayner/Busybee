@@ -405,7 +405,7 @@ class MenuManager extends MenuManagerConstants
 						$key                     = $x['route'];
 						$routes[$key]['section'] = $name;
 						$routes[$key]['header']  = $headName;
-						$routes[$key]['params']  = empty($x['params']) ? [] : $x['params'];
+						$routes[$key]['parameters']  = empty($x['parameters']) ? [] : $x['parameters'];
 					}
 				}
 				else

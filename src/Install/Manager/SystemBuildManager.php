@@ -73,14 +73,10 @@ class SystemBuildManager extends InstallManager
 
 	/**
 	 * Build Database
-	 *
 	 * @version 30th August 2017
 	 * @since   23rd October 2016
-	 *
-	 * @throws DriverException
-	 * @return  bool
 	 */
-	public function buildDatabase()
+	public function buildDatabase(): bool
 	{
 		$conn = $this->entityManager->getConnection();
 
@@ -102,8 +98,8 @@ class SystemBuildManager extends InstallManager
 		else
 			$this->addMessage('info', 'system.build.database.done', ['%count%' => $count]);
 
-
 		$ok = true;
+
 		foreach ($xx as $sql) {
 			try
 			{
@@ -160,11 +156,11 @@ class SystemBuildManager extends InstallManager
 		return $this->settingManager;
 	}
 
-	/**
-	 * @param $data
-	 * @return bool
-	 */
-	public function buildSystemSettings()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function buildSystemSettings()
 	{
 	    $current = $this->getSystemVersion();
 
@@ -200,45 +196,40 @@ class SystemBuildManager extends InstallManager
                 $data = Yaml::parse($class->getSettings());
 
                 foreach ($data as $name => $datum) {
-                    $entity = $this->settingManager->findOneByName($name);
-                    if (!$entity instanceof Setting) {
-                        $entity = new Setting();
-                        if (empty($datum['type']))
-                            trigger_error('When creating a setting the type must be defined. ' . $name);
-                        $entity->setType($datum['type']);
+                    if ($name !== 'version') {
+                        $entity = $this->settingManager->findOneByName($name);
+                        if (!$entity instanceof Setting) {
+                            $entity = new Setting();
+                            if (empty($datum['type']))
+                                trigger_error('When creating a setting the type must be defined. ' . $name);
+                            $entity->setType($datum['type']);
+                        }
+                        $entity->setName($name);
+                        foreach ($datum as $field => $value) {
+                            $w = 'set' . ucwords($field);
+                            $entity->$w($value);
+                        }
+                        $this->settingManager->createSetting($entity);
                     }
-                    $entity->setName($name);
-                    foreach ($datum as $field => $value) {
-                        $w = 'set' . ucwords($field);
-                        $entity->$w($value);
-                    }
-                    $this->settingManager->createSetting($entity);
                 }
                 $this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
 			} else {
-			    sleep(1);
-                $entity = $this->settingManager->findOneByName('version');
-                $entity->setValue($current);
-                $this->settingManager->createSetting($entity);
                 $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $current]);
             }
 
 			if (version_compare($current, $software, '='))
 				$this->systemSettingsInstalled = true;
-            elseif (version_compare($current, $software, '>'))
-				trigger_error('The setting class is trying to install a version ('.$current.') greater than the software version ('.$software.').');
         }
+
+        $this->updateCurrentVersion($current);
 
 		return false;
 	}
 
-	/**
-	 * @param string $projectDir
-	 * @param array  $data
-	 *
-	 * @return void
-	 */
-	public function writeSystemUser(array $userParams = [
+    /**
+     * @param array $userParams
+     */
+    public function writeSystemUser(array $userParams = [
         '_username' => 'admin',
         '_password' => 'pass_word',
         '_email' => 'no@no_domain.com.nz',
@@ -370,5 +361,20 @@ class SystemBuildManager extends InstallManager
             return $this->getSettingManager()->get('version', '0.0.00');
         else
             return '0.0.00';
+    }
+
+    /**
+     * @param $current
+     */
+    private function updateCurrentVersion($current)
+    {
+        $entity = new Setting();
+        $entity->setName('version');
+        $entity->setType('system');
+        $entity->setDisplayName('System Version');
+        $entity->setDescription('The version of Busybee currently configured on your system.');
+        $entity->setRole('ROLE_SYSTEM_ADMIN');
+        $entity->setValue($current);
+        $this->settingManager->createSetting($entity);
     }
 }

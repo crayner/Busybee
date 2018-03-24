@@ -40,6 +40,7 @@ install:
         parameters: Email Settings
     misc:
         parameters: Miscellaneous Settings
+    fix.server: The server needs attention to ensure that the program will run correctly. Fix any problems below and refresh this page to continue.
 sql:
     database:
         driver:
@@ -232,12 +233,12 @@ user:
         message: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
 php:
     memory:
-        ok: 'The memory limit is set at %{memory} which meets current requirements of %{required}.'
-        small: 'The memory limit is set at %{memory} which does not meets current requirements of %{required}.'
+        ok: 'The memory limit is set at %{memory} which meets current requirements of %{required}. Change this in the php.ini file on the server.'
+        small: 'The memory limit is set at %{memory} which does not meets current requirements of %{required}. Change this in the php.ini file on the server.'
 memory:
-    limit: 'Memory Limit: %{limit}. Bad < 256M >= OK <= 512M > Good.'
+    limit: 'Memory Limit: %{limit}. Bad < 256M >= OK <= 512M > Good. Change this in the php.ini file on the server.'
 session:
     auto_start:
-        off: Session auto start should not be set in php.ini
-        on: Session auto start should not be set in php.ini
+        off: Session auto start should not be set in php.ini file.
+        on: Session auto start should not be set in php.ini file.
 update.setting.required: 'The system has been updated.  Please confirm update from version %{current} to version %{software}.'

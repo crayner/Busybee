@@ -55,7 +55,6 @@ class InstallController extends Controller
 		{
 			if (! $installer->testConnected())
 			{
-				dump($form->isSubmitted());
 				return $this->render('Install/start.html.twig',
 					[
 						'config' => $installer,
@@ -278,11 +277,18 @@ class InstallController extends Controller
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function installDatabase(SystemBuildManager $systemBuildManager)
+	public function installDatabase(SystemBuildManager $systemBuildManager, Request $request)
 	{
+	    if ($request->getSession()->isStarted())
+	        $request->getSession()->start();
+
+        $request->getSession()->invalidate();
+
         $systemBuildManager->setAction(true);
 
         $installed = $systemBuildManager->buildDatabase();
+
+        $systemBuildManager->buildSystemSettings();
 
 		return $this->render('Install/database.html.twig',
 			[

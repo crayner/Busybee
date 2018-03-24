@@ -100,18 +100,18 @@ System Admin:
             route: acknowledgement
             label: menu.site.acknowledgement
             role: []
-            params: {}
+            parameters: {}
     settings:
         string_replacement:
             label: menu.string_replacement.manage
             role: ROLE_SYSTEM_ADMIN
             route: string_replacement
-            params: {}
+            parameters: {}
         setting_manage:
             label: menu.setting.manage
             role: ROLE_SYSTEM_ADMIN
             route: setting_manage
-            params: {}
+            parameters: {}
     hidden:
         - setting_edit
         - setting_edit_name
@@ -122,25 +122,25 @@ School Admin:
             label: menu.school.department.edit
             role: ROLE_REGISTRAR
             route: department_edit
-            params:
+            parameters:
                 id: Add
         house_edit:
             label: menu.setting.houses
             role: ROLE_REGISTRAR
             route: houses_edit
-            params: {}
+            parameters: {}
         manage_calendar_grades:
             label: menu.calendar.grades
             role: ROLE_REGISTRAR
             route: calendar_edit
-            params:
+            parameters:
                 id: current
                 _fragment: calendarGrades
         manage_rolls:
             label: roll.menu.list
             translate: School
             route: roll_list
-            params: {}
+            parameters: {}
             role: ROLE_REGISTRAR
     others:
         campus_manage:
@@ -148,21 +148,21 @@ School Admin:
 	        name: Campus Management
 	        role: ROLE_REGISTRAR
 	        route: campus_manage
-	        params: {}
+	        parameters: {}
 	        translate: Facility
         space_list:
 	        label: menu.space.list.title
 	        name: Space Management
 	        role: ROLE_REGISTRAR
 	        route: space_list
-	        params: {}
+	        parameters: {}
 	        translate: Facility
         space_type:
 	        label: menu.space.type.title
 	        name: Space Management
 	        role: ROLE_SYSTEM_ADMIN
 	        route: setting_edit_name
-	        params:
+	        parameters:
                 name: space.type
                 closeWindow: closeWindow
 	        translate: Setting
@@ -174,17 +174,17 @@ School Admin:
             label: menu.calendar.manage
             role: ROLE_REGISTRAR
             route: calendar_years
-            params: {}
+            parameters: {}
         school_days_times:
             route: school_days_times
             role: ROLE_REGISTRAR
             label: menu.school.daysandtimes
-            params: {}
+            parameters: {}
         display_calendar:
             route: calendar_display
             role: ROLE_REGISTRAR
             label: menu.calendar.display
-            params: 
+            parameters: 
                 id: current
                 closeWindow: closeWindow 
             target:
@@ -194,14 +194,14 @@ School Admin:
             label: menu.calendar.special_days
             role: ROLE_REGISTRAR
             route: calendar_edit
-            params:
+            parameters:
                 id: current
                 _fragment: specialDays
         manage_year_terms:
             label: menu.calendar.terms
             role: ROLE_REGISTRAR
             route: calendar_edit
-            params:
+            parameters:
                 id: current
                 _fragment: terms
     hidden:
@@ -216,12 +216,12 @@ Person Admin:
 #            route: family_manage
 #            label: menu.people.family.manage
 #            role: ROLE_ADMIN
-#            params: { }
+#            parameters: { }
         person_manage:
             route: person_manage
             label: menu.people.manage
             role: ROLE_ADMIN
-            params: { }
+            parameters: { }
     hidden:
         - person_edit
         - user_manage
@@ -235,31 +235,32 @@ Timetable Admin:
             label: course.list.menu.label
             translate: School
             role: ROLE_REGISTRAR
-            params: {}
+            parameters: {}
     timetable_manage:
         timetable_list:
             route: timetable_list
             label: timetable.list.menu.label
             translate: Timetable
             role: ROLE_PRINCIPAL
-            params: {}
+            parameters: {}
     hidden:
         - course_edit
         - face_to_face_edit
+        - timetable_manage
 Activities:
     activities:
         external_activities:
             route: external_activity_list
             label: menu.activities.external.list
             role: ROLE_ADMIN
-            params: {}
+            parameters: {}
             translate: School
     departments:
         department_edit:
             label: menu.school.department.edit
             role: ROLE_REGISTRAR
             route: department_edit
-            params:
+            parameters:
                 id: Add
     hidden:
         - external_activity_edit

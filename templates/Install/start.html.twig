@@ -64,9 +64,13 @@
         </div>
     </div>
 
-
     {% if config.sql.connected and not config.sql.displayForm %}
-        {% set h3Content = proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
+        {% set versions = version_manager.getAcknowledgements(true, config.connection()) %}
+        {% if version_manager.ready %}
+            {% set h3Content = proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
+        {% else %}
+            <p class="alert alert-danger">{{ 'install.fix.server'|trans }}</p>
+        {% endif %}
         <form action="{{ path("install_check_mailer_parameters") }}" method="post">
             {% include 'Page/panelStart.html.twig' with {'transDomain': 'Install', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
             <div id="form_body" class="container-fluid">
@@ -79,7 +83,6 @@
                 </div>
             </div>
             {% include '/Page/panelEnd.html.twig' %}
-            {% set versions = version_manager.getAcknowledgements(true, config.connection()) %}
             {% include 'Page/panelStart.html.twig' with {'transDomain': 'Install', 'header': 'software.system.values', 'panelStyle': 'default'} %}
             {% include 'Acknowledgement/acknowledgementContent.html.twig' %}
             {% include 'Page/panelEnd.html.twig' %}
@@ -87,7 +90,8 @@
 
     {% else %}
         {% set h3Content = '' %}
-        {% if config.sql.displayForm %}
+        {% set versions = version_manager.getAcknowledgements(true, config.connection()) %}
+        {% if config.sql.displayForm and version_manager.ready %}
             {% set h3Content = h3Content ~ proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
         {% endif %}
         {% set h3Content = h3Content ~ saveButton() %}
