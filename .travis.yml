@@ -4,8 +4,6 @@ matrix:
     include:
         - php: 7.2
     fast_finish: true
-addons:
-    mariadb: 10.2
 
 notifications:
     email: craig@craigrayner.com

@@ -162,8 +162,14 @@ class Term extends TermExtension
 	 *
 	 * @return Term
 	 */
-	public function setCalendar(Calendar $calendar = null)
+	public function setCalendar(?Calendar $calendar, $add = true)
 	{
+	    if (empty($calendar))
+	        return $this;
+
+	    if ($add)
+	        $calendar->addTerm($this, false);
+
 		$this->calendar = $calendar;
 
 		return $this;

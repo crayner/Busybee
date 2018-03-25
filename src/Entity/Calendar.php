@@ -120,16 +120,17 @@ class Calendar extends CalendarExtension
 	/**
 	 * Add term
 	 *
-	 * @param Term $term
+	 * @param null|Term $term
 	 *
 	 * @return Calendar
 	 */
-	public function addTerm(Term $term): Calendar
+	public function addTerm(?Term $term, $add = true): Calendar
 	{
-		if ($this->terms->contains($term))
+		if ($this->getTerms()->contains($term) || empty($term))
 			return $this;
 
-		$term->setCalendar($this);
+		if ($add)
+		    $term->setCalendar($this, false);
 
 		$this->terms->add($term);
 
@@ -169,12 +170,14 @@ class Calendar extends CalendarExtension
 	 *
 	 * @return Calendar
 	 */
-	public function addSpecialDay(SpecialDay $specialDay = null): Calendar
+	public function addSpecialDay(?SpecialDay $specialDay, $add = true): Calendar
 	{
-		if (! $this->specialDays->contains($specialDay)) {
-            $specialDay->setCalendar($this);
-            $this->specialDays->add($specialDay);
-        }
+		if ($this->getSpecialDays()->contains($specialDay) || empty($specialDay))
+		    return $this;
+
+        if ($add)
+            $specialDay->setCalendar($this, false);
+        $this->specialDays->add($specialDay);
 
 		return $this;
 	}
@@ -332,7 +335,7 @@ class Calendar extends CalendarExtension
         if ($add)
             $calendarGrade->setCalendar($this, false);
 
-        if ($this->calendarGrades->contains($calendarGrade))
+        if ($this->getCalendarGrades()->contains($calendarGrade))
             return $this;
 
         $this->calendarGrades->add($calendarGrade);
@@ -345,14 +348,13 @@ class Calendar extends CalendarExtension
      * @param bool $remove
      * @return Calendar
      */
-    public function removeCalendarGrade(?CalendarGrade $calendarGrade, $remove = true): Calendar
+    public function removeCalendarGrade(?CalendarGrade $calendarGrade): Calendar
     {
         if (empty($calendarGrade))
             return $this;
 
-        if ($this->calendarGrades->contains($calendarGrade)) {
-            if ($remove)
-                $calendarGrade->setCalendar(null);
+        if ($this->getCalendarGrades()->contains($calendarGrade)) {
+            $calendarGrade->setCalendar(null);
             $this->calendarGrades->removeElement($calendarGrade);
         }
 

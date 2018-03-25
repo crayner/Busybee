@@ -170,13 +170,13 @@ class Activity extends ActivityExtension
      *
      * @return Activity
      */
-    public function addStudent(ActivityStudent $student, $add = true): Activity
+    public function addStudent(?ActivityStudent $student, $add = true): Activity
     {
+        if (empty($student) || $this->getStudents()->contains($student))
+            return $this;
+
         if ($add)
             $student->setActivity($this, false);
-
-        if ($this->students->contains($student))
-            return $this;
 
         $this->students->add($student);
 

@@ -182,8 +182,14 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return SpecialDay
 	 */
-	public function setCalendar(Calendar $calendar = null): SpecialDay
+	public function setCalendar(?Calendar $calendar, $add = true): SpecialDay
 	{
+	    if (empty($calendar))
+	        return $this;
+
+	    if ($add)
+	        $calendar->addSpecialDay($this, false);
+
 		$this->calendar = $calendar;
 
 		return $this;
