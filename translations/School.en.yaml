@@ -217,6 +217,7 @@ course:
         help: The course is available for selection in any school calendar selected here.
     details.tab: Details
     class_list.tab: Class List
+    students.details: '%{current} of (%{possible})'
 activity:
     name:
         label: Name

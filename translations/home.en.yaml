@@ -87,3 +87,4 @@ school.search.replace:
     form_grade: Form/Grade/Year
     forms_grades: Forms/Grades/Years
     unique: 'Must be unique!'
+google.oauth: Google Sign In

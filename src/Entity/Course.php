@@ -173,7 +173,7 @@ class Course extends CourseExtension
         if (empty($this->calendarGrades))
             $this->calendarGrades = new ArrayCollection();
 
-        if ($this->calendarGrades instanceof PersistentCollection)
+        if ($this->calendarGrades instanceof PersistentCollection && ! $this->calendarGrades->isInitialized())
             $this->calendarGrades->initialize();
 
         return $this->calendarGrades;

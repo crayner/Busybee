@@ -123,4 +123,36 @@ class CourseManager implements TabManagerInterface
     {
         return true;
     }
+
+    /**
+     * @var integer
+     */
+    private $currentStudentCount;
+
+    /**
+     * @param Course $course
+     * @return int
+     */
+    public function getCurrentStudents(Course $course): int
+    {
+        $students = 0;
+        foreach($course->getActivities()->getIterator() as $class)
+        {
+            $students += $class->getStudents()->count();
+        }
+        $this->currentStudentCount = $students;
+
+        return $students;
+    }
+
+    /**
+     * @param Course|null $course
+     * @return int
+     */
+    public function getCurrentStudentCount(Course $course = null): int
+    {
+        if ($course instanceof Course)
+            return $this->getCurrentStudents($course);
+        return 0;
+    }
 }
