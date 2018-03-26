@@ -1,0 +1,48 @@
+{% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'install.mailer.parameters'} %}
+<div id="form_body" class="container-fluid">
+    <div class="row">
+        <div class="card col-6">
+            {{ form_row(form.transport) }}
+        </div>
+        <div class="card col-3 offset-3">
+            <div>
+                {{ miscButton({additional: {id: 'testDelivery'}, class: 'btn btn-info halflings halflings-envelope', title: 'setting.mail.test.delivery', transDomain: 'System' })|raw }}
+                {{ 'setting.mail.test.delivery'|trans({}, 'System') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="smtpMailer">
+        <div class="card col-3">
+            {{ form_row(form.host) }}
+        </div>
+        <div class="card col-3">
+            {{ form_row(form.port) }}
+        </div>
+        <div class="card col-3">
+            {{ form_row(form.encryption) }}
+        </div>
+        <div class="card col-3">
+            {{ form_row(form.auth_mode) }}
+        </div>
+    </div>
+
+    <div class="row mailerDetailsHide">
+        <div class="card col-6">
+            {{ form_row(form.user) }}
+        </div>
+        <div class="card col-6">
+            {{ form_row(form.password) }}
+        </div>
+    </div>
+
+    <div class="row mailerDetailsHide">
+        <div class="card col-6">
+            {{ form_row(form.senderName) }}
+        </div>
+        <div class="card col-6">
+            {{ form_row(form.senderAddress) }}
+        </div>
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}

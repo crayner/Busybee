@@ -163,36 +163,9 @@ class UserType extends AbstractType
                     ],
                 ]
             )
-            ->add('googleOAuth', ToggleType::class,
-                [
-                    'label'  => 'misc.google.oauth.label',
-                    'help' => 'misc.google.oauth.help',
-                    'translation_domain' => 'Install',
-                ]
-            )
-            ->add('googleClientId', TextType::class,
-                [
-                    'label'    => 'misc.google.client_id.label',
-                    'attr'     => array(
-                        'class' => 'googleSetting',
-                    ),
-                    'help'  => 'misc.google.client_id.help',
-                    'required' => false,
-                    'translation_domain' => 'Install',
-                ]
-            )
-            ->add('googleClientSecret', TextType::class,
-                [
-                    'label'    => 'misc.google.client_secret.label',
-                    'attr'     => array(
-                        'class' => 'googleSetting',
-                    ),
-                    'help'  => 'misc.google.client_secret.help',
-                    'required' => false,
-                    'translation_domain' => 'Install',
-                ]
-            )
-		;
+        ;
+
+		GoogleType::buildForm($builder, $options);
 	}
 
 	/**

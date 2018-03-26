@@ -19,125 +19,7 @@ class MailerType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder
-			->add('transport', ChoiceType::class,
-				[
-					'label'   => 'mailer.transport.label',
-					'choices' => [
-						'mailer.transport.placeholder' => 'off',
-						'mailer.transport.smtp'        => 'smtp',
-						'mailer.transport.mail'        => 'mail',
-						'mailer.transport.sendmail'    => 'sendmail',
-						'mailer.transport.gmail'       => 'gmail',
-					],
-						'help' => 'mailer.transport.help',
-				]
-			)
-			->add('host', TextType::class,
-				[
-					'label'       => 'mailer.host.label',
-					'attr'        => array(
-						'class' => 'smtpMailer',
-					),
-					'help'  => 'mailer.host.help',
-					'constraints' => [
-						new NotBlank(),
-					],
-				]
-			)
-			->add('port', TextType::class,
-				[
-					'label'    => 'mailer.port.label',
-					'attr'     => array(
-						'class' => 'smtpMailer',
-					),
-					'help'  => 'mailer.port.help',
-					'required' => false,
-				]
-			)
-			->add('encryption', ChoiceType::class,
-				[
-					'label'    => 'mailer.encryption.label',
-					'mapped'   => false,
-					'choices'  => [
-						'mailer.encryption.none' => 'none',
-						'mailer.encryption.ssl'  => 'ssl',
-						'mailer.encryption.tls'  => 'tls',
-					],
-					'attr'     => [
-						'class' => 'smtpMailer',
-					],
-					'help'  => 'mailer.encryption.help',
-					'required' => false,
-				]
-			)
-			->add('auth_mode', ChoiceType::class,
-				[
-					'label'    => 'mailer.auth_mode.label',
-					'mapped'   => false,
-					'choices'  => [
-						'mailer.auth_mode.plain'    => 'plain',
-						'mailer.auth_mode.login'    => 'lodin',
-						'mailer.auth_mode.cram-md5' => 'cram-md5',
-					],
-					'attr'     => [
-						'class' => 'smtpMailer',
-					],
-					'help'  => 'mailer.auth_mode.help',
-					'required' => false,
-				]
-			)
-			->add('user', TextType::class,
-				[
-					'label'       => 'mailer.user.label',
-					'attr'        => array(
-						'class' => 'mailerDetails',
-					),
-					'help'  => 'mailer.user.help',
-					'constraints' => [
-						new NotBlank(),
-					],
-				]
-			)
-			->add('password', TextType::class,
-				[
-					'label'       => 'mailer.password.label',
-					'attr'        => array(
-						'class' => 'mailerDetails',
-					),
-					'help'  => 'mailer.password.help',
-					'constraints' => [
-						new NotBlank(),
-					],
-				]
-			)
-			->add('senderName', TextType::class,
-				[
-					'label'       => 'mailer.sender_name.label',
-					'attr'        => array(
-						'class' => 'mailerDetails',
-					),
-					'help'  => 'mailer.sender_name.help',
-					'constraints' => [
-						new NotBlank(),
-					],
-				]
-			)
-			->add('senderAddress', EmailType::class,
-				[
-					'label'       => 'mailer.sender_address.label',
-					'attr'        => array(
-						'class' => 'mailerDetails',
-					),
-					'help'  => 'mailer.sender_address.help',
-					'constraints' => [
-						new NotBlank(),
-						new Email(),
-					],
-				]
-			)
-		;
-		$builder->addEventSubscriber(new MailerSubscriber());
+	    self::buildMailerForm($builder, $options);
 	}
 
 	/**
@@ -159,5 +41,140 @@ class MailerType extends AbstractType
 		return 'install_mailer';
 	}
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    static public function buildMailerForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('transport', ChoiceType::class,
+                [
+                    'label'   => 'mailer.transport.label',
+                    'choices' => [
+                        'mailer.transport.placeholder' => 'off',
+                        'mailer.transport.smtp'        => 'smtp',
+                        'mailer.transport.mail'        => 'mail',
+                        'mailer.transport.sendmail'    => 'sendmail',
+                        'mailer.transport.gmail'       => 'gmail',
+                    ],
+                    'help' => 'mailer.transport.help',
+                    'translation_domain' => 'Install',
+                ]
+            )
+            ->add('host', TextType::class,
+                [
+                    'label'       => 'mailer.host.label',
+                    'attr'        => array(
+                        'class' => 'smtpMailer',
+                    ),
+                    'help'  => 'mailer.host.help',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                    'translation_domain' => 'Install',
+                ]
+            )
+            ->add('port', TextType::class,
+                [
+                    'label'    => 'mailer.port.label',
+                    'attr'     => array(
+                        'class' => 'smtpMailer',
+                    ),
+                    'help'  => 'mailer.port.help',
+                    'required' => false,
+                    'translation_domain' => 'Install',
+                ]
+            )
+            ->add('encryption', ChoiceType::class,
+                [
+                    'label'    => 'mailer.encryption.label',
+                    'mapped'   => false,
+                    'choices'  => [
+                        'mailer.encryption.none' => 'none',
+                        'mailer.encryption.ssl'  => 'ssl',
+                        'mailer.encryption.tls'  => 'tls',
+                    ],
+                    'attr'     => [
+                        'class' => 'smtpMailer',
+                    ],
+                    'help'  => 'mailer.encryption.help',
+                    'translation_domain' => 'Install',
+                    'required' => false,
+                ]
+            )
+            ->add('auth_mode', ChoiceType::class,
+                [
+                    'label'    => 'mailer.auth_mode.label',
+                    'mapped'   => false,
+                    'choices'  => [
+                        'mailer.auth_mode.plain'    => 'plain',
+                        'mailer.auth_mode.login'    => 'lodin',
+                        'mailer.auth_mode.cram-md5' => 'cram-md5',
+                    ],
+                    'attr'     => [
+                        'class' => 'smtpMailer',
+                    ],
+                    'help'  => 'mailer.auth_mode.help',
+                    'translation_domain' => 'Install',
+                    'required' => false,
+                ]
+            )
+            ->add('user', TextType::class,
+                [
+                    'label'       => 'mailer.user.label',
+                    'attr'        => array(
+                        'class' => 'mailerDetails',
+                    ),
+                    'help'  => 'mailer.user.help',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                    'translation_domain' => 'Install',
+                ]
+            )
+            ->add('password', TextType::class,
+                [
+                    'label'       => 'mailer.password.label',
+                    'attr'        => array(
+                        'class' => 'mailerDetails',
+                    ),
+                    'help'  => 'mailer.password.help',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                    'translation_domain' => 'Install',
+                ]
+            )
+            ->add('senderName', TextType::class,
+                [
+                    'label'       => 'mailer.sender_name.label',
+                    'attr'        => array(
+                        'class' => 'mailerDetails',
+                    ),
+                    'help'  => 'mailer.sender_name.help',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                    'translation_domain' => 'Install',
+                ]
+            )
+            ->add('senderAddress', EmailType::class,
+                [
+                    'label'       => 'mailer.sender_address.label',
+                    'attr'        => array(
+                        'class' => 'mailerDetails',
+                    ),
+                    'help'  => 'mailer.sender_address.help',
+                    'constraints' => [
+                        new NotBlank(),
+                        new Email(),
+                    ],
+                    'translation_domain' => 'Install',
+                ]
+            )
+        ;
 
+        $builder->addEventSubscriber(new MailerSubscriber());
+    }
 }

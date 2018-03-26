@@ -69,7 +69,7 @@ class FormErrorsExtension extends AbstractExtension
 	 */
 	public function getFormErrors(FormInterface $form, $tag = 'li', $class = "alert alert-danger alert-dismissable show hide", $noErrorMessage = 'form.submit.success', $noErrorClass = 'alert alert-success alert-dismissable show hide')
 	{
-		if (!$form->isSubmitted()) return '';
+		if (!$form->isSubmitted()) return '<div id="formErrorMessages"></div>';
 		$errorsList = $this->parser->parseErrors($form);
 		$return     = '';
 		if (count($errorsList) > 0)
@@ -103,7 +103,7 @@ class FormErrorsExtension extends AbstractExtension
 			}
 		}
 
-		return $return;
+		return '<div id="formErrorMessages">'.$return.'</div>';
 	}
 
 	/**

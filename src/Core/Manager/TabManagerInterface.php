@@ -10,8 +10,10 @@ interface TabManagerInterface
      * Each tab to consist of:
      *   label: The label of the tab
      *   include: The Twig script to populate the tab
-     *   message: a unique ID to set for ajax messages to populate
-     *   translation: Translation Domain
+     *   with: {array} added to the include. [optional]
+     *   message: a unique ID to set for ajax messages to populate. [optional]
+     *   translation: Translation Domain. [optional]
+     *   display: A method name in the manager that returns bool. [optional]
      *
      * @return array
      */
@@ -23,6 +25,7 @@ interface TabManagerInterface
     public function getResetScripts(): string;
 
     /**
+     * Use this method as a callable to test if the tab is to be displayed.
      * @param string $method
      * @return bool
      */

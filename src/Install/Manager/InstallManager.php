@@ -1,6 +1,7 @@
 <?php
 namespace App\Install\Manager;
 
+use App\Core\Manager\MailerManager;
 use App\Install\Organism\Database;
 use App\Install\Organism\Mailer;
 use App\Install\Organism\Miscellaneous;
@@ -23,16 +24,6 @@ class InstallManager
     protected $projectDir;
 
     /**
-     * @var bool
-     */
-    private $mailerSaved = false;
-
-    /**
-     * @var Mailer
-     */
-    private $mailer;
-
-    /**
      * @var Miscellaneous
      */
     private $misc;
@@ -48,6 +39,11 @@ class InstallManager
     private $connection;
 
     /**
+     * @var MailerManager
+     */
+    private $mailerManager;
+
+    /**
      * InstallManager constructor.
      *
      * @param $projectDir   String
@@ -56,6 +52,7 @@ class InstallManager
     {
         $this->sql = new Database();
         $this->projectDir = $projectDir;
+        $this->mailerManager = new MailerManager($projectDir);
     }
 
     /**
@@ -223,101 +220,6 @@ class InstallManager
     }
 
     /**
-     * Get Mailer Config
-     *
-     * @return array
-     */
-    public function getMailerConfig()
-    {
-        $params = Yaml::parse(file_get_contents($this->projectDir . '/config/packages/swiftmailer.yaml'));
-
-        $this->mailer = new Mailer($params);
-
-        return $this->mailer;
-    }
-
-    /**
-     * Save Mailer Config
-     *
-     * @param      $mailer
-     * @param bool $writeUrl
-     *
-     * @return bool
-     */
-    public function saveMailerConfig($mailer, $writeUrl = true)
-    {
-        $this->mailer = $mailer;
-
-        $this->mailerSaved = file_put_contents($this->projectDir . '/config/packages/swiftmailer.yaml', Yaml::dump($this->mailer->dumpMailerSettings()));
-
-        if ($this->mailerSaved && $writeUrl) {
-            $env = file($this->projectDir . '/.env');
-            foreach ($env as $q => $w) {
-                if (strpos($w, 'MAILER_URL=') === 0)
-                    $env[$q] = $this->mailer->getUrl();
-                $env[$q] = trim($env[$q]);
-            }
-            $env = implode($env, "\r\n");
-
-            $this->mailerSaved = file_put_contents($this->projectDir . '/.env', $env);
-        }
-
-        return $this->mailerSaved;
-    }
-
-    /**
-     * @return Mailer|null
-     */
-    public function getMailer(): ?Mailer
-    {
-        return $this->mailer;
-    }
-
-    /**
-     * @param FormInterface $form
-     * @param Request $request
-     *
-     * @return null
-     */
-    public function handleMailerRequest(FormInterface $form, Request $request)
-    {
-        $form->handleRequest($request);
-        $this->mailerSaved = false;
-
-        if (!$form->isSubmitted())
-            return;
-
-        if ($form->isValid()) {
-            foreach ($request->get('install_mailer') as $name => $value) {
-                if ($name !== '_token') {
-                    $name = explode('_', $name);
-                    foreach ($name as $q => $w)
-                        $name[$q] = ucfirst($w);
-                    $name = implode('', $name);
-                    $set = 'set' . ucfirst($name);
-
-                    $this->mailer->$set($value);
-                }
-            }
-
-            if ($this->mailer->getHost() === 'empty')
-                $this->mailer->setHost(null);
-
-            $this->saveMailerConfig($this->mailer);
-        }
-
-        return;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isMailerSaved(): bool
-    {
-        return $this->mailerSaved;
-    }
-
-    /**
      * @return bool
      */
     public function isProceed(): bool
@@ -434,5 +336,13 @@ class InstallManager
 
         return $this->connection;
 
+    }
+
+    /**
+     * @return MailerManager
+     */
+    public function getMailerManager(): MailerManager
+    {
+        return $this->mailerManager;
     }
 }

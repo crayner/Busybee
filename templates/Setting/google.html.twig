@@ -1,0 +1,14 @@
+
+{% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'misc.google.title',panelParagraph: 'misc.google.description' } %}
+<div class="row">
+    <div class="card col-3">
+        {{ form_row(form.googleOAuth) }}
+    </div>
+    <div class="card col-5">
+        {{ form_row(form.googleClientId) }}
+    </div>
+    <div class="card col-4">
+        {{ form_row(form.googleClientSecret) }}
+    </div>
+</div>
+{% include 'Page/panelEnd.html.twig' %}

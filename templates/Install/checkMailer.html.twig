@@ -19,48 +19,8 @@
         {% set h3Content = proceedButton({additional: {id: 'proceedButton'}, windowOpen: {route: path("install_misc_check")}}) %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include 'Page/panelStart.html.twig' with {transDomain: 'Install', header: 'install.mailer.parameters'} %}
-    <div id="form_body" class="container-fluid">
-        <div class="row">
-            <div class="card col-6">
-                {{ form_row(form.transport, {value: config.mailer.transport}) }}
-            </div>
-        </div>
+    {% include 'Setting/email.html.twig' %}
 
-        <div class="row" id="smtpMailer">
-            <div class="card col-3">
-                {{ form_row(form.host, {value: config.mailer.host}) }}
-            </div>
-            <div class="card col-3">
-                {{ form_row(form.port, {value: config.mailer.port}) }}
-            </div>
-            <div class="card col-3">
-                {{ form_row(form.encryption, {value: config.mailer.encryption}) }}
-            </div>
-            <div class="card col-3">
-                {{ form_row(form.auth_mode, {value: config.mailer.authMode}) }}
-            </div>
-        </div>
-
-        <div class="row mailerDetailsHide">
-            <div class="card col-6">
-                {{ form_row(form.user, {value: config.mailer.user}) }}
-            </div>
-            <div class="card col-6">
-                {{ form_row(form.password, {value: config.mailer.password}) }}
-            </div>
-        </div>
-
-        <div class="row mailerDetailsHide">
-            <div class="card col-6">
-                {{ form_row(form.senderName, {value: config.mailer.senderName}) }}
-            </div>
-            <div class="card col-6">
-                {{ form_row(form.senderAddress, {value: config.mailer.senderAddress}) }}
-            </div>
-        </div>
-    </div>
-    {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -68,51 +28,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if ($('#install_mailer_transport').val() == 'off') {
-                $('#smtpMailer').fadeOut(5);
-                $('.smtpMailer').prop('disabled', true);
-                $('.mailerDetailsHide').fadeOut(5);
-                $('.mailerDetails').prop('disabled', true);
-            } else if ($('#install_mailer_transport').val() == 'smtp') {
-                $('.smtpMailer').prop('disabled', false);
-                $('#smtpMailer').fadeIn(5);
-                $('.mailerDetailsHide').fadeIn(5);
-                $('.mailerDetails').prop('disabled', false);
-            } else {
-                $('#smtpMailer').fadeOut(5);
-                $('.smtpMailer').prop('disabled', true);
-                $('.mailerDetailsHide').fadeIn(5);
-                $('.mailerDetails').prop('disabled', false);
-            }
-            {% if config.mailer.canDeliver %}
-            $('#proceedButton').prop('disabled', false);
-            {% else %}
-            $('#proceedButton').prop('disabled', true);
-            {% endif %}
-        });
-
-        $('#install_mailer_transport').change(function () {
-            if ($('#install_mailer_transport').val() == 'off') {
-                $('#proceedButton').prop('disabled', false);
-                $('.smtpMailer').prop('disabled', true);
-                $('#smtpMailer').fadeOut(5);
-                $('.mailerDetailsHide').fadeOut(5);
-                $('.mailerDetails').prop('disabled', true);
-            } else if ($('#install_mailer_transport').val() == 'smtp') {
-                $('#proceedButton').prop('disabled', true);
-                $('.smtpMailer').prop('disabled', false);
-                $('#smtpMailer').fadeIn(5);
-                $('.mailerDetailsHide').fadeIn(5);
-                $('.mailerDetails').prop('disabled', false);
-            } else {
-                $('#proceedButton').prop('disabled', true);
-                $('.smtpMailer').prop('disabled', true);
-                $('#smtpMailer').fadeOut(5);
-                $('.mailerDetailsHide').fadeIn(5);
-                $('.mailerDetails').prop('disabled', false);
-            }
-        });
-    </script>
+    {% include 'Install/mailer_script.html.twig' %}
 {% endblock javascripts %}

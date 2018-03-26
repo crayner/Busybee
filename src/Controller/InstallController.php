@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Core\Manager\MessageManager;
 use App\Entity\Person;
 use App\Install\Form\MailerType;
+use App\Install\Form\MailerTypeTrait;
 use App\Install\Form\MiscellaneousType;
 use App\Install\Form\UserType;
 use App\Install\Manager\SystemBuildManager;
@@ -117,9 +118,10 @@ class InstallController extends Controller
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function mailerInstall(InstallManager $installer, Request $request, MessageManager $messages, \Swift_Mailer $swiftMailer)
+	public function mailerInstall(InstallManager $installer, Request $request, MessageManager $messages, \Swift_Mailer $swiftMailer, \Twig_Environment $twig)
 	{
-		$mailer = $installer->getMailerConfig();
+        $installer = $installer->getMailerManager();
+        $mailer = $installer->getMailerConfig();
 
 		//turn spooler off
 		$swift              = $mailer->getSwiftmailer();
@@ -138,73 +140,7 @@ class InstallController extends Controller
 
 		$installer->handleMailerRequest($form, $request);
 
-		$installer->getMailer()->setCanDeliver(false);
-
-		$messages->setDomain('Install');
-
-				if ($installer->getMailer()->getTransport() != '')
-		{
-			$email= (new \Swift_Message($this->renderView('Emails/test_header.html.twig', ['direct' => true])))
-				->setFrom($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
-				->setTo($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
-				->setBody(
-					$this->renderView(
-						'Emails/test.html.twig'
-					),
-					'text/html'
-				)
-			;
-			$installer->getMailer()->setCanDeliver(true);
-
-			try
-			{
-				$swiftMailer->send($email);
-			}
-			catch (\Swift_TransportException $e)
-			{
-				$messages->add('error', $e->getMessage());
-				$installer->getMailer()->setCanDeliver(false);
-			}
-			catch (\Swift_RfcComplianceException $e)
-			{
-				$messages->add('error', $e->getMessage());
-				$installer->getMailer()->setCanDeliver(false);
-			}
-			if ($installer->getMailer()->isCanDeliver())
-			{
-				$spool = $swiftMailer->getTransport()->getSpool();
-				$transport = new \Swift_SmtpTransport($installer->getMailer()->getHost(), $installer->getMailer()->getPort(), $installer->getMailer()->getEncryption());
-				$transport
-					->setUsername($installer->getMailer()->getUser())
-					->setPassword($installer->getMailer()->getPassword())
-				;
-				$ok = true;
-
-				try
-				{
-					$spool->flushQueue($transport);
-				} catch (\Exception $e) {
-					$messages->add('warning', 'mailer.delivered.failed', ['%{address}' => $installer->getMailer()->getSenderAddress(), '%{message}' => $e->getMessage()]);
-					$ok = false;
-				}
-				if ($ok)
-				{
-					$messages->add('success', 'mailer.delivered.success', ['%{email}' => $installer->getMailer()->getSenderAddress()]);
-
-					$email = (new \Swift_Message($this->renderView('Emails/test_header.html.twig', ['direct' => false])))
-						->setFrom($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
-						->setTo($installer->getMailer()->getSenderAddress(), $installer->getMailer()->getSenderName())
-						->setBody(
-							$this->renderView(
-								'Emails/test.html.twig'
-							),
-							'text/html'
-						)
-					;
-					$swiftMailer->send($email);
-				}
-			}
-		}
+		$installer->testDelivery($twig, $messages, $swiftMailer);
 
 		if ($form->isSubmitted())
 		{

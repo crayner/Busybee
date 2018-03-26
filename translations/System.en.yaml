@@ -11,6 +11,7 @@ setting:
         warning: 'The resource {{name}} was skipped due to incomplete data.'
         success: 'The resource {{name}} successfully loaded %{count} settings.'
     settings.missing: 'The resource %{resource} has no settings.'
+    mail.test.delivery: Test Delivery
 system:
     setting:
         warning: "CAUTION: Changing System Settings can have unpredictable affects on the operation of the system, and should only be done with caution."
@@ -98,3 +99,5 @@ string_replacement:
         help: You must save the form to confirm deletion of a string replacement.
         button: Remove String Replacement
     add.button: Add String Replacement
+third.party.google.label: Google API
+third.party.email.label: EMail Settings

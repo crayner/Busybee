@@ -112,6 +112,11 @@ System Admin:
             role: ROLE_SYSTEM_ADMIN
             route: setting_manage
             parameters: {}
+        third_party:
+            label: menu.third.party
+            role: ROLE_SYSTEM_ADMIN
+            route: third_party_settings
+            parameters: {}
     hidden:
         - setting_edit
         - setting_edit_name

@@ -60,6 +60,7 @@ menu:
     external_activity.manage: Activities
     string_replacement.manage: String Replacement
     department.manage: Departments
+    third.party: Third Party Settings
 section:
     header:
         years_days_times: 'Years, Days & Times'

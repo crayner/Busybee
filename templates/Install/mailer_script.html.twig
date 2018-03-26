@@ -1,0 +1,58 @@
+<!-- Mailer Script -->
+{% set manager = '' %}
+{% if config.mailer is defined %}
+    {% set manager = config %}
+{% endif %}
+{% if tabManager is defined %}
+    {% set manager = tabManager %}
+{% endif %}
+{% if transport is not defined %}
+    {% set transport = 'install_mailer_transport' %}
+{% endif %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#{{ transport }}').val() == 'off') {
+            $('#smtpMailer').fadeOut(5);
+            $('.smtpMailer').prop('disabled', true);
+            $('.mailerDetailsHide').fadeOut(5);
+            $('.mailerDetails').prop('disabled', true);
+        } else if ($('#{{ transport }}').val() == 'smtp') {
+            $('.smtpMailer').prop('disabled', false);
+            $('#smtpMailer').fadeIn(5);
+            $('.mailerDetailsHide').fadeIn(5);
+            $('.mailerDetails').prop('disabled', false);
+        } else {
+            $('#smtpMailer').fadeOut(5);
+            $('.smtpMailer').prop('disabled', true);
+            $('.mailerDetailsHide').fadeIn(5);
+            $('.mailerDetails').prop('disabled', false);
+        }
+        {% if manager.mailer.canDeliver %}
+            $('#proceedButton').prop('disabled', false);
+        {% else %}
+            $('#proceedButton').prop('disabled', true);
+        {% endif %}
+    });
+
+    $('#{{ transport }}').change(function () {
+        if ($('#{{ transport }}').val() == 'off') {
+            $('#proceedButton').prop('disabled', false);
+            $('.smtpMailer').prop('disabled', true);
+            $('#smtpMailer').fadeOut(5);
+            $('.mailerDetailsHide').fadeOut(5);
+            $('.mailerDetails').prop('disabled', true);
+        } else if ($('#{{ transport }}').val() == 'smtp') {
+            $('#proceedButton').prop('disabled', true);
+            $('.smtpMailer').prop('disabled', false);
+            $('#smtpMailer').fadeIn(5);
+            $('.mailerDetailsHide').fadeIn(5);
+            $('.mailerDetails').prop('disabled', false);
+        } else {
+            $('#proceedButton').prop('disabled', true);
+            $('.smtpMailer').prop('disabled', true);
+            $('#smtpMailer').fadeOut(5);
+            $('.mailerDetailsHide').fadeIn(5);
+            $('.mailerDetails').prop('disabled', false);
+        }
+    });
+</script>

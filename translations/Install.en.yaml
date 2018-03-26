@@ -128,6 +128,7 @@ mailer:
         success: The mailer details were saved successfully.
         failed: The mailer details did not save correctly.
         already: The mailer setting are already correctly set and saved.
+    spool.success: The email system on your server has been correctly configured, and this message was sent via the spooler.  The spooler is used by default to allow a faster responce for the web site when sending emails.
     test:
         success: The email system on your server has been correctly configured.
         header:

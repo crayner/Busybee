@@ -22,7 +22,7 @@
     </ul>
     {% set active = ' active' %}
     <div class="tab-content">
-        {% for name,tab in getTabs()     %}
+        {% for name,tab in getTabs() %}
             {% if tab.display is not defined or tabManager.display(tab.display) %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 <div class="tab-pane{{ active }}" id="{{ name }}">
@@ -32,7 +32,11 @@
                             </div>
                         </div>
                     {% endif %}
-                    {% include tab.include %}
+                    {% if tab.with is defined %}
+                        {% include tab.include with tab.with %}
+                    {% else %}
+                        {% include tab.include %}
+                    {% endif %}
                 </div>
                 {% set active = '' %}
             {% endif %}

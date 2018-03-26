@@ -1,0 +1,39 @@
+{% extends "Default/template.html.twig" %}
+
+{% trans_default_domain 'System' %}
+
+{% form_theme form '@HillrangeForm/FormTheme/bootstrap.html.twig' %}
+
+{% block title %}{{ 'system.setting.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.setting.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, 'section') }}
+    {{ form_start(form) }}
+    {% set h3Content = saveButton() %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% include 'Default/tabs.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Install/mailer_script.html.twig' with {transport: 'third_party_transport'} %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'third_party_settings'} %}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
+    <script type="text/javascript">
+        $("#testDelivery").click(function() {
+            $.ajax({
+                url: "{{ path('mailer_test') }}",
+                type: "POST",
+                success: function (data) {
+
+                    var content = $("#formErrorMessages").html() + data['message'];
+
+                    $("#formErrorMessages").html(content);
+                }
+            })
+        });
+    </script>
+{% endblock javascripts %}
