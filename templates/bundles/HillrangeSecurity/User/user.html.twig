@@ -16,7 +16,7 @@
     {% if fullEdit %}
         {{ form_start(form) }}
         {% set h3Content = saveButton() %}
-        {% set h3Content =  h3Content ~ miscButton({title: 'Impersonate User', transDomain: 'security', windowOpen: {route: path(app.request.get('_route'), {id: app.request.get('id')}) ~ '?_switch_user=' ~ form.username.vars.value}, class: 'btn btn-sm btn-warning x-halflings glyphicons glyphicons-theater', type: 'button'}) %}
+        {% set h3Content =  h3Content ~ miscButton({title: 'Impersonate User', transDomain: 'security', windowOpen: {route: path(app.request.get('_route'), {id: app.request.get('id')}) ~ '?_switch_user=' ~ form.username.vars.value}, class: 'btn btn-warning fas fa-user-secret', type: 'button'}) %}
         {% include 'Page/panelStart.html.twig' with {header: 'user.manage.title', transDomain: 'security', panelParagraph: 'user.self.change.warning' } %}
         {% include "@HillrangeSecurity/User/userContent.html.twig" %}
         {% do form.save.setRendered() %}

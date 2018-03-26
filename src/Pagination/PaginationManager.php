@@ -859,13 +859,24 @@ abstract class PaginationManager implements PaginationInterface
 		return $this;
 	}
 
-	public function getReDirect()
+    /**
+     * @return bool|Router
+     */
+    public function getReDirect()
 	{
+	    if (empty($this->reDirect))
+	        $this->reDirect = false;
 		return $this->reDirect;
 	}
 
-	public function setReDirect($x)
+    /**
+     * @param bool|Router $x
+     * @return $this
+     */
+    public function setReDirect($x)
 	{
+	    if (empty($x))
+	        $x = false;
 		$this->reDirect = $x;
 
 		return $this;

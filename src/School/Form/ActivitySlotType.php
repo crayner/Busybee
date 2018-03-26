@@ -65,12 +65,12 @@ class ActivitySlotType extends AbstractType
             ->add('type', ToggleType::class,
                 [
                     'label' => 'activity.external.slot.type.label',
-                    'button_class_off' => 'btn btn-info halflings halflings-log-in',
+                    'button_class_off' => 'btn btn-info fas fa-sign-in-alt',
                     'button_toggle_swap' => [
                         'btn-info',
                         'btn-primary',
-                        'halflings-log-in',
-                        'halflings-log-out',
+                        'fa-sign-in-alt',
+                        'fa-sign-out-alt',
                     ],
                     'label_attr' => [
                         'class' => 'typeMonitor',

@@ -18,7 +18,7 @@
         {% else %}
             {{ returnButton({title: 'calendar.year.return', transDomain: 'Calendar', windowOpen: {route: path('calendar_years')}})|raw }}
         {% endif %}
-        {{ miscButton({transDomain: 'Calendar', title: 'calendar.display.print', class: 'halflings halflings-print btn btn-info', javascript: {function: 'printCalendar', options: {id: calendar.id}}})|raw }}
+        {{ miscButton({transDomain: 'Calendar', title: 'calendar.display.print', class: 'fas fa-print btn btn-info', javascript: {function: 'printCalendar', options: {id: calendar.id}}})|raw }}
 
     </h3>
     {% for month in year.months %}

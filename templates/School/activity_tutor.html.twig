@@ -7,7 +7,7 @@
     {% spaceless %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% set h3Content = h3Content ~ saveButton() %}
-        {% set h3Content = h3Content ~ deleteButton({title: 'activity.activity_tutor.remove.title', transDomain: 'Calendar', class: 'halflings halflings-erase btn btn-warning collection-remove collection-action'}) %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'activity.activity_tutor.remove.title', transDomain: 'Calendar', class: 'fas fa-eraser btn btn-warning collection-remove collection-action'}) %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton() %}
         {% set h3Content = h3Content ~ '</div>' %}

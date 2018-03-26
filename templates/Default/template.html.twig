@@ -43,7 +43,7 @@
                 <div class="col-12" id="contentContainer">
             {% else %}
                 <main class="col-9" id="contentContainer">
-                    <i class="fa fa-times" data-toggle="collapse" data-target="#sidebar" aria-hidden="true" aria-expanded="false" aria-controls="sidebar" onclick="var that = this; setTimeout(function() {console.log(that.parentNode);that.parentNode.style.flex = 'auto';that.parentNode.style['max-width'] = 'none';}, 2000);"></i>
+                    <span data-toggle="collapse" data-target="#sidebar" aria-hidden="true" aria-expanded="false" aria-controls="sidebar" onclick="var that = this; setTimeout(function() {console.log(that.parentNode);that.parentNode.style.flex = 'auto';that.parentNode.style['max-width'] = 'none';}, 2000);"></span>
             {% endif %}
                 {% block flashMessages %}
                     {% include 'Default/flash.html.twig' %}

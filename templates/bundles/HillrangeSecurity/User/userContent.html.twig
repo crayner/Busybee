@@ -50,10 +50,11 @@
                 {% set route = path('home') ~ '?_switch_user=' ~ personManager.person.user.username %}
                 {% set additional = [] %}
                 {% if not personManager.canImpersonateUser(app.user, personManager.person.user) %}{% set additional = {disabled: 'disabled'} %}{% endif %}
-                {{ miscButton({transDomain: 'security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning x-halflings glyphicons glyphicons-theater', type: 'button', additional: additional})|raw }}
+                {{ miscButton({transDomain: 'security', title: 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-warning fas fa-user-secret', type: 'button', additional: additional})|raw }}
             {% endif %}
             {% if is_granted('ROLE_SYSTEM_ADMIN') %}
-                {{ editButton({ title: 'user.request.passwordReset', class: 'btn btn-warning x-halflings glyphicons glyphicons-user-key', transDomain: 'security', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: personManager.person.userId})}})|raw }}
+                {{ editButton({ title: 'user.request.passwordReset', class: 'btn btn-warning fas fa-unlock-alt', transDomain: 'security',
+                    windowOpen: {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: personManager.person.userId})}})|raw }}
             {% endif %}
             </div>
         </div>

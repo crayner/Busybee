@@ -29,7 +29,7 @@ class ButtonExtension extends AbstractExtension
 		$this->translator = $translator;
 		$buttons = <<<XXX
 save:
-    class: "halflings halflings-save btn btn-success"
+    class: "fas fa-download btn btn-success"
     type: submit
     title: 'form.save'
     style: 'float: right;'
@@ -37,56 +37,56 @@ save:
     additional: ''
     prompt: ''
 cancel:
-    class: "halflings halflings-remove-circle btn btn-info"
+    class: "far fa-time-circle btn btn-info"
     type: button
     title: 'form.cancel'
     style: 'float: right;'
     additional: ''
     prompt: ''
 upload:
-    class: "halflings halflings-cloud-upload btn btn-success"
+    class: "fas fa-cloud-upload-alt btn btn-success"
     type: submit
     title: 'form.upload'
     style: 'float: right;'
     additional: ''
     prompt: ''
 add:
-    class: "halflings halflings-plus-sign btn btn-info"
+    class: "fas fa-plus-circle btn btn-info"
     type: button
     title: 'form.add'
     style: 'float: right;'
     additional: ''
     prompt: ''
 edit:
-    class: "halflings halflings-edit btn btn-info"
+    class: "fas fa-edit btn btn-info"
     type: button
     title: 'form.edit'
     style: 'float: right;'
     additional: ''
     prompt: ''
 proceed:
-    class: "halflings halflings-hand-right btn btn-info"
+    class: "far fa-hand-point-right btn btn-info"
     type: button
     title: 'form.proceed'
     style: 'float: right;'
     additional: ''
     prompt: ''
 return:
-    class: "halflings halflings-hand-left btn btn-primary"
+    class: "far fa-hand-point-left btn btn-primary"
     type: button
     title: 'form.return'
     style: 'float: right;'
     additional: ''
     prompt: ''
 delete:
-    class: "halflings halflings-erase btn btn-danger"
+    class: "fas fa-eraser btn btn-danger"
     type: button
     title: 'form.delete'
     style: 'float: right;'
     additional: ''
     prompt: ''
 reset:
-    class: "halflings halflings-refresh btn btn-warning"
+    class: "fas fa-sync btn btn-warning"
     type: reset
     title: 'form.reset'
     style: 'float: right;'
@@ -101,42 +101,42 @@ misc:
     additional: ''
     prompt: ''
 close:
-    class: "halflings halflings-remove-sign btn btn-primary"
+    class: "fas fa-times-circle btn btn-primary"
     type: button
     title: 'form.close'
     style: 'float: right;'
     additional: 'onclick="window.close();"'
     prompt: ''
 duplicate:
-    class: "halflings halflings-duplicate btn btn-primary"
+    class: "fas fa-copy btn btn-primary"
     type: button
     title: 'form.duplicate'
     style: 'float: right;'
     additional: ''
     prompt: ''
 up:
-    class: "collection-up collection-action halflings halflings-arrow-up btn btn-light"
+    class: "collection-up collection-action fas fa-arrow-up btn btn-light"
     type: button
     title: 'form.up'
     style: 'float: right;'
     additional: ''
     prompt: ''
 down:
-    class: "collection-down collection-action halflings halflings-arrow-down btn btn-light"
+    class: "collection-down collection-action fas fa-arrow-down btn btn-light"
     type: button
     title: 'form.down'
     style: 'float: right;'
     additional: ''
     prompt: ''
 on:
-    class: "halflings halflings-thumbs-up btn btn-danger"
+    class: "far fa-thumbs-up btn btn-danger"
     type: button
     title: 'form.on'
     style: 'float: right;'
     additional: ''
     prompt: ''
 off:
-    class: "halflings halflings-thumbs-down btn btn-success"
+    class: "far fa-thumbs-down btn btn-success"
     type: button
     title: 'form.off'
     style: 'float: right;'
@@ -429,9 +429,9 @@ XXX;
 
 		$attributes['data-toggle'] = 'toggle';
 
-		$attributes['data-off'] = empty($vars['attr']['data-off']) ? '<span class=\'halflings halflings-thumbs-down\'></span>' : $vars['attr']['data-off'];
+		$attributes['data-off'] = empty($vars['attr']['data-off']) ? '<span class=\'far fa-thumbs-down\'></span>' : $vars['attr']['data-off'];
 
-		$attributes['data-on'] = empty($vars['attr']['data-on']) ? '<span class=\'halflings halflings-thumbs-up\'></span>' : $vars['attr']['data-on'];
+		$attributes['data-on'] = empty($vars['attr']['data-on']) ? '<span class=\'far fa-thumbs-up\'></span>' : $vars['attr']['data-on'];
 
 		$attributes['data-size'] = empty($vars['attr']['data-size']) ? 'small' : $vars['attr']['data-size'];
 

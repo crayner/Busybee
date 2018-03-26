@@ -10,7 +10,7 @@
     {% for message in messages.messages %}
         <{{ element }} class="alert alert-{{ message.level }}{{ flashClass }} alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
             {{ message.message|trans(message.options, message.domain) }}<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}">
-        <span aria-hidden="true" class="halflings halflings-remove-circle"></span>
+        <span aria-hidden="true" class="far fa-time-circle"></span>
     </button>
         </{{ element }}>
     {% endfor %}

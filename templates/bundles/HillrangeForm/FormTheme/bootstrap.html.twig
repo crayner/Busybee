@@ -19,7 +19,7 @@
 {% block url_label -%}
     {{- form_label(form) -}}
     {% if value is not empty %}
-        &nbsp;{{ miscButton({transDomain: translation_domain, windowOpen: {route: value, target: '_blank'}, class: 'halflings halflings-link btn btn-default', title: label, style: ''})|raw }}
+        &nbsp;{{ miscButton({transDomain: translation_domain, windowOpen: {route: value, target: '_blank'}, class: 'fas fa-link btn btn-default', title: label, style: ''})|raw }}
     {% endif %}
 {%- endblock url_label %}
 
@@ -49,7 +49,7 @@
             class="field-required">
         &nbsp;{{ 'form.required'|trans({}, 'FormTheme') }} </span>&nbsp;{% endspaceless %}{% set required_printed = true %}{% endif %}
     {% if setting_name is defined %}
-        {% spaceless %}<small class="form-text text-info halflings halflings-info-sign"
+        {% spaceless %}<small class="form-text text-info fas fa-info-circle"
                title="{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}"
                onclick="window.open('{{ path('setting_edit_name', {name: setting_name, closeWindow: 'closeWindow'}) }}', 'SettingManage', 'width=1200,height=900')">&nbsp;{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}</small>{% endspaceless %}
     {% endif %}
@@ -61,7 +61,7 @@
         {% if form.parent %}<small class="form-text text-danger">{% endif %}
         <ul class="list-unstyled">
         {%- for error in errors -%}
-            <li class="text-danger halflings halflings-exclamation-sign"> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
+            <li class="text-danger fas fa-exclamation-circle"> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
         {%- endfor -%}
         </ul>
         {% if form.parent %}</small>{% endif %}
@@ -137,9 +137,9 @@
         {% set use_toggle = true %}
     {% endif %}
     {% if use_toggle %}
-        {% set button_class = button_class_off|default('btn btn-danger halflings halflings-thumbs-down') %}
+        {% set button_class = button_class_off|default('btn btn-danger far fa-thumbs-down') %}
 
-        {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'halflings-thumbs-down': 'halflings-thumbs-up'}) %}
+        {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'fa-thumbs-down': 'fa-thumbs-up'}) %}
         {% if checked %}
             {% set button_class = button_class|replace(button_toggle_on) %}
         {% endif %}
@@ -163,9 +163,9 @@
 {%- endblock checkbox_widget %}
 
 {% block bee_toggle_row -%}
-    {% set button_class = button_class_off|default('btn btn-danger halflings halflings-thumbs-down') %}
+    {% set button_class = button_class_off|default('btn btn-danger far fa-thumbs-down') %}
 
-    {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'halflings-thumbs-down': 'halflings-thumbs-up', 'btn-success': 'btn-danger', 'halflings-thumbs-up': 'halflings-thumbs-down'}) %}
+    {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'fa-thumbs-down': 'fa-thumbs-up', 'btn-success': 'btn-danger', 'fa-thumbs-up': 'fa-thumbs-down'}) %}
     {% if value == '1' %}
         {% set button_class = button_class|replace(button_toggle_on) %}
     {% endif %}

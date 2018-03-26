@@ -6,7 +6,7 @@
             {% if showFlash(message|trans(parameters)) %}
                 <div class="alert alert-{{ level }}{{ flashClass }} alert-dismissible fade show" role="alert">
                     {{ message|trans(parameters) }}<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}">
-                        <span aria-hidden="true" class="halflings halflings-remove-circle"></span>
+                        <span aria-hidden="true" class="far fa-time-circle"></span>
                     </button>
                 </div>
             {% endif %}
@@ -15,7 +15,7 @@
         {% if showFlash(theMessage|trans) %}
             <div class="alert alert-{{ level }}{{ flashClass }} alert-dismissible fade show" role="alert">
                 {{ theMessage|trans }}<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}">
-                    <span aria-hidden="true" class="halflings halflings-remove-circle"></span>
+                    <span aria-hidden="true" class="far fa-time-circle"></span>
                 </button>
             </div>
         {% endif %}

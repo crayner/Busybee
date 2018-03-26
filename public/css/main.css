@@ -184,9 +184,6 @@ img.imageWidth200 {
 	font-weight: normal ;
     padding: 0 5px;
 }
-.halflings.x075 {
-	font-size: 9px;
-}
 .field-required {
 	font-style: italic;
 	font-size: 85% ;
@@ -373,14 +370,6 @@ button.btn.btn-header {
     -webkit-animation: lol 3s 500ms infinite ease-in-out;
     animation: lol 3s 500ms infinite ease-in-out;
 }
-
-.btn-halflings.glyphicons {
-    margin: 1px 0 0 0;
-    padding: 0;
-    width: 40px;
-    height: 28px;
-}
-
 div#contentContainer {
     border-right: 1px solid #dddddd;
 }
@@ -468,12 +457,6 @@ body.loading .showLoader {
 }
 #footerContainer .card {
     border: none;
-}
-.x-halflings.glyphicons {
-    font-size: 1.20rem;
-    height: 30px;
-    width: 42px;
-    padding: 0;
 }
 .form-sub-sm > select {
     height: calc(1.8125rem + 2px);

@@ -8,8 +8,8 @@
 <div class="form_error container"></div>
 
 {{ form_start(form) }}
-    {% set h3Content = miscButton({additional: {onclick: "this.form.action='" ~ path(get_SecurityRoute('security_password_forgot'))|raw ~ "'", tabindex: '2'}, transDomain: 'security', class: 'btn btn-info halflings halflings-question-sign', title: 'security.login.reset_password.label', type: 'submit'}) %}
-    {% set h3Content = h3Content ~ saveButton({transDomain: 'security', class: 'btn btn-success halflings halflings-log-in', title: 'security.login.login.label', additional: {tabindex: '1'}}) %}
+    {% set h3Content = miscButton({additional: {onclick: "this.form.action='" ~ path(get_SecurityRoute('security_password_forgot'))|raw ~ "'", tabindex: '2'}, transDomain: 'security', class: 'btn btn-info fas fa-question-circle', title: 'security.login.reset_password.label', type: 'submit'}) %}
+    {% set h3Content = h3Content ~ saveButton({transDomain: 'security', class: 'btn btn-success fas fa-sign-in-alt', title: 'security.login.login.label', additional: {tabindex: '1'}}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'security.login.login.label', transDomain: 'security'} %}
     <div id="form_body" class="container-fluid">
         {% if is_IPBlocked(app.request.clientIP) %}
@@ -21,7 +21,7 @@
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}">
-                    <span aria-hidden="true" class="halflings halflings-remove-circle"></span>
+                    <span aria-hidden="true" class="far fa-time-circle"></span>
                 </button>
             </div>
         {% endif %}

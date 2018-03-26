@@ -9,21 +9,21 @@
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
-        {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, 'class': 'btn btn-success halflings halflings-asterisk' }) %}
+        {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, 'class': 'btn btn-success fas fa-asterisk' }) %}
     {% endif %}
     {% include 'Page/panelStart.html.twig' with {header: 'system.setting.manage.title', transDomain: 'System', panelParagraph: form} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Name' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'system.setting.manage.name'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span> {{ 'system.setting.manage.name'|trans }}
                 {% else %}
                     {{ 'system.setting.manage.name'|trans }}
                 {% endif %}
             </div>
             <div class="col-6" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Description' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'system.setting.manage.valueDesc'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span> {{ 'system.setting.manage.valueDesc'|trans }}
                 {% else %}
                     {{ 'system.setting.manage.valueDesc'|trans }}
                 {% endif %}
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-3 form-inline">
                     <button title='{{ 'system.setting.edit.title'|trans }}' type="button"
-                            class="halflings halflings-edit btn btn-warning"
+                            class="fas fa-edit btn btn-warning"
                             onClick="window.open('{{ path('setting_edit', {'id': setting.id}) }}','_self')"></button>
                 </div>
             </div>
