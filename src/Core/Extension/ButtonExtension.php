@@ -37,7 +37,7 @@ save:
     additional: ''
     prompt: ''
 cancel:
-    class: "far fa-time-circle btn btn-info"
+    class: "far fa-times-circle btn btn-info"
     type: button
     title: 'form.cancel'
     style: 'float: right;'
