@@ -4,6 +4,7 @@ namespace App\Timetable\Form;
 use App\Entity\Timetable;
 use App\Entity\TimetableColumn;
 use App\Entity\TimetableDay;
+use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
 use Hillrange\Form\Type\TextType;
@@ -21,6 +22,7 @@ class TimetableDayType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $tt_id = $options['timetable_id'];
         $builder
             ->add('name', TextType::class,
                 [
@@ -50,7 +52,16 @@ class TimetableDayType extends AbstractType
             ->add('column', EntityType::class,
                 [
                     'class' => TimetableColumn::class,
-                    'choice_label' => 'name'
+                    'choice_label' => 'name',
+                    'placeholder' => 'timetable.day.column.placeholder',
+                    'query_builder' => function(EntityRepository $er) use ($tt_id) {
+                        return $er->createQueryBuilder('tc')
+                            ->leftJoin('tc.timetable', 't')
+                            ->orderBy('tc.sequence', 'ASC')
+                            ->where('t.id = :tt_id')
+                            ->setParameter('tt_id', $tt_id)
+                        ;
+                    },
                 ]
             )
             ->add('sequence', HiddenType::class)
@@ -68,6 +79,13 @@ class TimetableDayType extends AbstractType
                 [
                     'transDomain' => 'Timetable',
                     'data_class' => TimetableDay::class,
+                ]
+            )
+        ;
+        $resolver
+            ->setRequired(
+                [
+                    'timetable_id',
                 ]
             )
         ;

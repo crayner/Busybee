@@ -13,15 +13,15 @@
     {% set h3Content = h3Content ~ '</div>' %}
     <div class="row">
         <div class="col-3 card">
-            {{ form_widget(form.name) }}<br/>
+            {{ form_widget(form.name) }}
             {{ form_widget(form.code) }}
         </div>
         <div class="col-3 card">
-            {{ form_widget(form.colour) }}<br/>
+            {{ form_widget(form.colour) }}
             {{ form_widget(form.fontColour) }}
         </div>
         <div class="col-3 card">
-            {{ form_widget(form.column) }}
+            {{ form_widget(form.column, {value: transformData(form.column)}) }}
         </div>
         <div class="col-3 card">
             {{ h3Content|raw }}

@@ -16,7 +16,9 @@ timetable:
         description: ''
     details.tab: Details
     days.tab: Days
-    columns.tab: Columns
+    columns:
+        tab: Columns
+        help: 'Columns are seeded with the details of the School Week setting.  You can alter the School Week setting at this link.'
     column:
         name.label: Name
         code.label: Abbreviated Name
@@ -25,4 +27,6 @@ timetable:
         code.label: Abbreviated Name
         colour.label: Background Colour
         font_colour.label: Text Colour
-        column.label: Column Allocation
+        column:
+            label: Column Allocation
+            placeholder: Allocate Column

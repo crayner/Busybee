@@ -83,6 +83,9 @@ class TimetableType extends AbstractType
                     'sort_manage' => true,
                     'allow_down' => true,
                     'allow_up' => true,
+                    'entry_options' => [
+                        'timetable_id' => $options['data']->getId(),
+                    ],
                 ]
             )
             ->add('columns', CollectionType::class,

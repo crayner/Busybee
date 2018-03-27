@@ -107,6 +107,8 @@ class TimetableDay extends TimetableDayExtension
      */
     public function getColour(): ?string
     {
+        if (empty($this->colour))
+            $this->colour = '#ffffff';
         return $this->colour;
     }
 
@@ -131,6 +133,8 @@ class TimetableDay extends TimetableDayExtension
      */
     public function getFontColour(): ?string
     {
+        if (empty($this->fontColour))
+            $this->fontColour = '#ffffff';
         return $this->fontColour;
     }
 

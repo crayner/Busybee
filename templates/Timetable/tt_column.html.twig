@@ -12,13 +12,13 @@
     {% set h3Content = h3Content ~ upDownButton() %}
     {% set h3Content = h3Content ~ '</div>' %}
     <div class="row">
-        <div class="col-4 card">
+        <div class="col-5 card">
             {{ form_widget(form.name) }}
         </div>
         <div class="col-4 card">
             {{ form_widget(form.code) }}
         </div>
-        <div class="col-4 card">
+        <div class="col-3 card">
             {{ h3Content|raw }}
             {{ form_row(form.timetable, {value: app.request.get('id')}) }}
             {{ form_rest(form) }}
