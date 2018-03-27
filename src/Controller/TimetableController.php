@@ -91,7 +91,42 @@ class TimetableController extends Controller
             [
                 'collection' => $form->get('days')->createView(),
                 'route' => 'timetable_day_manage',
-                'contentTarget' => 'daysCollection',
+                'contentTarget' => 'dayCollection',
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'message' => $timetableManager->getMessageManager()->renderView($twig),
+                'status' => $timetableManager->getStatus(),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @Route("/timetable/{id}/tt_column/{cid}/manage/", name="timetable_column_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param string $id
+     * @param string $cid
+     * @param TimetableManager $timetableManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
+     */
+    public function manageTTColumn($id = 'Add', $cid = 'ignore', TimetableManager $timetableManager, \Twig_Environment $twig)
+    {
+        $timetableManager->find($id);
+
+        $timetableManager->manageTTColumn($cid);
+
+        $form = $this->createForm(TimetableType::class, $timetableManager->getTimetable());
+
+        $content = $this->renderView("Timetable/timetable_collection.html.twig",
+            [
+                'collection' => $form->get('columns')->createView(),
+                'route' => 'timetable_day_manage',
+                'contentTarget' => 'columnCollection',
             ]
         );
 

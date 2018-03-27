@@ -16,3 +16,13 @@ timetable:
         description: ''
     details.tab: Details
     days.tab: Days
+    columns.tab: Columns
+    column:
+        name.label: Name
+        code.label: Abbreviated Name
+    day:
+        name.label: Name
+        code.label: Abbreviated Name
+        colour.label: Background Colour
+        font_colour.label: Text Colour
+        column.label: Column Allocation

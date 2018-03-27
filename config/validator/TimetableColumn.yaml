@@ -1,4 +1,4 @@
-App\Entity\TimetableDay:
+App\Entity\TimetableColumn:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
@@ -19,12 +19,8 @@ App\Entity\TimetableDay:
         name:
             - NotBlank: ~
             - Length:
-                max: 12
+                max: 30
         code:
             - NotBlank: ~
             - Length:
-                max: 4
-        colour:
-            - Hillrange\Form\Validator\Colour: ~
-        fontColour:
-            - Hillrange\Form\Validator\Colour: ~
+                max: 12

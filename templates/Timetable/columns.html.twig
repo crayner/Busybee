@@ -1,0 +1,20 @@
+{% trans_default_domain "Timetable" %}
+
+{% include 'Page/panelStart.html.twig' with {'header': header} %}
+<div class="row row-header">
+    <div class="col-4 card">
+        {{ 'timetable.column.name.label'|trans }}
+    </div>
+    <div class="col-4 card">
+        {{ 'timetable.column.code.label'|trans }}
+    </div>
+    <div class="col-4 card text-center">
+        {{ 'actions'|trans({}, 'home') }}
+    </div>
+</div>
+
+    <section id="columnCollection">
+    </section>
+    {% do form.columns.setRendered() %}
+{% include 'Page/panelEnd.html.twig' %}
+

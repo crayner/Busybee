@@ -40,6 +40,12 @@ App\Entity\Timetable:
             orderBy:
                 sequence: ASC
             cascade: [ 'persist' ]
+        columns:
+            targetEntity: App\Entity\TimetableColumn
+            mappedBy: timetable
+            orderBy:
+                sequence: ASC
+            cascade: [ 'persist' ]
     manyToMany:
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade

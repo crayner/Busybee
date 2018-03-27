@@ -1,0 +1,28 @@
+{% trans_default_domain "Timetable" %}
+
+{% block tt_column_label %}{% endblock %}
+{% block tt_column_errors %}{% endblock %}
+
+{% block tt_column_widget %}
+    {% spaceless %}
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ deleteButton({title: 'activity.tt_column.remove.title', transDomain: 'Calendar', class: 'fas fa-eraser btn btn-warning collection-remove collection-action'}) %}
+    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+    {% set h3Content = h3Content ~ upDownButton() %}
+    {% set h3Content = h3Content ~ '</div>' %}
+    <div class="row">
+        <div class="col-4 card">
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="col-4 card">
+            {{ form_widget(form.code) }}
+        </div>
+        <div class="col-4 card">
+            {{ h3Content|raw }}
+            {{ form_row(form.timetable, {value: app.request.get('id')}) }}
+            {{ form_rest(form) }}
+        </div>
+    </div>
+    {% endspaceless %}
+{% endblock tt_column_widget %}

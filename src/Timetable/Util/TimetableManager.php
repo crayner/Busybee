@@ -6,6 +6,7 @@ use App\Core\Manager\MessageManager;
 use App\Core\Manager\TabManager;
 use App\Core\Manager\TabManagerInterface;
 use App\Entity\Timetable;
+use App\Entity\TimetableColumn;
 use App\Entity\TimetableDay;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -148,6 +149,11 @@ days:
     include: Timetable/days.html.twig
     translation: Timetable
     display: isTimetable
+columns:
+    label: timetable.columns.tab
+    include: Timetable/columns.html.twig
+    translation: Timetable
+    display: isTimetable
 ");
 
     }
@@ -219,10 +225,45 @@ days:
     {
         $request = $this->stack->getCurrentRequest();
 
-        $xx = "manageCollection('" . $this->router->generate("timetable_day_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','daysCollection', '')\n";
-//        $xx .= "manageCollection('" . $this->router->generate("external_activity_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
+        $xx = "manageCollection('" . $this->router->generate("timetable_day_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','dayCollection', '')\n";
+        $xx .= "manageCollection('" . $this->router->generate("timetable_column_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','columnCollection', '')\n";
 //        $xx .= "manageCollection('" . $this->router->generate("external_activity_slot_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','slotCollection', '')\n";
 
         return $xx;
+    }
+
+    /**
+     * @param $id
+     */
+    public function manageTTColumn($id)
+    {
+        if (empty($id) || $id == 'ignore')
+        {
+            $this->setStatus('info');
+            return;
+        }
+
+        $column = $this->getEntityManager()->getRepository(TimetableColumn::class)->find($id);
+
+        if (! $column instanceof TimetableColumn) {
+            $this->messageManager->add('danger', 'timetable.column.missing.message');
+            $this->setStatus('danger');
+            return;
+        }
+
+        if (! $column->canDelete()) {
+            $this->messageManager->add('warning', 'timetable.column.remove.restricted', ['%{column}' => $column->getName()]);
+            $this->setStatus('warning');
+            return;
+        }
+
+        $this->getTimetable()->removeColumn($column);
+        $this->getEntityManager()->remove($column);
+        $this->getEntityManager()->persist($this->getTimetable());
+        $this->getEntityManager()->flush();
+
+        $this->messageManager->add('success', 'timetable.column.removed.message', ['%{column}' => $column->getName()]);
+        $this->setStatus('success');
+        return;
     }
 }

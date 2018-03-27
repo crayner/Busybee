@@ -4,6 +4,7 @@ namespace App\Timetable\Form;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\Timetable;
+use App\Timetable\Form\Subscriber\TimetableSubscriber;
 use App\Timetable\Validator\TimetableGrades;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\CollectionType;
@@ -84,7 +85,19 @@ class TimetableType extends AbstractType
                     'allow_up' => true,
                 ]
             )
+            ->add('columns', CollectionType::class,
+                [
+                    'entry_type' => TimetableColumnType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'sort_manage' => true,
+                    'allow_down' => true,
+                    'allow_up' => true,
+                ]
+            )
+            ->addEventSubscriber($this->timetableSubscriber)
         ;
+
     }
 
     /**
@@ -109,5 +122,19 @@ class TimetableType extends AbstractType
                 ],
             ]
         );
+    }
+
+    /**
+     * @var TimetableSubscriber
+     */
+    private $timetableSubscriber;
+
+    /**
+     * TimetableType constructor.
+     * @param TimetableSubscriber $timetableSubscriber
+     */
+    public function __construct(TimetableSubscriber $timetableSubscriber)
+    {
+        $this->timetableSubscriber = $timetableSubscriber;
     }
 }

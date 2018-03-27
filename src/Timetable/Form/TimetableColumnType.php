@@ -3,17 +3,14 @@ namespace App\Timetable\Form;
 
 use App\Entity\Timetable;
 use App\Entity\TimetableColumn;
-use App\Entity\TimetableDay;
-use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
 use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TimetableDayType extends AbstractType
+class TimetableColumnType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,31 +23,13 @@ class TimetableDayType extends AbstractType
                 [
 
                 ]
-            )
-            ->add('code', TextType::class,
+            )->add('code', TextType::class,
                 [
 
                 ]
-            )
-            ->add('colour', ColorType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add('fontColour', ColorType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add('timetable', HiddenEntityType::class,
+            )->add('timetable', HiddenEntityType::class,
                 [
                     'class' => Timetable::class,
-                ]
-            )
-            ->add('column', EntityType::class,
-                [
-                    'class' => TimetableColumn::class,
-                    'choice_label' => 'name'
                 ]
             )
             ->add('sequence', HiddenType::class)
@@ -67,7 +46,7 @@ class TimetableDayType extends AbstractType
             ->setDefaults(
                 [
                     'transDomain' => 'Timetable',
-                    'data_class' => TimetableDay::class,
+                    'data_class' => TimetableColumn::class,
                 ]
             )
         ;
@@ -78,6 +57,6 @@ class TimetableDayType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'tt_day';
+        return 'tt_column';
     }
 }

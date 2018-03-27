@@ -179,4 +179,27 @@ class TimetableDay extends TimetableDayExtension
         $this->sequence = $sequence;
         return $this;
     }
+
+    /**
+     * @var TimetableColumn|null
+     */
+    private $column;
+
+    /**
+     * @return TimetableColumn|null
+     */
+    public function getColumn(): ?TimetableColumn
+    {
+        return $this->column;
+    }
+
+    /**
+     * @param TimetableColumn|null $column
+     * @return TimetableDay
+     */
+    public function setColumn(?TimetableColumn $column): TimetableDay
+    {
+        $this->column = $column;
+        return $this;
+    }
 }

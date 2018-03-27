@@ -1,7 +1,7 @@
-App\Entity\TimetableDay:
+App\Entity\TimetableColumn:
     type: entity
-    table: tt_day
-    repositoryClass: App\Repository\TimetableDayRepository
+    table: tt_column
+    repositoryClass: App\Repository\TimetableColumnRepository
     uniqueConstraints:
         name_tt:
             columns:
@@ -22,16 +22,9 @@ App\Entity\TimetableDay:
                 strategy: AUTO
     fields:
         name:
-            length: 12
+            length: 30
         code:
-            length: 4
-        colour:
-            length: 7
-            nullable: true
-        fontColour:
-            length: 7
-            column: font_colour
-            nullable: true
+            length: 12
         sequence:
             type: integer
             length: 3
@@ -42,12 +35,10 @@ App\Entity\TimetableDay:
             joinColumn:
                 name: tt_id
                 referencedColumnName: id
-        column:
-            targetEntity: App\Entity\TimeTableColumn
-            inversedBy: days
-            joinColumn:
-                name: column_id
-                referencedColumnName: id
-    lifecycleCallbacks:
-        prePersist: [checkColours]
-        preUpdate: [checkColours]
+    oneToMany:
+        days:
+            targetEntity: App\Entity\TimetableDay
+            mappedBy: timetable
+            orderBy:
+                sequence: ASC
+            cascade: [ 'persist' ]

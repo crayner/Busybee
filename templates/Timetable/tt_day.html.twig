@@ -12,21 +12,20 @@
     {% set h3Content = h3Content ~ upDownButton() %}
     {% set h3Content = h3Content ~ '</div>' %}
     <div class="row">
-        <div class="col-2 card">
-            {{ form_row(form.name) }}
+        <div class="col-3 card">
+            {{ form_widget(form.name) }}<br/>
+            {{ form_widget(form.code) }}
         </div>
-        <div class="col-2 card">
-            {{ form_row(form.code) }}
+        <div class="col-3 card">
+            {{ form_widget(form.colour) }}<br/>
+            {{ form_widget(form.fontColour) }}
         </div>
-        <div class="col-2 card">
-            {{ form_row(form.colour) }}
+        <div class="col-3 card">
+            {{ form_widget(form.column) }}
         </div>
-        <div class="col-2 card">
-            {{ form_row(form.fontColour) }}
-        </div>
-        <div class="col-4 card">
+        <div class="col-3 card">
             {{ h3Content|raw }}
-            {{ form_row(form.timetable, {value: app.request.get('id')}) }}
+            {{ form_widget(form.timetable, {value: app.request.get('id')}) }}
             {{ form_rest(form) }}
         </div>
     </div>

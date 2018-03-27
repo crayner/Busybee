@@ -251,4 +251,59 @@ class Timetable implements UserTrackInterface
         $this->getDays()->removeElement($day);
         return $this;
     }
+
+    /**
+     * @var null|Collection
+     */
+    private $columns;
+
+    /**
+     * @return Collection|null
+     */
+    public function getColumns(): ?Collection
+    {
+        if (empty($this->columns))
+            $this->columns = new ArrayCollection();
+
+        if ($this->columns instanceof PersistentCollection && ! $this->columns->isInitialized())
+            $this->columns->initialize();
+
+        return $this->columns;
+    }
+
+    /**
+     * @param Collection|null $columns
+     * @return Timetable
+     */
+    public function setColumns(?Collection $columns): Timetable
+    {
+        $this->columns = $columns;
+        return $this;
+    }
+
+    /**
+     * @param TimetableColumn|null $column
+     * @return Timetable
+     */
+    public function addColumn(?TimetableColumn $column): Timetable
+    {
+        if (empty($column) || $this->getColumns()->contains($column))
+            return $this;
+
+        $column->setTimetable($this);
+
+        $this->columns->add($column);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetableColumn|null $column
+     * @return Timetable
+     */
+    public function removeColumn(?TimetableColumn $column) : Timetable
+    {
+        $this->getColumns()->removeElement($column);
+        return $this;
+    }
 }

@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -52,6 +53,11 @@ class SettingManager implements ContainerAwareInterface
     private $twig;
 
     /**
+     * @var RequestStack
+     */
+    private $stack;
+
+    /**
      * @var bool
      */
     private $installMode = false;
@@ -73,6 +79,7 @@ class SettingManager implements ContainerAwareInterface
         $this->messageManager = $messageManager;
         $this->authorisation = $authorisation;
         $this->twig = $twig;
+        $this->stack = $container->get('request_stack');
     }
 
     /**
@@ -93,6 +100,14 @@ class SettingManager implements ContainerAwareInterface
      * @var bool
      */
     private $flip = false;
+
+    /**
+     * @return RequestStack
+     */
+    public function getStack(): RequestStack
+    {
+        return $this->stack;
+    }
 
     /**
      * get Setting
@@ -725,5 +740,14 @@ class SettingManager implements ContainerAwareInterface
         }
 
         $this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource, "%{count}" => $count], 'System');
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getRequestParameter(string $name)
+    {
+        return $this->stack->getCurrentRequest()->get($name);
     }
 }
