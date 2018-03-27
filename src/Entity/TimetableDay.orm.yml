@@ -11,6 +11,10 @@ App\Entity\TimetableDay:
             columns:
                 - code
                 - tt_id
+        sequence_tt:
+            columns:
+                - sequence
+                - tt_id
     id:
         id:
             type: integer
@@ -22,12 +26,15 @@ App\Entity\TimetableDay:
         code:
             length: 4
         colour:
-            length: 6
+            length: 7
             nullable: true
         fontColour:
-            length: 6
+            length: 7
             column: font_colour
             nullable: true
+        sequence:
+            type: integer
+            length: 3
     manyToOne:
         timetable:
             targetEntity: App\Entity\TimeTable

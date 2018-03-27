@@ -37,6 +37,8 @@ App\Entity\Timetable:
         days:
             targetEntity: App\Entity\TimetableDay
             mappedBy: timetable
+            orderBy:
+                sequence: ASC
             cascade: [ 'persist' ]
     manyToMany:
         calendarGrades:

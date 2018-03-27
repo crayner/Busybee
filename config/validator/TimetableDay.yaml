@@ -10,6 +10,11 @@ App\Entity\TimetableDay:
                 - code
                 - timetable
             errorPath: code
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - sequence
+                - timetable
+            errorPath: name
     properties:
         name:
             - NotBlank: ~

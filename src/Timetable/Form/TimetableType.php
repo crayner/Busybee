@@ -79,6 +79,9 @@ class TimetableType extends AbstractType
                     'entry_type' => TimetableDayType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'sort_manage' => true,
+                    'allow_down' => true,
+                    'allow_up' => true,
                 ]
             )
         ;

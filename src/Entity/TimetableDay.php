@@ -155,7 +155,28 @@ class TimetableDay extends TimetableDayExtension
 
         return $this->setColour(null)
             ->setFontColour(null);
+    }
 
+    /**
+     * @var integer|null
+     */
+    private $sequence;
 
+    /**
+     * @return int|null
+     */
+    public function getSequence(): ?int
+    {
+        return $this->sequence;
+    }
+
+    /**
+     * @param int|null $sequence
+     * @return TimetableDay
+     */
+    public function setSequence(?int $sequence): TimetableDay
+    {
+        $this->sequence = $sequence;
+        return $this;
     }
 }

@@ -7,6 +7,7 @@ use Hillrange\Form\Type\HiddenEntityType;
 use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -39,7 +40,8 @@ class TimetableDayType extends AbstractType
                 [
                     'class' => Timetable::class,
                 ]
-            )
+            )->add('sequence', HiddenType::class)
+            ->add('id', HiddenType::class)
         ;
     }
 
