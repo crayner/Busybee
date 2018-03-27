@@ -43,7 +43,20 @@
                 <div class="col-12" id="contentContainer">
             {% else %}
                 <main class="col-9" id="contentContainer">
-                    <span data-toggle="collapse" data-target="#sidebar" aria-hidden="true" aria-expanded="false" aria-controls="sidebar" onclick="var that = this; setTimeout(function() {console.log(that.parentNode);that.parentNode.style.flex = 'auto';that.parentNode.style['max-width'] = 'none';}, 2000);"></span>
+                <span class="fas fa-chevron-right foldMenu" data-toggle="collapse" data-target="#sidebar" aria-hidden="true"
+                      aria-expanded="false" aria-controls="sidebar" style="float: right; margin: 2px;"
+                      onclick="var that = this;
+                          if ($('.foldMenu').hasClass('fa-chevron-right')) {
+                              setTimeout(function() {
+                                  console.log(that.parentNode);
+                                  that.parentNode.style.flex = 'auto';
+                                  that.parentNode.style['max-width'] = 'none';}, 200);
+                          } else {
+                              setTimeout(function() {
+                                  console.log(that.parentNode);
+                                  that.parentNode.style = '';}, 200);
+                          }
+                          $('.foldMenu').toggleClass('fa-chevron-right fa-chevron-left');"></span>
             {% endif %}
                 {% block flashMessages %}
                     {% include 'Default/flash.html.twig' %}
@@ -84,6 +97,7 @@
             {% else %}
                 </main>
                 <nav class="col-3 collapse show" id="sidebar">
+
                     <div id="sectionMenuContainer">
                     {% block sectionMenu %}
                         {% include 'Menu/section-menu.html.twig' %}
