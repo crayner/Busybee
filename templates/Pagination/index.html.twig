@@ -25,7 +25,7 @@
                 <div class="input-group input-group-sm">
                     {{ form_widget(form.searchData, {value: pagination.search|trim('%')}) }}
                     <span class="input-group-append">
-                        {{ saveButton({class: 'btn btn-success fas fa-search', additional: {id: "paginator_startSearch", name: "paginator[startSearch]"}, style: "margin-top: -2px;"})|raw }}
+                        {{ saveButton({class: 'btn btn-success fas fa-search', additional: {id: "paginator_startSearch", name: "paginator[startSearch]"}, style: ""})|raw }}
                     </span>
                 </div>
             {% endif %}
