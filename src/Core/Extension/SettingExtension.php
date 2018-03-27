@@ -44,6 +44,7 @@ class SettingExtension extends AbstractExtension
 			new \Twig_SimpleFunction('array_flip', array($this, 'arrayFlip')),
             new \Twig_SimpleFunction('get_section', array($this->menuManager, 'getSection')),
             new \Twig_SimpleFunction('displayBoolean', array($this, 'displayBoolean')),
+            new \Twig_SimpleFunction('settingLink', array($this->settingManager, 'settingLink'), ['is_safe' => ['html']]),
 		);
 	}
 

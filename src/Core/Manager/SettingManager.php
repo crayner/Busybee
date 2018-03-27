@@ -750,4 +750,27 @@ class SettingManager implements ContainerAwareInterface
     {
         return $this->stack->getCurrentRequest()->get($name);
     }
+
+    /**
+     * @param $name
+     * @param string $class
+     * @return string
+     */
+    public function settingLink($name, $class = 'gearoge', $style = 'float: none;'): string
+    {
+        if (empty($name))
+            return '';
+
+        $this->get($name);
+
+        if (! $this->settingExists)
+            return '';
+
+        $class = $class ? ' class="'.$class.'"' : '';
+        $style = $style ? ' style="'.$style.'"' : '';
+
+        $link = '<a href="#" '. $class . $style . '" onClick="window.open(\''.$this->container->get('router')->generate('setting_edit_name', ['name' => $name, 'closeWindow' => 'closeWindow']).'\',\'_blank\',\'width=1200,height=900\')" title="'.$this->setting->getDisplayName().'">'.$this->setting->getDisplayName().'</a>';
+        dump($link);
+        return $link;
+    }
 }
