@@ -14,3 +14,5 @@ timetable:
     manage:
         title: Timetable Manage
         description: ''
+    details.tab: Details
+    days.tab: Days

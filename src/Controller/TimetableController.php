@@ -7,6 +7,7 @@ use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class TimetableController extends Controller
@@ -16,6 +17,7 @@ class TimetableController extends Controller
      * @IsGranted("ROLE_PRINCIPAL")
      * @param TimetablePagination $timetablePagination
      * @param Request $request
+     * @param TimetableManager $timetableManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function list(TimetablePagination $timetablePagination, Request $request, TimetableManager $timetableManager)
@@ -37,6 +39,7 @@ class TimetableController extends Controller
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param Request $request
+     * @param TimetableManager $timetableManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function manage($id = 'Add', Request $request, TimetableManager $timetableManager)
@@ -62,6 +65,41 @@ class TimetableController extends Controller
                 'fullForm' => $form,
                 'form' => $form->createView(),
             ]
+        );
+    }
+
+    /**
+     * @Route("/timetable/{id}/tt_day/{cid}/manage/", name="timetable_day_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param string $id
+     * @param string $cid
+     * @param TimetableManager $timetableManager
+     * @param \Twig_Environment $twig
+     * @return JsonResponse
+     */
+    public function manageTTDay($id = 'Add', $cid = 'ignore', TimetableManager $timetableManager, \Twig_Environment $twig)
+    {
+        $timetableManager->find($id);
+
+        $timetableManager->manageTTDay($cid);
+
+        $form = $this->createForm(TimetableType::class, $timetableManager->getTimetable());
+
+        $content = $this->renderView("Timetable/timetable_collection.html.twig",
+            [
+                'collection' => $form->get('days')->createView(),
+                'route' => 'timetable_day_manage',
+                'contentTarget' => 'daysCollection',
+            ]
+        );
+        dump($content);
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'message' => $timetableManager->getMessageManager()->renderView($twig),
+                'status' => $timetableManager->getStatus(),
+            ],
+            200
         );
     }
 }

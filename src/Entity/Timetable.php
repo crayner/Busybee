@@ -113,13 +113,13 @@ class Timetable implements UserTrackInterface
      */
     public function getCalendarGrades(): ?Collection
     {
-        if(empty($this->calendarGrades))
+        if (empty($this->calendarGrades))
             $this->calendarGrades = new ArrayCollection();
 
-        if ($this->calendarGrades instanceof PersistentCollection && ! $this->calendarGrades->isInitialized())
+        if ($this->calendarGrades instanceof PersistentCollection && !$this->calendarGrades->isInitialized())
             $this->calendarGrades->initialize();
 
-        $iterator =  $this->calendarGrades->getIterator();
+        $iterator = $this->calendarGrades->getIterator();
         $iterator->uasort(
             function ($a, $b) {
                 return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
@@ -194,6 +194,61 @@ class Timetable implements UserTrackInterface
     {
         $this->active = $active ? true : false;
 
+        return $this;
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $days;
+
+    /**
+     * @return Collection|null
+     */
+    public function getDays(): ?Collection
+    {
+        if (empty($this->days))
+            $this->days = new ArrayCollection();
+
+        if ($this->days instanceof PersistentCollection && ! $this->days->isInitialized())
+            $this->days->initialize();
+
+        return $this->days;
+    }
+
+    /**
+     * @param Collection|null $days
+     * @return Timetable
+     */
+    public function setDays(?Collection $days): Timetable
+    {
+        $this->days = $days;
+        return $this;
+    }
+
+    /**
+     * @param TimetableDay|null $day
+     * @return Timetable
+     */
+    public function addDay(?TimetableDay $day): Timetable
+    {
+        if (empty($day) || $this->getDays()->contains($day))
+            return $this;
+
+        $day->setTimetable($this);
+
+        $this->days->add($day);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetableDay|null $day
+     * @return Timetable
+     */
+    public function removeDay(?TimetableDay $day) : Timetable
+    {
+        $this->getDays()->removeElement($day);
         return $this;
     }
 }

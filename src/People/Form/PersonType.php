@@ -4,15 +4,16 @@ namespace App\People\Form;
 use App\Address\Form\PhoneType;
 use App\Core\Manager\SettingManager;
 use App\Core\Type\AutoCompleteType;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use App\Core\Validator\SettingChoice;
 use App\Entity\Address;
 use App\Entity\Person;
 use App\People\Form\Subscriber\PersonSubscriber;
+use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -63,21 +64,21 @@ class PersonType extends AbstractType
 				[
 				]
 			)
-			->add('surname', null, array(
+			->add('surname', TextType::class, array(
 					'label' => 'person.surname.label',
 					'attr'  => array(
 						'class' => 'beeSurname',
 					),
 				)
 			)
-			->add('firstName', null, array(
+			->add('firstName', TextType::class, array(
 					'label' => 'person.firstName.label',
 					'attr'  => array(
 						'class' => 'beeFirstName',
 					),
 				)
 			)
-			->add('preferredName', null, array(
+			->add('preferredName', TextType::class, array(
 					'label'    => 'person.preferredName.label',
 					'attr'     => array(
 						'class' => 'beePreferredName',
@@ -85,7 +86,7 @@ class PersonType extends AbstractType
 					'required' => false,
 				)
 			)
-			->add('officialName', null, array(
+			->add('officialName', TextType::class, array(
 					'label' => 'person.officialName.label',
 					'help'  => 'person.officialName.help',
 					'attr'  => array(

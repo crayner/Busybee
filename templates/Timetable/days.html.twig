@@ -1,0 +1,8 @@
+{% trans_default_domain "Timetable" %}
+
+{% include 'Page/panelStart.html.twig' with {'header': header} %}
+    <section id="daysCollection">
+    </section>
+    {% do form.days.setRendered() %}
+{% include 'Page/panelEnd.html.twig' %}
+

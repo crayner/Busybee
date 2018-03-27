@@ -1,0 +1,37 @@
+App\Entity\TimetableDay:
+    type: entity
+    table: tt_day
+    repositoryClass: App\Repository\TimetableDayRepository
+    uniqueConstraints:
+        name_tt:
+            columns:
+                - name
+                - tt_id
+        code_tt:
+            columns:
+                - name
+                - tt_id
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            length: 12
+        code:
+            length: 4
+        colour:
+            length: 6
+            nullable: true
+        fontColour:
+            length: 6
+            column: font_colour
+            nullable: true
+    manyToOne:
+        timetable:
+            targetEntity: App\Entity\TimeTable
+            inversedBy: days
+            joinColumn:
+                name: tt_id
+                referencedColumnName: id

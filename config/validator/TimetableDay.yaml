@@ -1,0 +1,27 @@
+App\Entity\TimetableDay:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - name
+                - timetable
+            errorPath: name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - code
+                - timetable
+            errorPath: code
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 12
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 4
+        timetable:
+            - Valid: ~
+        colour:
+            - \Hillrange\Form\Validator\Colour: ~
+        fontColour:
+            - \Hillrange\Form\Validator\Colour: ~

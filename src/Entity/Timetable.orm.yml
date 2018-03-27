@@ -33,6 +33,11 @@ App\Entity\Timetable:
             joinColumn:
                 name: calendar_id
                 referencedColumnName: id
+    oneToMany:
+        days:
+            targetEntity: App\Entity\TimetableDay
+            mappedBy: timetable
+            cascade: [ 'persist' ]
     manyToMany:
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade
