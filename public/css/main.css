@@ -588,3 +588,6 @@ body.loading .showLoader {
 .nav-link.dropdown-toggle {
     font-variant: all-petite-caps;
 }
+input[type=color].form-control {
+    min-height: 36px;
+}

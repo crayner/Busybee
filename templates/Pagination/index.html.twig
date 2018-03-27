@@ -58,11 +58,11 @@
                 <div class="text-right">
                     <div class="input-group  input-group-sm">
                         <span class="input-group-prepend">
-                            {{ saveButton({'class': 'btn btn-info fas fa-backward', 'additional': {id: "paginator_prev"}, name: 'paginator[prev]', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
+                            {{ saveButton({'class': 'btn btn-info fas fa-backward', 'additional': {id: "paginator_prev"}, name: 'paginator[prev]', 'style': 'height: 31px;'})|raw }}
                         </span>
                         {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
                         <span class="input-group-append">
-                            {{ saveButton({'class': 'btn btn-info fas fa-forward', 'additional': {id: "paginator_next"}, name: 'paginator[next]', 'style': 'height: 33px; margin-top: -2px;'})|raw }}
+                            {{ saveButton({'class': 'btn btn-info fas fa-forward', 'additional': {id: "paginator_next"}, name: 'paginator[next]', 'style': 'height: 31px;'})|raw }}
                         </span>
                     </div>
                     {{ form_widget(form.lastLimit, {'value': '' ~ pagination.limit}) }}
