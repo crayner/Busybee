@@ -1,12 +1,14 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Timetable;
 use App\Pagination\TimetablePagination;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -92,7 +94,7 @@ class TimetableController extends Controller
                 'contentTarget' => 'daysCollection',
             ]
         );
-        dump($content);
+
         return new JsonResponse(
             [
                 'content' => $content,

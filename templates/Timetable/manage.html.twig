@@ -15,7 +15,7 @@
 {% set tabManager = manager %}
 {% block contentContainer %}
     {% set transDomain = 'Timetable' %}
-    {{ all_form_errors(fullForm, "section", "alert alert-danger alert-dismissable show hide") }}
+    {{ all_form_errors(fullForm, "section", "alert alert-danger alert-dismissable show hide") }}{% dump(form) %}
     {% set h3Content = returnButton({returnTo: path('timetable_list')})|raw %}
     {%  set h3Content = h3Content ~ resetButton() %}
     {%  set h3Content = h3Content ~ saveButton() %}

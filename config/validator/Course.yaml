@@ -1,5 +1,4 @@
 App\Entity\Course:
-    constraints: ~
     properties:
         department:
             - Valid: ~

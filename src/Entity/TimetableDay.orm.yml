@@ -9,7 +9,7 @@ App\Entity\TimetableDay:
                 - tt_id
         code_tt:
             columns:
-                - name
+                - code
                 - tt_id
     id:
         id:
@@ -35,3 +35,6 @@ App\Entity\TimetableDay:
             joinColumn:
                 name: tt_id
                 referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [checkColours]
+        preUpdate: [checkColours]

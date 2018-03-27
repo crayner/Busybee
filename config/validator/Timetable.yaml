@@ -21,3 +21,5 @@ App\Entity\Timetable:
             - Valid: ~
         calendarGrades:
             - Valid: ~
+        days:
+            - Valid: ~

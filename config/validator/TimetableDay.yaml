@@ -22,6 +22,6 @@ App\Entity\TimetableDay:
         timetable:
             - Valid: ~
         colour:
-            - \Hillrange\Form\Validator\Colour: ~
+            - Hillrange\Form\Validator\Colour: ~
         fontColour:
-            - \Hillrange\Form\Validator\Colour: ~
+            - Hillrange\Form\Validator\Colour: ~

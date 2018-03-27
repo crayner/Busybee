@@ -1,8 +1,13 @@
 <?php
 namespace App\Timetable\Entity;
 
-class TimetableDayExtension
+use Hillrange\Security\Util\UserTrackInterface;
+use Hillrange\Security\Util\UserTrackTrait;
+
+abstract class TimetableDayExtension implements UserTrackInterface
 {
+    use UserTrackTrait;
+
     /**
      * @return bool
      */

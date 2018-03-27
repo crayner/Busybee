@@ -3,13 +3,9 @@ namespace App\Entity;
 
 use App\Timetable\Entity\TimetableDayExtension;
 use Hillrange\Form\Util\ColourManager;
-use Hillrange\Security\Util\UserTrackInterface;
-use Hillrange\Security\Util\UserTrackTrait;
 
-class TimetableDay extends TimetableDayExtension implements UserTrackInterface
+class TimetableDay extends TimetableDayExtension
 {
-    use UserTrackTrait;
-
     /**
      * @var null|integer
      */
@@ -147,5 +143,19 @@ class TimetableDay extends TimetableDayExtension implements UserTrackInterface
         $this->fontColour = ColourManager::formatColour($fontColour);
 
         return $this;
+    }
+
+    /**
+     * @return TimetableDay
+     */
+    public function checkColours(): TimetableDay
+    {
+        if ($this->getColour() != $this->getFontColour())
+            return $this;
+
+        return $this->setColour(null)
+            ->setFontColour(null);
+
+
     }
 }
