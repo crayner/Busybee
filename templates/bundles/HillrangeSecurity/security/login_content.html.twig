@@ -9,6 +9,11 @@
 
 {{ form_start(form) }}
     {% set h3Content = miscButton({additional: {onclick: "this.form.action='" ~ path(get_SecurityRoute('security_password_forgot'))|raw ~ "'", tabindex: '2'}, transDomain: 'security', class: 'btn btn-info fas fa-question-circle', title: 'security.login.reset_password.label', type: 'submit'}) %}
+
+    {% if get_setting('google.o_auth', false) %}
+        {% set h3Content = h3Content ~ miscButton({class: 'btn btn-success fab fa-google', title: 'google.oauth', transDomain: 'home', windowOpen: {route: path('google_oauth')}})|raw %}
+    {% endif %}
+
     {% set h3Content = h3Content ~ saveButton({transDomain: 'security', class: 'btn btn-success fas fa-sign-in-alt', title: 'security.login.login.label', additional: {tabindex: '1'}}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'security.login.login.label', transDomain: 'security'} %}
     <div id="form_body" class="container-fluid">
