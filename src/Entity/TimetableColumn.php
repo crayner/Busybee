@@ -180,4 +180,60 @@ class TimetableColumn implements UserTrackInterface
 
         return $this;
     }
+
+    /**
+     * @var Collection|null
+     */
+    private $periods;
+
+    /**
+     * @return Collection
+     */
+    public function getPeriods(): Collection
+    {
+        if (empty($this->periods))
+            $this->periods = new ArrayCollection();
+
+        if ($this->periods instanceof PersistentCollection && ! $this->periods->isInitialized())
+            $this->periods->initialize();
+
+        return $this->periods;
+    }
+
+    /**
+     * @param Collection|null $periods
+     * @return TimetableColumn
+     */
+    public function setPeriods(?Collection $periods): TimetableColumn
+    {
+        $this->periods = $periods;
+        return $this;
+    }
+
+    /**
+     * @param TimetableColumnPeriod|null $period
+     * @return TimetableColumn
+     */
+    public function addPeriod(?TimetableColumnPeriod $period): TimetableColumn
+    {
+        if (empty($period) || $this->getPeriods()->contains($period))
+            return $this;
+
+        $period->setColumn($this);
+
+        $this->periods->add($period);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetableColumnPeriod|null $period
+     * @return TimetableColumn
+     */
+    public function removePeriod(?TimetableColumnPeriod $period): TimetableColumn
+    {
+        $this->getPeriods()->removeElement($period);
+
+        return $this;
+    }
 }

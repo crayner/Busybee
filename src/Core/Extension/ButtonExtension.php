@@ -101,7 +101,7 @@ misc:
     additional: ''
     prompt: ''
 close:
-    class: "fas fa-times-circle btn btn-primary"
+    class: "far fa-times-circle btn btn-primary"
     type: button
     title: 'form.close'
     style: 'float: right;'

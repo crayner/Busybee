@@ -22,6 +22,7 @@ timetable:
     column:
         name.label: Name
         code.label: Abbreviated Name
+        periods.label: Periods
     day:
         name.label: Name
         code.label: Abbreviated Name

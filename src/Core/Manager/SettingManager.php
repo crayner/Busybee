@@ -769,8 +769,6 @@ class SettingManager implements ContainerAwareInterface
         $class = $class ? ' class="'.$class.'"' : '';
         $style = $style ? ' style="'.$style.'"' : '';
 
-        $link = '<a href="#" '. $class . $style . '" onClick="window.open(\''.$this->container->get('router')->generate('setting_edit_name', ['name' => $name, 'closeWindow' => 'closeWindow']).'\',\'_blank\',\'width=1200,height=900\')" title="'.$this->setting->getDisplayName().'">'.$this->setting->getDisplayName().'</a>';
-        dump($link);
-        return $link;
+        return '<a href="#" '. $class . $style . '" onClick="window.open(\''.$this->container->get('router')->generate('setting_edit_name', ['name' => $name, 'closeWindow' => 'closeWindow']).'\',\'_blank\',\'width=1200,height=900\')" title="'.$this->setting->getDisplayName().'">'.$this->setting->getDisplayName().'</a>';
     }
 }

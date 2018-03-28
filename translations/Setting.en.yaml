@@ -131,3 +131,10 @@ space.type:
     storage: Storage
     study: Study
     undercover: Undercover
+period.type.list:
+    lesson: 'Lesson'
+    pastoral: 'Pastoral'
+    sport: 'Sport'
+    break: 'Break'
+    service: 'Service'
+    other: 'Other'

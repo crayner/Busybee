@@ -4,7 +4,7 @@ namespace App\Timetable\Util;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\TabManager;
-use App\Core\Manager\TabManagerInterface;
+use App\Core\Manager\TwigManagerInterface;
 use App\Entity\Timetable;
 use App\Entity\TimetableColumn;
 use App\Entity\TimetableDay;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class TimetableManager extends TabManager
+class TimetableManager extends TabManager implements TwigManagerInterface
 {
     /**
      * @var EntityManagerInterface
@@ -48,6 +48,10 @@ class TimetableManager extends TabManager
     /**
      * TimetableManager constructor.
      * @param EntityManagerInterface $entityManager
+     * @param CalendarManager $calendarManager
+     * @param MessageManager $messageManager
+     * @param RequestStack $stack
+     * @param RouterInterface $router
      */
     public function __construct(EntityManagerInterface $entityManager,
                                 CalendarManager $calendarManager,
@@ -265,5 +269,17 @@ columns:
         $this->messageManager->add('success', 'timetable.column.removed.message', ['%{column}' => $column->getName()]);
         $this->setStatus('success');
         return;
+    }
+
+    /**
+     * @param TimetableColumn|null $column
+     * @return int
+     */
+    public function getPeriodCount(?TimetableColumn $column): int
+    {
+        if ($column instanceof TimetableColumn)
+            return $column->getPeriods()->count();
+
+        return 0;
     }
 }

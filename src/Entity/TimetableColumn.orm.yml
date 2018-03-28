@@ -42,3 +42,9 @@ App\Entity\TimetableColumn:
             orderBy:
                 sequence: ASC
             cascade: [ 'persist' ]
+        periods:
+            targetEntity: App\Entity\TimetableColumnPeriod
+            mappedBy: column
+            orderBy:
+                timeStart: ASC
+            cascade: [ 'persist' ]
