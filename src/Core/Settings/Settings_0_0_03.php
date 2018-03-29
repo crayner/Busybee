@@ -94,52 +94,47 @@ time.format:
     displayName: Time Format
     description: Display the time in reports in this format. Formats are found at http://php.net/manual/en/function.date.php
     role: ROLE_REGISTRAR
-SchoolDay.Periods:
-      type: array
-      value:
-          Housekeeping:
-              start: '09:00'
-              end: '09:05'
-              abbr: HK
-          Period 1:
-              start: '09:05'
-              end: '09:50'
-              abbr: P1
-          Period 2:
-              start: '09:50'
-              end: '10:35'
-              abbr: P2
-          Morning Tea:
-              start: '10:35'
-              end: '10:50'
-              abbr: MT
-          Period 3:
-              start: '10:50'
-              end: '11:35'
-              abbr: P3
-          Period 4:
-              start: '11:35'
-              end: '12:20'
-              abbr: P4
-          Period 5:
-              start: '12:20'
-              end: '13:05'
-              abbr: P5
-          Lunch:
-              start: '13:05'
-              end: '13:50'
-              abbr: Lch
-          Period 6:
-              start: '13:50'
-              end: '14:35'
-              abbr: P5
-          Period 7:
-              start: '14:35'
-              end: '15:20'
-              abbr: P6
-      displayName: Timetable default period definition.
+schoolday.periods:
+    type: array
+    value:
+        Registration:
+            code: Reg
+            start: '08:15'
+            end: '08:30'
+            type: pastoral
+        'Period 1':
+            start: '08:30'
+            end: '09:40'
+            code: P1
+        'Period 2':
+            start: '09:40'
+            end: '10:50'
+            code: P2
+        'Morning Tea':
+            start: '10:50'
+            end: '11:10'
+            code: MT
+            type: break
+        'Period 3':
+            start: '11:10'
+            end: '12:20'
+            code: P3
+        Lunch:
+            start: '12:20'
+            end: '13:10'
+            code: Lch
+            type: break
+        'Period 4':
+            start: '13:10'
+            end: '14:20'
+            code: P4
+        'Period 5':
+            start: '14:20'
+            end: '15:30'
+            code: P5
+      displayName: Default Periods schedule for a Day.
       description: A default set of period times for days in the timetable.  These values are used to seed the timetable, which allows the timing to be changed if necessary.
-      role: ROLE_REGISTRAR
+      role: ROLE_PRINCIPAL
 languages.translated:
       type: array
       value:
