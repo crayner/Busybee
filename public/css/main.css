@@ -523,12 +523,21 @@ body.loading .showLoader {
 .card-body .card .card .card .card .card {
     background-color: rgba(150,150,150,0.75);
 }
-.card-primary, .card-success, .card-danger, .card-info, .card-default, .card-warning {
+.card-primary, .card-success, .card-danger, .card-info, .card-default, .card-warning, .card-dark, .card-light {
     background-color: transparent;
 }
 .card-primary .card-header {
-     background-color: #0275d8;
- }
+    background-color: #0275d8;
+}
+.card-dark .card-header {
+    background-color: #d6d8d9;
+}
+.card-light .card-header {
+    background-color: #f0f0f0;
+}
+.card-secondary .card-header {
+    background-color: #e7e8ea;
+}
 .card-success .card-header {
     background-color: #5cb85c;
 }

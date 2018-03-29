@@ -167,4 +167,13 @@ class TimetableColumnPeriod implements UserTrackInterface
         $this->column = $column;
         return $this;
     }
+
+    /**
+     * @return bool
+     * @todo TimetableColumnPeriod canDelete logic
+     */
+    public function canDelete(): bool
+    {
+        return true;
+    }
 }

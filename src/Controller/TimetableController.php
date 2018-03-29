@@ -144,11 +144,13 @@ class TimetableController extends Controller
     }
 
     /**
-     * @Route("/timetable/column_period/{id}/list/", name="timetable_column_period_manage")
+     * @Route("/timetable/column/{id}/period/manage/", name="timetable_column_period_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function manageColumnPeriods(int $id, Request $request, ColumnManager $columnManager)
+    public function manageColumnPeriods(int $id, Request $request, ColumnManager $columnManager, TwigManager $twig)
     {
+        $twig->setManager($columnManager);
+
         $columnManager->find($id);
 
         $form = $this->createForm(ColumnType::class, $columnManager->getEntity());
@@ -171,4 +173,45 @@ class TimetableController extends Controller
         );
     }
 
+    /**
+     * @Route("/timetable/column/{id}/period/{cid}/remove/", name="timetable_column_period_remove")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function removeColumnPeriods(int $id, $cid= 'ignore', Request $request, ColumnManager $columnManager, TwigManager $twig)
+    {
+        $columnManager->find($id);
+
+        $columnManager->removePeriod($cid);
+
+        $form = $this->createForm(ColumnType::class, $columnManager->getEntity());
+
+        $form->handleRequest($request);
+
+        $twig->setManager($columnManager);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $columnManager->getEntityManager();
+            $em->persist($columnManager->getEntity());
+            $em->flush();
+        }
+
+        $content = $this->renderView('Timetable/Period/collection.html.twig',
+            [
+                'collection' => $form->get('periods')->createView(),
+                'route' => 'timetable_column_period_remove',
+                'contentTarget' => 'periodCollection',
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'message' => $columnManager->getMessageManager()->renderView($twig->getTwig()),
+                'status' => $columnManager->getStatus(),
+            ],
+            200
+        );
+
+    }
 }

@@ -29,6 +29,13 @@ class ColumnPeriodsValidator extends ConstraintValidator
             $last = [];
             foreach ($periods->getIterator() as $q => $period)
             {
+                if ($period->getTimeStart()->format('H:i') >= $period->getTimeEnd()->format('H:i'))
+                    $this->context->buildViolation('timetable.column.period.time.negative')
+                        ->setTranslationDomain('Timetable')
+                        ->setParameter('%{name}', $period->getName())
+                        ->addViolation();
+
+
                 // test gap
                 if (empty($last) || $last[1]->format('H:i') === $period->getTimeStart()->format('H:i'))
                 {

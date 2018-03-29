@@ -11,6 +11,7 @@
 
 {% set headerOff = true %}
 {% set fullPage = true %}
+{% set x = setTabManager(manager) %}
 {% block contentContainer %}
     {% set transDomain = 'Timetable' %}
     {% set h3Content = closeButton()|raw %}
@@ -28,9 +29,11 @@
                 {{ form_row(form.code) }}
             </div>
         </div>
+    {% include 'Page/panelStart.html.twig' with {'header': 'timetable.column.periods.label', transDomain: 'Timetable', h3Content: '', panelStyle: 'dark'} %}
         <section id="periodCollection">
-            {{ form_widget(form.periods) }}
+            {% do form.periods.setRendered() %}
         </section>
+    {% include 'Page/panelEnd.html.twig' %}
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
@@ -39,5 +42,4 @@
     {{ parent() }}
     {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
     {% include 'Script/monitorForm.html.twig' %}
-    {% include '@HillrangeForm/Script/initiate_collection.html.twig' with {collection: form.periods, contentTarget: 'periodCollection'} %}
 {% endblock javascripts %}

@@ -30,7 +30,7 @@ App\Entity\TimetableColumn:
             length: 3
     manyToOne:
         timetable:
-            targetEntity: App\Entity\TimeTable
+            targetEntity: App\Entity\Timetable
             inversedBy: columns
             joinColumn:
                 name: tt_id
@@ -38,7 +38,7 @@ App\Entity\TimetableColumn:
     oneToMany:
         days:
             targetEntity: App\Entity\TimetableDay
-            mappedBy: timetable
+            mappedBy: column
             orderBy:
                 sequence: ASC
             cascade: [ 'persist' ]
