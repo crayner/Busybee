@@ -6,11 +6,11 @@ App\Entity\TimetableColumnPeriod:
         name_tt:
             columns:
                 - name
-                - column_id
+                - tt_column_id
         code_tt:
             columns:
                 - code
-                - column_id
+                - tt_column_id
     id:
         id:
             type: integer
@@ -34,5 +34,5 @@ App\Entity\TimetableColumnPeriod:
             targetEntity: App\Entity\TimetableColumn
             inversedBy: periods
             joinColumn:
-                name: column_id
+                name: tt_column_id
                 referencedColumnName: id

@@ -1,0 +1,19 @@
+App\Entity\TimetableDayDate:
+    type: entity
+    table: tt_day_date
+    repositoryClass: App\Repository\TimetableDayDateRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        dayDate:
+            type: date
+            unique: true
+    manyToOne:
+        day:
+            targetEntity: App\Entity\TimetableDay
+            joinColumn:
+                name: tt_day_id
+                referencedColumnName: id

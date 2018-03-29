@@ -46,7 +46,7 @@ App\Entity\TimetableDay:
             targetEntity: App\Entity\TimetableColumn
             inversedBy: days
             joinColumn:
-                name: column_id
+                name: tt_column_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [checkColours]
