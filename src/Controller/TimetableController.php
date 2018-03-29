@@ -3,7 +3,9 @@ namespace App\Controller;
 
 use App\Core\Manager\TwigManager;
 use App\Pagination\TimetablePagination;
+use App\Timetable\Form\ColumnType;
 use App\Timetable\Form\TimetableType;
+use App\Timetable\Util\ColumnManager;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -140,4 +142,33 @@ class TimetableController extends Controller
             200
         );
     }
+
+    /**
+     * @Route("/timetable/column_period/{id}/list/", name="timetable_column_period_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function manageColumnPeriods(int $id, Request $request, ColumnManager $columnManager)
+    {
+        $columnManager->find($id);
+
+        $form = $this->createForm(ColumnType::class, $columnManager->getEntity());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $columnManager->getEntityManager();
+            $em->persist($columnManager->getEntity());
+            $em->flush();
+        }
+
+        return $this->render('Timetable/Period/manage.html.twig',
+            [
+                'manager' => $columnManager,
+                'fullForm' => $form,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
 }

@@ -31,7 +31,7 @@ App\Entity\TimetableColumnPeriod:
             length: 16
     manyToOne:
         column:
-            targetEntity: App\Entity\TimeTableColumn
+            targetEntity: App\Entity\TimetableColumn
             inversedBy: periods
             joinColumn:
                 name: column_id

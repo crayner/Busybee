@@ -7,7 +7,12 @@
     {% spaceless %}
     {% set h3Content = '<div class="collection-actions collection-panel">' %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% set h3Content = h3Content ~ deleteButton({title: 'activity.tt_column.remove.title', transDomain: 'Calendar', class: 'fas fa-eraser btn btn-warning collection-remove collection-action'}) %}
+    {% set h3Content = h3Content ~ deleteButton({title: 'column.remove.label', transDomain: 'Timetable', class: 'fas fa-eraser btn btn-warning collection-remove collection-action'}) %}
+    {% if transformData(form) is not empty %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ editButton({title: 'column.edit.label', transDomain: 'Timetable',
+            windowOpen: ({route: path('timetable_column_period_manage', {id: transformData(form)}), target: 'ColumnManage', params: 'width=1200,height=900'})}) %}
+    {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ upDownButton() %}
     {% set h3Content = h3Content ~ '</div>' %}

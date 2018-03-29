@@ -23,6 +23,8 @@ class TimetableSubscriber implements EventSubscriberInterface
     public function beforeSubmit(FormEvent $event)
     {
         $data = $event->getData();
+
+
         if (empty($data['columns'])){
             $week = $this->settingManager->get('schoolweek');
             $seq = 1;

@@ -147,6 +147,11 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	private $injectedSearch;
 
+    /**
+     * @var RequestStack
+     */
+	private $stack;
+
 	/**
 	 * Constructor
 	 *
@@ -165,6 +170,7 @@ abstract class PaginationManager implements PaginationInterface
 		$this->repository = $entityManager->getRepository($this->repositoryName);
 		$this->session    = $session;
 		$this->router     = $router;
+        $this->stack      = $requestStack;
 
 		$params          = [];
 		$params['route'] = parse_url($requestStack->getCurrentRequest()->get('_route'), PHP_URL_PATH);
@@ -1026,6 +1032,14 @@ abstract class PaginationManager implements PaginationInterface
     {
         $this->injectedSearch = $injectedSearch;
         return $this;
+    }
+
+    /**
+     * @return RequestStack
+     */
+    public function getStack(): RequestStack
+    {
+        return $this->stack;
     }
 
     /**

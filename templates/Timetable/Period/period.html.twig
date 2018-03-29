@@ -1,0 +1,47 @@
+{% trans_default_domain "Timetable" %}
+
+{% block tt_column_period_label %}{% endblock %}
+{% block tt_column_period_errors %}{% endblock %}
+
+{% block tt_column_period_widget %}
+    {% spaceless %}
+        {% set header = form_widget(form.name) %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'timetable.column.period.remove.title', transDomain: 'Timetable', class: 'fas fa-eraser btn btn-warning collection-remove collection-action'}) %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton() %}
+        {% set h3Content = h3Content ~ '</div>' %}
+
+        {% include 'Page/panelStart.html.twig' %}
+        <div class="row">
+            <div class="col-3 card">
+                {{ form_row(form.code) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.type) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.timeStart) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_row(form.timeEnd) }}
+                {{ form_row(form.column, {value: app.request.get('id')}) }}
+                {{ form_rest(form) }}
+            </div>
+        </div>
+        {% include 'Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock tt_column_period_widget %}
+
+{% block tt_hidden_column_period_widget %}
+    {% spaceless %}
+    {{ form_row(form.name) }}
+    {{ form_row(form.code) }}
+    {{ form_row(form.type) }}
+    {{ form_row(form.timeStart) }}
+    {{ form_row(form.timeEnd) }}
+    {{ form_row(form.column, {value: app.request.get('id')}) }}
+    {{ form_rest(form) }}{{ dump(form) }}
+    {% endspaceless %}
+{% endblock tt_hidden_column_period_widget %}

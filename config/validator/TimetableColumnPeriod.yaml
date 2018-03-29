@@ -1,29 +1,28 @@
-App\Entity\TimetableColumn:
+App\Entity\TimetableColumnPeriod:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - name
-                - timetable
+                - column
             errorPath: name
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - code
-                - timetable
+                - column
             errorPath: code
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields:
-                - sequence
-                - timetable
-            errorPath: name
-        - App\Timetable\Validator\ColumnPeriods: ~
     properties:
         name:
             - NotBlank: ~
             - Length:
-                max: 30
+                max: 12
         code:
             - NotBlank: ~
             - Length:
-                max: 12
-        periods:
-            - Valid: ~
+                max: 4
+        type:
+            - App\Core\Validator\SettingChoice:
+                name: period.type.list
+        timeStart:
+            - NotBlank: ~
+        timeEnd:
+            - NotBlank: ~

@@ -31,7 +31,7 @@ App\Entity\TimetableColumn:
     manyToOne:
         timetable:
             targetEntity: App\Entity\TimeTable
-            inversedBy: days
+            inversedBy: columns
             joinColumn:
                 name: tt_id
                 referencedColumnName: id

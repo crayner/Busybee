@@ -22,6 +22,15 @@ class TimetableColumnPeriod implements UserTrackInterface
     }
 
     /**
+     * @param int|null $id
+     * @return TimetableColumnPeriod
+     */
+    public function setId(?int $id): TimetableColumnPeriod
+    {
+        return $this;
+    }
+
+    /**
      * @var null|string
      */
     private $name;

@@ -23,11 +23,30 @@ timetable:
         name.label: Name
         code.label: Abbreviated Name
         periods.label: Periods
+        period:
+            name.placeholder: 'Enter Period Name'
+            code.label: Abbr. Name
+            type:
+                label: Type
+                placeholder: Select Period Type
+            time_start.label: Start Time
+            time_end.label: End Time
     day:
         name.label: Name
         code.label: Abbreviated Name
         colour.label: Background Colour
         font_colour.label: Text Colour
         column:
-            label: Column Allocation
-            placeholder: Allocate Column
+            label: Period Allocation
+            placeholder: Allocate Period
+column:
+    remove.label: Remove Column
+    edit.label: Edit Column
+    period:
+        list:
+            title: Timetable Column Period Management
+            description: ''
+        name.label: Name
+        code.label: Abbr. Name
+        time.label: Time
+        type.label: Type

@@ -37,13 +37,13 @@ App\Entity\TimetableDay:
             length: 3
     manyToOne:
         timetable:
-            targetEntity: App\Entity\TimeTable
+            targetEntity: App\Entity\Timetable
             inversedBy: days
             joinColumn:
                 name: tt_id
                 referencedColumnName: id
         column:
-            targetEntity: App\Entity\TimeTableColumn
+            targetEntity: App\Entity\TimetableColumn
             inversedBy: days
             joinColumn:
                 name: column_id

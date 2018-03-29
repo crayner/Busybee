@@ -3,6 +3,7 @@ namespace App\Timetable\Form;
 
 use App\Entity\Timetable;
 use App\Entity\TimetableColumn;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\HiddenEntityType;
 use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
