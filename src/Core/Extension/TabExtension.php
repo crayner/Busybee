@@ -38,6 +38,7 @@ class TabExtension extends AbstractExtension
      */
     public function getTabs(): array
     {
+        dump($this->getTabManager()->getTabs());
         return $this->getTabManager()->getTabs();
     }
 

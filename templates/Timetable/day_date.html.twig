@@ -1,0 +1,25 @@
+{% trans_default_domain "Timetable" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
+{% block title %}{{ parent() }}{{ 'timetable.day_date.manage.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'timetable.day_date.manage.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'timetable.day_date.manage.description'|trans }}{% endblock headerLead %}
+
+{% set tabManager = manager %}
+{% block contentContainer %}
+    {% set transDomain = 'Timetable' %}
+    {{ all_form_errors(fullForm, "section", "alert alert-danger alert-dismissable show hide") }}
+    {% set h3Content = returnButton({returnTo: path('timetable_list')})|raw %}
+    {%  set h3Content = h3Content ~ resetButton() %}
+    {%  set h3Content = h3Content ~ saveButton() %}
+    {% if header is not defined %}{% set header = 'timetable.manage.title' %}{% endif %}
+    {{ form_start(form) }}
+        {% include '@HillrangeForm/Script/collection_message.html.twig' %}
+        {% include '/Default/tabs.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}

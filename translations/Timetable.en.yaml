@@ -43,6 +43,9 @@ timetable:
         column:
             label: Period Allocation
             placeholder: Allocate Period
+    day_date.manage:
+        title: Match Columns to Calendar
+        description: ''
 column:
     remove.label: Remove Column
     edit.label: Edit Column

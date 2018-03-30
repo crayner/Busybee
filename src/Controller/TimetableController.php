@@ -4,8 +4,10 @@ namespace App\Controller;
 use App\Core\Manager\TwigManager;
 use App\Pagination\TimetablePagination;
 use App\Timetable\Form\ColumnType;
+use App\Timetable\Form\DayDateType;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\ColumnManager;
+use App\Timetable\Util\DayDateManager;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -212,6 +214,38 @@ class TimetableController extends Controller
             ],
             200
         );
+    }
 
+    /**
+     * @Route("/timetable/{id}/day/date/match/", name="timetable_day_date_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function dayDateManage($id, DayDateManager $dayDateManager)
+    {
+        $dayDateManager->find($id);
+
+
+
+        $form = $this->createForm(DayDateType::class, $dayDateManager->getDayDate());
+
+        return $this->render('Timetable/day_date.html.twig',
+            [
+                'form' => $form->createView(),
+                'manager' => $dayDateManager,
+                'fullForm' => $form,
+            ]
+        );
+
+    }
+
+    /**
+     * @Route("/timetable/{id}/day/date/term/{$cid)/display/", name="timetable_day_date_term_display")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function dayDateTermDisplay($id, $cid, DayDateManager $dayDateManager)
+    {
+        $dayDateManager->find($id);
+
+        $dayDateManager->getTabs();
     }
 }

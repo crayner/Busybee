@@ -241,9 +241,9 @@ class VersionManager
 		$version['high']               = '1.7.99';
 		$versions['Doctrine']['Cache'] = $this->fullCompare($versions['Doctrine']['Cache'], $version);
 
-		$version['string']            = '2.6+';
-		$version['low']               = '2.6.0';
-		$version['high']              = '2.6.99';
+		$version['string']            = '2.7+';
+		$version['low']               = '2.7.0';
+		$version['high']              = '2.7.99';
 		$versions['Doctrine']['DBal'] = $this->fullCompare($versions['Doctrine']['DBal'], $version);
 
         $version['string'] = '2.6+';

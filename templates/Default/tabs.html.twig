@@ -14,7 +14,7 @@
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 {% set disabled = '' %}
                 <li class="nav-item" role="presentation">
-                    <a href="#{{ name }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{{ tab.label|trans({}, translation) }}</a>
+                    <a href="#{{ name }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{% if not translation %}{{ tab.label }}{% else %}{{ tab.label|trans({}, translation) }}{% endif %}</a>
                 </li>
                 {% set active = '' %}
             {% endif %}

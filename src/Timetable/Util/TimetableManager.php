@@ -55,15 +55,14 @@ class TimetableManager extends TabManager implements TwigManagerInterface
      */
     public function __construct(EntityManagerInterface $entityManager,
                                 CalendarManager $calendarManager,
-                                MessageManager $messageManager,
                                 RequestStack $stack,
                                 RouterInterface $router
     )
     {
         $this->entityManager = $entityManager;
         $this->calendarManager = $calendarManager;
-        $messageManager->setDomain('Timetable');
-        $this->messageManager = $messageManager;
+        $this->messageManager = $calendarManager->getMessageManager();
+        $this->messageManager->setDomain('Timetable');
         $this->stack = $stack;
         $this->router = $router;
     }
@@ -72,6 +71,11 @@ class TimetableManager extends TabManager implements TwigManagerInterface
      * @var null|Timetable
      */
     private $timetable;
+
+    /**
+     * @var bool
+     */
+    private $timetableExists = false;
 
     /**
      * @param $id
@@ -87,10 +91,13 @@ class TimetableManager extends TabManager implements TwigManagerInterface
      */
     public function getTimetable(bool $notNull = false): ?Timetable
     {
+        $this->timetableExists = true;
         if ($notNull && is_null($this->timetable))
         {
             $this->setTimetable(new Timetable());
             $this->timetable->setCalendar($this->calendarManager->getCurrentCalendar());
+            $this->timetableExists = false;
+
         }
 
         return $this->timetable;
@@ -222,6 +229,7 @@ columns:
         $this->status = $status;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -281,5 +289,37 @@ columns:
             return $column->getPeriods()->count();
 
         return 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTimetableExists(): bool
+    {
+        return $this->timetableExists;
+    }
+
+    /**
+     * @return CalendarManager
+     */
+    public function getCalendarManager(): CalendarManager
+    {
+        return $this->calendarManager;
+    }
+
+    /**
+     * @return RequestStack
+     */
+    public function getStack(): RequestStack
+    {
+        return $this->stack;
+    }
+
+    /**
+     * @return RouterInterface
+     */
+    public function getRouter(): RouterInterface
+    {
+        return $this->router;
     }
 }

@@ -48,6 +48,7 @@
                 {{ onOffButton({value: tt.active, on: {colour: 'success', style: ''}, off: {colour: 'danger', style: ''}})|raw }}
             </div>
             <div class="col-2">
+                {{ editButton({windowOpen: {route: path('timetable_day_date_manage', {id: tt.id})}, class: 'btn btn-dark fas fa-cogs', title: 'timetable.day.date.match.label', transDomain: 'Timetable'})|raw }}
                 {{ editButton({windowOpen: {route: path('timetable_manage', {id: tt.id})}})|raw }}
             </div>
         </div>
