@@ -96,4 +96,16 @@ class SystemController extends Controller
             200
         );
     }
+
+    /**
+     * @param $display
+     * @param Request $request
+     * @Route("/section/menu/{display}/display/", name="section_menu_display")
+     */
+    public function sectionMenuDisplay($display, Request $request)
+    {
+        $request->getSession()->set('showSectionMenu', $display == 'hide' ? false : true);
+
+        return JsonResponse::create('', 200);
+    }
 }

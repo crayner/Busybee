@@ -35,9 +35,50 @@
         $(window).scroll(menuSectionSlide);
 
         $(".alert").alert();
-
     </script>
 {% endif %}
+<!-- fold Menu -->
+<script type="text/javascript" charset="utf-8">
+
+    $('.foldMenu').on('click', function(){
+        var that = this;
+
+        if ($('.foldMenu').hasClass('fa-times-circle')) {
+
+            $.ajax({
+                url: '{{ path('section_menu_display', {display: 'hide'}) }}',
+                type: 'POST',
+                success: function (data) {
+                }
+            });
+            setTimeout(function() {
+                console.log(that.parentNode);
+                that.parentNode.style.flex = 'auto';
+                that.parentNode.style['max-width'] = 'none';}, 200);
+        } else {
+
+            $.ajax({
+                url: '{{ path('section_menu_display', {display: 'show'}) }}',
+                type: 'POST',
+                success: function (data) {
+                }
+            });
+            setTimeout(function() {
+                console.log(that.parentNode);
+                that.parentNode.style = '';}, 200);
+        }
+        $('.foldMenu').toggleClass('fa-times-circle fa-bars fas far');
+    });
+
+    $(document).ready(function () {
+        var show = '{{ app.request.session.get('showSectionMenu') }}';
+
+        if (! show) {
+            $('.foldMenu').click();
+        }
+    });
+
+</script>
 {% if script is defined %}
     {% for xx in script %}
         {% include xx %}
