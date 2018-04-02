@@ -16,6 +16,7 @@ class TabExtension extends AbstractExtension
             new \Twig_SimpleFunction('setTabManager', array($this, 'setTabManager')),
             new \Twig_SimpleFunction('getTabs', array($this, 'getTabs')),
             new \Twig_SimpleFunction('getResetScripts', array($this, 'getResetScripts')),
+            new \Twig_SimpleFunction('safeName', array($this, 'safeName')),
         );
     }
 
@@ -38,7 +39,6 @@ class TabExtension extends AbstractExtension
      */
     public function getTabs(): array
     {
-        dump($this->getTabManager()->getTabs());
         return $this->getTabManager()->getTabs();
     }
 
@@ -59,5 +59,14 @@ class TabExtension extends AbstractExtension
         if (! $this->tabManager instanceof TabManagerInterface)
             throw new MissingClassException('The tabManager is not loaded in the extension.  Load the manager in the master twig template using {% set x = setTabManager(manager) %} where the manager is passed to the template from the controller.');
         return $this->tabManager;
+    }
+
+    /**
+     * @param null|string $item
+     * @return string
+     */
+    public function safeName(?string $item): string
+    {
+        return preg_replace('/\s+/', '_', $item);
     }
 }

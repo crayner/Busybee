@@ -47,21 +47,16 @@
 
             $.ajax({
                 url: '{{ path('section_menu_display', {display: 'hide'}) }}',
-                type: 'POST',
-                success: function (data) {
-                }
+                type: 'POST'
             });
             setTimeout(function() {
                 console.log(that.parentNode);
                 that.parentNode.style.flex = 'auto';
                 that.parentNode.style['max-width'] = 'none';}, 200);
         } else {
-
             $.ajax({
                 url: '{{ path('section_menu_display', {display: 'show'}) }}',
-                type: 'POST',
-                success: function (data) {
-                }
+                type: 'POST'
             });
             setTimeout(function() {
                 console.log(that.parentNode);

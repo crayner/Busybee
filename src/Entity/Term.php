@@ -179,7 +179,7 @@ class Term extends TermExtension
      * @param int $id
      * @return Term
      */
-    public function setId(int $id): Term
+    public function setId(?int $id): Term
     {
         $this->id = $id;
         return $this;

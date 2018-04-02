@@ -253,7 +253,7 @@ class CalendarController extends Controller
 
 			$pdf_content = $pdf->output('ignore_me.pdf', 'S');
 
-			$fileManager->dumpFile($fileManager->createFileName('calendar_' . $calendar->getName()), $pdf_content);
+			$fileManager->dumpFile($fileManager->createFileName('calendar_' . $calendar->getName(), 'pdf'), $pdf_content);
 
 			$calendar->setDownloadCache($fileManager->getFileName());
 

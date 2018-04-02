@@ -252,6 +252,7 @@ Timetable Admin:
         - course_edit
         - face_to_face_edit
         - timetable_manage
+        - timetable_day_date_manage
 Activities:
     activities:
         external_activities:

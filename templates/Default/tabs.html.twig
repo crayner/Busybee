@@ -14,7 +14,7 @@
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 {% set disabled = '' %}
                 <li class="nav-item" role="presentation">
-                    <a href="#{{ name }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{% if not translation %}{{ tab.label }}{% else %}{{ tab.label|trans({}, translation) }}{% endif %}</a>
+                    <a href="#{{ safeName(name) }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{% if not translation %}{{ tab.label }}{% else %}{{ tab.label|trans({}, translation) }}{% endif %}</a>
                 </li>
                 {% set active = '' %}
             {% endif %}
@@ -25,7 +25,7 @@
         {% for name,tab in getTabs() %}
             {% if tab.display is not defined or tabManager.display(tab.display) %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
-                <div class="tab-pane{{ active }}" id="{{ name }}">
+                <div class="tab-pane{{ active }}" id="{{ safeName(name) }}">
                     {% if tab.message is defined %}
                         <div class="container-fluid">
                             <div class='row' id="{{ tab.message }}" style="display: none;">
