@@ -1,0 +1,43 @@
+App\Entity\TimetablePeriod:
+    type: entity
+    table: tt_period
+    repositoryClass: App\Repository\TimetablePeriodRepository
+    uniqueConstraints:
+        name_column:
+            columns:
+                - name
+                - tt_column_id
+        code_column:
+            columns:
+                - code
+                - tt_column_id
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            length: '24'
+        code:
+            length: '3'
+        start:
+            type: time
+        end:
+            type: time
+        break:
+            type: boolean
+            options:
+                default: 0
+    oneToMany:
+        activities:
+            targetEntity: App\Entity\TimetablePeriodActivity
+            mappedBy: period
+            cascade: [ 'all' ]
+    manyToOne:
+        column:
+            targetEntity: App\Entity\TimetableColumn
+            inversedBy: periods
+            joinColumn:
+                name: tt_column_id
+                referencedColumnName: id

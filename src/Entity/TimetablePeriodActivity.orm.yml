@@ -1,0 +1,48 @@
+App\Entity\TimetablePeriodActivity:
+    type: entity
+    table: tt_period_activity
+    repositoryClass: App\Repository\TimetablePeriodActivityRepository
+    uniqueConstraints:
+        period_activity:
+            columns:
+                - period_id
+                - activity_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        space:
+            targetEntity: App\Entity\Space
+            joinColumns:
+                space_id:
+                    referencedColumnName: id
+        tutor1:
+            targetEntity: App\Entity\Staff
+            joinColumns:
+                tutor_1:
+                    referencedColumnName: id
+        tutor2:
+            targetEntity: App\Entity\Staff
+            joinColumns:
+                tutor_2:
+                    referencedColumnName: id
+        tutor3:
+            targetEntity: App\Entity\Staff
+            joinColumns:
+                tutor_3:
+                    referencedColumnName: id
+        activity:
+            targetEntity: App\Entity\FaceToFace
+            inversedBy: periods
+            joinColumns:
+                activity_id:
+                    referencedColumnName: id
+        period:
+            targetEntity: App\Entity\TimetablePeriod
+            inversedBy: activities
+            joinColumns:
+                period_id:
+                    referencedColumnName: id

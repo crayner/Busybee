@@ -1,0 +1,49 @@
+App\Entity\Timetable:
+    type: entity
+    table: tt
+    repositoryClass: App\Repository\TimetableRepository
+    uniqueConstraints:
+        name_year:
+            columns:
+                - name
+                - calendar_id
+        nameshort_year:
+            columns:
+                - code
+                - calendar_id
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        code:
+            length: '16'
+        locked:
+            type: boolean
+            options:
+                default: 0
+        generated:
+            type: boolean
+            options:
+                default: 0
+    oneToMany:
+        columns:
+            targetEntity: App\Entity\TimetableColumn
+            mappedBy: timetable
+            cascade: [ 'persist' ]
+            orderBy: { 'sequence': 'ASC' }
+        days:
+            targetEntity: App\Entity\TimetableDay
+            mappedBy: timetable
+            cascade: [ 'persist' ]
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            orderBy: { 'firstDay': 'DESC' }
+            joinColumns:
+                calendar_id:
+                    referencedColumnName: id

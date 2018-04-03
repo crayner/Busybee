@@ -1,0 +1,50 @@
+App\Entity\TimetableColumn:
+    type: entity
+    table: tt_column
+    repositoryClass: App\Repository\TimetableColumnRepository
+    uniqueConstraints:
+        name_tt:
+            columns:
+                - name
+                - tt_id
+        code_tt:
+            columns:
+                - code
+                - tt_id
+        seq_tt:
+            columns:
+                - sequence
+                - tt_id
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        code:
+            type: string
+            length: '8'
+        mappingInfo:
+            length: '8'
+        start:
+            type: time
+        end:
+            type: time
+        sequence:
+            type: integer
+            length: '3'
+    oneToMany:
+        periods:
+            targetEntity: App\Entity\TimetablePeriod
+            mappedBy: column
+            cascade: [ 'all' ]
+    manyToOne:
+        timetable:
+            targetEntity: App\Entity\TimeTable
+            inversedBy: columns
+            joinColumn:
+                name: tt_id
+                referencedColumnName: id
