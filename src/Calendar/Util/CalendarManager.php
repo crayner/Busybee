@@ -368,7 +368,7 @@ calendarGrades:
 	}
 
 	/**
-	 * Set Non School Days
+	 * Set Non School Day
 	 */
 	public function setNonSchoolDays()
 	{

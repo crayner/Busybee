@@ -1,14 +1,14 @@
 school:
     days_times:
-        title: Institute Days and Times
+        title: Institute Day and Times
         description: ''
     day_time:
         day:
-            title: Active Days
+            title: Active Day
             help: Set the days that the institute is normally opened. This can be overwritten in the timetable to open or close any day of the week.
         time:
             title: Standard Training Day
-            help: These time settings are the default added to new days when the timetable day is created.  Days in the timetable can be altered from this default information.
+            help: These time settings are the default added to new days when the timetable day is created.  Day in the timetable can be altered from this default information.
         sun:
             label: Sunday
         mon:

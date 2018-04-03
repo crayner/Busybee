@@ -4,6 +4,7 @@ namespace App\Core\Manager;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Doctrine\DBAL\Driver\PDOException;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Form\FormInterface;
@@ -770,5 +771,13 @@ class SettingManager implements ContainerAwareInterface
         $style = $style ? ' style="'.$style.'"' : '';
 
         return '<a href="#" '. $class . $style . '" onClick="window.open(\''.$this->container->get('router')->generate('setting_edit_name', ['name' => $name, 'closeWindow' => 'closeWindow']).'\',\'_blank\',\'width=1200,height=900\')" title="'.$this->setting->getDisplayName().'">'.$this->setting->getDisplayName().'</a>';
+    }
+
+    /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->container->get('doctrine')->getManager();
     }
 }

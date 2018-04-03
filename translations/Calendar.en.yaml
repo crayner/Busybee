@@ -15,12 +15,12 @@ calendar:
     calendar.tab: Calendar
     terms.tab: Terms
     specialDay:
-        title: "Manage Special Days in %name%"
+        title: "Manage Special Day in %name%"
         add: Add Special Day
         error.timeEmpty: 'The %{time_name} time for %{name} on %{date} must be set.'
     specialDays:
-        tab: Special Days
-        help: "The date of Special Days must exist in the year, and each special day must be a unique date."
+        tab: Special Day
+        help: "The date of Special Day must exist in the year, and each special day must be a unique date."
     roll_groups:
         tab: Rolls
         title: "Manage Rolls in %name%"

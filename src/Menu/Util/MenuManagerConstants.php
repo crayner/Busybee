@@ -48,11 +48,11 @@ class MenuManagerConstants
     route: setting_manage
 12:
     label: menu.timetable.manage
-    name: Timatable Management
+    name: Timetable Management
     role: ROLE_REGISTRAR
     node: 1
     order: 11
-    route: timetable_list
+    route: timetable_manage
     translate: School
 20:
     label: menu.people.manage
@@ -241,18 +241,17 @@ Timetable Admin:
             translate: School
             role: ROLE_REGISTRAR
             parameters: {}
-    timetable_manage:
-        timetable_list:
-            route: timetable_list
-            label: timetable.list.menu.label
+    timetable_manag:
+        timetable_manage:
+            route: timetable_manage
+            label: timetable.manage.menu.label
             translate: Timetable
             role: ROLE_PRINCIPAL
             parameters: {}
     hidden:
         - course_edit
         - face_to_face_edit
-        - timetable_manage
-        - timetable_day_date_manage
+        - timetable_edit
 Activities:
     activities:
         external_activities:

@@ -37,8 +37,7 @@ class DepartmentController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
 		{
-dump([$form,$request]);
-            $em = $this->get('doctrine')->getManager();
+		    $em = $this->get('doctrine')->getManager();
 			$em->persist($entity);
 			$em->flush();
 

@@ -39,10 +39,10 @@ menu:
         manage: Manage Calendars
         grades: Calendar Grades
         display: Display Calendar
-        special_days: Manage Special Days
+        special_days: Manage Special Day
         terms: Manage Terms
     school:
-        daysandtimes: Manage School Days and Times
+        daysandtimes: Manage School Day and Times
         department.edit: Manage Departments
     people:
         person:
@@ -63,7 +63,7 @@ menu:
     third.party: Third Party Settings
 section:
     header:
-        years_days_times: 'Years, Days & Times'
+        years_days_times: 'Years, Day & Times'
         groupings: Groupings
         other: Other
         settings: Settings
