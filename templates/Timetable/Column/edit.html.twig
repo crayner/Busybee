@@ -1,0 +1,41 @@
+{% trans_default_domain "Timetable" %}
+
+{% extends "Default/template.html.twig" %}
+
+
+{% form_theme form
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    'Timetable/Period/periodCollection.html.twig'
+%}
+
+{% block title %}{{ parent() }}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock title %}
+{% block headerTitle %}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'timetable.periods.manage.description'|trans }}{% endblock headerLead %}
+
+{% set x = setTabManager(tabManager) %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {{ form_start(form) }}
+    <div class="messageWindow"></div>
+    <div id="formTabs">
+        <ul class="nav nav-tabs" role="tablist">
+            {% for name,col in form.columns %}
+                <li role="presentation"><a href="#{{ col.nameShort.vars.value }}" role="tab"
+                                           data-toggle="tab">{{ col.name.vars.value }}</a></li>
+                {% do col.setRendered %}
+            {% endfor %}
+        </ul>
+        {% include 'Timetable/Column/column.html.twig' %}
+    </div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {'route': 'timetable_days_edit'} %}
+    {% include 'Timetable/Period/periodScript.html.twig' %}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
+{% endblock javascripts %}

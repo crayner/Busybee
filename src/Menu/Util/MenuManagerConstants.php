@@ -241,7 +241,7 @@ Timetable Admin:
             translate: School
             role: ROLE_REGISTRAR
             parameters: {}
-    timetable_manag:
+    timetable_manage:
         timetable_manage:
             route: timetable_manage
             label: timetable.manage.menu.label
@@ -252,6 +252,7 @@ Timetable Admin:
         - course_edit
         - face_to_face_edit
         - timetable_edit
+        - timetable_days_edit
 Activities:
     activities:
         external_activities:

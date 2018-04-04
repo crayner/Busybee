@@ -1,0 +1,38 @@
+timetable:
+    manage:
+        menu.label: Timetable Manage
+        title: Timetable Manage
+        description: ''
+    name:
+        sort: Timetable Name
+        label: Name
+    code:
+        sort: 'Timetable Code'
+        label: 'Code'
+    locked:
+        label: 'Lock Timetable'
+        help: 'Locking the timetable is used to create the necessary database entries for each day and period in the timetable.  The day and period records are then use to link activities and student attendance records.'
+        'true': 'This timetable is locked to changes. Any changes to settings made on this page will be ignored. Locking the timetable indicates that attendance records, et.al. are now ready to be created and stored.'
+    add.title: Add Timetable
+    calendar:
+        label: Calendar
+        placeholder: Select Calendar
+        sort: Calendar Name
+    days:
+        label: School Days
+        help: Set the type of day for the timetable to use when generating the timetable.
+        edit.button: 'Edit Timetable Days'
+    columns:
+        label: Time Table Columns
+        help: A column represents a day of school.
+        edit.missing: A valid TimeTable was not available.
+    edit:
+        title: 'Edit Timetable: %name%'
+        description: Modify the details of the timetable.
+    periods:
+        manage:
+            title: Manage TimeTable Periods
+            description: ''
+        add:
+            title: Add Period
+calendar.first_day.sort: Calendar Name

@@ -1,0 +1,14 @@
+{% if collection is not empty %}
+    {% form_theme collection
+        '@HillrangeForm/FormTheme/bootstrap.html.twig'
+        '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+        'Timetable/Line/lineCollection.html.twig'
+        'Timetable/Column/columnCollection.html.twig'
+        'Timetable/Day/dayCollection.html.twig'
+    %}
+
+    {% dump(collection) %}
+    {{ form_widget(collection) }}
+
+    {% include '@HillrangeForm/Script/initiate_collection.html.twig' %}
+{% endif %}

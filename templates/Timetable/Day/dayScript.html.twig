@@ -1,0 +1,19 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+{% set locked = form.locked.vars.data %}
+
+<script type="text/javascript">
+    $(".dayList").collection({
+        name_prefix: '{{ form.days.vars.full_name }}',
+        {% if locked %}
+        add: '',
+        remove: '',
+        {% else %}
+        add: '{{ addButton({title: 'timetable.column.add.title', transDomain: 'Timetable'}) }}',
+        remove: '{{ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable'}) }}',
+        add_at_the_end: true,
+        {% endif %}
+        allow_up: false,
+        allow_down: false,
+        hide_useless_buttons: true
+    });
+</script>

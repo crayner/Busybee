@@ -130,10 +130,13 @@ class Timetable extends TimetableExtension
     private $columns;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getColumns(): ?Collection
+    public function getColumns(): Collection
     {
+        if (empty($this->columns))
+            $this->columns = new ArrayCollection();
+
         return $this->columns;
     }
 
@@ -150,7 +153,7 @@ class Timetable extends TimetableExtension
     /**
      * @var boolean
      */
-    private $locked;
+    private $locked = false;
 
     /**
      * @return bool
@@ -173,7 +176,7 @@ class Timetable extends TimetableExtension
     /**
      * @var boolean
      */
-    private $generated;
+    private $generated = false;
 
     /**
      * @return bool

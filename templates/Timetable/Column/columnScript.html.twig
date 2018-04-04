@@ -1,0 +1,48 @@
+{% trans_default_domain "Timetable" %}
+{% set locked = form.locked.vars.data %}
+
+<script type="text/javascript">
+    $(".columnList").collection({
+        name_prefix: '{{ form.columns.vars.full_name }}',
+        {% if locked %}
+        allow_up: false,
+        allow_down: false,
+        add: '',
+        remove: '',
+        {% else %}
+        allow_up: true,
+        allow_down: true,
+        add: '{{ addButton({title: 'timetable.column.add.title', transDomain: 'Timetable'}) }}',
+        remove: '{{ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable'}) }}',
+        add_at_the_end: true,
+        {% endif %}
+        hide_useless_buttons: true,
+        before_remove: function (collection, element) {
+            var source = $(element[0]).find('.ColumnIdentifier');
+            var id = source.attr('column');
+            if (parseInt(id) === 0) {
+                return true;
+            }
+
+            var path = '{{ path('column_remove', {'id': '__id__'
+            }) }}';
+            path = path.replace('__id__', id);
+
+            window.open(path, '_self');
+            return false;
+        }
+    });
+
+    function resetColumnTimes(id) {
+        var reset = confirm('{{ 'column.resettime.confirm'|trans }}');
+
+        if (reset === false) {
+
+        } else {
+            var path = '{{ path('column_resettimes', {'id': '__id__'}) }}';
+            path = path.replace('__id__', id);
+            window.open(path, '_self');
+
+        }
+    }
+</script>

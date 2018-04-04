@@ -1,0 +1,59 @@
+{% trans_default_domain "Timetable" %}
+{% set locked = false %}
+{% if form.vars.data %}
+    {% set locked = form.vars.data.locked %}
+{% endif %}
+<script type="text/javascript">
+    {% for name,col in form.columns %}
+    $(".periodList_{{ name }}").collection({
+        name_prefix: '{{ col.periods.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        {% if not locked %}
+        add: '{{ addButton({title: 'timetable.period.add.title', transDomain: 'Timetable'}) }}',
+        remove: '{{ deleteButton({title: 'timetable.period.remove.title', transDomain: 'Timetable'}) }}',
+        {% else %}
+        add: '',
+        remove: '',
+        {% endif %}
+        add_at_the_end: true,
+        hide_useless_buttons: true,
+        before_remove: function (collection, element) {
+            var source = $(element[0]).find('.PeriodIdentifier');
+            var period = source.attr('period');
+            var page = source.attr('page');
+            var result = removePeriod(period, page);
+            if (result === true)
+                return true;
+            return false;
+        }
+    });
+    {% endfor %}
+
+    function removePeriod(id, page) {
+        if (id > 0) {
+            var path = '{{ path('period_remove', {'id': '__id__', 'page': '__page__'}) }}';
+            path = path.replace('__id__', id);
+            path = path.replace('__page__', page);
+
+            $.ajax({
+                url: path,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data['status'] === 'success') {
+                        $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                        return true;
+                    } else if (data['status'] === 'error') {
+                        $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                        return false;
+                    } else if (data['status'] === 'warning') {
+                        $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                        return false;
+                    }
+                }
+            });
+        }
+        return true;
+    }
+</script>

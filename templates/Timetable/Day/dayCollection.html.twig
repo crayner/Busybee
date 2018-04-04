@@ -1,0 +1,37 @@
+{% trans_default_domain "Timetable" %}
+
+{% block tt_days_label %}{% endblock %}
+{% block tt_days_errors %}{% endblock %}
+
+{% block tt_days_widget %}
+    {% spaceless %}
+        {% set locked = form.parent.parent.locked.vars.data %}
+        {% set panelStyle = 'default' %}
+        {% set transDomain = 'Timetable' %}
+        {% set header = 'timetable.column.header.title' %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable', mergeClass: 'collection-remove collection-action', style: 'float: right;'})|raw %}
+        {% if not locked %}
+            {% set h3Content = h3Content ~ saveButton() %}
+        {% endif %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton()|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% set title = 'timetable.column.add.title'|trans %}
+        {% if form.vars.data is not empty %}{% set title = form.vars.data.name %}{% endif %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': title} %}
+        {% set disabled = {disabled: 'disabled'} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6 well">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-6 well">
+                    {{ form_row(form.dayType) }}
+                    {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock tt_days_widget %}

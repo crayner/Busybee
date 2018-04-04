@@ -25,11 +25,11 @@ App\Entity\Timetable:
         locked:
             type: boolean
             options:
-                default: 0
+                default: false
         generated:
             type: boolean
             options:
-                default: 0
+                default: false
     oneToMany:
         columns:
             targetEntity: App\Entity\TimetableColumn

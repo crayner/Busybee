@@ -42,8 +42,9 @@
                 <div class="col-12" id="contentContainer">
             {% else %}
                 <main class="col-9" id="contentContainer">
-                <span class="far fa-times-circle foldMenu" data-toggle="collapse" data-target="#sidebar" aria-hidden="true"
-                      aria-expanded="false" aria-controls="sidebar" style="float: right; margin: 2px;"></span>
+                    <span class="far fa-times-circle foldMenu" data-toggle="collapse" data-target="#sidebar" aria-hidden="true"
+                          aria-expanded="false" aria-controls="sidebar" style="float: right; margin: 2px;"></span>
+                    <div style="margin-right: 20px;">
             {% endif %}
                 {% block flashMessages %}
                     {% include 'Default/flash.html.twig' %}
@@ -82,6 +83,7 @@
             {% if fullPage is defined and fullPage %}
                 </div>
             {% else %}
+                    </div>
                 </main>
                 <nav class="col-3 collapse show" id="sidebar">
 
