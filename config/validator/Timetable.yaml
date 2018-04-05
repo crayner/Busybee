@@ -1,0 +1,24 @@
+App\Entity\Timetable:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, calendar]
+            errorPath: name
+            message: 'timetable.unique.calendar'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code, calendar]
+            errorPath: code
+            message: 'timetable.unique.calendar'
+    properties:
+        calendar:
+            - NotBlank: ~
+        name:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+        columns:
+            - App\Timetable\Validator\Columns: ~
+            - Count:
+                max: 50
+            - Valid: ~
+        days:
+            - Valid: ~

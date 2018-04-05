@@ -48,7 +48,7 @@ class ColumnPeriodType extends AbstractType
     {
         $builder
             ->add('name', HiddenType::class)
-            ->add('nameShort', HiddenType::class)
+            ->add('code', HiddenType::class)
             ->add('mappingInfo', HiddenType::class)
             ->add('periods', CollectionType::class,
                 [

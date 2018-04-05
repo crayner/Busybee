@@ -47,11 +47,14 @@ class TimetableController extends Controller
         if (!empty($request->request->get('timetable_days')['locked']) && $request->request->get('timetable_days')['locked'])
             $entity->setLocked(true);
 
-        $form = $this->createForm(TimetableType::class, $entity, ['locked' => $entity->isLocked()]);
+        $form = $this->createForm(TimetableType::class, $entity);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+dump($form);
+dump($request->get('timetable'));
+die();
             $em = $timetableManager->getEntityManager();
 
             $em->persist($entity);
@@ -80,7 +83,7 @@ class TimetableController extends Controller
     {
         $entity = $timetableManager->find($id);
 
-        $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id, 'locked' => $entity->isLocked()]);
+        $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id]);
 
         $form->handleRequest($request);
 

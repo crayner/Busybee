@@ -125,6 +125,37 @@ class Timetable extends TimetableExtension
     }
 
     /**
+     * @param TimetableDay|null $day
+     * @param bool $add
+     * @return Timetable
+     */
+    public function addDay(?TimetableDay $day, $add = true): Timetable
+    {
+        if (empty($day) || $this->getDays()->contains($day))
+            return $this;
+
+        if ($add)
+            $day->setTimetable($this, false);
+
+        $this->days->add($day);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetableDay|null $day
+     * @return Timetable
+     */
+    public function removeDay(?TimetableDay $day): Timetable
+    {
+        $this->getDays()->removeElement($day);
+
+        $day->setTimetable(null);
+
+        return $this;
+    }
+
+    /**
      * @var null|Collection
      */
     private $columns;

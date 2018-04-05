@@ -37,12 +37,6 @@ class ColumnType extends AbstractType
                 'class' => TimeTable::class,
             ]
         );
-        $resolver->setRequired(
-            [
-                'tt_id',
-                'locked',
-            ]
-        );
     }
 
     /**
@@ -65,9 +59,9 @@ class ColumnType extends AbstractType
                     'entry_type' => ColumnPeriodType::class,
                     'entry_options' =>
                         [
-                            'tt_id' => $options['tt_id'],
+                            'tt_id' => $options['data']->getId(),
                         ],
-                    'disabled' => $options['locked'],
+                    'disabled' => $options['data']->isLocked(),
                 ]
             )
         ;

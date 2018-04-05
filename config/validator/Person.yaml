@@ -1,16 +1,16 @@
 App\Entity\Person:
     constraints:
-        - \App\People\Validator\PersonName: ~
+        - App\People\Validator\PersonName: ~
     properties:
         email:
             - Email:
                   checkMX: true
-            - \App\People\Validator\PersonEmail:
+            - App\People\Validator\PersonEmail:
                 errorPath: email
         email2:
             - Email:
                   checkMX: true
-            - \App\People\Validator\PersonEmail:
+            - App\People\Validator\PersonEmail:
                 errorPath: email2
         surname:
             - NotBlank: ~
@@ -25,14 +25,14 @@ App\Entity\Person:
         dob:
             - Date: ~
         gender:
-            - \App\Core\Validator\SettingChoice:
+            - App\Core\Validator\SettingChoice:
                 name: 'person.genderlist'
             - NotBlank: ~
         honorific:
-            - \App\Core\Validator\SettingChoice:
+            - App\Core\Validator\SettingChoice:
                 name: 'person.titlelist'
         photo:
-            - \App\People\Validator\PersonImage: ~
+            - App\People\Validator\PersonImage: ~
         phone:
             - Valid: ~
         address1:
@@ -42,6 +42,6 @@ App\Entity\Person:
         user:
             - Valid: ~
         importIdentifier:
-            - \Hillrange\Form\Validator\UniqueOrBlank:
+            - Hillrange\Form\Validator\UniqueOrBlank:
                 data_class: \App\Entity\Person
                 field: importIdentifier

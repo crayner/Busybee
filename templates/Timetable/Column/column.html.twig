@@ -1,13 +1,11 @@
 {% trans_default_domain "Timetable" %}
 
 {% set active = ' active' %}
-<div class="tab-content">
-    {% for name,col in form.columns %}
-        <div class="tab-pane{{ active }}" id="{{ col.nameShort.vars.value }}">
-            {% include 'Timetable/Column/columnContent.html.twig' %}
-        </div>
-        {% do col.setRendered %}
-        {% set active = '' %}
-    {% endfor %}
-</div>
+{% for name,col in form.columns %}
+    <div class="tab-pane{{ active }}" id="{{ col.code.vars.value }}">
+        {% include 'Timetable/Column/columnContent.html.twig' %}
+    </div>
+    {% do col.setRendered %}
+    {% set active = '' %}
+{% endfor %}
 

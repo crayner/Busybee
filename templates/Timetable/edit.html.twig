@@ -16,73 +16,13 @@
 {% set x = setTabManager(tabManager) %}
 
 {% block contentContainer %}
-    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {{ all_form_errors(fullForm, "section") }}
     {% block flashMessages %}
-        {% include 'Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'Timetable'} %}
+        {% include 'Default/flash.html.twig' with {transDomain: 'Timetable'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add'}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('timetable_edit', {'id': app.request.get('id')})}}) %}
-    {% if form.locked.vars.data %}
-        {% set h3Content = h3Content ~ saveButton({additional: 'disabled'})|raw %}
-    {% else %}
-        {% set h3Content = h3Content ~ saveButton() %}
-    {% endif %}
-    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-    {% set h3Content = h3Content ~ miscButton({'javascript': {function: 'resetColumnTimes', options: [app.request.get('id')]}, class: 'btn btn-danger fas fa-asterisk', title: 'column.resettime.title', transDomain: 'Timetable'}) %}
-    {% include 'Page/panelStart.html.twig' with {header: 'timetable.edit.title', transDomain: 'Timetable', panelParagraph: 'timetable.edit.description', name: form.vars.value.fullName} %}
-    <div class="container-fluid">
-        {% include '@HillrangeForm/Script/collection_message.html.twig' %}
-        {% if form.locked.vars.data %}
-            <div class="row">
-                <div class="col-12 alert alert-danger">
-                    {{ 'timetable.locked.true'|trans }}
-                </div>
-            </div>
-        {% endif %}
-        <div class="row">
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-6 card">
-                        {{ form_row(form.name) }}
-                    </div>
-                    <div class="col-3 card">
-                        {{ form_row(form.code) }}
-                    </div>
-                    <div class="col-3 card">
-                        {{ form_row(form.calendar, {value: transformData(form.calendar)}) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 card">
-                        {{ form_row(form.locked) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="padding-right: inherit; padding-left: inherit;">
-                        {% set h3Content = '' %}
-                        {% include 'Page/panelStart.html.twig' with {header: form.days.vars.label, transDomain: 'Timetable', panelParagraph: form.days.vars.help, panelStyle: 'info'} %}
-                        {{ form_widget(form.days) }}
-                        {% include 'Page/panelEnd.html.twig' %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-12" style="padding-right: inherit; padding-left: inherit;">
-                        {% set h3Content = '' %}
-                        {% include 'Page/panelStart.html.twig' with {header: form.columns.vars.label, transDomain: 'Timetable', panelParagraph: form.columns.vars.help, panelStyle: 'info'} %}
-                        <div class="columnCollection">
-                            {{ form_widget(form.columns) }}
-                        </div>
-                        {% include 'Page/panelEnd.html.twig' %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% include 'Page/panelEnd.html.twig' %}
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
+    {% include 'Default/tabs.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

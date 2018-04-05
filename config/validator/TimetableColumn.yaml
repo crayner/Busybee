@@ -1,0 +1,31 @@
+App\Entity\TimetableColumn:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, timetable]
+            errorPath: name
+            message: 'column.timetable.name.unique'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code, timetable]
+            errorPath: code
+            message: 'column.timetable.code.unique'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [sequence, timetable]
+            errorPath: name
+            message: 'column.timetable.sequence.unique'
+    properties:
+        timetable:
+            - NotBlank: ~
+            - Valid: ~
+        name:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+            - Hillrange\Form\Validator\NoWhiteSpace: ~
+            - Hillrange\Form\Validator\UpperCaseOnly: ~
+        periods:
+            - Valid: ~
+        sequence:
+            - NotBlank: ~
+            - Range:
+                min: 1
+                max: 999

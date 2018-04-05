@@ -90,12 +90,15 @@ class TimetableDay extends TimetableDayExtension
      * @param Timetable|null $timetable
      * @return TimetableDay
      */
-    public function setTimetable(?Timetable $timetable): TimetableDay
+    public function setTimetable(?Timetable $timetable, $add = true): TimetableDay
     {
-        if (empty($this->timetable))
+        if (empty($timetable)) {
+            $this->timetable = null;
             return $this;
+        }
 
-        $timetable->addDay($this, false);
+        if ($add)
+            $timetable->addDay($this, false);
 
         $this->timetable = $timetable;
 

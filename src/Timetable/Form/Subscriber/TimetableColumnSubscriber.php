@@ -50,10 +50,10 @@ class TimetableColumnSubscriber implements EventSubscriberInterface
 
         if (!is_null($data)) {
             if ($data->getStart()->format('H:i') === '00:00')
-                $data->setStart(new \DateTime($this->settingManager->get('SchoolDay.Begin')));
+                $data->setStart(new \DateTime($this->settingManager->get('schoolday.begin')));
 
             if ($data->getEnd()->format('H:i') === '00:00')
-                $data->setEnd(new \DateTime($this->settingManager->get('SchoolDay.Finish')));
+                $data->setEnd(new \DateTime($this->settingManager->get('schoolday.finish')));
         }
 
         $event->setData($data);

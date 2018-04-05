@@ -11,7 +11,7 @@
         {% set header = 'timetable.column.header.title' %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% if not locked %}
-            {% set h3Content = h3Content ~ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable', mergeClass: 'collection-remove collection-action', style: 'float: right;'})|raw %}
+            {% set h3Content = h3Content ~ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable', mergeClass: 'collection-remove collection-action', colour: 'warning', style: 'float: right;'})|raw %}
             {% set h3Content = h3Content ~ saveButton() %}
         {% endif %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
@@ -25,28 +25,26 @@
         {% if form.vars.data is not empty %}{% set column_id = form.vars.data.id %}{% endif %}
         {% set disabled = {disabled: 'disabled'} %}
         <div class="ColumnIdentifier" column="{{ column_id }}"></div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4 well">
-                    {{ form_row(form.name) }}
-                </div>
-                <div class="col-4 well">
-                    {{ form_row(form.nameShort) }}
-                    {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
-                </div>
-                <div class="col-4 well">
-                    {{ form_row(form.mappingInfo) }}
-                </div>
+        <div class="row">
+            <div class="col-4 card">
+                {{ form_row(form.name) }}
             </div>
-            <div class="row">
-                <div class="col-6 well">
-                    {{ form_row(form.start) }}
-                </div>
-                <div class="col-6 well">
-                    {{ form_row(form.end) }}
-                    {{ form_row(form.sequence) }}
-                    {{ form_row(form.id) }}
-                </div>
+            <div class="col-4 card">
+                {{ form_row(form.code) }}
+                {{ form_row(form.timetable, {value: app.request.get('id')}) }}
+            </div>
+            <div class="col-4 card">
+                {{ form_row(form.mappingInfo) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.start) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.end) }}
+                {{ form_row(form.sequence) }}
+                {{ form_row(form.id) }}
             </div>
         </div>
         {% include 'Page/panelEnd.html.twig' %}

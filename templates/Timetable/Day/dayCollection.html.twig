@@ -17,21 +17,19 @@
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
-        {% set title = 'timetable.column.add.title'|trans %}
+        {% set title = 'timetable.day.add.title'|trans %}
         {% if form.vars.data is not empty %}{% set title = form.vars.data.name %}{% endif %}
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': title} %}
+        {% include 'Page/panelStart.html.twig' with {'name': title} %}
         {% set disabled = {disabled: 'disabled'} %}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-6 well">
-                    {{ form_row(form.name) }}
-                </div>
-                <div class="col-6 well">
-                    {{ form_row(form.dayType) }}
-                    {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
-                </div>
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.dayType) }}
+                {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
             </div>
         </div>
-        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        {% include 'Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock tt_days_widget %}

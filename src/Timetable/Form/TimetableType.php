@@ -32,7 +32,7 @@ class TimetableType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $locked = $options['locked'];
+        $locked = $options['data']->isLocked();
         $builder
             ->add('name', null,
                 [
@@ -65,11 +65,14 @@ class TimetableType extends AbstractType
             ->add('days', CollectionType::class,
                 [
                     'entry_type'   => DayEntityType::class,
-                            'help'  => 'timetable.days.help',
+                    'help'  => 'timetable.days.help',
                     'label'        => 'timetable.days.label',
                     'allow_delete' => false,
                     'allow_add'    => false,
                     'disabled'     => $locked,
+                    'attr'         =>  [
+                        'class' => 'dayCollection',
+                    ],
                 ]
             )
         ;
@@ -87,6 +90,11 @@ class TimetableType extends AbstractType
                                 'timetable_id' => $options['data']->getId(),
                             ],
                         'disabled'      => $locked,
+                        'attr'          =>
+                            [
+                                'class' => 'columnCollection',
+                            ],
+                        'cas'
                     ]
                 )
             ;
@@ -104,6 +112,10 @@ class TimetableType extends AbstractType
                                 'timetable_id' => $options['data']->getId(),
                             ],
                         'disabled'      => $locked,
+                        'attr'          =>
+                            [
+                                'class' => 'columnCollection',
+                            ],
                     ]
                 )
             ;
@@ -120,11 +132,9 @@ class TimetableType extends AbstractType
             [
                 'data_class'         => Timetable::class,
                 'translation_domain' => "Timetable",
-            ]
-        );
-        $resolver->setRequired(
-            [
-                'locked',
+                'attr' => [
+                    'novalidate' => '',
+                ],
             ]
         );
     }
@@ -134,6 +144,6 @@ class TimetableType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'timetable_days';
+        return 'timetable';
     }
 }

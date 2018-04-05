@@ -1,8 +1,8 @@
 {% trans_default_domain "Timetable" %}
 {% set locked = form.locked.vars.data %}
-
+<!-- columnCollection -->
 <script type="text/javascript">
-    $(".columnList").collection({
+    $(".columnCollection").collection({
         name_prefix: '{{ form.columns.vars.full_name }}',
         {% if locked %}
         allow_up: false,
@@ -12,8 +12,8 @@
         {% else %}
         allow_up: true,
         allow_down: true,
-        add: '{{ addButton({title: 'timetable.column.add.title', transDomain: 'Timetable'}) }}',
-        remove: '{{ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable'}) }}',
+        add: '{{ addButton({title: 'timetable.column.add.title', transDomain: 'Timetable'})|raw }}',
+        remove: '{{ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable'})|raw }}',
         add_at_the_end: true,
         {% endif %}
         hide_useless_buttons: true,

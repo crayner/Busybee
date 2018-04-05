@@ -7,6 +7,7 @@ use App\Entity\Timetable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class TimetableManager extends TabManager
 {
@@ -58,7 +59,12 @@ class TimetableManager extends TabManager
      */
     public function getTabs(): array
     {
-        return [];
+        return Yaml::parse("
+timetable:
+    label: timetable.details.tab
+    include: Timetable/display.html.twig
+    translation: Timetable
+");
     }
 
     /**
@@ -67,7 +73,7 @@ class TimetableManager extends TabManager
     public function getResetScripts(): string
     {
         $request = $this->stack->getCurrentRequest();
-        $xx = "manageCollection('" . $this->router->generate("timetable_days_edit", ["id" => $request->get("id"), "cid" => "ignore"]) . "','courseCollection', '')\n";
+        $xx = "manageCollection('" . $this->router->generate("timetable_days_edit", ["id" => $request->get("id"), "cid" => "ignore"]) . "','columnCollection', '')\n";
 //        $xx .= "manageCollection('" . $this->router->generate("department_members_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','memberCollection', '')\n";
 
         return $xx;
@@ -131,5 +137,12 @@ class TimetableManager extends TabManager
     public function getTimeTable(): ?Timetable
     {
         return $this->timeTable;
+    }
+
+    public function isValidTimetable(): bool
+    {
+        if ($this->timeTable instanceof Timetable && $this->timeTable->getId() > 0)
+            return true;
+        return false;
     }
 }

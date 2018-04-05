@@ -26,6 +26,7 @@ timetable:
         label: Time Table Columns
         help: A column represents a day of school.
         edit.missing: A valid TimeTable was not available.
+        tab: Columns
     edit:
         title: 'Edit Timetable: %name%'
         description: Modify the details of the timetable.
@@ -35,4 +36,25 @@ timetable:
             description: ''
         add:
             title: Add Period
+    builder:
+        button: 'Time Table Builder'
+        title: 'Build Time Table'
+    details:
+        tab: Details
+    day:
+        name:
+            label: Day
+            placeholder: Select a Day
+        dayType:
+            label: Fixed or Rotate Target
+            help: ''
+    column:
+        name.label: Name
+        code.label: Code
+        add.title: New Column
+        start.label: Start Time of Day
+        end.label: End Time of Day
+        mapping_info:
+            label: Map to Day
+            help: Map the column to a fixed day or leave to rotate.
 calendar.first_day.sort: Calendar Name

@@ -61,15 +61,15 @@ class ColumnEntityType extends AbstractType
                     'label' => 'timetable.column.name.label',
                 ]
             )
-            ->add('nameShort', null,
+            ->add('code', null,
                 [
-                    'label' => 'timetable.column.nameShort.label',
+                    'label' => 'timetable.column.code.label',
                 ]
             )
             ->add('mappingInfo', ChoiceType::class,
                 [
-                    'label' => 'timetable.column.mappingInfo.label',
-                            'help' => 'timetable.column.mappingInfo.help',
+                    'label' => 'timetable.column.mapping_info.label',
+                    'help' => 'timetable.column.mapping_info.help',
                     'choices' => $choices,
                     'empty_data' => 'Rotate',
                 ]
@@ -77,13 +77,15 @@ class ColumnEntityType extends AbstractType
             ->add('start', TimeType::class,
                 [
                     'label' => 'timetable.column.start.label',
-                        'help' => 'timetable.column.start.help',
+                    'help' => 'timetable.column.start.help',
+                    'required' => false,
                 ]
             )
             ->add('end', TimeType::class,
                 [
                     'label' => 'timetable.column.end.label',
-                        'help' => 'timetable.column.end.help',
+                    'help' => 'timetable.column.end.help',
+                    'required' => false,
                 ]
             )
             ->add('sequence', HiddenType::class)
@@ -110,6 +112,7 @@ class ColumnEntityType extends AbstractType
                 'placeholder' => 'timetable.column.placeholder',
                 'class' => TimetableColumn::class,
                 'choice_label' => 'name',
+                'error_bubbling' => true,
             ]
         );
         $resolver->setRequired(
