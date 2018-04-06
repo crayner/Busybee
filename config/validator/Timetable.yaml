@@ -16,9 +16,9 @@ App\Entity\Timetable:
         code:
             - NotBlank: ~
         columns:
+            - Valid: ~
             - App\Timetable\Validator\Columns: ~
             - Count:
                 max: 50
-            - Valid: ~
         days:
             - Valid: ~

@@ -2,14 +2,14 @@
 namespace App\Timetable\Util;
 
 use App\Core\Manager\MessageManager;
-use App\Core\Manager\TabManager;
+use App\Core\Manager\TabCollectionManager;
 use App\Entity\Timetable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class TimetableManager extends TabManager
+class TimetableManager extends TabCollectionManager
 {
     /**
      * @var RequestStack

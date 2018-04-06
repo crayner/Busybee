@@ -52,9 +52,6 @@ class TimetableController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-dump($form);
-dump($request->get('timetable'));
-die();
             $em = $timetableManager->getEntityManager();
 
             $em->persist($entity);
@@ -62,8 +59,11 @@ die();
 
             if ($id == 'Add')
                 return $this->redirectToRoute('timetable_edit', ['id' => $entity->getId()]);
+        } elseif ($form->isSubmitted()) {
+            dump($form);
+            dump($entity);
+            die();
         }
-
         return $this->render('Timetable/edit.html.twig',
             [
                 'form'          => $form->createView(),
@@ -83,7 +83,7 @@ die();
     {
         $entity = $timetableManager->find($id);
 
-        $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id]);
+        $form = $this->createForm(ColumnType::class, $entity);
 
         $form->handleRequest($request);
 

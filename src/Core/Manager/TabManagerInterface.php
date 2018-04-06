@@ -20,11 +20,6 @@ interface TabManagerInterface
     public function getTabs(): array;
 
     /**
-     * @return string
-     */
-    public function getResetScripts(): string;
-
-    /**
      * Use this method as a callable to test if the tab is to be displayed.
      * @param string $method
      * @return bool

@@ -6,6 +6,7 @@
 {% block tt_columns_widget %}
     {% spaceless %}
         {% set locked = form.parent.parent.locked.vars.data %}
+        {% set column_id = transformData(form)|default('0') %}
         {% set panelStyle = 'default' %}
         {% set transDomain = 'Timetable' %}
         {% set header = 'timetable.column.header.title' %}
@@ -18,11 +19,9 @@
         {% set h3Content = h3Content ~ upDownButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'timetable.column.add.title'|trans %}
-        {% if form.vars.data is not empty %}{% set title = form.vars.data.fullName %}{% endif %}
+        {% if column_id > 0 %}{% set title = form.vars.data.fullName %}{% endif %}
         <div class="messageWindow"></div>
         {% include 'Page/panelStart.html.twig' with {'name': title} %}
-        {% set column_id = 0 %}
-        {% if form.vars.data is not empty %}{% set column_id = form.vars.data.id %}{% endif %}
         {% set disabled = {disabled: 'disabled'} %}
         <div class="ColumnIdentifier" column="{{ column_id }}"></div>
         <div class="row">

@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Timetable\Extension\TimetableExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 class Timetable extends TimetableExtension
 {
@@ -111,6 +112,9 @@ class Timetable extends TimetableExtension
         if (empty($this->days))
             $this->days = new ArrayCollection();
 
+        if ($this->days instanceof PersistentCollection && ! $this->days->isInitialized())
+            $this->days->initialize();
+
         return $this->days;
     }
 
@@ -150,7 +154,7 @@ class Timetable extends TimetableExtension
     {
         $this->getDays()->removeElement($day);
 
-        $day->setTimetable(null);
+        $day->setTimetable(null, false);
 
         return $this;
     }
@@ -168,6 +172,9 @@ class Timetable extends TimetableExtension
         if (empty($this->columns))
             $this->columns = new ArrayCollection();
 
+        if ($this->columns instanceof PersistentCollection && ! $this->columns->isInitialized())
+            $this->columns->initialize();
+        
         return $this->columns;
     }
 
@@ -178,6 +185,37 @@ class Timetable extends TimetableExtension
     public function setColumns(?Collection $columns): Timetable
     {
         $this->columns = $columns;
+        return $this;
+    }
+
+    /**
+     * @param TimetableColumn|null $column
+     * @param bool $add
+     * @return Timetable
+     */
+    public function addColumn(?TimetableColumn $column, $add = true): Timetable
+    {
+        if (empty($column) || $this->getColumns()->contains($column))
+            return $this;
+
+        if ($add)
+            $column->setTimetable($this, false);
+
+        $this->columns->add($column);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetableDay|null $day
+     * @return Timetable
+     */
+    public function removeColumn(?TimetableColumn $column): Timetable
+    {
+        $this->getColumns()->removeElement($column);
+
+        $column->setTimetable(null, false);
+
         return $this;
     }
 

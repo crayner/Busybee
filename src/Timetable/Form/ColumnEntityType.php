@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ColumnEntityType extends AbstractType
 {
@@ -94,7 +95,17 @@ class ColumnEntityType extends AbstractType
                     'class' => Timetable::class,
                 ]
             )
-            ->add('id', HiddenType::class);
+            ->add('id', HiddenType::class,
+                [
+                    'attr' => [
+                        'class' => 'removeElement'
+                    ],
+                    'error_mapping' => [
+                        NotBlank::class => 'name',
+                    ],
+                ]
+            )
+        ;
 
 
         $builder->addEventSubscriber($this->timetableColumnSubscriber);

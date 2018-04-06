@@ -207,9 +207,13 @@ class TimetableColumn extends TimetableColumnExtension
      * @param Timetable|null $timetable
      * @return TimetableColumn
      */
-    public function setTimetable(?Timetable $timetable): TimetableColumn
+    public function setTimetable(?Timetable $timetable, $add = true): TimetableColumn
     {
+        if ($add)
+            $timetable->addColumn($this, false);
+
         $this->timetable = $timetable;
+
         return $this;
     }
 }

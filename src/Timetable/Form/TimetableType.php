@@ -60,6 +60,13 @@ class TimetableType extends AbstractType
                     'label'     => 'timetable.locked.label',
                     'help'      => 'timetable.locked.help',
                     'disabled'  => $locked,
+                    'button_class_off' => "btn btn-info fas fa-lock-open",
+                    'button_toggle_swap' => [
+                        'btn-info',
+                        'btn-primary',
+                        'fa-lock-open',
+                        'fa-lock',
+                    ],
                 ]
             )
             ->add('days', CollectionType::class,
@@ -94,7 +101,7 @@ class TimetableType extends AbstractType
                             [
                                 'class' => 'columnCollection',
                             ],
-                        'cas'
+                        'sort_manage' => true,
                     ]
                 )
             ;
@@ -116,6 +123,7 @@ class TimetableType extends AbstractType
                             [
                                 'class' => 'columnCollection',
                             ],
+                        'sort_manage' => true,
                     ]
                 )
             ;

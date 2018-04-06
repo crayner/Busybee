@@ -49,11 +49,17 @@ class TimetableColumnSubscriber implements EventSubscriberInterface
         $data = $event->getData();
 
         if (!is_null($data)) {
-            if ($data->getStart()->format('H:i') === '00:00')
-                $data->setStart(new \DateTime($this->settingManager->get('schoolday.begin')));
+            if (empty($data->getStart()) || $data->getStart()->format('H:i') === '00:00')
+                if ($this->settingManager->get('schoolday.begin') instanceof \DateTime)
+                    $data->setStart($this->settingManager->get('schoolday.begin'));
+                else
+                    $data->setStart(new \DateTime($this->settingManager->get('schoolday.begin')));
 
-            if ($data->getEnd()->format('H:i') === '00:00')
-                $data->setEnd(new \DateTime($this->settingManager->get('schoolday.finish')));
+            if (empty($data->getEnd()) || $data->getEnd()->format('H:i') === '00:00')
+                if ($this->settingManager->get('schoolday.finish') instanceof \DateTime)
+                    $data->setEnd($this->settingManager->get('schoolday.finish'));
+                else
+                    $data->setEnd(new \DateTime($this->settingManager->get('schoolday.finish')));
         }
 
         $event->setData($data);

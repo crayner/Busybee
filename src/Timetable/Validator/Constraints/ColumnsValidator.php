@@ -45,6 +45,13 @@ class ColumnsValidator extends ConstraintValidator
             $close = new \DateTime('1970-01-01 ' .$this->settingManager->get('schoolday.close'));
 
         foreach ($value as $q => $column) {
+            if (empty($column->getStart()))
+            {
+                if ($this->settingManager->get('schoolday.begin') instanceof \DateTime)
+                    $column->setStart($this->settingManager->get('schoolday.begin'));
+                else
+                    $column->setStart(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.begin')));
+            }
 
             if ($open > $column->getStart()) {
                 $this->context->buildViolation($constraint->message . '.open')
@@ -52,6 +59,14 @@ class ColumnsValidator extends ConstraintValidator
                     ->setParameter('%open%', $open->format('H:i'))
                     ->setTranslationDomain('Timetable')
                     ->addViolation();
+            }
+
+            if (empty($column->getEnd()))
+            {
+                if ($this->settingManager->get('schoolday.finish') instanceof \DateTime)
+                    $column->setEnd($this->settingManager->get('schoolday.finish'));
+                else
+                    $column->setEnd(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.finish')));
             }
 
             if ($close < $column->getEnd()) {
