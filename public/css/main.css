@@ -600,3 +600,11 @@ body.loading .showLoader {
 input[type=color].form-control {
     min-height: 36px;
 }
+.btn {
+    min-width: 42px;
+    min-height: 30px;
+}
+.btn-sm {
+    min-width: 32px;
+    min-height: 24px;
+}

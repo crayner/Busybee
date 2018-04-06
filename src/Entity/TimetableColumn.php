@@ -2,7 +2,9 @@
 namespace App\Entity;
 
 use App\Timetable\Extension\TimetableColumnExtension;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 class TimetableColumn extends TimetableColumnExtension
 {
@@ -62,7 +64,7 @@ class TimetableColumn extends TimetableColumnExtension
      */
     public function getCode(): ?string
     {
-        return $this->code;
+        return strtoupper($this->code);
     }
 
     /**
@@ -71,7 +73,7 @@ class TimetableColumn extends TimetableColumnExtension
      */
     public function setCode(?string $code): TimetableColumn
     {
-        $this->code = $code;
+        $this->code = strtoupper($code);
         return $this;
     }
 
@@ -173,10 +175,16 @@ class TimetableColumn extends TimetableColumnExtension
     private $periods;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getPeriods(): ?Collection
+    public function getPeriods(): Collection
     {
+        if (empty($this->periods))
+            $this->periods = new ArrayCollection();
+
+        if ($this->periods instanceof PersistentCollection && ! $this->periods->isInitialized())
+            $this->periods->initialize();
+
         return $this->periods;
     }
 
@@ -187,6 +195,36 @@ class TimetableColumn extends TimetableColumnExtension
     public function setPeriods(?Collection $periods): TimetableColumn
     {
         $this->periods = $periods;
+
+        return $this;
+    }
+
+    /**
+     * @param TimetablePeriod|null $period
+     * @param bool $add
+     * @return TimetableColumn
+     */
+    public function addPeriod(?TimetablePeriod $period, $add = true): TimetableColumn
+    {
+        if (empty($period) || $this->getPeriods()->contains($period))
+            return $this;
+
+        if ($add)
+            $period->setColumn($this, false);
+
+        $this->periods->add($period);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetablePeriod|null $period
+     * @return TimetableColumn
+     */
+    public function removePeriod(?TimetablePeriod $period): TimetableColumn
+    {
+        $this->getPeriods()->removeElement($period);
+
         return $this;
     }
 

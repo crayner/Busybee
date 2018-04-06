@@ -59,11 +59,11 @@ class TimetableController extends Controller
 
             if ($id == 'Add')
                 return $this->redirectToRoute('timetable_edit', ['id' => $entity->getId()]);
-        } elseif ($form->isSubmitted()) {
-            dump($form);
-            dump($entity);
-            die();
+
+            $form = $this->createForm(TimetableType::class, $entity);
+            $timetableManager->getMessageManager()->add('success', 'form.submit.success', [], 'home');
         }
+
         return $this->render('Timetable/edit.html.twig',
             [
                 'form'          => $form->createView(),

@@ -2,6 +2,7 @@
 namespace App\Timetable\Form\Subscriber;
 
 use App\Core\Manager\SettingManager;
+use App\Entity\TimetablePeriod;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
@@ -47,14 +48,14 @@ class ColumnSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event)
     {
         $data = $event->getData();
-
+dump($data);die();
         if ($data->getColumns()->count() > 0) {
             foreach ($data->getColumns() as $column) {
                 if ($column->getPeriods()->count() == 0) {
                     foreach ($this->days as $name => $val) {
-                        $period = new Period();
+                        $period = new TimetablePeriod();
                         $period->setName($name);
-                        $period->setNameShort($val['abbr']);
+                        $period->setCode($val['code']);
                         $period->setStart(new \DateTime($val['start']));
                         $period->setEnd(new \DateTime($val['end']));
                         $period->setColumn($column);

@@ -21,22 +21,25 @@
         {% set title = 'timetable.column.add.title'|trans %}
         {% if column_id > 0 %}{% set title = form.vars.data.fullName %}{% endif %}
         <div class="messageWindow"></div>
-        {% include 'Page/panelStart.html.twig' with {'name': title} %}
         {% set disabled = {disabled: 'disabled'} %}
         <div class="ColumnIdentifier" column="{{ column_id }}"></div>
-        <div class="row">
-            <div class="col-4 card">
+        <div class="row row-striped">
+            <div class="col-12 card-title text-center">
+                {{ title }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.mappingInfo) }}
+            </div>
+            <div class="col-6 card">
+                {{ h3Content|raw }}
+            </div>
+            <div class="col-6 card">
                 {{ form_row(form.name) }}
             </div>
-            <div class="col-4 card">
+            <div class="col-6 card">
                 {{ form_row(form.code) }}
                 {{ form_row(form.timetable, {value: app.request.get('id')}) }}
             </div>
-            <div class="col-4 card">
-                {{ form_row(form.mappingInfo) }}
-            </div>
-        </div>
-        <div class="row">
             <div class="col-6 card">
                 {{ form_row(form.start) }}
             </div>
@@ -46,6 +49,5 @@
                 {{ form_row(form.id) }}
             </div>
         </div>
-        {% include 'Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock tt_columns_widget %}

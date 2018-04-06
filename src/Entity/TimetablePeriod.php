@@ -188,9 +188,13 @@ class TimetablePeriod extends TimetablePeriodExtension
      * @param TimetableColumn|null $column
      * @return TimetablePeriod
      */
-    public function setColumn(?TimetableColumn $column): TimetablePeriod
+    public function setColumn(?TimetableColumn $column, $add = true): TimetablePeriod
     {
+        if ($add)
+            $column->addPeriod($this, false);
+
         $this->column = $column;
+
         return $this;
     }
 }

@@ -22,11 +22,16 @@ timetable:
         label: School Days
         help: Set the type of day for the timetable to use when generating the timetable.
         edit.button: 'Edit Timetable Days'
+        header: 'Actual School Days'
     columns:
         label: Time Table Columns
         help: A column represents a day of school.
         edit.missing: A valid TimeTable was not available.
         tab: Columns
+        header: Timetable Days
+        message:
+            open: 'The start time is before the school opens at %{open}.'
+            close: 'The end time is after the school closes at %{close}.'
     edit:
         title: 'Edit Timetable: %name%'
         description: Modify the details of the timetable.
@@ -52,9 +57,13 @@ timetable:
         name.label: Name
         code.label: Code
         add.title: New Column
-        start.label: Start Time of Day
-        end.label: End Time of Day
+        start:
+            label: Start Time of Day
+            help: ''
+        end:
+            label: End Time of Day
+            help: ''
         mapping_info:
-            label: Map to Day
+            label: Map to Actual Day
             help: Map the column to a fixed day or leave to rotate.
 calendar.first_day.sort: Calendar Name

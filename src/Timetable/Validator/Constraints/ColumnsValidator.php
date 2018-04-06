@@ -52,11 +52,10 @@ class ColumnsValidator extends ConstraintValidator
                 else
                     $column->setStart(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.begin')));
             }
-
-            if ($open > $column->getStart()) {
+            if ($open->format('H:i') > $column->getStart()->format('H:i')) {
                 $this->context->buildViolation($constraint->message . '.open')
                     ->atPath('[' . $q . '].start')
-                    ->setParameter('%open%', $open->format('H:i'))
+                    ->setParameter('%{open}', $open->format('H:i'))
                     ->setTranslationDomain('Timetable')
                     ->addViolation();
             }
@@ -69,10 +68,10 @@ class ColumnsValidator extends ConstraintValidator
                     $column->setEnd(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.finish')));
             }
 
-            if ($close < $column->getEnd()) {
+            if ($close->format('Hi') < $column->getEnd()->format('Hi')) {
                 $this->context->buildViolation($constraint->message . '.close')
                     ->atPath('[' . $q . '].end')
-                    ->setParameter('%close%', $close->format('H:i'))
+                    ->setParameter('%{close}', $close->format('H:i'))
                     ->setTranslationDomain('Timetable')
                     ->addViolation();
             }
