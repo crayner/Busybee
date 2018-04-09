@@ -239,6 +239,9 @@ XXX;
 			$details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
 		}
 
+		if (!empty($details['disabled']) && $details['disabled'])
+            $details['additional'] = empty($details['additional']) ? 'disabled' : trim($details['additional'] . ' disabled');
+
 		if (!isset($defaults['name']))
             $defaults['name'] = '';
 

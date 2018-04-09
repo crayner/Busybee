@@ -1,14 +1,9 @@
 <?php
 namespace App\School\Form;
 
-use App\Core\Subscriber\SequenceSubscriber;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
-use App\Entity\ActivitySlot;
-use App\Entity\ActivityStudent;
 use App\Entity\CalendarGrade;
-use App\Entity\Staff;
-use App\Entity\Student;
 use App\Entity\Term;
 use App\People\Util\StudentManager;
 use App\School\Form\Subscriber\ActivitySubscriber;

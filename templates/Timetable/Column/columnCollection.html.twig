@@ -12,18 +12,18 @@
         {% set header = 'timetable.column.header.title' %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% if not locked %}
-            {% set h3Content = h3Content ~ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable', mergeClass: 'collection-remove collection-action', colour: 'warning', style: 'float: right;'})|raw %}
-            {% set h3Content = h3Content ~ saveButton() %}
+            {% set canDelete = not getObject(form).canDelete|default(true) %}
+            {% set h3Content = h3Content ~ deleteButton({title: 'timetable.column.remove.button', transDomain: 'Timetable', mergeClass: 'collection-remove collection-action btn-sm', colour: 'warning', style: 'float: right;', disabled: canDelete})|raw %}
+            {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
         {% endif %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-        {% set h3Content = h3Content ~ upDownButton()|raw %}
+        {% set h3Content = h3Content ~ upDownButton({mergeClass: 'btn-sm'})|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'timetable.column.add.title'|trans %}
         {% if column_id > 0 %}{% set title = form.vars.data.fullName %}{% endif %}
-        <div class="messageWindow"></div>
         {% set disabled = {disabled: 'disabled'} %}
         <div class="ColumnIdentifier" column="{{ column_id }}"></div>
-        <div class="row row-striped">
+        <div class="row row-hover" style="margin-bottom: 20px;">
             <div class="col-12 card-title text-center">
                 {{ title }}
             </div>

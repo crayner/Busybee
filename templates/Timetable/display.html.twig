@@ -55,7 +55,8 @@
                 {% else %}
                     {% set h3Content = h3Content ~ saveButton() %}
                 {% endif %}
-                {% include 'Page/panelStart.html.twig' with {panelStyle: 'info', header: 'timetable.columns.header', transDomain: 'Timetable'} %}
+                {% include 'Page/panelStart.html.twig' with {panelStyle: 'info', header: 'timetable.columns.header', transDomain: 'Timetable', panelParagraph: 'timetable.columns.help'} %}
+                <div class="messageWindow"></div>
                 <div id="columnCollection">
                 {{ form_widget(form.columns) }}
                 </div>

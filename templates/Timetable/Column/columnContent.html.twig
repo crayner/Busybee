@@ -16,7 +16,7 @@
     {% set h3Content = h3Content ~ '</div>' %}
     {% set title = 'timetable.column.add.title'|trans %}
     {% if col.vars.data is not empty %}{% set title = timetable.getFullName ~ ': ' ~ col.vars.data.name ~ ' (' ~ col.vars.data.nameShort ~ ')' %}{% endif %}
-    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {name: title, panelStyle: 'primary' } %}
+    {% include 'Page/panelStart.html.twig' with {name: title, panelStyle: 'primary'} %}
     <div class="container-fluid">
         {% if locked %}
             <div class="row">
@@ -33,8 +33,8 @@
         </div>
     </div>
     {{ form_row(col.name) }}
-    {{ form_row(col.nameShort) }}
+    {{ form_row(col.code) }}
     {{ form_row(col.timetable, {'value': app.request.get('id')}) }}
     {{ form_row(col.mappingInfo) }}
-    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {% include 'Page/panelEnd.html.twig' %}
 {% endspaceless %}

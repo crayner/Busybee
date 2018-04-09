@@ -25,7 +25,7 @@ timetable:
         header: 'Actual School Days'
     columns:
         label: Time Table Columns
-        help: A column represents a day of school.
+        help: A column represents a day of school. The columns can be sorted to ensure that the column is correctly be allocated to the days in the order given here.
         edit.missing: A valid TimeTable was not available.
         tab: Columns
         header: Timetable Days
@@ -66,4 +66,11 @@ timetable:
         mapping_info:
             label: Map to Actual Day
             help: Map the column to a fixed day or leave to rotate.
+        remove:
+            missing: 'The column was not found or is not a member of this timetable.'
+            locked: 'The column is locked by the system.'
+            error: 'The column removal failed with the error: %{message}'
+            success: 'The column was removed.'
+            button: Remove Column
 calendar.first_day.sort: Calendar Name
+timetable_columns.add.title: Add Column

@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ColumnEntityType extends AbstractType
 {
@@ -60,11 +59,13 @@ class ColumnEntityType extends AbstractType
             ->add('name', null,
                 [
                     'label' => 'timetable.column.name.label',
+                    'element_class' => 'form-group-sm',
                 ]
             )
             ->add('code', null,
                 [
                     'label' => 'timetable.column.code.label',
+                    'element_class' => 'form-group-sm',
                 ]
             )
             ->add('mappingInfo', ChoiceType::class,
@@ -73,6 +74,7 @@ class ColumnEntityType extends AbstractType
                     'help' => 'timetable.column.mapping_info.help',
                     'choices' => $choices,
                     'empty_data' => 'Rotate',
+                    'element_class' => 'form-group-sm',
                 ]
             )
             ->add('start', TimeType::class,
@@ -80,6 +82,7 @@ class ColumnEntityType extends AbstractType
                     'label' => 'timetable.column.start.label',
                     'help' => 'timetable.column.start.help',
                     'required' => false,
+                    'element_class' => 'form-group-sm',
                 ]
             )
             ->add('end', TimeType::class,
@@ -87,6 +90,7 @@ class ColumnEntityType extends AbstractType
                     'label' => 'timetable.column.end.label',
                     'help' => 'timetable.column.end.help',
                     'required' => false,
+                    'element_class' => 'form-group-sm',
                 ]
             )
             ->add('sequence', HiddenType::class)
@@ -99,9 +103,6 @@ class ColumnEntityType extends AbstractType
                 [
                     'attr' => [
                         'class' => 'removeElement'
-                    ],
-                    'error_mapping' => [
-                        NotBlank::class => 'name',
                     ],
                 ]
             )

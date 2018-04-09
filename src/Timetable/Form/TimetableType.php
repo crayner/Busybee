@@ -71,15 +71,12 @@ class TimetableType extends AbstractType
             )
             ->add('days', CollectionType::class,
                 [
-                    'entry_type'   => DayEntityType::class,
-                    'help'  => 'timetable.days.help',
-                    'label'        => 'timetable.days.label',
-                    'allow_delete' => false,
-                    'allow_add'    => false,
-                    'disabled'     => $locked,
-                    'attr'         =>  [
-                        'class' => 'dayCollection',
-                    ],
+                    'entry_type'    => DayEntityType::class,
+                    'help'          => 'timetable.days.help',
+                    'label'         => 'timetable.days.label',
+                    'allow_delete'  => false,
+                    'allow_add'     => false,
+                    'disabled'      => $locked,
                 ]
             )
         ;
@@ -88,7 +85,7 @@ class TimetableType extends AbstractType
                 ->add('columns', CollectionType::class,
                     [
                         'entry_type'    => ColumnEntityType::class,
-                        'help'  => 'timetable.columns.help',
+                        'help'          => 'timetable.columns.help',
                         'label'         => 'timetable.columns.label',
                         'allow_delete'  => false,
                         'allow_add'     => false,
@@ -97,11 +94,7 @@ class TimetableType extends AbstractType
                                 'timetable_id' => $options['data']->getId(),
                             ],
                         'disabled'      => $locked,
-                        'attr'          =>
-                            [
-                                'class' => 'columnCollection',
-                            ],
-                        'sort_manage' => true,
+                        'sort_manage'   => true,
                     ]
                 )
             ;
@@ -119,11 +112,7 @@ class TimetableType extends AbstractType
                                 'timetable_id' => $options['data']->getId(),
                             ],
                         'disabled'      => $locked,
-                        'attr'          =>
-                            [
-                                'class' => 'columnCollection',
-                            ],
-                        'sort_manage' => true,
+                        'sort_manage'   => true,
                     ]
                 )
             ;

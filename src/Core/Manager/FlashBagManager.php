@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Core\Manager;
 
 use App\Core\Organism\Message;

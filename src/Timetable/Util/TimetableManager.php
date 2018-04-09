@@ -4,6 +4,7 @@ namespace App\Timetable\Util;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\TabCollectionManager;
 use App\Entity\Timetable;
+use App\Entity\TimetableColumn;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
@@ -39,7 +40,7 @@ class TimetableManager extends TabCollectionManager
     /**
      * @var null|Timetable
      */
-    private $timeTable;
+    private $timetable;
 
     /**
      * TimetableManager constructor.
@@ -118,7 +119,7 @@ timetable:
         elseif(! $entity instanceof Timetable)
             $entity = new Timetable();
 
-        $this->timeTable = $entity;
+        $this->timetable = $entity;
 
         return $entity;
     }
@@ -136,13 +137,50 @@ timetable:
      */
     public function getTimeTable(): ?Timetable
     {
-        return $this->timeTable;
+        return $this->timetable;
     }
 
+    /**
+     * @return bool
+     */
     public function isValidTimetable(): bool
     {
-        if ($this->timeTable instanceof Timetable && $this->timeTable->getId() > 0)
+        if ($this->timetable instanceof Timetable && $this->timetable->getId() > 0)
             return true;
         return false;
+    }
+
+    /**
+     * @param int $cid
+     * @return null
+     */
+    public function removeColumn(int $cid)
+    {
+        $column = $this->getEntityManager()->getRepository(TimetableColumn::class)->find($cid);
+
+        if (empty($column) || ! $this->getTimeTable()->getColumns()->contains($column)) {
+            $this->getMessageManager()->add('warning', 'timetable.column.remove.missing', [], 'Timetable');
+            return ;
+        }
+
+        if (!$column->canDelete()) {
+            $this->getMessageManager()->add('warning', 'timetable.column.remove.locked', [], 'Timetable');
+            return ;
+        }
+
+        try {
+            $this->timetable->removeColumn($column);
+
+            $this->getEntityManager()->persist($this->timetable);
+            $this->getEntityManager()->remove($column);
+            $this->getEntityManager()->flush();
+        } catch (\Exception $e) {
+            $this->getMessageManager()->add('danger', 'timetable.column.remove.error', ['%{message}' => $e->getMessage()], 'Timetable');
+            return ;
+        }
+
+        $this->getMessageManager()->add('success', 'timetable.column.remove.success', [], "Timetable");
+
+        return ;
     }
 }

@@ -19,14 +19,15 @@
         hide_useless_buttons: true,
         before_remove: function (collection, element) {
             var source = $(element[0]).find('.ColumnIdentifier');
-            var id = source.attr('column');
-            if (parseInt(id) === 0) {
+            var cid = source.attr('column');
+            if (parseInt(cid) === 0) {
                 return true;
             }
 
-            var path = '{{ path('column_remove', {'id': '__id__'
+            var path = '{{ path('column_remove', {'cid': '__cid__', 'id': app.request.get('id')
             }) }}';
-            path = path.replace('__id__', id);
+            path = path.replace('__cid__', cid);
+
 
             window.open(path, '_self');
             return false;
@@ -34,7 +35,7 @@
     });
 
     function resetColumnTimes(id) {
-        var reset = confirm('{{ 'column.resettime.confirm'|trans }}');
+        var reset = confirm('{{ 'timetable.column.resettime.confirm'|trans }}');
 
         if (reset === false) {
 

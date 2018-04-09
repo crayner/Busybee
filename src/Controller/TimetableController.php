@@ -1,13 +1,15 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\FlashBagManager;
 use App\Pagination\TimetablePagination;
-use App\Timetable\Form\ColumnType;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class TimetableController extends Controller
@@ -74,32 +76,39 @@ class TimetableController extends Controller
     }
 
     /**
-     * @param   Request $request
-     * @return  \Symfony\Component\HttpFoundation\Response
      * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/timetable/{id}/days/edit/", name="timetable_days_edit")
+     * @Route("/timetable/{id}/days/{cid}/edit/", name="timetable_days_edit")
+     * @param Request $request
+     * @param $id
+     * @param string $cid
+     * @param TimetableManager $timetableManager
+     * @return JsonResponse
      */
-    public function editTimeTableDays(Request $request, $id, TimetableManager $timetableManager)
+    public function editTimeTableDays(Request $request, $id, $cid = 'ignore', TimetableManager $timetableManager)
     {
         $entity = $timetableManager->find($id);
 
-        $form = $this->createForm(ColumnType::class, $entity);
+        if ($cid !== 'ignore')
+            $timetableManager->removeColumn($cid);
 
-        $form->handleRequest($request);
+        $form = $this->createForm(TimetableType::class, $entity);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $om = $this->get('doctrine')->getManager();
-            $om->persist($entity);
-            $om->flush();
-        }
-
-        return $this->render('Timetable/Column/edit.html.twig',
+        $content = $this->renderView('Timetable/timetable_collection.html.twig',
             [
-                'form' => $form->createView(),
-                'fullForm' => $form,
-                'timetable' => $entity,
+                'collection' => $form->get('columns')->createView(),
                 'tabManager' => $timetableManager,
+                'route' => 'timetable_days_edit',
+                'contentTarget' => 'columnCollection',
             ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'status' => $timetableManager->getStatus(),
+                'message' => $timetableManager->getMessageManager(),
+            ],
+            200
         );
     }
 
@@ -179,36 +188,21 @@ class TimetableController extends Controller
 
     /**
      * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/timetable/column/{id}/remove/", name="column_remove")
+     * @Route("/timetable/{id}/column/{cid}/remove/", name="column_remove")
+     * @param int $id
+     * @param int $cid
+     * @param TimetableManager $timetableManager
+     * @return RedirectResponse
      */
-    public function removeColumn($id)
+    public function removeColumn(int $id, int $cid, TimetableManager $timetableManager, FlashBagManager $flashBagManager)
     {
-        $column = $this->get('column.repository')->find($id);
+        $timetableManager->find($id, true);
 
+        $timetableManager->removeColumn($cid);
 
-        if (empty($column)) {
-            $this->get('session')->getFlashBag()->add('success', 'column.remove.missing');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
-        }
+        $flashBagManager->addMessages();
 
-
-        if (!$column->canDelete($id)) {
-            $this->get('session')->getFlashBag()->add('warning', 'column.remove.locked');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
-        }
-
-        try {
-            $om = $this->get('doctrine')->getManager();
-            $om->remove($column);
-            $om->flush();
-        } catch (\Exception $e) {
-            $this->get('session')->getFlashBag()->add('danger', 'column.remove.error');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
-        }
-
-        $this->get('session')->getFlashBag()->add('success', 'column.remove.success');
-
-        return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
+        return $this->redirectToRoute('timetable_edit', ['id' => $id]);
     }
 
     /**

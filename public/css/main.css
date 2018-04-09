@@ -608,3 +608,24 @@ input[type=color].form-control {
     min-width: 32px;
     min-height: 24px;
 }
+.form-group-sm .form-control {
+    padding: 0 0.25rem;
+    font-size: 0.75rem;
+    max-height: 1.8rem;
+    min-height: 1.8rem;
+}
+.form-group-sm .form-control-label {
+    font-size: 0.75rem;
+    max-height: 1.8rem;
+    min-height: 1.8rem;
+}
+.form-group-sm .field-required {
+    font-size: 0.65rem;
+    max-height: 1.8rem;
+    min-height: 1.8rem;
+}
+.form-group-sm small {
+    font-size: 0.65rem;
+    min-height: 1.8rem;
+    max-height: 1.8rem;
+}
