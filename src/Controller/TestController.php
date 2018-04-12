@@ -34,12 +34,9 @@ class TestController extends Controller
         $value->setName('Coralie');
         $timetable->addValue($value);
 
-dump($timetable);
         $form = $this->createForm(CollectionTestType::class, $timetable);
 
         $form->handleRequest($request);
-
-        dump($form);
 
         return $this->render('Collection/page.html.twig',
             [

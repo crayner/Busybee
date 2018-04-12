@@ -1,14 +1,14 @@
 {% block test_value_label %}{% endblock %}
 {% block test_value_errors %}{% endblock %}
 
-{% block test__value_widget %}
+{% block test_value_widget %}
     {% spaceless %}
         <div class="row">
             <div class="col-6 offset-3 card">
                 {{ form_row(form.name) }}
             </div>
             <div class="col-3">
-                {% set h3Content = '<div class="collection-tmp">' %}
+                {% set h3Content = '<div class="collection-actions">' %}
                 {% set h3Content = h3Content ~ removeButton({mergeClass: 'btn-sm'})|raw %}
                 {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
                 {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
@@ -19,4 +19,23 @@
             </div>
         </div>
     {% endspaceless %}
-{% endblock test__value_widget %}
+{% endblock test_value_widget %}
+
+{% block _CollectionTest_values_entry_label %}{% endblock %}
+{% block _CollectionTest_values_entry_errors %}{% endblock %}
+
+{% block _CollectionTest_values_entry_widget %}
+    <div class="row">
+        <div class="col-9 card">
+            {{ form_row(form) }}
+        </div>
+        <div class="col-3 card">
+            {% set h3Content = '<div class="collection-actions">' %}
+            {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
+            {% set h3Content = h3Content ~ '</div>' %}
+            {{ h3Content|raw }}
+            {{ form_rest(form) }}
+            {% do form.setRendered %}
+        </div>
+    </div>
+{% endblock _CollectionTest_values_entry_widget %}

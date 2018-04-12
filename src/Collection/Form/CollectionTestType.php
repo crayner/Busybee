@@ -2,9 +2,7 @@
 namespace App\Collection\Form;
 
 use App\Collection\Organism\Test;
-use App\Collection\Organism\Value;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,10 +28,6 @@ class CollectionTestType extends AbstractType
                     'entry_type' => ChoiceType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
-//                    'sort_manage' => true,
-//                    'allow_up' => true,
-//                    'allow_down' => true,
-                    'required' => false,
                     'entry_options' => [
                         'choices' => $w,
                     ],
@@ -53,5 +47,13 @@ class CollectionTestType extends AbstractType
                 'data_class' => Test::class,
             ]
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
+    {
+        return 'CollectionTest';
     }
 }

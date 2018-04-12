@@ -19,6 +19,30 @@
     {% set collection = form.values %}
     <div class="{{ collection.vars.id }}" data-collection="{{ collection.vars.id }}"></div>
     <script>
-        $(".{{ collection.vars.id }}").collection();
+        $(".{{ collection.vars.id }}").collection({
+            name_prefix: '{{ collection.vars.full_name }}',
+            add: '{{ addButton({mergeClass: 'btn-sm'})|raw }}',
+            remove: '{{ removeButton({mergeClass: 'btn-sm'})|raw }}',
+            up: '{{ upButton({mergeClass: 'btn-sm'})|raw }}',
+            down: '{{ downButton({mergeClass: 'btn-sm'})|raw }}',
+            add_at_the_end: true,
+            allow_up: true,
+            allow_down: true,
+            before_remove: function (collection, element) {
+                var source = $(element[0]).find('.removeElement');
+
+                if (source.is('select')) {
+                    var cid = source.val();
+                } else {
+                    var cid = source.attr('value');
+                }
+
+                if (typeof cid === 'undefined' || (!cid)) {
+                    cid = 'ignore';
+                }
+                alert(cid);
+                return false;
+            }
+        });
     </script>
 {% endblock %}
