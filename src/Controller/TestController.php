@@ -15,6 +15,7 @@ class TestController extends Controller
 {
     /**
      * @Route("/test/page/", name="test_page")
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function test(Request $request)
