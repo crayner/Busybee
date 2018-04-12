@@ -19,6 +19,7 @@ class CollectionExtension extends AbstractExtension
             new \Twig_SimpleFunction('collection_script', array($this, 'renderCollectionScript')),
             new \Twig_SimpleFunction('collections_manage', array($this, 'manageCollectionsScript')),
             new \Twig_SimpleFunction('collection_class_name', array($this, 'getCollectionClassName')),
+            new \Twig_SimpleFunction('collection_prefix_name', array($this, 'getCollectionPrefixName')),
         );
     }
 
@@ -173,5 +174,24 @@ class CollectionExtension extends AbstractExtension
             throw new \InvalidArgumentException('Hey programmer,  You stuffed up this one...  Must be a valid collection in a form or the collection ID.');
 
         return 'class'.$class;
+    }
+
+    /**
+     * @param FormView|string $collection
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public function getCollectionPrefixName($collection): string
+    {
+        return 'collection';
+        if ($collection instanceof FormView)
+            $id = $collection->vars['full_name'];
+        elseif (is_string($collection))
+            $id = $collection;
+        else {
+            dump($collection);
+            throw new \InvalidArgumentException('Hey programmer,  You stuffed up this one...  Must be a valid collection in a form or the collection ID.');
+        }
+        return 'prefix' . ucfirst(str_replace(['[', ']'], ['_', ''], $id));
     }
 }
