@@ -1,0 +1,50 @@
+{% trans_default_domain "home" %}
+
+{% extends 'Default/headerNotice.html.twig' %}
+
+{% set script = [] %}
+{% block htmlContent %}
+    <!DOCTYPE html >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>{{ get_setting('org.name.long', 'Busybee Institute') }} - {% block title %}{% endblock title %} on
+            Busybee</title>
+
+        {% block stylesheets %}
+            <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset('css/bootstrap-grid.min.css') }}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset('css/bootstrap-reboot.min.css') }}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset('css/bootstrap4-submenu.css') }}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset('css/fontawesome-all.min.css') }}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet"/>
+        {% endblock stylesheets %}
+    </head>
+
+    <body>
+
+    <div class="container theme-showcase" role="main"{% if headerOff is defined and headerOff %} style="margin-top: -50px;"{% endif %}>
+
+
+        <div class="row">
+                <div class="col-12" id="contentContainer">
+                {% block flashMessages %}
+                    {% include 'Default/flash.html.twig' %}
+                {% endblock flashMessages %}
+                {% block contentContainer %}
+
+
+                {% endblock contentContainer %}
+                </div>
+        </div>
+    </div> <!-- /container -->
+
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    {% endblock javascripts %}
+
+
+    </body>
+    </html>
+{% endblock htmlContent %}
