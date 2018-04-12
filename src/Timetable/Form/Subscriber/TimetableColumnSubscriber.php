@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: craig
- * Date: 3/04/2018
- * Time: 12:02
- */
-
 namespace App\Timetable\Form\Subscriber;
-
 
 use App\Core\Manager\SettingManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

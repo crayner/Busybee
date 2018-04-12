@@ -6,6 +6,7 @@ form:
     proceed: Proceed
     return: Return
     delete: Erase
+    remove: Erase Element from Collection
     misc: Miscellaneous
     reset: Reset
     close: Close

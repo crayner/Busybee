@@ -2,7 +2,6 @@
 namespace App\Timetable\Util;
 
 use App\Core\Manager\MessageManager;
-use App\Core\Manager\TabCollectionManager;
 use App\Entity\Timetable;
 use App\Entity\TimetableColumn;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,7 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class TimetableManager extends TabCollectionManager
+class TimetableManager
 {
     /**
      * @var RequestStack
@@ -71,13 +70,9 @@ timetable:
     /**
      * @return string
      */
-    public function getResetScripts(): string
+    public function getCollectionScripts(): string
     {
-        $request = $this->stack->getCurrentRequest();
-        $xx = "manageCollection('" . $this->router->generate("timetable_days_edit", ["id" => $request->get("id"), "cid" => "ignore"]) . "','columnCollection', '')\n";
-//        $xx .= "manageCollection('" . $this->router->generate("department_members_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','memberCollection', '')\n";
-
-        return $xx;
+        return '<!-- Collection Scripts -->';
     }
 
     /**

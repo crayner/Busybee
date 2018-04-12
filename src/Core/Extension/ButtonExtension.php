@@ -34,56 +34,63 @@ save:
     title: 'form.save'
     style: 'float: right;'
     name: Save
-    additional: ''
+    attr: ''
     prompt: ''
 cancel:
     class: "far fa-times-circle btn btn-info"
     type: button
     title: 'form.cancel'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 upload:
     class: "fas fa-cloud-upload-alt btn btn-success"
     type: submit
     title: 'form.upload'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 add:
     class: "fas fa-plus-circle btn btn-info"
     type: button
     title: 'form.add'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 edit:
     class: "fas fa-edit btn btn-info"
     type: button
     title: 'form.edit'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 proceed:
     class: "far fa-hand-point-right btn btn-info"
     type: button
     title: 'form.proceed'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 return:
     class: "far fa-hand-point-left btn btn-primary"
     type: button
     title: 'form.return'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 delete:
     class: "fas fa-eraser btn btn-danger"
     type: button
     title: 'form.delete'
     style: 'float: right;'
-    additional: ''
+    attr: ''
+    prompt: ''
+remove:
+    class: "fas fa-eraser btn btn-warning collection-remove collection-action"
+    type: button
+    title: 'form.remove'
+    style: 'float: right;'
+    attr: ''
     prompt: ''
 reset:
     class: "fas fa-sync btn btn-warning"
@@ -92,55 +99,55 @@ reset:
     style: 'float: right;'
     name: Reset
     prompt: ''
-    additional: ''
+    attr: ''
 misc:
     class: ""
     type: button
     title: 'form.misc'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 close:
     class: "far fa-times-circle btn btn-primary"
     type: button
     title: 'form.close'
     style: 'float: right;'
-    additional: 'onclick="window.close();"'
+    attr: 'onclick="window.close();"'
     prompt: ''
 duplicate:
     class: "fas fa-copy btn btn-primary"
     type: button
     title: 'form.duplicate'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 up:
     class: "collection-up collection-action fas fa-arrow-up btn btn-light"
     type: button
     title: 'form.up'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 down:
     class: "collection-down collection-action fas fa-arrow-down btn btn-light"
     type: button
     title: 'form.down'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 on:
     class: "far fa-thumbs-up btn btn-danger"
     type: button
     title: 'form.on'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 off:
     class: "far fa-thumbs-down btn btn-success"
     type: button
     title: 'form.off'
     style: 'float: right;'
-    additional: ''
+    attr: ''
     prompt: ''
 XXX;
 		$this->buttons = Yaml::parse($buttons);
@@ -167,7 +174,8 @@ XXX;
 			new \Twig_SimpleFunction('editButton', array($this, 'editButton')),
 			new \Twig_SimpleFunction('proceedButton', array($this, 'proceedButton')),
 			new \Twig_SimpleFunction('returnButton', array($this, 'returnButton')),
-			new \Twig_SimpleFunction('deleteButton', array($this, 'deleteButton')),
+            new \Twig_SimpleFunction('deleteButton', array($this, 'deleteButton')),
+            new \Twig_SimpleFunction('removeButton', array($this, 'removeButton')),
 			new \Twig_SimpleFunction('miscButton', array($this, 'miscButton')),
 			new \Twig_SimpleFunction('resetButton', array($this, 'resetButton')),
 			new \Twig_SimpleFunction('closeButton', array($this, 'closeButton')),
@@ -196,11 +204,11 @@ XXX;
 	 * @param array $defaults
 	 * @param array $details
 	 *
-	 * @return mixed|string
+	 * @return string
 	 */
-	private function generateButton($defaults, $details = [])
+	private function generateButton($defaults, $details = []): string
 	{
-		$button = '<button name="%name%" title="%title%" type="%type%" class="%class%" style="%style%" %additional%>%prompt%</button>';
+		$button = '<button name="%name%" title="%title%" type="%type%" class="%class%" style="%style%" %attr%>%prompt%</button>';
 
 		if (isset($details['mergeClass']))
 		{
@@ -208,13 +216,16 @@ XXX;
 				$defaults['class'] .= ' ' . $details['mergeClass'];
 		}
 
-		if (isset($details['additional']) && is_array($details['additional']))
+		if (! empty($details['additional']))
+		    $details['attr'] = $details['additional'];
+
+		if (isset($details['attr']) && is_array($details['attr']))
 		{
-			$additional            = $details['additional'];
-			$details['additional'] = '';
-			foreach ($additional as $name => $value)
-				$details['additional'] .= $name . '="' . $value . '" ';
-			$details['additional'] = trim($details['additional']);
+			$attr            = $details['attr'];
+			$details['attr'] = '';
+			foreach ($attr as $name => $value)
+				$details['attr'] .= $name . '="' . $value . '" ';
+			$details['attr'] = trim($details['attr']);
 		}
 
 		if (!empty($details['windowOpen']))
@@ -222,7 +233,7 @@ XXX;
 			$target                = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'FormTheme' : $details['transDomain']);
 			$route                 = 'onClick="window.open(\'' . $details['windowOpen']['route'] . '\',\'' . $target . '\'';
 			$route                 = empty($details['windowOpen']['params']) ? $route . ')"' : $route . ',\'' . $details['windowOpen']['params'] . '\')"';
-			$details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
+			$details['attr'] = empty($details['attr']) ? $route : trim($details['attr'] . ' ' . $route);
 		}
 
 		if (!empty($details['javascript']))
@@ -236,23 +247,23 @@ XXX;
 			$target = trim($target, ',');
 
 			$route                 = 'onClick="' . $details['javascript']['function'] . '(' . $target . ');"';
-			$details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
+			$details['attr'] = empty($details['attr']) ? $route : trim($details['attr'] . ' ' . $route);
 		}
 
 		if (!empty($details['disabled']) && $details['disabled'])
-            $details['additional'] = empty($details['additional']) ? 'disabled' : trim($details['additional'] . ' disabled');
+            $details['attr'] = empty($details['attr']) ? 'disabled' : trim($details['attr'] . ' disabled');
 
 		if (!isset($defaults['name']))
             $defaults['name'] = '';
 
 		foreach ($defaults as $q => $w)
 		{
-            if ($q == 'additional')
-                $details['additional'] = empty($details['additional']) ? $w : trim($details['additional'] . ' ' . $w);
+            if ($q == 'attr')
+                $details['attr'] = empty($details['attr']) ? $w : trim($details['attr'] . ' ' . $w);
 			if (isset($details[$q]))
 				$defaults[$q] = $details[$q];
             if ($q == 'name')
-                $details['additional'] = empty($details['additional']) ? '' : trim($details['additional'] . ' ' . $w);
+                $details['attr'] = empty($details['attr']) ? '' : trim($details['attr'] . ' ' . $w);
             if (empty($defaults[$q]))
 			{
 				unset($defaults[$q]);
@@ -273,7 +284,7 @@ XXX;
 			$button = str_replace('collection', $details['collectionName'], $button);
 
 		if (isset($details['colour']))
-			$button = str_replace(['btn-default', 'btn-success', 'btn-info', 'btn-warning', 'btn-danger', 'btn-primary', 'btn-link'], 'btn-' . $details['colour'], $button);
+			$button = str_replace(['btn-default', 'btn-success', 'btn-info', 'btn-warning', 'btn-danger', 'btn-primary', 'btn-link', 'btn-light', 'btn-dark'], 'btn-' . $details['colour'], $button);
 
 		return $button;
 	}
@@ -343,15 +354,25 @@ XXX;
 		return $this->generateButton($this->buttons['return'], $details);
 	}
 
-	/**
-	 * @param array $details
-	 *
-	 * @return string
-	 */
-	public function deleteButton($details = [])
-	{
-		return $this->generateButton($this->buttons['delete'], $details);
-	}
+    /**
+     * @param array $details
+     *
+     * @return string
+     */
+    public function deleteButton($details = [])
+    {
+        return $this->generateButton($this->buttons['delete'], $details);
+    }
+
+    /**
+     * @param array $details
+     *
+     * @return string
+     */
+    public function removeButton($details = [])
+    {
+        return $this->generateCollectionButton($this->buttons['remove'], $details);
+    }
 
 	/**
 	 * @param array $details
@@ -391,7 +412,7 @@ XXX;
 	 */
 	public function upButton($details = array())
 	{
-		return $this->generateButton($this->buttons['up'], $details);
+		return $this->generateCollectionButton($this->buttons['up'], $details);
 	}
 
 	/**
@@ -401,7 +422,7 @@ XXX;
 	 */
 	public function downButton($details = array())
 	{
-		return $this->generateButton($this->buttons['down'], $details);
+		return $this->generateCollectionButton($this->buttons['down'], $details);
 	}
 
 	/**
@@ -409,9 +430,9 @@ XXX;
 	 *
 	 * @return string
 	 */
-	public function upDownButton($details = array())
+	public function upDownButton(array $details = [])
 	{
-		return $this->generateButton($this->buttons['down'], $details) . $this->generateButton($this->buttons['up'], $details);
+		return $this->generateCollectionButton($this->buttons['down'], $details) . $this->generateCollectionButton($this->buttons['up'], $details);
 	}
 
 	/**
@@ -534,6 +555,31 @@ XXX;
 	 */
 	public function duplicateButton($details = [])
 	{
-		return $this->generateButton($this->buttons['duplicate'], $details);
+		return $this->generateCollectionButton($this->buttons['duplicate'], $details);
 	}
+
+    /**
+     * @param $defaults
+     * @param $details
+     * @return string
+     */
+    private function generateCollectionButton($defaults, $details): string
+    {
+        if (! empty($details) && ! empty($details['collection']))
+        {
+            if ($details['collection'] instanceof FormView)
+            {
+                $name = $details['collection']->vars['id'];
+                $defaults['class'] = str_replace('collection', $name.'-collection', $defaults['class'] ?: '');
+            }
+            if (is_string($details['collection']))
+            {
+                $name = $details['collection'];
+                $defaults['class'] = str_replace('collection', $name.'-collection', $defaults['class'] ?: '');
+            }
+            unset($details['collection']);
+        }
+
+        return $this->generateButton($defaults, $details);
+    }
 }

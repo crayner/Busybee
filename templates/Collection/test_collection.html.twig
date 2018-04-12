@@ -1,0 +1,22 @@
+{% block test_value_label %}{% endblock %}
+{% block test_value_errors %}{% endblock %}
+
+{% block test__value_widget %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-6 offset-3 card">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-3">
+                {% set h3Content = '<div class="collection-tmp">' %}
+                {% set h3Content = h3Content ~ removeButton({mergeClass: 'btn-sm'})|raw %}
+                {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
+                {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+                {% set h3Content = h3Content ~ upDownButton({mergeClass: 'btn-sm'})|raw %}
+                {% set h3Content = h3Content ~ '</div>' %}
+                {{ h3Content|raw }}
+                {{ form_rest(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock test__value_widget %}

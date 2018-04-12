@@ -1,0 +1,33 @@
+{% if collection.vars.display_script is same as (true)  %}
+<script type="text/javascript" language="JavaScript">
+    $(".{{ collection_class_name(collection) }}").collection({
+        name_prefix: '{{ collection.vars.full_name }}',
+        allow_up: {% if collection.vars.allow_up is same as (true) %}true{% else %}false{% endif %},
+        allow_down: {% if collection.vars.allow_down is same as (true) %}true{% else %}false{% endif %},
+        {% if collection.vars.add_button_class is not empty %}
+        add: '{{ addButton({transDomain: collection.vars.translation_domain, title: collection.vars.id ~ '.add.button', class: collection.vars.add_button_class})|raw }}',
+        {% else %}
+        add: '{{ addButton({transDomain: collection.vars.translation_domain, title: collection.vars.id ~ '.add.button'})|raw }}',
+        {% endif %}
+        {% if collection.vars.remove_button_class is not empty %}
+        remove: '{{ deleteButton({transDomain: collection.vars.translation_domain, title: collection.vars.id ~ '.remove.button', class: remove_button_class  })|raw }}',
+        {% else %}
+        remove: '{{ deleteButton({transDomain: collection.vars.translation_domain, title: collection.vars.id ~ '.remove.button', colour: 'warning'})|raw }}',
+        {% endif %}
+        add_at_the_end: true,
+        hide_useless_buttons: true,
+        before_remove: function (collection, element) {
+            {% if collection.vars.route is not empty %}
+                {% set route_params = collection.vars.route_params|merge({id: app.request.get('id'), cid: '__cid__'}) %}
+
+                var path = '{{ path(collection.vars.route, route_params) }}';
+
+                var target = '{{ collection.vars.id }}_target';
+
+                manageCollection(path, target, element);
+            {% endif %}
+            return true;
+        }
+    });
+</script>
+{% endif %}
