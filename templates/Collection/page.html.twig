@@ -1,4 +1,4 @@
-{% extends "Default/template.html.twig" %}
+{% extends "Default/test_template.html.twig" %}
 
 {% form_theme form
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
@@ -6,9 +6,10 @@
     'Collection/test_collection.html.twig'
 %}
 
+
+
 {% block contentContainer %}
 {{ form_start(form) }}
-    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {{ form_row(form.values) }}
 {{ form_end(form) }}
 {% endblock %}
@@ -17,9 +18,9 @@
     {{ parent() }}
     <script src="{{ asset('bundles/hillrangeform/js/jquery.collection.js') }}"></script>
     {% set collection = form.values %}
-    <div class="{{ collection.vars.id }}" data-collection="{{ collection.vars.id }}"></div>
+    <div class="collection" data-collection="{{ collection.vars.id }}"></div>
     <script>
-        $(".{{ collection.vars.id }}").collection({
+        $(".collection").collection({
             name_prefix: '{{ collection.vars.full_name }}',
             add: '{{ addButton({mergeClass: 'btn-sm'})|raw }}',
             remove: '{{ removeButton({mergeClass: 'btn-sm'})|raw }}',
@@ -29,20 +30,11 @@
             allow_up: true,
             allow_down: true,
             before_remove: function (collection, element) {
-                var source = $(element[0]).find('.removeElement');
-
-                if (source.is('select')) {
-                    var cid = source.val();
-                } else {
-                    var cid = source.attr('value');
-                }
-
-                if (typeof cid === 'undefined' || (!cid)) {
-                    cid = 'ignore';
-                }
-                alert(cid);
+                console.log('Removal Clicked');
                 return false;
             }
         });
     </script>
 {% endblock %}
+
+
