@@ -28,5 +28,5 @@
     {% set route = 'department_edit' %}
     {% include 'Script/monitorForm.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' %}
-    {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
+    {{ collections_manage(form, ['courses','members'])|raw }}
 {% endblock javascripts %}

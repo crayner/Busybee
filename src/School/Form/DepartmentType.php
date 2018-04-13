@@ -117,6 +117,7 @@ class DepartmentType extends AbstractType
                         'choice_label' => 'fullName',
                         'placeholder' => 'department.course.name.placeholder',
                     ],
+                    'route' => 'department_courses_manage',
                 ]
             )
         ;

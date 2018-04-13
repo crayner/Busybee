@@ -5,9 +5,8 @@
 
 {% block department_member_widget %}
     {% spaceless %}
-        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = '<div class="collection-actions">' %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
-        {% set h3Content = h3Content ~ deleteButton({title: 'department.member.remove.title', transDomain: 'School', mergeClass: 'collection-remove collection-action', colour: 'warning'})|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         <div class="row">
             <div class="col-5 card">

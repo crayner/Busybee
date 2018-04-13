@@ -21,7 +21,7 @@ class DepartmentController extends Controller
      * @param $id
      * @param FlashBagManager $flashBagManager
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/institute/department/edit/{id}/", name="department_edit")
+     * @Route("/department/{id}/edit/", name="department_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      */
 	public function edit(Request $request, $id, FlashBagManager $flashBagManager, DepartmentManager $departmentManager)
@@ -81,7 +81,7 @@ class DepartmentController extends Controller
      * @param $id
      * @param Request $request
      * @return Response
-     * @Route("/institute/department/logo/delete/{id}/", name="department_logo_delete")
+     * @Route("/department/logo/delete/{id}/", name="department_logo_delete")
      * @IsGranted("ROLE_PRINCIPAL")
      */
 	public function deleteLogo($id, Request $request)
@@ -108,14 +108,14 @@ class DepartmentController extends Controller
      * @param MessageManager $messageManager
      * @param \Twig_Environment $twig
      * @return JsonResponse
-     * @Route("/institute/department/remove/member/{id}/", name="department_member_remove")
+     * @Route("/department/{id}/member/{cid}/remove/", name="department_member_remove")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-	public function removeMember($id, MessageManager $messageManager, \Twig_Environment $twig)
+	public function removeMember($id, $cid, MessageManager $messageManager, \Twig_Environment $twig)
 	{
 		$om = $this->getDoctrine()->getManager();
 
-		$ds = $om->getRepository(DepartmentMember::class)->find($id);
+		$ds = $om->getRepository(DepartmentMember::class)->find($cid);
 		$data            = [];
 
 		if ($ds instanceof DepartmentMember)
@@ -138,10 +138,17 @@ class DepartmentController extends Controller
 			return new JsonResponse($data, 200);
 		}
 
-		$data['message'] = 			$data['message'] = $messageManager->add('warning', 'department.member.remove.missing', [], 'School')->renderView($twig);
-		$data['status']  = 'warning';
+		if ($cid !== 'ignore') {
+            $data['message'] = $messageManager->add('warning', 'department.member.remove.missing', [], 'School')->renderView($twig);
+            $data['status'] = 'warning';
 
-		return new JsonResponse($data, 200);
+            return new JsonResponse($data, 200);
+        }
+
+        $data['message'] = '';
+        $data['status'] = 'default';
+
+        return new JsonResponse($data, 200);
 	}
 
     /**
@@ -150,7 +157,7 @@ class DepartmentController extends Controller
      * @param DepartmentManager $departmentManager
      * @param \Twig_Environment $twig
      * @return JsonResponse
-     * @Route("/department/courses/{id}/manage/{cid}", name="department_courses_manage")
+     * @Route("/department/{id}/courses/{cid}/manage/", name="department_courses_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function manageCourseCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, \Twig_Environment $twig)
@@ -183,7 +190,7 @@ class DepartmentController extends Controller
      * @param DepartmentManager $departmentManager
      * @param \Twig_Environment $twig
      * @return JsonResponse
-     * @Route("/department/members/{id}/manage/{cid}", name="department_members_manage")
+     * @Route("/department/{id}/members/{cid}/manage/", name="department_members_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function manageMemberCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, \Twig_Environment $twig)

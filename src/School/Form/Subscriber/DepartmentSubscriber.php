@@ -60,6 +60,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 					'entry_options' => [
 						'staff_type' => $data->getType(),
 					],
+                    'route' => 'department_members_manage',
 				]
 			);
 		}
