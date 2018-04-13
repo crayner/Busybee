@@ -25,7 +25,7 @@ sudo: false
 
 # Start mysql service
 services:
-    - mariadb
+    - mysql
 
 # Cache composer packages so "composer install" is faster
 cache:
