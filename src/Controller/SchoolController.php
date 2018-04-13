@@ -291,7 +291,7 @@ class SchoolController extends Controller
                     [
                         'collection' => $form->get('tutors')->createView(),
                         'route' => 'external_activity_tutor_manage',
-                        'contentTarget' => 'tutorCollection',
+                        'contentTarget' => 'activity_tutors_target',
                     ]
                 ),
                 'message' => $activityManager->getMessageManager()->renderView($twig),
@@ -326,7 +326,7 @@ class SchoolController extends Controller
                     [
                         'collection' => $form->get('students')->createView(),
                         'route' => 'external_activity_student_manage',
-                        'contentTarget' => 'studentCollection',
+                        'contentTarget' => 'activity_students_target',
                     ]
                 ),
                 'message' => $activityManager->getMessageManager()->renderView($twig),
@@ -361,7 +361,7 @@ class SchoolController extends Controller
                     [
                         'collection' => $form->get('activitySlots')->createView(),
                         'route' => 'external_activity_slot_manage',
-                        'contentTarget' => 'slotCollection',
+                        'contentTarget' => 'activity_activitySlots_target',
                     ]
                 ),
                 'message' => $activityManager->getMessageManager()->renderView($twig),

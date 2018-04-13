@@ -432,6 +432,10 @@ class ExternalActivity extends Activity
         return $this;
     }
 
+    /**
+     * @param ActivitySlot $slot
+     * @return ExternalActivity
+     */
     public function removeActivitySlot(ActivitySlot $slot): ExternalActivity
     {
         $this->getActivitySlots()->removeElement($slot);

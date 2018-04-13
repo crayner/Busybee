@@ -72,6 +72,7 @@ class ExternalActivityType extends AbstractType
                     'entry_options' => [
                         'student_list' => $this->studentManager->generateStudentList($options['data']->getCalendarGrades()),
                     ],
+                    'route' => 'external_activity_student_manage',
                 ]
             )
             ->add('provider', SettingChoiceType::class,
@@ -89,6 +90,7 @@ class ExternalActivityType extends AbstractType
                     'allow_up' => true,
                     'allow_down' => true,
                     'sort_manage' => true,
+                    'route' => 'external_activity_tutor_manage',
                 ]
             )
             ->add('registration', ToggleType::class,
@@ -191,6 +193,7 @@ class ExternalActivityType extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => ActivitySlotType::class,
+                    'route' => 'external_activity_slot_manage',
                 ]
             )
         ;

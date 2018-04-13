@@ -204,4 +204,9 @@ class ActivitySlot implements UserTrackInterface
     {
         return true;
     }
+
+    public function getDayTime(): string
+    {
+        return $this->getDay() . ' ' . $this->getStartTime()->format('H:i');
+    }
 }

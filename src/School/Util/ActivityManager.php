@@ -336,17 +336,17 @@ class_students:
             return;
         }
         if (! $slot->canDelete()) {
-            $this->messageManager->add('warning', 'activity.slot.remove.restricted', ['%{tutor}' => $slot->getTutor()->getFullName()]);
+            $this->messageManager->add('warning', 'activity.slot.remove.restricted', ['%{slot}' => $slot->getDayTime()]);
             $this->setStatus('warning');
             return;
         }
 
-        $this->getActivity()->removeStudent($slot);
+        $this->getActivity()->removeActivitySlot($slot);
         $this->getEntityManager()->remove($slot);
         $this->getEntityManager()->persist($this->getActivity());
         $this->getEntityManager()->flush();
 
-        $this->messageManager->add('success', 'activity.slot.removed.message', ['%{tutor}' => $slot->getTutor()->getFullName()]);
+        $this->messageManager->add('success', 'activity.slot.removed.message', ['%{slot}' => $slot->getDayTime()]);
         $this->setStatus('success');
         return;
     }

@@ -276,7 +276,9 @@ activity:
                 label: Internal Space
                 placeholder: Select Space
             external_location.label: External Location
-    slot.title: Time Slot
+    slot:
+        title: Time Slot
+        removed.message: 'Time slot %{slot} removed.'
 activity_tutor:
     role:
         label: Role

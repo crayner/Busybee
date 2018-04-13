@@ -87,9 +87,9 @@ class ActivityType extends AbstractType
             ->add('tutors', EntityType::class,
                 [
                     'label' => 'activity.tutors.label',
-                        'class' => Staff::class,
-                        'choice_label' => 'fullName',
-                        'multiple' => true,
+                    'class' => Staff::class,
+                    'choice_label' => 'fullName',
+                    'multiple' => true,
                 ]
             )
         ;
