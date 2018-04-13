@@ -42,3 +42,7 @@ script:
 addons:
     mariadb: '10.2'
 
+before_script:
+    - mysql -u root -e "CREATE DATABASE craigray_core;"
+    - mysql -u root -e "CREATE USER 'craigray_core'@'localhost' IDENTIFIED BY 'craigray_core';"
+    - mysql -u root -e "GRANT ALL ON craigray_core.* TO 'craigray_core'@'localhost';"
