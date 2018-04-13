@@ -3,10 +3,11 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form
-"@HillrangeForm/FormTheme/bootstrap.html.twig"
-"@HillrangeForm/FormTheme/jquery.collection.html.twig"
-"School/day.html.twig"
-"School/time.html.twig" %}
+    "School/day.html.twig"
+    "School/time.html.twig"
+    "@HillrangeForm/FormTheme/jquery.collection.html.twig"
+    "@HillrangeForm/FormTheme/bootstrap.html.twig"
+%}
 
 {% block title %}{{ parent() }}{{ 'school.days_times.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'school.days_times.title'|trans }}{% endblock headerTitle %}
@@ -26,5 +27,4 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-    {% include "@HillrangeForm/Script/jquery_collection.html.twig" %}
 {% endblock javascripts %}
