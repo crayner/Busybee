@@ -1,6 +1,6 @@
 {% trans_default_domain "Calendar" %}
 
 {% include 'Calendar/calendarMenu.html.twig' with {'header': 'calendar.term.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.terms'} %}
-	<div id="termCollection"></div>
+	<div id="calendar_terms_target"></div>
 {% include 'Page/panelEnd.html.twig' %}
 {% do form.terms.setRendered %}

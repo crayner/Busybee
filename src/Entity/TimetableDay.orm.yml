@@ -21,7 +21,7 @@ App\Entity\TimetableDay:
                 default: 1
     manyToOne:
         timetable:
-            targetEntity: App\Entity\TimeTable
+            targetEntity: App\Entity\Timetable
             inversedBy: days
             joinColumn:
                 name: tt_id

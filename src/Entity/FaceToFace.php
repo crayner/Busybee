@@ -1,5 +1,8 @@
 <?php
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Face to Face Class
@@ -41,5 +44,34 @@ class FaceToFace extends Activity
             $name .= $this->getCourse()->getFullName(). ' ';
         }
         return $name . $this->getName();
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $periods;
+
+    /**
+     * @return Collection|null
+     */
+    public function getPeriods(): ?Collection
+    {
+        if (empty($this->periods))
+            $this->periods = new ArrayCollection();
+
+        if ($this->periods instanceof PersistentCollection && ! $this->periods->isInitialized())
+            $this->periods->initialize();
+
+        return $this->periods;
+    }
+
+    /**
+     * @param Collection|null $periods
+     * @return FaceToFace
+     */
+    public function setPeriods(?Collection $periods): FaceToFace
+    {
+        $this->periods = $periods;
+        return $this;
     }
 }

@@ -28,7 +28,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
+    {{ collections_manage(form, ['specialDays','terms','calendarGrades'])|raw }}
     {% include 'Calendar/termScript.html.twig' %}
     {% include "Calendar/specialDaysScript.html.twig" %}
     {% include 'Calendar/script.html.twig' %}

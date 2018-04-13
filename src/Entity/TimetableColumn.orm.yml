@@ -43,7 +43,7 @@ App\Entity\TimetableColumn:
             cascade: [ 'all' ]
     manyToOne:
         timetable:
-            targetEntity: App\Entity\TimeTable
+            targetEntity: App\Entity\Timetable
             inversedBy: columns
             joinColumn:
                 name: tt_id

@@ -7,13 +7,9 @@ use App\Calendar\Validator\SpecialDayDate;
 use App\Calendar\Validator\TermDate;
 use App\Calendar\Form\Listener\CalendarSubscriber;
 use App\Core\Type\SettingChoiceType;
-use App\Entity\Student;
-use Doctrine\ORM\EntityRepository;
-use Hillrange\Form\Type\CollectionEntityType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\DateType;
 use App\Entity\Calendar;
-use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -90,6 +86,8 @@ class CalendarType extends AbstractType
 					),
 					'label'         => false,
 					'by_reference'  => false,
+                    'allow_duplicate' => true,
+                    'route'         => 'calendar_term_manage',
 				)
 			)
 			->add('specialDays', CollectionType::class, array(
@@ -104,6 +102,7 @@ class CalendarType extends AbstractType
 					'label'         => false,
 					'allow_delete'  => true,
 					'by_reference'  => false,
+                    'route'         => 'calendar_special_day_manage',
 				)
 			)
             ->add('calendarGrades', CollectionType::class, [
@@ -119,6 +118,7 @@ class CalendarType extends AbstractType
                     'allow_down'    => true,
                     'by_reference'  => false,
                     'sort_manage'   => true,
+                    'route'         => 'calendar_grade_manage',
                 ]
             )
 			->add('downloadCache', HiddenType::class)
