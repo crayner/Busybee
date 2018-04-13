@@ -33,7 +33,7 @@ cache:
 
 # Define an environment variable
 env:
-    - SYMFONY_VERSION="4.0.*" DB=mysql
+    - SYMFONY_VERSION="4.0.*" DB=mariadb
 
 # Run script
 script:
