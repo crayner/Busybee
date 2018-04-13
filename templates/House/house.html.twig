@@ -5,7 +5,7 @@
 
 {% block house_widget %}
     {% spaceless %}
-        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = '<div class="collection-actions">' %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         {% include 'Page/panelStart.html.twig' with {header: 'school.house.name.title', name: form.name.vars.value, panelStyle: 'default', transDomain: 'School'} %}

@@ -3,8 +3,8 @@ namespace App\School\Form;
 
 use App\School\Util\HouseManager;
 use App\School\Validator\Houses;
+use Hillrange\Form\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -19,11 +19,8 @@ class HousesType extends AbstractType
 	{
 		$builder
 			->add('houses', CollectionType::class,
-				[
+                [
 					'entry_type'    => HouseType::class,
-					'attr'          => [
-						'class' => 'houseCollection',
-					],
 					'allow_add'     => true,
 					'allow_delete'  => true,
 					'constraints'   => [
@@ -32,6 +29,7 @@ class HousesType extends AbstractType
 					'entry_options' => [
 						'deletePhoto' => $options['deletePhoto'],
 					],
+                    'unique_key' => 'name',
 				]
 			);
 	}
