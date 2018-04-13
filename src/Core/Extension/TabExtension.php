@@ -15,7 +15,6 @@ class TabExtension extends AbstractExtension
         return array(
             new \Twig_SimpleFunction('setTabManager', array($this, 'setTabManager')),
             new \Twig_SimpleFunction('getTabs', array($this, 'getTabs')),
-            new \Twig_SimpleFunction('getResetScripts', array($this, 'getResetScripts')),
             new \Twig_SimpleFunction('safeName', array($this, 'safeName')),
         );
     }
@@ -40,14 +39,6 @@ class TabExtension extends AbstractExtension
     public function getTabs(): array
     {
         return $this->getTabManager()->getTabs();
-    }
-
-    /**
-     * @return string
-     */
-    public function getResetScripts(): string
-    {
-        return $this->getTabManager()->getResetScripts();
     }
 
     /**

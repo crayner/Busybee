@@ -43,9 +43,7 @@
                     {% set h3Content = h3Content ~ saveButton() %}
                 {% endif %}
                 {% include 'Page/panelStart.html.twig' with {panelStyle: 'warning', header: 'timetable.days.header', transDomain: 'Timetable'} %}
-                <div id="dayCollection">
-                    {{ form_widget(form.days) }}
-                </div>
+                {{ collection_widget(form.days) }}
                 {% include 'Page/panelEnd.html.twig' %}
             </div>
             <div class="col-6 card">
@@ -57,9 +55,7 @@
                 {% endif %}
                 {% include 'Page/panelStart.html.twig' with {panelStyle: 'info', header: 'timetable.columns.header', transDomain: 'Timetable', panelParagraph: 'timetable.columns.help'} %}
                 <div class="messageWindow"></div>
-                <div id="columnCollection">
-                {{ form_widget(form.columns) }}
-                </div>
+                {{ collection_widget(form.columns) }}
                 {% include 'Page/panelEnd.html.twig' %}
             </div>
         </div>

@@ -3,10 +3,10 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form '@HillrangeForm/FormTheme/bootstrap.html.twig'
-    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     'Timetable/Line/lineCollection.html.twig'
     'Timetable/Column/columnCollection.html.twig'
     'Timetable/Day/dayCollection.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
 %}
 
 {% block title %}{{ parent() }}{{ 'timetable.edit.title'|trans({'%name%': form.vars.value.getFullName}) }}{% endblock title %}
@@ -29,6 +29,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
+    {{ collections_manage(form, ['days', 'columns'])|raw }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
 {% endblock javascripts %}

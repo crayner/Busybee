@@ -1,39 +1,6 @@
 {% trans_default_domain "Timetable" %}
-{% set locked = form.locked.vars.data %}
 <!-- columnCollection -->
 <script type="text/javascript">
-    $(".columnCollection").collection({
-        name_prefix: '{{ form.columns.vars.full_name }}',
-        {% if locked %}
-        allow_up: false,
-        allow_down: false,
-        add: '',
-        remove: '',
-        {% else %}
-        allow_up: true,
-        allow_down: true,
-        add: '{{ addButton({title: 'timetable.column.add.title', transDomain: 'Timetable'})|raw }}',
-        remove: '{{ deleteButton({title: 'timetable.column.remove.title', transDomain: 'Timetable'})|raw }}',
-        add_at_the_end: true,
-        {% endif %}
-        hide_useless_buttons: true,
-        before_remove: function (collection, element) {
-            var source = $(element[0]).find('.ColumnIdentifier');
-            var cid = source.attr('column');
-            if (parseInt(cid) === 0) {
-                return true;
-            }
-
-            var path = '{{ path('column_remove', {'cid': '__cid__', 'id': app.request.get('id')
-            }) }}';
-            path = path.replace('__cid__', cid);
-
-
-            window.open(path, '_self');
-            return false;
-        }
-    });
-
     function resetColumnTimes(id) {
         var reset = confirm('{{ 'timetable.column.resettime.confirm'|trans }}');
 
