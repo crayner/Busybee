@@ -90,11 +90,12 @@ class TimetableType extends AbstractType
                         'allow_delete'  => false,
                         'allow_add'     => false,
                         'entry_options' =>
-                            [
-                                'timetable_id' => $options['data']->getId(),
-                            ],
+                        [
+                            'timetable_id'  => $options['data']->getId(),
+                        ],
                         'disabled'      => $locked,
                         'sort_manage'   => true,
+                        'route'         => 'timetable_days_edit',
                     ]
                 )
             ;
@@ -108,11 +109,12 @@ class TimetableType extends AbstractType
                         'allow_delete'  => true,
                         'allow_add'     => true,
                         'entry_options' =>
-                            [
-                                'timetable_id' => $options['data']->getId(),
-                            ],
+                        [
+                            'timetable_id'  => $options['data']->getId(),
+                        ],
                         'disabled'      => $locked,
                         'sort_manage'   => true,
+                        'route'         => 'timetable_days_edit',
                     ]
                 )
             ;
