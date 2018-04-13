@@ -14,8 +14,7 @@ before_install:
 
 install:
     - travis_retry composer install
-    - cp .env.travis .env
-    - cp /config/packages/doctine.yaml.travis /config/packages/doctrine.yaml
+    - cp /config/packages/doctrine.yaml.travis /config/packages/doctrine.yaml
     - php bin/console doctrine:database:create --env=test
     - php bin/console doctrine:schema:create --env=test
     - php bin/console doctrine:fixtures:load -n --env=test
