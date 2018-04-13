@@ -48,12 +48,4 @@ class CollectionTestType extends AbstractType
             ]
         );
     }
-
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
-    {
-        return 'CollectionTest';
-    }
 }
