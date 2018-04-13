@@ -16,20 +16,8 @@ class ValueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class,
-                [
-                    'required' => false,
-                ]
-            )
+            ->add('name', TextType::class)
         ;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getBlockPrefix()
-    {
-        return 'test_value';
     }
 
     /**
