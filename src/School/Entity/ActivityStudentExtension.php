@@ -19,7 +19,6 @@ class ActivityStudentExtension
         try {
             return $this->getStudent()->getFullname($options);
         } catch (\Exception $e) {
-            dump($e);
             return '';
         }
         return '';

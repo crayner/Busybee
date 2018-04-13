@@ -41,10 +41,8 @@
             </div>
             <div class="col-6 card">
                 {% if app.request.get('id') == 'Add' %}
-                    {% dump(app.request.get('id')) %}
                     {{ form_row(form.country, {value: get_parameter('country')}) }}
                 {% else %}
-                    {% dump(app.request.get('id')) %}
                     {{ form_row(form.country) }}
                 {% endif %}
             </div>

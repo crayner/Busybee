@@ -2,7 +2,6 @@
 
 
 <ul class="nav nav-tabs" role="tablist">
-    {{ dump(form.columns) }}
     {% for name,col in form.columns %}
         <li role="presentation">
             <a href="#{{ col.nameShort.vars.value }}" role="tab" data-toggle="tab">{{ col.name.vars.value }}</a>

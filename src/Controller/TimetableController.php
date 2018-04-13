@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
+use App\Core\Manager\TwigManager;
 use App\Pagination\TimetablePagination;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\TimetableManager;
@@ -84,7 +85,7 @@ class TimetableController extends Controller
      * @param TimetableManager $timetableManager
      * @return JsonResponse
      */
-    public function editTimeTableDays(Request $request, $id, $cid = 'ignore', TimetableManager $timetableManager)
+    public function editTimeTableDays(Request $request, $id, $cid = 'ignore', TimetableManager $timetableManager, TwigManager $twig)
     {
         $entity = $timetableManager->find($id);
 
@@ -106,7 +107,7 @@ class TimetableController extends Controller
             [
                 'content' => $content,
                 'status' => $timetableManager->getStatus(),
-                'message' => $timetableManager->getMessageManager(),
+                'message' => $timetableManager->getMessageManager()->renderView($twig->getTwig()),
             ],
             200
         );

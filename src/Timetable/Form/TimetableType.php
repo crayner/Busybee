@@ -96,6 +96,7 @@ class TimetableType extends AbstractType
                         'disabled'      => $locked,
                         'sort_manage'   => true,
                         'route'         => 'timetable_days_edit',
+                        'button_merge_class' => 'btn-sm',
                     ]
                 )
             ;
@@ -115,6 +116,7 @@ class TimetableType extends AbstractType
                         'disabled'      => $locked,
                         'sort_manage'   => true,
                         'route'         => 'timetable_days_edit',
+                        'button_merge_class' => 'btn-sm',
                     ]
                 )
             ;

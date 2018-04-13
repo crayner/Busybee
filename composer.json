@@ -10,7 +10,7 @@
     ],
     "require": {
 		"php": "^7.2",
-		"doctrine/dbal": "2.7.x-dev as 2.6.4",
+		"doctrine/dbal": "^2.7",
 		"hillrange/ckeditor": "^0.1",
 		"hillrange/gibbon": "dev-master",
 		"hillrange/security": "^0.0",
