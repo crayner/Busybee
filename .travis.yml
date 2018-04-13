@@ -15,6 +15,7 @@ before_install:
 install:
     - travis_retry composer install
     - cp .env.travis .env
+    - cp /config/packages/doctine.yaml.travis /config/packages/doctrine.yaml
     - php bin/console doctrine:database:create --env=test
     - php bin/console doctrine:schema:create --env=test
     - php bin/console doctrine:fixtures:load -n --env=test
@@ -24,7 +25,7 @@ sudo: false
 
 # Start mysql service
 services:
-    - mysql
+    - mariadb
 
 # Cache composer packages so "composer install" is faster
 cache:
@@ -39,4 +40,6 @@ env:
 script:
     - phpunit
 
+addons:
+    mariadb: '10.2'
 
