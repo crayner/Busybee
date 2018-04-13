@@ -9,7 +9,7 @@ parameters:
     db_port: 3306
     db_name: craigray_core
     db2_name: craigray_gibbon
-    db_user: travis
+    db_user: craigray_core
     db_pass: ''
     db_prefix: koala_
     db_server: mysql
