@@ -43,4 +43,6 @@ addons:
     mariadb: '10.2'
 
 before_script:
-    - mysql -u root -e "CREATE DATABASE IF NOT EXISTS `craigray_core`;"
+    - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS `craigray_core`;'
+
+dist: precise
