@@ -25,7 +25,7 @@
                 {% endif %}
                 {% if data['translate'] is not defined %}
                     {% set data = data|merge({translate: 'home'}) %}
-                {% endif %}{% dump %}
+                {% endif %}
                 <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label'],
                         transDomain: data['translate'], prompt: data['label']|trans, style: 'float: left;',
                         windowOpen: {route: path(data['route'], data['parameters']), target: target, params: options}})|raw }}</div>
