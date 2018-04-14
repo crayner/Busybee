@@ -91,6 +91,7 @@ class FaceToFaceType extends AbstractType
                     'entry_options' => [
                         'student_list' => $this->activityManager->generatePossibleStudents($options['data']),
                     ],
+                    'route' => 'class_student_manage',
                 ]
             )
             ->add('tutors', CollectionType::class,
@@ -101,6 +102,7 @@ class FaceToFaceType extends AbstractType
                     'allow_up' => true,
                     'allow_down' => true,
                     'sort_manage' => true,
+                    'route' => 'class_tutor_manage',
                 ]
             )
             ->add('reportable', ToggleType::class,

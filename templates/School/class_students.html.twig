@@ -4,6 +4,6 @@
 {% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
 {% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.face_to_face.manage.help'} %}
-     <section id="studentCollection"></section>
+     <section id="activity_students_target"></section>
      {% do form.students.setRendered %}
 {% include 'Page/panelEnd.html.twig' %}

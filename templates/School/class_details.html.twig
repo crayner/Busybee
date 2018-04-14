@@ -35,7 +35,7 @@
         {% set h3Content = '' %}
         {% set h3Content = h3Content ~ resetButton() %}
         {% include 'Page/panelStart.html.twig' with {colour: 'success', header: 'school.face_to_face.tutors.label', transDomain: 'School'} %}
-        <section id="tutorCollection">
+        <section id="activity_tutors_target">
             {{ form_widget(form.tutors) }}
         </section>
         {% include 'Page/panelEnd.html.twig' %}
