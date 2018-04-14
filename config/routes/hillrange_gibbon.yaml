@@ -1,4 +1,0 @@
-hillrange_gibbon:
-    resource: '../../vendor/hillrange/gibbon/Controller/'
-    type: annotation
-    prefix: /hillrange/gibbon/

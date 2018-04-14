@@ -16,6 +16,5 @@ return [
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
     Hillrange\CKEditor\HillrangeCKEditorBundle::class => ['all' => true],
     Hillrange\Security\HillrangeSecurityBundle::class => ['all' => true],
-    Hillrange\Gibbon\HillrangeGibbonBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
 ];
