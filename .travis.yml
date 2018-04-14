@@ -20,7 +20,7 @@ install:
     - php bin/console doctrine:fixtures:load -n --env=test
 
 # Allows use container-based infrastructure
-sudo: false
+sudo: true
 
 # Start mysql service
 services:
@@ -45,4 +45,4 @@ addons:
 before_script:
     - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS `craigray_core`;'
 
-dist: precise
+dist: trusty
