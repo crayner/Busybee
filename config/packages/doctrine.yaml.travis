@@ -5,7 +5,7 @@ parameters:
     # You should not need to change this value.
     env(DATABASE_URL): ''
     db_driver: pdo_mysql
-    db_host: 172.16.0.222
+    db_host: localhost
     db_port: 3306
     db_name: craigray_core
     db2_name: craigray_gibbon
