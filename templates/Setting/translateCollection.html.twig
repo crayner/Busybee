@@ -23,11 +23,10 @@
                 {% endif %}
                 {{ form_row(form.value, {help_params: {'%{source}': choice}}) }}
             </div>
-            <div class="col-3 collection-actions card text-center">
-				<span class="align-middle">
-                    {{ deleteButton({title: 'string_replacement.remove.button', transDomain: 'System', mergeClass: 'collection-remove collection-action', style: '', colour: 'warning'})|raw }}
-                    {{ saveButton({style: ''})|raw }}
-				</span>
+            <div class="col-3 card text-center">
+				<div class="collection-actions">
+                    {{ saveButton()|raw }}
+				</div>
                 <small class="form-text text-muted text-left">{{ 'string_replacement.remove.help'|trans }}</small>
             </div>
         </div>

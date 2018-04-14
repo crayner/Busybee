@@ -2,8 +2,8 @@
 namespace App\Core\Form;
 
 use App\Core\Manager\TranslationManager;
+use Hillrange\Form\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -19,9 +19,6 @@ class TranslateCollectionType extends AbstractType
             ->add('strings', CollectionType::class,
                 [
                     'entry_type' => TranslateType::class,
-                    'attr' => [
-                        'class' => 'translateCollection',
-                    ],
                     'label' => false,
                     'required' => false,
                     'allow_add' => true,

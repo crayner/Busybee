@@ -22,6 +22,15 @@ class Translate
 	}
 
     /**
+     * @param null|int $id
+     * @return Translate
+     */
+    public function setId(?int $id): Translate
+    {
+        return $this;
+    }
+
+    /**
      * @var null|string
      */
 	private $source;

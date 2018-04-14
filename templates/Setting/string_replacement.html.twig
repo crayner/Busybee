@@ -18,7 +18,7 @@
     {{ form_start(form) }}
     {% include 'Page/panelStart.html.twig' with {header: 'string_replacement.edit.title', transDomain: 'System', panelParagraph: 'string_replacement.edit.help', panelParams: {'%{path}': path('setting_manage')}} %}
 
-    {{ form_row(form.strings) }}
+    {{ collection_row(form.strings) }}
 
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
@@ -26,16 +26,7 @@
 
 
 {% block javascripts %}
-{{ parent() }}
-{% include '@HillrangeForm/Script/jquery_collection.html.twig' %}
-<script type="text/javascript" language="JavaScript">
-    $(".translateCollection").collection({
-        name_prefix: '{{ form.strings.vars.full_name }}',
-        allow_up: false,
-        allow_down: false,
-        add: '{{ addButton({transDomain: 'System', title: 'string_replacement.add.button'})|raw }}',
-        remove: '{{ deleteButton({transDomain: 'System', title: 'string_replacement.remove.button'})|raw }}',
-        add_at_the_end: true
-    });
-</script>
+    {{ parent() }}
+    {{ collections_manage(form, ['strings'])|raw }}
+    {{ collection_script(form.strings) }}
 {% endblock javascripts %}
