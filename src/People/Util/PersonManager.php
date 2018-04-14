@@ -656,7 +656,7 @@ user:
 				$this->entityManager->flush();
 			}
 
-			$this->entityManager->refresh($this->person);
+			$this->person = $this->entityManager->getRepository(Student::class)->find($this->person->getId());
 
 		}
 

@@ -110,6 +110,7 @@ person:
         staff: Staff Only
         contact: All except Staff and Students
         user: Users Only
+    validator.email.unique: 'The email address %string% is not unique'
 user:
     toggle:
         removeSuccess: The user detail was removed from this person.
@@ -292,5 +293,5 @@ people:
     title: All People
 calendar_grades.grade:
     placeholder: 'Select !!!form_grade!!!'
-    label: '!!!form_grade!!!'
+    label: '!!!form_grade!!! in Calendar'
     help: 'The  !!!form_grade!!! selected must be the only grade selected in the calendar.'

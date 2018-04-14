@@ -3,6 +3,8 @@ namespace App\People\Form\Subscriber;
 
 use App\Entity\CalendarGrade;
 use Doctrine\ORM\EntityRepository;
+use Hillrange\Form\Type\CollectionEntityType;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\DateType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
@@ -11,7 +13,6 @@ use App\People\Form\CalendarGradeType;
 use App\People\Form\UserType;
 use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Form;
@@ -379,16 +380,14 @@ class PersonSubscriber implements EventSubscriberInterface
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => CalendarGradeType::class,
-                    'attr' => [
-                        'class' => 'calendarGradeCollection',
-                    ],
+                    'entry_type' => CollectionEntityType::class,
                     'entry_options' => [
                         'class' => CalendarGrade::class,
                         'choice_label' => 'fullName',
                         'placeholder' => 'calendar_grades.grade.placeholder',
                         'label' => 'calendar_grades.grade.label',
                         'help' => 'calendar_grades.grade.help',
+                        'block_prefix' => 'calendar_grade',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('g')
                                 ->leftJoin('g.calendar', 'c')

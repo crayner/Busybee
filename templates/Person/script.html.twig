@@ -110,34 +110,6 @@
         $("#person_address2_list").val("");
     });
 
-    $(".phoneNumberList").collection({
-        name_prefix: '{{ form.phone.vars.full_name }}',
-        allow_up: false,
-        allow_down: false,
-        add: '{{ addButton({title: 'contact.phone.add', transDomain: 'Person'})|raw }}',
-        remove: '{{ deleteButton({transDomain: 'Person', title: 'contact.phone.remove'})|raw }}',
-        add_at_the_end: true
-    });
-
-
-    {% if form.studentCalendars is defined %}
-    $(".rollGroupList").collection({
-        name_prefix: '{{ form.studentCalendars.vars.full_name }}',
-        allow_up: false,
-        allow_down: false,
-        add: '{{ addButton({title: 'student_calendar.add', transDomain: 'Student'})|raw }}',
-        remove: '{{ deleteButton({class: 'display_none', style: ''})|raw }}',
-        add_at_the_end: true,
-        before_remove: function (collection, element) {
-            var source = $(element[0]).find('.removeStudentCalendar');
-            var id = source.attr('id');
-            id = id.replace('removeStudentCalendar', '');
-            if (id === '') {
-                return true;
-            }
-            return removeStudentCalendar(id);
-        }
-    });
 
     function removeStudentCalendar(id) {
         var xx = true;
@@ -172,9 +144,6 @@
 
         return xx;
     }
-
-
-    {% endif %}
 
     function resetForm() {
         var fragment = $('.tab-content > .active').attr('id');

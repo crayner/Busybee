@@ -12,13 +12,13 @@
             success: function (data) {
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
-                    $("#studentToggle" + id).removeClass().addClass("studentToggle far fa-thumbs-down btn btn-primary");
+                    $("#studentToggle" + id).toggleClass("fa-thumbs-down btn-light fa-thumbs-up btn-success");
                     $('a[href="#student"]').parent().addClass('disabled');
                     $('a[href="#grade"]').parent().addClass('disabled');
                     $('a[href="#immigration"]').parent().addClass('disabled');
                 }
                 if (data.status == "added") {
-                    $("#studentToggle" + id).removeClass().addClass("studentToggle far fa-thumbs-up btn btn-success");
+                    $("#studentToggle" + id).toggleClass("fa-thumbs-down btn-light fa-thumbs-up btn-success");
                 }
                 $(".fadeAlert").fadeOut(5000);
             }
@@ -35,12 +35,12 @@
             success: function (data) {
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
-                    $("#staffToggle" + id).removeClass().addClass("staffToggle far fa-thumbs-down btn btn-primary");
+                    $("#staffToggle" + id).toggleClass("fa-thumbs-down btn-light fa-thumbs-up btn-success");
                     $('a[href="#staff"]').parent().addClass('disabled');
 
                 }
                 if (data.status == "added") {
-                    $("#staffToggle" + id).removeClass().addClass("staffToggle far fa-thumbs-up btn btn-success");
+                    $("#staffToggle" + id).toggleClass("fa-thumbs-down btn-light fa-thumbs-up btn-success");
                 }
                 $(".fadeAlert").fadeOut(5000);
             }
@@ -58,11 +58,11 @@
             success: function (data) {
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
-                    $("#userToggle" + id).removeClass().addClass("userToggle far fa-thumbs-down btn btn-primary");
+                    $("#userToggle" + id).toggleClass("fa-thumbs-down btn-light fa-thumbs-up btn-success");
                     $('a[href="#user"]').parent().addClass('disabled');
                 }
                 if (data.status == "added") {
-                    $("#userToggle" + id).removeClass().addClass("userToggle far fa-thumbs-up btn btn-success");
+                    $("#userToggle" + id).toggleClass("fa-thumbs-down btn-light fa-thumbs-up btn-success");
                     $("#userToggle" + id).prop('disabled', true);
                 }
                 $(".fadeAlert").fadeOut(5000);

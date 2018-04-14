@@ -178,9 +178,6 @@ class PersonType extends AbstractType
 					'allow_add'          => true,
 					'by_reference'       => false,
 					'allow_delete'       => true,
-					'attr'               => array(
-						'class' => 'phoneNumberList'
-					),
 					'translation_domain' => 'Person',
 					'required'           => false,
 				)

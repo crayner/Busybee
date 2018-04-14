@@ -37,8 +37,8 @@
                             {% set additional = additional|merge({disabled: 'disabled'}) %}
                         {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success far fa-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-primary far fa-thumbs-down', additional: additional}})|raw }}
-                            <label class="control-label small text-left">{{ 'person.staff.question.label'|trans }}</label>
+                            {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-sm btn-success far fa-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-sm btn-light far fa-thumbs-down', additional: additional}})|raw }}
+                            <small>{{ 'person.staff.question.label'|trans }}</small>
                         </div>
                     </div>
                     {% set offset = offset - 2 %}
@@ -56,8 +56,7 @@
                             {% set additional = additional|merge({disabled: 'disabled'}) %}
                         {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success far fa-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-primary far fa-thumbs-down', additional: additional}})|raw }}
-                            <label class="control-label small text-left">{{ 'person.student.question.label'|trans }}</label>
+                            {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-sm btn-success far fa-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-sm btn-light far fa-thumbs-down', additional: additional}})|raw }}<small>{{ 'person.student.question.label'|trans }}</small>
                         </div>
                     </div>
                     {% set offset = offset - 2 %}
@@ -76,8 +75,8 @@
                             {% set additional = additional|merge({disabled: 'disabled'}) %}
                         {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success far fa-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary far fa-thumbs-down', additional: additional}})|raw }}
-                            <label class="control-label small text-left">{{ 'person.user.question.label'|trans }}</label>
+
+                            {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-sm btn-success far fa-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-sm btn-light far fa-thumbs-down', additional: additional}})|raw }}<small>{{ 'person.user.question.label'|trans }}</small>
                         </div>
                     </div>
                     {% set offset = offset - 2 %}

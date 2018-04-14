@@ -15,11 +15,10 @@
 
                 <small class="form-text text-muted">{{ form.vars.help|trans }}</small>
             </div>
-            <div class="col-2 collection-actions text-center card">
-				<span class="align-middle">
-                    {{ deleteButton({title: 'calendar_grade.remove.button', transDomain: 'Person', mergeClass: 'collection-remove collection-action', colour: 'warning', style: ''})|raw }}
-                    {{ saveButton({style: ''})|raw }}
-				</span>
+            <div class="col-2 card">
+                <div class="collection-actions">
+                    {{ saveButton()|raw }}
+                </div>
             </div>
         </div>
 {% endblock calendar_grade_widget %}

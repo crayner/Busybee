@@ -605,7 +605,7 @@ input[type=color].form-control {
     min-height: 30px;
 }
 .btn-sm {
-    min-width: 32px;
+    min-width: 34px;
     min-height: 24px;
 }
 .form-group-sm .form-control {

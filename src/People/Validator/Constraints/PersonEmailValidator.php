@@ -39,17 +39,18 @@ class PersonEmailValidator extends ConstraintValidator
 
 			$result = $this->em->getRepository(Person::class)->createQueryBuilder('p')
 				->select('p.id')
-				->where('(p.email = :email1 OR p.email2 = :email2)')
-				->andWhere('p.id <> :id')
+				->where('(p.email = :email1 OR p.email2 = :email2) AND p.id != :id')
 				->setParameter('email1', $value)
 				->setParameter('email2', $value)
 				->setParameter('id', $object->getId())
 				->getQuery()
 				->getResult();
+
 			if (!empty($result))
 			{
 				$this->context->buildViolation($constraint->message)
 					->setParameter('%string%', $value)
+                    ->setTranslationDomain('Person')
 					->addViolation();
 			}
 		}

@@ -9,3 +9,5 @@ App\Entity\Staff:
         house:
             - \App\Core\Validator\SettingChoice:
                 name: 'house.list'
+                settingDataValue: 'name'
+

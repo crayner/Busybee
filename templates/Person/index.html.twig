@@ -76,7 +76,7 @@
                             {% if not manager.canBeStaff(person.entity) %}
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
-                            {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success far fa-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-primary far fa-thumbs-down', additional: additional}, title: 'person.staff.toggle.button', transDomain: 'Person'})|raw }}
+                            {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-sm btn-success far fa-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-sm btn-light far fa-thumbs-down', additional: additional}, title: 'person.staff.toggle.button', transDomain: 'Person'})|raw }}
 
                             {% set studentOn = false %}
                             {% if isStudent(person.entity) %}
@@ -86,7 +86,7 @@
                             {% if not manager.canBeStudent(person.entity) %}
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
-                            {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success far fa-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-primary far fa-thumbs-down', additional: additional}, title: 'person.student.toggle.button', transDomain: 'Person'})|raw }}
+                            {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-sm btn-success far fa-thumbs-up', additional: additional}, off: {class: 'studentToggle btn btn-sm btn-light far fa-thumbs-down', additional: additional}, title: 'person.student.toggle.button', transDomain: 'Person'})|raw }}
 
                             {% set userOn = false %}
                             {% if isUser(person.entity) %}
@@ -99,21 +99,21 @@
                             {% if userOn and not canDeleteUser() %}
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
-                            {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success far fa-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary far fa-thumbs-down', additional: additional}, title: 'person.user.toggle.button', transDomain: 'Person'})|raw }}
+                            {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success btn-sm far fa-thumbs-up', additional: additional}, off: {class: 'userToggle btn-sm btn btn-light far fa-thumbs-down', additional: additional}, title: 'person.user.toggle.button', transDomain: 'Person'})|raw }}
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="p-12 justify-content-center col-12">
                             {% set route = path('person_edit', {'id': person.id, }) %}
-                            {{ editButton({'title': 'person.edit.title', 'transDomain': 'Person', 'windowOpen': {'route': route}, 'colour': 'warning'})|raw }}
+                            {{ editButton({'title': 'person.edit.title', 'transDomain': 'Person', 'windowOpen': {'route': route}, 'colour': 'warning', mergeClass: 'btn-sm'})|raw }}
                                 {% if person.user_id is not empty %}
                                 {% set route = path(app.request.get('_route')) ~ '?_switch_user=' ~ person.entity.person.user.username %}
                                 {% set additional = '' %}
                                 {% if not manager.canImpersonateUser(app.user, person.entity.user) %}{% set additional = 'disabled' %}{% endif %}
                                 {{ miscButton({transDomain: 'security', title: 'security.impersonate.title',
-                                    windowOpen: {route: route }, class: 'btn btn-warning fas fa-user-secret', type: 'button', additional: additional})|raw }}
+                                    windowOpen: {route: route }, class: 'btn btn-sm btn-warning fas fa-user-secret', type: 'button', additional: additional})|raw }}
                                 {{ editButton({ title: 'user.request.passwordReset',
-                                    class: 'btn btn-warning fas fa-unlock-alt',
+                                    class: 'btn btn-sm btn-warning fas fa-unlock-alt',
                                     transDomain: 'security',
                                     windowOpen: {target: 'PasswordRequest', params: 'width=1200,height=650', route: path(get_SecurityRoute('security_password_forgot'), {id: person.user_id})}})|raw }}
                             {% endif %}
