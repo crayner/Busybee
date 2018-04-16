@@ -54,6 +54,7 @@ class CalendarGradeType extends AbstractType
                     'attr' => [
                         'class' => 'small',
                     ],
+                    'choice_translation_domain' => false,
                     'label' => 'calendar_grade.students.label',
                     'help' => 'calendar_grade.students.help',
                 ]

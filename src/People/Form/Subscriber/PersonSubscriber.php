@@ -9,7 +9,6 @@ use Hillrange\Form\Type\DateType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\TextType;
-use App\People\Form\CalendarGradeType;
 use App\People\Form\UserType;
 use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;

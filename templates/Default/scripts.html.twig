@@ -71,6 +71,19 @@
         if (! show) {
             $('.foldMenu').click();
         }
+
+        var hideSideBar = '{{ get_section()|length }}';
+
+        var open = $('.foldMenu').hasClass('fa-times-circle');
+
+        if (open) {
+            if (hideSideBar == '0') {
+                $('.foldMenu').toggleClass('fa-times-circle fa-bars fas far');
+                $('#contentContainer').css('flex', 'auto');
+                $('#contentContainer').css('max-width', 'none');
+            }
+        }
+
     });
 
 </script>

@@ -34,9 +34,7 @@
                 <div class="row">
                     <div class="card col-3">{% dump(form.students) %}
                         {% for student in form.students %}{% dump(student) %}
-                            <div class="small">
-                                {{ form_row(student) }}
-                            </div>
+                            <div class="small">{{ form_row(student) }}</div>
                             {% set y = y + 1 %}
                             {% if y >= z %}
                                 {% set z = z + x %}
@@ -52,7 +50,7 @@
         {% endif %}
         <div class="card col-12">
             <label class="form-control-label required">{{ form.students.vars.label|trans }}</label>
-            <span class="field-required">{{ 'required'|trans({}, 'FormTheme') }}</span>
+            <span class="field-required">{{ 'form.required'|trans({}, 'FormTheme') }}</span>
             <small class="form-text text-muted">{{ form.students.vars.help|trans }}{{ 'calendar_grade.students.count'|trans({'%{count}': manager.studentCount(getObject(form)), '%{possible}': form.students|length}) }}</small>
         </div>
     </div>
