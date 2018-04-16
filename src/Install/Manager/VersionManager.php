@@ -140,38 +140,40 @@ class VersionManager
 		$phpVersions                   = [];
 		$phpVersions['Core']['low']    = '7.2';
 		$phpVersions['Core']['high']   = '7.2.99';
-		$phpVersions['Core']['string'] = '7.2';
+		$phpVersions['Core']['string'] = '7.2+';
         $phpVersions['apcu']['low']    = '5.1.9';
         $phpVersions['apcu']['high']   = '5.1.99';
-        $phpVersions['apcu']['string'] = '5.1';
-        $phpVersions['intl']           = '1.1.0';
+        $phpVersions['apcu']['string'] = '5.1+';
+        $phpVersions['intl']['string']           = '1.1+';
+        $phpVersions['intl']['low']           = '1.1';
+        $phpVersions['intl']['high']          = '1.1.99';
         $phpVersions['mbstring']['low']    = '7.2';
         $phpVersions['mbstring']['high']   = '7.2.99';
-        $phpVersions['mbstring']['string'] = '7.2.x';
+        $phpVersions['mbstring']['string'] = '7.2+';
         $phpVersions['zip']['low']    = '1.15';
         $phpVersions['zip']['high']   = '1.15.99';
-        $phpVersions['zip']['string'] = '1.15.x';
+        $phpVersions['zip']['string'] = '1.15+';
         $phpVersions['xml']['low']    = '7.2';
         $phpVersions['xml']['high']   = '7.2.99';
-        $phpVersions['xml']['string'] = '7.2.x';
+        $phpVersions['xml']['string'] = '7.2+';
         $phpVersions['Zend OPcache']['low']    = '7.2';
         $phpVersions['Zend OPcache']['high']   = '7.2.99';
-        $phpVersions['Zend OPcache']['string'] = '7.2.x';
+        $phpVersions['Zend OPcache']['string'] = '7.2+';
         $phpVersions['gd']['low']    = '7.2';
         $phpVersions['gd']['high']   = '7.2.99';
-        $phpVersions['gd']['string'] = '7.2.x';
+        $phpVersions['gd']['string'] = '7.2+';
         $phpVersions['pdo_mysql']['low']    = '7.2';
         $phpVersions['pdo_mysql']['high']   = '7.2.99';
-        $phpVersions['pdo_mysql']['string'] = '7.2.x';
+        $phpVersions['pdo_mysql']['string'] = '7.2+';
         $phpVersions['curl']['low']    = '7.2';
         $phpVersions['curl']['high']   = '7.2.99';
-        $phpVersions['curl']['string'] = '7.2.x';
+        $phpVersions['curl']['string'] = '7.2+';
         $phpVersions['json']['low']    = '1.6';
         $phpVersions['json']['high']   = '1.6.99';
-        $phpVersions['json']['string'] = '1.6';
-		$phpVersions['openssl']['low']    = '7.2.0';
+        $phpVersions['json']['string'] = '1.6+';
+		$phpVersions['openssl']['low']    = '7.2';
 		$phpVersions['openssl']['high']   = '7.2.99';
-		$phpVersions['openssl']['string'] = '7.2';
+		$phpVersions['openssl']['string'] = '7.2+';
 
 		foreach ($versions['PHP'] as $name => $w)
 			if (!isset($phpVersions[$name]))
@@ -199,7 +201,7 @@ class VersionManager
 
 		$version['low']                 = '10.2';
 		$version['high']                = '10.2.99';
-		$version['string']              = '10.2.x - Maria';
+		$version['string']              = '10.2+ - Maria';
 		$versions['Database']['Server'] = $this->fullCompare($versions['Database']['Server'], $version);
 
 		$version = 'utf8mb4';
@@ -221,12 +223,12 @@ class VersionManager
 			$versions['Database']['Driver']['flag'] = 'alert alert-success';
 
 		$version             = [];
-		$version['string']   = '4.0';
+		$version['string']   = '4.0+';
 		$version['low']      = '4.0';
 		$version['high']     = '4.0.99';
 		$versions['Symfony'] = $this->fullCompare($versions['Symfony'], $version);
 
-		$version['string'] = '2.4.0 - 2.4.9';
+		$version['string'] = '2.4+';
 		$version['low']    = '2.4.0';
 		$version['high']   = '2.4.99';
 		$versions['Twig']  = $this->fullCompare($versions['Twig'], $version);

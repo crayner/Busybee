@@ -188,11 +188,10 @@ class CalendarController extends Controller
      * @IsGranted("ROLE_REGISTRAR")
      * @param int|string $id
      * @param Request $request
-     * @param CalendarManager $calendarManager
      * @param CalendarGradeManager $calendarGradeManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function studentGrade($id, Request $request, CalendarManager $calendarManager, CalendarGradeManager $calendarGradeManager)
+    public function studentGrade($id, Request $request, CalendarGradeManager $calendarGradeManager)
     {
         $cg = $this->getDoctrine()->getRepository(CalendarGrade::class)->find($id);
         if (! $cg)

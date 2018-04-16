@@ -23,9 +23,10 @@ class CalendarGradeManager
     }
 
     /**
+     * @param CalendarGrade|null $calendarGrade
      * @return int
      */
-    public function getStudentCount(CalendarGrade $calendarGrade = null): int
+    public function getStudentCount(?CalendarGrade $calendarGrade): int
     {
         if ($calendarGrade instanceof CalendarGrade)
             return $calendarGrade->getStudents()->count();

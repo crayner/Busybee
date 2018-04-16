@@ -42,6 +42,9 @@ App\Entity\CalendarGrade:
         students:
             targetEntity: App\Entity\Student
             inversedBy: calendarGrades
+            orderBy:
+                surname: ASC
+                firstName: ASC
             joinTable:
                 name: calendar_grade_student
                 joinColumns:

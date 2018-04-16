@@ -9,6 +9,7 @@
         {% if form.vars.value is empty %}{% set gradeTitle = 'calendar.calendar_grade.add.title'|trans %}{% else %}{% set gradeTitle = form.vars.value.fullName %}{% endif %}
         {% set h3Content = '<div class="collection-actions">' %}
         {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ editButton({title: 'calendar_grade.students.connect.button', transDomain: 'Calendar', windowOpen: {route: path('student_grade', {id: getObjectId(form)}), target: 'StudentGradeConnect', params: 'width=1200,height=900'}}) %}
         {% set h3Content = h3Content ~ '</div>' %}
     <div class="row">
         <div class="col-4 card">

@@ -6,8 +6,8 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form
-    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
 %}
 
 {% set headerOff = true %}
@@ -24,6 +24,7 @@
     {% set panelParagraph = 'calendar.grade.students.help' %}
     {% include 'Page/panelStart.html.twig' %}
     {{ form_row(form.id) }}
+
     {% set x = (form.students|length / 4)|round(0, 'ceil') %}
     {% set z = x %}
     {% set y = 0 %}
@@ -31,9 +32,11 @@
         {% if form.students|length > 0 %}
             <div class="card col-12">
                 <div class="row">
-                    <div class="card col-3">
-                        {% for student in form.students %}
-                            <div class="small">{{ form_widget(student) }}</div>
+                    <div class="card col-3">{% dump(form.students) %}
+                        {% for student in form.students %}{% dump(student) %}
+                            <div class="small">
+                                {{ form_row(student) }}
+                            </div>
                             {% set y = y + 1 %}
                             {% if y >= z %}
                                 {% set z = z + x %}
@@ -49,10 +52,11 @@
         {% endif %}
         <div class="card col-12">
             <label class="form-control-label required">{{ form.students.vars.label|trans }}</label>
-            <span class="field-required">&nbsp;Required </span>
+            <span class="field-required">{{ 'required'|trans({}, 'FormTheme') }}</span>
             <small class="form-text text-muted">{{ form.students.vars.help|trans }}{{ 'calendar_grade.students.count'|trans({'%{count}': manager.studentCount(getObject(form)), '%{possible}': form.students|length}) }}</small>
         </div>
     </div>
+
     {% do form.students.setRendered %}
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}

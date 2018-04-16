@@ -184,7 +184,8 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_name'       => 'house.list',
 					'setting_data_value' => 'name',
 				)
-			)/*			->add('homeroom', EntityType::class, array(
+			)
+            /*			->add('homeroom', EntityType::class, array(
 					'label'         => 'staff.label.homeroom',
 					'class'         => Space::class,
 					'choice_label'  => 'name',

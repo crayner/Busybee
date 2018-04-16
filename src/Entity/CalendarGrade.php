@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Calendar\Entity\CalendarGradeExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
@@ -98,6 +99,9 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
     public function getStudents(): ?Collection
     {
         $this->students = $this->students instanceof Collection ? $this->students : new ArrayCollection();
+
+        if ($this->students instanceof PersistentCollection && ! $this->students->isInitialized())
+            $this->students->initialize();
 
         return $this->students ;
     }
