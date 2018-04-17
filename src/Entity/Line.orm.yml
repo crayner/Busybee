@@ -24,6 +24,9 @@ App\Entity\Line:
         participants:
             type: integer
             length: 4
+            nullable: false
+            options:
+                default: 0
         includeAll:
             type: boolean
             column: include_all

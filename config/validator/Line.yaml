@@ -1,0 +1,21 @@
+App\Entity\Line:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, calendar]
+            errorPath: name
+            message: 'line.name_calendar.unique'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code, calendar]
+            errorPath: code
+            message: 'line.code_calendar.unique'
+    properties:
+        name:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+            - Hillrange\Form\Validator\NoWhiteSpace: ~
+        calendar:
+            - Valid: ~
+            - NotBlank: ~
+        course:
+            - Valid: ~

@@ -78,17 +78,36 @@ line:
     list:
         title: Manage Activity Lines
         description: ''
+        menu.label: Manage Lines
     name:
         label: Activity Line
         sort: Sort by Name
     code:
         label: Code
         sort: Sort by Code
-    activities.label: Activity List
+    activities:
+        label: Activity List
+        help: ''
     calendar.label: Attach to Year
     course:
         label: Attach a Course
         sort: Sort by Course Name
-    include_all.label: Include all Students in the Grades
-    participants.label: Maximum Participants
+        placeholder: Select the Course
+    include_all:
+        label: Include all Students in the Grades
+        help: The available list is generated from the included activities, and the selected participants are tested against this list.
+    participants:
+        label: Maximum Participants
+        help: Limit the participants to a maximum number.  A selection of zero (0) turns this test off.
     test.label: Test Activity Lines
+    manage:
+        title: Manage Activity Line
+        description: Create, edit and test an Activity Line
+    change_record.placeholder: Add or edit selected Activity Line
+    test:
+        help: Generate a report on the Activity Line
+        label: Test Activity Lines
+    delete:
+        confirm: Delete Line?
+        button: Delete Line
+    edit.button: Edit Line

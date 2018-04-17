@@ -1,0 +1,11 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends '@BusybeeTemplate/Popup/template.html.twig' %}
+
+{% block title %}{{ parent() }}{{ 'line.title.report'|trans }}{% endblock title %}
+
+{% block contentContainer %}
+    {% include '@BusybeeTimeTable/Line/report-content.html.twig' %}
+    {{ closeButton()|raw }}
+    {{ resetButton({'windowOpen': {'route': path('line_test', {'id': app.request.get('id')})}})|raw }}
+{% endblock contentContainer %}

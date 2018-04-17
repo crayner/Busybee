@@ -248,11 +248,19 @@ Timetable Admin:
             translate: Timetable
             role: ROLE_PRINCIPAL
             parameters: {}
+    line_manage:
+        line_manage:
+            route: line_list
+            label: line.list.menu.label
+            translate: Timetable
+            role: ROLE_PRINCIPAL
+            parameters: {}
     hidden:
         - course_edit
         - face_to_face_edit
         - timetable_edit
         - timetable_days_edit
+        - line_manage
 Activities:
     activities:
         external_activities:
