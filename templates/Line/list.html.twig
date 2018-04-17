@@ -1,0 +1,63 @@
+
+{% trans_default_domain "Timetable" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% block title %}{{ 'line.list.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'line.list.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'line.list.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'Pagination/index.html.twig' %}
+    {% set h3Content = addButton({title: 'line.add.button', transDomain: 'Timetable', windowOpen: {route: path('line_manage', {id: 'Add'})}}) %}
+    {% include 'Page/panelStart.html.twig' with {header: 'line.list.title', transDomain: 'Timetable'} %}
+        <div class="row row-header">
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'line.name.sort' %}
+                    <span class="fas fa-sort-alpha-down"></span> {{ 'line.name.label'|trans }}
+                {% else %}
+                    {{ 'line.name.label'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'line.code.sort' %}
+                    <span class="fas fa-sort-alpha-down"></span> {{ 'line.code.label'|trans }}
+                {% else %}
+                    {{ 'line.code.label'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3 form-inline">
+                {% if pagination.getSortByName == 'line.course.sort' %}
+                    <span class="fas fa-sort-alpha-down"></span> {{ 'line.course.label'|trans }}
+                {% else %}
+                    {{ 'line.course.label'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-3 withAdd">
+                {{ 'actions'|trans({}, 'home') }}
+            </div>
+        </div>
+        {% for line in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-3 form-inline">
+                    {{ line.name }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ line.nameShort }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ line.course }}
+                </div>
+                <div class="col-3 form-inline">
+                    {{ deleteButton({javascript: {options: [path('line_delete', {id: line.id}), 'line.delete.confirm'|trans], function: 'confirmDelete'}, style: '', colour: 'warning'})|raw }}
+                    {{ editButton({style: '', title: 'line.title.edit', transDomain: 'Timetable', windowOpen: {route: path('line_manage', {id: line.id})}})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'Script/confirmDelete.html.twig' %}
+{% endblock javascripts %}

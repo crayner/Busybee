@@ -164,13 +164,13 @@ abstract class PaginationManager implements PaginationInterface
 	 * @param RequestStack           $requestStack
 	 * @param FormFactoryInterface   $formFactory
 	 */
-	public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
+	public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
 	{
 		$this->manager    = $entityManager;
 		$this->repository = $entityManager->getRepository($this->repositoryName);
-		$this->session    = $session;
 		$this->router     = $router;
         $this->stack      = $requestStack;
+        $this->session    = null;
 
 		$params          = [];
 		$params['route'] = parse_url($requestStack->getCurrentRequest()->get('_route'), PHP_URL_PATH);
@@ -339,7 +339,7 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	protected function writeSession()
 	{
-		$pag = empty($this->session->get('pagination')) ? [] : $this->session->get('pagination');
+		$pag = empty($this->getSession()->get('pagination')) ? [] : $this->getSession()->get('pagination');
 
 		$cc = empty($pag[$this->paginationName]) ? [] : $pag[$this->paginationName];
 
@@ -351,7 +351,7 @@ abstract class PaginationManager implements PaginationInterface
 
 		$pag[$this->paginationName] = $cc;
 
-		$this->session->set('pagination', $pag);
+		$this->getSession()->set('pagination', $pag);
 
 		return $this;
 	}
@@ -559,7 +559,7 @@ abstract class PaginationManager implements PaginationInterface
 		{
 			$this->post = false;
 			$this->resetPagination();
-			$last = $this->session->get('pagination');
+			$last = $this->getSession()->get('pagination');
 
 			if (!empty($last[$this->paginationName]))
 			{
@@ -1040,6 +1040,16 @@ abstract class PaginationManager implements PaginationInterface
     public function getStack(): RequestStack
     {
         return $this->stack;
+    }
+
+    /**
+     * @return Session
+     */
+    public function getSession(): Session
+    {
+        if (empty($this->session))
+            $this->session = $this->getStack()->getCurrentRequest()->getSession();
+        return $this->session;
     }
 
     /**

@@ -74,3 +74,21 @@ timetable:
             button: Remove Column
 calendar.first_day.sort: Calendar Name
 timetable_columns.add.title: Add Column
+line:
+    list:
+        title: Manage Activity Lines
+        description: ''
+    name:
+        label: Activity Line
+        sort: Sort by Name
+    code:
+        label: Code
+        sort: Sort by Code
+    activities.label: Activity List
+    calendar.label: Attach to Year
+    course:
+        label: Attach a Course
+        sort: Sort by Course Name
+    include_all.label: Include all Students in the Grades
+    participants.label: Maximum Participants
+    test.label: Test Activity Lines
