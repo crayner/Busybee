@@ -1,0 +1,54 @@
+App\Entity\Line:
+    type: entity
+    table: tt_line
+    repositoryClass: App\Repository\LineRepository
+    uniqueConstraints:
+        name_calendar:
+            columns:
+                - name
+                - calendar_id
+        code_calendar:
+            columns:
+                - code
+                - calendar_id
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            length: '100'
+        code:
+            length: '5'
+        participants:
+            type: integer
+            length: 4
+        includeAll:
+            type: boolean
+            column: include_all
+    manyToMany:
+        activities:
+            targetEntity: App\Entity\Activity
+            joinTable:
+                name: line_activity
+                joinColumns:
+                    line_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    activity_id:
+                        referencedColumnName: id
+    manyToOne:
+        calendar:
+            targetEntity: App\Entity\Calendar
+            nullable: false
+            joinColumns:
+                calendar_id:
+                    referencedColumnName: id
+        course:
+            targetEntity: App\Entity\Course
+            nullable: true
+            orderBy: { 'name': 'ASC' }
+            joinColumns:
+                course_id:
+                    referencedColumnName: id
