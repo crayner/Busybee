@@ -43,7 +43,7 @@
                     {% endif %}
                 </div>
                 <div class="col-3 form-inline text-center">
-                    {{ editButton({title: 'school.course.edit.title', transDomain: 'School', windowOpen: {route: path('course_edit', {id: course.id})}, style: ''})|raw }}
+                    {{ editButton({title: 'school.course.edit.title', transDomain: 'School', windowOpen: {route: path('course_edit', {id: course.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}

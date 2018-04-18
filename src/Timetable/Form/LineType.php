@@ -6,6 +6,8 @@ use App\Entity\Course;
 use App\Entity\Line;
 use App\Timetable\Form\Subscriber\LineSubscriber;
 use Doctrine\ORM\EntityRepository;
+use Hillrange\Form\Type\CollectionEntityType;
+use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
 use Hillrange\Form\Type\TextType;
@@ -56,18 +58,19 @@ class LineType extends AbstractType
                     ],
                 ]
             )
-            ->add('course', EntityType::class, [
-                    'class' => Course::class,
-                    'choice_label' => 'name',
-                    'placeholder' => 'line.course.placeholder',
-                    'label' => 'line.course.label',
-                    'required' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('c')
-                            ->orderBy('c.name', 'ASC');
-                    },
-                    'attr' => [
-                        'class' => 'monitorChange',
+            ->add('courses', CollectionType::class, [
+                    'label' => 'line.courses.label',
+                    'help' => 'line.courses.help',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required'  => false,
+                    'entry_type' => CollectionEntityType::class,
+                    'route' => 'line_remove_course',
+                    'entry_options' => [
+                        'class' => Course::class,
+                        'block_prefix' => 'line_course',
+                        'choice_label' => 'name',
+                        'placeholder' => 'line.courses.placeholder'
                     ],
                 ]
             )

@@ -46,6 +46,13 @@ App\Entity\Course:
                 name: department_id
                 referencedColumnName: id
                 nullable: true
+        line:
+            targetEntity: App\Entity\Line
+            inversedBy: courses
+            joinColumn:
+                name: line_id
+                referencedColumnName: id
+                nullable: true
     oneToMany:
         activities:
             targetEntity: App\Entity\FaceToFace

@@ -3,7 +3,7 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form
-    'Line/activity_collection.html.twig'
+    'Line/line_course_collection.html.twig'
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
 %}
@@ -27,13 +27,12 @@
         {% set h3Content = returnButton({mergeClass: 'disableOnChange', windowOpen: {route: path('line_list')}}) %}
     {% endif %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('line_manage', {'id': 'Add'}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('line_manage', {'id': app.request.get('id')}|merge(route))}}) %}
+    {% set h3Content = h3Content ~ resetButton() %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
-    {% include 'Page/panelStart.html.twig' with {'header': 'line.manage.title', 'transDomain': 'Timetable'} %}
-    <div class="container-fluid">
+    {% include 'Page/panelStart.html.twig' with {header: 'line.manage.title', transDomain: 'Timetable', panelParagraph: 'line.manage.help'} %}
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <div class="row">
                     <div class="col-6 card">
                         {{ form_row(form.name) }}
@@ -48,7 +47,6 @@
                         {{ form_row(form.participants) }}
                     </div>
                     <div class="col-6 card">
-                        {{ form_row(form.course, {value: transformData(form.course)}) }}
                     </div>
                 </div>
                 <div class="row">
@@ -69,21 +67,23 @@
                     <div class="col-12 card" id="reportResults" style="display: none;">
                     </div>
                 </div>
-            </div>
-            <div class="col-6">
                 <div class="row">
                     <div class="col-12">
-                        {% if form.activities is defined %}
-                            {% set h3Content = '' %}
-                            {% include 'Page/panelStart.html.twig' with {'header': form.activities.vars.label, 'transDomain': 'Timetable', 'panelParagraph': form.activities.vars.help, 'panelStyle': 'info'} %}
-                            {{ form_widget(form.activities) }}
-                            {% include 'Page/panelEnd.html.twig' %}
-                        {% endif %}
+                        {% include '@HillrangeForm/Script/collection_message.html.twig' %}
+                        <div class="row row-header">
+                            <div class="col-8 card-header">
+                                {{ form.courses.vars.label|trans }}
+                            </div>
+                            <div class="col-4 card-header text-center">
+                                {{ 'actions'|trans({}, 'home') }}
+                            </div>
+                        </div>
+                        {{ collection_widget(form.courses, 0, 0) }}
+                        {{ form_errors(form.courses) }}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
@@ -91,7 +91,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ collections_manage(form, ['activities'])|raw }}
+    {{ collections_manage(form, ['courses'])|raw }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% set route = 'line_manage' %}
     {% include 'Script/monitorForm.html.twig' %}

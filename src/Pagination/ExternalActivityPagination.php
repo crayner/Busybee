@@ -146,12 +146,12 @@ class ExternalActivityPagination extends PaginationManager
      * @param CalendarManager $calendarManager
      * @param ActivityManager $activityManager
      */
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack,
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, RequestStack $requestStack,
                                 FormFactoryInterface $formFactory, CalendarManager $calendarManager, ActivityManager $activityManager)
     {
         $this->calendarManager = $calendarManager;
         $this->activityManager = $activityManager;
-        parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
+        parent::__construct($entityManager, $router, $requestStack, $formFactory);
     }
 
     /**

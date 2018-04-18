@@ -10,30 +10,29 @@
     {% include 'Pagination/index.html.twig' %}
     {% set h3Content = addButton({title: 'timetable.add.title', transDomain: 'Timetable', windowOpen: {route: path('timetable_edit', {id: 'Add'})}}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'timetable.manage.title', transDomain: 'Timetable', panelParagraph: 'timetable.manage.description'} %}
-    <div class="container-fluid card">
         <div class="row row-header">
             <div class="col-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'timetable.name.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span> {{ 'timetable.name.label'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'timetable.name.label'|trans }}
                 {% else %}
                     {{ 'timetable.name.label'|trans }}
                 {% endif %}
             </div>
             <div class="col-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'timetable.code.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span> {{ 'timetable.code.label'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'timetable.code.label'|trans }}
                 {% else %}
                     {{ 'timetable.code.label'|trans }}
                 {% endif %}
             </div>
             <div class="col-3 form-inline">
                 {% if pagination.getSortByName == 'timetable.calendar.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span> {{ 'timetable.calendar.label'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'timetable.calendar.label'|trans }}
                 {% else %}
                     {{ 'timetable.calendar.label'|trans }}
                 {% endif %}
             </div>
-            <div class="col-3 withAdd">
+            <div class="col-3 withAdd text-center">
                 {{ 'actions'|trans({}, 'home') }}
             </div>
         </div>
@@ -49,12 +48,11 @@
                     {{ timetable.calendar }}
                 </div>
                 <div class="col-3 form-inline">
-                    {{ editButton({style: '', title: {'message': 'timetable.edit.title', params: {'%name%': timetable.name }}, transDomain: 'Timetable', windowOpen: {route: path('timetable_edit', {'id': timetable.id})}})|raw }}
-                    {{ miscButton({class: 'btn btn-success fas fa-list', style: '', title: 'timetable.days.edit.button', transDomain: 'Timetable', windowOpen: {route: path('timetable_days_edit', {'id': timetable.id})}})|raw }}
-                    {{ miscButton({class: 'btn btn-warning fas fa-cog',style: '', title: 'timetable.builder.button', transDomain: 'Timetable', windowOpen: {route: path('timetable_builder', {'id': timetable.id})}})|raw }}
+                    {{ editButton({title: {message: 'timetable.edit.title', params: {'%name%': timetable.name }}, transDomain: 'Timetable', windowOpen: {route: path('timetable_edit', {id: timetable.id})}})|raw }}
+                    {{ miscButton({class: 'btn btn-success fas fa-list', title: 'timetable.days.edit.button', transDomain: 'Timetable', windowOpen: {route: path('timetable_days_edit', {id: timetable.id})}})|raw }}
+                    {{ miscButton({class: 'btn btn-warning fas fa-cog', title: 'timetable.builder.button', transDomain: 'Timetable', windowOpen: {route: path('timetable_builder', {id: timetable.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}
-    </div>
     {% include 'Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

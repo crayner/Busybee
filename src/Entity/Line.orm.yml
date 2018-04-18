@@ -30,17 +30,6 @@ App\Entity\Line:
         includeAll:
             type: boolean
             column: include_all
-    manyToMany:
-        activities:
-            targetEntity: App\Entity\Activity
-            joinTable:
-                name: line_activity
-                joinColumns:
-                    line_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    activity_id:
-                        referencedColumnName: id
     manyToOne:
         calendar:
             targetEntity: App\Entity\Calendar
@@ -48,10 +37,11 @@ App\Entity\Line:
             joinColumns:
                 calendar_id:
                     referencedColumnName: id
-        course:
+    oneToMany:
+        courses:
             targetEntity: App\Entity\Course
             nullable: true
             orderBy: { 'name': 'ASC' }
-            joinColumns:
-                course_id:
-                    referencedColumnName: id
+            cascade: [ 'persist' ]
+            mappedBy: line
+

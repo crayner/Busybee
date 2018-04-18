@@ -144,79 +144,63 @@ class Line
     }
 
     /**
-     * @var null|Course
+     * @var null|Collection
      */
-    private $course;
+    private $courses;
 
     /**
-     * @return Course|null
+     * @return Collection|null
      */
-    public function getCourse(): ?Course
+    public function getCourses(): Collection
     {
-        return $this->course;
+        if (empty($this->courses))
+            $this->courses = new ArrayCollection();
+
+        if ($this->courses instanceof PersistentCollection && ! $this->courses->isInitialized())
+            $this->courses->initialize();
+
+        return $this->courses;
+    }
+
+    /**
+     * @param Collection|null $courses
+     * @return Line
+     */
+    public function setCourses(?Collection $courses): Line
+    {
+        $this->courses = $courses;
+        return $this;
+    }
+
+    /**
+     * @param Course|null $course
+     * @param bool $add
+     * @return Line
+     */
+    public function addCourse(?Course $course, $add = true): Line
+    {
+        if (empty($course) || $this->getCourses()->contains($course))
+            return $this;
+
+        if ($add)
+            $course->setLine($this, false);
+
+        $this->getCourses()->add($course);
+
+        return $this;
     }
 
     /**
      * @param Course|null $course
      * @return Line
      */
-    public function setCourse(?Course $course): Line
+    public function removeCourse(?Course $course): Line
     {
-        $this->course = $course;
-        return $this;
-    }
+        $this->getCourses()->removeElement($course);
 
-    /**
-     * @var null|Collection
-     */
-    private $activities;
+        if ($course instanceof Course)
+            $course->setLine(null);
 
-    /**
-     * @return Collection
-     */
-    public function getActivities(): Collection
-    {
-        if (empty($this->activities))
-            $this->activities = new ArrayCollection();
-
-        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
-            $this->activities->initialize();
-
-        return $this->activities;
-    }
-
-    /**
-     * @param Collection|null $activities
-     * @return Line
-     */
-    public function setActivities(?Collection $activities): Line
-    {
-        $this->activities = $activities;
-        return $this;
-    }
-
-    /**
-     * @param Activity|null $activity
-     * @param bool $add
-     * @return Line
-     */
-    public function addActivity(?Activity $activity): Line
-    {
-        if (empty($activity) || $this->getActivities()->contains($activity))
-            return $this;
-
-        $this->getActivities()->add($activity);
-
-        return $this;
-    }
-
-    /**
-     * @param Activity|null $activity
-     * @return Line
-     */
-    public function removeActivity(?Activity $activity): Line
-    {
-        $this->getActivities()->removeElement($activity);
         return $this;
     }
 }

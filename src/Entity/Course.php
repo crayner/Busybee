@@ -316,4 +316,36 @@ class Course extends CourseExtension
         $this->id = $id;
         return $this;
     }
+
+    /**
+     * @var null|Line
+     */
+    private $line;
+
+    /**
+     * @return Line|null
+     */
+    public function getLine(): ?Line
+    {
+        return $this->line;
+    }
+
+    /**
+     * @param Line|null $line
+     * @return Course
+     */
+    public function setLine(?Line $line, $add = true): Course
+    {
+        if (empty($line)) {
+            $this->line = null;
+            return $this;
+        }
+
+        if ($add)
+            $line->addCourse($this, false);
+
+        $this->line = $line;
+
+        return $this;
+    }
 }

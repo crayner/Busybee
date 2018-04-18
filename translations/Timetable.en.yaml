@@ -89,10 +89,11 @@ line:
         label: Activity List
         help: ''
     calendar.label: Attach to Year
-    course:
-        label: Attach a Course
+    courses:
+        label: Attach Courses
         sort: Sort by Course Name
-        placeholder: Select the Course
+        placeholder: Select a Course
+        help: Courses attached to the line can be in one or more grades.
     include_all:
         label: Include all Students in the Grades
         help: The available list is generated from the included activities, and the selected participants are tested against this list.
@@ -103,6 +104,7 @@ line:
     manage:
         title: Manage Activity Line
         description: Create, edit and test an Activity Line
+        help: Lines are a timetable mapping tool.  All courses in a line MUST have the same number of periods per timetable cycle.  The line is allocated to the number of periods to meet the largest requirement of the courses attached, and the test will flag any differences in courses attached to the line.
     change_record.placeholder: Add or edit selected Activity Line
     test:
         help: Generate a report on the Activity Line

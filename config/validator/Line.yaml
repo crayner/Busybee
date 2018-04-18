@@ -17,5 +17,5 @@ App\Entity\Line:
         calendar:
             - Valid: ~
             - NotBlank: ~
-        course:
+        courses:
             - Valid: ~

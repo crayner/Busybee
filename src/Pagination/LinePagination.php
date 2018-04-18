@@ -68,7 +68,7 @@ class LinePagination extends PaginationManager
      * @var array
      */
 	protected $join = [
-	    'l.course' => [
+	    'l.courses' => [
 	        'type' => 'leftJoin',
             'alias' => 'c',
         ],

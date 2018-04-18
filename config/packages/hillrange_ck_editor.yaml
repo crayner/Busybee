@@ -8,7 +8,7 @@ hillrange_ck_editor:
                 - ['Bold','Italic','Underline','StrikeThrough','-','Undo','Redo','-','Cut','Copy','Paste','PasteText','Find','Replace','-','Outdent','Indent','-','Print','-','Maximize']
                 - '/'
                 - ['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
-                - ['Image','Table','-','Link','Flash','Smiley','TextColor','BGColor','Source']
+                - ['Image','Table','-','Link','Smiley','TextColor','BGColor','Source']
             uiColor: "ddcccc"
         simple_toolbar:
             toolbar:

@@ -124,9 +124,4 @@ class MessageManager
 
 		return $twig->render('Default/messages.html.twig', ['messages' => $this]);
 	}
-
-	public function addToFlash(Session $session)
-    {
-
-    }
 }

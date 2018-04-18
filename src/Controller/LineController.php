@@ -1,12 +1,14 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\TwigManager;
 use App\Pagination\LinePagination;
 use App\Timetable\Form\LineType;
 use App\Timetable\Util\LineManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class LineController extends Controller
@@ -49,7 +51,8 @@ class LineController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $lineManager->getEntityManager();
-
+            foreach($entity->getCourses()->getIterator() as $course)
+                $em->persist($course->setLine($entity));
             $em->persist($entity);
             $em->flush();
 
@@ -77,7 +80,7 @@ class LineController extends Controller
      * @Route("/line/{id}/test/", name="line_test")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function testAction($id = 'Add', LineManager $lineManager)
+    public function test($id = 'Add', LineManager $lineManager)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
@@ -103,10 +106,42 @@ class LineController extends Controller
      * @Route("/line/{id}/delete/", name="line_delete")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function deleteAction($id, LineManager $lineManager)
+    public function delete($id, LineManager $lineManager)
     {
         $lineManager->deleteLine($id);
 
         return $this->redirectToRoute('line_list');
+    }
+
+    /**
+     * @param $id
+     * @param $cid
+     * @param LineManager $lineManager
+     * @Route("/line/{id}/course/{cid}/remove/", name="line_remove_course")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function removeCourse($id, $cid, LineManager $lineManager, TwigManager $twig)
+    {
+        $entity = $lineManager->find($id);
+
+        $lineManager->removeCourse($cid);
+
+        $form = $this->createForm(LineType::class, $entity, ['calendar_data' => $lineManager->getCalendar()]);
+
+        $content = $this->renderView('Line/line_collections.html.twig',
+            [
+                'collection' => $form->get('courses')->createView(),
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'message' =>$lineManager->getMessageManager()->renderView($twig->getTwig()),
+                'status' => $lineManager->getStatus(),
+                'content' => $content,
+
+            ],
+            200
+        );
     }
 }
