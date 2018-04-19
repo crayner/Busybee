@@ -72,7 +72,7 @@ department.staff.type.list:
             Teacher (Curriculum): Teacher (Curriculum)
             Teacher: Teacher
             Other: Other
-        Administation:
+        Administration:
             Director: Director
             Manager: Manager
             Administrator: Administrator

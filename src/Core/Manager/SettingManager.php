@@ -126,14 +126,6 @@ class SettingManager implements ContainerAwareInterface
     {
         $this->readSession();
 
-        $name = strtolower($name);
-        $this->flip                = false;
-        if (substr($name, -6) === '._flip')
-        {
-            $this->flip = true;
-            $name = str_replace('._flip', '', $name);
-        }
-
         $this->setName($name);
 
         $this->settingExists[$name] = isset($this->settingExists[$name]) ? (bool)$this->settingExists[$name] : false ;
@@ -214,6 +206,14 @@ class SettingManager implements ContainerAwareInterface
      */
     public function setName(string $name): SettingManager
     {
+        $name = strtolower($name);
+        $this->flip                = false;
+        if (substr($name, -6) === '._flip')
+        {
+            $this->flip = true;
+            $name = str_replace('._flip', '', $name);
+        }
+
         if (mb_strpos($this->name, $name) !== 0 || empty($this->name))
             $this->name = $name;
 
@@ -359,7 +359,6 @@ class SettingManager implements ContainerAwareInterface
         $extension = trim(str_replace($name, '', $this->name), '.');
 
         $extension = explode('.', $extension);
-
         $x = [];
         if (is_array($value)) {
             foreach ($value as $q => $w)

@@ -53,7 +53,7 @@ department.staff.type.list:
         teacher (curriculum): 'Teacher (Curriculum)'
         teacher: Teacher
         other: Other
-    administation:
+    administration:
         director: Director
         manager: Manager
         administrator: Administrator
