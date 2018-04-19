@@ -31,7 +31,7 @@
 {% block javascripts %}
     {{ parent() }}
     {{ collections_manage(form, ['tutors','students','activitySlots'])|raw }}
-    {% include 'School/activity_slot_script.html.twig' %}
+    {% include 'School/activity_slot_script.html.twig' with {slots: form.activitySlots} %}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% include 'Script/formTabSubmitScript.html.twig' with {route: 'external_activity_edit'} %}
 {% endblock %}

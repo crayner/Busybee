@@ -10,7 +10,7 @@
                 <div class="col-3">{{ 'activity.student.external.created.label'|trans }}</div>
                 <div class="col-2">{{ 'actions'|trans({}, 'home') }}</div>
             </div>
-            <div id="activity_students_target"></div>
+            {{ collection_widget(form.students, 0, 0) }}
             {%  do form.students.setRendered() %}
         </div>
     </div>

@@ -14,7 +14,7 @@
                 {{ 'actions'|trans({}, 'home') }}
             </div>
         </div>
-        <div id="activity_tutors_target"></div>
+        {{ collection_widget(form.tutors, 0, 0) }}
         {%  do form.tutors.setRendered() %}
     </div>
 </div>

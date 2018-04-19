@@ -6,4 +6,8 @@
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
 %}
-{{ collection_widget(collection) }}
+{% if collection.vars.name == 'activitySlots' %}
+    {{ collection_widget(collection, 1, 1, 'refreshSlotType') }}
+{% else %}
+    {{ collection_widget(collection, 1) }}
+{% endif %}

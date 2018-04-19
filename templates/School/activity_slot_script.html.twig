@@ -1,9 +1,13 @@
 {% trans_default_domain "School" %}
 
 <script type="text/javascript" language="JavaScript">
-    $(document).ready(function () {
-        {% for slot in form.activitySlots %}
-            var id = '{{ slot.vars.name }}';
+    function refreshSlotType() {
+        $("label.typeMonitor").each(function () {
+            var slot = $(this).find('input');
+            var id = $(slot).attr('id');
+            id = id.replace('_type', '');
+            id = id.replace('activity_activitySlots_', '');
+
             var value = $('#activity_activitySlots_'+id+'_type').attr('value');
 
             if (value == "1") {
@@ -15,8 +19,8 @@
                 $('#external_' + id).fadeOut(20);
                 $('#internal_' + id).fadeIn(200);
             }
-        {% endfor %}
-    });
+        });
+    }
 
     $(document).on('change', 'input[type="hidden"]', function () {
         var id = $(this).attr('id');
