@@ -11,7 +11,7 @@
     "require": {
 		"php": "^7.2",
 		"doctrine/dbal": "^2.7",
-		"hillrange/ckeditor": "^1.0",
+		"hillrange/ckeditor": "^0.1|^1.0",
 		"hillrange/security": "^0.0",
 		"hillrange/symfony-form": "^0.1",
 		"knpuniversity/oauth2-client-bundle": "^1.16",
