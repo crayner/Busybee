@@ -29,7 +29,7 @@ App\Entity\Staff:
         departments:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: staff
-            cascade: [ 'persist' ]
+            cascade: [ 'all' ]
     oneToOne:
         homeroom:
             targetEntity: App\Entity\Space

@@ -1,33 +1,17 @@
 <?php
 namespace App\Timetable\Form;
 
-use Busybee\Core\TemplateBundle\Type\TimeType;
-use Busybee\Core\TemplateBundle\Type\ToggleType;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use App\Timetable\Entity\Column;
-use App\Timetable\Entity\Period;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\TimetableColumn;
+use App\Entity\TimetablePeriod;
+use Hillrange\Form\Type\HiddenEntityType;
+use Hillrange\Form\Type\TimeType;
+use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PeriodType extends AbstractType
 {
-    /**
-     * @var ObjectManager
-     */
-    private $om;
-
-    /**
-     * TimeTableType constructor.
-     * @param ObjectManager $om
-     */
-    public function __construct(ObjectManager $om)
-    {
-        $this->om = $om;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -65,9 +49,11 @@ class PeriodType extends AbstractType
                     'label' => 'period.break.label',
                 ]
             )
-            ->add('column', HiddenType::class);
-
-        $builder->get('column')->addModelTransformer(new EntityToStringTransformer($this->om, Column::class));
+            ->add('column', HiddenEntityType::class,
+                [
+                    'class' => TimetableColumn::class,
+                ]
+            );
     }
 
     /**
@@ -76,7 +62,7 @@ class PeriodType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Period::class,
+            'data_class' => TimetablePeriod::class,
         ));
     }
 
