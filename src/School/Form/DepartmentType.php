@@ -54,9 +54,9 @@ class DepartmentType extends AbstractType
 					'placeholder'  => 'department.type.placeholder',
 				]
 			)
-			->add('nameShort', null,
+			->add('code', null,
 				[
-					'label' => 'department.nameShort.label'
+					'label' => 'department.code.label'
 				]
 			)
 			->add('departmentList', EntityType::class, array(

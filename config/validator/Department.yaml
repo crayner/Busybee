@@ -4,7 +4,7 @@ App\Entity\Department:
             - Valid: ~
         name:
             - NotBlank: ~
-        nameShort:
+        code:
             - NotBlank: ~
             - Length:
                 max: 4

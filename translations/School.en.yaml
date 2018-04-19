@@ -106,8 +106,7 @@ department:
         label: Department Type
         help: ''
         placeholder: Select Department Type
-    nameShort:
-        label: Short Department Name
+    code.label: Department Code
     course:
         title: Course Information
         help: Link the selected courses to this department.

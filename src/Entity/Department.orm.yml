@@ -15,7 +15,7 @@ App\Entity\Department:
         type:
             type: string
             length: '20'
-        nameShort:
+        code:
             type: string
             length: '4'
             unique: true

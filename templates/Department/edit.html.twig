@@ -3,7 +3,10 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form
-"@HillrangeForm/FormTheme/bootstrap.html.twig"
+    'Department/courseCollection.html.twig'
+    'Department/memberCollection.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
 %}
 
 {% block title %}{{ 'department.edit.title'|trans }}{% endblock title %}
@@ -19,7 +22,8 @@
     {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {% include 'Default/tabs.html.twig' with {translation: 'School'} %}
-
+    {% do form.courses.setRendered() %}
+    {% do form.members.setRendered() %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

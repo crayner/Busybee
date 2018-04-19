@@ -2,6 +2,7 @@
 namespace App\School\Util;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TabManager;
 use App\Core\Manager\TabManagerInterface;
 use App\Entity\Course;
 use App\Entity\Department;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class DepartmentManager implements CollectionInterface, TabManagerInterface
+class DepartmentManager extends TabManager
 {
     /**
      * @var EntityManagerInterface
@@ -38,7 +39,7 @@ class DepartmentManager implements CollectionInterface, TabManagerInterface
     /**
      * @var string
      */
-    private $status;
+    private $status = 'default';
 
     /**
      * @var null|Staff
@@ -171,8 +172,9 @@ class DepartmentManager implements CollectionInterface, TabManagerInterface
     /**
      * @param $cid
      */
-    public function removeMember($cid)
+    public function removeMember($id, $cid)
     {
+        $this->findDepartment($id);
         if ($cid === 'ignore')
             return ;
 
@@ -257,27 +259,22 @@ department_course_collection:
     include: Department/department_courses.html.twig
     message: departmentCoursesMessage
     translation: School
+    display: requireCourses
 ");
     }
 
     /**
-     * @return string
+     * @return EntityManagerInterface
      */
-    public function getResetScripts(): string
+    public function getEntityManager(): EntityManagerInterface
     {
-        $request = $this->stack->getCurrentRequest();
-        $xx = "manageCollection('" . $this->router->generate("department_courses_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','courseCollection', '')\n";
-        $xx .= "manageCollection('" . $this->router->generate("department_members_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','memberCollection', '')\n";
-
-        return $xx;
+        return $this->entityManager;
     }
 
-    /**
-     * @param string $method
-     * @return bool
-     */
-    public function isDisplay(string $method = ''): bool
+    public function requireCourses(): bool
     {
-        return true;
+        if ($this->getDepartment()->getType() !== 'Administration')
+            return true;
+        return false;
     }
 }

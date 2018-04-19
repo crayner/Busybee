@@ -1,10 +1,7 @@
-{% if collection is not empty %}
-    {% form_theme collection
-        'Department/courseCollection.html.twig'
-        'Department/memberCollection.html.twig'
-        '@HillrangeForm/FormTheme/jquery.collection.html.twig'
-        '@HillrangeForm/FormTheme/bootstrap.html.twig'
-    %}
-    {{ collection_widget(collection) }}
-
-{% endif %}
+{% form_theme collection
+    'Department/courseCollection.html.twig'
+    'Department/memberCollection.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+{{ collection_widget(collection, 1) }}

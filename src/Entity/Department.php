@@ -29,7 +29,7 @@ class Department extends DepartmentExtension
 	/**
 	 * @var string
 	 */
-	private $nameShort;
+	private $code;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
@@ -115,25 +115,25 @@ class Department extends DepartmentExtension
 	}
 
 	/**
-	 * Get nameShort
+	 * Get code
 	 *
 	 * @return string
 	 */
-	public function getNameShort()
+	public function getCode()
 	{
-		return $this->nameShort;
+		return $this->code;
 	}
 
 	/**
-	 * Set nameShort
+	 * Set code
 	 *
-	 * @param string $nameShort
+	 * @param string $code
 	 *
 	 * @return Department
 	 */
-	public function setNameShort($nameShort)
+	public function setCode($code)
 	{
-		$this->nameShort = $nameShort;
+		$this->code = $code;
 
 		return $this;
 	}

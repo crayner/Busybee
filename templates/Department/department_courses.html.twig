@@ -5,8 +5,6 @@
     {% set h3Content = h3Content ~ resetButton()|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: form.courses.vars.help, panelStyle: 'info'} %}
-    <div id="department_courses_target">
-        {% do form.courses.setRendered() %}
-    </div>
+    {{ collection_widget(form.courses) }}
     {% include 'Page/panelEnd.html.twig' %}
 </div>

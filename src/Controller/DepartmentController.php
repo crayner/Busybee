@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TwigManager;
 use App\Entity\Department;
 use App\Entity\DepartmentMember;
 use App\School\Form\DepartmentType;
@@ -26,10 +27,7 @@ class DepartmentController extends Controller
      */
 	public function edit(Request $request, $id, FlashBagManager $flashBagManager, DepartmentManager $departmentManager)
 	{
-		$entity = new Department();
-
-		if (intval($id) > 0)
-			$entity = $this->getDoctrine()->getRepository(Department::class)->find($id);
+		$entity = $departmentManager->findDepartment($id);
 
 		$form = $this->createForm(DepartmentType::class, $entity, ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
 
@@ -104,54 +102,6 @@ class DepartmentController extends Controller
 	}
 
     /**
-     * @param $id
-     * @param MessageManager $messageManager
-     * @param \Twig_Environment $twig
-     * @return JsonResponse
-     * @Route("/department/{id}/member/{cid}/remove/", name="department_member_remove")
-     * @IsGranted("ROLE_PRINCIPAL")
-     */
-	public function removeMember($id, $cid, MessageManager $messageManager, \Twig_Environment $twig)
-	{
-		$om = $this->getDoctrine()->getManager();
-
-		$ds = $om->getRepository(DepartmentMember::class)->find($cid);
-		$data            = [];
-
-		if ($ds instanceof DepartmentMember)
-		{
-
-			$data['status']  = 'success';
-			$messageManager->add('success', 'department.member.remove.success', [], 'School');
-			try
-			{
-				$om->remove($ds);
-				$om->flush();
-			}
-			catch (\Exception $e)
-			{
-				$data['status']  = 'error';
-				$messageManager->add('danger', 'department.member.remove.failure', ['%{message}' => $e->getMessage()], 'School');
-			}
-
-			$data['message'] = $messageManager->renderView($twig);
-			return new JsonResponse($data, 200);
-		}
-
-		if ($cid !== 'ignore') {
-            $data['message'] = $messageManager->add('warning', 'department.member.remove.missing', [], 'School')->renderView($twig);
-            $data['status'] = 'warning';
-
-            return new JsonResponse($data, 200);
-        }
-
-        $data['message'] = '';
-        $data['status'] = 'default';
-
-        return new JsonResponse($data, 200);
-	}
-
-    /**
      * @param string $cid
      * @param $id
      * @param DepartmentManager $departmentManager
@@ -174,7 +124,7 @@ class DepartmentController extends Controller
                     [
                         'collection' => $form->get('courses')->createView(),
                         'route' => 'department_courses_manage',
-                        'contentTarget' => 'courseCollection',
+                        'contentTarget' => 'department_courses_target',
                     ]
                 ),
                 'message' => $departmentManager->getMessageManager()->renderView($twig),
@@ -193,11 +143,9 @@ class DepartmentController extends Controller
      * @Route("/department/{id}/members/{cid}/manage/", name="department_members_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function manageMemberCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, \Twig_Environment $twig)
+    public function manageMemberCollection($cid = 'ignore', $id, DepartmentManager $departmentManager, TwigManager $twig)
     {
-        $departmentManager ->findDepartment($id);
-
-        $departmentManager->removeMember($cid);
+        $departmentManager->removeMember($id, $cid);
 
         $form = $this->createForm(DepartmentType::class, $departmentManager->refreshDepartment(), ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
 
@@ -210,14 +158,14 @@ class DepartmentController extends Controller
             [
                 'collection'    => $collection,
                 'route'         => 'department_members_manage',
-                'contentTarget' => 'memberCollection',
+                'contentTarget' => 'department_members_target',
             ]
         );
 
         return new JsonResponse(
             [
                 'content' => $content,
-                'message' => $departmentManager->getMessageManager()->renderView($twig),
+                'message' => $departmentManager->getMessageManager()->renderView($twig->getTwig()),
                 'status'  => $departmentManager->getStatus(),
             ],
             200
