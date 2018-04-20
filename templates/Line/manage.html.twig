@@ -44,7 +44,7 @@
                     {% if app.request.get('id') != 'Add' %}
                         <div class="col-4 card">
                             <div class="form-group">
-                                {{ miscButton({'class': 'btn btn-info fas fa-check testLine'})|raw }}
+                                {{ miscButton({'class': 'btn btn-info fas fa-check testLine', title: 'line.report.button', transDomain: 'Timetable'})|raw }}
                                 <label class="control-label">{{ 'line.test.label'|trans }}</label><br>
                                 <small class="form-text text-muted">{{ 'line.test.help'|trans }}</small>
                             </div>
@@ -87,7 +87,7 @@
         $('.testLine').click(function (e) {
             var path = '{{ path('line_test', {'id': '__id__'}) }}';
             path = path.replace('__id__', '{{ app.request.get('id') }}');
-            window.open(path, 'Report', 'width=800,height=800,top=125,left=150');
+            window.open(path, 'Report', 'width=800,height=800,top=100,left=100');
         })
     </script>
     {% if app.request.get('closeWindow') is not empty %}

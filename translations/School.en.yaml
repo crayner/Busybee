@@ -221,8 +221,8 @@ activity:
     name:
         label: Name
         help: Must be unique in the Calendar.
-    name_short:
-        label: Short Name
+    code:
+        label: Activity Code
         help: Must be unique in the calendar and no more than 8 characters long.
     website.label: Website Link
     space:

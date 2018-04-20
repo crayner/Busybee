@@ -34,7 +34,7 @@ class LinePagination extends PaginationManager
             'l.code' => 'ASC',
             'l.name' => 'ASC',
         ],
-        'line.course.sort' => [
+        'line.courses.sort' => [
             'c.name' => 'ASC',
             'l.name' => 'ASC',
         ],

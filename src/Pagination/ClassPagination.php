@@ -22,7 +22,7 @@ class ClassPagination extends PaginationManager
 	protected $sortByList = [
 		'facetoface.name.sort' => [
 			'f.name' => 'ASC',
-			'f.nameShort' => 'ASC',
+			'f.code' => 'ASC',
 		],
 	];
 
@@ -36,14 +36,14 @@ class ClassPagination extends PaginationManager
 	 */
 	protected $searchList = [
 		'f.name',
-		'f.nameShort',
+		'f.code',
 	];
 
 	/**
 	 * @var array
 	 */
 	protected $select = [
-		'f.nameShort',
+		'f.code',
         'f.id',
         'f.reportable'
 	];

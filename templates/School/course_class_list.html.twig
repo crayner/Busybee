@@ -9,7 +9,7 @@
 
     <div class="row row-header text-center">
         <div class="col-3" style="display: inline-block;">
-            {{ 'activity.name.label'|trans }}<br /><small>{{ 'activity.name_short.label'|trans({}) }}</small>
+            {{ 'activity.name.label'|trans }}<br /><small>{{ 'activity.code.label'|trans({}) }}</small>
         </div>
         <div class="col-3">
             {{ 'activity.participants.label'|trans({}) }}<br /><small>{{ 'course.students.details'|trans({'%{possible}': manager.possibleStudentCount(getObject(form)), '%{current}': manager.currentStudentCount(getObject(form))}) }}</small>
@@ -25,7 +25,7 @@
     {% for face in pagination.getResult %}
         <div class="row row-striped text-center">
             <div class="col-3 form-inline">
-                {{ face.entity.fullName }}<br /><small>{{ face.nameShort }}</small>
+                {{ face.entity.fullName }}<br /><small>{{ face.code }}</small>
             </div>
             <div class="col-3 form-inline">
                 {{ pagination.getParticipants(face.entity) }}

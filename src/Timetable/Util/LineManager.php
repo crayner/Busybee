@@ -473,7 +473,7 @@ class LineManager
         if ($this->getPossibleCount() > 0)
             return false;
 
-        return $true;
+        return true;
     }
 
     /**

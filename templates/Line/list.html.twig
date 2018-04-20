@@ -14,26 +14,26 @@
         <div class="row row-header">
             <div class="col-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'line.name.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span> {{ 'line.name.label'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'line.name.label'|trans }}
                 {% else %}
                     {{ 'line.name.label'|trans }}
                 {% endif %}
             </div>
             <div class="col-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'line.code.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span> {{ 'line.code.label'|trans }}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'line.code.label'|trans }}
                 {% else %}
                     {{ 'line.code.label'|trans }}
                 {% endif %}
             </div>
-            <div class="col-3 form-inline text-center">
-                {% if pagination.getSortByName == 'line.course.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span> {{ 'line.course.label'|trans }}
+            <div class="col-4 form-inline text-center">
+                {% if pagination.getSortByName == 'line.courses.sort' %}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'line.courses.label'|trans }}
                 {% else %}
-                    {{ 'line.course.label'|trans }}
+                    {{ 'line.courses.label'|trans }}
                 {% endif %}
             </div>
-            <div class="col-3 withAdd">
+            <div class="col-2 withAdd">
                 {{ 'actions'|trans({}, 'home') }}
             </div>
         </div>
@@ -45,10 +45,10 @@
                 <div class="col-3 form-inline">
                     {{ line.code }}
                 </div>
-                <div class="col-3 form-inline">
+                <div class="col-4 form-inline">
                     {{ line.course }}
                 </div>
-                <div class="col-3 form-inline">
+                <div class="col-2 form-inline">
                     {{ editButton({title: 'line.edit.button', transDomain: 'Timetable', windowOpen: {route: path('line_manage', {id: line.id})}})|raw }}
                     {{ deleteButton({title: 'line.delete.button', transDomain: 'Timetable', javascript: {options: [path('line_delete', {id: line.id}), 'line.delete.confirm'|trans], function: 'confirmDelete'},  colour: 'warning'})|raw }}
                 </div>

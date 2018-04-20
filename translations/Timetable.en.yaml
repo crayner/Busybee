@@ -90,7 +90,7 @@ line:
         help: ''
     calendar.label: Attach to Year
     courses:
-        label: Attach Courses
+        label: Attached Courses
         sort: Sort by Course Name
         placeholder: Select a Course
         help: Courses attached to the line can be in one or more grades.
@@ -114,6 +114,7 @@ line:
         button: Delete Line
     edit.button: Edit Line
     report:
+        button: Generate Line Report
         header: |
             <h3>Activity Line Report</h3>
             <p>Activity Line: <strong>%learninggroup%</strong></p>
@@ -132,3 +133,5 @@ line:
         duplicated: |
             Some students appear in this Activity Line more than once.
             <h4>Duplicated Students</h4>
+        refresh.button: Refresh Line Report
+        title: Line Report

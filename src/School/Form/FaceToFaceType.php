@@ -60,10 +60,10 @@ class FaceToFaceType extends AbstractType
                     'help' => 'activity.name.help',
                 ]
             )
-            ->add('nameShort', TextType::class,
+            ->add('code', TextType::class,
                 [
-                    'label' => 'activity.name_short.label',
-                    'help' => 'activity.name_short.help',
+                    'label' => 'activity.code.label',
+                    'help' => 'activity.code.help',
                 ]
             )
             ->add('website', UrlType::class,

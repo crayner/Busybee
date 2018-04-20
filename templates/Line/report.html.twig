@@ -2,10 +2,10 @@
 
 {% extends 'Default/template.html.twig' %}
 
-{% block title %}{{ parent() }}{{ 'line.title.report'|trans }}{% endblock title %}
+{% block title %}{{ parent() }}{{ 'line.report.title'|trans }}{% endblock title %}
 
 {% block contentContainer %}
     {% include 'Line/report-content.html.twig' %}
     {{ closeButton()|raw }}
-    {{ resetButton({'windowOpen': {'route': path('line_test', {'id': app.request.get('id')})}})|raw }}
+    {{ resetButton({'windowOpen': {'route': path('line_test', {'id': app.request.get('id')})}, title: 'line.report.refresh.button', transDomain: 'Timetable'})|raw }}
 {% endblock contentContainer %}
