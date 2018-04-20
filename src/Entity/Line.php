@@ -74,51 +74,6 @@ class Line
         $this->code = $code;
         return $this;
     }
-    /**
-     * @var null|integer
-     */
-    private $participants;
-
-    /**
-     * @return int|null
-     */
-    public function getParticipants(): ?int
-    {
-        return $this->participants;
-    }
-
-    /**
-     * @param int|null $participants
-     * @return Line
-     */
-    public function setParticipants(?int $participants): Line
-    {
-        $this->participants = $participants;
-        return $this;
-    }
-
-    /**
-     * @var boolean
-     */
-    private $includeAll;
-
-    /**
-     * @return bool
-     */
-    public function isIncludeAll(): bool
-    {
-        return $this->includeAll ? true : false ;
-    }
-
-    /**
-     * @param bool $includeAll
-     * @return Line
-     */
-    public function setIncludeAll(?bool $includeAll): Line
-    {
-        $this->includeAll = $includeAll ? true : false ;
-        return $this;
-    }
 
     /**
      * @var Calendar

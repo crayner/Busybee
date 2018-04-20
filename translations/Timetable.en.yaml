@@ -113,3 +113,22 @@ line:
         confirm: Delete Line?
         button: Delete Line
     edit.button: Edit Line
+    report:
+        header: |
+            <h3>Activity Line Report</h3>
+            <p>Activity Line: <strong>%learninggroup%</strong></p>
+            <p>Participating Student Count: <strong>%participantCount%</strong> of a possible <strong>%studentCount%</strong> students.</p>
+        includeAll: |
+            <h4>Possible Students</h4>
+            Some students have not been included in the Activity Line.  All students should be included.
+        student: |
+            %identifier%: %name% %activityList%
+        exceededMax: |
+            The number of students selected has exceeded the maximum number allowed. Allowed: <strong>%allowed%</strong> Participants: <strong>%participantCount%</strong>
+        footer: 'End of Report'
+        extra: |
+            An extra student has been found in the participant list.  This can happen if the grade of a student has been changed.
+            <h4>Extra Student</h4>
+        duplicated: |
+            Some students appear in this Activity Line more than once.
+            <h4>Duplicated Students</h4>

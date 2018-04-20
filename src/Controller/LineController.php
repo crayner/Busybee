@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\TranslationManager;
 use App\Core\Manager\TwigManager;
 use App\Pagination\LinePagination;
 use App\Timetable\Form\LineType;
@@ -80,21 +81,21 @@ class LineController extends Controller
      * @Route("/line/{id}/test/", name="line_test")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function test($id = 'Add', LineManager $lineManager)
+    public function test($id, LineManager $lineManager, TwigManager $twig)
     {
-        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+        $lineManager->find($id);
 
-        $lgm = $this->get('line.manager');
+        $lineManager->generateReport($id);
 
-        $year = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
+        $data = $lineManager->getReport();
 
-        $lgm->generateReport($id, $year);
-
-        $data = $lgm->getReport();
+        $lineManager->getMessageManager()->setUseRaw(true);
 
         return $this->render('Line/report.html.twig',
             [
-                'report' => $data['report'],
+                'headerOff' => true,
+                'fullPage' => true,
+
             ]
         );
     }

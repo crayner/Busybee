@@ -21,15 +21,6 @@ App\Entity\Line:
             length: '100'
         code:
             length: '5'
-        participants:
-            type: integer
-            length: 4
-            nullable: false
-            options:
-                default: 0
-        includeAll:
-            type: boolean
-            column: include_all
     manyToOne:
         calendar:
             targetEntity: App\Entity\Calendar

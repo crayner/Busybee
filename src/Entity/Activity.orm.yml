@@ -22,10 +22,9 @@ App\Entity\Activity:
         name:
             type: string
             length: 100
-        nameShort:
+        code:
             type: string
             length: 8
-            column: name_short
         teachingLoad:
             type: integer
             length: 2

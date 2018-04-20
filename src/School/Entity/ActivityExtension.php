@@ -64,7 +64,9 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
      */
     public function getFullName()
     {
-        return $this->getName() . ' (' . $this->getNameShort() . ')';
+        if ($this->getCourse())
+            return $this->getCourse()->getName() . ' ' . $this->getName() . ' (' . $this->getCode() . ')';
+        return $this->getName() . ' (' . $this->getCode() . ')';
     }
 
     /**

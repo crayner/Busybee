@@ -24,7 +24,7 @@ class Activity extends ActivityExtension
     /**
      * @var string
      */
-    private $nameShort;
+    private $code;
 
     /**
      * @var Calendar
@@ -116,25 +116,25 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * Get nameShort
+     * Get code
      *
      * @return string
      */
-    public function getNameShort()
+    public function getCode()
     {
-        return $this->nameShort;
+        return $this->code;
     }
 
     /**
-     * Set nameShort
+     * Set code
      *
-     * @param string $nameShort
+     * @param string $code
      *
      * @return Activity
      */
-    public function setNameShort($nameShort)
+    public function setCode($code)
     {
-        $this->nameShort = str_replace([' ', '\t', '\n', '\r', '\0', '\x0B'], '', strtoupper($nameShort));
+        $this->code = str_replace([' ', '\t', '\n', '\r', '\0', '\x0B'], '', strtoupper($code));
 
         return $this;
     }
@@ -384,25 +384,6 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @return ArrayCollection
-     */
-    public function getGrades(): ?ArrayCollection
-    {
-        return $this->grades;
-    }
-
-    /**
-     * @param ArrayCollection $grades
-     * @return Activity
-     */
-    public function setGrades(?ArrayCollection $grades): Activity
-    {
-        $this->grades = $grades;
-
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isReportable(): bool
@@ -458,9 +439,9 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getCalendarGrades(): ?Collection
+    public function getCalendarGrades(): Collection
     {
         $this->calendarGrades = $this->calendarGrades ?: new ArrayCollection();
 

@@ -34,27 +34,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-6 card">
+                    <div class="col-5 card">
                         {{ form_row(form.name) }}
                     </div>
-                    <div class="col-6 card">
+                    <div class="col-3 card">
+                        {{ form_row(form.calendar) }}
                         {{ form_row(form.code) }}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 card">
-                        {{ form_row(form.calendar) }}
-                        {{ form_row(form.participants) }}
-                    </div>
-                    <div class="col-6 card">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 card">
-                        {{ form_row(form.includeAll) }}
-                    </div>
                     {% if app.request.get('id') != 'Add' %}
-                        <div class="col-6 card">
+                        <div class="col-4 card">
                             <div class="form-group">
                                 {{ miscButton({'class': 'btn btn-info fas fa-check testLine'})|raw }}
                                 <label class="control-label">{{ 'line.test.label'|trans }}</label><br>
@@ -99,7 +87,7 @@
         $('.testLine').click(function (e) {
             var path = '{{ path('line_test', {'id': '__id__'}) }}';
             path = path.replace('__id__', '{{ app.request.get('id') }}');
-            window.open(path, 'Report', 'width=500,height=500,menubar=no,top=200,left=200');
+            window.open(path, 'Report', 'width=800,height=800,top=125,left=150');
         })
     </script>
     {% if app.request.get('closeWindow') is not empty %}

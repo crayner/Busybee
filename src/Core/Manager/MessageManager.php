@@ -16,6 +16,11 @@ class MessageManager
 	 */
 	private $messages = [];
 
+    /**
+     * @var bool
+     */
+	private $useRaw = false;
+
 	/**
 	 * Add Message
 	 *
@@ -124,4 +129,22 @@ class MessageManager
 
 		return $twig->render('Default/messages.html.twig', ['messages' => $this]);
 	}
+
+    /**
+     * @return bool
+     */
+    public function isUseRaw(): bool
+    {
+        return $this->useRaw;
+    }
+
+    /**
+     * @param bool $useRaw
+     * @return MessageManager
+     */
+    public function setUseRaw(bool $useRaw): MessageManager
+    {
+        $this->useRaw = $useRaw;
+        return $this;
+    }
 }

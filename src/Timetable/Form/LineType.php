@@ -40,24 +40,6 @@ class LineType extends AbstractType
                     ],
                 ]
             )
-            ->add('participants', NumberType::class, [
-                    'label' => 'line.participants.label',
-                    'help' => 'line.participants.help',
-                    'attr' => [
-                        'class' => 'monitorChange',
-                    ],
-                    'required' => false,
-                    'empty_data' => 0,
-                ]
-            )
-            ->add('includeAll', ToggleType::class, [
-                    'label' => 'line.include_all.label',
-                    'help' => 'line.include_all.help',
-                    'attr' => [
-                        'class' => 'monitorChange',
-                    ],
-                ]
-            )
             ->add('courses', CollectionType::class, [
                     'label' => 'line.courses.label',
                     'help' => 'line.courses.help',
