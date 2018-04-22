@@ -254,6 +254,7 @@ department_tutor_collection:
     include: Department/department_staff.html.twig
     message: departmentStaffMessage
     translation: School
+    display: hasMembers
 department_course_collection:
     label: department.courses.tab
     include: Department/department_courses.html.twig
@@ -276,5 +277,12 @@ department_course_collection:
         if ($this->getDepartment()->getType() !== 'Administration')
             return true;
         return false;
+    }
+
+    public function hasMembers(): bool
+    {
+        if (is_null($this->getDepartment()->getType()))
+            return false;
+        return true;
     }
 }
