@@ -48,7 +48,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 		$data = $event->getData();
 		$form = $event->getForm();
 
-		if (!is_null($data->getType()))
+		if (! is_null($data->getType()))
 		{
 			$data->getMembers()->count();
 			$form->add('members', CollectionType::class,

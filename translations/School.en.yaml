@@ -157,12 +157,12 @@ menu:
 roll:
     sort:
         name: Roll Name
-        name_short: Roll Short Name
+        code: Roll Short Name
         calendar_group: Calendar Group
     name:
         label: Roll Name
         help: Must be Unique
-    name_short:
+    code:
         label: Roll Short Name
         help: Must be Unique
     tutor.placeholder: Select a Tutor
@@ -297,7 +297,7 @@ external_activity:
     name:
         label: Activity
         help: '!!!unique!!!'
-    name_short:
+    code:
         label: Code
         help: '!!!unique!!!'
     terms:

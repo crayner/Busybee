@@ -57,10 +57,10 @@ class ExternalActivityType extends AbstractType
                     'help' => 'external_activity.name.help',
                 ]
             )
-            ->add('nameShort', TextType::class,
+            ->add('code', TextType::class,
                 [
-                    'label' => 'external_activity.name_short.label',
-                    'help' => 'external_activity.name_short.help',
+                    'label' => 'external_activity.code.label',
+                    'help' => 'external_activity.code.help',
                 ]
             )
             ->add('students', CollectionType::class,

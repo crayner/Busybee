@@ -34,7 +34,7 @@
         {% for activity in pagination.getResult %}
             <div class="row row-striped small text-center">
                 <div class="col-4 form-inline">
-                    {{ activity.name }}<br /><small>{{ activity.nameShort }}</small>
+                    {{ activity.name }}<br /><small>{{ activity.code }}</small>
                 </div>
                 <div class="col-2 form-inline">
                     {% set provider = 'activity.provider.type.' ~ activity.provider|lower %}
