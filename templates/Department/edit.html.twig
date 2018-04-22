@@ -23,7 +23,6 @@
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {% include 'Default/tabs.html.twig' with {translation: 'School'} %}
     {% do form.courses.setRendered() %}
-    {% do form.members.setRendered() %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

@@ -1,8 +1,8 @@
 {% trans_default_domain 'School' %}
 
 {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ resetButton()|raw %}
-    {% set h3Content = h3Content ~ saveButton()|raw %}
+{% set h3Content = h3Content ~ resetButton()|raw %}
+{% set h3Content = h3Content ~ saveButton()|raw %}
 {% include 'Page/panelStart.html.twig' with {header: 'department.edit.title', transDomain: 'School', panelParagraph: '', panelStyle: 'success', panelStyle: 'info'} %}
 <div class="container-fluid">
     <div class="row row-header">
@@ -19,3 +19,4 @@
     {{ collection_widget(form.members) }}
 </div>
 {% include 'Page/panelEnd.html.twig' %}
+{% do form.members.setRendered() %}
