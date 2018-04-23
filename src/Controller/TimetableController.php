@@ -12,6 +12,7 @@ use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\PeriodManager;
 use App\Timetable\Util\TimetableDisplayManager;
 use App\Timetable\Util\TimetableManager;
+use PhpParser\Node\Stmt\Else_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -86,13 +87,16 @@ class TimetableController extends Controller
     /**
      * @IsGranted("ROLE_PRINCIPAL")
      * @Route("/timetable/{id}/days/{cid}/edit/", name="timetable_days_edit")
-     * @param Request $request
      * @param $id
      * @param string $cid
      * @param TimetableManager $timetableManager
+     * @param TwigManager $twig
      * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function editTimetableDays(Request $request, $id, $cid = 'ignore', TimetableManager $timetableManager, TwigManager $twig)
+    public function editTimetableDays($id, $cid = 'ignore', TimetableManager $timetableManager, TwigManager $twig)
     {
         $entity = $timetableManager->find($id);
 
@@ -122,11 +126,18 @@ class TimetableController extends Controller
 
     /**
      * @param   Request $request
+     * @param $id
+     * @param string $all
+     * @param TimetableManager $timetableManager
+     * @param PeriodPagination $periodPagination
+     * @param LinePagination $linePagination
+     * @param ClassPagination $classPagination
+     * @param PeriodManager $periodManager
      * @return  \Symfony\Component\HttpFoundation\Response
      * @IsGranted("ROLE_PRINCIPAL")
      * @Route("/timetable/{id}/builder/{all}/", name="timetable_builder")
      */
-    public function builderAction(Request $request, $id, $all = 'All',
+    public function builder(Request $request, $id, $all = 'All',
                                   TimetableManager $timetableManager, PeriodPagination $periodPagination,
                                   LinePagination $linePagination, ClassPagination $classPagination,
                                   PeriodManager $periodManager)
@@ -149,12 +160,18 @@ class TimetableController extends Controller
 
         $gradeControl = $request->getSession()->get('gradeControl');
 
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
         $param = [];
-        if (is_array($gradeControl)) {
-            foreach ($gradeControl as $q => $w)
-                if ($w)
-                    $param[] = $q;
+        foreach ($timetableManager->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
+                $param[] = $w->getGrade();
+            else
+                $gradeControl[$w->getGrade()] = false;
         }
+
+        $request->getSession()->set('gradeControl', $gradeControl);
 
         $search = [];
         if (!empty($param)) {
@@ -185,9 +202,9 @@ class TimetableController extends Controller
 
         return $this->render('Timetable/builder.html.twig',
             [
-                'pagination' => $classPagination,
+                'pagination' => $periodPagination,
                 'line_pagination' => $linePagination,
-                'activity_pagination' => $periodPagination,
+                'class_pagination' => $classPagination,
                 'periodManager' => $periodManager,
                 'all' => $all,
                 'report' => $report,
@@ -539,5 +556,57 @@ class TimetableController extends Controller
         );
     }
 
+    /**
+     * @param   Request $request
+     * @param $id
+     * @param string $all
+     * @param TimetableManager $timetableManager
+     * @param LinePagination $linePagination
+     * @return JsonResponse
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/line/builder/", name="timetable_builder_line_activity")
+     */
+    public function builderLineActivity(Request $request, $id,
+                                  LinePagination $linePagination
+                                  )
+    {
+        $linePagination->injectRequest($request);
 
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $param = [];
+        if (is_array($gradeControl)) {
+            foreach ($gradeControl as $q => $w)
+                if ($w)
+                    $param[] = $q;
+        }
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $linePagination->setDisplaySearch(false)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->setLimit(1000)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $linePagination->getDataSet();
+
+        $content = $this->renderView('Timetable/builder_line_activity.html.twig',
+            [
+                'line_pagination' => $linePagination,
+            ]
+        );
+dump([$linePagination, $content]);
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200);
+    }
 }

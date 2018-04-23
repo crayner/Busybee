@@ -78,19 +78,25 @@ timetable:
             description: ''
     grade:
         control:
-            title: Grade Control
-            description: 'Limit the testing of grades in the timetable.'
+            title: Grade Monitoring
+            description: 'Monitor only those grades selected.'
             label: 'Monitor %grade%'
             toggle:
                 on: 'Toggle Grade Monitor.'
                 off: 'Toggle Grade Monitor.'
         view.button: View Grade Timetable
+    build:
+        activity:
+            count: '{0}(%count%)|]0,Inf[(%count% of %load%)'
+            list:
+                title: 'Activities'
+                description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
 calendar.first_day.sort: Calendar Name
 timetable_columns.add.title: Add Column
 line:
     list:
         title: Manage Activity Lines
-        description: ''
+        description: 'Drag and drop activity lines into a period to assign the line to the period. DblClick on any line to edit the line details.'
         menu.label: Manage Lines
     name:
         label: Activity Line

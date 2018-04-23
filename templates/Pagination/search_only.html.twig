@@ -21,9 +21,9 @@
         <div class="offset-6 col-6 ">
             {% if pagination.displaySearch %}
                 <label class="control-label" style="text-align: left;">{{ form.searchData.vars.label|trans }}</label>
-                <div class="input-group">
+                <div class="input-group input-group-sm">
                     {{ form_widget(form.searchData) }}
-                    <div class="input-group-btn">
+                    <div class="input-group-append">
                         {{ saveButton({class: 'btn btn-success fas fa-search', additional: {id: "paginator_startSearch", name: "paginator[startSearch]"}, style: 'height: 33px; margin-top: -2px; '})|raw }}
                     </div>
                 </div>

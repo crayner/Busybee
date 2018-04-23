@@ -3,6 +3,11 @@ namespace App\Pagination;
 
 use App\Entity\Course;
 use App\Entity\FaceToFace;
+use App\Timetable\Util\ClassManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 
 class ClassPagination extends PaginationManager
 {
@@ -130,5 +135,32 @@ class ClassPagination extends PaginationManager
     public function getParticipants(FaceToFace $entity): int
     {
         return $entity->getStudents()->count();
+    }
+
+    /**
+     * @var ClassManager
+     */
+    private $manager;
+
+    /**
+     * ClassPagination constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param RouterInterface $router
+     * @param RequestStack $requestStack
+     * @param FormFactoryInterface $formFactory
+     * @param ClassManager $classManager
+     */
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory, ClassManager $classManager)
+    {
+        parent::__construct($entityManager, $router, $requestStack, $formFactory);
+        $this->manager = $classManager;
+    }
+
+    /**
+     * @return ClassManager
+     */
+    public function getManager(): ClassManager
+    {
+        return $this->manager;
     }
 }

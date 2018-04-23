@@ -29,9 +29,9 @@ abstract class PaginationManager implements PaginationInterface
 	protected $repository;
 
 	/**
-	 * @var ObjectManager
+	 * @var EntityManagerInterface
 	 */
-	protected $manager;
+	protected $entityManager;
 
 	/**
 	 * @var Container
@@ -166,7 +166,7 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
 	{
-		$this->manager    = $entityManager;
+		$this->entityManager    = $entityManager;
 		$this->repository = $entityManager->getRepository($this->repositoryName);
 		$this->router     = $router;
         $this->stack      = $requestStack;
@@ -1050,6 +1050,14 @@ abstract class PaginationManager implements PaginationInterface
         if (empty($this->session))
             $this->session = $this->getStack()->getCurrentRequest()->getSession();
         return $this->session;
+    }
+
+    /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
     }
 
     /**

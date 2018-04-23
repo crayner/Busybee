@@ -1,0 +1,14 @@
+{% trans_default_domain 'Timetable' %}
+{% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+{% set h3Content = h3Content ~ addButton({windowOpen: {route: path('line_manage', {id: 'Add', closeWindow: '_closeWindow'}), target: 'LineEdit', params: 'width=1200,height=900'}}) %}
+{% include 'Page/panelStart.html.twig' with {header: 'line.list.title', transDomain: 'Timetable', panelParagraph: 'line.list.description'} %}
+
+{% for line in line_pagination.result %}
+    <div class="row-border row row-striped dragLine" id="line{{ line.id }}">
+        <div class="col-12 small">
+            {{ line.name }} ({{ line.code }})
+            {{ miscButton({class: 'fas fa-search btn btn-sm btn-info', title: 'line.period.search.button', javascript: {function: 'linePeriodSearch', options: [app.request.get('id'), line.id]}})|raw }}
+        </div>
+    </div>
+{% endfor %}
+{% include 'Page/panelEnd.html.twig' %}
