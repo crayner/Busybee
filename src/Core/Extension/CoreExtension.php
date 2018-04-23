@@ -2,6 +2,7 @@
 namespace App\Core\Extension;
 
 use App\Core\Manager\TwigManager;
+use App\Core\Util\ScriptManager;
 use Twig\Extension\AbstractExtension;
 
 class CoreExtension extends AbstractExtension
@@ -11,13 +12,16 @@ class CoreExtension extends AbstractExtension
      */
 	private $twigManager;
 
+	private $scriptManager;
+
     /**
      * CoreExtension constructor.
      * @param TwigManager $twigManager
      */
-    public function __construct(TwigManager $twigManager)
+    public function __construct(TwigManager $twigManager, ScriptManager $scriptManager)
 	{
-		$this->twigManager       = $twigManager;
+		$this->twigManager      = $twigManager;
+        $this->scriptManager    = $scriptManager;
 	}
 
 	/**
@@ -26,7 +30,9 @@ class CoreExtension extends AbstractExtension
 	public function getFunctions()
 	{
 		return array(
-			new \Twig_SimpleFunction('callManagerMethod', array($this->twigManager, 'callManagerMethod')),
+            new \Twig_SimpleFunction('callManagerMethod', array($this->twigManager, 'callManagerMethod')),
+            new \Twig_SimpleFunction('addScript', array($this->scriptManager, 'addScript')),
+            new \Twig_SimpleFunction('getScripts', array($this->scriptManager, 'getScripts')),
 		);
 	}
 
@@ -35,6 +41,6 @@ class CoreExtension extends AbstractExtension
      */
     public function getName()
 	{
-		return 'twig_manager_extension';
+		return 'core_extension';
 	}
 }

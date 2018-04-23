@@ -43,9 +43,9 @@ class ExternalActivityPagination extends PaginationManager
 	 */
 	protected $searchList = [
 		'a.name',
-        'a.nameShort',
+        'a.code',
         'g.grade',
-        't.nameShort',
+        't.code',
 	];
 
 	/**
@@ -53,7 +53,7 @@ class ExternalActivityPagination extends PaginationManager
 	 */
 	protected $select = [
 		'a.name',
-		'a.nameShort',
+		'a.code',
         'a.provider',
         'a.id',
         'a.payment',
@@ -225,7 +225,7 @@ class ExternalActivityPagination extends PaginationManager
             foreach ($this->getSearchList() as $field)
             {
                 $this->getQuery()->orWhere($field . ' LIKE :search' . $x);
-                if (in_array($field, ['g.grade', 't.nameShort']))
+                if (in_array($field, ['g.grade', 't.code']))
                     $this->getQuery()->orWhere($field . ' IS NULL');
                 $this->getQuery()->setParameter('search' . $x++, '%' . $this->getSearch() . '%');
             }

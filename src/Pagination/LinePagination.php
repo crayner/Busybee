@@ -7,7 +7,6 @@ use App\Entity\Line;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class LinePagination extends PaginationManager
@@ -68,9 +67,13 @@ class LinePagination extends PaginationManager
      * @var array
      */
 	protected $join = [
-	    'l.courses' => [
-	        'type' => 'leftJoin',
+        'l.courses' => [
+            'type' => 'leftJoin',
             'alias' => 'c',
+        ],
+        'c.calendarGrades' => [
+            'type' => 'leftJoin',
+            'alias' => 'g',
         ],
     ];
 

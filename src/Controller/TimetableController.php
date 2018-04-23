@@ -3,11 +3,18 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
+use App\Pagination\ClassPagination;
+use App\Pagination\LinePagination;
+use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
+use App\Security\VoterDetails;
 use App\Timetable\Form\TimetableType;
+use App\Timetable\Util\PeriodManager;
+use App\Timetable\Util\TimetableDisplayManager;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,18 +26,18 @@ class TimetableController extends Controller
      * @Route("timetable/manage/", name="timetable_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
-     * @param TimetablePagination $up
+     * @param TimetablePagination $classPagination
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function manage(Request $request, TimetablePagination $up) // was listAction
+    public function manage(Request $request, TimetablePagination $classPagination) // was listAction
     {
-        $up->injectRequest($request);
+        $classPagination->injectRequest($request);
 
-        $up->getDataSet();
+        $classPagination->getDataSet();
 
         return $this->render('Timetable/manage.html.twig',
             [
-                'pagination' => $up,
+                'pagination' => $classPagination,
             ]
         );
     }
@@ -85,7 +92,7 @@ class TimetableController extends Controller
      * @param TimetableManager $timetableManager
      * @return JsonResponse
      */
-    public function editTimeTableDays(Request $request, $id, $cid = 'ignore', TimetableManager $timetableManager, TwigManager $twig)
+    public function editTimetableDays(Request $request, $id, $cid = 'ignore', TimetableManager $timetableManager, TwigManager $twig)
     {
         $entity = $timetableManager->find($id);
 
@@ -119,27 +126,29 @@ class TimetableController extends Controller
      * @IsGranted("ROLE_PRINCIPAL")
      * @Route("/timetable/{id}/builder/{all}/", name="timetable_builder")
      */
-    public function builderAction(Request $request, $id, $all = 'All')
+    public function builderAction(Request $request, $id, $all = 'All',
+                                  TimetableManager $timetableManager, PeriodPagination $periodPagination,
+                                  LinePagination $linePagination, ClassPagination $classPagination,
+                                  PeriodManager $periodManager)
     {
-        $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
+        $timetable = $timetableManager->find($id);
 
-//	    if ($tm->getTimeTable()->getLocked() && ! $tm->getTimeTable()->getGenerated())
-//		    return $this->generateTimeTable($id);
+//	    if ($timetable->getTimetable()->getLocked() && ! $timetable->getTimetable()->getGenerated())
+//		    return $this->generateTimetable($id);
 
-        $up = $this->get('period.pagination');
-        $lp = $this->get('line.pagination');
-        $ap = $this->get('activity.pagination');
+        $periodPagination->setTimetable($timetable);
 
-        $ap->injectRequest($request);
-        $up->injectRequest($request);
-        $lp->injectRequest($request);
+        $periodPagination->injectRequest($request);
+        $classPagination->injectRequest($request);
+        $linePagination->injectRequest($request);
 
-        $up->setLimit(1000)
+        $classPagination->setLimit(1000)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setDisplayResult(false);
 
-        $gradeControl = $this->get('session')->get('gradeControl');
+        $gradeControl = $request->getSession()->get('gradeControl');
+
         $param = [];
         if (is_array($gradeControl)) {
             foreach ($gradeControl as $q => $w)
@@ -153,14 +162,14 @@ class TimetableController extends Controller
             $search['parameter'] = $param;
         }
 
-        $ap->setLimit(1000)
+        $periodPagination->setLimit(1000)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
             ->addInjectedSearch($search)
             ->setDisplayResult(false);
 
-        $lp->setDisplaySearch(false)
+        $linePagination->setDisplaySearch(false)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
@@ -168,21 +177,21 @@ class TimetableController extends Controller
             ->addInjectedSearch($search)
             ->setDisplayResult(false);
 
-        $up->getDataSet();
-        $lp->getDataSet();
-        $ap->getDataSet();
+        $classPagination->getDataSet();
+        $linePagination->getDataSet();
+        $periodPagination->getDataSet();
 
-        $report = $tm->getReport($up);
+        $report = $timetableManager->getReport($periodPagination);
 
-        return $this->render('Timetable:TimeTable:builder.html.twig',
+        return $this->render('Timetable/builder.html.twig',
             [
-                'pagination' => $up,
-                'line_pagination' => $lp,
-                'activity_pagination' => $ap,
-                'pm' => $this->get('period.manager'),
+                'pagination' => $classPagination,
+                'line_pagination' => $linePagination,
+                'activity_pagination' => $periodPagination,
+                'periodManager' => $periodManager,
                 'all' => $all,
                 'report' => $report,
-                'grades' => $this->get('busybee_core_calendar.model.grade_manager')->getYearGrades(),
+                'grades' => $timetableManager->getCalendarGrades(),
             ]
         );
     }
@@ -235,12 +244,12 @@ class TimetableController extends Controller
                 $om->flush();
             } catch (\Exception $e) {
                 $this->get('session')->getFlashBag()->add('danger', 'column.resettime.error');
-                return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
+                return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimetable()->getId()]));
             }
         }
 
         $this->get('session')->getFlashBag()->add('success', 'column.resettime.success');
-        return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
+        return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimetable()->getId()]));
     }
 
     /**
@@ -259,13 +268,13 @@ class TimetableController extends Controller
             return new JsonResponse(
                 array(
                     'status' => 'error',
-                    'message' => '<div class="alert alert-danger fadeAlert">' . $this->get('translator')->trans('period.remove.missing', [], 'BusybeeTimeTableBundle') . '</div>',
+                    'message' => '<div class="alert alert-danger fadeAlert">' . $this->get('translator')->trans('period.remove.missing', [], 'BusybeeTimetableBundle') . '</div>',
                 ),
                 200
             );
         }
 
-        $message = '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('period.remove.locked', [], 'BusybeeTimeTableBundle') . '</div>';
+        $message = '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('period.remove.locked', [], 'BusybeeTimetableBundle') . '</div>';
 
         if (!$this->get('period.manager')->canDelete($id))
             return new JsonResponse(
@@ -281,7 +290,7 @@ class TimetableController extends Controller
         $om->flush();
 
 
-        $message = '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('period.remove.success', [], 'BusybeeTimeTableBundle') . '</div>';
+        $message = '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('period.remove.success', [], 'BusybeeTimetableBundle') . '</div>';
 
         return new JsonResponse(
             array(
@@ -292,4 +301,243 @@ class TimetableController extends Controller
             200
         );
     }
+
+    /**
+     * @param $id
+     * @param $line
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/period/{id}/line/{$line}/builder/", name="period_builder_line")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function addLineToPeriod($id, $line, Request $request)
+    {
+        $period = $this->get('period.repository')->find($id);
+
+        $pm = $this->get('period.manager')->injectPeriod($period);
+
+        $pm->injectLineGroup($line);
+
+        if (preg_match('#timetable\/([0-9]{1,})\/builder\/(All|[0-9]{1,})\/$#', $request->headers->get('referer')))
+            return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimetable()->getId(), 'all' => $id]));
+        elseif (preg_match('#timetable\/line\/([0-9]{1,})\/periods\/([0-9]{1,})\/search\/$#', $request->headers->get('referer')))
+            return $this->redirect($this->generateUrl('line_periods_search', ['tt' => $period->getTimetable()->getId(), 'id' => $line]));
+        throw new Exception('Illegal Page call');
+    }
+
+    /**
+     * @param $id
+     * @param $activity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/period/{$id}/activity/{activity}/builder/", name="period_builder_activity")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function addActivityToPeriod($id, $activity)
+    {
+        $period = $this->get('period.repository')->find($id);
+
+        $pm = $this->get('period.manager')->injectPeriod($period);
+
+        $pm->injectActivityGroup($activity);
+
+        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimetable()->getId(), 'all' => $id]));
+    }
+
+    /**
+     * @param $id
+     * @param $activity
+     * @return JsonResponse
+     * @Route("/period/{$id}/activity/{activity}/remove/", name="period_remove_activity")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function removePeriodActivity($id, $activity)
+    {
+        $period = $this->get('period.repository')->find($id);
+
+        $pa = $this->get('period.activity.repository')->find($activity);
+
+        $name = $pa->getActivity()->getFullName();
+
+        $period->getActivities()->removeElement($pa);
+
+        $om = $this->get('doctrine')->getManager();
+
+        try {
+            $om->persist($period);
+            $om->remove($pa);
+            $om->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse(
+                array(
+                    'message' => '<div class="alert alert-danger">' . $this->get('translator')->trans('period.activities.activity.remove.error', ['%error%' => $e->getMessage()], 'BusybeeTimetableBundle') . '</div>',
+                    'status' => 'error',
+                ),
+                200
+            );
+
+        }
+    }
+
+    /**
+     * @param $grade
+     * @return JsonResponse
+     * @Route("/grade/{grade}/{value}/control/", name="grade_control")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function gradeControl($grade, $value)
+    {
+        $session = $this->get('session');
+
+        $gradeControl = $session->get('gradeControl');
+
+        if (!is_array($gradeControl))
+            $gradeControl = [];
+
+        if (!isset($gradeControl[$grade]))
+            $gradeControl[$grade] = boolval($value);
+
+        $gradeControl[$grade] = $gradeControl[$grade] ? false : true;
+
+        $session->set('gradeControl', $gradeControl);
+
+        return new JsonResponse([], 200);
+    }
+
+    /**
+     * Set Timetable Grade
+     *
+     * @param $grade
+     * @return JsonResponse
+     * @Route("/timetable/{grade}/grade/", name="timetable_grade_set")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function setTimetableGrade($grade)
+    {
+        $sess = $this->get('session');
+
+        $gc = $sess->set('tt_identifier', 'grad' . $grade);
+
+        return new JsonResponse([], 200);
+    }
+
+    /**
+     * Display Timetable
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/timetable//display/{closeWindow}", name="timetable_display")
+     * @Security("is_granted('ROLE_PRINCIPAL')")
+     */
+    public function display(Request $request, VoterDetails $voterDetails, $closeWindow = '', TimetableDisplayManager $timetableDisplayManager)
+    {
+        $sess = $request->getSession();
+
+        $fullPage = !empty($closeWindow) ? true : false;
+
+        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $timetableDisplayManager->getTimetableIdentifier($this->getUser());
+
+        $voterDetails->parseIdentifier($identifier);
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $voterDetails, '');
+
+        return $this->render('Timetable/Display/index.html.twig',
+            [
+                'manager' => $timetableDisplayManager,
+                'fullPage' => $fullPage,
+                'headerOff' => $fullPage,
+            ]
+        );
+    }
+
+    /**
+     * Set Timetable Space
+     *
+     * @param $space
+     * @return JsonResponse
+     * @Route("/space/{space}/set/", name="timetable_space_set")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function setTimetableSpace($space)
+    {
+        $sess = $this->get('session');
+
+        $gc = $sess->set('tt_identifier', 'spac' . $space);
+
+        return new JsonResponse([], 200);
+    }
+
+    /**
+     * Set Timetable Staff
+     *
+     * @param $grade
+     * @return JsonResponse
+     * @Route("/staff/{staff}/set/", name="timetable_staff_set")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function setTimetableStaff($staff)
+    {
+        $sess = $this->get('session');
+
+        $gc = $sess->set('tt_identifier', 'staf' . $staff);
+
+        return new JsonResponse([], 200);
+    }
+
+    /**
+     * @param $tt
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/timetable/{tt}/line/{id}/periods/search/", name="line_periods_search")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function searchPeriods($tt, $id)
+    {
+        $lgm = $this->get('line.manager');
+
+        $data = $lgm->searchForSuitablePeriods($tt, $id);
+
+        return $this->render('BusybeeTimeTableBundle:Line:search.html.twig',
+            [
+                'report' => $data,
+                'manager' => $lgm,
+            ]
+        );
+    }
+
+    /**
+     * Refresh Display TimeTable
+     *
+     * @param string $displayDate
+     * @return JsonResponse
+     * @Route("/timetable/display/{displayDate}/refresh/", name="timetable_refresh_display")
+     * @IsGranted("ROLE_USER");
+     */
+    public function refreshDisplay($displayDate, VoterDetails $voterDetails, TimetableDisplayManager $timetableDisplayManager, Request $request)
+    {
+        $sess = $request->getSession();
+
+        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $timetableDisplayManager->getTimeTableIdentifier($this->getUser());
+
+        $voterDetails->parseIdentifier($identifier);
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $voterDetails, '');
+
+        if ($this->getUser())
+            $timetableDisplayManager->generateTimeTable($identifier, $displayDate);
+
+        $content = $this->renderView('Timetable/Display/timetable.html.twig',
+            [
+                'manager' => $timetableDisplayManager,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content'     => $content,
+                'description' => $timetableDisplayManager->getDescription(true),
+            ],
+            200
+        );
+    }
+
+
 }

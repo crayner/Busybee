@@ -1,0 +1,37 @@
+{% trans_default_domain 'Pagination' %}
+
+ {% set form = pagination.getForm %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% if form_array is not defined %}
+    {% set form_array = [] %}
+{% endif %}
+{% set form_array = form_array|merge({'attr': {'id': pagination.getName|lower ~ '_pagination'}}) %}
+
+{% if pagination.getReDirect != false %}
+    <script>
+        window.open('{{ pagination.getReDirect() }}', '_self');
+    </script>
+{% endif %}
+
+{{ form_start(form, form_array) }}
+<div class="container-fluid card" style="padding: 0 15px 5px;">
+    <div class="row">
+        <div class="offset-6 col-6 ">
+            {% if pagination.displaySearch %}
+                <label class="control-label" style="text-align: left;">{{ form.searchData.vars.label|trans }}</label>
+                <div class="input-group">
+                    {{ form_widget(form.searchData) }}
+                    <div class="input-group-btn">
+                        {{ saveButton({class: 'btn btn-success fas fa-search', additional: {id: "paginator_startSearch", name: "paginator[startSearch]"}, style: 'height: 33px; margin-top: -2px; '})|raw }}
+                    </div>
+                </div>
+            {% endif %}
+            {% do form.searchData.setRendered %}
+        </div>
+        {% do form.sortByName.setRendered %}
+        {% do form.limit.setRendered %}
+    </div>
+</div>
+{{ form_end(form) }}

@@ -49,7 +49,6 @@
                 </div>
                 <div class="col-3 form-inline">
                     {{ editButton({title: {message: 'timetable.edit.title', params: {'%name%': timetable.name }}, transDomain: 'Timetable', windowOpen: {route: path('timetable_edit', {id: timetable.id})}})|raw }}
-                    {{ miscButton({class: 'btn btn-success fas fa-list', title: 'timetable.days.edit.button', transDomain: 'Timetable', windowOpen: {route: path('timetable_days_edit', {id: timetable.id})}})|raw }}
                     {{ miscButton({class: 'btn btn-warning fas fa-cog', title: 'timetable.builder.button', transDomain: 'Timetable', windowOpen: {route: path('timetable_builder', {id: timetable.id})}})|raw }}
                 </div>
             </div>

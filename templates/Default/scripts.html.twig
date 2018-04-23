@@ -87,9 +87,7 @@
     });
 
 </script>
-{% if script is defined %}
-    {% for xx in script %}
-        {% include xx %}
-    {% endfor %}
-{% endif %}
+{% for xx in getScripts() %}
+    {% include xx %}
+{% endfor %}
 <!-- core JavaScript end -->

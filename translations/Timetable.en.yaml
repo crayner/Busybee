@@ -72,6 +72,19 @@ timetable:
             error: 'The column removal failed with the error: %{message}'
             success: 'The column was removed.'
             button: Remove Column
+    period:
+        list:
+            title: Timetable Period List
+            description: ''
+    grade:
+        control:
+            title: Grade Control
+            description: 'Limit the testing of grades in the timetable.'
+            label: 'Monitor %grade%'
+            toggle:
+                on: 'Toggle Grade Monitor.'
+                off: 'Toggle Grade Monitor.'
+        view.button: View Grade Timetable
 calendar.first_day.sort: Calendar Name
 timetable_columns.add.title: Add Column
 line:
@@ -135,3 +148,4 @@ line:
             <h4>Duplicated Students</h4>
         refresh.button: Refresh Line Report
         title: Line Report
+    period.search.button:

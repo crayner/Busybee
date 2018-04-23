@@ -1,0 +1,29 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+<p class="text-left">{% if status.message is not empty %}
+        {{ miscButton({'title': status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
+    {% endif %}
+    {% set comma = false %}
+    {% if details['space_id'] is defined and details['space_id'] > 0 %}
+        <span class="spaceName"
+              onclick="openSpaceTimeTable({{ details['space_id'] }})">{{ details['%space%'] }}</span>
+        {% set comma = true %}
+    {% endif %}
+    {% if details['tutor1_id'] is defined and details['tutor1_id'] > 0 %}
+        {% if comma %},&nbsp;{% endif %}
+        <span class="tutorName"
+              onclick="openStaffTimeTable({{ details['tutor1_id'] }})">{{ details['%tutor1%'] }}</span>
+        {% set comma = true %}
+    {% endif %}
+    {% if details['tutor2_id'] is defined and details['tutor2_id'] > 0 %}
+        {% if comma %},&nbsp;{% endif %}
+        <span class="tutorName"
+              onclick="openStaffTimeTable({{ details['tutor2_id'] }})">{{ details['%tutor2%'] }}</span>
+        {% set comma = true %}
+    {% endif %}
+    {% if details['tutor3_id'] is defined and details['tutor3_id'] > 0 %}
+        {% if comma %},&nbsp;{% endif %}
+        <span class="tutorName"
+              onclick="openStaffTimeTable({{ details['tutor3_id'] }})">{{ details['%tutor3%'] }}</span>
+    {% endif %}
+</p>
