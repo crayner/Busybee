@@ -1,15 +1,6 @@
 App\Entity\FaceToFace:
     type: entity
     repositoryClass: App\Repository\FaceToFaceRepository
-    uniqueConstraints:
-        name_course:
-            columns:
-                - name
-                - course_id
-        name_short_course:
-            columns:
-                - name_short
-                - course_id
     manyToOne:
         scale:
             targetEntity: App\Entity\Scale

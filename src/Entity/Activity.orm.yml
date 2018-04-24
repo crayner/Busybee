@@ -12,6 +12,15 @@ App\Entity\Activity:
         class: FaceToFace
     table: activity
     repositoryClass: App\Repository\ActivityRepository
+    uniqueConstraints:
+        name_course:
+            columns:
+                - name
+                - course_id
+        code_course:
+            columns:
+                - code
+                - course_id
     id:
         id:
             type: integer

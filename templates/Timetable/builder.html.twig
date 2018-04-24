@@ -99,7 +99,7 @@
                 <div id="line_tt_manage">
                     {% include 'Timetable/builder_line_activity.html.twig' %}
                 </div>
-                <div id="activity_tt_list">
+                <div id="activity_tt_manage">
                     {% include 'Timetable/builder_activity_list.html.twig' %}
                 </div>
 
@@ -256,6 +256,7 @@
                 type: 'POST',
                 success: function (data) {
                     buildLine();
+                    buildActivity();
                 }
             });
         }
@@ -266,11 +267,21 @@
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    $('#line_tt_manage').html('');
                     $('#line_tt_manage').html(data['content']);
                 }
             });
+        }
 
+        function buildActivity() {
+            var path = '{{ path('timetable_builder_activity', {id: app.request.get('id')}) }}';
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+                    $('#activity_tt_manage').html('');
+                    $('#activity_tt_manage').html(data['content']);
+                }
+            });
         }
 
         function resetBuilder() {

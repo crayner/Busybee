@@ -224,10 +224,12 @@ abstract class PaginationManager implements PaginationInterface
 	public function getDataSet()
 	{
 		$this->pages  = intval(ceil($this->getTotal() / $this->getLimit()));
-		$this->result = $this->buildQuery()
+		$query = $this->buildQuery()
 			->setFirstResult($this->getOffSet())
 			->setMaxResults($this->getLimit())
-			->getQuery()
+			->getQuery();
+
+		$this->result = $query
 			->getResult();
 		$this->writeSession();
 
@@ -1061,6 +1063,16 @@ abstract class PaginationManager implements PaginationInterface
     }
 
     /**
+     * @param array $sortBy
+     * @return PaginationManager
+     */
+    private function setSortBy(array $sortBy): PaginationManager
+    {
+        $this->sortBy = $sortBy;
+        return $this;
+    }
+
+    /**
 	 * initiate Query
 	 *
 	 * @version    25th October 2016
@@ -1142,17 +1154,17 @@ abstract class PaginationManager implements PaginationInterface
 		return $this;
 	}
 
-	/**
-	 * set Join
-	 *
-	 * @version    27th October 2016
-	 * @since      27th October 2016
-	 * @return    PaginationManager
-	 */
-	private function setJoin($join) // Scripted Call
+    /**
+     * set Join
+     *
+     * @version    27th October 2016
+     * @since      27th October 2016
+     * @param array $join
+     * @return    PaginationManager
+     */
+	public function setJoin(array $join) // Scripted Call
 	{
 		$this->join = $join;
-
 		return $this;
 	}
 
@@ -1213,24 +1225,37 @@ abstract class PaginationManager implements PaginationInterface
 	 *
 	 * @return $this
 	 */
-	private function setTransDomain($domain)
+	private function setTransDomain($domain): PaginationManager
 	{
 		$this->transDomain = $domain;
 
 		return $this;
 	}
 
-	public function getTransDomain()
+    /**
+     * @return string
+     */
+    public function getTransDomain()
 	{
 		return isset($this->transDomain) ? $this->transDomain : 'Pagination' ;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getSortByList(): array
-	{
-		return $this->sortByList;
-	}
+    /**
+     * @param array $sortByList
+     * @return ClassPagination
+     */
+    public function setSortByList(array $sortByList): PaginationManager
+    {
+        $this->sortByList = $sortByList;
+        return $this;
+    }
 
+
+    /**
+     * @return array
+     */
+    public function getSortByList(): array
+    {
+        return $this->sortByList;
+    }
 }

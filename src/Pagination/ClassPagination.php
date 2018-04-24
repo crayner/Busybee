@@ -56,8 +56,7 @@ class ClassPagination extends PaginationManager
     /**
      * @var array
      */
-	protected $join = [
-    ];
+	protected $join = [];
 	/**
 	 * @var string
 	 */
@@ -80,9 +79,7 @@ class ClassPagination extends PaginationManager
 	 */
 	public function buildQuery($count = false)
 	{
-
-
-		$this->initiateQuery($count);
+        $this->initiateQuery($count);
 		if ($count)
 			$this
 				->setQueryJoin()
@@ -96,7 +93,6 @@ class ClassPagination extends PaginationManager
 
         if ($this->getCourse() instanceof Course)
             $this->getQuery()
-                ->leftJoin('f.course', 'c')
                 ->where('c.id = :course_id')
                 ->setParameter('course_id', $this->getCourse()->getId())
             ;

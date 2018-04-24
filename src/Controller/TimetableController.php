@@ -153,10 +153,6 @@ class TimetableController extends Controller
         $classPagination->injectRequest($request);
         $linePagination->injectRequest($request);
 
-        $classPagination->setLimit(1000)
-            ->setDisplaySort(false)
-            ->setDisplayChoice(false)
-            ->setDisplayResult(false);
 
         $gradeControl = $request->getSession()->get('gradeControl');
 
@@ -178,6 +174,36 @@ class TimetableController extends Controller
             $search['where'] = 'g.grade IN (__name__)';
             $search['parameter'] = $param;
         }
+
+        $classPagination->setLimit(1000)
+            ->setJoin([
+                'f.course' => [
+                    'alias' => 'c',
+                    'type' => 'leftJoin',
+                ],
+                'c.calendarGrades' => [
+                    'alias' => 'g',
+                    'type' => 'leftJoin',
+                ],
+            ])
+            ->setSortByList(
+                [
+                    'facetoface.name.sort' =>            [
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                    'bySequence' => [
+                        'g.sequence' => 'ASC',
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                ]
+            )
+            ->setSortByName('bySequence')
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
 
         $periodPagination->setLimit(1000)
             ->setDisplaySort(false)
@@ -238,7 +264,6 @@ class TimetableController extends Controller
     public function resetColumnTimes($id)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-
 
         $tt = $this->get('timetable.repository')->find($id);
         if (empty($tt)) {
@@ -567,9 +592,8 @@ class TimetableController extends Controller
      * @Route("/timetable/{id}/line/builder/", name="timetable_builder_line_activity")
      */
     public function builderLineActivity(Request $request, $id,
-                                  LinePagination $linePagination
-                                  )
-    {
+                                  LinePagination $linePagination)    {
+
         $linePagination->injectRequest($request);
 
         $gradeControl = $request->getSession()->get('gradeControl');
@@ -602,11 +626,98 @@ class TimetableController extends Controller
                 'line_pagination' => $linePagination,
             ]
         );
-dump([$linePagination, $content]);
+
         return new JsonResponse(
             [
                 'content' => $content,
             ],
-            200);
+            200
+        );
+    }
+
+    /**
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/activity/builder/", name="timetable_builder_activity")
+     * @param Request $request
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @param ClassPagination $classPagination
+     * @return JsonResponse
+     */
+    public function builderActivity(Request $request, $id,
+                            TimetableManager $timetableManager, ClassPagination $classPagination) {
+
+        $timetableManager->find($id);
+
+        $classPagination->injectRequest($request);
+
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
+        $param = [];
+        foreach ($timetableManager->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
+                $param[] = $w->getGrade();
+            else
+                $gradeControl[$w->getGrade()] = false;
+        }
+
+        $request->getSession()->set('gradeControl', $gradeControl);
+
+
+        dump($param);
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $classPagination->setLimit(1000)
+            ->setJoin([
+                'f.course' => [
+                    'alias' => 'c',
+                    'type' => 'leftJoin',
+                ],
+                'c.calendarGrades' => [
+                    'alias' => 'g',
+                    'type' => 'leftJoin',
+                ],
+            ])
+            ->setSortByList(
+                [
+                    'facetoface.name.sort' =>            [
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                    'bySequence' => [
+                        'g.sequence' => 'ASC',
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                ]
+            )
+            ->setSortByName('bySequence')
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+
+        $classPagination->getDataSet();
+
+        $content = $this->renderView('Timetable/builder_activity_list.html.twig',
+            [
+                'class_pagination' => $classPagination,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200
+        );
     }
 }
