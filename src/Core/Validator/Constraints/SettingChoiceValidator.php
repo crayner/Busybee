@@ -36,6 +36,8 @@ class SettingChoiceValidator extends ConstraintValidator
 
 		$list = $this->settingManager->get($constraint->name);
 
+		$list = array_merge($list, $constraint->extra_choices);
+
 		foreach ($list as $q => $w)
 		{
 			if (is_array($w) && empty($constraint->settingDataValue))
