@@ -2,12 +2,18 @@
 namespace App\Timetable\Util;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\SettingManager;
 use App\Core\Manager\TableManager;
 use App\Core\Manager\TabManager;
 use App\Core\Manager\TabManagerInterface;
+use App\Entity\Calendar;
+use App\Entity\SpecialDay;
+use App\Entity\Term;
 use App\Entity\Timetable;
+use App\Entity\TimetableAssignedDay;
 use App\Entity\TimetableColumn;
 use App\Pagination\PeriodPagination;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -47,16 +53,30 @@ class TimetableManager extends TabManager
     private $timetable;
 
     /**
+     * @var SettingManager
+     */
+    private $settingManager;
+
+    /**
+     * @var array
+     */
+    private $schoolWeek;
+    
+    /**
      * TimetableManager constructor.
      * @param RequestStack $stack
      * @param RouterInterface $router
      */
-    public function __construct(RequestStack $stack, RouterInterface $router, MessageManager $messageManager, EntityManagerInterface $entityManager)
+    public function __construct(RequestStack $stack, RouterInterface $router,
+                                MessageManager $messageManager, EntityManagerInterface $entityManager,
+                                SettingManager $settingManager)
     {
         $this->stack = $stack;
         $this->router = $router;
         $this->messageManager = $messageManager;
         $this->entityManager = $entityManager;
+        $this->settingManager = $settingManager;
+        $this->schoolWeek = $this->getSettingManager()->get('schoolweek');
     }
 
     /**
@@ -64,12 +84,27 @@ class TimetableManager extends TabManager
      */
     public function getTabs(): array
     {
-        return Yaml::parse("
+        $x = Yaml::parse("
 timetable:
     label: timetable.details.tab
     include: Timetable/display.html.twig
     translation: Timetable
 ");
+        if ($this->isValidTimetable())
+        {
+            foreach($this->getCalendar()->getTerms() as $term)
+            {
+                $w = [];
+                $w['label'] = $term->getName();
+                $w['translation'] = false;
+                $w['include'] = 'Timetable/Day/assign_days.html.twig';
+                $w['with'] = ['term' => $term];
+                $w['display'] = ['method' =>'isValidTerm', 'with' => ['term' => $term, 'timetable' => $this->getTimetable()]];
+                $x[$term->getName()] = $w;
+            }
+        }
+
+        return $x;
     }
 
     /**
@@ -135,7 +170,7 @@ timetable:
     /**
      * @return Timetable|null
      */
-    public function getTimeTable(): ?Timetable
+    public function getTimetable(): ?Timetable
     {
         return $this->timetable;
     }
@@ -270,12 +305,203 @@ timetable:
     }
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getCalendarGrades()
+    public function getCalendarGrades(): Collection
     {
-        return $this->getTimeTable()->getCalendar()->getCalendarGrades();
+        return $this->getCalendar()->getCalendarGrades();
     }
+
+    /**
+     * @return Calendar
+     */
+    public function getCalendar(): Calendar
+    {
+        return $this->getTimetable()->getCalendar();
+    }
+
+    /**
+     * @param array $param
+     * @return bool
+     */
+    public function isValidTerm(array $param): bool
+    {
+        $result = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->findBy(['timetable' => $param['timetable'], 'term' => $param['term']]);
+
+        if ($result)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * @param mixed $id
+     * @throws \Exception
+     */
+    public function createAssignedDays($id)
+    {
+        if ($id === 'Add')
+            return;
+
+        $this->find($id);
+
+        $results = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->createQueryBuilder('a')
+            ->where('a.timetable = :timetable')
+            ->setParameter('timetable', $this->getTimetable())
+            ->delete()
+            ->getQuery()
+            ->getResult();
+
+        $day = clone $this->getCalendar()->getFirstDay();
+        $days = new ArrayCollection();
+        $weekNumber = 1;
+        if ($day->format('l') === $this->getSettingManager()->get('firstdayofweek'))
+            $weekNumber = 0;
+
+        $this->getStartRotateDays();
+
+        $this->getColumnDays();
+
+        do {
+            $assignDay = new TimetableAssignedDay();
+            $assignDay->setDay(clone $day);
+            $assignDay->setType('holiday');
+            if ($day->format('l') === $this->getSettingManager()->get('firstdayofweek'))
+                $weekNumber++;
+            $assignDay->setWeek($weekNumber);
+            $assignDay->setTimetable($this->getTimetable());
+
+            foreach($this->getCalendar()->getTerms()->getIterator() as $term)
+            {
+                if ($day >= $term->getFirstDay() && $day <= $term->getLastDay())
+                {
+                    $assignDay->setTerm($term);
+                    if (in_array($day->format('D'), $this->schoolWeek))
+                        $assignDay->setType('school_day');
+                    else
+                        $assignDay->setType('no_school');
+                }
+            }
+
+            $assignDay->setColumn($this->mapDay($assignDay));
+
+            $sd = $this->getEntityManager()->getRepository(SpecialDay::class)->findOneBy(['day' => $day]);
+            if ($sd) {
+                $assignDay->setType($sd->getType());
+                $assignDay->setSpecialDay($sd);
+            }
+            $this->getEntityManager()->persist($assignDay);
+            $day->add(new \DateInterval('P1D'));
+        } while ($day <= $this->getCalendar()->getLastDay());
+
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @return SettingManager
+     */
+    public function getSettingManager(): SettingManager
+    {
+        return $this->settingManager;
+    }
+
+    /**
+     * @var array
+     */
+    private $startRotateDays = [];
+
+    /**
+     * @param bool $refresh
+     * @return array
+     * @throws \Exception
+     */
+    private function getStartRotateDays(bool $refresh = true): array
+    {
+        if (! empty($this->startRotateDays) && !$refresh)
+            return $this->startRotateDays;
+
+
+        foreach($this->getCalendar()->getTerms()->getIterator() as $term)
+        {
+            $day = clone $term->getFirstDay();
+            while ($day->format('l') !== $this->getSettingManager()->get('firstdayofweek'))
+                $day->sub(new \DateInterval('P1D'));
+
+            $this->startRotateDays[$day->format('Ymd')] = $day;
+        }
+
+        if (empty($this->startRotateDays))
+            $this->startRotateDays['19000101'] = new \DateTime('19700101');
+
+        return $this->startRotateDays;
+    }
+
+    /**
+     * @var array
+     */
+    private $rotateDays = [];
+
+    /**
+     * @var array
+     */
+    private $fixedDays = [];
+
+    /**
+     * @var bool
+     */
+    private $daysDefined = false;
+
+    /**
+     * @param bool $refresh
+     */
+    private function getColumnDays(bool $refresh = true)
+    {
+        if (! ($this->daysDefined || $refresh))
+            return ;
+
+        $this->rotateDays = [];
+        $this->fixedDays = [];
+
+        $results = $this->getEntityManager()->getRepository(TimetableColumn::class)->findBy(['timetable' => $this->getTimetable()], ['sequence' => 'ASC']);
+
+        foreach($results as $column)
+        {
+            if ($column->getMappingInfo() === 'Rotate')
+            {
+                $this->rotateDays[$column->getSequence()] = $column;
+            } else {
+                $this->fixedDays[$column->getMappingInfo()] = $column;
+            }
+        }
+
+        $this->daysDefined = true;
+
+        reset($this->rotateDays);
+    }
+
+    /**
+     * @param TimetableAssignedDay $day
+     * @return TimetableColumn|null
+     */
+    private function mapDay(TimetableAssignedDay $day): ?TimetableColumn
+    {
+        $mappingInfo = $day->getDay()->format('D');
+        if (! in_array($mappingInfo, $this->schoolWeek))
+            return null;
+        if (isset($this->fixedDays[$mappingInfo]))
+            return $this->fixedDays[$mappingInfo];
+
+        $column = next($this->rotateDays);
+        if (false === $column || isset($this->startRotateDays[$day->getDay()->format('Ymd')]) || $day->isStartRotate())
+            $column = reset($this->rotateDays);
+
+        return $column;
+    }
+
+    /**
+     * @var array
+     */
+    private $days;
 
     /**
      * @var array
@@ -283,39 +509,152 @@ timetable:
     private $weeks;
 
     /**
+     * @param Term $term
+     * @return array
+     * @throws \Exception
+     */
+    public function getAssignedDays(Term $term): array
+    {
+        $days = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->findBy(['term' => $term]);
+
+        $day = clone reset($days)->getDay();
+        $week = reset($days)->getWeek();
+        $fdow = $this->getSettingManager()->get('firstdayofweek');
+        while ($day->format('l') !== $fdow)
+        {
+            $w = $day->sub(new \DateInterval('P1D'));
+            $ad = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->findOneBy(['day' => $w, 'timetable' => $this->getTimetable()]);
+            if ($ad) {
+                $ad->setTerm($term);
+            } else {
+                $ad = new TimetableAssignedDay();
+                $ad->setDay(clone $w);
+                $ad->setType('no_school');
+                $ad->setTerm($term);
+                $ad->setWeek($week);
+                $ad->setTimetable($this->getTimetable());
+            }
+            array_unshift($days, $ad);
+            unset($ad);
+            $day = clone $w;
+        }
+
+        $day = clone end($days)->getDay();
+        $ldow = $fdow === 'Monday' ? 'Sunday' : 'Saturday' ;
+        while ($day->format('l') !== $ldow)
+        {
+            $w = $day->add(new \DateInterval('P1D'));
+            $ad = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->findOneBy(['day' => $w, 'timetable' => $this->getTimetable()]);
+            if ($ad) {
+                $ad->setTerm($term);
+            } else {
+                $ad = new TimetableAssignedDay();
+                $ad->setDay(clone $w);
+                $ad->setType('no_school');
+                $ad->setTerm($term);
+                $ad->setWeek($week);
+                $ad->setTimetable($this->getTimetable());
+            }
+            $this->getEntityManager()->persist($ad);
+            array_push($days, $ad);
+            $day = clone $w;
+        }
+
+        $this->getEntityManager()->flush();
+        $this->weeks = [];
+
+        foreach($days as $day)
+            $this->weeks[$day->getWeek()][] = $day;
+
+        reset($days);
+        $this->days = $days;
+        return $this->days;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDays(): array
+    {
+        return $this->days;
+    }
+
+    /**
      * @return array
      */
     public function getWeeks(): array
     {
-        $this->weeks = $this->weeks ?: [];
         return $this->weeks;
     }
 
     /**
-     * @param \stdClass $week
-     * @return TimeTableManager
+     * @param $date
+     * @return bool
      */
-    public function addWeek(\stdClass $week): TimetableManager
+    public function testDate($date): bool
     {
-        $this->getWeek();
-        // remove none school days
-        foreach ($week->days as $q => $day) {
-            if (!in_array($day->date->format('D'), $this->schoolWeek))
-                unset($week->days[$q]);
+        $date = new \DateTime($date);
+
+        $result = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->findOneBy(['day' => $date, 'timetable' => $this->getTimetable()]);
+
+        if (empty($result)) {
+            $this->getMessageManager()->add('danger', 'timetable.rotate.toggle.failed');
+            return false;
         }
-
-        $this->weeks[] = $week;
-
-        return $this;
+        return true;
     }
 
     /**
-     * @return TimeTableManager
+     * @param string $date
+     * @return TimetableAssignedDay|null
+     * @throws \Exception
      */
-    public function clearWeeks(): TimetableManager
+    public function toggleRotateStart(string $date): ?TimetableAssignedDay
     {
-        $this->weeks = [];
+        if (!$this->testDate($date))
+            return null;
 
-        return $this;
+        $date = new \DateTime($date);
+
+        $rd = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->findOneBy(['timetable' => $this->getTimetable(), 'day' => $date]);
+
+        if ($this->getTimetable()->isLocked())
+        {
+            $this->getMessageManager()->add('warning', 'timetable.locked.true', [], 'Timetable');
+            return $rd;
+        }
+
+
+        if ($rd) {
+            $rd->setStartRotate($rd->isStartRotate() ? false : true);
+            $this->getEntityManager()->persist($rd);
+            $this->getEntityManager()->flush();
+            $this->getMessageManager()->add('success', 'timetable.rotate.toggle.success', ['%{date}' => $date->format($this->getSettingManager()->get('date.format.long'))], 'Timetable');
+        } else {
+            $this->getMessageManager()->add('danger', 'timetable.rotate.toggle.failed', [], 'Timetable');
+        }
+        $this->refreshColumnDays($rd);
+
+        return $rd;
+    }
+
+    /**
+     * @param TimetableAssignedDay $day
+     * @throws \Exception
+     */
+    private function refreshColumnDays(TimetableAssignedDay $day)
+    {
+        $this->getStartRotateDays(true);
+
+        $this->getColumnDays();
+
+        $days = $this->getAssignedDays($day->getTerm());
+        
+        foreach($days as $assignDay)
+        {
+            $assignDay->setColumn($this->mapDay($assignDay));
+            $this->getEntityManager()->persist($assignDay);
+        }
+        $this->getEntityManager()->flush();
     }
 }

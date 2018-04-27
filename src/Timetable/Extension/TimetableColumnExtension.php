@@ -22,7 +22,7 @@ abstract class TimetableColumnExtension implements UserTrackInterface
     /**
      * @return string
      */
-    public function getFullName()
+    public function getFullName(): string
     {
         return $this->getName() . ' (' . $this->getCode() . ')';
     }

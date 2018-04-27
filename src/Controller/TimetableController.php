@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
+use App\Entity\Term;
+use App\Entity\TimetableAssignedDay;
 use App\Pagination\ClassPagination;
 use App\Pagination\LinePagination;
 use App\Pagination\PeriodPagination;
@@ -51,7 +53,7 @@ class TimetableController extends Controller
      * @param TimetableManager $timetableManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id, TimetableManager $timetableManager)
+    public function edit(Request $request, $id, TimetableManager $timetableManager)
     {
         $entity = $timetableManager->find($id);
 
@@ -582,16 +584,13 @@ class TimetableController extends Controller
     }
 
     /**
-     * @param   Request $request
-     * @param $id
-     * @param string $all
-     * @param TimetableManager $timetableManager
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/line/builder/", name="timetable_builder_line_activity")
+     * @param Request $request
      * @param LinePagination $linePagination
      * @return JsonResponse
-     * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/timetable/{id}/line/builder/", name="timetable_builder_line_activity")
      */
-    public function builderLineActivity(Request $request, $id,
+    public function builderLineActivity(Request $request,
                                   LinePagination $linePagination)    {
 
         $linePagination->injectRequest($request);
@@ -716,6 +715,66 @@ class TimetableController extends Controller
         return new JsonResponse(
             [
                 'content' => $content,
+            ],
+            200
+        );
+    }
+
+    /**
+     * @Route("/timetable/{id}/assigned/days/", name="timetable_assign_days")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function generateAssignedDays($id, TimetableManager $timetableManager)
+    {
+        $timetableManager->createAssignedDays($id);
+
+        return $this->forward(TimetableController::class.'::edit', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/timetable/{id}/start/{date}/rotate/", name="timetable_day_rotate_toggle")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $date
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @param TwigManager $twig
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @throws \Exception
+     */
+    public function rotateToggle($date, $id, TimetableManager $timetableManager, TwigManager $twig)
+    {
+        $timetableManager->find($id);
+        $timetableManager->getMessageManager()->setDomain('Timetable');
+
+        if (!$timetableManager->testDate($date)) {
+            return new JsonResponse(
+                [
+                    'message' => $timetableManager->getMessageManager()->renderView($twig->getTwig()),
+                    'status' => 'failed'
+                ],
+                200
+            );
+        }
+
+        $day = $timetableManager->toggleRotateStart($date);
+
+        $data = $this->renderView('Timetable/Day/assign_days_content.html.twig', [
+            'term' => $day->getTerm(),
+            'tabManager' => $timetableManager,
+        ]);
+
+        return new JsonResponse(
+            [
+                'message' => $timetableManager->getMessageManager()->renderView($twig->getTwig()),
+                'data' => $data,
+                'status' => 'success',
             ],
             200
         );

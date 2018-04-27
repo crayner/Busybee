@@ -29,3 +29,7 @@ App\Entity\TimetableColumn:
             - Range:
                 min: 1
                 max: 999
+        mappingInfo:
+            - App\Core\Validator\SettingChoice:
+                name: schoolweek
+                extra_choices: { 'Rotate': 'Rotate' }

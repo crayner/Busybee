@@ -261,6 +261,7 @@ Timetable Admin:
         - timetable_edit
         - timetable_days_edit
         - line_manage
+        - timetable_assign_days
 Activities:
     activities:
         external_activities:

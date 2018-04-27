@@ -1,0 +1,30 @@
+App\Entity\Activity:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [timetable, day]
+            errorPath: day
+            message: timetable.assigned_day.timetable.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [term, day]
+            errorPath: day
+            message: timetable.assigned_day.term.unique
+    property:
+        week:
+            - NotBlank: ~
+            - Range:
+                min: 1
+                max: 53
+            - Hillrange\Form\Validator\Integer: ~
+        day:
+            - NotBlank: ~
+            - Date: ~
+        timetable:
+            - Valid: ~
+        term:
+            - Valid: ~
+        type:
+            - Hillrange\Form\Validator\Enum:
+                method: getTypeList
+                class: App\Entity\TimetableAssignedDay
+        column:
+            - Valid: ~

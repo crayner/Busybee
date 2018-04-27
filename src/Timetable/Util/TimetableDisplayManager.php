@@ -2,6 +2,8 @@
 namespace App\Timetable\Util;
 
 
+use App\Entity\Calendar;
+
 class TimetableDisplayManager extends TimetableManager
 {
     /**
@@ -30,49 +32,9 @@ class TimetableDisplayManager extends TimetableManager
     /**
      * @return false|string
      */
-    public function getTimeTableDisplayDate()
+    public function getTimetableDisplayDate()
     {
         return date('Ymd');
-    }
-
-    /**
-     * Generate TimeTable
-     *
-     * @param $identifier
-     * @param $displayDate
-     */
-    public function generateTimeTable($identifier, $displayDate)
-    {
-        if (false === $this->isValidTimeTable() || empty($identifier))
-            return;
-
-        if (!$this->parseIdentifier($identifier))
-            return;
-
-        $this->getSession()->set('tt_displayDate', $displayDate);
-
-        $this->setDisplayDate(new \DateTime($displayDate))
-            ->generateWeeks();
-
-        $dayDate = $this->getDisplayDate()->format('Ymd');
-        foreach ($this->getWeeks() as $q => $week) {
-            if ($week->start->format('Ymd') <= $dayDate && $week->finish->format('Ymd') >= $dayDate) {
-                $this->setWeek($week);
-                break;
-            }
-        }
-        $this->mapCalendarWeek();
-
-        $actSearch = 'generate' . ucfirst($this->gettype()) . 'Activities';
-        foreach ($this->getWeek()->days as $q => $day) {
-            $day->class = '';
-            foreach ($day->ttday->getPeriods() as $p => $period)
-                $period->activity = $this->$actSearch($period);
-            if (isset($day->specialDay))
-                $day = $this->manageSpecialDay($day);
-        }
-
-        $this->today = new \DateTime('today');
     }
 
     /**

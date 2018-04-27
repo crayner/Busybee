@@ -1,0 +1,59 @@
+App\Entity\TimetableAssignedDay:
+    type: entity
+    table: tt_assigned_day
+    repositoryClass: App\Repository\TimetableAssignedDayRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    uniqueConstraints:
+        timetable_day:
+            columns:
+                - timetable_id
+                - day
+        term_day:
+            columns:
+                - term_id
+                - day
+    fields:
+        day:
+            type: date
+            nullable: false
+        startRotate:
+            type: boolean
+            options:
+                default: '0'
+            column: start_rotate
+        week:
+            type: integer
+            length: 2
+            nullable: false
+        type:
+            length: 24
+            nullable: false
+    manyToOne:
+        timetable:
+            targetEntity: App\Entity\Timetable
+            joinColumns:
+                timetable_id:
+                    referencedColumnName: id
+                    nullable: false
+        term:
+            targetEntity: App\Entity\Term
+            joinColumns:
+                term_id:
+                    referencedColumnName: id
+                    nullable: true
+        column:
+            targetEntity: App\Entity\TimetableColumn
+            joinColumns:
+                column_id:
+                    nullable: true
+                    referencedColumnName: id
+        specialDay:
+            targetEntity: App\Entity\SpecialDay
+            joinColumns:
+                special_day_id:
+                    nullable: true
+                    referencedColumnName: id
