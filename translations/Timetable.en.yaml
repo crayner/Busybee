@@ -71,7 +71,7 @@ timetable:
         remove:
             missing: 'The column was not found or is not a member of this timetable.'
             locked: 'The column is locked by the system.'
-            error: 'The column removal failed with the error: %{message}'
+            error: 'The column removal failed with the error: %{message}  Code: %{code}'
             success: 'The column was removed.'
             button: Remove Column
     period:

@@ -203,6 +203,8 @@ timetable:
             return ;
         }
 
+        $this->deleteTimetableAssignedDays();
+
         try {
             $this->timetable->removeColumn($column);
 
@@ -345,12 +347,7 @@ timetable:
 
         $this->find($id);
 
-        $results = $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->createQueryBuilder('a')
-            ->where('a.timetable = :timetable')
-            ->setParameter('timetable', $this->getTimetable())
-            ->delete()
-            ->getQuery()
-            ->getResult();
+        $this->deleteTimetableAssignedDays();
 
         $day = clone $this->getCalendar()->getFirstDay();
         $days = new ArrayCollection();
@@ -656,5 +653,18 @@ timetable:
             $this->getEntityManager()->persist($assignDay);
         }
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * Delete Timetable Assigned Days
+     */
+    private function deleteTimetableAssignedDays()
+    {
+        $this->getEntityManager()->getRepository(TimetableAssignedDay::class)->createQueryBuilder('a')
+            ->where('a.timetable = :timetable')
+            ->setParameter('timetable', $this->getTimetable())
+            ->delete()
+            ->getQuery()
+            ->getResult();
     }
 }
