@@ -560,37 +560,37 @@ body.loading .showLoader {
 }
 .card.alert-danger {
     color: #721c24;
-    background-color: #f8d7da;
+    background-color: #f8d7da!important;
     border-color: #f5c6cb;
 }
 .card.alert-light {
     color: #818182;
-    background-color: #fefefe;
+    background-color: #fefefe!important;
     border-color: #fdfdfe;
 }
 .card.alert-dark {
     color: #1b1e21;
-    background-color: #d6d8d9;
+    background-color: #d6d8d9!important;
     border-color: #c6c8ca;
 }
 .card.alert-info {
     color: #0c5460;
-    background-color: #d1ecf1;
+    background-color: #d1ecf1!important;
     border-color: #bee5eb;
 }
 .card.alert-success {
     color: #155724;
-    background-color: #d4edda;
+    background-color: #d4edda!important;
     border-color: #c3e6cb;
 }
 .card.alert-secondary {
     color: #464a4e;
-    background-color: #e7e8ea;
+    background-color: #e7e8ea!important;
     border-color: #dddfe2;
 }
 .card.alert-primary {
     color: #004085;
-    background-color: #cce5ff;
+    background-color: #cce5ff!important;
     border-color: #b8daff;
 }
 
