@@ -460,7 +460,7 @@ abstract class PaginationManager implements PaginationInterface
 	 * @version    25th October 2016
 	 * @since      25th October 2016
 	 *
-	 * @param    array $search
+	 * @param    string $search
 	 *
 	 * @return    PaginationManager
 	 */
