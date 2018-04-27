@@ -44,6 +44,8 @@ timetable:
     builder:
         button: 'Time Table Builder'
         title: 'Build Time Table'
+        help: 'Use this button to build the timetable days and periods.  This button will only work when the timetable is not locked. It will use a best guess algorithm to create the days for the timetable, removing any existing work.'
+    assign.days.help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
     details:
         tab: Details
     day:
@@ -91,6 +93,11 @@ timetable:
             list:
                 title: 'Activities'
                 description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
+    rotate:
+        toggle:
+            success: 'The start rotate was toggled for %{date)'
+            failed: 'The start rotate toggle was not successful. '
+        title: Manual Rotate Start
 calendar.first_day.sort: Calendar Name
 timetable_columns.add.title: Add Column
 line:

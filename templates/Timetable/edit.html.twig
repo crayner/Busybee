@@ -31,4 +31,5 @@
     {{ parent() }}
     {{ collections_manage(form, ['days', 'columns'])|raw }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'timetable_edit'} %}
 {% endblock javascripts %}

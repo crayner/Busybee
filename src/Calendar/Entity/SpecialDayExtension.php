@@ -17,4 +17,14 @@ class SpecialDayExtension implements UserTrackInterface
 		return true;
 	}
 
+    /**
+     * @return array
+     */
+    public function getTypeList(): array
+    {
+        return [
+            'closure',
+            'alter',
+        ];
+    }
 }

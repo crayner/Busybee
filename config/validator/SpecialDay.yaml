@@ -9,3 +9,7 @@ App\Entity\SpecialDay:
             - NotBlank: ~
         calendar:
             - NotBlank: ~
+        type:
+            - Hillrange\Form\Validator\Enum:
+                class: App\Entity\SpecialDay
+                method: getTypeList

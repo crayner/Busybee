@@ -2,7 +2,6 @@
 
     {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add'}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('timetable_edit', {'id': app.request.get('id')})}}) %}
     {% if form.locked.vars.data %}
         {% set h3Content = h3Content ~ saveButton({additional: 'disabled'})|raw %}
     {% else %}
@@ -33,6 +32,12 @@
             <div class="col-4 card">
                 {{ form_row(form.locked) }}
             </div>
+        </div>
+        <div class="row">
+                <div style="width: 100%" class="alert alert-primary">
+                {{ miscButton({class: 'btn btn-primary fas fa-cog', title: 'timetable.builder.button', transDomain: 'Timetable', disabled: getValueData(form.locked)|default(false), windowOpen: {route: path('timetable_assign_days', {id: app.request.attributes.get('id')})}})|raw }}
+                {{ 'timetable.builder.help'|trans }}
+                </div>
         </div>
         <div class="row">
             <div class="col-6 card">

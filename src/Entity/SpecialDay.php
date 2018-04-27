@@ -98,8 +98,9 @@ class SpecialDay extends SpecialDayExtension
 	 *
 	 * @return string
 	 */
-	public function getType()
+	public function getType(): string
 	{
+        $this->type = $this->type ?: 'closure';
 		return $this->type;
 	}
 
@@ -112,8 +113,10 @@ class SpecialDay extends SpecialDayExtension
 	 */
 	public function setType($type): SpecialDay
 	{
-		$this->type = $type;
+	    if (! in_array($type, $this->getTypeList()))
+	        $type = 'closure';
 
+		$this->type = $type;
 		return $this;
 	}
 
