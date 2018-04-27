@@ -23,6 +23,12 @@
         {% endblock menuContainer %}
     {% endif %}
 
+    {% set sections = get_section() %}
+
+    {% if sections is empty %}
+        {% set fullPage = true %}
+    {% endif %}
+
     <div class="container theme-showcase" role="main"{% if headerOff is defined and headerOff %} style="margin-top: -50px;"{% endif %}>
 
         {% if not(headerOff is defined and headerOff) %}
