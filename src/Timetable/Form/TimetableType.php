@@ -7,6 +7,7 @@ use App\Timetable\Form\Subscriber\TimetableSubscriber;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\ToggleType;
+use Symfony\Component\Console\Tests\DisabledCommand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -77,6 +78,10 @@ class TimetableType extends AbstractType
                     'allow_delete'  => false,
                     'allow_add'     => false,
                     'disabled'      => $locked,
+                    'entry_options' => [
+                        'disabled' => $locked,
+                    ],
+
                 ]
             )
         ;
@@ -94,7 +99,7 @@ class TimetableType extends AbstractType
                             'timetable_id'  => $options['data']->getId(),
                         ],
                         'disabled'      => $locked,
-                        'sort_manage'   => true,
+                        'sort_manage'   => false,
                         'route'         => 'timetable_days_edit',
                         'button_merge_class' => 'btn-sm',
                     ]

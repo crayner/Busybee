@@ -62,6 +62,7 @@ class DayEntityType extends AbstractType
                             'btn-primary',
                             'btn-warning',
                         ],
+                    'disabled' => $options['disabled'],
                 ]
             )
             ->add('timetable', HiddenEntityType::class,

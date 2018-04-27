@@ -42,9 +42,7 @@
         <div class="row">
             <div class="col-6 card">
                 {% set h3Content = '' %}
-                {% if form.locked.vars.data %}
-                    {% set h3Content = h3Content ~ saveButton({additional: 'disabled'})|raw %}
-                {% else %}
+                {% if not form.locked.vars.data %}
                     {% set h3Content = h3Content ~ saveButton() %}
                 {% endif %}
                 {% include 'Page/panelStart.html.twig' with {panelStyle: 'warning', header: 'timetable.days.header', transDomain: 'Timetable'} %}
