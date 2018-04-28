@@ -61,6 +61,11 @@ class TimetableManager extends TabManager
      * @var array
      */
     private $schoolWeek;
+
+    /**
+     * @var PeriodManager 
+     */
+    private $periodManager;
     
     /**
      * TimetableManager constructor.
@@ -69,7 +74,7 @@ class TimetableManager extends TabManager
      */
     public function __construct(RequestStack $stack, RouterInterface $router,
                                 MessageManager $messageManager, EntityManagerInterface $entityManager,
-                                SettingManager $settingManager)
+                                SettingManager $settingManager, PeriodManager $periodManager)
     {
         $this->stack = $stack;
         $this->router = $router;
@@ -77,6 +82,7 @@ class TimetableManager extends TabManager
         $this->entityManager = $entityManager;
         $this->settingManager = $settingManager;
         $this->schoolWeek = $this->getSettingManager()->get('schoolweek');
+        $this->periodManager = $periodManager;
     }
 
     /**
@@ -257,24 +263,24 @@ timetable:
 
         foreach ($pag->getResult() as $period) {
             $per = new \stdClass();
-            $per->status = $this->pm->getPeriodStatus($period['id']);
-            $per->period = $period['0'];
+            $per->status = $this->periodManager->setPeriod($period['entity'])->getPeriodStatus();
+            $per->period = $period['entity'];
             $per->id = $period['id'];
             $per->name = $period['name'];
             $per->start = $period['start'];
             $per->end = $period['end'];
-            $per->nameShort = $period['nameShort'];
+            $per->code = $period['code'];
             $per->columnName = $period['columnName'];
             $per->activities = [];
 
-            $this->pm->clearResults();
+            $this->getPeriodManager()->clearResults();
 
             foreach ($per->period->getActivities() as $activity) {
                 if ($this->activeGrade($activity)) {
                     $act = new \stdClass();
                     $act->activity = $activity;
-                    $act->details = $this->pm->getActivityDetails($activity);
-                    $act->status = $this->pm->getActivityStatus($activity);
+                    $act->details = $this->periodManager->getActivityDetails($activity);
+                    $act->status = $this->periodManager->getActivityStatus($activity);
                     $act->id = $activity->getId();
                     $act->fullName = $activity->getFullName();
                     $per->activities[] = $act;
@@ -301,6 +307,8 @@ timetable:
             }
 
             $this->report->periods[] = $this->setPeriodStatusLevel($per);
+            $per->status->messages = clone $this->getMessageManager();
+            $this->getMessageManager()->clearMessages();
         }
 
         return $this->report;
@@ -672,5 +680,24 @@ timetable:
             ->delete()
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @return PeriodManager
+     */
+    public function getPeriodManager(): PeriodManager
+    {
+        return $this->periodManager;
+    }
+
+    /**
+     * @param $per
+     * @return mixed
+     */
+    private function setPeriodStatusLevel($per)
+    {
+        $per->status->alert = $this->getMessageManager()->getHighestLevel();
+
+        return $per;
     }
 }

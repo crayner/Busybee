@@ -793,14 +793,19 @@ class TimetableController extends Controller
         $column = $columnManager->find($id);
 
         $columnManager->generatePeriods();
-
-        $form = $this->createForm(ColumnType::class, $column);
+dump($columnManager->getColumn());
+        $form = $this->createForm(ColumnType::class, $columnManager->getColumn());
 
         $form->handleRequest($request);
 
+        dump([$request->request, $form, $columnManager->getColumn()]);
+
         if ($form->isSubmitted() && $form->isValid())
         {
-            // do stuff here
+            foreach($columnManager->getColumn()->getPeriods()->getIterator() as $period)
+                $columnManager->getEntityManager()->persist($period);
+            $columnManager->getEntityManager()->persist($columnManager->getColumn());
+            $columnManager->getEntityManager()->flush();
         }
 
         return $this->render('Timetable/Period/manage.html.twig',

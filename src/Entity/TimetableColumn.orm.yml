@@ -41,6 +41,7 @@ App\Entity\TimetableColumn:
             targetEntity: App\Entity\TimetablePeriod
             mappedBy: column
             cascade: [ 'all' ]
+            orderBy: { 'start': 'ASC' }
     manyToOne:
         timetable:
             targetEntity: App\Entity\Timetable

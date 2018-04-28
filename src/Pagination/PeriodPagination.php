@@ -54,7 +54,7 @@ class PeriodPagination extends PaginationManager
 	protected $select = [
 		'p.name',
 		'p.code',
-		'c.name as columnNmae',
+		'c.name as columnName',
 		'p.id',
         'p.start',
         'p.end',

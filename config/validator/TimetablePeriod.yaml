@@ -26,9 +26,5 @@ App\Entity\TimetablePeriod:
             - Time: ~
         periodType:
             - NotBlank: ~
-            - Hillrange\Form\Validator\Enum:
-                class: App\Entity\TimetablePeriod
-                method: getPeriodTypeList
-                transDomain: Timetable
         activities:
             - Valid: ~

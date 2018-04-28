@@ -177,6 +177,8 @@ column:
         break: Break
         pastoral: Pastoral
         meeting: Meeting
+        students: Student Attend
+        'no students': Student Free
 period:
     name:
         label: Period Name.
@@ -189,6 +191,9 @@ period:
         label: End of Period.
     period_type:
         label: Period Type
+    status.messages: '{0}No messages.|{1}One message.|]2,Inf[The are %count% messages.'
+    students:
+        missing: 'Not all students where allocated for grade %grade% in this period.'
 periods:
     constraint:
         late: 'The period time exceeds the limit of the day. (%limit%)'

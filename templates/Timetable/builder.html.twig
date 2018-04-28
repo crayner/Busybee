@@ -22,8 +22,8 @@
                         <div class="col-12 dropPeriod{{ period.status.disableDrop }}"
                              id="period{{ period.id }}">
                             <div>
-                                {{ miscButton({'additional': 'id="button' ~ period.id ~ '" ' ~ period.status.disableDrop, 'class': 'lockButton glyphicons glyphicons-unlock btn btn-xs btn-' ~ period.status.alert, 'javascript': {'function': 'fixPeriod', 'options': [period.id]}, 'title': period.status.message})|raw }}
-                                {{ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', 'class': 'glyphicons glyphicons-refresh btn btn-xs btn-warning'})|raw }}
+                                {{ miscButton({'additional': 'id="button' ~ period.id ~ '" ' ~ period.status.disableDrop, 'class': 'lockButton fas fa-unlock btn btn-sm btn-' ~ period.status.alert, 'javascript': {'function': 'fixPeriod', 'options': [period.id]}, 'title': 'period.status.messages'|transchoice(period.status.messages|length), transDomain: 'Timetable'})|raw }}
+                                {{ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', 'class': 'fas fa-sync btn btn-sm btn-warning'})|raw }}
                                 {{ period.period.columnName }}
                             </div>
                             <div id="periodStatus{{ period.id }}" class="startHidden container-fluid"
@@ -52,11 +52,7 @@
                                     </div>
                                 {% endfor %}
                                 <div>
-                                    {% for message in period.status.messages %}
-                                        <div class="alert alert-{{ message[0] }}">
-                                            {{ message[1] }}
-                                        </div>
-                                    {% endfor %}
+                                    {% include 'Default/messages.html.twig' %}
                                 </div>
                             </div>
                             <div class="messageWindow"></div>

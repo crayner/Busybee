@@ -178,14 +178,14 @@ class TimetablePeriod extends TimetablePeriodExtension
     /**
      * @var string
      */
-    private $periodType = 'class';
+    private $periodType;
 
     /**
      * @return string
      */
     public function getPeriodType(): string
     {
-        if (! in_array($this->periodType, $this->getPeriodTypeList()))
+        if (! in_array($this->periodType, $this->getPeriodTypeList('flat')))
             $this->periodType = 'class';
         return $this->periodType;
     }
@@ -196,20 +196,9 @@ class TimetablePeriod extends TimetablePeriodExtension
      */
     public function setPeriodType(?string $periodType): TimetablePeriod
     {
+        if (! in_array($this->periodType, $this->getPeriodTypeList('flat')))
+            $periodType = 'class';
         $this->periodType = $periodType;
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPeriodTypeList()
-    {
-        return [
-            'class',
-            'break',
-            'pastoral',
-            'meeting',
-        ];
     }
 }

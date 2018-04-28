@@ -92,4 +92,32 @@ abstract class StudentExtension extends Person
         $this->activityList = ltrim(', ', $this->activityList);
         return $this;
     }
+
+    /**
+     * @param string $active
+     * @return array
+     */
+    public function getStatusList(string $limit = ''): array
+    {
+        if (! in_array($limit, ['active','inactive','']))
+            throw new \InvalidArgumentException('Dear Programmer: The list accepts only [active, inactive] for Status List');
+
+        $x = [
+            'active' => [
+                'future',
+                'current',
+            ],
+            'inactive' => [
+                'past',
+                'archived',
+                'left',
+            ],
+        ];
+
+        if ($active = 'active')
+            return $x['active'];
+        if ($active = 'inactive')
+            return $x['inactive'];
+        return $x;
+    }
 }

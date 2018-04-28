@@ -696,6 +696,8 @@ class Student extends StudentExtension
 	 */
 	public function setStatus(string $status): Student
 	{
+	    if (! in_array($status, $this->getStatusList()))
+	        $status = 'current';
 		$this->status = $status;
 
 		return $this;

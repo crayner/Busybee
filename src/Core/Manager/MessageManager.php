@@ -21,6 +21,20 @@ class MessageManager
      */
 	private $useRaw = false;
 
+    /**
+     * @var array
+     */
+    private $statusLevel = [
+        'default' => 0,
+        'light'   => 1,
+        'dark'    => 2,
+        'primary' => 4,
+        'success' => 8,
+        'info'    => 16,
+        'warning' => 32,
+        'danger'  => 64,
+    ];
+
 	/**
 	 * Add Message
 	 *
@@ -146,5 +160,41 @@ class MessageManager
     {
         $this->useRaw = $useRaw;
         return $this;
+    }
+
+    /**
+     * Compare Level
+     *
+     * Returns true if stat1 is higher that stat2, otherwise false.
+     * @param string $stat1
+     * @param string $stat2
+     * @return bool
+     */
+    public function compareLevel($stat1, $stat2 = 'default'): bool
+    {
+        if (! in_array($stat1, $this->statusLevel))
+            return false;
+        if (! in_array($stat2, $this->statusLevel))
+            return false;
+
+        if ($this->statusLevel[$stat1] > $this->statusLevel[$stat2])
+            return true;
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHighestLevel(): string
+    {
+        $x =  'default';
+        foreach($this->messages as $message) {
+            if ($this->compareLevel($message->getLevel(), $x))
+                $x = $message->getLevel();
+            if ($x === 'danger')
+                break;
+        }
+
+        return $x;
     }
 }

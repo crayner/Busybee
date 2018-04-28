@@ -31,7 +31,7 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
      */
     public function getFullName()
     {
-        return $this->getName() . ' (' . $this->getNameShort() . ')';
+        return $this->getName() . ' (' . $this->getCode() . ')';
     }
 
     /**
@@ -69,5 +69,33 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
         $interval = ($this->getEnd()->getTimeStamp() - $this->getStart()->getTimeStamp()) / 60;
 
         return $interval;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPeriodTypeList(string $limit = '')
+    {
+        if (! in_array($limit, ['no students','students','','flat']))
+            throw new \InvalidArgumentException('Dear Programmer: The list accepts only [no students, students] for Period Type List');
+
+        $x =  [
+            'students' => [
+                'class',
+                'pastoral',
+            ],
+            'no students' => [
+                'break',
+                'meeting',
+            ],
+        ];
+
+        if ($limit === 'no students')
+            return $x['no students'];
+        if ($limit === 'students')
+            return $x['students'];
+        if ($limit === 'flat')
+            return array_merge($x['students'], $x['no students']);
+        return $x;
     }
 }
