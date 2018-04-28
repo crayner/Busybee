@@ -173,8 +173,8 @@ abstract class PaginationManager implements PaginationInterface
         $this->session    = null;
 
 		$params          = [];
-		$params['route'] = parse_url($requestStack->getCurrentRequest()->get('_route'), PHP_URL_PATH);
-		$route_params = $requestStack->getCurrentRequest()->get('_route_params');
+		$params['route'] = parse_url($this->getRoute($requestStack), PHP_URL_PATH);
+		$route_params = $this->getRouteParams($requestStack);
 
 		$this->path      = $router->generate($params['route'], is_array($route_params) ? $route_params : []);
 		$this->setChoice(null);
@@ -1257,5 +1257,37 @@ abstract class PaginationManager implements PaginationInterface
     public function getSortByList(): array
     {
         return $this->sortByList;
+    }
+
+    /**
+     * @param RequestStack $requestStack
+     * @return string
+     */
+    private function getRoute(RequestStack $requestStack): string
+    {
+        $route = $requestStack->getCurrentRequest()->get('_route');
+        if (! empty($route))
+            return $route;
+        $forward = $requestStack->getCurrentRequest()->get('_forwarded');
+        $route = $forward->get('_route');
+        if (! empty($route))
+            return $route;
+        return 'home';
+    }
+
+    /**
+     * @param RequestStack $requestStack
+     * @return array
+     */
+    private function getRouteParams(RequestStack $requestStack): array
+    {
+        $route = $requestStack->getCurrentRequest()->get('_route_params');
+        if (! empty($route))
+            return $route;
+        $forward = $requestStack->getCurrentRequest()->get('_forwarded');
+        $route = $forward->get('_route_params');
+        if (! empty($route))
+            return $route;
+        return [];
     }
 }
