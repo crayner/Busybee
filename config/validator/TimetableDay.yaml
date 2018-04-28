@@ -1,9 +1,0 @@
-App\Entity\TimetableDay:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name, timetable]
-            errorPath: name
-            message: 'day.timetable.name.unique'
-    properties:
-        timetable:
-            - NotBlank: ~

@@ -783,16 +783,30 @@ class TimetableController extends Controller
     /**
      * @Route("/column/{id}/periods/manage/", name="column_periods_manage")
      * @IsGranted("ROLE_PRINCIPAL")
+     * @param $id
+     * @param ColumnManager $columnManager
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function managePeriodsInColumn($id, ColumnManager $columnManager)
+    public function managePeriodsInColumn($id, ColumnManager $columnManager, Request $request)
     {
         $column = $columnManager->find($id);
 
+        $columnManager->generatePeriods();
+
         $form = $this->createForm(ColumnType::class, $column);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            // do stuff here
+        }
 
         return $this->render('Timetable/Period/manage.html.twig',
             [
                 'form' => $form->createView(),
+                'fullForm' => $form,
             ]
         );
     }

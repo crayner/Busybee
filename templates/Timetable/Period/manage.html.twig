@@ -16,6 +16,7 @@
 
 {% block contentContainer %}
     {{ form_start(form) }}
+    {{ all_form_errors(fullForm, 'div') }}
     {% include '@HillrangeForm/Script/collection_message.html.twig' %}        {% set panelStyle = 'default' %}
     {% set transDomain = 'Timetable' %}
     {% set header = 'column.periods.header.title' %}

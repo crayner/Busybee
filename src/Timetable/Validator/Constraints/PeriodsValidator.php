@@ -38,6 +38,8 @@ class PeriodsValidator extends ConstraintValidator
         $break = false;
         $error = false;
 
+        $timeFormat = $this->settingManager->get('time.format.short');
+
         $iterator = $value->getIterator();
         $iterator->uasort(function ($a, $b) {
             return ($a->getStart() < $b->getStart()) ? -1 : 1;
@@ -55,78 +57,89 @@ class PeriodsValidator extends ConstraintValidator
             $end = $x->getEnd();
             $keep = clone $x;
         } else {
-            $start = new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.begin'));
-            $end = new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.finish'));
+            $start = $column->getStart();
+            $end = $column->getEnd();
             $keep = new TimetablePeriod();
         }
         $q = 0;
 
-        while (!$error && false !== ($day = next($data))) {
+        $previous = reset($data);
+        while (! $error && false !== ($period = next($data))) {
             if (!$error) {
-                if ($day->getStart() < $end) {
+                if ($period->getStart() < $end) {
                     $error = true;
                     $overlap = true;
-                    $keep = clone $day;
+                    $keep = clone $period;
                 }
-                if ($day->getStart() >= $day->getEnd()) {
+                if ($period->getStart() >= $period->getEnd()) {
                     $error = true;
                     $order = true;
-                    $keep = clone $day;
+                    $keep = clone $period;
                 }
-                if ($day->getStart() > $end) {
+                if ($period->getStart() > $end) {
                     $error = true;
                     $break = true;
-                    $keep = clone $day;
+                    $keep = clone $period;
                 }
 
-                $end = $day->getEnd();
+                $end = $period->getEnd();
                 $q++;
+
             }
+            if (!$error)
+                $previous = current($data);
         }
 
 
         if ($order) {
             $this->context->buildViolation($constraint->message['order'])
                 ->atPath('[' . $q . '].start')
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
         if ($overlap) {
             $this->context->buildViolation($constraint->message['overlap'])
                 ->atPath('[' . $q . '].start')
-                ->setParameter('%end%', $keep->getEnd()->format('H:i'))
+                ->setParameter('%end%', $previous->getEnd()->format($timeFormat))
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
         if ($break) {
             $this->context->buildViolation($constraint->message['break'])
                 ->atPath('[' . $q . '].start')
-                ->setParameter('%end%', $keep->getEnd()->format('H:i'))
+                ->setParameter('%end%', $previous->getEnd()->format($timeFormat))
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
         if ($start < $column->getStart()) {
             $this->context->buildViolation($constraint->message['early'])
                 ->atPath('[0].start')
-                ->setParameter('%limit%', $column->getStart()->format('H:i'))
+                ->setParameter('%limit%', $column->getStart()->format($timeFormat))
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
         if ($end > $column->getEnd()) {
             $this->context->buildViolation($constraint->message['late'])
                 ->atPath('[' . ($value->count() - 1) . '].end')
-                ->setParameter('%limit%', $column->getEnd()->format('H:i'))
+                ->setParameter('%limit%', $column->getEnd()->format($timeFormat))
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
 
         if ($end < $column->getEnd()) {
             $this->context->buildViolation($constraint->message['complete'])
                 ->atPath('[' . ($value->count() - 1) . '].end')
-                ->setParameter('%end%', $column->getEnd()->format('H:i'))
-                ->setParameter('%start%', $column->getStart()->format('H:i'))
+                ->setParameter('%end%', $column->getEnd()->format($timeFormat))
+                ->setParameter('%start%', $column->getStart()->format($timeFormat))
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
         if ($start > $column->getStart()) {
             $this->context->buildViolation($constraint->message['complete'])
                 ->atPath('[0].start')
-                ->setParameter('%end%', $column->getEnd()->format('H:i'))
-                ->setParameter('%start%', $column->getStart()->format('H:i'))
+                ->setParameter('%end%', $column->getEnd()->format($timeFormat))
+                ->setParameter('%start%', $column->getStart()->format($timeFormat))
+                ->setTranslationDomain('Timetable')
                 ->addViolation();
         }
 

@@ -175,4 +175,25 @@ column:
     period.period_type:
         class: Teaching
         break: Break
+        pastoral: Pastoral
         meeting: Meeting
+period:
+    name:
+        label: Period Name.
+    code:
+        label: Period Code.
+        help: Maximum 3 characters.
+    start:
+        label: Start of Period.
+    end:
+        label: End of Period.
+    period_type:
+        label: Period Type
+periods:
+    constraint:
+        late: 'The period time exceeds the limit of the day. (%limit%)'
+        early: 'The period time starts before the day time (%limit%)'
+        overlap: 'The period starts before the end (%end%) of the previous period.'
+        break: 'The period does not start at the end (%end%) of the previous period.'
+        complete: 'The set periods do not cover the complete day. %start% - %end%'
+        order: 'The end time must be after the start time.'

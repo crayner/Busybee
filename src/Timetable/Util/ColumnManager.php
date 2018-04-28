@@ -1,7 +1,9 @@
 <?php
 namespace App\Timetable\Util;
 
+use App\Core\Manager\SettingManager;
 use App\Entity\TimetableColumn;
+use App\Entity\TimetablePeriod;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ColumnManager
@@ -12,12 +14,18 @@ class ColumnManager
     private $entityManager;
 
     /**
+     * @var SettingManager
+     */
+    private $settingManager;
+
+    /**
      * ColumnManager constructor.
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SettingManager $settingManager)
     {
         $this->entityManager = $entityManager;
+        $this->settingManager = $settingManager;
     }
 
     /**
@@ -59,5 +67,38 @@ class ColumnManager
     {
         $this->column = $column;
         return $this;
+    }
+
+    public function generatePeriods()
+    {
+        if ($this->getColumn()->getPeriods()->count() > 0)
+            return;
+
+        $periods = $this->getSettingManager()->get('schoolday.periods');
+
+        foreach($periods as $name => $value)
+        {
+            $period = new TimetablePeriod();
+            $period->setName($name);
+            $period->setCode(isset($value['code']) ? $value['code'] : mb_substr($name, 0, 3));
+            $period->setStart(new \DateTime('1970-01-01 '.$value['start']));
+            $period->setEnd(new \DateTime('1970-01-01 '.$value['end']));
+            $period->setPeriodType(isset($value['type']) ? $value['type'] : 'class');
+            $this->getColumn()->addPeriod($period);
+            $this->getEntityManager()->persist($period);
+        }
+        $this->getEntityManager()->persist($this->getColumn());
+        $this->getEntityManager()->flush();
+
+        dump($this);
+
+    }
+
+    /**
+     * @return SettingManager
+     */
+    public function getSettingManager(): SettingManager
+    {
+        return $this->settingManager;
     }
 }

@@ -20,9 +20,9 @@ class ColumnPeriodType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => TimetableColumn::class,
+                'data_class' => TimetablePeriod::class,
                 'translation_domain' => 'Timetable',
-                'class' => TimetableColumn::class,
+                'class' => TimetablePeriod::class,
             ]
         );
     }
@@ -41,17 +41,35 @@ class ColumnPeriodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [])
-            ->add('code', TextType::class, [])
+            ->add('name', TextType::class,
+                [
+                    'label' => 'period.name.label',
+                ]
+            )
+            ->add('code', TextType::class,
+                [
+                    'label' => 'period.code.label',
+                    'help' => 'period.code.help',
+                ]
+            )
             ->add('periodType', EnumType::class,
                 [
                     'choice_list_class' => TimetablePeriod::class,
                     'choice_list_method' => 'getPeriodTypeList',
                     'choice_list_prefix' => 'column.period.period_type',
+                    'label' => 'period.period_type.label',
                 ]
             )
-            ->add('start', TimeType::class, [])
-            ->add('end', TimeType::class, [])
+            ->add('start', TimeType::class,
+                [
+                    'label' => 'period.start.label',
+                ]
+            )
+            ->add('end', TimeType::class,
+                [
+                    'label' => 'period.end.label',
+                ]
+            )
             ->add('column', HiddenEntityType::class,
                 [
                     'class' => TimetableColumn::class,

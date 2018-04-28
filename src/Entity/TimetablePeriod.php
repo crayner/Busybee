@@ -72,7 +72,7 @@ class TimetablePeriod extends TimetablePeriodExtension
      */
     public function setCode(?string $code): TimetablePeriod
     {
-        $this->code = $code;
+        $this->code = strtoupper($code);
         return $this;
     }
 
@@ -208,6 +208,7 @@ class TimetablePeriod extends TimetablePeriodExtension
         return [
             'class',
             'break',
+            'pastoral',
             'meeting',
         ];
     }

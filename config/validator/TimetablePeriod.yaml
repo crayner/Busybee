@@ -1,0 +1,34 @@
+App\Entity\TimetablePeriod:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, column]
+            errorPath: name
+            message: 'column.name.validator.unique'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code, column]
+            errorPath: code
+            message: 'column.code.validator.unique'
+    properties:
+        column:
+            - NotBlank: ~
+            - Valid: ~
+        name:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 3
+        start:
+            - NotBlank: ~
+            - Time: ~
+        end:
+            - NotBlank: ~
+            - Time: ~
+        periodType:
+            - NotBlank: ~
+            - Hillrange\Form\Validator\Enum:
+                class: App\Entity\TimetablePeriod
+                method: getPeriodTypeList
+                transDomain: Timetable
+        activities:
+            - Valid: ~

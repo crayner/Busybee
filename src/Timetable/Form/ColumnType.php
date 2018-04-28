@@ -3,6 +3,7 @@ namespace App\Timetable\Form;
 
 use App\Entity\TimetableColumn;
 use App\Timetable\Form\Subscriber\ColumnSubscriber;
+use App\Timetable\Validator\Periods;
 use Hillrange\Form\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,6 +59,9 @@ class ColumnType extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => ColumnPeriodType::class,
+                    'constraints' => [
+                        new Periods(),
+                    ],
                 ]
             )
         ;
