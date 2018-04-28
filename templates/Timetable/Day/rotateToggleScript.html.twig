@@ -18,5 +18,16 @@
         });
     }
 
-    $('#messageNotice').fadeOut(5);
+    function resetColumnTimes(id) {
+        var reset = confirm('{{ 'column.resettime.confirm'|trans }}');
+
+        if (reset === false) {
+            return false;
+        } else {
+            var path = '{{ path('column_resettimes', {'id': '__id__'}) }}';
+            path = path.replace('__id__', id);
+            window.open(path, '_self');
+        }
+    }
+
 </script>

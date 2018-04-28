@@ -12,8 +12,6 @@
         {% set h3Content = h3Content ~ saveButton() %}
     {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-    {% set h3Content = h3Content ~ miscButton({'javascript': {function: 'resetColumnTimes', options: [app.request.get('id')]}, class: 'btn btn-danger fas fa-asterisk', title: 'column.resettime.title', transDomain: 'Timetable'}) %}
-
     {% include 'Page/panelStart.html.twig' %}
 
     {% set schoolDays = get_setting('schoolweek') %}

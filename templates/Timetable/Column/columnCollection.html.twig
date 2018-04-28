@@ -16,7 +16,11 @@
             {% set h3Content = h3Content ~ '</div>' %}
         {% endif %}
         {% set title = 'timetable.column.add.title'|trans %}
-        {% if column_id > 0 %}{% set title = form.vars.data.fullName %}{% endif %}
+        {% if column_id > 0 %}
+            {% set title = form.vars.data.fullName %}
+            {% set h3Content = h3Content ~ '<div>' ~ miscButton({class: 'btn btn-sm btn-dark fas fa-cog', windowOpen: {route: path('column_periods_manage', {id: column_id}), target: 'ColumnPeriodsManage', params: 'width=1200,height=900'}, title: 'column.periods.manage', transDomain: 'Timetable'}) ~ '</div>' %}
+            {% set h3Content = h3Content ~ 'column.periods.count'|transchoice(form.vars.value.periods|length, {'%{count}': form.vars.value.periods|length}) %}
+        {% endif %}
         {% set disabled = {disabled: ''} %}
         <div class="row row-hover" style="margin-bottom: 20px;">
             <div class="col-12 card-title text-center">

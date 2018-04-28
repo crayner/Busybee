@@ -18,17 +18,18 @@ App\Entity\TimetablePeriod:
                 strategy: AUTO
     fields:
         name:
-            length: '24'
+            length: 24
         code:
-            length: '3'
+            length: 3
         start:
             type: time
         end:
             type: time
-        break:
-            type: boolean
+        periodType:
+            length: 24
+            column: period_type
             options:
-                default: 0
+                default: 'class'
     oneToMany:
         activities:
             targetEntity: App\Entity\TimetablePeriodActivity

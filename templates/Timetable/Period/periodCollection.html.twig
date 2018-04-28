@@ -1,57 +1,28 @@
 {% trans_default_domain "Timetable" %}
 
-{% block tt_period_label %}{% endblock %}
-{% block tt_period_errors %}{% endblock %}
+{% block timetable_column_period_label %}{% endblock %}
+{% block timetable_column_period_errors %}{% endblock %}
 
-{% block tt_period_widget %}
+{% block timetable_column_period_widget %}
     {% spaceless %}
-        {% set locked = false %}
-        {% if form.vars.data %}
-            {% set locked = form.vars.data.column.timetable.locked %}
-        {% endif %}
-        {% set panelStyle = 'default' %}
-        {% set transDomain = 'Timetable' %}
-        {% set header = 'timetable.column.header.title' %}
-        {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set period_id = 0 %}
-        {% if form.vars.data is not empty %}{% set period_id = form.vars.data.id %}{% endif %}
-        {% set canDelete = {additional: 'disabled'} %}
-        {% if form.vars.data is not empty and form.vars.data.canDelete() %}{% set canDelete = {} %}{% endif %}
-        {% if not locked %}
-            {% set h3Content = h3Content ~ deleteButton({title: 'timetable.period.remove.title', transDomain: 'Timetable', mergeClass: 'collection-remove collection-action', style: 'float: right;'}|merge(canDelete))|raw %}
-            {% set h3Content = h3Content ~ saveButton() %}
-        {% endif %}
-        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-        {% set h3Content = h3Content ~ upDownButton()|raw %}
-        {% if form.vars.value is not empty and form.vars.value.id > 0 %}
-            {% set h3Content = h3Content ~ miscButton({class: 'btn btn-success fas fa-cog', transDomain: 'Timetable', title: 'period.activities.add', windowOpen: {route: path('period_plan', {'id': form.vars.value.id }), target: 'PeriodPlan', params: 'width=1200,height=900'}})|raw %}
-        {% endif %}
-        {% set h3Content = h3Content ~ '</div>' %}
-        {% set title = 'timetable.period.add.title'|trans %}
-        <div class="PeriodIdentifier" period="{{ period_id }}" page="{{ form.parent.parent.vars.name }}"></div>
-        {% if form.vars.data is not empty %}{% set title = form.vars.data.columnName %}{% endif %}
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': title} %}
-        <div class="container-fluid period">
-            <div class="row">
-                <div class="col-3 well">
-                    {{ form_row(form.name) }}
-                </div>
-                <div class="col-2 well">
-                    {{ form_row(form.nameShort) }}
-                </div>
-                <div class="col-1 well">
-                    {{ form_row(form.break) }}
-                </div>
-                <div class="col-3 well">
-                    {{ form_row(form.start) }}
-                </div>
-                <div class="col-3 well">
-                    {{ form_row(form.end) }}
-                    {{ form_widget(form.column, {value: form.parent.parent.vars.value.id}) }}
-                </div>
-            </div>
-            <div class="messageWindow"></div>
+    <div class="row">
+        <div class="col-3 card">
+            {{ form_row(form.name) }}
         </div>
-        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        <div class="col-2 card">
+            {{ form_row(form.code) }}
+        </div>
+        <div class="col-3 card">
+            {{ form_row(form.periodType) }}
+        </div>
+        <div class="col-2 card">
+            {{ form_row(form.start) }}
+        </div>
+        <div class="col-2 card">
+            {{ form_row(form.end) }}
+            {{ form_widget(form.column, {value: transformData(form.column)}) }}
+        </div>
+    </div>
+    <div class="messageWindow"></div>
     {% endspaceless %}
-{% endblock tt_period_widget %}
+{% endblock timetable_column_period_widget %}

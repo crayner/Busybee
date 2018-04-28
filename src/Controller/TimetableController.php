@@ -3,18 +3,17 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
-use App\Entity\Term;
-use App\Entity\TimetableAssignedDay;
 use App\Pagination\ClassPagination;
 use App\Pagination\LinePagination;
 use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
 use App\Security\VoterDetails;
+use App\Timetable\Form\ColumnType;
 use App\Timetable\Form\TimetableType;
+use App\Timetable\Util\ColumnManager;
 use App\Timetable\Util\PeriodManager;
 use App\Timetable\Util\TimetableDisplayManager;
 use App\Timetable\Util\TimetableManager;
-use PhpParser\Node\Stmt\Else_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -262,38 +261,39 @@ class TimetableController extends Controller
 
     /**
      * @Route("/timetable/column/{id}/reset/times/", name="column_resettimes")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function resetColumnTimes($id)
+    public function resetColumnTimes($id, TimetableManager $timetableManager)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-
-        $tt = $this->get('timetable.repository')->find($id);
-        if (empty($tt)) {
-            $this->get('session')->getFlashBag()->add('warning', 'column.resettime.missing');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $id]));
+        $tt = $timetableManager->find($id);
+        if (! $timetableManager->isValidTimetable()) {
+            $timetableManager->getMessageManager()->add('warning', 'column.resettime.missing', [], 'Timetable');
+            return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
         }
 
-        $sm     = $this->get('busybee_core_system.setting.setting_manager');
-        $begin  = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Begin'));
-        $finish = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Finish'));
-        $om     = $this->get('doctrine')->getManager();
+        $sm     = $timetableManager->getSettingManager();
+        $begin  = $sm->get('schoolday.begin');
+        $finish = $sm->get('schoolday.finish');
 
         if ($tt->getColumns()->count() > 0) {
             try {
                 foreach ($tt->getColumns() as $column) {
                     $column->setStart($begin);
                     $column->setEnd($finish);
-                    $om->persist($column);
+                    $timetableManager->getEntityManager()->persist($column);
                 }
-                $om->flush();
+                $timetableManager->getEntityManager()->flush();
             } catch (\Exception $e) {
-                $this->get('session')->getFlashBag()->add('danger', 'column.resettime.error');
-                return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimetable()->getId()]));
+                $timetableManager->getMessageManager()->add('danger', 'column.resettime.error', [], 'Timetable');
+                return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
             }
         }
 
-        $this->get('session')->getFlashBag()->add('success', 'column.resettime.success');
-        return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimetable()->getId()]));
+        $timetableManager->getMessageManager()->add('success', 'column.resettime.success', [], 'Timetable');
+        return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
     }
 
     /**
@@ -777,6 +777,23 @@ class TimetableController extends Controller
                 'status' => 'success',
             ],
             200
+        );
+    }
+
+    /**
+     * @Route("/column/{id}/periods/manage/", name="column_periods_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function managePeriodsInColumn($id, ColumnManager $columnManager)
+    {
+        $column = $columnManager->find($id);
+
+        $form = $this->createForm(ColumnType::class, $column);
+
+        return $this->render('Timetable/Period/manage.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
         );
     }
 }

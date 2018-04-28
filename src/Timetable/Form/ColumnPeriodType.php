@@ -1,13 +1,13 @@
 <?php
 namespace App\Timetable\Form;
 
-use App\Entity\Timetable;
 use App\Entity\TimetableColumn;
-use App\Timetable\Validator\Periods;
-use Hillrange\Form\Type\CollectionType;
+use App\Entity\TimetablePeriod;
+use Hillrange\Form\Type\EnumType;
 use Hillrange\Form\Type\HiddenEntityType;
+use Hillrange\Form\Type\TextType;
+use Hillrange\Form\Type\TimeType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,12 +25,6 @@ class ColumnPeriodType extends AbstractType
                 'class' => TimetableColumn::class,
             ]
         );
-        $resolver->setRequired(
-            [
-                'tt_id',
-            ]
-        );
-
     }
 
     /**
@@ -38,7 +32,7 @@ class ColumnPeriodType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'column_period';
+        return 'timetable_column_period';
     }
 
     /**
@@ -47,23 +41,22 @@ class ColumnPeriodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', HiddenType::class)
-            ->add('code', HiddenType::class)
-            ->add('mappingInfo', HiddenType::class)
-            ->add('periods', CollectionType::class,
+            ->add('name', TextType::class, [])
+            ->add('code', TextType::class, [])
+            ->add('periodType', EnumType::class,
                 [
-                    'entry_type' => PeriodType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'constraints' => [
-                        new Periods(),
-                    ],
+                    'choice_list_class' => TimetablePeriod::class,
+                    'choice_list_method' => 'getPeriodTypeList',
+                    'choice_list_prefix' => 'column.period.period_type',
                 ]
             )
-            ->add('timetable', HiddenEntityType::class,
+            ->add('start', TimeType::class, [])
+            ->add('end', TimeType::class, [])
+            ->add('column', HiddenEntityType::class,
                 [
-                    'class' => Timetable::class,
+                    'class' => TimetableColumn::class,
                 ]
-            );
+            )
+        ;
     }
 }

@@ -95,7 +95,7 @@ timetable:
                 description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
     rotate:
         toggle:
-            success: 'The start rotate was toggled for %{date)'
+            success: 'The start rotate was toggled for %{date}'
             failed: 'The start rotate toggle was not successful. '
         title: Manual Rotate Start
 calendar.first_day.sort: Calendar Name
@@ -161,4 +161,18 @@ line:
             <h4>Duplicated Students</h4>
         refresh.button: Refresh Line Report
         title: Line Report
-    period.search.button:
+    period.search.button: Search for Period
+column:
+    resettime:
+        title: 'Reset ALL day times.'
+        confirm: 'You wish to reset all column times to the default values?'
+        success: 'The times in the columns were successfully reset.'
+        error: 'A failure in accessing the database may have lost some changes.  Check your results.'
+        missing: 'The timetable containing the columns was not found.'
+    periods:
+        count: '{0}No periods are attached.|{1}One Period is attached.|]1,Inf[%{count} periods are attached.'
+        manage: 'Create / Manage Periods'
+    period.period_type:
+        class: Teaching
+        break: Break
+        meeting: Meeting

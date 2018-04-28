@@ -380,6 +380,9 @@ timetable:
                 }
             }
 
+            if (isset($this->startRotateDays[$assignDay->getDay()->format('Ymd')]))
+                $assignDay->setStartRotate(true);
+
             $assignDay->setColumn($this->mapDay($assignDay));
 
             $sd = $this->getEntityManager()->getRepository(SpecialDay::class)->findOneBy(['day' => $day]);
@@ -426,7 +429,6 @@ timetable:
 
             $this->startRotateDays[$day->format('Ymd')] = $day;
         }
-
         if (empty($this->startRotateDays))
             $this->startRotateDays['19000101'] = new \DateTime('19700101');
 
@@ -453,9 +455,10 @@ timetable:
      */
     private function getColumnDays(bool $refresh = true)
     {
-        if (! ($this->daysDefined || $refresh))
-            return ;
-
+        if (! ($this->daysDefined || $refresh)) {
+            reset($this->daysDefined);
+            return;
+        }
         $this->rotateDays = [];
         $this->fixedDays = [];
 
@@ -485,8 +488,11 @@ timetable:
         $mappingInfo = $day->getDay()->format('D');
         if (! in_array($mappingInfo, $this->schoolWeek))
             return null;
-        if (isset($this->fixedDays[$mappingInfo]))
+        if (isset($this->fixedDays[$mappingInfo])) {
+            if ($day->isStartRotate())
+                end($this->rotateDays);
             return $this->fixedDays[$mappingInfo];
+        }
 
         $column = next($this->rotateDays);
         if (false === $column || isset($this->startRotateDays[$day->getDay()->format('Ymd')]) || $day->isStartRotate())

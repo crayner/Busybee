@@ -1,11 +1,10 @@
 <?php
 namespace App\Timetable\Form;
 
-use App\Entity\Timetable;
+use App\Entity\TimetableColumn;
 use App\Timetable\Form\Subscriber\ColumnSubscriber;
-use Doctrine\Common\Persistence\ObjectManager;
+use Hillrange\Form\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,8 +16,8 @@ class ColumnType extends AbstractType
     private $columnSubscriber;
 
     /**
-     * TimeTableType constructor.
-     * @param ObjectManager $om
+     * ColumnType constructor.
+     * @param ColumnSubscriber $columnSubscriber
      */
     public function __construct(ColumnSubscriber $columnSubscriber)
     {
@@ -32,9 +31,9 @@ class ColumnType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => Timetable::class,
+                'data_class' => TimetableColumn::class,
                 'translation_domain' => 'Timetable',
-                'class' => TimeTable::class,
+                'class' => TimetableColumn::class,
             ]
         );
     }
@@ -44,7 +43,7 @@ class ColumnType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'timetable';
+        return 'timetable_column';
     }
 
     /**
@@ -54,18 +53,13 @@ class ColumnType extends AbstractType
     {
 
         $builder
-            ->add('columns', CollectionType::class,
+            ->add('periods', CollectionType::class,
                 [
+                    'allow_add' => true,
+                    'allow_delete' => true,
                     'entry_type' => ColumnPeriodType::class,
-                    'entry_options' =>
-                        [
-                            'tt_id' => $options['data']->getId(),
-                        ],
-                    'disabled' => $options['data']->isLocked(),
                 ]
             )
         ;
-
-        $builder->addEventSubscriber($this->columnSubscriber);
     }
 }

@@ -18,7 +18,7 @@ class ColumnSubscriber implements EventSubscriberInterface
     /**
      * @var array
      */
-    private $days;
+    private $periods;
 
     /**
      * ColumnSubscriber constructor.
@@ -27,7 +27,7 @@ class ColumnSubscriber implements EventSubscriberInterface
     public function __construct(SettingManager $settingManager)
     {
         $this->entityManager = $settingManager->getEntityManager();
-        $this->days = $settingManager->get('schoolday.periods');
+        $this->periods = $settingManager->get('schoolday.periods');
     }
 
     /**
@@ -52,7 +52,7 @@ class ColumnSubscriber implements EventSubscriberInterface
         if ($data->getColumns()->count() > 0) {
             foreach ($data->getColumns() as $column) {
                 if ($column->getPeriods()->count() == 0) {
-                    foreach ($this->days as $name => $val) {
+                    foreach ($this->periods as $name => $val) {
                         $period = new TimetablePeriod();
                         $period->setName($name);
                         $period->setCode($val['code']);

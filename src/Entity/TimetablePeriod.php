@@ -123,29 +123,6 @@ class TimetablePeriod extends TimetablePeriodExtension
     }
 
     /**
-     * @var boolean
-     */
-    private $break;
-
-    /**
-     * @return bool
-     */
-    public function isBreak(): bool
-    {
-        return $this->break ? true : false ;
-    }
-
-    /**
-     * @param bool $break
-     * @return TimetablePeriod
-     */
-    public function setBreak(bool $break): TimetablePeriod
-    {
-        $this->break = $break ? true : false ;
-        return $this;
-    }
-
-    /**
      * @var null|Collection
      */
     private $activities;
@@ -196,5 +173,42 @@ class TimetablePeriod extends TimetablePeriodExtension
         $this->column = $column;
 
         return $this;
+    }
+
+    /**
+     * @var string
+     */
+    private $periodType = 'class';
+
+    /**
+     * @return string
+     */
+    public function getPeriodType(): string
+    {
+        if (! in_array($this->periodType, $this->getPeriodTypeList()))
+            $this->periodType = 'class';
+        return $this->periodType;
+    }
+
+    /**
+     * @param string $periodType
+     * @return TimetablePeriod
+     */
+    public function setPeriodType(?string $periodType): TimetablePeriod
+    {
+        $this->periodType = $periodType;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPeriodTypeList()
+    {
+        return [
+            'class',
+            'break',
+            'meeting',
+        ];
     }
 }
