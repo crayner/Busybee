@@ -135,7 +135,7 @@
             var $fix = $('#periodRow' + id);
             var $clear = $('.fixPeriod');
 
-            var $width = $('#tt_periods').css('width');
+            var $width = $fix.width();
 
             var current = $fix.css('position');
 
@@ -148,7 +148,7 @@
                     'position': 'static',
                     'min-height': 'auto',
                     'background-image': 'none',
-                    'width': ''
+                    'width': $width
                 });
 
                 button.toggleClass('fa-lock fa-unlock');
@@ -168,7 +168,7 @@
                     'display': 'flex',
                     'min-height': '75px',
                     'background-image': 'linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%)',
-                    'width': $fix.parent().width()
+                    'width': $width
                 });
                 button.toggleClass('fa-lock fa-unlock');
                 $('#resetButton').attr('reset', id);
@@ -293,7 +293,7 @@
             var id = $(this).prop('id');
             id = id.replace('activity', '');
 
-            var path = '{{ path('activity_edit', {id: '__id__', closeWindow: '_closeWindow', activityType: 'class'}) }}';
+            var path = '{{ path('face_to_face_edit', {id: '__id__', closeWindow: '_closeWindow', course_id: '__course__'}) }}';
             path = path.replace('__id__', id);
             window.open(path, 'ActivityEdit', 'width=1200,height=750')
         });

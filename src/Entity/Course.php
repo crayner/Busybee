@@ -255,8 +255,19 @@ class Course extends CourseExtension
         if (empty($this->activities))
             $this->activities = new ArrayCollection();
 
-        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
+        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized()) {
             $this->activities->initialize();
+
+            $iterator = $this->activities->getIterator();
+
+            $iterator->uasort(
+                function ($a, $b) {
+                    return ($a->getFullName() < $b->getFullName()) ? -1 : 1;
+                }
+            );
+
+            $this->students = new ArrayCollection(iterator_to_array($iterator, false));
+        }
 
         return $this->activities;
     }

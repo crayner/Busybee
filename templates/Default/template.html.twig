@@ -17,6 +17,13 @@
 
     <body>
 
+
+    {% if app.request.get('closeWindow') is not empty %}
+        {% set fullPage = true %}
+        {% set headerOff = true %}
+    {% endif %}
+
+
     {% if not(headerOff is defined and headerOff) %}
         {% block menuContainer %}
             {% include 'Menu/main-menu.html.twig' %}

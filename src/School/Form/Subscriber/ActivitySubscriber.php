@@ -67,8 +67,9 @@ class ActivitySubscriber implements EventSubscriberInterface
             if ($event->getForm()->getData()->isReportable())
             {
                 $data = $event->getData();
-                foreach($data['students'] as $q=>$w)
-                    $data['students'][$q]['classReportable'] = '1';
+                if (isset($data['students']))
+                    foreach($data['students'] as $q=>$w)
+                        $data['students'][$q]['classReportable'] = '1';
                 $event->setData($data);
             }
         }

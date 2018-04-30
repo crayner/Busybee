@@ -25,5 +25,5 @@
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {{ collections_manage(form, ['students','tutors'])|raw }}
-    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {'course_id': app.request.get('course_id')}} %}
+    {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {'course_id': course_id, closeWindow: app.request.get('closeWindow')}} %}
 {% endblock %}

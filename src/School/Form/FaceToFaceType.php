@@ -66,6 +66,12 @@ class FaceToFaceType extends AbstractType
                     'help' => 'activity.code.help',
                 ]
             )
+            ->add('useCourseName', ToggleType::class,
+                [
+                    'label' => 'activity.use_course_name.label',
+                    'help' => 'activity.use_course_name.help',
+                ]
+            )
             ->add('website', UrlType::class,
                 [
                     'label' => 'activity.website.label',

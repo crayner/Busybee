@@ -2,9 +2,9 @@ App\Entity\RollGroup:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
-                - nameShort
+                - code
                 - calendar
-            errorPath: nameShort
+            errorPath: code
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - name

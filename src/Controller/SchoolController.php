@@ -133,7 +133,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/activity/{id}/edit/{activityType}/", name="activity_edit")
+     * @Route("/school/activity/{id}/edit/{activityType}/{closeWindow}", name="activity_edit")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param string $id
@@ -141,7 +141,7 @@ class SchoolController extends Controller
      * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function activityEdit(Request $request, $id = 'Add', $activityType, ActivityManager $activityManager)
+    public function activityEdit(Request $request, $id = 'Add', $activityType, ActivityManager $activityManager, $closeWindow = null)
     {
         $activity = $activityManager->setActivityType($activityType)->findActivity($id);
 
@@ -155,7 +155,7 @@ class SchoolController extends Controller
             $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
-                return $this->redirectToRoute('activity_edit', ['id' => $activity->getId(), 'activityType' => $activityType]);
+                return $this->redirectToRoute('activity_edit', ['id' => $activity->getId(), 'activityType' => $activityType, 'closeWindow' => $closeWindow]);
         }
     
         return $this->render('School/activity_edit.html.twig',
@@ -167,7 +167,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/face_to_face/{id}/{course_id}/edit/", name="face_to_face_edit")
+     * @Route("/school/face_to_face/{id}/{course_id}/edit/{closeWindow}", name="face_to_face_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param string $id
@@ -175,10 +175,14 @@ class SchoolController extends Controller
      * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id, ActivityManager $activityManager)
+    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id, $closeWindow = null, ActivityManager $activityManager)
     {
         $activityManager->setActivityType('class');
+
         $face = $activityManager->findActivity($id);
+
+        if ($course_id === '__course__')
+            $course_id = $face->getCourse()->getId();
 
         $form = $this->createForm(FaceToFaceType::class, $face);
 
@@ -194,7 +198,7 @@ class SchoolController extends Controller
             $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
-                return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'course_id' => $course_id]);
+                return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'course_id' => $course_id, 'closeWindow' => $closeWindow]);
 
             $face->getStudents(true);
             $form = $this->createForm(FaceToFaceType::class, $face);

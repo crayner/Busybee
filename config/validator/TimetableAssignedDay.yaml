@@ -1,11 +1,11 @@
-App\Entity\Activity:
+App\Entity\TimetableAssignedDay:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [timetable, day]
+            fields: [day, timetable]
             errorPath: day
             message: timetable.assigned_day.timetable.unique
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [term, day]
+            fields: [day, term]
             errorPath: day
             message: timetable.assigned_day.term.unique
     property:

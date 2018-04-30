@@ -13,7 +13,11 @@
 {% block contentContainer %}
     {{ form_start(form) }}
     {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('roll_list')}}) %}
+    {% if app.request.get('closeWindow') is not empty %}
+        {% set h3Content = h3Content ~ closeButton() %}
+    {% else %}
+        {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('roll_list')}}) %}
+    {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.activity.edit.title', transDomain: 'School'} %}
 
@@ -23,8 +27,11 @@
                 <div class="col-6 card">
                     {{ form_row(form.name) }}
                 </div>
-                <div class="col-6 card">
-                    {{ form_row(form.nameShort) }}
+                <div class="col-3 card">
+                    {{ form_row(form.code) }}
+                </div>
+                <div class="col-3 card">
+                    {{ form_row(form.useCourseName) }}
                 </div>
             </div>
             <div class="row">
@@ -53,3 +60,7 @@
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
+{% endBlock javascripts %}

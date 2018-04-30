@@ -1,7 +1,11 @@
 {% trans_default_domain 'School' %}
 
 {% set h3Content = '' %}
-{% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
+{% if app.request.get('closeWindow') is empty %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
+{% else %}
+    {% set h3Content = h3Content ~ closeButton() %}
+{% endif %}
 {% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
 {% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
@@ -10,8 +14,11 @@
     <div class="col-6 card">
         {{ form_row(form.name) }}
     </div>
-    <div class="col-6 card">
+    <div class="col-3 card">
         {{ form_row(form.code) }}
+    </div>
+    <div class="col-3 card">
+        {{ form_row(form.useCourseName) }}
     </div>
 </div>
 <div class="row">

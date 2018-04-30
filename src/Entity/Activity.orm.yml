@@ -34,6 +34,11 @@ App\Entity\Activity:
         code:
             type: string
             length: 8
+        useCourseName:
+            type: boolean
+            column: use_course_name
+            options:
+                default: 1
         teachingLoad:
             type: integer
             length: 2

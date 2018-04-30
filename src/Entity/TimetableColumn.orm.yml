@@ -6,15 +6,15 @@ App\Entity\TimetableColumn:
         name_tt:
             columns:
                 - name
-                - tt_id
+                - timetable_id
         code_tt:
             columns:
                 - code
-                - tt_id
+                - timetable_id
         seq_tt:
             columns:
                 - sequence
-                - tt_id
+                - timetable_id
     id:
         id:
             type: integer
@@ -47,5 +47,5 @@ App\Entity\TimetableColumn:
             targetEntity: App\Entity\Timetable
             inversedBy: columns
             joinColumn:
-                name: tt_id
+                name: timetable_id
                 referencedColumnName: id

@@ -278,6 +278,9 @@ activity:
     slot:
         title: Time Slot
         removed.message: 'Time slot %{slot} removed.'
+    use_course_name:
+        label: Use Course Name
+        help: The course name and code is added a part of the activity course name and code.
 activity_tutor:
     role:
         label: Role

@@ -37,6 +37,10 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
         return '(' . $this->getCalendar()->getName() . ') ' . $this->getName();
     }
 
+    /**
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
     public function studentNumbersValidate(ExecutionContextInterface $context, $payload)
     {
         if (empty($this->getspace()) || empty($this->getSpace()->getCapacity()))
@@ -64,8 +68,9 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
      */
     public function getFullName()
     {
-        if ($this->getCourse())
-            return $this->getCourse()->getName() . ' ' . $this->getName() . ' (' . $this->getCode() . ')';
+        if ($this->isUseCourseName() && $this->getCourse())
+            return $this->getCourse()->getName() . '.' . $this->getName() . ' (' . $this->getCourse()->getCode() . '.' . $this->getCode() . ')';
+
         return $this->getName() . ' (' . $this->getCode() . ')';
     }
 

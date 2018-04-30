@@ -2,9 +2,9 @@
 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
 {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('activity_edit', {id: 'Add', closeWindow: '_closeWindow', activityType: 'class'}), target: 'ActivityEdit', params: 'width=1200,height=900'}}) %}
 {% include 'Page/panelStart.html.twig' with {header: 'timetable.build.activity.list.title', transDomain: 'Timetable', panelParagraph: 'timetable.build.activity.list.description'} %}
-{% for activity in class_pagination.result %}
+{% for activity in class_pagination.sortResult('getFullName') %}
     <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
-        <div class="small col-12 {{ class_pagination.manager.getAlert(activity.entity) }}">
+        <div class="small col-12 {{ class_pagination.manager.getAlert(activity.entity) }}">{% dump(activity.entity) %}
             {{ activity.entity.fullName }} {{ 'timetable.build.activity.count'|transchoice(activity.entity.teachingLoad, {'%count%': activity.entity.count, '%load%': activity.entity.teachingLoad }) }}
         </div>
     </div>

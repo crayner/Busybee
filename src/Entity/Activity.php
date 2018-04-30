@@ -522,13 +522,37 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @param ArrayCollection $students
+     * @param null|Collection $students
      * @return Activity
      */
-    public function setStudents(ArrayCollection $students): Activity
+    public function setStudents(?Collection $students): Activity
     {
         $this->students = $students;
 
         return $this;
     }
+
+    /**
+     * @var bool
+     */
+    private $useCourseName = true;
+
+    /**
+     * @return bool
+     */
+    public function isUseCourseName(): bool
+    {
+        return $this->useCourseName ? true : false ;
+    }
+
+    /**
+     * @param bool $useCourseName
+     * @return Activity
+     */
+    public function setUseCourseName(bool $useCourseName): Activity
+    {
+        $this->useCourseName = $useCourseName ? true : false ;
+        return $this;
+    }
+
 }
