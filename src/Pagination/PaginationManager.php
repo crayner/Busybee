@@ -1,7 +1,7 @@
 <?php
 namespace App\Pagination;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -821,7 +821,7 @@ abstract class PaginationManager implements PaginationInterface
 	 */
 	public function getResult()
 	{
-		return $this->result;
+		return $this->result ?: [];
 	}
 
 	/**
@@ -1293,5 +1293,24 @@ abstract class PaginationManager implements PaginationInterface
         if (! empty($route))
             return $route;
         return [];
+    }
+
+    /**
+     * @param string $sortBy
+     * @return array
+     */
+    public function getSortResult(string $sortBy): array
+    {
+        $result = new ArrayCollection($this->getResult());
+
+        $iterator = $result->getIterator();
+        $iterator->uasort(
+            function ($a, $b) use ($sortBy) {
+                return ($a['entity']->$sortBy() < $b['entity']->$sortBy()) ? -1 : 1;
+            }
+        );
+
+        return iterator_to_array($iterator, false);
+
     }
 }
