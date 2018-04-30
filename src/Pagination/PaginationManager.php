@@ -1268,8 +1268,10 @@ abstract class PaginationManager implements PaginationInterface
         $route = $requestStack->getCurrentRequest()->get('_route');
         if (! empty($route))
             return $route;
-        $forward = $requestStack->getCurrentRequest()->get('_forwarded');
-        $route = $forward->get('_route');
+            $forward = $requestStack->getCurrentRequest()->get('_forwarded');
+        if ($forward)
+            $route = $forward->get('_route');
+
         if (! empty($route))
             return $route;
         return 'home';
@@ -1285,7 +1287,9 @@ abstract class PaginationManager implements PaginationInterface
         if (! empty($route))
             return $route;
         $forward = $requestStack->getCurrentRequest()->get('_forwarded');
-        $route = $forward->get('_route_params');
+        if ($forward)
+            $route = $forward->get('_route_params');
+
         if (! empty($route))
             return $route;
         return [];
