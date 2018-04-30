@@ -98,6 +98,8 @@ class MessageManager
 	 */
 	public function getMessages(): array
 	{
+	    if (empty($this->messages))
+	        $this->messages = [];
 		return $this->messages;
 	}
 
@@ -110,6 +112,16 @@ class MessageManager
 
 		return $this;
 	}
+
+    /**
+     * @return bool
+     */
+    public function hasMessages(): bool
+    {
+        if (count($this->getMessages()) > 0)
+            return true;
+        return false;
+    }
 
 	/**
 	 * MessageManager constructor.
