@@ -1,4 +1,4 @@
-{% trans_default_domain "BusybeeTimeTableBundle" %}
+{% trans_default_domain "Timetable" %}
 <div class="row">
     <div class="col-sm-12 text-center" id="timetableHeader">
         <h3>{{ manager.header|trans({'%name%': manager.idDesc}) }}</h3>
@@ -21,10 +21,10 @@
     </div>
     <div class="col-sm-2">
         <div>
-            {{ miscButton({class: 'btn btn-info halflings
-halflings-circle-arrow-right', transDomain: 'BusybeeTimeTableBundle', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Next Week', javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('+7 Days')}})|raw }}
-            {{ miscButton({class: 'btn btn-info halflings
-halflings-circle-arrow-left', transDomain: 'BusybeeTimeTableBundle', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Previous Week', javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('-7 Days')}})|raw }}            </div>
+            {{ miscButton({class: 'btn btn-info fas fa-arrow-circle-right', transDomain: 'Timetable', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Next Week',
+                javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('+7 Days')}})|raw }}
+            {{ miscButton({class: 'btn btn-info fas fa-arrow-circle-left', transDomain: 'Timetable', style: 'float: right; height: 33px; margin-top: -2px; ',
+                title: 'Previous Week', javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('-7 Days')}})|raw }}            </div>
     </div>
 </div>
 <div class="row">

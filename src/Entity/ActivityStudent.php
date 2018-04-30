@@ -45,6 +45,7 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
 
     /**
      * @param Student|null $student
+     * @param bool $add
      * @return ActivityStudent
      */
     public function setStudent(?Student $student, $add = true): ActivityStudent
@@ -75,6 +76,7 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
 
     /**
      * @param Activity|null $activity
+     * @param bool $add
      * @return ActivityStudent
      */
     public function setActivity(?Activity $activity, $add = true): ActivityStudent
@@ -217,6 +219,9 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getStudent()->getFullName() . ' - ' . $this->getActivity()->getFullName();

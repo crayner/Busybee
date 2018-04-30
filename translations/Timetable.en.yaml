@@ -194,6 +194,17 @@ period:
     status.messages: '{0}No messages.|{1}One message.|]2,Inf[The are %count% messages.'
     students:
         missing: 'Not all students where allocated for grade %grade% in this period.'
+    activities:
+        activity:
+            overwrite.button: 'Overwrite Activity Space or Staff'
+            remove:
+                success: 'The activity %name% was removed.'
+                error: 'Error: %error%'
+                button: Remove Activity from Period.
+            edit:
+                button: 'Edit Activity'
+                title: 'Edit Period Activity'
+            missing.warning: 'The period activity was not available.'
 periods:
     constraint:
         late: 'The period time exceeds the limit of the day. (%limit%)'

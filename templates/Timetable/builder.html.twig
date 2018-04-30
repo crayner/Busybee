@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 card">
-                {% include 'Pagination/search_only.html.twig' %}
+                <div class="hideSearch">{% include 'Pagination/search_only.html.twig' %}</div>
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"'}) %}
                 {% include 'Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'Timetable', 'panelParagraph': 'timetable.period.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
@@ -34,19 +34,17 @@
                                             {{ activity.fullName }}
                                         </div>
                                         <div class="col-4 small{{ activity.status.class }}">
-                                            {% include 'Timetable/Period/activityDetails.html.twig' with {id: period.id, details: activity.details, status: activity.status  } %}
+                                            {% include 'Timetable/Period/activityDetails.html.twig' with {id: period.id, details: activity.details, status: activity.status } %}
                                         </div>
                                         <div class="col-4">
                                             <div>
-                                                {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit',
-                                                    {'activity': activity.id, 'closeWindow': '_closeWindow', activityType: 'Class'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'},
-                                                    'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
-                                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('activity_edit', {'id':
-                                                    activity.activity.activity.id, 'closeWindow': '_closeWindow'}), 'target': 'Activity',
-                                                    'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button',
-                                                    'transDomain': transDomain})|raw }}
-
-                                                {{ deleteButton({'class': 'removeActivity halflings halflings-erase btn btn-warning', 'additional': 'id="removeActivity' ~ activity.id ~ '" period="' ~ period.id ~ '"', 'title': 'period.activities.activity.remove.button', 'transDomain': transDomain})|raw }}
+                                                {{ editButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_activity_edit',
+                                                    {activity: activity.id, closeWindow: '_closeWindow', activityType: 'Class'}), target: 'PeriodActivity', params: 'width=500,height=600'},
+                                                    title: 'period.activities.activity.overwrite.button', transDomain: transDomain})|raw }}
+                                                {{ miscButton({'class': 'fas fa-cog btn btn-sm btn-success', windowOpen: {route: path('activity_edit', {id:
+                                                    activity.activity.activity.id, closeWindow: '_closeWindow', activityType: 'Class'}), target: 'Activity',
+                                                    params: 'width=1200,height=800'}, title: 'period.activities.activity.edit.button', transDomain: transDomain})|raw }}
+                                                {{ deleteButton({mergeClass: 'removeActivity btn-sm', colour: 'warning', additional: {id: 'removeActivity' ~ activity.id, period: period.id}, title: 'period.activities.activity.remove.button', transDomain: transDomain})|raw }}
                                             </div>
                                         </div>
                                     </div>
@@ -60,10 +58,10 @@
                     </div>
                 {% endfor %}
                 {% include 'Page/panelEnd.html.twig' %}
-                {% include 'Page/panelStart.html.twig' with {header: 'timetable.grade.control.title', transDomain: 'Timetable', panelParagraph: 'timetable.grade.control.description', h3Content: '', bodyAttr: 'id=tt_grade_control'} %}
+                {% include 'Page/panelStart.html.twig' with {header: 'timetable.grade.control.title', transDomain: 'Timetable', panelParagraph: 'timetable.grade.control.description', h3Content: '', panelAttr: 'id=timetable_grade_control'} %}
                 {% set row = 0 %}
                 {% set control = app.session.get('gradeControl')|default({}) %}
-                {% for grade in grades %}
+                {% for grade in manager.calendarGrades %}
                     {% if row == 0 %}
                         <div class="row">
                     {% endif %}
@@ -149,14 +147,15 @@
                     'display': 'flex',
                     'position': 'static',
                     'min-height': 'auto',
-                    'background-image': 'none'
+                    'background-image': 'none',
+                    'width': ''
                 });
 
-                button.toggleClass('glyphicons-lock');
-                button.toggleClass('glyphicons-unlock');
+                button.toggleClass('fa-lock fa-unlock');
                 $('#periodStatus' + id).fadeOut(1000);
                 $('#period_pagination').fadeIn(1000);
-                $('#tt_grade_control').fadeIn(1000);
+                $('#timetable_grade_control').fadeIn(1000);
+                $('.hideSearch').fadeIn(1000);
                 $('#resetButton').attr('reset', 'All');
             } else {
                 $clear.css({
@@ -168,22 +167,22 @@
                     'top': '250px',
                     'display': 'flex',
                     'min-height': '75px',
-                    'width': $width,
-                    'background-image': 'linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%)'
+                    'background-image': 'linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%)',
+                    'width': $fix.parent().width()
                 });
-                button.toggleClass('glyphicons-lock');
-                button.toggleClass('glyphicons-unlock');
+                button.toggleClass('fa-lock fa-unlock');
                 $('#resetButton').attr('reset', id);
                 $('#periodStatus' + id).fadeIn(1000);
                 $('#period_pagination').fadeOut(10);
-                $('#tt_grade_control').fadeOut(10);
+                $('#timetable_grade_control').fadeOut(10);
+                $('.hideSearch').fadeOut(10);
             }
 
 
         }
 
         function manageLineDrop(line, period) {
-            var path = '{{ path('period_builder_line', {'id': '__period__', 'line': '__line__'}) }}';
+            var path = '{{ path('period_drop_line', {'id': '__period__', 'line': '__line__'}) }}';
             path = path.replace('__period__', period);
             path = path.replace('__line__', line);
 
@@ -191,7 +190,7 @@
         }
 
         function manageActivityDrop(activity, period) {
-            var path = '{{ path('period_builder_activity', {'id': '__period__', 'activity': '__activity__'}) }}';
+            var path = '{{ path('period_drop_activity', {'id': '__period__', 'activity': '__activity__'}) }}';
             path = path.replace('__period__', period);
             path = path.replace('__activity__', activity);
 
@@ -203,7 +202,7 @@
         fixPeriod({{ all }} );
         {% endif %}
 
-        $('.removeActivity').click(function () {
+        $(document).on('click', '.removeActivity', function () {
 
             var id = $(this).attr('id');
 
@@ -223,13 +222,15 @@
                     success: function (data) {
                         if (data['status'] === 'success') {
                             $('#periodActivity' + id).fadeOut(2000);
-                            $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                            $('.messageWindow').html(data['message']).fadeIn(5);
+                            buildLine();
+                            buildActivity();
                             return true;
                         } else if (data['status'] === 'error') {
-                            $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                            $('.messageWindow').html(data['message']).fadeIn(5);
                             return false;
                         } else if (data['status'] === 'warning') {
-                            $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                            $('.messageWindow').html(data['message']).fadeIn(5);
                             return false;
                         }
                     }

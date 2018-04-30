@@ -5,8 +5,10 @@ use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
+use App\Entity\FaceToFace;
 use App\Entity\Student;
 use App\Entity\TimetablePeriod;
+use App\Entity\TimetablePeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,7 +61,6 @@ class PeriodManager
     /**
      * Get Period Status
      *
-     * @param $id Period ID
      * @return \stdClass
      */
     public function getPeriodStatus(): \stdClass
@@ -77,9 +78,9 @@ class PeriodManager
         $status->id = $this->getPeriod()->getId();
 
         $problems = false;
-        foreach ($this->period->getActivities() as $activity) {
+        foreach ($this->getPeriod()->getActivities() as $activity) {
             $report = $this->getActivityStatus($activity);
-            if ($this->alert[$report->alert] > $this->alert[$status->alert]) {
+            if ($this->getMessageManager()->compareLevel($report->alert, $status->alert)) {
                 $status->alert = $report->alert;
                 $problems = true;
             }
@@ -199,10 +200,10 @@ class PeriodManager
             $grades[$grade->getId()] = $students;
         }
 
-        foreach ($this->period->getActivities() as $q => $pa) {
+        foreach ($this->getPeriod()->getActivities() as $q => $pa) {
             $act = $pa->getActivity();
             foreach ($act->getStudents() as $student) {
-                $grade = $student->getStudentCalendarGroup($this->currentYear);
+                $grade = $student->getStudentCalendarGrades($this->getCurrentCalendar());
 
                 if ($grade instanceof Grade && isset($grades[$grade->getId()][$student->getId()]))
                     unset($grades[$grade->getId()][$student->getId()]);
@@ -283,15 +284,6 @@ class PeriodManager
     }
 
     /**
-     * get Grade Control
-     * @return array
-     */
-    private function getGradeControl(): array
-    {
-        return is_array($this->getStack()->getCurrentRequest()->getSession()->get('gradeControl')) ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
-    }
-
-    /**
      * @return Calendar
      */
     public function getCurrentCalendar(): Calendar
@@ -305,5 +297,220 @@ class PeriodManager
     public function getMessageManager(): MessageManager
     {
         return $this->messageManager;
+    }
+
+    /**
+     * @param $activity
+     */
+    public function addActivity($activity)
+    {
+        $activity = $this->getEntityManager()->getRepository(FaceToFace::class)->find($activity);
+
+        $exists = new ArrayCollection();
+        foreach ($this->getPeriod()->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        if (!$exists->contains($activity)) {
+            $act = new TimetablePeriodActivity();
+            $act->setPeriod($this->getPeriod());
+            $act->setActivity($activity);
+            $this->getPeriod()->getActivities()->add($act);
+            $this->getMessageManager()->add('success', 'period.activities.line.added', [], 'Timetable');
+            $this->getEntityManager()->persist($this->getPeriod());
+            $this->getEntityManager()->flush();
+        } else
+            $this->getMessageManager()->add('warning', 'period.activities.line.none', [], 'Timetable');
+
+        return;
+
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @return \stdClass
+     */
+    public function getActivityStatus(TimetablePeriodActivity $activity = null): \stdClass
+    {
+        if (!$activity instanceof TimetablePeriodActivity) {
+            $status = new \stdClass();
+            $status->class = 'default';
+            $status->alert = 'default';
+            $status->id = null;
+            $this->status = $status;
+            return $status;
+        }
+
+        if (isset($this->status->id) && $this->status->id === $activity->getId())
+            return $this->status;
+
+        $this->status = new \stdClass();
+        $this->status->id = $activity->getId();
+        $this->status->alert = 'default';
+        $this->status->class = '';
+
+        if (is_null($activity->getSpace())) {
+            $this->status->class = ' alert-warning';
+            $this->status->alert = 'warning';
+            $this->getMessageManager()->add('warning', 'period.activities.activity.space.missing', [], 'Timetable');
+        } else {
+            if (isset($this->spaces[$activity->getSpace()->getName()])) {
+                $act = $this->spaces[$activity->getSpace()->getName()];
+                $this->status->class = ' alert-warning';
+                $this->status->alert = 'warning';
+                $this->getMessageManager()->add('warning','period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'Timetable');
+            }
+            $this->spaces[$activity->getSpace()->getName()] = $activity->getActivity();
+        }
+
+        if (is_null($activity->getTutor1())) {
+            $this->status->class = ' alert-warning';
+            $this->status->alert = 'warning';
+            $this->getMessageManager()->add('warning','period.activities.activity.staff.missing', [], 'Timetable');
+        } elseif (!is_null($activity->getTutor1()) && isset($this->staff[$activity->getTutor1()->getFullName()])) {
+            $act = $this->staff[$activity->getTutor1()->getFullName()];
+            $this->status->class = ' alert-warning';
+            $this->status->alert = 'warning';
+            $this->getMessageManager()->add('warning','period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'Timetable');
+        } elseif (!is_null($activity->getTutor1()) && !isset($this->staff[$activity->getTutor1()->getFullName()]))
+            $this->staff[$activity->getTutor1()->getFullName()] = $activity->getActivity();
+
+        if (!is_null($activity->getTutor2()) && isset($this->staff[$activity->getTutor2()->getFullName()])) {
+            $act = $this->staff[$activity->getTutor2()->getFullName()];
+            $this->status->class = ' alert-warning';
+            $this->status->alert = 'warning';
+            $this->getMessageManager()->add('warning','period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'Timetable');
+        } elseif (!is_null($activity->getTutor2()) && !isset($this->staff[$activity->getTutor2()->getFullName()]))
+            $this->staff[$activity->getTutor2()->getFullName()] = $activity->getActivity();
+
+        if (!is_null($activity->getTutor3()) && isset($this->staff[$activity->getTutor3()->getFullName()])) {
+            $act = $this->staff[$activity->getTutor3()->getFullName()];
+            $this->status->class = ' alert-warning';
+            $this->status->alert = 'warning';
+            $this->getMessageManager()->add('warning','period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'Timetable');
+        } elseif (!is_null($activity->getTutor3()) && !isset($this->staff[$activity->getTutor3()->getFullName()]))
+            $this->staff[$activity->getTutor3()->getFullName()] = $activity->getActivity();
+
+        if (count($this->getMessageManager()->getMessages()) > 0) {
+            $this->failedStatus[$this->status->id] = $this->status->alert = $this->getMessageManager()->getHighestLevel();
+            $this->getMessageManager()->add($this->status->alert,'period.activities.activity.report.button', [], 'Timetable');
+        }
+
+        return $this->status;
+    }
+
+    /**
+     * get Grade Control
+     * @return array
+     */
+    public function getGradeControl(): array
+    {
+        return is_array($this->getStack()->getCurrentRequest()->getSession()->get('gradeControl')) ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @return array
+     */
+    public function getActivityDetails(?TimetablePeriodActivity $activity): array
+    {
+        if (!$activity instanceof TimetablePeriodActivity) {
+            $data = [];
+            $data['%space%'] = '';
+            $data['%tutor1%'] = '';
+            $data['%tutor2%'] = '';
+            $data['%tutor3%'] = '';
+            return $data;
+        }
+
+        $data = [];
+        $data['%space%'] = is_null($activity->getSpace()) ? '' : $activity->getSpace()->getName();
+        $data['space_id'] = is_null($activity->getSpace()) ? '' : $activity->getSpace()->getId();
+        $data['%tutor1%'] = is_null($activity->getTutor1()) ? '' : $activity->getTutor1()->getFullName();
+        $data['tutor1_id'] = is_null($activity->getTutor1()) ? '' : $activity->getTutor1()->getId();
+        $data['%tutor2%'] = is_null($activity->getTutor2()) ? '' : $activity->getTutor2()->getFullName();
+        $data['tutor2_id'] = is_null($activity->getTutor2()) ? '' : $activity->getTutor2()->getId();
+        $data['%tutor3%'] = is_null($activity->getTutor3()) ? '' : $activity->getTutor3()->getFullName();
+        $data['tutor3_id'] = is_null($activity->getTutor3()) ? '' : $activity->getTutor3()->getId();
+
+        return $data;
+    }
+
+    /*
+     * @var null|\stdClass
+     */
+    private $status;
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function removeActivity(int $id): bool
+    {
+        $this->status = new \stdClass();
+
+        $this->status->status = 'success';
+
+        $this->findActivity($id);
+
+        if (! $this->activity)
+        {
+            $this->status->status = 'warning';
+            $this->getMessageManager()->add('warning', 'period.activities.activity.missing.warning', [], 'Timetable');
+            return false;
+        }
+
+        $this->getPeriod()->removeActivity($this->getActivity());
+
+        try {
+            $this->getEntityManager()->persist($this->getPeriod());
+            $this->getEntityManager()->remove($this->getActivity());
+            $this->getEntityManager()->flush();
+        } catch (\Exception $e) {
+            $this->getMessageManager()->add('danger', 'period.activities.activity.remove.error', ['%name%' => $this->getActivity()->getFullName(), '%error%' => $e->getMessage()], 'Timetable');
+            $this->status->status = 'error';
+            return false;
+        }
+        $this->getMessageManager()->add('success', 'period.activities.activity.remove.success', ['%name%' => $this->getActivity()->getFullName()], 'Timetable');
+        return true;
+    }
+
+    /**
+     * @var TimetablePeriodActivity|null
+     */
+    private $activity;
+
+    /**
+     * @param int $id
+     * @return TimetablePeriodActivity|null
+     */
+    public function findActivity(int $id): ?TimetablePeriodActivity
+    {
+        return $this->setActivity($this->getEntityManager()->getRepository(TimetablePeriodActivity::class)->find(intval($id)))->getActivity();
+    }
+
+    /**
+     * @return TimetablePeriodActivity|null
+     */
+    public function getActivity(): ?TimetablePeriodActivity
+    {
+        return $this->activity;
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @return PeriodManager
+     */
+    public function setActivity(?TimetablePeriodActivity $activity): PeriodManager
+    {
+        $this->activity = $activity;
+        return $this;
+    }
+
+    /**
+     * @return null|\stdClass
+     */
+    public function getStatus(): ?\stdClass
+    {
+        return $this->status;
     }
 }

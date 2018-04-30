@@ -159,9 +159,16 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
      * @param TimetablePeriod|null $period
      * @return TimetablePeriodActivity
      */
-    public function setPeriod(?TimetablePeriod $period): TimetablePeriodActivity
+    public function setPeriod(?TimetablePeriod $period, $add = true): TimetablePeriodActivity
     {
+        if ($add && $period)
+            $period->addActivity($this, false);
+
+        if ($add && !$period)
+            $period->removeActivity($this);
+
         $this->period = $period;
+
         return $this;
     }
 }

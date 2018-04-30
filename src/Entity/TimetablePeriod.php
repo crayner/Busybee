@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Timetable\Extension\TimetablePeriodExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 class TimetablePeriod extends TimetablePeriodExtension
 {
@@ -135,6 +136,9 @@ class TimetablePeriod extends TimetablePeriodExtension
         if (empty($this->activities))
             $this->activities = new ArrayCollection();
 
+        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
+            $this->activities->initialize();
+
         return $this->activities;
     }
 
@@ -145,6 +149,38 @@ class TimetablePeriod extends TimetablePeriodExtension
     public function setActivities(?Collection $activities): TimetablePeriod
     {
         $this->activities = $activities;
+        return $this;
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @param bool $add
+     * @return TimetablePeriod
+     */
+    public function addActivity(?TimetablePeriodActivity $activity, $add = true): TimetablePeriod
+    {
+        if (empty($activity) || $this->getActivities()->contains($activity))
+            return $this;
+
+        if ($add)
+            $activity->setPeriod($this, false);
+
+        $this->activities->add($activity);
+
+        return $this;
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @return TimetablePeriod
+     */
+    public function removeActivity(?TimetablePeriodActivity $activity): TimetablePeriod
+    {
+        if ($activity) {
+            $activity->setPeriod(null, false);
+            $this->getActivities()->removeElement($activity);
+        }
+
         return $this;
     }
 

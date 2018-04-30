@@ -171,7 +171,7 @@ class_students:
      */
     public function getActivityType(): ?string
     {
-        return $this->activityType;
+        return strtolower($this->activityType);
     }
 
     /**
@@ -180,7 +180,7 @@ class_students:
      */
     public function setActivityType(string $activityType): ActivityManager
     {
-        $this->activityType = $activityType;
+        $this->activityType = strtolower($activityType);
         return $this;
     }
 

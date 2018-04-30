@@ -12,6 +12,7 @@ use App\Entity\Term;
 use App\Entity\Timetable;
 use App\Entity\TimetableAssignedDay;
 use App\Entity\TimetableColumn;
+use App\Entity\TimetablePeriodActivity;
 use App\Pagination\PeriodPagination;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -699,5 +700,27 @@ timetable:
         $per->status->alert = $this->getMessageManager()->getHighestLevel();
 
         return $per;
+    }
+
+    /**
+     * @param TimetablePeriodActivity $activity
+     * @return bool
+     */
+    private function activeGrade(TimetablePeriodActivity $activity): bool
+    {
+        $control = $this->getPeriodManager()->getGradeControl();
+        foreach ($activity->getActivity()->getCalendarGrades()->getIterator() as $grade)
+            if (!isset($control[$grade->getGrade()]) || $control[$grade->getGrade()])
+                return true;
+
+        return false;
+    }
+
+    /**
+     * @return RequestStack
+     */
+    public function getStack(): RequestStack
+    {
+        return $this->stack;
     }
 }

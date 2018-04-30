@@ -235,7 +235,7 @@ class TimetableController extends Controller
                 'periodManager' => $periodManager,
                 'all' => $all,
                 'report' => $report,
-                'grades' => $timetableManager->getCalendarGrades(),
+                'manager' => $timetableManager,
             ]
         );
     }
@@ -350,7 +350,7 @@ class TimetableController extends Controller
      * @param $id
      * @param $line
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/period/{id}/line/{$line}/builder/", name="period_builder_line")
+     * @Route("/period/{id}/line/{line}/drop/", name="period_drop_line")
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function addLineToPeriod($id, $line, Request $request)
@@ -369,56 +369,44 @@ class TimetableController extends Controller
     }
 
     /**
-     * @param $id
-     * @param $activity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/period/{$id}/activity/{activity}/builder/", name="period_builder_activity")
+     * @Route("/period/{id}/activity/{activity}/drop/", name="period_drop_activity")
      * @IsGranted("ROLE_PRINCIPAL")
+     * @param int $id
+     * @param int $activity
+     * @param PeriodManager $periodManager
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addActivityToPeriod($id, $activity)
+    public function addActivityToPeriod(int $id, int $activity, PeriodManager $periodManager)
     {
-        $period = $this->get('period.repository')->find($id);
+        $period = $periodManager->find($id);
 
-        $pm = $this->get('period.manager')->injectPeriod($period);
+        $periodManager->addActivity($activity);
 
-        $pm->injectActivityGroup($activity);
-
-        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimetable()->getId(), 'all' => $id]));
+        return $this->forward(TimetableController::class.'::builder', ['id' => $period->getTimetable()->getId(), 'all' => $id]);
     }
 
     /**
      * @param $id
      * @param $activity
      * @return JsonResponse
-     * @Route("/period/{$id}/activity/{activity}/remove/", name="period_remove_activity")
+     * @Route("/period/{id}/activity/{activity}/remove/", name="period_remove_activity")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function removePeriodActivity($id, $activity)
+    public function removePeriodActivity($id, $activity, PeriodManager $periodManager, TwigManager $twig)
     {
-        $period = $this->get('period.repository')->find($id);
+        $periodManager->find($id);
 
-        $pa = $this->get('period.activity.repository')->find($activity);
+        $periodManager->removeActivity($activity);
 
-        $name = $pa->getActivity()->getFullName();
+        $status = $periodManager->getStatus()->status;
 
-        $period->getActivities()->removeElement($pa);
-
-        $om = $this->get('doctrine')->getManager();
-
-        try {
-            $om->persist($period);
-            $om->remove($pa);
-            $om->flush();
-        } catch (\Exception $e) {
-            return new JsonResponse(
-                array(
-                    'message' => '<div class="alert alert-danger">' . $this->get('translator')->trans('period.activities.activity.remove.error', ['%error%' => $e->getMessage()], 'BusybeeTimetableBundle') . '</div>',
-                    'status' => 'error',
-                ),
-                200
-            );
-
-        }
+        return new JsonResponse(
+            [
+                'message'   => $periodManager->getMessageManager()->renderView($twig->getTwig()),
+                'status'    => $status,
+            ],
+            200
+        );
     }
 
     /**
@@ -793,12 +781,10 @@ class TimetableController extends Controller
         $column = $columnManager->find($id);
 
         $columnManager->generatePeriods();
-dump($columnManager->getColumn());
+
         $form = $this->createForm(ColumnType::class, $columnManager->getColumn());
 
         $form->handleRequest($request);
-
-        dump([$request->request, $form, $columnManager->getColumn()]);
 
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -809,6 +795,58 @@ dump($columnManager->getColumn());
         }
 
         return $this->render('Timetable/Period/manage.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            ]
+        );
+    }
+
+    /*
+     * @Route("/period/(id)/plan/report/", name="period_plan_report")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $id
+     * @param PeriodManager $periodManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function periodReport($id, PeriodManager $periodManager)
+    {
+        $report = $periodManager->generatePeriodReport($id);
+
+        return $this->render('Plan/report.html.twig',
+            [
+                'report' => $report,
+                'manager' => $periodManager,
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param $activity
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/period/activity/{activity}/edit/", name="period_activity_edit")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function editPeriodActivity(Request $request, $activity)
+    {
+        $act = $this->get('period.activity.repository')->find($activity);
+
+        $year = $this->get('busybee_core_calendar.model.get_current_year');
+
+        $act->setLocal(true);
+
+        $form = $this->createForm(EditPeriodActivityType::class, $act, ['year_data' => $year]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $om = $this->get('doctrine')->getManager();
+            $om->persist($act);
+            $om->flush();
+        }
+
+        return $this->render('BusybeeTimeTableBundle:Periods:activity.html.twig',
             [
                 'form' => $form->createView(),
                 'fullForm' => $form,

@@ -10,7 +10,7 @@
         {% set header = 'timetable.line.activitygroup.header' %}
 
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.activitygroup.remove', 'transDomain': 'Timetable', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'collectionName': 'activityGroup'})|raw %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.activitygroup.remove', 'transDomain': 'Timetable', 'class': 'fas fa-eraser btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'collectionName': 'activityGroup'})|raw %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton({'collectionName': 'activityGroup'})|raw %}
