@@ -20,14 +20,15 @@ class MessageManager
      * @var array
      */
     private $statusLevel = [
-        'default' => 0,
-        'light'   => 1,
-        'dark'    => 2,
-        'primary' => 4,
-        'success' => 8,
-        'info'    => 16,
-        'warning' => 32,
-        'danger'  => 64,
+        'default'   => 0,
+        'light'     => 1,
+        'dark'      => 2,
+        'secondary' => 4,
+        'primary'   => 8,
+        'success'   => 16,
+        'info'      => 32,
+        'warning'   => 64,
+        'danger'    => 128,
     ];
 
 	/**
@@ -164,6 +165,8 @@ class MessageManager
      */
     public function compareLevel($stat1, $stat2 = 'default'): bool
     {
+        $stat1 = strtolower($stat1);
+        $stat2 = strtolower($stat2);
         if (! in_array($stat1, $this->statusLevel))
             return false;
         if (! in_array($stat2, $this->statusLevel))
