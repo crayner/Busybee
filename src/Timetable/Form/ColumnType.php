@@ -12,20 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ColumnType extends AbstractType
 {
     /**
-     * @var ColumnSubscriber
-     */
-    private $columnSubscriber;
-
-    /**
-     * ColumnType constructor.
-     * @param ColumnSubscriber $columnSubscriber
-     */
-    public function __construct(ColumnSubscriber $columnSubscriber)
-    {
-        $this->columnSubscriber = $columnSubscriber;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -65,5 +51,7 @@ class ColumnType extends AbstractType
                 ]
             )
         ;
+
+        $builder->addEventSubscriber(new ColumnSubscriber());
     }
 }

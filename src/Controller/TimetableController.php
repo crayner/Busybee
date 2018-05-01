@@ -792,6 +792,8 @@ class TimetableController extends Controller
                 $columnManager->getEntityManager()->persist($period);
             $columnManager->getEntityManager()->persist($columnManager->getColumn());
             $columnManager->getEntityManager()->flush();
+
+            $form = $this->createForm(ColumnType::class, $columnManager->getColumn());
         }
 
         return $this->render('Timetable/Period/manage.html.twig',

@@ -1,2 +1,4 @@
 space.unique.name: '{{ value }} Must be Unique'
 tutor.activity.link.duplicate: That person is already linked to this activity.
+column.code.validator.unique: 'The code is not unique!'
+column.name.validator.unique: 'The name is not unique!'

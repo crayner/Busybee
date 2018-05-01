@@ -172,6 +172,7 @@ column:
     periods:
         count: '{0}No periods are attached.|{1}One Period is attached.|]1,Inf[%{count} periods are attached.'
         manage: 'Create / Manage Periods'
+        manage.title: Manage Periods
     period.period_type:
         class: Teaching
         break: Break
