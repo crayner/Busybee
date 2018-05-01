@@ -17,11 +17,6 @@ class MessageManager
 	private $messages = [];
 
     /**
-     * @var bool
-     */
-	private $useRaw = false;
-
-    /**
      * @var array
      */
     private $statusLevel = [
@@ -41,6 +36,9 @@ class MessageManager
 	 * @param string      $level
 	 * @param string      $message
 	 * @param array       $options
+     * Special Options
+     *     useRaw: The twig template will return raw content of the message.
+     *     transChoice: The twig template use transChoice (and the transChoice value.)
 	 * @param string|null $domain
 	 *
 	 * @return $this
@@ -72,7 +70,7 @@ class MessageManager
 	 */
 	public function add(string $level, string $message, array $options = [], string $domain = null)
 	{
-		return $this->addMessage($level, $message,$options,  $domain );
+		return $this->addMessage($level, $message, $options, $domain);
 	}
 
 	/**
@@ -155,24 +153,6 @@ class MessageManager
 
 		return $twig->render('Default/messages.html.twig', ['messages' => $this]);
 	}
-
-    /**
-     * @return bool
-     */
-    public function isUseRaw(): bool
-    {
-        return $this->useRaw;
-    }
-
-    /**
-     * @param bool $useRaw
-     * @return MessageManager
-     */
-    public function setUseRaw(bool $useRaw): MessageManager
-    {
-        $this->useRaw = $useRaw;
-        return $this;
-    }
 
     /**
      * Compare Level

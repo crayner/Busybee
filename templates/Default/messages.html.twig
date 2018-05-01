@@ -9,10 +9,18 @@
     {% endif %}
     {% for message in messages.messages %}
         <{{ element }} class="alert alert-{{ message.level }}{{ flashClass }} alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
-            {% if messages.useRaw is same as(true) %}
-                {{ message.message|trans(message.options, message.domain)|raw }}
+            {% if message.useRaw is same as(true) %}
+                {% if message.transChoice is same as(false) %}
+                    {{ message.message|trans(message.options, message.domain)|raw }}
+                {% else %}
+                    {{ message.message|transchoice(message.transChoice, message.options, message.domain)|raw }}
+                {% endif %}
             {% else %}
-                {{ message.message|trans(message.options, message.domain) }}
+                {% if message.transChoice is same as(false) %}
+                    {{ message.message|trans(message.options, message.domain) }}
+                {% else %}
+                    {{ message.message|transchoice(message.transChoice, message.options, message.domain) }}
+                {% endif %}
             {% endif %}
             <button type="button" class="close far fa-times-circle" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}" aria-hidden="true"></button>
         </{{ element }}>

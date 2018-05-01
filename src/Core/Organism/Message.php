@@ -23,6 +23,16 @@ class Message
 	 */
 	private $domain;
 
+    /**
+     * @var mixed
+     */
+	private $transChoice = false;
+
+    /**
+     * @var bool
+     */
+	private $useRaw = false;
+
 	/**
 	 * Message constructor.
 	 */
@@ -83,9 +93,23 @@ class Message
 		return $this;
 	}
 
-	public function addOption($name, $element)
+    /**
+     * @param $name
+     * Special Options
+     *     useRaw: The twig template will return raw content of the message.
+     *     transChoice: The twig template use transChoice (and the transChoice value.)
+     * @param $element
+     * @return $this|Message
+     */
+    public function addOption($name, $element)
 	{
-		$this->options[$name] = $element;
+        if ($name === 'transChoice')
+            return $this->setTransChoice($element);
+
+        if ($name === 'useRaw')
+            return $this->setUseRaw();
+
+        $this->options[$name] = $element;
 
 		return $this;
 	}
@@ -118,4 +142,39 @@ class Message
 
 		return $this;
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getTransChoice()
+    {
+        return $this->transChoice;
+    }
+
+    /**
+     * @param mixed $transChoice
+     * @return Message
+     */
+    public function setTransChoice($transChoice)
+    {
+        $this->transChoice = $transChoice;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUseRaw(): bool
+    {
+        return $this->useRaw;
+    }
+
+    /**
+     * @return Message
+     */
+    public function setUseRaw(): Message
+    {
+        $this->useRaw = true;
+        return $this;
+    }
 }
