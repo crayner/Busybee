@@ -347,25 +347,20 @@ class TimetableController extends Controller
     }
 
     /**
-     * @param $id
-     * @param $line
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/period/{id}/line/{line}/drop/", name="period_drop_line")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function addLineToPeriod($id, $line, Request $request)
+    public function addLineToPeriod(int $id, int $line, Request $request, PeriodManager $periodManager, TwigManager $twig)
     {
-        $period = $this->get('period.repository')->find($id);
+        $period = $periodManager->find($id);
 
-        $pm = $this->get('period.manager')->injectPeriod($period);
+        $periodManager->addLine($line);
 
-        $pm->injectLineGroup($line);
-
-        if (preg_match('#timetable\/([0-9]{1,})\/builder\/(All|[0-9]{1,})\/$#', $request->headers->get('referer')))
-            return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimetable()->getId(), 'all' => $id]));
-        elseif (preg_match('#timetable\/line\/([0-9]{1,})\/periods\/([0-9]{1,})\/search\/$#', $request->headers->get('referer')))
-            return $this->redirect($this->generateUrl('line_periods_search', ['tt' => $period->getTimetable()->getId(), 'id' => $line]));
-        throw new Exception('Illegal Page call');
+        return new JsonResponse(
+            [
+                'message' => $periodManager->getMessageManager()->renderView($twig->getTwig()),
+            ],
+            200);
     }
 
     /**
@@ -855,4 +850,75 @@ class TimetableController extends Controller
             ]
         );
     }
+
+    /**
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/period/builder/{all}/", name="timetable_period_builder")
+     * @param Request $request
+     * @param $id
+     * @param string $all
+     * @param TimetableManager $timetableManager
+     * @param PeriodPagination $periodPagination
+     * @param PeriodManager $periodManager
+     * @return JsonResponse
+     */
+    public function builderPeriod(Request $request, $id, $all = 'All',
+                            TimetableManager $timetableManager, PeriodPagination $periodPagination,
+                            PeriodManager $periodManager)
+    {
+        $timetable = $timetableManager->find($id);
+
+        $periodPagination->setTimetable($timetable);
+
+        $periodPagination->injectRequest($request);
+
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
+        $param = [];
+        foreach ($timetableManager->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
+                $param[] = $w->getGrade();
+            else
+                $gradeControl[$w->getGrade()] = false;
+        }
+
+        $request->getSession()->set('gradeControl', $gradeControl);
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $periodPagination->setLimit(1000)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $periodPagination->getDataSet();
+
+        $report = $timetableManager->getReport($periodPagination);
+
+        $content = $this->renderView('Timetable/Period/builder.html.twig',
+            [
+                'pagination' => $periodPagination,
+                'periodManager' => $periodManager,
+                'all' => $all,
+                'report' => $report,
+                'manager' => $timetableManager,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200);
+    }
+
 }

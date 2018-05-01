@@ -6,6 +6,7 @@ use App\Core\Manager\MessageManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
+use App\Entity\Line;
 use App\Entity\Student;
 use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
@@ -512,5 +513,35 @@ class PeriodManager
     public function getStatus(): ?\stdClass
     {
         return $this->status;
+    }
+
+    /**
+     * @param int $line
+     */
+    public function addLine(int $line)
+    {
+        $line = $this->getEntityManager()->getRepository(Line::class)->find($line);
+
+        $count = 0;
+
+        $exists = new ArrayCollection();
+        foreach ($this->period->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        foreach ($line->getCourses()->getIterator() as $course)
+            foreach($course->getActivities()->getIterator() as $activity)
+                if (! $exists->contains($activity)) {
+                    $act = new TimetablePeriodActivity();
+                    $act->setPeriod($this->period);
+                    $act->setActivity($activity);
+                    $count++;
+                }
+
+        if ($count > 0) {
+            $this->getEntityManager()->persist($this->period);
+            $this->getEntityManager()->flush();
+            $this->getMessageManager()->add('success', 'period.activities.line.added', ['transChoice' => $count], 'Timetable');
+        } else
+            $this->getMessageManager()->add('warning', 'period.activities.line.added', ['transChoice' => 0], 'Timetable');
     }
 }

@@ -139,6 +139,8 @@ class TimetablePeriod extends TimetablePeriodExtension
         if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
             $this->activities->initialize();
 
+
+
         return $this->activities;
     }
 

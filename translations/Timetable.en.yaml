@@ -206,6 +206,7 @@ period:
                 button: 'Edit Activity'
                 title: 'Edit Period Activity'
             missing.warning: 'The period activity was not available.'
+        line.added: '{0}No activities were added.|{1}One activity was added.|]1,Inf[%count% activities were added.'
 periods:
     constraint:
         late: 'The period time exceeds the limit of the day. (%limit%)'

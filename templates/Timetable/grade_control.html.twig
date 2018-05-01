@@ -1,0 +1,32 @@
+{% trans_default_domain 'Timetable' %}
+
+{% include 'Page/panelStart.html.twig' with {header: 'timetable.grade.control.title', transDomain: 'Timetable', panelParagraph: 'timetable.grade.control.description', h3Content: '', panelAttr: 'id=timetable_grade_control'} %}
+{% set row = 0 %}
+{% set control = app.session.get('gradeControl')|default({}) %}
+{% for grade in manager.calendarGrades %}
+    {% if row == 0 %}
+        <div class="row">
+    {% endif %}
+    <div class="col-4 card">
+        <div>
+            {{ miscButton({title: 'timetable.grade.view.button', class: 'btn btn-info fas fa-eye', javascript: {function: 'openGradeTimeTable', options: [grade.grade]}, transDomain: 'Timetable'})|raw }}
+            {% set checked = '0' %}
+            {% set button_class = 'btn btn-danger far fa-times-circle' %}
+            {% if control[grade.grade] is not defined or control[grade.grade] %}
+                {% set checked = '1' %}
+                {% set button_class = 'btn btn-success far fa-check-circle' %}
+            {% endif %}
+            {{ toggleButton({class: button_class, toggle_swap: 'btn-success fa-check-circle btn-danger fa-times-circle', id: 'grade_' ~ grade.grade, name: 'control[' ~ grade.grade ~ ']', value: checked, label: 'timetable.grade.control.label'|trans({'%grade%': grade.grade}), callable: 'gradeControl' })|raw }}
+        </div>
+    </div>
+    {% set row = row + 1 %}
+    {% if row == 3 %}
+        </div>
+        {% set row = 0 %}
+    {% endif %}
+
+{% endfor %}
+{% if row > 0 %}
+    </div>
+{% endif %}
+{% include 'Page/panelEnd.html.twig' %}

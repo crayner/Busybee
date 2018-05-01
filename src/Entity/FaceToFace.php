@@ -74,4 +74,29 @@ class FaceToFace extends Activity
         $this->periods = $periods;
         return $this;
     }
+
+    /**
+     * @param TimetablePeriodActivity|null $period
+     * @param bool $add
+     * @return FaceToFace
+     */
+    public function addPeriod(?TimetablePeriodActivity $period, $add = true): FaceToFace
+    {
+        if ($period instanceof TimetablePeriodActivity || $this->getPeriods()->contains($period))
+            return $this;
+
+        if ($add)
+            $period->setActivity($this, false);
+
+        $this->periods->add($period);
+
+        return $this;
+    }
+
+    public function removePeriod(?TimetablePeriodActivity $period): FaceToFace
+    {
+        $this->getPeriods()->removeElement($period);
+
+        return $this;
+    }
 }
