@@ -315,12 +315,11 @@ class PeriodManager
             $act = new TimetablePeriodActivity();
             $act->setPeriod($this->getPeriod());
             $act->setActivity($activity);
-            $this->getPeriod()->getActivities()->add($act);
-            $this->getMessageManager()->add('success', 'period.activities.line.added', [], 'Timetable');
+            $this->getMessageManager()->add('success', 'period.activities.activity.added', [], 'Timetable');
             $this->getEntityManager()->persist($this->getPeriod());
             $this->getEntityManager()->flush();
         } else
-            $this->getMessageManager()->add('warning', 'period.activities.line.none', [], 'Timetable');
+            $this->getMessageManager()->add('warning', 'period.activities.activity.exists', [], 'Timetable');
 
         return;
 

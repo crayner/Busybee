@@ -37,17 +37,21 @@
     <!-- Builder Scripts -->
     <script type="text/javascript" language="JavaScript">
 
-        $(".dragActivity").draggable({
-            helper: 'clone'
-        });
+        function refreshDragDrop() {
+            $(".dragActivity").draggable({
+                helper: 'clone'
+            });
 
-        $(".dragLine").draggable({
-            helper: 'clone'
-        });
+            $(".dragLine").draggable({
+                helper: 'clone'
+            });
 
-        $(".dropPeriod").droppable({
-            drop: handleDropEvent
-        });
+            $(".dropPeriod").droppable({
+                drop: handleDropEvent
+            });
+        }
+
+        refreshDragDrop();
 
         function handleDropEvent(event, ui) {
             var source = ui.draggable.attr('id');
@@ -130,8 +134,14 @@
             path = path.replace('__period__', period);
             path = path.replace('__activity__', activity);
 
-            window.open(path, '_self');
-
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+                    $('#periodMessage' + period).html(data['message']).fadeIn(5);
+                    buildPeriod(data['message'], period);
+                }
+            });
         }
 
         {% if all != 'All' %}
@@ -199,12 +209,7 @@
                 type: 'POST',
                 success: function (data) {
                     $('#line_tt_manage').html(data['content']);
-                    $(".dragLine").draggable({
-                        helper: 'clone'
-                    });
-                    $(".dropPeriod").droppable({
-                        drop: handleDropEvent
-                    });
+                    refreshDragDrop();
                 }
             });
         }
@@ -217,12 +222,7 @@
                 success: function (data) {
                     $('#activity_tt_manage').html('');
                     $('#activity_tt_manage').html(data['content']);
-                    $(".dragActivity").draggable({
-                        helper: 'clone'
-                    });
-                    $(".dropPeriod").droppable({
-                        drop: handleDropEvent
-                    });
+                    refreshDragDrop();
                 }
             });
         }
@@ -233,7 +233,7 @@
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    period = period.replace('__period__', {{ app.request.get('all') }});
+                    period = period.replace('__period__', '{{ app.request.get('all') }}');
                     $('#periodFrame').html('');
                     $('#periodFrame').html(data['content']);
                     {% if all != 'All' %}

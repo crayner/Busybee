@@ -1,8 +1,8 @@
 {% trans_default_domain 'Timetable' %}
 
 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
-{% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"'}) %}
-{% include 'Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'Timetable', 'panelParagraph': 'timetable.period.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
+{% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', mergeClass: 'btn-sm'}) %}
+{% include 'Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'Timetable', 'panelParagraph': 'timetable.period.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel', headerClass: 'hideSearch'} %}
     <div id="allPeriodMessages"></div>
     {% for period in report.periods %}
         <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.id }}">

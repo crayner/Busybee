@@ -206,6 +206,8 @@ period:
                 button: 'Edit Activity'
                 title: 'Edit Period Activity'
             missing.warning: 'The period activity was not available.'
+            added: 'One Activity was added.'
+            exists: 'The activity is already in the period.'
         line.added: '{0}No activities were added.|{1}One activity was added.|]1,Inf[%count% activities were added.'
 periods:
     constraint:

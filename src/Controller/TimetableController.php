@@ -366,18 +366,19 @@ class TimetableController extends Controller
     /**
      * @Route("/period/{id}/activity/{activity}/drop/", name="period_drop_activity")
      * @IsGranted("ROLE_PRINCIPAL")
-     * @param int $id
-     * @param int $activity
-     * @param PeriodManager $periodManager
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addActivityToPeriod(int $id, int $activity, PeriodManager $periodManager)
+    public function addActivityToPeriod(int $id, int $activity, PeriodManager $periodManager, TwigManager $twig)
     {
         $period = $periodManager->find($id);
 
         $periodManager->addActivity($activity);
 
-        return $this->forward(TimetableController::class.'::builder', ['id' => $period->getTimetable()->getId(), 'all' => $id]);
+        return new JsonResponse(
+            [
+                'message' => $periodManager->getMessageManager()->renderView($twig->getTwig()),
+            ],
+            200)
+        ;
     }
 
     /**
