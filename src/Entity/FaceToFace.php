@@ -1,5 +1,6 @@
 <?php
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
@@ -90,7 +91,6 @@ class FaceToFace extends Activity
     public function removePeriod(?TimetablePeriodActivity $period): FaceToFace
     {
         $this->getPeriods()->removeElement($period);
-
         return $this;
     }
 }

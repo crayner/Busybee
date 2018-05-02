@@ -73,7 +73,7 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
     public function setActivity(?FaceToFace $activity, $add = true): TimetablePeriodActivity
     {
         if ($add && $activity)
-            $activity->addPeriodCommitment($this, false);
+            $activity->addPeriod($this, false);
 
         $this->activity = $activity;
         return $this;

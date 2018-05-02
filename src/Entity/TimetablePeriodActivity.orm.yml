@@ -34,4 +34,5 @@ App\Entity\TimetablePeriodActivity:
     oneToMany:
         tutors:
             targetEntity: App\Entity\TimetablePeriodActivityTutor
+            cascade: [ 'all' ]
             mappedBy: activity

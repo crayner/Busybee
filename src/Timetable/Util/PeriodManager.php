@@ -80,17 +80,10 @@ class PeriodManager
         $status->disableDrop = '';
         $status->id = $this->getPeriod()->getId();
 
-        $problems = false;
         foreach ($this->getPeriod()->getActivities() as $activity) {
             $report = $this->getActivityStatus($activity);
-            if ($this->getMessageManager()->compareLevel($report->alert, $status->alert)) {
+            if ($this->getMessageManager()->compareLevel($report->alert, $status->alert))
                 $status->alert = $report->alert;
-                $problems = true;
-            }
-        }
-
-        if ($problems) {
-           $this->getMessageManager()->add($status->alert,'period.status.messages', ['transChoice' => $this->getMessageManager()->count()], 'Timetable');
         }
 
         if (! in_array($this->getPeriod()->getPeriodType(), $this->getPeriod()->getPeriodTypeList('no students'))) {
@@ -101,6 +94,8 @@ class PeriodManager
                 }
             }
         }
+
+        $this->getMessageManager()->add($status->alert,'period.status.messages', ['transChoice' => $this->getMessageManager()->count()], 'Timetable');
 
         $this->periodStatus = $status;
         return $status;
@@ -371,19 +366,20 @@ class PeriodManager
             $this->spaces[$activity->loadSpace()->getName()] = $activity->getActivity();
         }
 
-        if ($activity->loadTutors()->count() > 1)
+        if ($this->hasTutors($activity))
         {
             foreach($activity->loadTutors()->getIterator() as $tutor)
             {
-                if (isset($this->staff[$tutor->getId()]))
+                $id = $tutor->getTutor()->getId();
+                if (isset($this->staff[$id]))
                 {
-                    $act = $this->staff[$tutor->getId()];
+                    $act = $this->staff[$id];
                     $this->status->class = ' alert-warning';
                     $this->status->alert = 'warning';
                     $this->getMessageManager()->add('warning','period.activities.activity.staff.duplicate', ['%{name}' => $tutor->getFullName(), '%{activity}' => $activity->getFullName(), '%{activity2}' => $act->getFullName()], 'Timetable');
                 }
                 else
-                    $this->staff[$tutor->getId()] = $activity->getActivity();
+                    $this->staff[$id] = $activity->getActivity();
             }
         }
         else
