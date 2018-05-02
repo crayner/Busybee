@@ -20,8 +20,10 @@
     {% set panelParams = {} %}
 {% endif %}
 
-{% if name is not iterable %}
-    {% set name = {'%name%': name} %}
+{% if headerParams is not defined %}
+    {% set headerParams = {'%name%': name} %}
+{% else %}
+    {% set headerParams = headerParams|merge({'%name%': name}) %}
 {% endif %}
 
 {% if h3Content is not defined %}
@@ -40,7 +42,8 @@
     <div class="card-header{% if headerClass is defined %} {{ headerClass }}{% endif %}">
         <h3 class="card-title d-flex mb-12 justify-content-between">
             <span class="p-6">
-                {{ header|trans(name)|raw }}</span>
+                {{ header|trans(headerParams)|raw }}
+            </span>
             <span class="p-6">
                 {{ h3Content|raw }}
             </span>

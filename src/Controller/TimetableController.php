@@ -358,6 +358,7 @@ class TimetableController extends Controller
 
         return new JsonResponse(
             [
+                'status' => $periodManager->getMessageManager()->getHighestLevel(),
                 'message' => $periodManager->getMessageManager()->renderView($twig->getTwig()),
             ],
             200);
@@ -375,6 +376,7 @@ class TimetableController extends Controller
 
         return new JsonResponse(
             [
+                'status' => $periodManager->getMessageManager()->getHighestLevel(),
                 'message' => $periodManager->getMessageManager()->renderView($twig->getTwig()),
             ],
             200)
@@ -394,12 +396,10 @@ class TimetableController extends Controller
 
         $periodManager->removeActivity($activity);
 
-        $status = $periodManager->getStatus()->status;
-
         return new JsonResponse(
             [
+                'status'    => $periodManager->getMessageManager()->getHighestLevel(),
                 'message'   => $periodManager->getMessageManager()->renderView($twig->getTwig()),
-                'status'    => $status,
             ],
             200
         );
@@ -649,8 +649,6 @@ class TimetableController extends Controller
 
         $request->getSession()->set('gradeControl', $gradeControl);
 
-
-        dump($param);
         $search = [];
         if (!empty($param)) {
             $search['where'] = 'g.grade IN (__name__)';
@@ -800,25 +798,6 @@ class TimetableController extends Controller
         );
     }
 
-    /*
-     * @Route("/period/(id)/plan/report/", name="period_plan_report")
-     * @IsGranted("ROLE_PRINCIPAL")
-     * @param $id
-     * @param PeriodManager $periodManager
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function periodReport($id, PeriodManager $periodManager)
-    {
-        $report = $periodManager->generatePeriodReport($id);
-
-        return $this->render('Plan/report.html.twig',
-            [
-                'report' => $report,
-                'manager' => $periodManager,
-            ]
-        );
-    }
-
     /**
      * @param Request $request
      * @param $activity
@@ -922,4 +901,23 @@ class TimetableController extends Controller
             200);
     }
 
+    /**
+     * @param int $id
+     * @param PeriodManager $periodManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/period/{id}/report/", name="period_plan_report")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function periodReport(int $id, PeriodManager $periodManager)
+    {
+        $periodManager->find($id);
+        $report = $periodManager->clearResults()->generateFullPeriodReport();
+
+        return $this->render('Timetable/Period/report.html.twig',
+            [
+                'report' => $report,
+                'manager' => $periodManager,
+            ]
+        );
+    }
 }

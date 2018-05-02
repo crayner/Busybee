@@ -1,0 +1,42 @@
+{% trans_default_domain "Timetable" %}
+
+{% extends "Default/template.html.twig" %}
+{% set fullPage = true %}
+{% set headerOff = true %}
+
+{% block title %}{{ parent() }}{{ 'period.report.title'|trans }}{% endblock title %}
+
+{% block contentContainer %}
+    <div class="messageWindow"></div>
+    {{ dump() }}
+    {#
+    {% set header = 'period.plan.header' %}
+    {% set name = {'%day%': manager.period.columnName, '%period%': manager.period.fullName} %}
+    {% set panelParagraph = 'period.plan.reportparagraph' %}
+    {% set panelParams = {'%start%': manager.period.startTime, '%end%': manager.period.endTime} %}
+    {% set transDomain = 'Timetable' %}
+    <div class="row alert alert-primary">
+        <h2>{{ header|trans(name) }}</h2>
+        <h3>{{ panelParagraph|trans(panelParams) }}</h3>
+    </div>
+    <div>{{ closeButton()|raw }}
+        {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+    </div>
+    <h3>{{ 'period.activities.activity.report.availableStaff'|trans({'%count%': report.staff.count}) }}</h3>
+    <ul>
+        {% for staff in report.staff %}
+            <li>{{ staff.fullName }} <span class="small alert-warning">{{ staff.departments }}</span></li>
+        {% endfor %}
+    </ul>
+
+    <div>{{ closeButton()|raw }}
+        {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+    </div>
+    <h3>{{ 'period.activities.activity.report.availableSpace'|trans({'%count%': report.staff.count}) }}</h3>
+    <ul>
+        {% for space in report.spaces %}
+            <li>{{ space.nameCapacity }}</li>
+        {% endfor %}
+    </ul>
+       #}
+{% endblock contentContainer %}

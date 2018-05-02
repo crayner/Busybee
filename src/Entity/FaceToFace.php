@@ -36,16 +36,6 @@ class FaceToFace extends Activity
         return $this;
     }
 
-    public function getFullName()
-    {
-        $name = '';
-        if ($this->getCourse() instanceof Course)
-        {
-            $name .= $this->getCourse()->getFullName(). ' ';
-        }
-        return $name . $this->getName();
-    }
-
     /**
      * @var null|Collection
      */
@@ -93,6 +83,10 @@ class FaceToFace extends Activity
         return $this;
     }
 
+    /**
+     * @param TimetablePeriodActivity|null $period
+     * @return FaceToFace
+     */
     public function removePeriod(?TimetablePeriodActivity $period): FaceToFace
     {
         $this->getPeriods()->removeElement($period);

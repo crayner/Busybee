@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\People\Entity\StaffExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Staff
@@ -258,4 +259,122 @@ class Staff extends StaffExtension
 
 		return $this;
 	}
+
+    /**
+     * @var null|Collection
+     */
+    private $commitments;
+
+    /**
+     * @return Collection
+     */
+    public function getCommitments(): Collection
+    {
+        $this->commitments = $this->commitments instanceof Collection ? $this->commitments : new ArrayCollection();
+
+        if ($this->commitments instanceof PersistentCollection && ! $this->commitments->isInitialized())
+            $this->commitments->initialize();
+
+        return $this->commitments;
+    }
+
+    /**
+     * @param ArrayCollection|null $commitments
+     * @return Student
+     */
+    public function setCommitments(?ArrayCollection $commitments): Person
+    {
+        if (empty($commitments))
+            return $this;
+
+        $this->commitments = $commitments;
+
+        return $this;
+    }
+
+    /**
+     * @param ActivityTutor|null $activityTutor
+     * @param bool $add
+     * @return Person
+     */
+    public function addCommitment(?ActivityTutor $activityTutor, $add = true): Person
+    {
+        if (empty($activityTutor))
+            return $this;
+
+        if ($add)
+            $activityTutor->setTutor($this, false);
+
+        if ($this->getCommitments()->contains($activityTutor))
+            return $this;
+
+        $this->commitments->add($activityTutor);
+
+        return $this;
+    }
+
+    /**
+     * @param ActivityTutor $activityTutor
+     * @return Person
+     */
+    public function removeCommitment(ActivityTutor $activityTutor): Person
+    {
+        $this->getCommitments()->removeElement($activityTutor);
+
+        return $this;
+    }
+
+
+    /**
+     * @var Collection
+     */
+    private $periodCommitments;
+
+    /**
+     * @return Collection
+     */
+    public function getPeriodCommitments(): Collection
+    {
+        if (empty($this->periodCommitments))
+            $this->periodCommitments = new ArrayCollection();
+
+        if ($this->periodCommitments instanceof PersistentCollection && ! $this->periodCommitments->isInitialized())
+            $this->periodCommitments->initialize();
+
+        return $this->periodCommitments;
+    }
+
+    /**
+     * @param null|Collection $periodCommitments
+     * @return Staff
+     */
+    public function setPeriodCommitments(?Collection $periodCommitments): Staff
+    {
+        $this->periodCommitments = $periodCommitments;
+        return $this;
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @param bool $add
+     * @return Staff
+     */
+    public function addPeriodCommitment(?TimetablePeriodActivity $activity, $add = true): Staff
+    {
+        if ($activity && $this->getPeriodCommitments()->contains($activity))
+            return $this;
+
+        if ($add)
+            $activity->setActivity($this, false);
+
+        $this->periodCommitments->add($activity);
+
+        return $this;
+    }
+
+    public function removePeriodCommitment(?TimetablePeriodActivity $activity): Staff
+    {
+        $this->getPeriodCommitments()->removeElement($activity);
+        return $this;
+    }
 }

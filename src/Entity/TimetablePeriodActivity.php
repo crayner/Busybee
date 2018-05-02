@@ -1,7 +1,10 @@
 <?php
 namespace App\Entity;
 
-use App\Timetable\Extension\TimetablePeriodActivityExtension;
+use App\Timetable\Entity\TimetablePeriodActivityExtension;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 class TimetablePeriodActivity extends TimetablePeriodActivityExtension
 {
@@ -47,75 +50,6 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
     public function setSpace(?Space $space): TimetablePeriodActivity
     {
         $this->space = $space;
-        return $this;
-    }
-
-    /**
-     * @var null|Staff
-     */
-    private $tutor1;
-
-    /**
-     * @return Staff|null
-     */
-    public function getTutor1(): ?Staff
-    {
-        return $this->tutor1;
-    }
-
-    /**
-     * @param Staff|null $tutor1
-     * @return TimetablePeriodActivity
-     */
-    public function setTutor1(?Staff $tutor1): TimetablePeriodActivity
-    {
-        $this->tutor1 = $tutor1;
-        return $this;
-    }
-
-    /**
-     * @var null|Staff
-     */
-    private $tutor2;
-
-    /**
-     * @return Staff|null
-     */
-    public function getTutor2(): ?Staff
-    {
-        return $this->tutor2;
-    }
-
-    /**
-     * @param Staff|null $tutor2
-     * @return TimetablePeriodActivity
-     */
-    public function setTutor2(?Staff $tutor2): TimetablePeriodActivity
-    {
-        $this->tutor2 = $tutor2;
-        return $this;
-    }
-
-    /**
-     * @var null|Staff
-     */
-    private $tutor3;
-
-    /**
-     * @return Staff|null
-     */
-    public function getTutor3(): ?Staff
-    {
-        return $this->tutor3;
-    }
-
-    /**
-     * @param Staff|null $tutor3
-     * @return TimetablePeriodActivity
-     */
-    public function setTutor3(?Staff $tutor3): TimetablePeriodActivity
-    {
-        $this->tutor3 = $tutor3;
         return $this;
     }
 
@@ -172,6 +106,63 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
 
         $this->period = $period;
 
+        return $this;
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $tutors;
+
+    /**
+     * @return Collection
+     */
+    public function getTutors(): Collection
+    {
+        if (empty($this->tutors))
+            $this->tutors = new ArrayCollection();
+
+        if ($this->tutors instanceof PersistentCollection && ! $this->tutors->isInitialized())
+            $this->tutors->initialize();
+
+        return $this->tutors;
+    }
+
+    /**
+     * @param Collection|null $tutors
+     * @return TimetablePeriodActivity
+     */
+    public function setTutors(?Collection $tutors): TimetablePeriodActivity
+    {
+        $this->tutors = $tutors;
+        return $this;
+    }
+
+    /**
+     * @param Staff|null $tutor
+     * @param bool $add
+     * @return TimetablePeriodActivity
+     */
+    public function addTutor(?Staff $tutor, $add = true): TimetablePeriodActivity
+    {
+        if (empty($staff) || $this->getTutors()->contains($tutor))
+            return $this;
+
+        if ($add)
+            $staff->addPeriodCommitment($this, false);
+
+        $this->tutors->add($staff);
+
+        return $this;
+    }
+
+    /**
+     * @param Staff|null $tutor
+     * @return TimetablePeriodActivity
+     */
+    public function removeTutor(?Staff $tutor): TimetablePeriodActivity
+    {
+        $this->getTutors()->removeElement($tutor);
         return $this;
     }
 }

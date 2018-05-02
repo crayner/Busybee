@@ -296,15 +296,9 @@ timetable:
 
                     }
                 }
-                if ($activity->getTutor1()) {
-                    $this->getStaffReport($activity->getTutor1(), $per);
-                }
-                if ($activity->getTutor2()) {
-                    $this->getStaffReport($activity->getTutor2(), $per);
-                }
-                if ($activity->getTutor3()) {
-                    $this->getStaffReport($activity->getTutor3(), $per);
-                }
+
+                foreach($activity->getTutors()->getIterator() as $tutor)
+                    $this->getStaffReport($tutor, $per);
             }
 
             $this->report->periods[] = $this->setPeriodStatusLevel($per);

@@ -2,6 +2,8 @@
 
 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
 {% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', mergeClass: 'btn-sm'}) %}
+
+
 {% include 'Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'Timetable', 'panelParagraph': 'timetable.period.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel', headerClass: 'hideSearch'} %}
     <div id="allPeriodMessages"></div>
     {% for period in report.periods %}
@@ -9,6 +11,7 @@
             <div class="col-12 dropPeriod{{ period.status.disableDrop }}" id="period{{ period.id }}">
                 <div>
                     {{ miscButton({'additional': 'id="button' ~ period.id ~ '" ' ~ period.status.disableDrop, 'class': 'lockButton fas fa-unlock btn btn-sm btn-' ~ period.status.alert, 'javascript': {'function': 'fixPeriod', 'options': [period.id]}, 'title': 'period.status.messages'|transchoice(period.status.messages|length), transDomain: 'Timetable'})|raw }}
+                    {{ miscButton({class: 'btn btn-sm btn-dark fas fa-info-circle', windowOpen: {route: path('period_plan_report', {id: period.id}), target: 'PeriodReport', params: 'width=500,height=600'}, title: 'period.activities.report.button', transDomain: 'Timetable'})|raw }}
                     {{ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', 'class': 'fas fa-sync btn btn-sm btn-warning'})|raw }}
                     {{ period.period.columnName }}
                 </div>

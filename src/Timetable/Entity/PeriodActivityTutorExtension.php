@@ -1,7 +1,7 @@
 <?php
-namespace App\School\Entity;
+namespace App\Timetable\Entity;
 
-class ActivityTutorExtension
+class PeriodActivityTutorExtension
 {
     /**
      * @return bool

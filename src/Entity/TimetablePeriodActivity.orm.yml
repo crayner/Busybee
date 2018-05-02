@@ -19,21 +19,6 @@ App\Entity\TimetablePeriodActivity:
             joinColumns:
                 space_id:
                     referencedColumnName: id
-        tutor1:
-            targetEntity: App\Entity\Staff
-            joinColumns:
-                tutor_1:
-                    referencedColumnName: id
-        tutor2:
-            targetEntity: App\Entity\Staff
-            joinColumns:
-                tutor_2:
-                    referencedColumnName: id
-        tutor3:
-            targetEntity: App\Entity\Staff
-            joinColumns:
-                tutor_3:
-                    referencedColumnName: id
         activity:
             targetEntity: App\Entity\FaceToFace
             inversedBy: periods
@@ -46,3 +31,7 @@ App\Entity\TimetablePeriodActivity:
             joinColumns:
                 period_id:
                     referencedColumnName: id
+    oneToMany:
+        tutors:
+            targetEntity: App\Entity\PeriodActivityTutor
+            mappedBy: activity

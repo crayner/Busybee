@@ -30,6 +30,14 @@ App\Entity\Staff:
             targetEntity: App\Entity\DepartmentMember
             mappedBy: staff
             cascade: [ 'all' ]
+        commitments:
+            targetEntity: App\Entity\ActivityTutor
+            nullable: true
+            mappedBy: tutor
+        periodCommitments:
+            targetEntity: App\Entity\PeriodActivityTutor
+            nullable: true
+            mappedBy: tutor
     oneToOne:
         homeroom:
             targetEntity: App\Entity\Space

@@ -139,7 +139,7 @@
                 type: 'POST',
                 success: function (data) {
                     $('#periodMessage' + period).html(data['message']).fadeIn(5);
-                    buildPeriod(data['message'], period);
+                        buildPeriod(data['message'], period);
                 }
             });
         }
@@ -166,18 +166,10 @@
                     url: path,
                     type: 'POST',
                     success: function (data) {
-                        if (data['status'] === 'success') {
-                            $('#periodActivity' + id).fadeOut(2000);
-                            $('#periodMessage' + period).html(data['message']).fadeIn(5);
-                            buildPeriod(data['message'], period);
-                            return true;
-                        } else if (data['status'] === 'error') {
-                            $('#periodMessage' + period).html(data['message']).fadeIn(5);
-                            return false;
-                        } else if (data['status'] === 'warning') {
-                            $('#periodMessage' + period).html(data['message']).fadeIn(5);
-                            return false;
-                        }
+                        $('#periodActivity' + id).fadeOut(2000);
+                        $('#periodMessage' + period).html(data['message']).fadeIn(5);
+                        buildPeriod(data['message'], period);
+                        return true;
                     }
                 });
             }
@@ -197,7 +189,7 @@
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    buildPeriod('', '__period__');
+                    buildPeriod('', 'All');
                 }
             });
         }
@@ -228,20 +220,21 @@
         }
 
         function buildPeriod(message, period) {
-            var path = '{{ path('timetable_period_builder', {id: app.request.get('id'), all: app.request.get('all')}) }}';
+            var path = '{{ path('timetable_period_builder', {id: app.request.get('id'), all: '__period__'}) }}';
+            period = period.replace('__period__', '{{ app.request.get('all') }}');
+            path = path.replace('__period__', period);
             $.ajax({
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    period = period.replace('__period__', '{{ app.request.get('all') }}');
                     $('#periodFrame').html('');
                     $('#periodFrame').html(data['content']);
-                    {% if all != 'All' %}
+                    if (period != 'All') {
                         fixPeriod(period);
                         $('#periodMessage' + period).html(message);
-                    {% else %}
+                    } else {
                         $('#allPeriodMessages').html(message);
-                    {% endif %}
+                    }
                     buildLine();
                     buildActivity();
                 }
@@ -251,10 +244,7 @@
 
         function resetBuilder() {
             var id = $('#resetButton').attr('reset');
-            var path = '{{ path('timetable_builder', {'id': app.request.get('id'), 'all': '__all__'}) }}';
-            path = path.replace('__all__', id);
-
-            window.open(path, '_self');
+            buildPeriod('', id);
         }
 
         $(".dragActivity").dblclick(function () {

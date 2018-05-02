@@ -111,7 +111,3 @@ App\Entity\Person:
             mappedBy: person
             targetEntity: App\Entity\CareGiver
             nullable: true
-        commitments:
-            targetEntity: App\Entity\ActivityTutor
-            nullable: true
-            mappedBy: tutor

@@ -192,9 +192,10 @@ period:
         label: End of Period.
     period_type:
         label: Period Type
-    status.messages: '{0}No messages.|{1}One message.|]2,Inf[The are %count% messages.'
+    status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'
     students:
         missing: 'Not all students where allocated for grade %grade% in this period.'
+    report.title: 'Period Activity Report'
     activities:
         activity:
             overwrite.button: 'Overwrite Activity Space or Staff'
@@ -208,7 +209,14 @@ period:
             missing.warning: 'The period activity was not available.'
             added: 'One Activity was added.'
             exists: 'The activity is already in the period.'
+            space:
+                missing: 'No space has been allocated to %{name}.'
+                duplicate: 'The space "%{space}" is allocated to both "%{activity}" and "%{activity2}" in this period.'
+            staff:
+                missing: 'No staff have been allocated to %{name}.'
+                duplicate: 'The staff member "%{name}" is allocated to "%{activity}" and "%{activity2}" in this period.'
         line.added: '{0}No activities were added.|{1}One activity was added.|]1,Inf[%count% activities were added.'
+        report.button: Period Report
 periods:
     constraint:
         late: 'The period time exceeds the limit of the day. (%limit%)'

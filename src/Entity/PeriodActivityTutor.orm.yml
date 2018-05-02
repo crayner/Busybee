@@ -1,7 +1,7 @@
-App\Entity\ActivityTutor:
+App\Entity\PeriodActivityTutor:
     type: entity
-    table: activity_tutor
-    repositoryClass: App\Repository\ActivityTutorRepository
+    table: period_activity_tutor
+    repositoryClass: App\Repository\PeriodActivityTutorRepository
     uniqueConstraints:
         activity_tutor:
             columns:
@@ -27,14 +27,15 @@ App\Entity\ActivityTutor:
             length: 3
     manyToOne:
         activity:
-            targetEntity: App\Entity\Activity
+            targetEntity: App\Entity\TimetablePeriodActivity
             inversedBy: tutors
             joinColumn:
                 name: activity_id
                 referencedColumnName: id
         tutor:
-            targetEntity: App\Entity\Staff
-            inversedBy: commitments
+            targetEntity: App\Entity\Person
+            orderBy: { surname: ASC, firstName: ASC }
+            inversedBy: periodCommitments
             joinColumn:
                 name: tutor_id
                 referencedColumnName: id

@@ -77,7 +77,7 @@ school:
         tutors.label: Class Tutors
     activity:
         edit:
-            title: Activity Management
+            title: 'Manage Activity %name%'
             description: ''
     grade.student.button: Allocate Students
     calendar_grade:

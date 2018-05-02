@@ -309,14 +309,13 @@ class Activity extends ActivityExtension
      */
     public function addTutor(?ActivityTutor $tutor, $add = true): Activity
     {
-        if (empty($tutor))
+        if (empty($tutor) || $this->getTutors()->contains($tutor))
             return $this;
 
         if ($add)
             $tutor->setActivity($this, false);
 
-        if (!$this->getTutors()->contains($tutor))
-            $this->tutors->add($tutor);
+        $this->tutors->add($tutor);
 
         return $this;
     }
@@ -535,7 +534,7 @@ class Activity extends ActivityExtension
     /**
      * @var bool
      */
-    private $useCourseName = true;
+    private $useCourseName;
 
     /**
      * @return bool

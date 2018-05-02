@@ -1,12 +1,13 @@
 {% trans_default_domain "Timetable" %}
 
-<p class="text-left">{% if manager.messageManager.hasMessages %}
+<p class="text-left">
+    {% if manager.messageManager.hasMessages %}
         {{ miscButton({'title': status.message, 'class': 'far fa-question-circle btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
     {% endif %}
-    {% set comma = false %}
-    {% if details['space_id'] is defined and details['space_id'] > 0 %}
+    {% set comma = false %}{% dump %}
+    {% if periodManager.hasSpace(activity.activity) %}
         <span class="spaceName"
-              onclick="openSpaceTimeTable({{ details['space_id'] }})">{{ details['%space%'] }}</span>
+              onclick="openSpaceTimeTable({{ periodManager.getSpace(activity.activity).id }})">{{ periodManager.getSpace(activity.activity).name }}</span>
         {% set comma = true %}
     {% endif %}
     {% if details['tutor1_id'] is defined and details['tutor1_id'] > 0 %}

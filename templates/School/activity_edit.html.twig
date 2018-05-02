@@ -19,8 +19,7 @@
         {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('roll_list')}}) %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.activity.edit.title', transDomain: 'School'} %}
-
+    {% include 'Page/panelStart.html.twig' with {header: 'school.activity.edit.title', name: form.vars.value.fullName|default(''), transDomain: 'School'} %}
     <div class="row">
         <div class="col-8 card">
             <div class="row">
@@ -39,7 +38,7 @@
                     {{ form_row(form.website) }}
                 </div>
                 <div class="col-6 card">
-                    {{ form_row(form.space) }}
+                    {{ form_row(form.space, {value: transformData(form.space)}) }}
                 </div>
             </div>
             <div class="row">
@@ -63,4 +62,4 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-{% endBlock javascripts %}
+{% endblock javascripts %}
