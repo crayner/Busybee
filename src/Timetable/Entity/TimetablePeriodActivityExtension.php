@@ -74,4 +74,16 @@ abstract class TimetablePeriodActivityExtension implements UserTrackInterface
         return $this->getActivity()->getSpace();
 
     }
+
+    /**
+     * @return string
+     */
+    public function loadTutorNames(): string
+    {
+        $names = '';
+        foreach($this->loadTutors()->getIterator() as $tutor)
+            $names .= $tutor->getTutor()->getFullName(['preferredOnly' => true]) . ', ';
+
+        return trim($names, ', ');
+    }
 }

@@ -355,24 +355,24 @@ class Staff extends StaffExtension
     }
 
     /**
-     * @param TimetablePeriodActivity|null $activity
+     * @param TimetablePeriodActivityTutor|null $activity
      * @param bool $add
      * @return Staff
      */
-    public function addPeriodCommitment(?TimetablePeriodActivity $activity, $add = true): Staff
+    public function addPeriodCommitment(?TimetablePeriodActivityTutor $activity, $add = true): Staff
     {
         if ($activity && $this->getPeriodCommitments()->contains($activity))
             return $this;
 
         if ($add)
-            $activity->setActivity($this, false);
+            $activity->setTutor($this, false);
 
         $this->periodCommitments->add($activity);
 
         return $this;
     }
 
-    public function removePeriodCommitment(?TimetablePeriodActivity $activity): Staff
+    public function removePeriodCommitment(?TimetablePeriodActivityTutor $activity): Staff
     {
         $this->getPeriodCommitments()->removeElement($activity);
         return $this;

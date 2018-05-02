@@ -9,6 +9,7 @@ use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
 use App\Security\VoterDetails;
 use App\Timetable\Form\ColumnType;
+use App\Timetable\Form\EditPeriodActivityType;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\ColumnManager;
 use App\Timetable\Util\PeriodManager;
@@ -801,29 +802,26 @@ class TimetableController extends Controller
     /**
      * @param Request $request
      * @param $activity
+     * @param PeriodManager $periodManager
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/period/activity/{activity}/edit/", name="period_activity_edit")
+     * @Route("/period/activity/{activity}/edit/{closeWindow}", name="period_activity_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function editPeriodActivity(Request $request, $activity)
+    public function editPeriodActivity(Request $request, $activity, PeriodManager $periodManager, $closeWindow = '')
     {
-        $act = $this->get('period.activity.repository')->find($activity);
+        $act = $periodManager->findActivity($activity);
 
-        $year = $this->get('busybee_core_calendar.model.get_current_year');
-
-        $act->setLocal(true);
-
-        $form = $this->createForm(EditPeriodActivityType::class, $act, ['year_data' => $year]);
+        $form = $this->createForm(EditPeriodActivityType::class, $act);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $om = $this->get('doctrine')->getManager();
+            $om = $periodManager->getEntityManager();
             $om->persist($act);
             $om->flush();
         }
 
-        return $this->render('BusybeeTimeTableBundle:Periods:activity.html.twig',
+        return $this->render('Timetable/Period/activity.html.twig',
             [
                 'form' => $form->createView(),
                 'fullForm' => $form,

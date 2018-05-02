@@ -569,4 +569,15 @@ class PeriodManager
     {
         return $activity->loadSpace();
     }
+
+    /**
+     * @param TimetablePeriodActivity $activity
+     * @return bool
+     */
+    public function hasTutors(TimetablePeriodActivity $activity): bool
+    {
+        if ($activity->loadTutors()->count() > 0)
+            return true;
+        return false;
+    }
 }

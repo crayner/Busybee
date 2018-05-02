@@ -14,11 +14,11 @@
     {{ form_start(form) }}
     {% set h3Content = '' %}
     {% if app.request.get('closeWindow') is not empty %}
-        {% set h3Content = h3Content ~ closeButton() %}
+        {% set h3Content = h3Content ~ closeButton({mergeClass: 'btn-sm'}) %}
     {% else %}
-        {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('roll_list')}}) %}
+        {% set h3Content = h3Content ~ returnButton({mergeClass: 'btn-sm', windowOpen: {route: path('roll_list')}}) %}
     {% endif %}
-    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.activity.edit.title', name: form.vars.value.fullName|default(''), transDomain: 'School'} %}
     <div class="row">
         <div class="col-8 card">

@@ -8,6 +8,7 @@ use App\Core\Manager\TabManager;
 use App\Core\Manager\TabManagerInterface;
 use App\Entity\Calendar;
 use App\Entity\SpecialDay;
+use App\Entity\Staff;
 use App\Entity\Term;
 use App\Entity\Timetable;
 use App\Entity\TimetableAssignedDay;
@@ -297,8 +298,8 @@ timetable:
                     }
                 }
 
-                foreach($activity->getTutors()->getIterator() as $tutor)
-                    $this->getStaffReport($tutor, $per);
+                foreach($activity->loadTutors()->getIterator() as $tutor)
+                    $this->getStaffReport($tutor->getTutor(), $per);
             }
 
             $this->report->periods[] = $this->setPeriodStatusLevel($per);
@@ -716,5 +717,37 @@ timetable:
     public function getStack(): RequestStack
     {
         return $this->stack;
+    }
+
+    /**
+     * @param Staff $tutor
+     * @param \stdClass $per
+     */
+    private function getStaffReport(Staff $tutor, \stdClass $per)
+    {
+        $id = $tutor->getId();
+        $teachLoadLow = $this->getSettingManager()->get('teachingload.column.maximum', 2);
+        $teachLoadHigh = $this->getSettingManager()->get('teachingload.column.maximum', 9);
+        if (empty($this->report->staff[$id]['status']))
+            $this->report->staff[$id]['status'] = 'ok';
+        $this->report->staff[$id]['staff'] = $tutor;
+        $this->report->staff[$id]['period'][$per->period->getColumn()->getId()][$per->id] = $per->period;
+        $this->report->staff[$id]['total'] = empty($this->report->staff[$id]['total']) ? 1 : $this->report->staff[$id]['total'] + 1;
+        if (count($this->report->staff[$id]['period'][$per->period->getColumn()->getId()]) == $teachLoadLow) {
+            $this->getMessageManager()->add('info', 'teachingload.column.equal', ['%name%' => $tutor->formatName()], 'Timetable');
+            $per->status->alert = 'info';
+        }
+        if ($this->report->staff[$id]['total'] == $teachLoadHigh) {
+            $this->report->staff[$id]['status'] = 'info';
+            $this->getMessageManager()->add('info', 'teachingload.timetable.equal', ['%name%' => $tutor->formatName()], 'Timetable');
+        }
+        if (count($this->report->staff[$id]['period'][$per->period->getColumn()->getId()]) > $teachLoadLow) {
+            $this->report->staff[$id]['status'] = 'danger';
+            $this->getMessageManager()->add('danger', 'teachingload.column.exceeded', ['%name%' => $tutor->formatName()], 'Timetable');
+        }
+        if ($this->report->staff[$id]['total'] > $teachLoadHigh) {
+            $this->report->staff[$id]['status'] = 'danger';
+            $this->getMessageManager()->add('danger', 'teachingload.timetable.exceeded', ['%name%' => $tutor->formatName()], 'Timetable');
+        }
     }
 }

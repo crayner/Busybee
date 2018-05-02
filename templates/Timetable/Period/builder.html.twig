@@ -12,7 +12,7 @@
                 <div>
                     {{ miscButton({'additional': 'id="button' ~ period.id ~ '" ' ~ period.status.disableDrop, 'class': 'lockButton fas fa-unlock btn btn-sm btn-' ~ period.status.alert, 'javascript': {'function': 'fixPeriod', 'options': [period.id]}, 'title': 'period.status.messages'|transchoice(period.status.messages|length), transDomain: 'Timetable'})|raw }}
                     {{ miscButton({class: 'btn btn-sm btn-dark fas fa-info-circle', windowOpen: {route: path('period_plan_report', {id: period.id}), target: 'PeriodReport', params: 'width=500,height=600'}, title: 'period.activities.report.button', transDomain: 'Timetable'})|raw }}
-                    {{ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', 'class': 'fas fa-sync btn btn-sm btn-warning'})|raw }}
+                    {{ resetButton({javascript: {function: 'resetBuilder'}, additional: {id: "resetButton", reset: "All"}, class: 'fas fa-sync btn btn-sm btn-warning'})|raw }}
                     {{ period.period.columnName }}
                 </div>
                 <div id="periodStatus{{ period.id }}" class="startHidden container-fluid" style="clear: both;">
@@ -27,7 +27,7 @@
                             <div class="col-4">
                                 <div>
                                     {{ editButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_activity_edit',
-                                        {activity: activity.id, closeWindow: '_closeWindow', activityType: 'Class'}), target: 'PeriodActivity', params: 'width=500,height=600'},
+                                        {activity: activity.id, closeWindow: '_closeWindow'}), target: 'PeriodActivity', params: 'width=500,height=600'},
                                         title: 'period.activities.activity.overwrite.button', transDomain: 'Timetable'})|raw }}
                                     {{ miscButton({'class': 'fas fa-cog btn btn-sm btn-success', windowOpen: {route: path('activity_edit', {id:
                                         activity.activity.activity.id, closeWindow: '_closeWindow', activityType: 'Class'}), target: 'Activity',

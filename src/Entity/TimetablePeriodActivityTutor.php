@@ -1,11 +1,11 @@
 <?php
 namespace App\Entity;
 
-use App\Timetable\Entity\PeriodActivityTutorExtension;
+use App\Timetable\Entity\TimetablePeriodActivityTutorExtension;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
-class PeriodActivityTutor extends PeriodActivityTutorExtension implements UserTrackInterface
+class TimetablePeriodActivityTutor extends TimetablePeriodActivityTutorExtension implements UserTrackInterface
 {
     use UserTrackTrait;
     /**
@@ -23,9 +23,9 @@ class PeriodActivityTutor extends PeriodActivityTutorExtension implements UserTr
 
     /**
      * @param int|null $id
-     * @return PeriodActivityTutor
+     * @return TimetablePeriodActivityTutor
      */
-    public function setId(?int $id): PeriodActivityTutor
+    public function setId(?int $id): TimetablePeriodActivityTutor
     {
         $this->id = $id;
         return $this;
@@ -46,9 +46,9 @@ class PeriodActivityTutor extends PeriodActivityTutorExtension implements UserTr
 
     /**
      * @param null|string $role
-     * @return PeriodActivityTutor
+     * @return TimetablePeriodActivityTutor
      */
-    public function setRole(?string $role): PeriodActivityTutor
+    public function setRole(?string $role): TimetablePeriodActivityTutor
     {
         $this->role = $role;
         return $this;
@@ -69,15 +69,15 @@ class PeriodActivityTutor extends PeriodActivityTutorExtension implements UserTr
 
     /**
      * @param Staff|null $tutor
-     * @return PeriodActivityTutor
+     * @return TimetablePeriodActivityTutor
      */
-    public function setTutor(?Staff $tutor, $add = true): PeriodActivityTutor
+    public function setTutor(?Staff $tutor, $add = true): TimetablePeriodActivityTutor
     {
         if (empty($tutor))
             return $this;
 
         if ($add)
-            $tutor->addCommitment($this, false);
+            $tutor->addPeriodCommitment($this, false);
 
         $this->tutor = $tutor;
 
@@ -85,28 +85,25 @@ class PeriodActivityTutor extends PeriodActivityTutorExtension implements UserTr
     }
 
     /**
-     * @var null|Activity
+     * @var null|TimetablePeriodActivity
      */
     private $activity;
 
     /**
      * @return Activity|null
      */
-    public function getActivity(): ?Activity
+    public function getActivity(): ?TimetablePeriodActivity
     {
         return $this->activity;
     }
 
     /**
-     * @param Activity|null $activity
-     * @return PeriodActivityTutor
+     * @param TimetablePeriodActivity|null $activity
+     * @return TimetablePeriodActivityTutor
      */
-    public function setActivity(?Activity $activity, $add = true): PeriodActivityTutor
+    public function setActivity(?TimetablePeriodActivity $activity, $add = true): TimetablePeriodActivityTutor
     {
-        if (empty($activity))
-            return $this;
-
-        if ($add)
+        if ($add && $activity)
             $activity->addTutor($this, false);
 
         $this->activity = $activity;
@@ -129,16 +126,23 @@ class PeriodActivityTutor extends PeriodActivityTutorExtension implements UserTr
 
     /**
      * @param int|null $sequence
-     * @return PeriodActivityTutor
+     * @return TimetablePeriodActivityTutor
      */
-    public function setSequence(?int $sequence): PeriodActivityTutor
+    public function setSequence(?int $sequence): TimetablePeriodActivityTutor
     {
         $this->sequence = $sequence;
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
-        return $this->getTutor()->getFullName() . ' - ' . $this->getActivity()->getFullName();
+        if ($this->getTutor() && $this->getActivity())
+            return $this->getTutor()->getFullName() . ' - ' . $this->getActivity()->getFullName();
+        if ($this->getActivity())
+            return $this->getActivity()->getFullName();
+        return $this->getId(). ' has an empty tutors and activity.';
     }
 }

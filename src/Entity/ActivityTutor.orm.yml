@@ -27,7 +27,7 @@ App\Entity\ActivityTutor:
             length: 3
     manyToOne:
         activity:
-            targetEntity: App\Entity\Activity
+            targetEntity: App\Entity\FaceToFace
             inversedBy: tutors
             joinColumn:
                 name: activity_id
@@ -35,6 +35,7 @@ App\Entity\ActivityTutor:
         tutor:
             targetEntity: App\Entity\Staff
             inversedBy: commitments
+            orderBy: { surname: ASC, firstName: ASC }
             joinColumn:
                 name: tutor_id
                 referencedColumnName: id

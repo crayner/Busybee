@@ -33,5 +33,5 @@ App\Entity\TimetablePeriodActivity:
                     referencedColumnName: id
     oneToMany:
         tutors:
-            targetEntity: App\Entity\PeriodActivityTutor
+            targetEntity: App\Entity\TimetablePeriodActivityTutor
             mappedBy: activity

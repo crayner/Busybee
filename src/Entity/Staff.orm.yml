@@ -35,8 +35,9 @@ App\Entity\Staff:
             nullable: true
             mappedBy: tutor
         periodCommitments:
-            targetEntity: App\Entity\PeriodActivityTutor
+            targetEntity: App\Entity\TimetablePeriodActivityTutor
             nullable: true
+            cascade: [ 'all' ]
             mappedBy: tutor
     oneToOne:
         homeroom:

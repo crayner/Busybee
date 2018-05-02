@@ -73,7 +73,7 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
     public function setActivity(?FaceToFace $activity, $add = true): TimetablePeriodActivity
     {
         if ($add && $activity)
-            $activity->addPeriod($this, false);
+            $activity->addPeriodCommitment($this, false);
 
         $this->activity = $activity;
         return $this;
@@ -139,28 +139,28 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
     }
 
     /**
-     * @param Staff|null $tutor
+     * @param TimetablePeriodActivityTutor|null $tutor
      * @param bool $add
      * @return TimetablePeriodActivity
      */
-    public function addTutor(?Staff $tutor, $add = true): TimetablePeriodActivity
+    public function addTutor(?TimetablePeriodActivityTutor $tutor, $add = true): TimetablePeriodActivity
     {
-        if (empty($staff) || $this->getTutors()->contains($tutor))
+        if (empty($tutor) || $this->getTutors()->contains($tutor))
             return $this;
 
         if ($add)
-            $staff->addPeriodCommitment($this, false);
+            $tutor->setActivity($this, false);
 
-        $this->tutors->add($staff);
+        $this->tutors->add($tutor);
 
         return $this;
     }
 
     /**
-     * @param Staff|null $tutor
+     * @param TimetablePeriodActivityTutor|null $tutor
      * @return TimetablePeriodActivity
      */
-    public function removeTutor(?Staff $tutor): TimetablePeriodActivity
+    public function removeTutor(?TimetablePeriodActivityTutor $tutor): TimetablePeriodActivity
     {
         $this->getTutors()->removeElement($tutor);
         return $this;
