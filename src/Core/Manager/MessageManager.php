@@ -183,13 +183,12 @@ class MessageManager
     public function getHighestLevel(): string
     {
         $x =  'default';
-        foreach($this->messages as $message) {
+        foreach($this->getMessages() as $message) {
             if ($this->compareLevel($message->getLevel(), $x))
                 $x = $message->getLevel();
             if ($x === 'danger')
                 break;
         }
-
         return $x;
     }
 }
