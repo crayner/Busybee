@@ -8,6 +8,7 @@ use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
 use App\Entity\Line;
 use App\Entity\Space;
+use App\Entity\Staff;
 use App\Entity\Student;
 use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
@@ -90,7 +91,7 @@ class PeriodManager
             foreach ($status->students->missingStudents as $q => $students) {
                 if (count($students) > 0) {
                     $status->alert = 'danger';
-                    $this->getMessageManager()->add($status->alert,'period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName()], 'Timetable');
+                    $this->getMessageManager()->add($status->alert,'period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName(), 'transChoice' => count($students)], 'Timetable');
                 }
             }
         }
@@ -163,9 +164,9 @@ class PeriodManager
     private $staff = [];
 
     /**
-     * @var array
+     * @var ArrayCollection
      */
-    private $students = [];
+    private $students;
 
     /**
      * Clear Results
@@ -177,7 +178,7 @@ class PeriodManager
         $this->failedStatus = [];
         $this->spaces = [];
         $this->staff = [];
-        $this->students = [];
+        $this->students = new ArrayCollection();
         $this->periodStatus = new \stdClass();
         return $this;
     }
@@ -194,36 +195,45 @@ class PeriodManager
 
         $this->grades = $this->getGrades();
 
+        $this->students = new ArrayCollection();
+        $students = new ArrayCollection();
+
         $grades = [];
-        foreach ($this->grades as $grade) {
+        //Generate all available students.
+        foreach ($this->getGrades() as $grade) {
             $data->grades[$grade->getId()] = $grade;
-            $students = [];
-            foreach ($grade->getStudents() as $student)
-                $students[$student->getId()] = $student;
+            $students = new ArrayCollection();
+            foreach ($grade->getStudents() as $student) {
+                if (! $students->contains($student))
+                $students->set($student->getId(), $student);
+            }
             $grades[$grade->getId()] = $students;
         }
-
-        foreach ($this->getPeriod()->getActivities() as $q => $pa) {
+        $data->availableStudents = $grades;
+dump($grades);
+        // Generate all Students in the period.
+        foreach ($this->getPeriod()->getActivities() as $pa) {
             $act = $pa->getActivity();
             foreach ($act->getStudents() as $student) {
-                $grade = $student->getStudentCalendarGrades($this->getCurrentCalendar());
-
-                if ($grade instanceof Grade && isset($grades[$grade->getId()][$student->getId()]))
-                    unset($grades[$grade->getId()][$student->getId()]);
+                $this->addStudent($student->getStudent());
+                $grade = $student->getStudent()->getStudentCurrentGrade($this->getCurrentCalendar());
+                if ($grade instanceof CalendarGrade && isset($grades[$grade->getId()]))
+                    $grades[$grade->getId()]->removeElement($student->getStudent());
+                elseif ($grade instanceof CalendarGrade && isset($grades[$grade->getId()])){
+                    dump([$student,$grade]);die();
+                }
             }
         }
-
+dump($this->getStudents());
         foreach ($grades as $q => $grade) {
             if (!empty($grade)) {
-                $grade = new ArrayCollection($grade);
                 $iterator = $grade->getIterator();
                 $iterator->uasort(function ($a, $b) {
-                    return ($a->formatName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->formatName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
+                    return ($a->fullName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->fullName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
                 });
                 $grades[$q] = iterator_to_array($iterator, true);
             }
         }
-
 
         $data->missingStudents = $grades;
 
@@ -259,19 +269,13 @@ class PeriodManager
             if ($xxx)
                 $grades[] = $grade;
 
-        $stu = new Student();
-
         $this->grades = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('g')
-            ->leftJoin('g.calendar', 'c')
-            ->leftJoin('g.students', 's')
-            ->where('c = :calendar')
+            ->where('g.calendar = :calendar')
             ->setParameter('calendar', $this->getCurrentCalendar())
             ->select('g')
-            ->addSelect('s')
-            ->andWhere('s.status IN (:status)')
-            ->setParameter('status', $stu->getStatusList('active'), Connection::PARAM_STR_ARRAY)
             ->andWhere('g.grade in (:grades)')
             ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->orderBy('g.sequence', 'ASC')
             ->getQuery()
             ->getResult();
 
@@ -575,5 +579,146 @@ class PeriodManager
         if ($activity->loadTutors()->count() > 0)
             return true;
         return false;
+    }
+
+    /**
+     * @param $id
+     */
+    public function generateFullPeriodReport()
+    {
+        $data = $this->getPeriodStudentReport();
+
+        $result = $this->getEntityManager()->getRepository(Space::class)->findBy([], ['name' => 'ASC']);
+
+        $spaces = new ArrayCollection($result);
+
+        $data->spaces = $this->removeUsedSpaces($spaces);
+
+        $result = $this->getEntityManager()->getRepository(Staff::class)->findBy([], ['surname' => 'ASC', 'firstName' => 'ASC']);
+
+        $staff = new ArrayCollection($result);
+
+        $data->staff = $this->removeUsedStaff($staff);
+
+        return $data;
+    }
+
+    /**
+     * Remove Used Spaces
+     *
+     * @param $spaces
+     * @return mixed
+     */
+    private function removeUsedSpaces(ArrayCollection $spaces)
+    {
+        foreach ($this->getPeriodSpaces()->getIterator() as $space)
+            if ($spaces->contains($space))
+                $spaces->removeElement($space);
+
+        return $spaces;
+    }
+
+    /**
+     * Remove Used Staff
+     *
+     * @param ArrayCollection $staff
+     * @return ArrayCollection
+     */
+    private function removeUsedStaff(ArrayCollection $staff): ArrayCollection
+    {
+        foreach ($this->getPeriodStaff() as $member)
+            if ($staff->contains($member))
+                $staff->removeElement($member);
+
+        return $staff;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPeriodSpaces(): ArrayCollection
+    {
+        $spaces = new ArrayCollection();
+
+        foreach($this->getPeriod()->getActivities()->getIterator() as $activity)
+            if($activity->loadSpace() && !$spaces->contains($activity->loadSpace()))
+                $spaces->add($activity->loadSpace());
+
+        return $spaces;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPeriodStaff(): ArrayCollection
+    {
+        $tutors = new ArrayCollection();
+        foreach($this->getPeriod()->getActivities()->getIterator() as $activity)
+        {
+            foreach($activity->loadTutors()->getIterator() as $tutor)
+                if (! $tutors->contains($tutor->getTutor()))
+                    $tutors->add($tutor->getTutor());
+        }
+        return $tutors;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMissingStudents(\stdClass $data): bool
+    {
+        if (empty($data->missingStudents))
+            return false;
+
+        foreach($data->missingStudents as $students)
+        {
+            if (! empty($students))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMissingStudents(\stdClass $data): array
+    {
+        foreach($data->missingStudents as $gk=>$students){
+            if (! empty($students))
+                $data->missingStudents[$gk] = array_merge(['grade' => $data->grades[$gk]], $students);
+            else
+                unset($data->missingStudents[$gk]);
+        }
+
+        return $data->missingStudents ?: [] ;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStudents(): ArrayCollection
+    {
+        if (empty($this->students))
+            $this->students = [];
+
+        return $this->students;
+    }
+
+    public function addStudent(?Student $student): PeriodManager
+    {
+        if (empty($student))
+            return $this;
+
+        $grade = $student->getStudentCurrentGrade($this->getCurrentCalendar());
+
+        if (empty($this->students[$grade->getId()]))
+            $this->students[$grade->getId()] = new ArrayCollection();
+
+        if ($this->students[$grade->getId()]->contains($student))
+            return $this;
+
+        $this->students[$grade->getId()]->set($student->getId(), $student);
+
+        return $this;
     }
 }

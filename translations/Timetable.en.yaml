@@ -194,10 +194,18 @@ period:
         label: Period Type
     status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'
     students:
-        missing: 'Not all students where allocated for grade %grade% in this period.'
-    report.title: 'Period Activity Report'
+        missing: '{1}One student requires allocation to an activity in grade "%grade%".|]1,Inf[%count% students need to be allocated in grade "%grade%".'
+    report:
+        title: 'Period Activity Report'
+        student.name: '%{name}'
+        grade.header: 'Grade: %{grade}'
+        help: 'This report is based on the selections made on the timetable builder page.  The report is limited to the grades selected in the users selected calendar. These details can be change on the timetable page and the current calendar can be selected on the user detail page.'
     activities:
         activity:
+            report:
+                availableStaff: 'Available Staff (%count%)'
+                availableSpace: 'Available Spaces (Capacity) (%count%)'
+                unallocatedStudents: 'Students not assigned to Period'
             overwrite.button: 'Overwrite Activity Space or Staff'
             remove:
                 success: 'The activity %name% was removed.'
@@ -217,6 +225,18 @@ period:
                 duplicate: 'The staff member "%{name}" is allocated to "%{activity}" and "%{activity2}" in this period.'
         line.added: '{0}No activities were added.|{1}One activity was added.|]1,Inf[%count% activities were added.'
         report.button: Period Report
+    plan:
+        title:
+            add: Add Activity Line
+            remove: Remove Activity Line
+        header: 'Period %day%'
+        panelparagraph: '%start% - %end%.  You can add a line of activities to this period by selecting a line from the select list above.  Any duplicates are ignored.'
+        reportparagraph: '%start% - %end%'
+        banner:
+            title: Period Activity Management
+            description: "Assign activities to the period."
+        activity:
+            title: '%name%'
 periods:
     constraint:
         late: 'The period time exceeds the limit of the day. (%limit%)'

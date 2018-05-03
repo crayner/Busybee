@@ -29,8 +29,8 @@
                                     {{ editButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_activity_edit',
                                         {activity: activity.id, closeWindow: '_closeWindow'}), target: 'PeriodActivity', params: 'width=500,height=600'},
                                         title: 'period.activities.activity.overwrite.button', transDomain: 'Timetable'})|raw }}
-                                    {{ miscButton({'class': 'fas fa-cog btn btn-sm btn-success', windowOpen: {route: path('activity_edit', {id:
-                                        activity.activity.activity.id, closeWindow: '_closeWindow', activityType: 'Class'}), target: 'Activity',
+                                    {{ miscButton({'class': 'fas fa-cog btn btn-sm btn-success', windowOpen: {route: path('face_to_face_edit', {id:
+                                        activity.activity.activity.id, closeWindow: '_closeWindow', course_id: '__course__'}), target: 'Activity',
                                         params: 'width=1200,height=800'}, title: 'period.activities.activity.edit.button', transDomain: 'Timetable'})|raw }}
                                     {{ deleteButton({mergeClass: 'removeActivity btn-sm', colour: 'warning', additional: {id: 'removeActivity' ~ activity.id, period: period.id}, title: 'period.activities.activity.remove.button', transDomain: 'Timetable'})|raw }}
                                 </div>

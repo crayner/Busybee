@@ -10,7 +10,7 @@ setting:
     resource:
         warning: 'The resource {{name}} was skipped due to incomplete data.'
         success: 'The resource {{name}} successfully loaded %{count} settings.'
-    settings.missing: 'The resource %{resource} has no settings.'
+    settings.missing: 'The resource "%{resource}" has no settings.'
     mail.test.delivery: Test Delivery
 system:
     setting:

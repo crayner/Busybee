@@ -2,7 +2,7 @@
 namespace App\School\Entity;
 
 use App\Entity\Calendar;
-use App\Entity\Student;
+use App\Entity\CalendarGrade;
 
 class ActivityStudentExtension
 {

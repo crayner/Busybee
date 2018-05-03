@@ -34,7 +34,7 @@
         {{ form_row(form.website) }}
     </div>
     <div class="col-6 card">
-        {{ form_row(form.space) }}
+        {{ form_row(form.space, {value: transformData(form.space)}) }}
     </div>
 </div>
 <div class="row">

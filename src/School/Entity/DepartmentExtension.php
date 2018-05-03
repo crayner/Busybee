@@ -69,6 +69,9 @@ abstract class DepartmentExtension implements UserTrackInterface
         return $this->getCourses(false);
     }
 
+    /**
+     * @param $members
+     */
     protected function memberInitialise($members)
     {
         $members->initialize();
@@ -100,5 +103,14 @@ abstract class DepartmentExtension implements UserTrackInterface
         $this->getMembers();
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        $result = $this->getName() . ' ('.$this->getCode().')';
+        return $result;
     }
 }

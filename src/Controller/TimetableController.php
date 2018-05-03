@@ -146,9 +146,6 @@ class TimetableController extends Controller
     {
         $timetable = $timetableManager->find($id);
 
-//	    if ($timetable->getTimetable()->getLocked() && ! $timetable->getTimetable()->getGenerated())
-//		    return $this->generateTimetable($id);
-
         $periodPagination->setTimetable($timetable);
 
         $periodPagination->injectRequest($request);

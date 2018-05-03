@@ -7,36 +7,49 @@
 {% block title %}{{ parent() }}{{ 'period.report.title'|trans }}{% endblock title %}
 
 {% block contentContainer %}
-    <div class="messageWindow"></div>
-    {{ dump() }}
-    {#
+    <div class="messageWindow"></div>{% dump(manager.students) %}
     {% set header = 'period.plan.header' %}
-    {% set name = {'%day%': manager.period.columnName, '%period%': manager.period.fullName} %}
+    {% set headerParams = {'%day%': manager.period.columnName} %}
     {% set panelParagraph = 'period.plan.reportparagraph' %}
     {% set panelParams = {'%start%': manager.period.startTime, '%end%': manager.period.endTime} %}
     {% set transDomain = 'Timetable' %}
     <div class="row alert alert-primary">
-        <h2>{{ header|trans(name) }}</h2>
-        <h3>{{ panelParagraph|trans(panelParams) }}</h3>
+        <h4>{{ header|trans(headerParams) }}<br /><span class="small">{{ panelParagraph|trans(panelParams) }}</span></h4>
     </div>
-    <div>{{ closeButton()|raw }}
-        {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+    {% if manager.hasMissingStudents(report) %}
+        <div>{{ closeButton({mergeClass: 'btn-sm'})|raw }}
+            {{ resetButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_plan_report', {id: app.request.get('id')})}})|raw }}
+        </div>
+        <h5>{{ 'period.activities.activity.report.unallocatedStudents'|trans() }}</h5>
+        {% for data in manager.getMissingStudents(report) %}
+            {% for key,student in data %}
+                {% if key is same as('grade') %}
+                    <h6>{{ 'period.report.grade.header'|trans({'%{grade}': student.fullName}) }}</h6><ul>
+                {% else %}
+                    <li>{{ 'period.report.student.name'|trans({'%{name}': student.fullName}) }}</li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+    <div>{{ closeButton({mergeClass: 'btn-sm'})|raw }}
+        {{ resetButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_plan_report', {id: app.request.get('id')})}})|raw }}
     </div>
-    <h3>{{ 'period.activities.activity.report.availableStaff'|trans({'%count%': report.staff.count}) }}</h3>
+    <h5>{{ 'period.activities.activity.report.availableStaff'|trans({'%count%': report.staff.count}) }}</h5>
     <ul>
         {% for staff in report.staff %}
-            <li>{{ staff.fullName }} <span class="small alert-warning">{{ staff.departments }}</span></li>
+            <li>{{ staff.fullName }} <span class="small alert-warning">{{ staff.departmentNames }}</span></li>
         {% endfor %}
     </ul>
 
-    <div>{{ closeButton()|raw }}
-        {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+    <div>{{ closeButton({mergeClass: 'btn-sm'})|raw }}
+        {{ resetButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_plan_report', {id: app.request.get('id')})}})|raw }}
     </div>
-    <h3>{{ 'period.activities.activity.report.availableSpace'|trans({'%count%': report.staff.count}) }}</h3>
+    <h5>{{ 'period.activities.activity.report.availableSpace'|trans({'%count%': report.spaces.count}) }}</h5>
     <ul>
         {% for space in report.spaces %}
             <li>{{ space.nameCapacity }}</li>
         {% endfor %}
     </ul>
-       #}
+    <p class="alert alert-light text-justify">{{ 'period.report.help'|trans }}</p>
 {% endblock contentContainer %}

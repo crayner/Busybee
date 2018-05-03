@@ -8,13 +8,19 @@ abstract class SpaceExtension implements UserTrackInterface
 {
 	use UserTrackTrait;
 
+    /**
+     * @return string
+     */
     public function getNameCapacity()
     {
         return $this->getName() . ' (' . $this->getCapacity() . ')';
     }
 
+    /**
+     * @return string
+     */
     public function getFullName()
     {
-        return $this->getCampus()->getName() . ' - ' . $this->getName();
+        return $this->getCampus()->getName() . ' - ' . $this->getNameCapacity();
     }
 }
