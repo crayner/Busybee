@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraint;
 
 class SettingChoice extends Constraint
 {
-	public $name;
+	public $settingName;
 	public $strict = true;
 	public $extra_choices = [];  // Add additional choices not found in the setting.
 	public $message = 'setting.validator.choice.invalid';
@@ -27,7 +27,7 @@ class SettingChoice extends Constraint
 	public function getRequiredOptions()
 	{
 		return [
-			'name',
+			'settingName',
 		];
 	}
 }

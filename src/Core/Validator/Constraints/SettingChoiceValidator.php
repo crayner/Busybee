@@ -34,8 +34,15 @@ class SettingChoiceValidator extends ConstraintValidator
 
 		$s = [];
 
-		$list = $this->settingManager->get($constraint->name);
-
+		$list = $this->settingManager->get($constraint->settingName, []);
+        if (! is_array($list))
+        {
+            $this->context->buildViolation('setting.settings.missing')
+                ->setParameter('%resource%', $constraint->settingName)
+                ->setTranslationDomain('System')
+                ->addViolation();
+            return;
+        }
 		$list = array_merge($list, $constraint->extra_choices);
 
 		foreach ($list as $q => $w)
