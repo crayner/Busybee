@@ -1,24 +1,20 @@
 {% trans_default_domain "Person" %}
 
-{% block calendar_grade_label %}{% endblock %}
-{% block calendar_grade_errors %}{% endblock %}
+{% block student_calendar_grade_label %}{% endblock %}
+{% block student_calendar_grade_errors %}{% endblock %}
 
-{% block calendar_grade_widget %}
-        <div class="row">
-            <div class="col-5 offset-5 card">
-                {% set grade = form.vars.value %}
-                {% if grade is empty %}
-                    {% set grade = form.vars.data %}
-                {% endif %}
-                {{ form_row(form, {value: grade}) }}
-                <label class="form-control-label" for="{{ form.vars.name }}">{{ form.vars.label|trans }} <span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span></label>
-
-                <small class="form-text text-muted">{{ form.vars.help|trans }}</small>
-            </div>
-            <div class="col-2 card">
-                <div class="collection-actions">
-                    {{ saveButton()|raw }}
-                </div>
+{% block student_calendar_grade_widget %}
+    <div class="row">
+        <div class="col-5 offset-2 card">
+            {{ form_row(form.calendarGrade, {value: transformData(form.calendarGrade)}) }}
+        </div>
+        <div class="col-3 card">
+            {{ form_row(form.status) }}{{ form_row(form.student, {value: app.request.get('id')}) }}
+        </div>
+        <div class="col-2 card">
+            <div class="collection-actions">
+                {{ saveButton()|raw }}
             </div>
         </div>
-{% endblock calendar_grade_widget %}
+    </div>
+{% endblock student_calendar_grade_widget %}

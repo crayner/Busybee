@@ -5,3 +5,13 @@ student:
         removeSuccess: "The %name% was removed as a Student."
         removeRestricted: '%name% is set as a student, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Student."
+    calendar_grade:
+        grade:
+            placeholder: 'Select !!!form_grade!!!'
+            label: '!!!form_grade!!! in Calendar'
+            help: 'The  !!!form_grade!!! selected must be the only grade selected in the calendar.'
+        status:
+            label: Enrolment Status
+    calendar_grades:
+        grade.validation.error: '"%{grade}" duplicates the calendar, "%{calendar}", for this student!'
+        status.validation.error: 'The student can be current in only one grade!'

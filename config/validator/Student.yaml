@@ -1,4 +1,6 @@
 App\Entity\Student:
+    constraints:
+        - App\People\Validator\StudentCalendarGrades: ~
     properties:
         startAtSchool:
             - Date: ~
@@ -8,7 +10,7 @@ App\Entity\Student:
             - Date: ~
         house:
             - App\Core\Validator\SettingChoice:
-                name: 'house.list'
+                settingName: 'house.list'
                 settingDataValue: 'name'
         citizenship1PassportScan:
             - App\People\Validator\PassportImage: ~

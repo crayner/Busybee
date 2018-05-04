@@ -26,11 +26,11 @@ App\Entity\Person:
             - Date: ~
         gender:
             - App\Core\Validator\SettingChoice:
-                name: 'person.genderlist'
+                settingName: 'person.genderlist'
             - NotBlank: ~
         honorific:
             - App\Core\Validator\SettingChoice:
-                name: 'person.titlelist'
+                settingName: 'person.titlelist'
         photo:
             - App\People\Validator\PersonImage: ~
         phone:

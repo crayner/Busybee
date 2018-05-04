@@ -32,6 +32,8 @@ student.enrolment.status:
     left: Left
     past: Past
     archived: Archived
+    active: Active
+    inactive: Inactive
 phone.typelist:
     home: Home
     mobile: Mobile

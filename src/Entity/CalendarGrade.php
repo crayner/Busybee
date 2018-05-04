@@ -117,17 +117,17 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
     }
 
     /**
-     * @param Student|null $student
+     * @param CalendarGradeStudent|null $student
      * @param bool $add
      * @return CalendarGrade
      */
-    public function addStudent(?Student $student, $add = true): CalendarGrade
+    public function addStudent(?CalendarGradeStudent $student, $add = true): CalendarGrade
     {
         if (empty($student))
             return $this;
 
         if ($add)
-            $student->addCalendarGrade($this, false);
+            $student->setCalendarGrade($this, false);
 
         $this->students = $this->getStudents();
 
@@ -138,21 +138,16 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
     }
 
     /**
-     * @param Student|null $student
+     * @param CalendarGradeStudent|null $student
      * @param bool $remove
      * @return CalendarGrade
      */
-    public function removeStudent(?Student $student, $remove = true): CalendarGrade
+    public function removeStudent(?CalendarGradeStudent $student): CalendarGrade
     {
         if (empty($student))
             return $this;
 
-        if ($this->students->contains($student)) {
-            if ($remove)
-                $student->removeCalendarGrade($this, false);
-            $this->students->removeElement($student);
-        }
-
+        $this->students->removeElement($student);
         return $this;
     }
 

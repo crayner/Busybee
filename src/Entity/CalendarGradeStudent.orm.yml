@@ -1,0 +1,30 @@
+App\Entity\CalendarGradeStudent:
+    type: entity
+    table: calendar_grade_student
+    repositoryClass: App\Repository\CalendarGradeStudentRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        status:
+            type: string
+            length: 24
+            options:
+                default: 'current'
+    manyToOne:
+        student:
+            targetEntity: App\Entity\Student
+            inversedBy: calendarGrades
+            joinColumn:
+                name: student_id
+                referencedColumnName: id
+                nullable: false
+        calendarGrade:
+            targetEntity: App\Entity\CalendarGrade
+            inversedBy: students
+            joinColumn:
+                name: calendar_grade_id
+                referencedColumnName: id
+                nullable: false

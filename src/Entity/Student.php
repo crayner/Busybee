@@ -162,17 +162,6 @@ class Student extends StudentExtension
     private $calendarGrades;
 
 	/**
-	 * Student constructor.
-	 */
-	public function __construct()
-	{
-        $this->rollGroups = new ArrayCollection();
-        $this->activities = new ArrayCollection();
-        $this->calendarGrades = new ArrayCollection();
-		parent::__construct();
-	}
-
-	/**
 	 * Set startAtSchool
 	 *
 	 * @param \DateTime $startAtSchool
@@ -864,6 +853,12 @@ class Student extends StudentExtension
      */
     public function getCalendarGrades(): ?Collection
     {
+        if (empty($this->calendarGrades))
+            $this->calendarGrades = new ArrayCollection();
+
+        if ($this->calendarGrades instanceof PersistentCollection)
+            $this->calendarGrades->initialize();
+
         return $this->calendarGrades;
     }
 
@@ -878,17 +873,17 @@ class Student extends StudentExtension
     }
 
     /**
-     * @param CalendarGrade|null $calendarGrade
+     * @param CalendarGradeStudent|null $calendarGrade
      * @param bool $add
      * @return CalendarGrade
      */
-    public function addCalendarGrade(?CalendarGrade $calendarGrade, $add = true): Student
+    public function addCalendarGrade(?CalendarGradeStudent $calendarGrade, $add = true): Student
     {
-        if (empty($calendarGrade))
+        if (empty($calendarGrade) || $this->getCalendarGrades()->contains($calendarGrade))
             return $this;
 
         if ($add)
-            $calendarGrade->addStudent($this, false);
+            $calendarGrade->setStudent($this, false);
 
         if (!$this->calendarGrades->contains($calendarGrade))
             $this->calendarGrades->add($calendarGrade);
@@ -897,21 +892,15 @@ class Student extends StudentExtension
     }
 
     /**
-     * @param CalendarGrade|null $calendarGrade
-     * @param bool $remove
-     * @return CalendarGrade
+     * @param CalendarGradeStudent|null $calendarGrade
+     * @return Student
      */
-    public function removeCalendarGrade(?CalendarGrade $calendarGrade, $remove = true): Student
+    public function removeCalendarGrade(?CalendarGradeStudent $calendarGrade): Student
     {
         if (empty($calendarGrade))
             return $this;
 
-        if ($this->calendarGrades->contains($calendarGrade)) {
-            if ($remove)
-                $calendarGrade->removeStudent($this, false);
-            $this->calendarGrades->removeElement($calendarGrade);
-        }
-
+        $this->calendarGrades->removeElement($calendarGrade);
         return $this;
     }
 }

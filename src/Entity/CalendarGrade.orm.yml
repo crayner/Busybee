@@ -38,18 +38,8 @@ App\Entity\CalendarGrade:
             joinColumns:
                 calendar_id:
                     referencedColumnName: id
-    manyToMany:
+    oneToMany:
         students:
-            targetEntity: App\Entity\Student
-            inversedBy: calendarGrades
-            orderBy:
-                surname: ASC
-                firstName: ASC
-            joinTable:
-                name: calendar_grade_student
-                joinColumns:
-                    calendar_grade_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    student_id:
-                        referencedColumnName: id
+            targetEntity: App\Entity\CalendarGradeStudent
+            mappedBy: calendarGrade
+            cascade: [ 'all' ]

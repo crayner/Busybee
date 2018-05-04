@@ -1,9 +1,7 @@
 <?php
 namespace App\People\Form\Subscriber;
 
-use App\Entity\CalendarGrade;
-use Doctrine\ORM\EntityRepository;
-use Hillrange\Form\Type\CollectionEntityType;
+use App\People\Form\CalendarGradeType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\DateType;
 use Hillrange\Form\Type\ImageType;
@@ -161,17 +159,17 @@ class PersonSubscriber implements EventSubscriberInterface
 	{
 		$form
 			->add('staffType', SettingChoiceType::class, array(
-					'label'        => 'staff.stafftype.label',
-					'setting_name' => 'staff.categories',
-					'attr'         => array(
-						'class' => 'staffMember',
+					'label'         => 'staff.stafftype.label',
+					'setting_name'  => 'staff.categories',
+					'attr'          => array(
+						'class'         => 'staffMember',
 					)
 				)
 			)
 			->add('jobTitle', TextType::class, array(
-					'label' => 'staff.jobTitle.label',
-					'attr'  => array(
-						'class' => 'staffMember',
+					'label'     => 'staff.jobTitle.label',
+					'attr'      => array(
+						'class'     => 'staffMember',
 					)
 				)
 			)
@@ -179,31 +177,11 @@ class PersonSubscriber implements EventSubscriberInterface
 					'label'              => 'staff.house.label',
 					'placeholder'        => 'staff.house.placeholder',
 					'required'           => false,
-					'help' => 'staff.house.help',
+					'help'               => 'staff.house.help',
 					'setting_name'       => 'house.list',
 					'setting_data_value' => 'name',
 				)
 			)
-            /*			->add('homeroom', EntityType::class, array(
-					'label'         => 'staff.label.homeroom',
-					'class'         => Space::class,
-					'choice_label'  => 'name',
-					'placeholder'   => 'staff.placeholder.homeroom',
-					'required'      => false,
-					'attr'          => array(
-						'help' => 'staff.help.homeroom',
-					),
-					'query_builder' => function (EntityRepository $er) use ($options) {
-						return $er->createQueryBuilder('h')
-							->leftJoin('h.staff', 's')
-							->where('s.person = :person_id')
-							->orWhere('h.staff IS NULL')
-							->setParameter('person_id', $options['person_id'])
-							->orderBy('h.name', 'ASC');
-					},
-				)
-			)
-*/
 		;
 
 	}
@@ -380,22 +358,8 @@ class PersonSubscriber implements EventSubscriberInterface
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => CollectionEntityType::class,
-                    'entry_options' => [
-                        'class' => CalendarGrade::class,
-                        'choice_label' => 'fullName',
-                        'placeholder' => 'calendar_grades.grade.placeholder',
-                        'label' => 'calendar_grades.grade.label',
-                        'help' => 'calendar_grades.grade.help',
-                        'block_prefix' => 'calendar_grade',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('g')
-                                ->leftJoin('g.calendar', 'c')
-                                ->orderBy('c.firstDay', 'ASC')
-                                ->addOrderBy('g.sequence', 'ASC')
-                            ;
-                        },
-                    ],
+                    'entry_type' => CalendarGradeType::class,
+                    'route' => 'remove_student_calendar_grade',
                 ]
             )
         ;

@@ -141,9 +141,9 @@ class PersonPagination extends PaginationManager
 		return $this->getQuery();
 	}
 
-	public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
+	public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
 	{
-		parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
+		parent::__construct($entityManager, $router, $requestStack, $formFactory);
 		$this->setDisplayChoice(true);
 	}
 }

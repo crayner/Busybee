@@ -13,7 +13,7 @@ App\Entity\ActivityTutor:
             - App\Core\Validator\SettingChoice:
                 message: 'role.validator.type.unavailable'
                 transDomain: 'School'
-                name: 'tutor.type.list'
+                settingName: 'tutor.type.list'
         sequence:
             - NotBlank: ~
         activity:

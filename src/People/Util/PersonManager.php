@@ -502,8 +502,8 @@ user:
                 ->leftJoin('cg.calendar', 'c')
                 ->where('s.id = :student_id')
                 ->setParameter('student_id', $person->getId())
-                ->andWhere('c.id = :calendar_id')
-                ->setParameter('calendar_id', $this->calendarManager->getCurrentCalendar()->getId())
+                ->andWhere('cg.calendar = :calendar')
+                ->setParameter('calendar', $this->calendarManager->getCurrentCalendar())
                 ->getQuery()
                 ->getOneOrNullResult();
 

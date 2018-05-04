@@ -7,4 +7,4 @@ App\Entity\DepartmentMember:
     properties:
         staffType:
             - App\Core\Validator\SettingChoice:
-                name: 'department.staff.type.list'
+                settingName: 'department.staff.type.list'

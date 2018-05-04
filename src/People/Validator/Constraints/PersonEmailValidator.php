@@ -29,7 +29,7 @@ class PersonEmailValidator extends ConstraintValidator
 	 */
 	public function validate($value, Constraint $constraint)
 	{
-		if (empty($value))
+        if (empty($value))
 			return;
 
 		$object = $this->context->getObject();

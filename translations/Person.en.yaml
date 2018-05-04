@@ -291,7 +291,3 @@ locality:
     title: Locality
 people:
     title: All People
-calendar_grades.grade:
-    placeholder: 'Select !!!form_grade!!!'
-    label: '!!!form_grade!!! in Calendar'
-    help: 'The  !!!form_grade!!! selected must be the only grade selected in the calendar.'

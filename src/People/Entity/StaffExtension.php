@@ -33,13 +33,26 @@ abstract class StaffExtension extends Person
 		return trim($string, ', ');
 	}
 
-	/**
-	 * @todo Check if a Staff record can be deleted
-	 */
-	public function canDelete()
+    /**
+     * @todo Check if a Staff record can be deleted
+     * @return bool
+     */
+    public function canDelete(): bool
 	{
 		// Add Staff Delete checks here.
 
 		return parent::canDelete();
 	}
+
+    /**
+     * @return string
+     */
+    public function getDepartmentNames(): string
+    {
+        $result = '';
+        foreach($this->getDepartments()->getIterator() as $dept)
+            $result .= $dept->getDepartment()->getFullName() . ', ';
+
+        return trim($result, ', ');
+    }
 }

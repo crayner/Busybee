@@ -111,7 +111,7 @@ App\Entity\Student:
             mappedBy: student
             targetEntity: App\Entity\ActivityStudent
             cascade: [ 'all' ]
-    manyToMany:
         calendarGrades:
-            mappedBy: students
-            targetEntity: App\Entity\CalendarGrade
+            mappedBy: student
+            targetEntity: App\Entity\CalendarGradeStudent
+            cascade: [ 'all' ]

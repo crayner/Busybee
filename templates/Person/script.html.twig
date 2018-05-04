@@ -110,41 +110,6 @@
         $("#person_address2_list").val("");
     });
 
-
-    function removeStudentCalendar(id) {
-        var xx = true;
-
-        if (id > 0) {
-
-            var path = '{{ path('remove_student_calendar', {'id': '__id__'}) }}';
-            path = path.replace('__id__', id);
-
-            $.ajax({
-                url: path,
-                type: 'POST',
-                async: false,
-                success: function (data) {
-
-                    var message = '<div class="alert alert-__status__">__message__</div>';
-
-                    message = message.replace('__message__', data['message']);
-                    message = message.replace('__status__', data['status']);
-                    if (data['status'] === 'success') {
-                        $('.rollGroupMessage').html(message);
-                    } else if (data['status'] === 'error') {
-                        $('.rollGroupMessage').html(message);
-                        xx = false;
-                    } else if (data['status'] === 'warning') {
-                        $('.rollGroupMessage').html(message);
-                        xx = false;
-                    }
-                }
-            });
-        }
-
-        return xx;
-    }
-
     function resetForm() {
         var fragment = $('.tab-content > .active').attr('id');
         var id = '{{ app.request.get('id') }}';

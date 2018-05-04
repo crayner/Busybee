@@ -5,6 +5,7 @@ use App\Core\Manager\MessageManager;
 use App\Entity\Person;
 use App\Pagination\StudentPagination;
 use App\People\Util\PersonManager;
+use App\People\Util\StudentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -173,16 +174,14 @@ class StudentController extends Controller
 	/**
 	 * @param $id
 	 * @param $groupId
-	 * @Route("/student/remove/calendar/{id}/", name="remove_student_calendar")
+	 * @Route("/student/{id}/remove/calendar_grade/{cid}/", name="remove_student_calendar_grade")
 	 * @IsGranted("ROLE_ADMIN")
 	 */
-	public function removeStudentCalendar($id)
+	public function removeStudentCalendarGrade($id, $cid, StudentManager $studentManager)
 	{
-		$studentManager = $this->get('busybee_people_student.model.student_manager');
-
-		$studentManager->initiateCalendarGroup($group);
-
-		$studentManager->removeStudentFromCalendarGroup($student);
+	    $studentManager->find($id);
+	    dump($studentManager);
+		$studentManager->removeCalendarGrade($cid);
 
 		$studentManager->getPossibleStudents(false);
 		$studentManager->getCurrentStudents(false);

@@ -41,17 +41,6 @@ student.groups:
         'Year 2': Y2
         'Year 1': Y1
         'Kinder': Y0
-student.enrolment.status:
-    type: array
-    displayName: Student Enrolment Status
-    description: Reflects the status of student enrolment.
-    role: ROLE_ADMIN
-    value:
-        Future: Future
-        Current: Current
-        Left: Left
-        Past: Past
-        Archived: Archived
 department.type.list:
     type: array
     displayName: Department Type List

@@ -54,9 +54,6 @@ class PersonType extends AbstractType
 						'class' => 'beeHonorific',
 					),
 					'required'     => false,
-					'constraints'   => [
-						new SettingChoice(['name' => 'person.titlelist']),
-					],
 
 				)
 			)
@@ -100,9 +97,6 @@ class PersonType extends AbstractType
 					'attr'                      => array(
 						'class' => 'beeGender',
 					),
-					'constraints'   => [
-						new SettingChoice(['name' => 'person.genderlist']),
-					],
 				)
 			)
 			->add('dob', BirthdayType::class, array(

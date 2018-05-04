@@ -23,6 +23,10 @@ class StudentManager extends PersonManager
         parent::__construct($entityManager, $addressManager, $settingManager, $userManager, $calendarManager);
     }
 
+    /**
+     * @param Collection|null $grades
+     * @return QueryBuilder
+     */
     public function generateStudentList(?Collection $grades): QueryBuilder
     {
         if ($grades->count() == 0)

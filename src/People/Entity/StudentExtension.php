@@ -3,6 +3,7 @@ namespace App\People\Entity;
 
 use App\Entity\Activity;
 use App\Entity\Calendar;
+use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
 use App\Entity\Person;
 
@@ -114,10 +115,25 @@ abstract class StudentExtension extends Person
             ],
         ];
 
-        if ($active = 'active')
+        if ($limit === 'active')
             return $x['active'];
-        if ($active = 'inactive')
+        if ($limit === 'inactive')
             return $x['inactive'];
         return $x;
+    }
+
+    /**
+     * @param Calendar $calendar
+     * @return null|CalendarGrade
+     */
+    public function getStudentCurrentGrade(Calendar $calendar): ?CalendarGrade
+    {
+        $grades = $this->getCalendarGrades();
+
+        foreach ($grades as $grade)
+            if ($grade->getCalendar() === $calendar)
+                return $grade;
+
+        return null;
     }
 }
