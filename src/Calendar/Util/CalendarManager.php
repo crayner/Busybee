@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class CalendarManager implements CollectionInterface, TabManagerInterface
+class CalendarManager implements TabManagerInterface
 {
 	/**
 	 * @var EntityManagerInterface

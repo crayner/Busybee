@@ -5,6 +5,7 @@ use App\Address\Util\AddressManager;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\SettingManager;
 use App\Core\Util\UserManager;
+use App\Entity\CalendarGradeStudent;
 use App\Entity\Student;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Connection;
@@ -14,9 +15,13 @@ use Doctrine\ORM\QueryBuilder;
 class StudentManager extends PersonManager
 {
     /**
-     * PersonManager constructor.
+     * StudentManager constructor.
      *
      * @param EntityManagerInterface $entityManager
+     * @param AddressManager $addressManager
+     * @param SettingManager $settingManager
+     * @param UserManager $userManager
+     * @param CalendarManager $calendarManager
      */
     public function __construct(EntityManagerInterface $entityManager, AddressManager $addressManager, SettingManager $settingManager, UserManager $userManager, CalendarManager $calendarManager)
     {
@@ -52,6 +57,6 @@ class StudentManager extends PersonManager
             ->setParameter('grades', $x, Connection::PARAM_STR_ARRAY)
             ->orderBy('s.surname')
             ->addOrderBy('s.firstName');
-;        return $result;
+        return $result;
     }
 }

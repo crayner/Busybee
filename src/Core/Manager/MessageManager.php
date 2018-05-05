@@ -191,4 +191,23 @@ class MessageManager
         }
         return $x;
     }
+
+    public function addStatusMessages($status, $domain = null): MessageManager
+    {
+        if (empty($status))
+            return $this;
+
+        if (! is_array($status))
+            $status = [$status];
+
+        foreach($status as $item)
+        {
+            if (is_array($item))
+                $this->add($item['level'], $item['message'], $item['options'], $domain);
+            elseif ($item instanceof \stdClass)
+                $this->add($item->level, $item->message, $item->options, $domain);
+        }
+
+        return $this;
+    }
 }

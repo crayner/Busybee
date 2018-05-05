@@ -66,6 +66,7 @@ class PersonType extends AbstractType
 					'attr'  => array(
 						'class' => 'beeSurname',
 					),
+                    'auto_complete' => 'family-name',
 				)
 			)
 			->add('firstName', TextType::class, array(
@@ -73,6 +74,7 @@ class PersonType extends AbstractType
 					'attr'  => array(
 						'class' => 'beeFirstName',
 					),
+                    'auto_complete' => 'given-name',
 				)
 			)
 			->add('preferredName', TextType::class, array(
@@ -113,11 +115,13 @@ class PersonType extends AbstractType
 					'label'    => 'person.email.label',
 					'required' => false,
 						'help' => 'person.email.help',
+                    'auto_complete' => 'email',
 				)
 			)
 			->add('email2', EmailType::class, array(
 					'label'    => 'person.email2.label',
 					'required' => false,
+                    'auto_complete' => 'email',
 				)
 			)
 			->add('photo', ImageType::class, array(
@@ -147,7 +151,6 @@ class PersonType extends AbstractType
 					'help'  => 'person.address1.help',
 					'attr'         => array(
 						'class' => 'beeAddressList formChanged',
-						'autocomplete' => 'new-address',
 					),
 				)
 			)
@@ -162,7 +165,6 @@ class PersonType extends AbstractType
 					'label'        => 'person.address2.label',
 					'attr'         => array(
 						'class' => 'beeAddressList formChanged',
-						'autocomplete' => 'new-address',
 					),
 				)
 			)
@@ -189,6 +191,9 @@ class PersonType extends AbstractType
 				'data_class'         => Person::class,
 				'translation_domain' => 'Person',
 				'allow_extra_fields' => true,
+                'attr'               => [
+                    'noValidate' => '',
+                ],
 			)
 		);
 		$resolver->setRequired(

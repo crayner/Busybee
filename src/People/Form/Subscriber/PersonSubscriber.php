@@ -312,6 +312,7 @@ class PersonSubscriber implements EventSubscriberInterface
 				[
 					'label'    => 'student.nationalIDCardNumber.label',
 					'required' => false,
+                    'auto_complete' => 'cc-number',
 				]
 			)
 			->add('nationalIDCardScan', ImageType::class, array(

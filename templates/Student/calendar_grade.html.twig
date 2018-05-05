@@ -1,8 +1,8 @@
 {% trans_default_domain "Person" %}
 
 {% include 'Person/panelHeader.html.twig' with {header: 'student.calendar_grade.title', name: personManager.person.formatName} %}
-<div class="container-fluid" id="person_calendarGrades_target">
-    {{ form_widget(form.calendarGrades) }}
+<div class="container-fluid">
+    {{ collection_widget(form.calendarGrades, 0, 0) }}
 </div>
 {% include 'Page/panelEnd.html.twig' %}
 {% do form.calendarGrades.setRendered %}

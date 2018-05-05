@@ -20,6 +20,7 @@
     {% set form_path = [] %}
     {% set form_path = form_path|merge({'id': id}) %}
     {{ form_start(form, {'action': path('person_edit', form_path)}) }}
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
     {% include 'Default/tabs.html.twig' with {tabManager: personManager} %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
@@ -27,7 +28,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-    {{ collections_manage(form, ['phone','studentCalendars','calendarGrades'])|raw }}
+    {{ collections_manage(form, ['phone','calendarGrades'])|raw }}
     {{ collection_script(form.phone)|raw }}
     {% if form.calendarGrades is defined %}{{ collection_script(form.calendarGrades)|raw }}{% endif %}
     {% include 'Person/script.html.twig' %}

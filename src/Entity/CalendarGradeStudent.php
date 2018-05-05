@@ -123,4 +123,14 @@ class CalendarGradeStudent implements UserTrackInterface
     {
         return $this->getStudent()->getFullName($options);
     }
+
+    /**
+     * @return Calendar|null
+     */
+    public function getCalendar(): ?Calendar
+    {
+        if ($this->getCalendarGrade())
+            return $this->getCalendarGrade()->getCalendar();
+        return null;
+    }
 }

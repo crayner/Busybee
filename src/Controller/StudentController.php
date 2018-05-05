@@ -2,9 +2,12 @@
 namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\TwigManager;
 use App\Entity\Person;
 use App\Pagination\StudentPagination;
+use App\People\Form\PersonType;
 use App\People\Util\PersonManager;
+use App\People\Util\StudentCalendarGradeManager;
 use App\People\Util\StudentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -171,30 +174,49 @@ class StudentController extends Controller
 		return $this->redirectToRoute('person_edit', ['id' => $id]);
 	}
 
-	/**
-	 * @param $id
-	 * @param $groupId
-	 * @Route("/student/{id}/remove/calendar_grade/{cid}/", name="remove_student_calendar_grade")
-	 * @IsGranted("ROLE_ADMIN")
-	 */
-	public function removeStudentCalendarGrade($id, $cid, StudentManager $studentManager)
+    /**
+     * @param $id
+     * @param $cid
+     * @param StudentCalendarGradeManager $studentCGManager
+     * @param StudentManager $studentManager
+     * @param TwigManager $twigManager
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @Route("/student/{id}/remove/calendar_grade/{cid}/", name="remove_student_calendar_grade")
+     * @IsGranted("ROLE_ADMIN")
+     */
+	public function removeStudentCalendarGrade($id, $cid, Request $request,  StudentCalendarGradeManager $studentCGManager, StudentManager $studentManager, TwigManager $twigManager)
 	{
-	    $studentManager->find($id);
-	    dump($studentManager);
-		$studentManager->removeCalendarGrade($cid);
+	    if ($cid !== 'ignore')
+	        $studentCGManager->removeCollectionChild($id, $cid);
 
-		$studentManager->getPossibleStudents(false);
-		$studentManager->getCurrentStudents(false);
+		$message = $studentManager->getMessageManager()->addStatusMessages($studentCGManager->getStatus(), 'Student')->renderView($twigManager->getTwig());
 
-		$message = $this->get('busybee_core_system.model.flash_bag_manager')->renderMessages($studentManager->getMessages());
+        $person = $studentManager->find($id);
 
-		return new JsonResponse(
+        $form = $this->createForm(PersonType::class, $person, [
+            'deletePhoto'        => $this->generateUrl('person_photo_remove', ['id' => $id]),
+            'isSystemAdmin'      => $this->isGranted('ROLE_SYSTEM_ADMIN'),
+            'session'            => $request->getSession(),
+            'data'               => $person,
+            'data_class'         => get_class($person),
+            'deletePassportScan' => $this->generateUrl('student_passport_remove', ['id' => $id]),
+            'deleteIDScan'       => $this->generateUrl('student_id_remove', ['id' => $id]),
+        ]);
+
+        $content = $this->renderView('Person/person_collection_manage.html.twig',
+            [
+                'collection' => $form->get('calendarGrades')->createView(),
+            ]
+        );
+
+        return new JsonResponse(
 			[
 				'message'  => $message,
-				'current'  => $this->renderView('@BusybeeStudent/Student/addStudent.html.twig', ['manager' => $studentManager]),
-				'possible' => $this->renderView('@BusybeeStudent/Student/removeStudent.html.twig', ['manager' => $studentManager]),
+				'content'  => $content,
 			],
 			200);
-
 	}
 }

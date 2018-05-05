@@ -8,6 +8,6 @@
                 {{ formatPhone(phone)|raw }}<br/>
             {% endfor %}</p>
     {% endif %}
-    <section id="person_phone_target">{{ collection_widget(form.phone) }}</section>
+    {{ collection_widget(form.phone, 0, 0) }}
 {% include 'Page/panelEnd.html.twig' %}
 {% do form.phone.setRendered %}
