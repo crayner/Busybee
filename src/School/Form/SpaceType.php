@@ -60,6 +60,7 @@ class SpaceType extends AbstractType
 						'class' => 'monitorChange',
 					),
                     'setting_name' => 'space.type',
+                    'sort_choice' => false,
 				)
 			)
 			->add('capacity', IntegerType::class, array(

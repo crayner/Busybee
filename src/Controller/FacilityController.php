@@ -1,11 +1,16 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\SettingManager;
+use App\Core\Organism\Collection;
 use App\Entity\Campus;
 use App\Entity\Space;
 use App\Pagination\SpacePagination;
 use App\School\Form\CampusType;
+use App\School\Form\FacilityCollectionType;
 use App\School\Form\SpaceType;
+use App\School\Organism\Facility;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -101,6 +106,7 @@ class FacilityController extends Controller
 
 		return $this->render('Facility/spaceEdit.html.twig', ['id' => $id, 'form' => $form->createView()]);
 	}
+
 	/**
 	 * @Route("/space/duplicate/", name="space_duplicate")
 	 * @IsGranted("ROLE_REGISTRAR")
@@ -144,4 +150,57 @@ class FacilityController extends Controller
 			]
 		);
 	}
+
+    /**
+     * @param Request $request
+     * @param SettingManager $settingManager
+     * @throws \Exception
+     * @Route("/facility/type/manage/", name="facility_type_manage")
+     */
+    public function facilityTypeManage(Request $request, SettingManager $settingManager)
+    {
+        $setting = $settingManager->get('space.type');
+
+        $values = new ArrayCollection();
+
+        foreach($setting as $q=>$w)
+        {
+            foreach($w as $r)
+            {
+                $ft = new Facility();
+                $ft->setName($r);
+                $ft->setTeachingSpace(false);
+                if ($q === 'teaching_space')
+                    $ft->setTeachingSpace(true);
+                $values->add($ft);
+            }
+        }
+        $data = new Collection();
+        $data->setValues($values);
+        $form = $this->createForm(FacilityCollectionType::class, $data);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $value = [];
+            foreach($form->get('values')->getData()->getIterator() as $item)
+            {
+                if ($item->isTeachingSpace())
+                    $value['teaching_space'][] = strtolower($item->getName());
+                else
+                    $value['non_teaching_space'][] = strtolower($item->getName());
+            }
+            sort($value['teaching_space']);
+            sort($value['non_teaching_space']);
+            $settingManager->set('space.type', $value);
+            return $this->redirectToRoute('facility_type_manage');
+        }
+
+        return $this->render('Facility/facility_type.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
 }

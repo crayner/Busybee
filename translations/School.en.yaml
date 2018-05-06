@@ -339,3 +339,13 @@ remove_tutor_on_save: You must save the form to complete the removal of the tuto
 activity_students:
     add.title: Add Student
     remove.title: Remove Student
+facility.type:
+    manage:
+        title: Facility Type Manage
+        description: Define the type of facilities available across your school.
+    name.label: Facility Type Name
+    teaching_space:
+        label: Teaching Space
+        help: 'Is this facility available as a space to hold students for learning outcomes?'
+translation: Translation
+space.type.translation: 'Most of the translation for this setting is handled by the programme.  Should you add a new facility type, then the translation will need to be handled by the school.  This can be sone by creating a "Setting.en.yaml" file in the "config/translations" directory. Add the displayed string that requires translation and enter the translation after the string shown follwoed by a colon. An example -  "staff.type.common room": "Common Room"  NB: The quotes ensure the strings are fully interpreted correctly, but may NOT be required.'

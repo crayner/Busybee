@@ -1,0 +1,27 @@
+{% trans_default_domain 'School' %}
+
+{% block facility_type_label %}{% endblock %}
+{% block facility_type_errors %}{% endblock %}
+
+{% block facility_type_widget %}
+    {% spaceless %}
+        {% set h3Content = '<div class="collection-actions">' %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        <div class="row">
+            <div class="col-6 card">
+                <div class="row">
+                    <div class="col-6">
+                    {{ form_widget(form.name) }}</div><div class="col-6 card">{{ ('space.type.' ~ form.name.vars.value)|trans({}, 'Setting') }}</div>
+                </div>
+            </div>
+            <div class="col-3 card">
+                {{ form_widget(form.teachingSpace) }}
+            </div>
+            <div class="col-3 card">
+                {{ h3Content|raw }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    {% endspaceless %}
+{% endblock facility_type_widget %}

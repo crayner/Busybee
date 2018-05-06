@@ -4,8 +4,11 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
 /.idea/
 /public/uploads/
 
 composer.lock
 symfony.lock
+
+/config/translations/

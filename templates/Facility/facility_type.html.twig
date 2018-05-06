@@ -1,0 +1,52 @@
+{% trans_default_domain 'School' %}
+
+{% extends 'Default/template.html.twig' %}
+
+{% form_theme form
+    'Facility/facility_type_collection.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+
+{% set fullPage = true %}
+{% set headerOff = true %}
+
+{% block title %}{{ 'facility.type.manage.title'|trans }}{% endblock title %}
+
+{% block contentContainer %}
+    {% set h3Content = closeButton() %}
+    {% include 'Page/panelStart.html.twig' with {header: 'facility.type.manage.title', panelParagraph: 'facility.type.manage.description' , transDomain: 'School', colour: 'warning'} %}
+    <div class="row row-header">
+        <div class="col-6 card text-center">
+            {{ 'facility.type.name.label'|trans }}
+            <div class="row">
+                <div class="offset-6 col-6 card">{{ 'translation'|trans }}</div>
+            </div>
+        </div>
+
+        <div class="col-3 card text-center">
+            {{ 'facility.type.teaching_space.label'|trans }}<br/><span class="small">{{ 'facility.type.teaching_space.help'|trans }}</span>
+        </div>
+        <div class="col-3 card text-center">
+            {{ 'actions'|trans({}, 'home') }}
+        </div>
+    </div>
+    <div class="row">
+        <p class="alert alert-warning">
+            {{ 'space.type.translation'|trans }}
+        </p>
+    </div>
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
+
+    {{ form_start(form) }}
+    {{ collection_widget(form.values) }}
+    {{ form_end(form) }}
+    {% include 'Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ collections_manage(form, ['values'])|raw }}
+    {{ collection_script(form.values)|raw }}
+    {% include '@HillrangeForm/Toggle/script.html.twig' %}
+{% endblock javascripts %}
