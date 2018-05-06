@@ -61,7 +61,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$name    = $form->getName();
 
         $choices = $this->settingManager->get($options['setting_name']);
-		$setting = $this->settingManager->getSetting();
+
+        $setting = $this->settingManager->getSetting();
 		if (is_null($setting))
 			throw new Exception('The setting '.$options['setting_name'].' was not found.');
 
@@ -77,18 +78,36 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 				{
 					if (!is_null($options['setting_data_name']) && !empty($data[$options['setting_data_name']]))
 						$newChoices[$data[$options['setting_data_name']]] = $data[$options['setting_data_value']];
-					else
-						$newChoices[$data[$options['setting_data_value']]] = $data[$options['setting_data_value']];
+					else {
+                        $newChoices[$data[$options['setting_data_value']]] = $data[$options['setting_data_value']];
+                    }
 				} else {
 					throw new Exception('The setting '.$options['setting_name'] . ' is not correctly configured to use a sub array.');
 				}
 			}
 		} else
 			foreach ($choices as $label => $data)
-				if ($options['translation_prefix'])
-					$newChoices[strtolower($options['setting_name'].'.'.$label)] = $data;
-				else
-					$newChoices[$label] = $data;
+			    if (is_array($data))
+                {
+                    if ($options['translation_prefix'])
+                        $optChoice = strtolower($options['setting_name'].'.'.$label);
+                    else
+                        $optChoice = strtolower($label);
+                    $w = [];
+                    foreach($data as $datum)
+                    {
+                        if ($options['translation_prefix'])
+                            $w[strtolower($options['setting_name'].'.'.$datum)] = $datum;
+                        else
+                            $w[strtolower($options['setting_name'].'.'.$datum)] = $datum;
+                    }
+                    $newChoices[$optChoice] = $w;
+                }
+                else
+                    if ($options['translation_prefix'])
+                        $newChoices[strtolower($options['setting_name'].'.'.$label)] = $data;
+                    else
+                        $newChoices[$label] = $data;
 
 
 		$choices = $newChoices;

@@ -166,11 +166,9 @@ School Admin:
 	        label: menu.space.type.title
 	        name: Space Management
 	        role: ROLE_SYSTEM_ADMIN
-	        route: setting_edit_name
-	        parameters:
-                name: space.type
-                closeWindow: closeWindow
+	        route: facility_type_manage
 	        translate: Setting
+	        parameters: {}
 	        target:
                 name: Setting_Facility_Type
                 options: width=1200,height=900

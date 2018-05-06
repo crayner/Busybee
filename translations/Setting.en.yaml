@@ -129,10 +129,12 @@ space.type:
     other: Other
     outdoor: Outdoor
     performance: Performance
-    staffroom: Staffroom
+    'staff room': Staff Room
     storage: Storage
     study: Study
     undercover: Undercover
+    teaching_space: Teaching Spaces
+    non_teaching_space: Non Teaching Spaces
 period.type.list:
     lesson: 'Lesson'
     pastoral: 'Pastoral'
