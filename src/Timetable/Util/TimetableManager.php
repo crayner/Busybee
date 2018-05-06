@@ -257,7 +257,7 @@ timetable:
         if (!$this->timetable instanceof TimeTable)
             throw new \InvalidArgumentException('The timetable has not been injected into the manager.');
 
-        $this->report = new \stdClass();
+        $this->report = new TimetableReportManager($this->getTimetable(), $pag);
 
         $this->report->periods = [];
         $this->report->activities = [];
@@ -275,7 +275,7 @@ timetable:
             $per->columnName = $period['columnName'];
             $per->activities = [];
 
-            $this->getPeriodManager()->clearResults();
+            $this->getPeriodManager();
 
             foreach ($per->period->getActivities() as $activity) {
                 if ($this->activeGrade($activity)) {

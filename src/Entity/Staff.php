@@ -372,9 +372,18 @@ class Staff extends StaffExtension
         return $this;
     }
 
+    /**
+     * @param TimetablePeriodActivityTutor|null $activity
+     * @return Staff
+     */
     public function removePeriodCommitment(?TimetablePeriodActivityTutor $activity): Staff
     {
         $this->getPeriodCommitments()->removeElement($activity);
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getFullName();
     }
 }

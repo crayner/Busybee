@@ -19,7 +19,7 @@ class MessageManager
     /**
      * @var array
      */
-    private $statusLevel = [
+    static $statusLevel = [
         'default'   => 0,
         'light'     => 1,
         'dark'      => 2,
@@ -163,16 +163,16 @@ class MessageManager
      * @param string $stat2
      * @return bool
      */
-    public function compareLevel($stat1, $stat2 = 'default'): bool
+    public static function compareLevel($stat1, $stat2 = 'default'): bool
     {
         $stat1 = strtolower($stat1);
         $stat2 = strtolower($stat2);
-        if (! in_array($stat1, $this->statusLevel))
+        if (! in_array($stat1, self::statusLevel))
             return false;
-        if (! in_array($stat2, $this->statusLevel))
+        if (! in_array($stat2, self::statusLevel))
             return false;
 
-        if ($this->statusLevel[$stat1] > $this->statusLevel[$stat2])
+        if (self::statusLevel[$stat1] > self::statusLevel[$stat2])
             return true;
         return false;
     }
@@ -184,7 +184,7 @@ class MessageManager
     {
         $x =  'default';
         foreach($this->getMessages() as $message) {
-            if ($this->compareLevel($message->getLevel(), $x))
+            if (self::compareLevel($message->getLevel(), $x))
                 $x = $message->getLevel();
             if ($x === 'danger')
                 break;

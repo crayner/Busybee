@@ -132,7 +132,7 @@ abstract class StudentExtension extends Person
 
         foreach ($grades as $grade)
             if ($grade->getCalendar() === $calendar)
-                return $grade;
+                return $grade->getCalendarGrade();
 
         return null;
     }

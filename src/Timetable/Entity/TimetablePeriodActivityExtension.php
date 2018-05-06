@@ -86,4 +86,35 @@ abstract class TimetablePeriodActivityExtension implements UserTrackInterface
 
         return trim($names, ', ');
     }
+
+    /**
+     * @return bool
+     */
+    public function isCapacityExceeded(): bool
+    {
+        if (empty($this->loadSpace()->getCapacity()))
+            return false;
+        if ($this->getActivity()->getStudents()->count() > $this->loadSpace()->getCapacity())
+            return true;
+        return false;
+    }
+
+    public function hasSpace(): bool
+    {
+
+    }
+
+    /**
+     * @var string
+     */
+    private $status = 'default';
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
 }

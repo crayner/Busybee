@@ -3,6 +3,7 @@ namespace App\Timetable\Util;
 
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\SettingManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
@@ -45,61 +46,57 @@ class PeriodManager
     private $messageManager;
 
     /**
+     * @var SettingManager
+     */
+    private $settingManager;
+
+    /**
      * PeriodManager constructor.
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager, RequestStack $stack, CalendarManager $calendarManager, MessageManager $messageManager)
+    public function __construct(EntityManagerInterface $entityManager, RequestStack $stack, CalendarManager $calendarManager, MessageManager $messageManager, SettingManager $settingManager)
     {
         $this->entityManager = $entityManager;
         $this->stack = $stack;
         $this->calendarManager = $calendarManager;
         $this->messageManager = $messageManager;
         $this->messageManager->setDomain('Timetable');
+        $this->settingManager = $settingManager;
     }
-
-    /**
-     * @var \stdClass
-     */
-    private $periodStatus;
 
     /**
      * Get Period Status
      *
      * @return \stdClass
      */
-    public function getPeriodStatus(): \stdClass
+    public function getPeriodStatus(): PeriodReportManager
     {
-        if (!empty($this->periodStatus->id) && $this->periodStatus->id === $this->getPeriod()->getId())
-            return $this->periodStatus;
+        $report = $this->generateFullPeriodReport();
 
-        $this->clearResults();
-
-        $status = new \stdClass();
-        $status->students = $this->getPeriodStudentReport();
-
+        dump($report);/*
         $status->alert = 'default';
         $status->disableDrop = '';
         $status->id = $this->getPeriod()->getId();
 
         foreach ($this->getPeriod()->getActivities() as $activity) {
-            $report = $this->getActivityStatus($activity);
-            if ($this->getMessageManager()->compareLevel($report->alert, $status->alert))
-                $status->alert = $report->alert;
+            $report1 = $this->getActivityStatus($activity);
+            if (MessageManager::compareLevel($report1->alert, $status->alert))
+                $status->alert = $report1->alert;
         }
 
-        if (! in_array($this->getPeriod()->getPeriodType(), $this->getPeriod()->getPeriodTypeList('no students'))) {
-            foreach ($status->students->missingStudents as $q => $students) {
+        if ($report->getMissingStudentCount() > 0) {
+            foreach ($report->getMissingStudents()->getIterator() as $q => $students) {
                 if (count($students) > 0) {
                     $status->alert = 'danger';
-                    $this->getMessageManager()->add($status->alert,'period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName(), 'transChoice' => count($students)], 'Timetable');
+                    $this->getMessageManager()->add($status->alert,'period.students.missing', ['%grade%' => $report->getGrade($q)->getFullName(), 'transChoice' => count($students)], 'Timetable');
                 }
             }
         }
 
         $this->getMessageManager()->add($status->alert,'period.status.messages', ['transChoice' => $this->getMessageManager()->count()], 'Timetable');
 
-        $this->periodStatus = $status;
-        return $status;
+        $this->periodStatus = $status; */
+        return $report;
     }
 
     /**
@@ -108,7 +105,6 @@ class PeriodManager
      */
     public function find($id): TimetablePeriod
     {
-        $this->clearResults();
         return $this->setPeriod($this->getEntityManager()->getRepository(TimetablePeriod::class)->find(intval($id)))->getPeriod();
     }
 
@@ -139,103 +135,20 @@ class PeriodManager
     }
 
     /**
-     * @param \stdClass $periodStatus
-     * @return PeriodManager
-     */
-    public function setPeriodStatus(\stdClass $periodStatus): PeriodManager
-    {
-        $this->periodStatus = $periodStatus;
-        return $this;
-    }
-
-    /**
-     * @var array
-     */
-    private $failedStatus = [];
-
-    /**
-     * @var array
-     */
-    private $spaces = [];
-
-    /**
-     * @var array
-     */
-    private $staff = [];
-
-    /**
-     * @var ArrayCollection
-     */
-    private $students;
-
-    /**
-     * Clear Results
-     *
-     * @return PeriodManager
-     */
-    public function clearResults(): PeriodManager
-    {
-        $this->failedStatus = [];
-        $this->spaces = [];
-        $this->staff = [];
-        $this->students = new ArrayCollection();
-        $this->periodStatus = new \stdClass();
-        return $this;
-    }
-
-    /**
      * @param $id
      */
-    public function getPeriodStudentReport()
+    public function getPeriodStudentReport(PeriodReportManager $report)
     {
-        if (! $this->isValidPeriod())
-            throw new \InvalidArgumentException('Dear Programmer: You must set the period in the manager.');
 
         $data = new \stdClass();
 
-        $this->grades = $this->getGrades();
+        $report->setGrades($this->getGrades());
 
-        $this->students = new ArrayCollection();
-        $students = new ArrayCollection();
+        $this->getPossibleStudents($report);
 
-        $grades = [];
-        //Generate all available students.
-        foreach ($this->getGrades() as $grade) {
-            $data->grades[$grade->getId()] = $grade;
-            $students = new ArrayCollection();
-            foreach ($grade->getStudents() as $student) {
-                if (! $students->contains($student))
-                $students->set($student->getId(), $student);
-            }
-            $grades[$grade->getId()] = $students;
-        }
-        $data->availableStudents = $grades;
-dump($grades);
-        // Generate all Students in the period.
-        foreach ($this->getPeriod()->getActivities() as $pa) {
-            $act = $pa->getActivity();
-            foreach ($act->getStudents() as $student) {
-                $this->addStudent($student->getStudent());
-                $grade = $student->getStudent()->getStudentCurrentGrade($this->getCurrentCalendar());
-                if ($grade instanceof CalendarGrade && isset($grades[$grade->getId()]))
-                    $grades[$grade->getId()]->removeElement($student->getStudent());
-                elseif ($grade instanceof CalendarGrade && isset($grades[$grade->getId()])){
-                    dump([$student,$grade]);die();
-                }
-            }
-        }
-dump($this->getStudents());
-        foreach ($grades as $q => $grade) {
-            if (!empty($grade)) {
-                $iterator = $grade->getIterator();
-                $iterator->uasort(function ($a, $b) {
-                    return ($a->fullName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->fullName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
-                });
-                $grades[$q] = iterator_to_array($iterator, true);
-            }
-        }
+        $this->getAllocatedStudents($report);
 
-        $data->missingStudents = $grades;
+        $report->getMissingStudents();
 
         return $data;
     }
@@ -244,42 +157,14 @@ dump($this->getStudents());
      * Is Valid Period
      * @return bool
      */
-    public function isValidPeriod(): bool
+    public function isValidPeriod($stop = false): bool
     {
         if ($this->getPeriod() instanceof TimetablePeriod && $this->getPeriod()->getId() > 0)
             return true;
+        if ($stop)
+            throw new \InvalidArgumentException('Dear Programmer: You must set the period in the manager.');
+
         return false;
-    }
-
-    /**
-     * @var array
-     */
-    private $grades = [];
-
-    /**
-     * @return array
-     */
-    private function getGrades()
-    {
-        if (!empty($this->grades))
-            return $this->grades;
-        $grades = [];
-
-        foreach ($this->getGradeControl() as $grade => $xxx)
-            if ($xxx)
-                $grades[] = $grade;
-
-        $this->grades = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('g')
-            ->where('g.calendar = :calendar')
-            ->setParameter('calendar', $this->getCurrentCalendar())
-            ->select('g')
-            ->andWhere('g.grade in (:grades)')
-            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
-            ->orderBy('g.sequence', 'ASC')
-            ->getQuery()
-            ->getResult();
-
-        return $this->grades;
     }
 
     /**
@@ -331,73 +216,6 @@ dump($this->getStudents());
 
         return;
 
-    }
-
-    /**
-     * @param TimetablePeriodActivity|null $activity
-     * @return \stdClass
-     */
-    public function getActivityStatus(TimetablePeriodActivity $activity = null): \stdClass
-    {
-        if (!$activity instanceof TimetablePeriodActivity) {
-            $status = new \stdClass();
-            $status->class = 'default';
-            $status->alert = 'default';
-            $status->id = null;
-            $this->status = $status;
-            return $status;
-        }
-
-        if (isset($this->status->id) && $this->status->id === $activity->getId())
-            return $this->status;
-
-        $this->status = new \stdClass();
-        $this->status->id = $activity->getId();
-        $this->status->alert = 'default';
-        $this->status->class = ' alert-default';
-
-        if (! $activity->loadSpace() instanceof Space) {
-            $this->status->class = ' alert-warning';
-            $this->status->alert = 'warning';
-            $this->getMessageManager()->add('warning', 'period.activities.activity.space.missing', ['%{name}' => $activity->getFullName()], 'Timetable');
-        } else {
-            if (isset($this->spaces[$activity->loadSpace()->getName()])) {
-                $act = $this->spaces[$activity->loadSpace()->getName()];
-                $this->status->class = ' alert-warning';
-                $this->status->alert = 'warning';
-                $this->getMessageManager()->add('warning','period.activities.activity.space.duplicate', ['%{space}' => $activity->loadSpace()->getName(), '%{activity}' => $activity->getFullName(), '%{activity2}' => $act->getFullName()], 'Timetable');
-            }
-            $this->spaces[$activity->loadSpace()->getName()] = $activity->getActivity();
-        }
-
-        if ($this->hasTutors($activity))
-        {
-            foreach($activity->loadTutors()->getIterator() as $tutor)
-            {
-                $id = $tutor->getTutor()->getId();
-                if (isset($this->staff[$id]))
-                {
-                    $act = $this->staff[$id];
-                    $this->status->class = ' alert-warning';
-                    $this->status->alert = 'warning';
-                    $this->getMessageManager()->add('warning','period.activities.activity.staff.duplicate', ['%{name}' => $tutor->getFullName(), '%{activity}' => $activity->getFullName(), '%{activity2}' => $act->getFullName()], 'Timetable');
-                }
-                else
-                    $this->staff[$id] = $activity->getActivity();
-            }
-        }
-        else
-        {
-            $this->status->class = ' alert-warning';
-            $this->status->alert = 'warning';
-            $this->getMessageManager()->add('warning','period.activities.activity.staff.missing', ['%{name}' => $activity->getFullName()], 'Timetable');
-        }
-
-        if (count($this->getMessageManager()->getMessages()) > 0) {
-            $this->failedStatus[$this->status->id] = $this->status->alert = $this->getMessageManager()->getHighestLevel();
-        }
-
-        return $this->status;
     }
 
     /**
@@ -586,65 +404,31 @@ dump($this->getStudents());
      */
     public function generateFullPeriodReport()
     {
-        $data = $this->getPeriodStudentReport();
+        $this->isValidPeriod(true);
+        $report = new PeriodReportManager($this->getPeriod());
+        $report->setGrades($this->getGrades())
+            ->setActivityReports();
+        $this->getPeriodStudentReport($report);
 
-        $result = $this->getEntityManager()->getRepository(Space::class)->findBy([], ['name' => 'ASC']);
+        $types = $this->getSettingManager()->get('space.type.teaching_space');
 
-        $spaces = new ArrayCollection($result);
+        $result = $this->getEntityManager()->getRepository(Space::class)->createQueryBuilder('s')
+            ->where('s.type in (:types)')
+            ->setParameter('types', $types, Connection::PARAM_STR_ARRAY)
+            ->orderBy('s.name', 'ASC')
+            ->getQuery()
+            ->getResult();
 
-        $data->spaces = $this->removeUsedSpaces($spaces);
+        $report->setPossibleSpaces(new ArrayCollection($result));
+        $report->setAllocatedSpaces();
 
         $result = $this->getEntityManager()->getRepository(Staff::class)->findBy([], ['surname' => 'ASC', 'firstName' => 'ASC']);
+        $report->setPossibleTutors(new ArrayCollection($result));
+        $report->setAllocatedTutors();
 
-        $staff = new ArrayCollection($result);
+        $report->getActivityReportsStatus($this->getGrades());
 
-        $data->staff = $this->removeUsedStaff($staff);
-
-        return $data;
-    }
-
-    /**
-     * Remove Used Spaces
-     *
-     * @param $spaces
-     * @return mixed
-     */
-    private function removeUsedSpaces(ArrayCollection $spaces)
-    {
-        foreach ($this->getPeriodSpaces()->getIterator() as $space)
-            if ($spaces->contains($space))
-                $spaces->removeElement($space);
-
-        return $spaces;
-    }
-
-    /**
-     * Remove Used Staff
-     *
-     * @param ArrayCollection $staff
-     * @return ArrayCollection
-     */
-    private function removeUsedStaff(ArrayCollection $staff): ArrayCollection
-    {
-        foreach ($this->getPeriodStaff() as $member)
-            if ($staff->contains($member))
-                $staff->removeElement($member);
-
-        return $staff;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPeriodSpaces(): ArrayCollection
-    {
-        $spaces = new ArrayCollection();
-
-        foreach($this->getPeriod()->getActivities()->getIterator() as $activity)
-            if($activity->loadSpace() && !$spaces->contains($activity->loadSpace()))
-                $spaces->add($activity->loadSpace());
-
-        return $spaces;
+        return $report;
     }
 
     /**
@@ -663,62 +447,88 @@ dump($this->getStudents());
     }
 
     /**
+     * @param PeriodReportManager $data
      * @return bool
      */
-    public function hasMissingStudents(\stdClass $data): bool
+    public function hasMissingStudents(PeriodReportManager $data): bool
     {
-        if (empty($data->missingStudents))
-            return false;
-
-        foreach($data->missingStudents as $students)
-        {
-            if (! empty($students))
-                return true;
-        }
-        return false;
+        return $data->getMissingStudentCount() > 0 ? true : false ;
     }
+
+    /**
+     * @param PeriodReportManager $data
+     * @return array
+     */
+    public function getMissingStudents(PeriodReportManager $data): array
+    {
+        return $data->getMissingStudents()->toArray() ?: [] ;
+    }
+
+    /**
+     * @var array
+     */
+    private $grades = [];
 
     /**
      * @return array
      */
-    public function getMissingStudents(\stdClass $data): array
+    private function getGrades()
     {
-        foreach($data->missingStudents as $gk=>$students){
-            if (! empty($students))
-                $data->missingStudents[$gk] = array_merge(['grade' => $data->grades[$gk]], $students);
-            else
-                unset($data->missingStudents[$gk]);
-        }
+        if (!empty($this->grades))
+            return $this->grades;
+        $grades = [];
 
-        return $data->missingStudents ?: [] ;
+        foreach ($this->getGradeControl() as $grade => $xxx)
+            if ($xxx)
+                $grades[] = $grade;
+
+        $result = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('g')
+            ->where('g.calendar = :calendar')
+            ->setParameter('calendar', $this->getCurrentCalendar())
+            ->select('g')
+            ->andWhere('g.grade in (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->orderBy('g.sequence', 'ASC')
+            ->getQuery()
+            ->getResult();
+        $this->grades = [];
+        foreach($result as $grade)
+        {
+            $this->grades[$grade->getId()] = $grade;
+        }
+dump([$this->grades]);
+
+        return $this->grades;
     }
 
     /**
-     * @return ArrayCollection
+     * @param PeriodReportManager $report
      */
-    public function getStudents(): ArrayCollection
+    private function getPossibleStudents(PeriodReportManager $report)
     {
-        if (empty($this->students))
-            $this->students = [];
-
-        return $this->students;
+        //Generate all available students.
+        foreach ($report->getGrades() as $grade) {
+            $report->addPossibleStudentGrade($grade);
+        }
     }
 
-    public function addStudent(?Student $student): PeriodManager
+    /**
+     * @param PeriodReportManager $report
+     */
+    private function getAllocatedStudents(PeriodReportManager $report)
     {
-        if (empty($student))
-            return $this;
+        // Generate all Students in the period.
+        $report->setCurrentCalendar($this->getCurrentCalendar());
 
-        $grade = $student->getStudentCurrentGrade($this->getCurrentCalendar());
+        foreach ($this->getPeriod()->getActivities() as $pa)
+            $report->addAllocatedStudents($pa->getActivity());
+    }
 
-        if (empty($this->students[$grade->getId()]))
-            $this->students[$grade->getId()] = new ArrayCollection();
-
-        if ($this->students[$grade->getId()]->contains($student))
-            return $this;
-
-        $this->students[$grade->getId()]->set($student->getId(), $student);
-
-        return $this;
+    /**
+     * @return SettingManager
+     */
+    public function getSettingManager(): SettingManager
+    {
+        return $this->settingManager;
     }
 }

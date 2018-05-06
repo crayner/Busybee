@@ -7,7 +7,7 @@
 {% block title %}{{ parent() }}{{ 'period.report.title'|trans }}{% endblock title %}
 
 {% block contentContainer %}
-    <div class="messageWindow"></div>{% dump(manager.students) %}
+    <div class="messageWindow"></div>
     {% set header = 'period.plan.header' %}
     {% set headerParams = {'%day%': manager.period.columnName} %}
     {% set panelParagraph = 'period.plan.reportparagraph' %}
@@ -35,9 +35,9 @@
     <div>{{ closeButton({mergeClass: 'btn-sm'})|raw }}
         {{ resetButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_plan_report', {id: app.request.get('id')})}})|raw }}
     </div>
-    <h5>{{ 'period.activities.activity.report.availableStaff'|trans({'%count%': report.staff.count}) }}</h5>
+    <h5>{{ 'period.activities.activity.report.availableStaff'|trans({'%count%': report.availableTutors.count}) }}</h5>
     <ul>
-        {% for staff in report.staff %}
+        {% for staff in report.availableTutors %}
             <li>{{ staff.fullName }} <span class="small alert-warning">{{ staff.departmentNames }}</span></li>
         {% endfor %}
     </ul>
@@ -45,9 +45,9 @@
     <div>{{ closeButton({mergeClass: 'btn-sm'})|raw }}
         {{ resetButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_plan_report', {id: app.request.get('id')})}})|raw }}
     </div>
-    <h5>{{ 'period.activities.activity.report.availableSpace'|trans({'%count%': report.spaces.count}) }}</h5>
+    <h5>{{ 'period.activities.activity.report.availableSpace'|trans({'%count%': report.availableSpaces.count}) }}</h5>
     <ul>
-        {% for space in report.spaces %}
+        {% for space in report.availableSpaces %}
             <li>{{ space.nameCapacity }}</li>
         {% endfor %}
     </ul>

@@ -51,6 +51,16 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
     }
 
     /**
+     * @param int|null $id
+     * @return CalendarGrade
+     */
+    public function setId(?int $id): CalendarGrade
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @return null|string
      */
     public function getGrade(): ?string
@@ -185,16 +195,6 @@ class CalendarGrade extends CalendarGradeExtension implements UserTrackInterface
     public function setSequence(?int $sequence): CalendarGrade
     {
         $this->sequence = $sequence;
-        return $this;
-    }
-
-    /**
-     * @param int|null $id
-     * @return CalendarGrade
-     */
-    public function setId(?int $id): CalendarGrade
-    {
-        $this->id = $id;
         return $this;
     }
 }
