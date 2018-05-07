@@ -73,7 +73,7 @@ class PeriodManager
     {
         $report = $this->generateFullPeriodReport();
 
-        dump($report);/*
+      /*
         $status->alert = 'default';
         $status->disableDrop = '';
         $status->id = $this->getPeriod()->getId();
@@ -216,15 +216,6 @@ class PeriodManager
 
         return;
 
-    }
-
-    /**
-     * get Grade Control
-     * @return array
-     */
-    public function getGradeControl(): array
-    {
-        return is_array($this->getStack()->getCurrentRequest()->getSession()->get('gradeControl')) ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
     }
 
     /**
@@ -400,11 +391,19 @@ class PeriodManager
     }
 
     /**
-     * @param $id
+     * @return PeriodReportManager
      */
     public function generateFullPeriodReport()
     {
         $this->isValidPeriod(true);
+        $report = $this->getPeriod()->getColumn()->getTimetable()->getReport();
+        if ($report)
+            $report->setTimetable($this->getPeriod()->getColumn()->getTimetable());
+
+        $periodReport = $report->getFullPeriodReport($this->getPeriod());
+
+        dump($periodReport);
+
         $report = new PeriodReportManager($this->getPeriod());
         $report->setGrades($this->getGrades())
             ->setActivityReports();
@@ -462,43 +461,6 @@ class PeriodManager
     public function getMissingStudents(PeriodReportManager $data): array
     {
         return $data->getMissingStudents()->toArray() ?: [] ;
-    }
-
-    /**
-     * @var array
-     */
-    private $grades = [];
-
-    /**
-     * @return array
-     */
-    private function getGrades()
-    {
-        if (!empty($this->grades))
-            return $this->grades;
-        $grades = [];
-
-        foreach ($this->getGradeControl() as $grade => $xxx)
-            if ($xxx)
-                $grades[] = $grade;
-
-        $result = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('g')
-            ->where('g.calendar = :calendar')
-            ->setParameter('calendar', $this->getCurrentCalendar())
-            ->select('g')
-            ->andWhere('g.grade in (:grades)')
-            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
-            ->orderBy('g.sequence', 'ASC')
-            ->getQuery()
-            ->getResult();
-        $this->grades = [];
-        foreach($result as $grade)
-        {
-            $this->grades[$grade->getId()] = $grade;
-        }
-dump([$this->grades]);
-
-        return $this->grades;
     }
 
     /**

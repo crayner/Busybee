@@ -117,4 +117,13 @@ abstract class TimetablePeriodActivityExtension implements UserTrackInterface
         return $this->status;
     }
 
+    /**
+     * @return bool
+     */
+    public function hasTutors(): bool
+    {
+        if ($this->loadTutors()->count() > 0)
+            return true;
+        return false;
+    }
 }

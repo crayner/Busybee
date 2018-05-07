@@ -6,7 +6,6 @@ use App\Core\Manager\MessageManager;
 
 abstract class ReportManager
 {
-
     /**
      * @var string
      */
@@ -26,7 +25,7 @@ abstract class ReportManager
      */
     public function setStatus(string $status): ReportManager
     {
-        if (! in_array($status, MessageManager::$statusLevel))
+        if (! in_array($status, MessageManager::$statusLevel) || $this->status === 'danger')
             return $this;
         if (MessageManager::compareLevel($status, $this->status))
             $this->status = $status;

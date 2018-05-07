@@ -2,20 +2,11 @@
 namespace App\Timetable\Util;
 
 use App\Core\Util\ReportManager;
-use App\Entity\Space;
 use App\Entity\TimetablePeriodActivity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ActivityReportManager extends ReportManager
 {
-    /**
-     * ActivityReportManager constructor.
-     * @param TimetablePeriodActivity $activity
-     */
-    public function __construct(TimetablePeriodActivity $activity)
-    {
-        $this->setActivity($activity);
-    }
-
     /**
      * @var TimetablePeriodActivity
      */
@@ -40,52 +31,35 @@ class ActivityReportManager extends ReportManager
     }
 
     /**
-     * @param TimetablePeriodActivity|null $activity
-     * @return \stdClass
+     * @param bool $disableDrop
+     * @return ActivityReportManager
      */
-    public function getActivityStatus(): \stdClass
+    public function setDisableDrop(bool $disableDrop): ActivityReportManager
     {
-        if (! $this->getActivity()->loadSpace() instanceof Space) {
-            $this->status->class = ' alert-warning';
-            $this->status->alert = 'warning';
-            $this->getMessageManager()->add('warning', 'period.activities.activity.space.missing', ['%{name}' => $this->getActivity()->getFullName()], 'Timetable');
-        } else {
-            if (isset($this->spaces[$this->getActivity()->loadSpace()->getName()])) {
-                $act = $this->spaces[$this->getActivity()->loadSpace()->getName()];
-                $this->status->class = ' alert-warning';
-                $this->status->alert = 'warning';
-                $this->getMessageManager()->add('warning','period.activities.activity.space.duplicate', ['%{space}' => $this->getActivity()->loadSpace()->getName(), '%{activity}' => $this->getActivity()->getFullName(), '%{activity2}' => $act->getFullName()], 'Timetable');
-            }
-            $this->spaces[$this->getActivity()->loadSpace()->getName()] = $this->getActivity()->getActivity();
-        }
+        $this->disableDrop = $disableDrop;
+        return $this;
+    }
 
-        if ($this->hasTutors($this->getActivity()))
-        {
-            foreach($this->getActivity()->loadTutors()->getIterator() as $tutor)
-            {
-                $id = $tutor->getTutor()->getId();
-                if (isset($this->staff[$id]))
-                {
-                    $act = $this->staff[$id];
-                    $this->status->class = ' alert-warning';
-                    $this->status->alert = 'warning';
-                    $this->getMessageManager()->add('warning','period.activities.activity.staff.duplicate', ['%{name}' => $tutor->getFullName(), '%{activity}' => $this->getActivity()->getFullName(), '%{activity2}' => $act->getFullName()], 'Timetable');
-                }
-                else
-                    $this->staff[$id] = $this->getActivity()->getActivity();
-            }
-        }
-        else
-        {
-            $this->status->class = ' alert-warning';
-            $this->status->alert = 'warning';
-            $this->getMessageManager()->add('warning','period.activities.activity.staff.missing', ['%{name}' => $this->getActivity()->getFullName()], 'Timetable');
-        }
+    /**
+     * @var ArrayCollection
+     */
+    private $grades;
 
-        if (count($this->getMessageManager()->getMessages()) > 0) {
-            $this->failedStatus[$this->status->id] = $this->status->alert = $this->getMessageManager()->getHighestLevel();
-        }
+    /**
+     * @return ArrayCollection
+     */
+    public function getGrades(): ArrayCollection
+    {
+        return $this->grades;
+    }
 
-        return $this->status;
+    /**
+     * @param ArrayCollection $grades
+     * @return ActivityReportManager
+     */
+    public function setGrades(ArrayCollection $grades): ActivityReportManager
+    {
+        $this->grades = $grades;
+        return $this;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Timetable\Extension;
 
+use App\Entity\Timetable;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
@@ -23,5 +24,20 @@ abstract class TimetableExtension implements UserTrackInterface
         if (empty($this->getName()))
             return 'TimeTable';
         return $this->getName() . ' (' . $calendar . ')';
+    }
+
+    /**
+     * @param Timetable $timetable
+     * @return bool
+     */
+    public function isEqualTo(Timetable $timetable): bool
+    {
+        if ($this !== $timetable)
+            return false;
+
+        if ($this->getLastModified() === $timetable->getLastModified())
+            return false;
+
+        return true;
     }
 }

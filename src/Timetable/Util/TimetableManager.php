@@ -1,12 +1,14 @@
 <?php
 namespace App\Timetable\Util;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Core\Manager\TableManager;
 use App\Core\Manager\TabManager;
 use App\Core\Manager\TabManagerInterface;
 use App\Entity\Calendar;
+use App\Entity\CalendarGrade;
 use App\Entity\SpecialDay;
 use App\Entity\Staff;
 use App\Entity\Term;
@@ -68,6 +70,11 @@ class TimetableManager extends TabManager
      * @var PeriodManager 
      */
     private $periodManager;
+
+    /**
+     * @var CalendarManager
+     */
+    private $calendarManager;
     
     /**
      * TimetableManager constructor.
@@ -76,7 +83,8 @@ class TimetableManager extends TabManager
      */
     public function __construct(RequestStack $stack, RouterInterface $router,
                                 MessageManager $messageManager, EntityManagerInterface $entityManager,
-                                SettingManager $settingManager, PeriodManager $periodManager)
+                                SettingManager $settingManager, PeriodManager $periodManager,
+                                CalendarManager $calendarManager)
     {
         $this->stack = $stack;
         $this->router = $router;
@@ -85,6 +93,7 @@ class TimetableManager extends TabManager
         $this->settingManager = $settingManager;
         $this->schoolWeek = $this->getSettingManager()->get('schoolweek');
         $this->periodManager = $periodManager;
+        $this->calendarManager = $calendarManager;
     }
 
     /**
@@ -237,75 +246,22 @@ timetable:
     /**
      * Get Report
      * @param PeriodPagination $pag
-     * @return null|\stdClass
+     * @return TimetableReportManager
      */
     public function getReport(PeriodPagination $pag)
-    {
-        if ($this->report instanceof \stdClass)
-            return $this->report;
-
-        return $this->generateReport($pag);
-    }
-
-    /**
-     * Generate Report
-     * @param PeriodPagination $pag
-     * @return null|\stdClass
-     */
-    private function generateReport(PeriodPagination $pag)
     {
         if (!$this->timetable instanceof TimeTable)
             throw new \InvalidArgumentException('The timetable has not been injected into the manager.');
 
-        $this->report = new TimetableReportManager($this->getTimetable(), $pag);
+        $this->report = $this->getTimetable()->getReport() ?: new TimetableReportManager();
 
-        $this->report->periods = [];
-        $this->report->activities = [];
-        $this->report->staff = [];
-
-        foreach ($pag->getResult() as $period) {
-            $per = new \stdClass();
-            $per->status = $this->periodManager->setPeriod($period['entity'])->getPeriodStatus();
-            $per->period = $period['entity'];
-            $per->id = $period['id'];
-            $per->name = $period['name'];
-            $per->start = $period['start'];
-            $per->end = $period['end'];
-            $per->code = $period['code'];
-            $per->columnName = $period['columnName'];
-            $per->activities = [];
-
-            $this->getPeriodManager();
-
-            foreach ($per->period->getActivities() as $activity) {
-                if ($this->activeGrade($activity)) {
-                    $act = new \stdClass();
-                    $act->activity = $activity;
-                    $act->details = $this->periodManager->getActivityDetails($activity);
-                    $act->status = $this->periodManager->getActivityStatus($activity);
-                    $act->id = $activity->getId();
-                    $act->fullName = $activity->getFullName();
-                    $per->activities[] = $act;
-                    if ($activity->getActivity() instanceof Activity) {
-                        if (isset($this->report->activities[$activity->getActivity()->getId()])) {
-                            $act = $this->report->activities[$activity->getActivity()->getId()];
-                        } else {
-                            $act = $activity->getActivity();
-                        }
-
-                        $this->report->activities[$activity->getActivity()->getId()] = $act;
-
-                    }
-                }
-
-                foreach($activity->loadTutors()->getIterator() as $tutor)
-                    $this->getStaffReport($tutor->getTutor(), $per);
-            }
-
-            $this->report->periods[] = $this->setPeriodStatusLevel($per);
-            $per->status->messages = clone $this->getMessageManager();
-            $this->getMessageManager()->clearMessages();
-        }
+        $this->report
+            ->setTimetable($this->getTimetable())
+            ->setPeriodList($pag)
+        ;
+        $this->getTimetable()->setReport($this->report);
+        $this->getEntityManager()->persist($this->getTimetable());
+        $this->getEntityManager()->flush();
 
         return $this->report;
     }
@@ -687,6 +643,53 @@ timetable:
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getGrades(): ArrayCollection
+    {
+        if (! empty($this->grades))
+            return $this->grades;
+
+        $grades = $this->getGradeControls();
+
+        $results = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('cg')
+            ->where('cg.calendar = :calendar')
+            ->setParameter('calendar', $this->getCurrentCalendar())
+            ->orderBy('cg.sequence', 'ASC')
+            ->getQuery()
+            ->getResult();
+        $this->grades = new ArrayCollection();
+        foreach($results as $grade)
+            $this->grades->set($grade->getGrade(), $grade);
+
+        return $this->grades;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGradeControl(): array
+    {
+        return $this->getStack()->getCurrentRequest()->getSession()->has('gradeControl') ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
+    }
+
+    /**
+     * @return CalendarManager
+     */
+    public function getCalendarManager(): CalendarManager
+    {
+        return $this->calendarManager;
+    }
+
+    /**
+     * @return Calendar
+     */
+    public function getCurrentCalendar(): Calendar
+    {
+        return $this->getCalendarManager()->getCurrentCalendar();
+    }
+
+    /**
      * @param $per
      * @return mixed
      */
@@ -695,20 +698,6 @@ timetable:
         $per->status->alert = $this->getMessageManager()->getHighestLevel();
 
         return $per;
-    }
-
-    /**
-     * @param TimetablePeriodActivity $activity
-     * @return bool
-     */
-    private function activeGrade(TimetablePeriodActivity $activity): bool
-    {
-        $control = $this->getPeriodManager()->getGradeControl();
-        foreach ($activity->getActivity()->getCalendarGrades()->getIterator() as $grade)
-            if (!isset($control[$grade->getGrade()]) || $control[$grade->getGrade()])
-                return true;
-
-        return false;
     }
 
     /**
@@ -750,4 +739,10 @@ timetable:
             $this->getMessageManager()->add('danger', 'teachingload.timetable.exceeded', ['%name%' => $tutor->formatName()], 'Timetable');
         }
     }
+
+    /**
+     * @var ArrayCollection
+     */
+    private $grades;
+
 }

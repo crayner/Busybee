@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use App\Timetable\Extension\TimetableExtension;
+use App\Timetable\Util\TimetableReportManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
@@ -262,6 +263,29 @@ class Timetable extends TimetableExtension
     public function setGenerated(?bool $generated): Timetable
     {
         $this->generated = $generated ? true : false ;
+        return $this;
+    }
+
+    /**
+     * @var TimetableReportManager|null
+     */
+    private $report;
+
+    /**
+     * @return TimetableReportManager|null
+     */
+    public function getReport(): ?TimetableReportManager
+    {
+        return $this->report;
+    }
+
+    /**
+     * @param TimetableReportManager|null $report
+     * @return Timetable
+     */
+    public function setReport(?TimetableReportManager $report): Timetable
+    {
+        $this->report = $report;
         return $this;
     }
 }

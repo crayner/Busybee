@@ -1,6 +1,7 @@
 <?php
 namespace App\Timetable\Extension;
 
+use App\Entity\TimetablePeriod;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 
@@ -97,5 +98,20 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
         if ($limit === 'flat')
             return array_merge($x['students'], $x['no students']);
         return $x;
+    }
+
+    /**
+     * @param TimetablePeriod $period
+     * @return bool
+     */
+    public function isEqualTo(TimetablePeriod $period): bool
+    {
+        if ($this !== $period)
+            return false;
+
+        if ($this->getLastModified() !== $period->getLastModified())
+            return false;
+
+        return true;
     }
 }
