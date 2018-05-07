@@ -10,5 +10,3 @@
 
 composer.lock
 symfony.lock
-
-/config/translations/

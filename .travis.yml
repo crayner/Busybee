@@ -16,7 +16,7 @@ install:
     - travis_retry composer install
     - cp /config/packages/doctrine.yaml.travis /config/packages/doctrine.yaml
     - php bin/console doctrine:database:create --env=test
-#    - php bin/console doctrine:schema:create --env=test
+    - php bin/console doctrine:schema:create --env=test
 
 # Allows use container-based infrastructure
 sudo: true
