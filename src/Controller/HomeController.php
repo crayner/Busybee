@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
 use App\Install\Manager\VersionManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
