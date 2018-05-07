@@ -1,4 +1,4 @@
-hillrange_ck_editor:
+fos_ck_editor:
     default_config: normal
     configs:
         normal:
