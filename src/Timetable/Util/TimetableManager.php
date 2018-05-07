@@ -4,9 +4,7 @@ namespace App\Timetable\Util;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
-use App\Core\Manager\TableManager;
 use App\Core\Manager\TabManager;
-use App\Core\Manager\TabManagerInterface;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\SpecialDay;
@@ -15,10 +13,10 @@ use App\Entity\Term;
 use App\Entity\Timetable;
 use App\Entity\TimetableAssignedDay;
 use App\Entity\TimetableColumn;
-use App\Entity\TimetablePeriodActivity;
 use App\Pagination\PeriodPagination;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
@@ -83,7 +81,7 @@ class TimetableManager extends TabManager
      */
     public function __construct(RequestStack $stack, RouterInterface $router,
                                 MessageManager $messageManager, EntityManagerInterface $entityManager,
-                                SettingManager $settingManager, PeriodManager $periodManager,
+                                SettingManager $settingManager,
                                 CalendarManager $calendarManager)
     {
         $this->stack = $stack;
@@ -92,7 +90,6 @@ class TimetableManager extends TabManager
         $this->entityManager = $entityManager;
         $this->settingManager = $settingManager;
         $this->schoolWeek = $this->getSettingManager()->get('schoolweek');
-        $this->periodManager = $periodManager;
         $this->calendarManager = $calendarManager;
     }
 
@@ -257,6 +254,8 @@ timetable:
 
         $this->report
             ->setTimetable($this->getTimetable())
+            ->setGrades($this->getGrades())
+            ->setCalendar($this->getCurrentCalendar())
             ->setPeriodList($pag)
         ;
         $this->getTimetable()->setReport($this->report);
@@ -655,6 +654,8 @@ timetable:
         $results = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('cg')
             ->where('cg.calendar = :calendar')
             ->setParameter('calendar', $this->getCurrentCalendar())
+            ->andWhere('cg.grade in (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
             ->orderBy('cg.sequence', 'ASC')
             ->getQuery()
             ->getResult();
@@ -668,9 +669,14 @@ timetable:
     /**
      * @return array
      */
-    public function getGradeControl(): array
+    public function getGradeControls(): array
     {
-        return $this->getStack()->getCurrentRequest()->getSession()->has('gradeControl') ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
+        $grades =  $this->getStack()->getCurrentRequest()->getSession()->has('gradeControl') ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
+        $x = [];
+        foreach($grades as $q=>$w)
+            if ($w)
+                $x[] = $q;
+        return $x;
     }
 
     /**
@@ -687,6 +693,16 @@ timetable:
     public function getCurrentCalendar(): Calendar
     {
         return $this->getCalendarManager()->getCurrentCalendar();
+    }
+
+    /**
+     * @param Timetable|null $timetable
+     * @return TimetableManager
+     */
+    public function setTimetable(?Timetable $timetable): TimetableManager
+    {
+        $this->timetable = $timetable;
+        return $this;
     }
 
     /**

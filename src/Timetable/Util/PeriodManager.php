@@ -1,16 +1,13 @@
 <?php
 namespace App\Timetable\Util;
 
-use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Entity\Calendar;
-use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
 use App\Entity\Line;
 use App\Entity\Space;
 use App\Entity\Staff;
-use App\Entity\Student;
 use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,42 +23,17 @@ class PeriodManager
     private $period;
 
     /**
-     * @var EntityManagerInterface
+     * @var TimetableManager
      */
-    private $entityManager;
-
-    /**
-     * @var RequestStack 
-     */
-    private $stack;
-
-    /**
-     * @var CalendarManager
-     */
-    private $calendarManager;
-
-    /**
-     * @var MessageManager
-     */
-    private $messageManager;
-
-    /**
-     * @var SettingManager
-     */
-    private $settingManager;
+    private $timetableManager;
 
     /**
      * PeriodManager constructor.
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager, RequestStack $stack, CalendarManager $calendarManager, MessageManager $messageManager, SettingManager $settingManager)
+    public function __construct(TimetableManager $timetableManager)
     {
-        $this->entityManager = $entityManager;
-        $this->stack = $stack;
-        $this->calendarManager = $calendarManager;
-        $this->messageManager = $messageManager;
-        $this->messageManager->setDomain('Timetable');
-        $this->settingManager = $settingManager;
+        $this->timetableManager = $timetableManager;
     }
 
     /**
@@ -131,7 +103,7 @@ class PeriodManager
      */
     public function getEntityManager(): EntityManagerInterface
     {
-        return $this->entityManager;
+        return $this->getTimetableManager()->getEntityManager();
     }
 
     /**
@@ -172,7 +144,7 @@ class PeriodManager
      */
     public function getStack(): RequestStack
     {
-        return $this->stack;
+        return $this->getTimetableManager()->getStack();
     }
 
     /**
@@ -180,7 +152,7 @@ class PeriodManager
      */
     public function getCurrentCalendar(): Calendar
     {
-        return $this->calendarManager->getCurrentCalendar();
+        return $this->getTimetableManager()->getCurrentCalendar();
     }
 
     /**
@@ -188,7 +160,7 @@ class PeriodManager
      */
     public function getMessageManager(): MessageManager
     {
-        return $this->messageManager;
+        return $this->getTimetableManager()->getMessageManager();
     }
 
     /**
@@ -397,16 +369,19 @@ class PeriodManager
     {
         $this->isValidPeriod(true);
         $report = $this->getPeriod()->getColumn()->getTimetable()->getReport();
+        $this->getTimetableManager()->setTimetable($this->getPeriod()->getColumn()->getTimetable());
         if ($report)
-            $report->setTimetable($this->getPeriod()->getColumn()->getTimetable());
+            $report->setTimetable($this->getPeriod()->getColumn()->getTimetable())
+                ->setGrades($this->getGrades())
+                ->setCalendar($this->getCurrentCalendar())
+            ;
 
         $periodReport = $report->getFullPeriodReport($this->getPeriod());
 
-        dump($periodReport);
+        $periodReport->setGrades($this->getGrades())
+            ->generateActivityReports();
 
-        $report = new PeriodReportManager($this->getPeriod());
-        $report->setGrades($this->getGrades())
-            ->setActivityReports();
+        /*
         $this->getPeriodStudentReport($report);
 
         $types = $this->getSettingManager()->get('space.type.teaching_space');
@@ -426,8 +401,10 @@ class PeriodManager
         $report->setAllocatedTutors();
 
         $report->getActivityReportsStatus($this->getGrades());
+*/
+        dump($periodReport);
 
-        return $report;
+        return $periodReport;
     }
 
     /**
@@ -491,6 +468,22 @@ class PeriodManager
      */
     public function getSettingManager(): SettingManager
     {
-        return $this->settingManager;
+        return $this->getTimetableManager()->getSettingManager();
+    }
+
+    /**
+     * @return TimetableManager
+     */
+    public function getTimetableManager(): TimetableManager
+    {
+        return $this->timetableManager;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGrades(): ArrayCollection
+    {
+        return $this->getTimetableManager()->getGrades();
     }
 }

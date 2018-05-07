@@ -444,7 +444,7 @@ class Activity extends ActivityExtension
     {
         $this->calendarGrades = $this->calendarGrades ?: new ArrayCollection();
 
-        if ($this->calendarGrades instanceof PersistentCollection && ! $this->calendarGrades->isInitialized())
+        if ($this->calendarGrades instanceof PersistentCollection)
             $this->calendarGrades->initialize();
 
         return $this->calendarGrades;

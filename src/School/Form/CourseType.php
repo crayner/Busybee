@@ -6,7 +6,7 @@ use App\Entity\CalendarGrade;
 use App\Entity\Course;
 use App\Entity\Department;
 use Doctrine\ORM\EntityRepository;
-use Hillrange\CKEditor\Form\CKEditorType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
 use Hillrange\Form\Type\ToggleType;

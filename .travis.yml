@@ -39,6 +39,3 @@ env:
 # Run script
 script:
     - phpunit
-
-addons:
-    mariadb: '10.2'

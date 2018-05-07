@@ -2,6 +2,8 @@
 namespace App\Timetable\Util;
 
 
+use App\Entity\Calendar;
+use App\Entity\CalendarGrade;
 use App\Entity\Timetable;
 use App\Entity\TimetablePeriod;
 use App\Pagination\PeriodPagination;
@@ -54,13 +56,13 @@ class TimetableReportManager
      * @param PeriodPagination $pag
      * @return TimetableReportManager
      */
-    public function setPeriodList(PeriodPagination $pag, ArrayCollection $grades): TimetableReportManager
+    public function setPeriodList(PeriodPagination $pag): TimetableReportManager
     {
         if ($this->isChangedTimetable())
             $this->periods = new ArrayCollection();
 
         foreach($pag->getResult() as $period)
-            $this->addPeriod($period['entity'], $grades);
+            $this->addPeriod($period['entity']);
 
         return $this;
     }
@@ -73,8 +75,9 @@ class TimetableReportManager
     {
         $report = $this->getPeriods()->containsKey($period->getId()) ? $this->getPeriods()->get($period->getId()) : new PeriodReportManager();
         $report
-            ->setPeriod($period)
-            ->setGrades($grades);
+            ->setGrades($this->getGrades())
+            ->setCalendar($this->getCalendar())
+            ->setPeriod($period);
         $this->getPeriods()->set($period->getId(), $report);
         return $this;
     }
@@ -122,6 +125,8 @@ class TimetableReportManager
      */
     public function getGrades(): ArrayCollection
     {
+        if (empty($this->grades))
+            throw new \InvalidArgumentException('The grades need to be injected into the report.');
         return $this->grades;
     }
 
@@ -137,12 +142,37 @@ class TimetableReportManager
 
     /**
      * @param TimetablePeriod $period
-     * @return TimetableReportManager
+     * @return PeriodReportManager
      */
     public function getFullPeriodReport(TimetablePeriod $period): PeriodReportManager
     {
         $this->addPeriod($period);
 
         return $this->getPeriod($period->getId());
+    }
+
+    /**
+     * @var Calendar
+     */
+    private $calendar;
+
+    /**
+     * @return Calendar
+     */
+    public function getCalendar(): Calendar
+    {
+        if (empty($this->calendar))
+            throw new \InvalidArgumentException('Injection of the current calendar is required.');
+        return $this->calendar;
+    }
+
+    /**
+     * @param Calendar $calendar
+     * @return TimetableReportManager
+     */
+    public function setCalendar(Calendar $calendar): TimetableReportManager
+    {
+        $this->calendar = $calendar;
+        return $this;
     }
 }

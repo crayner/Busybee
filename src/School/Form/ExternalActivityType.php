@@ -8,7 +8,7 @@ use App\Entity\Term;
 use App\People\Util\StudentManager;
 use App\School\Form\Subscriber\ActivitySubscriber;
 use Doctrine\ORM\EntityRepository;
-use Hillrange\CKEditor\Form\CKEditorType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;

@@ -6,7 +6,7 @@
 
 {% include 'Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'Timetable', 'panelParagraph': 'timetable.period.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel', headerClass: 'hideSearch'} %}
     <div id="allPeriodMessages"></div>
-    {% for period in report.periods %}{% dump(report) %}{% dump(period) %}
+    {% for period in report.periods %}
         <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.period.id }}">
             <div class="col-12 dropPeriod{{ period.disableDrop }}" id="period{{ period.period.id }}">
                 <div>

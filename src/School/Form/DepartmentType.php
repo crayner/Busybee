@@ -3,7 +3,7 @@ namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
 use App\Entity\Course;
-use Hillrange\CKEditor\Form\CKEditorType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Hillrange\Form\Type\CollectionEntityType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
