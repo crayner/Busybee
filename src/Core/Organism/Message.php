@@ -1,6 +1,8 @@
 <?php
 namespace App\Core\Organism;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Message
 {
 	/**
@@ -109,6 +111,12 @@ class Message
         if ($name === 'useRaw')
             return $this->setUseRaw();
 
+        if ($name === 'closeButton')
+            return $this->addButton($name, $element);
+
+        if ($name === 'resetButton')
+            return $this->addButton($name, $element);
+
         $this->options[$name] = $element;
 
 		return $this;
@@ -175,6 +183,34 @@ class Message
     public function setUseRaw(): Message
     {
         $this->useRaw = true;
+        return $this;
+    }
+
+    /**
+     * @var ArrayCollection|null
+     */
+    private $buttons;
+
+    /**
+     * @return ArrayCollection|null
+     */
+    public function getButtons(): ?ArrayCollection
+    {
+        return $this->buttons;
+    }
+
+    /**
+     * @param $name
+     * @param $element
+     * @return Message
+     */
+    private function addButton($name, $element): Message
+    {
+        if (empty($this->buttons))
+            $this->buttons = new ArrayCollection();
+        $element['name'] = $name;
+
+        $this->buttons->add($element);
         return $this;
     }
 }

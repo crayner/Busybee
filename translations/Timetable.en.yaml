@@ -1,0 +1,65 @@
+timetable:
+    manage:
+        title: Timetable Manage
+        menu.label: Timetable Manage
+        description: 'List of Timetables.  A calendar can contain more than one timetable. Confused, I know I am!'
+    name:
+        sort: Timetable Name
+        label: Name
+    code:
+        sort: 'Timetable Code'
+        label: 'Code'
+    calendar:
+        label: Calendar
+        sort: Calendar Name
+line:
+    list:
+        menu.label: Manage Lines
+        title: Manage Activity Lines
+        description: 'Drag and drop activity lines into a period to assign the line to the period. DblClick on any line to edit the line details.'
+    name:
+        label: Activity TimetableLine
+        sort: Sort by Name
+    code:
+        label: Code
+        sort: Sort by Code
+    courses:
+        label: Attached Courses
+        sort: Sort by Course Name
+    delete:
+        button: Delete TimetableLine
+        confirm: Delete TimetableLine?
+    edit.button: Edit TimetableLine
+    add.button: Add TimetableLine
+    test:
+        help: Generate a report on the Activity TimetableLine
+        label: Test Activity Lines
+    report:
+        button: Generate TimetableLine Report
+        header: |
+            <h3>Activity Line Report</h3>
+            <p>Activity Line: <strong>%learninggroup%</strong></p>
+            <p>Participating Student Count: <strong>%participantCount%</strong> of a possible student count: <strong>%possibleCount%</strong>.</p>
+        include_all: |
+            {1}<h4>Missing Student</h4>
+            A student is missing from the Timetable Line.  All students should be included.|]1,Inf[<h4>Missing Students</h4>
+            %count% students have not been included in the Timetable Line.  All students should be included.
+        student:
+            missing: '%identifier%: %name% was not found in the timetable line.'
+            duplicated: '%identifier%: %name% is duplicated in the timetable line.'
+            extra: '%identifier%: %name% is allocated to the line, but is not a possible student.'
+        footer: 'End of Report'
+        extra: |
+            {1}An extra student has been found in the participant list.  This can happen if the grade of a student has been changed.
+            <h4>Extra Student</h4>|]1,Inf[%count% extra students have been found in the participant list.  This can happen if the grade of a student has been changed.
+            <h4>Extra Students</h4>
+        duplicated: |
+            {1}A student appears in this Timetable Line more than once.
+            <h4>Duplicated Student</h4>|]1,Inf[%count% students appear in this Timetable Line more than once.
+            <h4>Duplicated Students</h4>
+        refresh.button: Refresh TimetableLine Report
+        title: TimetableLine Report
+    manage:
+        title: Manage Activity TimetableLine
+        description: Create, edit and test an Activity TimetableLine
+        help: Lines are a timetable mapping tool.  All courses in a line MUST have the same number of periods per timetable cycle.  The line is allocated to the number of periods to meet the largest requirement of the courses attached, and the test will flag any differences in courses attached to the line.

@@ -47,7 +47,7 @@ App\Entity\Course:
                 referencedColumnName: id
                 nullable: true
         line:
-            targetEntity: App\Entity\Line
+            targetEntity: App\Entity\TimetableLine
             inversedBy: courses
             joinColumn:
                 name: line_id

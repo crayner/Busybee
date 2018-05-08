@@ -1,7 +1,7 @@
-App\Entity\Line:
+App\Entity\TimetableLine:
     type: entity
     table: tt_line
-    repositoryClass: App\Repository\LineRepository
+    repositoryClass: App\Repository\TimetableLineRepository
     uniqueConstraints:
         name_calendar:
             columns:

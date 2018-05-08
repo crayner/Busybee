@@ -9,7 +9,7 @@
         {% set transDomain = 'Timetable' %}
         {% set header = 'courses.title.header' %}
         {% set h3Content = '<div class="collection-actions">' %}
-        {% set h3Content = h3Content ~ saveButton()|raw %}{% dump(getValueData(form)|default('Add')) %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ editButton({windowOpen: {route: path('course_edit', {id: getValueData(form)|default('Add')})}})|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         <div class="row">

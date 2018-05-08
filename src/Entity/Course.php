@@ -329,23 +329,23 @@ class Course extends CourseExtension
     }
 
     /**
-     * @var null|Line
+     * @var null|TimetableLine
      */
     private $line;
 
     /**
-     * @return Line|null
+     * @return TimetableLine|null
      */
-    public function getLine(): ?Line
+    public function getLine(): ?TimetableLine
     {
         return $this->line;
     }
 
     /**
-     * @param Line|null $line
+     * @param TimetableLine|null $line
      * @return Course
      */
-    public function setLine(?Line $line, $add = true): Course
+    public function setLine(?TimetableLine $line, $add = true): Course
     {
         if (empty($line)) {
             $this->line = null;

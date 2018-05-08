@@ -58,49 +58,12 @@ abstract class StudentExtension extends Person
 	}
 
     /**
-     * @var string
-     */
-	private $activityList;
-
-    /**
-     * @return string
-     */
-    public function getActivityList(): string
-    {
-        $this->activityList = $this->activityList ?: '';
-        return $this->activityList;
-    }
-
-    /**
-     * @param string $activityList
-     * @return StudentExtension
-     */
-    public function setActivityList(string $activityList): StudentExtension
-    {
-        $this->activityList = $activityList;
-        return $this;
-    }
-
-    /**
-     * @param Activity $activity
-     * @return StudentExtension
-     */
-    public function addActivityToList(Activity $activity): StudentExtension
-    {
-        if (mb_strpos($this->getActivityList(), $activity->getFullName()) !== false)
-            return $this;
-        $this->activityList = $this->getActivityList() . ', ' . $activity->getFullName();
-        $this->activityList = ltrim(', ', $this->activityList);
-        return $this;
-    }
-
-    /**
      * @param string $active
      * @return array
      */
     public function getStatusList(string $limit = ''): array
     {
-        if (! in_array($limit, ['active','inactive','']))
+        if (! in_array(strtolower($limit), ['active','inactive','']))
             throw new \InvalidArgumentException('Dear Programmer: The list accepts only [active, inactive] for Status List');
 
         $x = [

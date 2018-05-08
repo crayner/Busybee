@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
 
-class Line
+class TimetableLine
 {
     /**
      * @var null|integer
@@ -22,9 +22,9 @@ class Line
 
     /**
      * @param null|integer $id
-     * @return Line
+     * @return TimetableLine
      */
-    public function setId(?int $id): Line
+    public function setId(?int $id): TimetableLine
     {
         return $this;
     }
@@ -44,9 +44,9 @@ class Line
 
     /**
      * @param null|string $name
-     * @return Line
+     * @return TimetableLine
      */
-    public function setName(?string $name): Line
+    public function setName(?string $name): TimetableLine
     {
         $this->name = $name;
         return $this;
@@ -67,9 +67,9 @@ class Line
 
     /**
      * @param null|string $code
-     * @return Line
+     * @return TimetableLine
      */
-    public function setCode(?string $code): Line
+    public function setCode(?string $code): TimetableLine
     {
         $this->code = $code;
         return $this;
@@ -90,9 +90,9 @@ class Line
 
     /**
      * @param Calendar $calendar
-     * @return Line
+     * @return TimetableLine
      */
-    public function setCalendar(Calendar $calendar): Line
+    public function setCalendar(Calendar $calendar): TimetableLine
     {
         $this->calendar = $calendar;
         return $this;
@@ -119,9 +119,9 @@ class Line
 
     /**
      * @param Collection|null $courses
-     * @return Line
+     * @return TimetableLine
      */
-    public function setCourses(?Collection $courses): Line
+    public function setCourses(?Collection $courses): TimetableLine
     {
         $this->courses = $courses;
         return $this;
@@ -130,9 +130,9 @@ class Line
     /**
      * @param Course|null $course
      * @param bool $add
-     * @return Line
+     * @return TimetableLine
      */
-    public function addCourse(?Course $course, $add = true): Line
+    public function addCourse(?Course $course, $add = true): TimetableLine
     {
         if (empty($course) || $this->getCourses()->contains($course))
             return $this;
@@ -147,9 +147,9 @@ class Line
 
     /**
      * @param Course|null $course
-     * @return Line
+     * @return TimetableLine
      */
-    public function removeCourse(?Course $course): Line
+    public function removeCourse(?Course $course): TimetableLine
     {
         $this->getCourses()->removeElement($course);
 

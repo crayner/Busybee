@@ -3,7 +3,7 @@ namespace App\Pagination;
 
 use App\Calendar\Util\CalendarManager;
 use App\Entity\Calendar;
-use App\Entity\Line;
+use App\Entity\TimetableLine;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,7 +14,7 @@ class LinePagination extends PaginationManager
 	/**
 	 * @var string
 	 */
-	protected $paginationName = 'Line';
+	protected $paginationName = 'TimetableLine';
 
 	/**
 	 * @var string
@@ -80,7 +80,7 @@ class LinePagination extends PaginationManager
 	/**
 	 * @var string
 	 */
-	protected $repositoryName = Line::class;
+	protected $repositoryName = TimetableLine::class;
 
 	/**
 	 * @var string
