@@ -24,7 +24,6 @@ doctrine:
                 port:     '%db_port%'
                 dbname:   '%db_name%'
                 user:     '%db_user%'
-                password: '%db_pass%'
                 charset:  '%db_charset%'
                 default_table_options:
                     charset: utf8mb4
