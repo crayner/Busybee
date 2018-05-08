@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Timetable\Extension\TimetableDayExtension;
+use App\Timetable\Entity\TimetableDayExtension;
 
 class TimetableDay extends TimetableDayExtension
 {

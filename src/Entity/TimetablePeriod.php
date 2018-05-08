@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Timetable\Extension\TimetablePeriodExtension;
+use App\Timetable\Entity\TimetablePeriodExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;

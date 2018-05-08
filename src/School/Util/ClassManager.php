@@ -1,5 +1,5 @@
 <?php
-namespace App\Timetable\Util;
+namespace App\School\Util;
 
 use App\Entity\Activity;
 use App\Entity\FaceToFace;

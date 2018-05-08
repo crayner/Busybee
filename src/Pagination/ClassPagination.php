@@ -3,7 +3,7 @@ namespace App\Pagination;
 
 use App\Entity\Course;
 use App\Entity\FaceToFace;
-use App\Timetable\Util\ClassManager;
+use App\School\Util\ClassManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

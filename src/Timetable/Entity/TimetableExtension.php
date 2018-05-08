@@ -1,5 +1,5 @@
 <?php
-namespace App\Timetable\Extension;
+namespace App\Timetable\Entity;
 
 use App\Entity\Timetable;
 use Hillrange\Security\Util\UserTrackInterface;

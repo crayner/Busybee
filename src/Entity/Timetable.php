@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use App\Timetable\Extension\TimetableExtension;
+use App\Timetable\Entity\TimetableExtension;
 use App\Timetable\Util\TimetableReportManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Timetable\Extension;
+namespace App\Timetable\Entity;
 
 use App\Entity\TimetablePeriod;
 use Hillrange\Security\Util\UserTrackInterface;
@@ -101,10 +101,10 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
     }
 
     /**
-     * @param TimetablePeriod $period
+     * @param TimetablePeriod|null $period
      * @return bool
      */
-    public function isEqualTo(TimetablePeriod $period): bool
+    public function isEqualTo(?TimetablePeriod $period): bool
     {
         if ($this !== $period)
             return false;

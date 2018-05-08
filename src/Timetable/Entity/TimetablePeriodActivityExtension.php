@@ -3,6 +3,7 @@ namespace App\Timetable\Entity;
 
 use App\Entity\Space;
 use App\Entity\TimetablePeriod;
+use App\Entity\TimetablePeriodActivity;
 use Doctrine\Common\Collections\Collection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
@@ -125,5 +126,20 @@ abstract class TimetablePeriodActivityExtension implements UserTrackInterface
         if ($this->loadTutors()->count() > 0)
             return true;
         return false;
+    }
+
+    /**
+     * @param TimetablePeriodActivity|null $activity
+     * @return bool
+     */
+    public function isEqualTo(?TimetablePeriodActivity $activity): bool
+    {
+        if ($activity !== $this)
+            return false;
+
+        if ($activity->getLastModified() !== $this->getLastModified())
+            return false;
+
+        return true;
     }
 }
