@@ -142,4 +142,30 @@ class LineManager
         $this->status = $status;
         return $this;
     }
+
+    /**
+     * Get Report
+     *
+     * @return LineReportManager
+     */
+    public function getReport(): LineReportManager
+    {
+        $report = new LineReportManager();
+
+        $report->setLineManager($this)->generateReport();
+
+        $report->writeReport();
+
+        $this->getMessageManager()->addStatusMessages($report->getMessages(), 'Timetable');
+
+        return $report;
+    }
+
+    /**
+     * @return TimetableLine|null
+     */
+    public function getLine(): ?TimetableLine
+    {
+        return $this->line;
+    }
 }

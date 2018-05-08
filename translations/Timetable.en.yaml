@@ -44,8 +44,8 @@ line:
             <p>Participating Student Count: <strong>%participantCount%</strong> of a possible student count: <strong>%possibleCount%</strong>.</p>
         include_all: |
             {1}<h4>Missing Student</h4>
-            A student is missing from the Timetable Line.  All students should be included.|]1,Inf[<h4>Missing Students</h4>
-            %count% students have not been included in the Timetable Line.  All students should be included.
+            A student is missing from the Timetable Line.  All students of the grades that the line covers should be included.|]1,Inf[<h4>Missing Students</h4>
+            %count% students have not been included in the Timetable Line.  All students of the grades that the line covers should be included.
         student:
             missing: '%identifier%: %name% was not found in the timetable line.'
             duplicated: '%identifier%: %name% is duplicated in the timetable line.'

@@ -4,7 +4,11 @@
 
 {% block title %}{{ parent() }}{{ 'line.report.title'|trans }}{% endblock title %}
 
+{% block flashMessages %}
+    <div class="small">{{ parent() }}</div>
+{% endblock flashMessages %}
+
 {% block contentContainer %}
-    {{ closeButton()|raw }}
-    {{ resetButton({'windowOpen': {'route': path('line_test', {'id': app.request.get('id')})}, title: 'line.report.refresh.button', transDomain: 'Timetable'})|raw }}
+    {{ closeButton({mergeClass: 'btn-sm'})|raw }}
+    {{ resetButton({'windowOpen': {'route': path('line_test', {'id': app.request.get('id')})}, title: 'line.report.refresh.button', transDomain: 'Timetable', mergeClass: 'btn-sm'})|raw }}
 {% endblock contentContainer %}

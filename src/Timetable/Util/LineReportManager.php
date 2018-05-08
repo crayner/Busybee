@@ -171,7 +171,9 @@ class LineReportManager extends ReportManager
                 [
                     'useRaw' => true,
                     'transChoice' => $this->getMissingCount(),
-                    'closeButton' => [],
+                    'closeButton' => [
+                        'mergeClass' => 'btn-sm',
+                    ],
                     'resetButton' => [
                         'windowOpen' => [
                             'route' => 'line_test',
@@ -181,6 +183,7 @@ class LineReportManager extends ReportManager
                         ],
                         'title' => 'line.report.refresh.button',
                         'transDomain' => 'Timetable',
+                        'mergeClass' => 'btn-sm',
                     ],
                 ]
             );
@@ -198,7 +201,9 @@ class LineReportManager extends ReportManager
                 [
                     'useRaw' => true,
                     'transChoice' => $this->getDuplicatedCount(),
-                    'closeButton' => [],
+                    'closeButton' => [
+                        'mergeClass' => 'btn-sm',
+                    ],
                     'resetButton' => [
                         'windowOpen' => [
                             'route' => 'line_test',
@@ -208,6 +213,7 @@ class LineReportManager extends ReportManager
                         ],
                         'title' => 'line.report.refresh.button',
                         'transDomain' => 'Timetable',
+                        'mergeClass' => 'btn-sm',
                     ],
                 ]
             );
@@ -225,7 +231,9 @@ class LineReportManager extends ReportManager
                 [
                     'useRaw' => true,
                     'transChoice' => $this->getExtraCount(),
-                    'closeButton' => [],
+                    'closeButton' => [
+                        'mergeClass' => 'btn-sm',
+                    ],
                     'resetButton' => [
                         'windowOpen' => [
                             'route' => 'line_test',
@@ -235,6 +243,7 @@ class LineReportManager extends ReportManager
                         ],
                         'title' => 'line.report.refresh.button',
                         'transDomain' => 'Timetable',
+                        'mergeClass' => 'btn-sm',
                     ],
                 ]
             );
