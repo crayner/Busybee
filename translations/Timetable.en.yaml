@@ -26,6 +26,8 @@ line:
     courses:
         label: Attached Courses
         sort: Sort by Course Name
+        placeholder: Select a Course
+        help: Courses attached to the line can be in one or more grades.
     delete:
         button: Delete TimetableLine
         confirm: Delete TimetableLine?
@@ -63,3 +65,4 @@ line:
         title: Manage Activity TimetableLine
         description: Create, edit and test an Activity TimetableLine
         help: Lines are a timetable mapping tool.  All courses in a line MUST have the same number of periods per timetable cycle.  The line is allocated to the number of periods to meet the largest requirement of the courses attached, and the test will flag any differences in courses attached to the line.
+    change_record.placeholder: Add or edit selected Activity Line

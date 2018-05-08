@@ -10,43 +10,20 @@ use App\Entity\TimetableLine;
 use App\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Form\Util\CollectionManager;
 
 class LineManager
 {
     /**
-     * @var EntityManagerInterface
+     * @var null|TimetableLine
      */
-    private $entityManager;
-
-    /**
-     * Current Calednar
-     * @var Calendar
-     */
-    private $calendar;
+    private $line;
 
     /**
      * @var MessageManager
      */
     private $messageManager;
-
-    /**
-     * LineManager constructor.
-     * @param EntityManagerInterface $entityManager
-     */
-    public function __construct(EntityManagerInterface $entityManager, CalendarManager $calendarManager)
-    {
-        $this->entityManager = $entityManager;
-        $this->setCalendar($calendarManager->getCurrentCalendar());
-        $this->messageManager = $calendarManager->getMessageManager();
-        $this->messageManager->setDomain('Timetable');
-    }
-
-    /**
-     * @var null|TimetableLine
-     */
-    private $line;
 
     /**
      * @param $id
@@ -58,9 +35,14 @@ class LineManager
         if (! $this->line instanceof TimetableLine)
             $this->line = new TimetableLine();
 
-        $this->line->setCalendar($this->calendar);
+        $this->line->setCalendar($this->getCalendar());
         return $this->line;
     }
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
 
     /**
      * @return EntityManagerInterface
@@ -69,6 +51,25 @@ class LineManager
     {
         return $this->entityManager;
     }
+
+    /**
+     * LineManager constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param CalendarManager $calendarManager
+     */
+    public function __construct(EntityManagerInterface $entityManager, CalendarManager $calendarManager)
+    {
+        $this->entityManager = $entityManager;
+        $this->setCalendar($calendarManager->getCurrentCalendar());
+        $this->messageManager = $calendarManager->getMessageManager();
+        $this->messageManager->setDomain('Timetable');
+    }
+
+    /**
+     * Current Calednar
+     * @var Calendar
+     */
+    private $calendar;
 
     /**
      * @return Calendar
@@ -97,29 +98,6 @@ class LineManager
     }
 
     /**
-     * @var string
-     */
-    private $status = 'default';
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     * @return LineManager
-     */
-    public function setStatus(string $status): LineManager
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    /**
      * @param $id
      */
     public function removeCourse($id)
@@ -143,168 +121,25 @@ class LineManager
     }
 
     /**
-     * @param null $id
-     * @return TimetableLine
+     * @var string
      */
-    public function addLine($id = null)
+    private $status = 'default';
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
     {
-        if (is_null($id))
-            return $this->line;
-
-        $this->line = $this->find($id);
-        $this->gradesGenerated = false;
-        $this->studentsGenerated = false;
-        $this->participantGenerated = false;
-        $this->possibleGenerated = false;
-
-        return $this->getLine();
+        return $this->status;
     }
 
     /**
-     * @return TimetableLine|null
+     * @param string $status
+     * @return LineManager
      */
-    public function getLine(): ?TimetableLine
+    public function setStatus(string $status): LineManager
     {
-        return $this->line;
+        $this->status = $status;
+        return $this;
     }
-
-    /**
-     * @var bool
-     */
-    private $studentsGenerated = false;
-
-    /**
-     * @var bool
-     */
-    private $participantGenerated = false;
-
-    /**
-     * @var bool
-     */
-    private $possibleGenerated = false;
-
-    /**
-     * Get Report
-     *
-     * @return LineReportManager
-     */
-    public function getReport(): LineReportManager
-    {
-        $report = new LineReportManager();
-
-        $report->setLineManager($this)->generateReport();
-
-        $report->writeReport();
-
-        $this->getMessageManager()->addStatusMessages($report->getMessages(), 'Timetable');
-
-        return $report;
-    }
-
-    /**
-     * @var int
-     */
-    private $possibleCount = 0;
-
-    /**
-     * @return int
-     */
-    public function getPossibleCount(): int
-    {
-        $this->possibleCount = $this->possible->count();
-        return $this->possibleCount;
-    }
-
-    /**
-     * @var int
-     */
-    private $studentCount = 0;
-
-    /**
-     * @return int
-     */
-    public function getStudentCount(): int
-    {
-        $this->studentCount = $this->students->count();
-        return $this->studentCount;
-    }
-
-    /**
-     * @var int
-     */
-    private $duplicateCount = 0;
-
-    /**
-     * @return int
-     */
-    public function getDuplicateCount(): int
-    {
-        $this->duplicateCount = $this->duplicated->count();
-        return $this->duplicateCount;
-    }
-
-    /**
-     * @var int
-     */
-    private $participantCount = 0;
-
-    /**
-     * @return int
-     */
-    public function getParticipantCount(): int
-    {
-        $this->participantCount = $this->participant->count();
-        return $this->participantCount;
-    }
-
-    /**
-     * @var Collection
-     */
-    private $missingStudents;
-
-    /**
-     * @return Collection
-     */
-    public function getMissingStudents(): Collection
-    {
-        $this->missingStudents = new ArrayCollection();
-
-        if ($this->getPossibleCount() == 0)
-            return $this->missingStudents;
-
-        foreach ($this->possible->getIterator() as $student)
-            if ($student instanceof Student && ! $this->missingStudents->contains($student))
-                $this->missingStudents->add($student);
-
-        return $this->missingStudents;
-    }
-
-    /**
-     * @var bool
-     */
-    private $exceededMax = false;
-
-    /**
-     * @return bool
-     */
-    public function getExceededMax()
-    {
-        $this->exceededMax = false;
-
-        // Test OK if includeAll not set
-        if ($this->getParticipantCount() > $this->getStudentCount())
-            $this->exceededMax = true;
-        dump($this);
-
-        return $this->exceededMax;
-    }
-
-    /**
-     * @return SettingManager
-     */
-    public function getSettingManager(): SettingManager
-    {
-        return $this->settingManager;
-    }
-
 }
