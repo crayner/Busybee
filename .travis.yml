@@ -19,13 +19,10 @@ install:
     - php bin/console doctrine:schema:create --env=test
 
 # Allows use container-based infrastructure
-sudo: true
+sudo: false
 
-addons:
-   mariadb: '10.2'
-# Start mysql service
 services:
-    - mariadb
+    - mysql
 
 # Cache composer packages so "composer install" is faster
 cache:
