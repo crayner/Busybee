@@ -1,7 +1,6 @@
 <?php
 namespace App\Pagination;
 
-use App\Entity\Staff;
 use App\Entity\Student;
 use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -85,7 +84,11 @@ class StudentPagination extends PaginationManager
 			],
             's.calendarGrades' => [
                 'type' => 'leftJoin',
-                'alias' => 'cg'
+                'alias' => 'cgs'
+            ],
+            'cgs.calendarGrade' => [
+                'type' => 'leftJoin',
+                'alias' => 'cg',
             ],
 		];
 
@@ -156,9 +159,9 @@ class StudentPagination extends PaginationManager
      * @param FormFactoryInterface $formFactory
      * @param PersonManager $personManager
      */
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory)
 	{
-		parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
+		parent::__construct($entityManager, $router, $requestStack, $formFactory);
 		$this->setDisplayChoice(true);
 	}
 }

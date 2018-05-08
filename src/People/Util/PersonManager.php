@@ -9,6 +9,7 @@ use App\Core\Manager\TabManagerInterface;
 use App\Core\Util\UserManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
+use App\Entity\CalendarGradeStudent;
 use App\Entity\CareGiver;
 use App\Entity\Family;
 use App\Entity\Person;
@@ -482,8 +483,6 @@ user:
             $result .= $person->getHonorific() . '<br/>';
 
         if ($person instanceof Student) {
-            //           $result .= is_null($this->getCurrentStudentCalendarName($person)) ? '' : $this->getCurrentStudentCalendarName($person) . '<br />';
-
             $families = $this->entityManager->createQueryBuilder()
                 ->from(Family::class, 'f')
                 ->select('f')
@@ -494,13 +493,12 @@ user:
             foreach ($families as $family)
                 $result .= 'Family: ' . $family->getName() . '<br />';
 
-            $grade = $this->entityManager->createQueryBuilder()
-                ->from(CalendarGrade::class, 'cg')
-                ->select('cg')
-                ->leftJoin('cg.students', 's')
+            $grade = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('cg')
+                ->leftJoin('cg.students', 'cgs')
+                ->leftJoin('cgs.student', 's')
                 ->leftJoin('cg.calendar', 'c')
-                ->where('s.id = :student_id')
-                ->setParameter('student_id', $person->getId())
+                ->where('s = :student')
+                ->setParameter('student', $person)
                 ->andWhere('cg.calendar = :calendar')
                 ->setParameter('calendar', $this->calendarManager->getCurrentCalendar())
                 ->getQuery()
