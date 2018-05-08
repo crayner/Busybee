@@ -21,7 +21,6 @@ doctrine:
             default:
                 driver:   '%db_driver%'
                 host:     '%db_host%'
-                port:     '%db_port%'
                 dbname:   '%db_name%'
                 user:     '%db_user%'
                 charset:  '%db_charset%'
