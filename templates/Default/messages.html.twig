@@ -8,7 +8,16 @@
         {% set element = 'div' %}
     {% endif %}
     {% for message in messages.messages %}
-        <{{ element }} class="alert alert-{{ message.level }}{{ flashClass }} alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
+        <{{ element }} class="alert alert-{{ message.level }}{{ flashClass }}alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
+            {% for button in message.buttons %}
+                {% if button['name'] is same as('closeButton') %}
+                    {{ closeButton(button)|raw }}
+                {% elseif button['name'] is same as('resetButton') %}
+                    {{ resetButton(button)|raw }}
+                {% else %}
+                    {{ miscButton(button)|raw }}
+                {% endif %}
+            {% endfor %}
             {% if message.useRaw is same as(true) %}
                 {% if message.transChoice is same as(false) %}
                     {{ message.message|trans(message.options, message.domain)|raw }}

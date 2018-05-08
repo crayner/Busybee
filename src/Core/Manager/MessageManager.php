@@ -167,12 +167,12 @@ class MessageManager
     {
         $stat1 = strtolower($stat1);
         $stat2 = strtolower($stat2);
-        if (! in_array($stat1, self::statusLevel))
+        if (! in_array($stat1, self::$statusLevel))
             return false;
-        if (! in_array($stat2, self::statusLevel))
+        if (! in_array($stat2, self::$statusLevel))
             return false;
 
-        if (self::statusLevel[$stat1] > self::statusLevel[$stat2])
+        if (self::$statusLevel[$stat1] > self::$statusLevel[$stat2])
             return true;
         return false;
     }
@@ -192,6 +192,11 @@ class MessageManager
         return $x;
     }
 
+    /**
+     * @param $status
+     * @param null $domain
+     * @return MessageManager
+     */
     public function addStatusMessages($status, $domain = null): MessageManager
     {
         if (empty($status))
