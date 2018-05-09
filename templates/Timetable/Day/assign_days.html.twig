@@ -1,0 +1,38 @@
+{% spaceless %}
+    {% trans_default_domain 'Timetable' %}
+
+    {% set header = term.name %}
+    {% set panelParagraph = 'timetable.assign.days.help' %}
+    {% set transDomain = 'Timetable' %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add'}) }}) %}{% endif %}
+    {% if form.locked.vars.data %}
+        {% set h3Content = h3Content ~ saveButton({additional: 'disabled'})|raw %}
+    {% else %}
+        {% set h3Content = h3Content ~ saveButton() %}
+    {% endif %}
+    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+    {% include 'Page/panelStart.html.twig' %}
+
+    {% set schoolDays = get_setting('schoolweek') %}
+    <div id="messageNotice{{ term.id }}"></div>
+
+    <div class="row">
+        <div class="col-9 offset-3">
+            <div class="row row-header">
+                {% for x,y in schoolDays %}
+                    <div class="col-2 card text-center small">
+                        {{ x }}<br />({{ y }})
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div id="assignDays{{ term.id }}">
+        {% include 'Timetable/Day/assign_days_content.html.twig' %}
+    </div>
+    {% include 'Page/panelEnd.html.twig' %}
+    {% set x = addScript('Timetable/Day/rotateToggleScript.html.twig') %}
+{% endspaceless %}

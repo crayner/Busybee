@@ -1,4 +1,5 @@
 timetable:
+    assign.days.help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
     manage:
         title: Timetable Manage
         menu.label: Timetable Manage
@@ -18,7 +19,7 @@ timetable:
         title: 'Edit Timetable: %name%'
         description: Modify the details of the timetable.
     builder:
-        button: 'Time Table Builder'
+        button: 'Timetable Builder'
         help: 'Use this button to build the timetable days and periods.  This button will only work when the timetable is not locked. It will use a best guess algorithm to create the days for the timetable, removing any existing work.'
     columns:
         header: Timetable Days
@@ -52,6 +53,12 @@ timetable:
             label: Map to Actual Day
             help: Map the column to a fixed day or leave to rotate.
             rotate: Rotate
+    rotate:
+        title: Manual Rotate Start
+        toggle:
+            success: 'The start rotate was toggled for %{date}'
+            failed: 'The start rotate toggle was not successful.'
+    term.tab: '%name%'
 line:
     list:
         menu.label: Manage Lines
@@ -107,8 +114,9 @@ line:
         help: Lines are a timetable mapping tool.  All courses in a line MUST have the same number of periods per timetable cycle.  The line is allocated to the number of periods to meet the largest requirement of the courses attached, and the test will flag any differences in courses attached to the line.
     change_record.placeholder: Add or edit selected Activity Line
 column:
-    resettime:
+    reset_time:
         title: 'Reset ALL day times.'
+        confirm: 'You wish to reset all column times to the default values?'
     periods:
         count: '{0}No periods are attached.|{1}One Period is attached.|]1,Inf[%{count} periods are attached.'
         manage: 'Create / Manage Periods'

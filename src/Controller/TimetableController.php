@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
 use App\Pagination\LinePagination;
 use App\Pagination\TimetablePagination;
@@ -13,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class TimetableController extends Controller
@@ -309,5 +311,106 @@ class TimetableController extends Controller
             ],
             200
         );
+    }
+
+    /**
+     * @Route("/timetable/{id}/start/{date}/rotate/", name="timetable_day_rotate_toggle")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $date
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @param TwigManager $twig
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @throws \Exception
+     */
+    public function rotateToggle($date, $id, TimetableManager $timetableManager, TwigManager $twig)
+    {
+        $timetableManager->find($id);
+        $timetableManager->getMessageManager()->setDomain('Timetable');
+
+        if (!$timetableManager->testDate($date)) {
+            return new JsonResponse(
+                [
+                    'message' => $timetableManager->getMessageManager()->renderView($twig->getTwig()),
+                    'status' => 'failed'
+                ],
+                200
+            );
+        }
+
+        $day = $timetableManager->toggleRotateStart($date);
+
+        $data = $this->renderView('Timetable/Day/assign_days_content.html.twig', [
+            'term' => $day->getTerm(),
+            'tabManager' => $timetableManager,
+        ]);
+
+        return new JsonResponse(
+            [
+                'message' => $timetableManager->getMessageManager()->renderView($twig->getTwig()),
+                'data' => $data,
+                'status' => 'success',
+            ],
+            200
+        );
+    }
+
+    /**
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/column/{cid}/remove/", name="column_remove")
+     * @param int $id
+     * @param int $cid
+     * @param TimetableManager $timetableManager
+     * @return RedirectResponse
+     */
+    public function removeColumn(int $id, int $cid, TimetableManager $timetableManager, FlashBagManager $flashBagManager)
+    {
+        $timetableManager->find($id, true);
+
+        $timetableManager->removeColumn($cid);
+
+        $flashBagManager->addMessages($timetableManager->getMessageManager()->getMessages());
+
+        return $this->redirectToRoute('timetable_edit', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/timetable/column/{id}/reset/times/", name="column_resettimes")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function resetColumnTimes($id, TimetableManager $timetableManager)
+    {
+        $tt = $timetableManager->find($id);
+        if (! $timetableManager->isValidTimetable()) {
+            $timetableManager->getMessageManager()->add('warning', 'column.reset_time.missing', [], 'Timetable');
+            return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
+        }
+
+        $sm     = $timetableManager->getSettingManager();
+        $begin  = $sm->get('schoolday.begin');
+        $finish = $sm->get('schoolday.finish');
+
+        if ($tt->getColumns()->count() > 0) {
+            try {
+                foreach ($tt->getColumns() as $column) {
+                    $column->setStart($begin);
+                    $column->setEnd($finish);
+                    $timetableManager->getEntityManager()->persist($column);
+                }
+                $timetableManager->getEntityManager()->flush();
+            } catch (\Exception $e) {
+                $timetableManager->getMessageManager()->add('danger', 'column.reset_time.error', [], 'Timetable');
+                return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
+            }
+        }
+
+        $timetableManager->getMessageManager()->add('success', 'column.reset_time.success', [], 'Timetable');
+        return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
     }
 }

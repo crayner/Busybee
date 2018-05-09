@@ -8,11 +8,11 @@
         {% set h3Content = h3Content ~ saveButton() %}
     {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-    {% set h3Content = h3Content ~ miscButton({'javascript': {function: 'resetColumnTimes', options: [app.request.get('id')]}, class: 'btn btn-danger fas fa-asterisk', title: 'column.resettime.title', transDomain: 'Timetable', disabled: getValueData(form.locked)|default(false)}) %}
+    {% set h3Content = h3Content ~ miscButton({'javascript': {function: 'resetColumnTimes', options: [app.request.get('id')]}, class: 'btn btn-danger fas fa-asterisk', title: 'column.reset_time.title', transDomain: 'Timetable', disabled: getValueData(form.locked)|default(false)}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'timetable.edit.title', transDomain: 'Timetable', panelParagraph: 'timetable.edit.description', name: form.vars.value.fullName} %}
 
     <div class="container-fluid">
-        {% if form.locked.vars.data %}
+        {% if getValueData(form.locked) %}
             <div class="row">
                 <div class="col-12 alert alert-danger">
                     {{ 'timetable.locked.true'|trans }}
@@ -35,8 +35,8 @@
         </div>
         <div class="row">
                 <div style="width: 100%" class="alert alert-primary">
-                {{ miscButton({class: 'btn btn-primary fas fa-cog', title: 'timetable.builder.button', transDomain: 'Timetable', disabled: getValueData(form.locked)|default(false), windowOpen: {route: path('timetable_assign_days', {id: app.request.attributes.get('id')})}})|raw }}
-                {{ 'timetable.builder.help'|trans }}
+                    {{ miscButton({class: 'btn btn-primary fas fa-cog', title: 'timetable.builder.button', transDomain: 'Timetable', disabled: getValueData(form.locked)|default(false), windowOpen: {route: path('timetable_assign_days', {id: app.request.attributes.get('id')})}})|raw }}
+                    {{ 'timetable.builder.help'|trans }}
                 </div>
         </div>
         <div class="row">
