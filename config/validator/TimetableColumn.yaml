@@ -32,4 +32,4 @@ App\Entity\TimetableColumn:
         mappingInfo:
             - App\Core\Validator\SettingChoice:
                 settingName: schoolweek
-                extra_choices: { 'Rotate': 'Rotate' }
+                extra_choices: { 'timetable.column.mapping_info.rotate': 'rotate' }
