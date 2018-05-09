@@ -1,0 +1,20 @@
+{% trans_default_domain "Timetable" %}
+{% dump %}
+<p class="text-left">
+    {% if manager.messageManager.hasMessages %}
+        {{ miscButton({'title': status.message, 'class': 'far fa-question-circle btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
+    {% endif %}
+    {% set comma = false %}
+    {% if periodManager.hasSpace(activity.entity) %}
+        <span class="spaceName"
+              onclick="openSpaceTimeTable({{ periodManager.getSpace(activity.entity).id }})">{{ periodManager.getSpace(activity.entity).name }}</span>
+        {% set comma = true %}
+    {% endif %}
+    {% if periodManager.hasTutors(activity.entity) %}
+        {% for tutor in activity.entity.loadTutors %}
+            {% if comma %},&nbsp;{% endif %}
+            <span class="tutorName" onclick="openStaffTimeTable({{ tutor.tutor.id }})">{{ tutor.tutor.fullName({preferredOnly: true}) }}</span>
+            {% set comma = true %}
+        {% endfor %}
+    {% endif %}
+</p>

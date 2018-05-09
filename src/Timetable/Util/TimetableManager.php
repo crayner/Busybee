@@ -1,17 +1,23 @@
 <?php
 namespace App\Timetable\Util;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Core\Manager\TabManager;
 use App\Entity\Calendar;
+use App\Entity\CalendarGrade;
 use App\Entity\SpecialDay;
 use App\Entity\Term;
 use App\Entity\Timetable;
 use App\Entity\TimetableAssignedDay;
 use App\Entity\TimetableColumn;
+use App\Pagination\PeriodPagination;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
 
 class TimetableManager extends TabManager
@@ -32,17 +38,31 @@ class TimetableManager extends TabManager
     private $schoolWeek;
 
     /**
+     * @var RequestStack
+     */
+    private $stack;
+
+    /**
+     * @var CalendarManager
+     */
+    private $calendarManager;
+
+    /**
      * TimetableManager constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param MessageManager $messageManager
+     * @param SettingManager $settingManager
      * @param RequestStack $stack
-     * @param RouterInterface $router
      */
     public function __construct(EntityManagerInterface $entityManager, MessageManager $messageManager,
-                                SettingManager $settingManager)
+                                SettingManager $settingManager, RequestStack $stack, CalendarManager $calendarManager)
     {
         $this->entityManager = $entityManager;
         $this->messageManager = $messageManager;
         $this->settingManager = $settingManager;
         $this->schoolWeek = $this->getSettingManager()->get('schoolweek');
+        $this->stack = $stack;
+        $this->calendarManager = $calendarManager;
     }
 
     /**
@@ -509,5 +529,109 @@ timetable:
             $this->getEntityManager()->persist($assignDay);
         }
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCalendarGrades(): Collection
+    {
+        return $this->getCalendar()->getCalendarGrades();
+    }
+
+    /**
+     * @var null|\stdClass
+     */
+    private $report;
+
+    /**
+     * Get Report
+     * @param PeriodPagination $pag
+     * @return TimetableReportManager
+     */
+    public function getReport(PeriodPagination $pag)
+    {
+        if (!$this->timetable instanceof TimeTable)
+            throw new \InvalidArgumentException('The timetable has not been injected into the manager.');
+
+        $this->report = new TimetableReportManager();
+        $this->report = $this->report->setEntityManager($this->getEntityManager())->retrieveCache($this->getTimetable(), TimetableReportManager::class);
+
+        $this->report
+            ->setGrades($this->getGrades())
+            ->setCalendar($this->getCurrentCalendar())
+            ->setPeriodList($pag->getResult())
+        ;
+
+        $this->report->saveReport();
+
+        return $this->report;
+    }
+
+    /**
+     * @var ArrayCollection
+     */
+    private $grades;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGrades(): ArrayCollection
+    {
+        if (! empty($this->grades))
+            return $this->grades;
+
+        $grades = $this->getGradeControls();
+
+        $results = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('cg')
+            ->where('cg.calendar = :calendar')
+            ->setParameter('calendar', $this->getCurrentCalendar())
+            ->andWhere('cg.grade in (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->orderBy('cg.sequence', 'ASC')
+            ->getQuery()
+            ->getResult();
+        $this->grades = new ArrayCollection();
+        foreach($results as $grade)
+            $this->grades->set($grade->getGrade(), $grade);
+
+        return $this->grades;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGradeControls(): array
+    {
+        $grades =  $this->getStack()->getCurrentRequest()->getSession()->has('gradeControl') ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
+        $x = [];
+        foreach($grades as $q=>$w)
+            if ($w)
+                $x[] = $q;
+        return $x;
+    }
+
+    /**
+     * @return CalendarManager
+     */
+    public function getCalendarManager(): CalendarManager
+    {
+        return $this->calendarManager;
+    }
+
+    /**
+     * @return Calendar
+     */
+    public function getCurrentCalendar(): Calendar
+    {
+        return $this->getCalendarManager()->getCurrentCalendar();
+    }
+
+    /**
+     * @return RequestStack
+     */
+    public function getStack(): RequestStack
+    {
+        return $this->stack;
     }
 }

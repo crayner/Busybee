@@ -265,27 +265,4 @@ class Timetable extends TimetableExtension
         $this->generated = $generated ? true : false ;
         return $this;
     }
-
-    /**
-     * @var TimetableReportManager|null
-     */
-    private $report;
-
-    /**
-     * @return TimetableReportManager|null
-     */
-    public function getReport(): ?TimetableReportManager
-    {
-        return $this->report;
-    }
-
-    /**
-     * @param TimetableReportManager|null $report
-     * @return Timetable
-     */
-    public function setReport(?TimetableReportManager $report): Timetable
-    {
-        $this->report = $report;
-        return $this;
-    }
 }

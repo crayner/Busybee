@@ -1,0 +1,25 @@
+App\Entity\ReportCache:
+    type: entity
+    table: report_cache
+    repositoryClass: App\Repository\ReportCacheRepository
+    uniqueConstraints:
+        class_identifier:
+            columns:
+                - class_name
+                - class_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        className:
+            column: class_name
+            length: 255
+        classId:
+            column: class_id
+            type: integer
+        report:
+            type: object
+

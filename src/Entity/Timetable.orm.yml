@@ -30,9 +30,6 @@ App\Entity\Timetable:
             type: boolean
             options:
                 default: false
-        report:
-            type: object
-            nullable: true
     oneToMany:
         columns:
             targetEntity: App\Entity\TimetableColumn

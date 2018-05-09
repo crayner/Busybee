@@ -3,15 +3,21 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
+use App\Pagination\ClassPagination;
 use App\Pagination\LinePagination;
+use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
+use App\Security\VoterDetails;
 use App\Timetable\Form\LineType;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\ColumnManager;
 use App\Timetable\Util\LineManager;
+use App\Timetable\Util\PeriodManager;
+use App\Timetable\Util\TimetableDisplayManager;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -80,20 +86,115 @@ class TimetableController extends Controller
     }
 
     /**
-     * @param   Request $request
+     * builder
+     *
      * @param $id
      * @param string $all
      * @param TimetableManager $timetableManager
      * @param PeriodPagination $periodPagination
-     * @param LinePagination $linePagination
+     * @param Request $request
      * @param ClassPagination $classPagination
+     * @param LinePagination $linePagination
      * @param PeriodManager $periodManager
      * @return  \Symfony\Component\HttpFoundation\Response
      * @IsGranted("ROLE_PRINCIPAL")
      * @Route("/timetable/{id}/builder/{all}/", name="timetable_builder")
      */
-    public function builder($id, $all = 'All')
-    {}
+    public function builder($id, $all = 'All', TimetableManager $timetableManager, PeriodPagination $periodPagination,
+                               Request $request, ClassPagination $classPagination, LinePagination $linePagination,
+                               PeriodManager $periodManager)
+    {
+        $timetable = $timetableManager->find($id);
+
+        $periodPagination->setTimetable($timetable);
+
+        $periodPagination->injectRequest($request);
+        $classPagination->injectRequest($request);
+        $linePagination->injectRequest($request);
+
+
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
+        $param = [];
+        foreach ($timetableManager->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
+                $param[] = $w->getGrade();
+            else
+                $gradeControl[$w->getGrade()] = false;
+        }
+
+        $request->getSession()->set('gradeControl', $gradeControl);
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $classPagination->setLimit(1000)
+            ->setJoin([
+                'f.course' => [
+                    'alias' => 'c',
+                    'type' => 'leftJoin',
+                ],
+                'c.calendarGrades' => [
+                    'alias' => 'g',
+                    'type' => 'leftJoin',
+                ],
+            ])
+            ->setSortByList(
+                [
+                    'facetoface.name.sort' =>            [
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                    'bySequence' => [
+                        'g.sequence' => 'ASC',
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                ]
+            )
+            ->setSortByName('bySequence')
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $periodPagination->setLimit(1000)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $linePagination->setDisplaySearch(false)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->setLimit(1000)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $classPagination->getDataSet();
+        $linePagination->getDataSet();
+        $periodPagination->getDataSet();
+
+        return $this->render('Timetable/builder.html.twig',
+            [
+                'pagination' => $periodPagination,
+                'line_pagination' => $linePagination,
+                'class_pagination' => $classPagination,
+                'periodManager' => $periodManager,
+                'all' => $all,
+                'report' => $timetableManager->getReport($periodPagination),
+                'manager' => $timetableManager,
+            ]
+        );
+    }
 
     /**
      * @Route("/line/list/", name="line_list")
@@ -413,4 +514,164 @@ class TimetableController extends Controller
         $timetableManager->getMessageManager()->add('success', 'column.reset_time.success', [], 'Timetable');
         return $this->forward(TimetableController::class . '::edit', ['id' => $id]);
     }
+
+    /**
+     * @param int $id
+     * @param PeriodManager $periodManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/period/{id}/report/", name="period_plan_report")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function periodReport(int $id, PeriodManager $periodManager)
+    {
+    }
+
+    /**
+     * editPeriodActivity
+     *
+     * @param Request $request
+     * @param $activity
+     * @param PeriodManager $periodManager
+     * @param string $closeWindow
+     * @Route("/period/activity/{activity}/edit/{closeWindow}", name="period_activity_edit")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function editPeriodActivity(Request $request, $activity, PeriodManager $periodManager, $closeWindow = ''){}
+
+    /**
+     * addLineToPeriod
+     *
+     * @param int $id
+     * @param int $line
+     * @param Request $request
+     * @param PeriodManager $periodManager
+     * @param TwigManager $twig
+     * @Route("/period/{id}/line/{line}/drop/", name="period_drop_line")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function addLineToPeriod(int $id, int $line, Request $request, PeriodManager $periodManager, TwigManager $twig){}
+
+    /**
+     * addActivityToPeriod
+     *
+     * @param int $id
+     * @param int $activity
+     * @param PeriodManager $periodManager
+     * @param TwigManager $twig
+     * @Route("/period/{id}/activity/{activity}/drop/", name="period_drop_activity")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function addActivityToPeriod(int $id, int $activity, PeriodManager $periodManager, TwigManager $twig)
+    {}
+
+    /**
+     * removePeriodActivity
+     *
+     * @param $id
+     * @param $activity
+     * @param PeriodManager $periodManager
+     * @param TwigManager $twig
+     * @Route("/period/{id}/activity/{activity}/remove/", name="period_remove_activity")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function removePeriodActivity($id, $activity, PeriodManager $periodManager, TwigManager $twig){}
+
+    /**
+     * gradeControl
+     *
+     * @param $grade
+     * @param $value
+     * @Route("/grade/{grade}/{value}/control/", name="grade_control")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function gradeControl($grade, $value){}
+
+    /**
+     * builderLineActivity
+     *
+     * @param Request $request
+     * @param LinePagination $linePagination
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/line/builder/", name="timetable_builder_line_activity")
+     */
+    public function builderLineActivity(Request $request,
+                                           LinePagination $linePagination)    {}
+
+    /**
+     * builderActivity
+     *
+     * @param Request $request
+     * @param $id
+     * @param TimetableManager $timetableManager
+     * @param ClassPagination $classPagination
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/activity/builder/", name="timetable_builder_activity")
+     */
+    public function builderActivity(Request $request, $id,
+                                       TimetableManager $timetableManager, ClassPagination $classPagination) {}
+
+    /**
+     * builderPeriod
+     *
+     * @param Request $request
+     * @param $id
+     * @param string $all
+     * @param TimetableManager $timetableManager
+     * @param PeriodPagination $periodPagination
+     * @param PeriodManager $periodManager
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/period/builder/{all}/", name="timetable_period_builder")
+     */
+    public function builderPeriod(Request $request, $id, $all = 'All',
+                                     TimetableManager $timetableManager, PeriodPagination $periodPagination,
+                                     PeriodManager $periodManager){}
+
+    /**
+     * setTimetableGrade
+     *
+     * @param $grade
+     * @Route("/timetable/{grade}/grade/", name="timetable_grade_set")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function setTimetableGrade($grade){}
+
+    /**
+     * Display Timetable
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/timetable/display/{closeWindow}", name="timetable_display")
+     * @Security("is_granted('ROLE_PRINCIPAL')")
+     */
+    public function display(Request $request, VoterDetails $voterDetails, $closeWindow = '', TimetableDisplayManager $timetableDisplayManager){}
+
+    /**
+     * Set Timetable Space
+     *
+     * @param $space
+     * @return JsonResponse
+     * @Route("/space/{space}/set/", name="timetable_space_set")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function setTimetableSpace($space){}
+
+    /**
+     * Set Timetable Staff
+     *
+     * @param $grade
+     * @return JsonResponse
+     * @Route("/staff/{staff}/set/", name="timetable_staff_set")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function setTimetableStaff($staff){}
+
+    /**
+     * searchPeriods
+     *
+     * @param $tt
+     * @param $id
+     * @Route("/timetable/{tt}/line/{id}/periods/search/", name="line_periods_search")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function searchPeriods($tt, $id){}
 }
