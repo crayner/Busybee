@@ -1,0 +1,18 @@
+{% trans_default_domain "Timetable" %}
+
+{% block tt_days_label %}{% endblock %}
+{% block tt_days_errors %}{% endblock %}
+
+{% block tt_days_widget %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-6 card">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-6 card">
+                {{ form_row(form.dayType) }}
+                {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock tt_days_widget %}

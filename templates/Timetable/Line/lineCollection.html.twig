@@ -1,0 +1,30 @@
+{% trans_default_domain "Timetable" %}
+
+{% block tt_line_label %}{% endblock %}
+{% block tt_line_errors %}{% endblock %}
+
+{% block tt_line_widget %}
+    {% spaceless %}
+        {% set panelStyle = 'warning' %}
+        {% set transDomain = 'Timetable' %}
+        {% set header = 'timetable.line.activitygroup.header' %}
+
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.activitygroup.remove', 'transDomain': 'Timetable', 'class': 'fas fa-eraser btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'collectionName': 'activityGroup'})|raw %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton({'collectionName': 'activityGroup'})|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% set count = 'New' %}
+        {% if name != '__name__' %}{% set count = name + 1 %}{% endif %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': count} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 well">
+                    {{ form_row(form) }}
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock tt_line_widget %}

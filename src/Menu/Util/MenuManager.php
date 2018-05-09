@@ -421,7 +421,11 @@ class MenuManager extends MenuManagerConstants
 		return $routes;
 	}
 
-	private function showItem($node)
+    /**
+     * @param $node
+     * @return bool
+     */
+    private function showItem($node)
 	{
 		if (empty($node['showTest']))
 			return true;

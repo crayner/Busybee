@@ -5,7 +5,10 @@ use App\Core\Manager\TwigManager;
 use App\Pagination\LinePagination;
 use App\Pagination\TimetablePagination;
 use App\Timetable\Form\LineType;
+use App\Timetable\Form\TimetableType;
+use App\Timetable\Util\ColumnManager;
 use App\Timetable\Util\LineManager;
+use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -41,8 +44,38 @@ class TimetableController extends Controller
      * @param TimetableManager $timetableManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit($id)
-    {}
+    public function edit($id, Request $request, TimetableManager $timetableManager)
+    {
+        $entity = $timetableManager->find($id);
+
+        if (!empty($request->request->get('timetable_days')['locked']) && $request->request->get('timetable_days')['locked'])
+            $entity->setLocked(true);
+
+        $form = $this->createForm(TimetableType::class, $entity);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $timetableManager->getEntityManager();
+
+            $em->persist($entity);
+            $em->flush();
+
+            if ($id == 'Add')
+                return $this->redirectToRoute('timetable_edit', ['id' => $entity->getId()]);
+
+            $form = $this->createForm(TimetableType::class, $entity);
+            $timetableManager->getMessageManager()->add('success', 'form.submit.success', [], 'home');
+        }
+
+        return $this->render('Timetable/edit.html.twig',
+            [
+                'form'          => $form->createView(),
+                'fullForm'      => $form,
+                'tabManager'    => $timetableManager,
+            ]
+        );
+    }
 
     /**
      * @param   Request $request
@@ -184,6 +217,97 @@ class TimetableController extends Controller
                 'headerOff' => true,
                 'fullPage' => true,
             ]
+        );
+    }
+
+    /**
+     * @Route("/timetable/{id}/assigned/days/", name="timetable_assign_days")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param integer $id
+     * @param TimetableManager $timetableManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function generateAssignedDays($id, TimetableManager $timetableManager)
+    {
+        $timetableManager->createAssignedDays($id);
+
+        return $this->forward(TimetableController::class.'::edit', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/column/{id}/periods/manage/", name="column_periods_manage")
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @param $id
+     * @param ColumnManager $columnManager
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function managePeriodsInColumn($id, ColumnManager $columnManager, Request $request)
+    {
+        $column = $columnManager->find($id);
+
+        $columnManager->generatePeriods();
+
+        $form = $this->createForm(ColumnType::class, $columnManager->getColumn());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            foreach($columnManager->getColumn()->getPeriods()->getIterator() as $period)
+                $columnManager->getEntityManager()->persist($period);
+            $columnManager->getEntityManager()->persist($columnManager->getColumn());
+            $columnManager->getEntityManager()->flush();
+
+            $form = $this->createForm(ColumnType::class, $columnManager->getColumn());
+        }
+
+        return $this->render('Timetable/Period/manage.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            ]
+        );
+    }
+
+    /**
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/days/{cid}/edit/", name="timetable_days_edit")
+     * @param $id
+     * @param string $cid
+     * @param TimetableManager $timetableManager
+     * @param TwigManager $twig
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function editTimetableDays($id, $cid = 'ignore', TimetableManager $timetableManager, TwigManager $twig)
+    {
+        $entity = $timetableManager->find($id);
+
+        if ($cid !== 'ignore')
+            $timetableManager->removeColumn($cid);
+
+        $form = $this->createForm(TimetableType::class, $entity);
+
+        $content = $this->renderView('Timetable/timetable_collection.html.twig',
+            [
+                'collection' => $form->get('columns')->createView(),
+                'tabManager' => $timetableManager,
+                'route' => 'timetable_days_edit',
+                'contentTarget' => 'columnCollection',
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+                'status' => $timetableManager->getStatus(),
+                'message' => $timetableManager->getMessageManager()->renderView($twig->getTwig()),
+            ],
+            200
         );
     }
 }

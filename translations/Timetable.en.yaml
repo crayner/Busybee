@@ -12,6 +12,46 @@ timetable:
     calendar:
         label: Calendar
         sort: Calendar Name
+        placeholder: Select Calendar
+    add.title: Add Timetable
+    edit:
+        title: 'Edit Timetable: %name%'
+        description: Modify the details of the timetable.
+    builder:
+        button: 'Time Table Builder'
+        help: 'Use this button to build the timetable days and periods.  This button will only work when the timetable is not locked. It will use a best guess algorithm to create the days for the timetable, removing any existing work.'
+    columns:
+        header: Timetable Days
+        help: A column represents a day of school. The columns can be sorted to ensure that the column is correctly be allocated to the days in the order given here.
+    locked:
+        label: 'Lock Timetable'
+        help: 'Locking the timetable is used to create the necessary database entries for each day and period in the timetable.  The day and period records are then use to link activities and student attendance records.'
+        'true': 'This timetable is locked to changes. Any changes to settings made on this page will be ignored. Locking the timetable indicates that attendance records, et.al. are now ready to be created and stored.'
+    details:
+        tab: Details
+    days:
+        header: 'Actual School Days'
+    day:
+        name:
+            label: Day
+            placeholder: Select a Day
+        dayType:
+            label: Fixed or Rotate Target
+            help: ''
+    column:
+        add.title: New Column
+        name.label: Name
+        code.label: Code
+        start:
+            label: Start Time of Day
+            help: ''
+        end:
+            label: End Time of Day
+            help: ''
+        mapping_info:
+            label: Map to Actual Day
+            help: Map the column to a fixed day or leave to rotate.
+            rotate: Rotate
 line:
     list:
         menu.label: Manage Lines
@@ -66,3 +106,9 @@ line:
         description: Create, edit and test an Activity TimetableLine
         help: Lines are a timetable mapping tool.  All courses in a line MUST have the same number of periods per timetable cycle.  The line is allocated to the number of periods to meet the largest requirement of the courses attached, and the test will flag any differences in courses attached to the line.
     change_record.placeholder: Add or edit selected Activity Line
+column:
+    resettime:
+        title: 'Reset ALL day times.'
+    periods:
+        count: '{0}No periods are attached.|{1}One Period is attached.|]1,Inf[%{count} periods are attached.'
+        manage: 'Create / Manage Periods'
