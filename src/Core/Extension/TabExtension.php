@@ -58,6 +58,6 @@ class TabExtension extends AbstractExtension
      */
     public function safeName(?string $item): string
     {
-        return preg_replace('/\s+/', '_', $item);
+        return strtolower(preg_replace('/\s+/', '_', $item));
     }
 }

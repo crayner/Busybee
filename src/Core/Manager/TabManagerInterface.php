@@ -9,6 +9,7 @@ interface TabManagerInterface
      * An array of tabs.
      * Each tab to consist of:
      *   label: The label of the tab
+     *   label_params: an array of parameters for label translation.  If translation =false, then this is ignored
      *   include: The Twig script to populate the tab
      *   with: {array} added to the include. [optional]
      *   message: a unique ID to set for ajax messages to populate. [optional]

@@ -1,6 +1,4 @@
-{% if translation is not defined %}
-    {% set translation = 'home' %}
-{% endif %}
+{% set translation = translation|default('home') %}
 
 {% trans_default_domain translation %}
 
@@ -13,8 +11,9 @@
             {% if tab.display is not defined or tabManager.display(tab.display) %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 {% set disabled = '' %}
+                {% set label_params = tab.label_params|default({}) %}
                 <li class="nav-item" role="presentation">
-                    <a href="#{{ safeName(name) }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{% if not translation %}{{ tab.label }}{% else %}{{ tab.label|trans({}, translation) }}{% endif %}</a>
+                    <a href="#{{ safeName(name) }}" role="tab" data-toggle="tab" class="nav-link{{ disabled }}{{ active }}">{% if not translation %}{{ tab.label }}{% else %}{{ tab.label|trans(label_params, translation) }}{% endif %}</a>
                 </li>
                 {% set active = '' %}
             {% endif %}
@@ -22,7 +21,7 @@
     </ul>
     {% set active = ' active' %}
     <div class="tab-content">
-        {% for name,tab in getTabs() %}
+        {% for name,tab in getTabs() %}{% dump(tab) %}
             {% if tab.display is not defined or tabManager.display(tab.display) %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 <div class="tab-pane{{ active }}" id="{{ safeName(name) }}">
