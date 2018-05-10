@@ -19,6 +19,7 @@ namespace App\Timetable\Util;
 use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
+use App\Entity\Student;
 use App\Entity\TimetablePeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -185,18 +186,20 @@ class PeriodReportManager extends ReportManager
     public function addAllocatedStudents(): PeriodReportManager
     {
         foreach ($this->getActivities() as $activity) {
-            $students = $activity->getAllocatedStudents();
-            if ($students->count() === 0)
+            $newStudents = $activity->getAllocatedStudents();
+            if ($newStudents->count() === 0)
                 continue;
-            dump($students);die();
-            $students = $this->getAllocatedStudentGrade($grade);
-            if ($students->contains($student->getStudent()))
-                $this->addDuplicateStudent($student, $grade);
-            else {
-                $students->add($student->getStudent());
-                $this->allocatedStudentCount++;
+            foreach($newStudents as $as) {
+                $student = $as->getStudent();
+                $currentStudents = $this->getAllocatedStudentGrade($student->getStudentCurrentGrade($student));
+                if ($currentStudents->contains($student))
+                    $this->addDuplicateStudent($student, $student->getStudentCurrentGrade($student));
+                else {
+                    $currentStudents->add($student);
+                    $this->setAllocatedStudentGrade($currentStudents, $student->getStudentCurrentGrade($student));
+                    $this->allocatedStudentCount++;
+                }
             }
-            $this->setAllocatedStudentGrade($students, $grade);
         }
 
         return $this;
@@ -299,6 +302,169 @@ class PeriodReportManager extends ReportManager
     public function setDisableDrop(bool $disableDrop): PeriodReportManager
     {
         $this->disableDrop = $disableDrop;
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $grade
+     * @return int
+     */
+    private function getGradeID(?CalendarGrade $grade): int
+    {
+        if (empty($grade))
+            return 0;
+        return intval($grade->getId());
+    }
+
+    /**
+     * @var Collection|null
+     */
+    private $missingStudents;
+
+    /**
+     * @var int
+     */
+    private $missingStudentCount = 0;
+
+    /**
+     * @return Collection|null
+     */
+    public function getMissingStudents(): Collection
+    {
+        if (empty($this->missingStudents))
+            $this->missingStudents = new ArrayCollection();
+
+        if ($this->getPossibleStudentCount() === 0)
+            return $this->missingStudents;
+
+        foreach($this->getPossibleStudents()->getIterator() as $id=>$studentList)
+        {
+            $grade = isset($this->getGrades()[$id]) ? $this->getGrades()[$id] : null;
+            $students = $this->getAllocatedStudentGrade($grade);
+
+            foreach($studentList->getIterator() as $student)
+            {
+                if (!$students->contains($student))
+                    $this->addMissingStudent($student, $grade);
+            }
+            dump([$this,$grade,$students]);
+        }
+
+        return $this->missingStudents;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMissingStudentCount(): int
+    {
+        return $this->missingStudentCount;
+    }
+
+    /**
+     * @param Student $student
+     * @param CalendarGrade|null $grade
+     * @return PeriodReportManager
+     */
+    public function addMissingStudent(Student $student, ?CalendarGrade $grade): PeriodReportManager
+    {
+        if (empty($student))
+            return $this;
+
+        $students = $this->getMissingStudentGrade($grade);
+
+        if ($students->contains($student))
+            return $this;
+
+        $students->add($student);
+        $this->missingStudentCount++;
+
+        $this->missingStudents->set($this->getGradeID($grade), $students);
+
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $grade
+     * @return Collection
+     */
+    public function getMissingStudentGrade(?CalendarGrade $grade): Collection
+    {
+        if (empty($this->missingStudents))
+            $this->missingStudents = new ArrayCollection();
+        $id = $this->getGradeID($grade);
+        if ($this->missingStudents->containsKey($id))
+            $students = $this->missingStudents->get($id);
+        if (empty($students))
+            $students = new ArrayCollection();
+
+        return $students;
+    }
+    /**
+     * @var Collection|null
+     */
+    private $duplicateStudents;
+
+    /**
+     * @var int
+     */
+    private $duplicateStudentCount = 0;
+
+    /**
+     * @return Collection
+     */
+    public function getDuplicateStudents(): Collection
+    {
+        if (empty($this->duplicateStudents))
+            $this->duplicateStudents = new ArrayCollection();
+        return $this->duplicateStudents;
+    }
+
+    /**
+     * @param Student $student
+     * @param CalendarGrade|null $grade
+     * @return PeriodReportManager
+     */
+    public function addDuplicateStudent(Student $student, ?CalendarGrade $grade): PeriodReportManager
+    {
+        if (empty($student))
+            return $this;
+
+        $students = $this->getDuplicateStudentGrade($grade);
+        if ($students->contains($student))
+            return $this;
+
+        $students->add($student);
+        $this->setDuplicateStudentGrade($students, $grade);
+        $this->duplicateStudentCount++;
+
+        return $this;
+    }
+
+    /**
+     * @param CalendarGrade|null $grade
+     * @return Collection
+     */
+    public function getDuplicateStudentGrade(?CalendarGrade $grade): Collection
+    {
+        $id = $this->getGradeID($grade);
+        if ($this->getDuplicateStudents()->containsKey($id))
+            $students = $this->getDuplicateStudents()->get($id);
+        if (empty($students))
+            $students = new ArrayCollection();
+
+        return $students;
+    }
+
+    /**
+     * @param Collection $students
+     * @param CalendarGrade|null $grade
+     * @return PeriodReportManager
+     */
+    public function setDuplicateStudentGrade(Collection $students, ?CalendarGrade $grade): PeriodReportManager
+    {
+        $id = $this->getGradeID($grade);
+        $this->getDuplicateStudents()->set($id, $students);
         return $this;
     }
 }

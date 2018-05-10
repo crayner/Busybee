@@ -10,7 +10,7 @@
         <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.entity.id }}">
             <div class="col-12 dropPeriod{{ period.disableDrop }}" id="period{{ period.entity.id }}">
                 <div>
-                    {{ miscButton({'additional': 'id="button' ~ period.entity.id ~ '" ' ~ period.disableDrop, 'class': 'lockButton fas fa-unlock btn btn-sm btn-' ~ period.status, 'javascript': {'function': 'fixPeriod', 'options': [period.entity.id]}, 'title': 'period.status.messages'|transchoice(period.messages|length), transDomain: 'Timetable'})|raw }}
+                    {{ miscButton({additional: 'id="button' ~ period.entity.id ~ '" ' ~ period.disableDrop, class: 'lockButton fas fa-unlock btn btn-sm btn-' ~ period.status, javascript: {function: 'fixPeriod', options: [period.entity.id]}, title: {message: 'period.status.messages', params: {transChoice: period.messages|length}}, transDomain: 'Timetable'})|raw }}
                     {{ miscButton({class: 'btn btn-sm btn-dark fas fa-info-circle', windowOpen: {route: path('period_plan_report', {id: period.entity.id}), target: 'PeriodReport', params: 'width=500,height=600'}, title: 'period.activities.report.button', transDomain: 'Timetable'})|raw }}
                     {{ resetButton({javascript: {function: 'resetBuilder'}, additional: {id: "resetButton", reset: "All"}, class: 'fas fa-sync btn btn-sm btn-warning'})|raw }}
                     {{ period.entity.columnName }}

@@ -593,7 +593,7 @@ timetable:
             ->getResult();
         $this->grades = new ArrayCollection();
         foreach($results as $grade)
-            $this->grades->set($grade->getGrade(), $grade);
+            $this->grades->set($grade->getId(), $grade);
 
         return $this->grades;
     }

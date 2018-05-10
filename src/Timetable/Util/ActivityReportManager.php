@@ -61,7 +61,7 @@ class ActivityReportManager extends ReportManager
     {
         if (! $this->isActivityActive())
             return new ArrayCollection();
-        return $this->getActivity()->getActivity()->getStudents();
+        return $this->getEntity()->getActivity()->getStudents();
     }
 
     /**

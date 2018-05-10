@@ -115,6 +115,7 @@ class TimetableReportManager extends ReportManager
             ->generateActivityReports()
             ->addPossibleStudents()
             ->addAllocatedStudents()
+            ->getMissingStudents()
         ;
         $this->getPeriods()->set($period->getId(), $report);
         return $this;

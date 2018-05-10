@@ -1,5 +1,5 @@
 {% trans_default_domain "Timetable" %}
-{% dump %}
+
 <p class="text-left">
     {% if manager.messageManager.hasMessages %}
         {{ miscButton({'title': status.message, 'class': 'far fa-question-circle btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
