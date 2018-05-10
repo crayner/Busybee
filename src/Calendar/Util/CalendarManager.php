@@ -6,6 +6,7 @@ use App\Core\Manager\TabManagerInterface;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\SpecialDay;
+use App\Entity\Student;
 use App\Entity\Term;
 use App\Repository\CalendarRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -41,17 +42,17 @@ class CalendarManager implements TabManagerInterface
 	/**
 	 * @var TokenStorageInterface
 	 */
-	private $tokenStorage;
+	private static $tokenStorage;
 
 	/**
 	 * @var UserInterface
 	 */
-	private $currentUser;
+	private static $currentUser;
 
     /**
      * @var Calendar
      */
-    private $currentCalendar;
+    private static $currentCalendar;
 
     /**
      * @var Calendar
@@ -61,7 +62,7 @@ class CalendarManager implements TabManagerInterface
 	/**
 	 * @var CalendarRepository
 	 */
-	private $calendarRepository;
+	private static $calendarRepository;
 
 	/**
 	 * @var Year
@@ -107,8 +108,8 @@ class CalendarManager implements TabManagerInterface
                                 CalendarGradeManager $calendarGradeManager, RouterInterface $router, RequestStack $stack)
 	{
 		$this->manager = $manager;
-		$this->tokenStorage = $tokenStorage;
-		$this->calendarRepository = $manager->getRepository(Calendar::class);
+		self::$tokenStorage = $tokenStorage;
+		self::$calendarRepository = $manager->getRepository(Calendar::class);
 		$this->year = $year;
         $this->messageManager = $messageManager;
         $this->messageManager->setDomain('Calendar');
@@ -118,7 +119,7 @@ class CalendarManager implements TabManagerInterface
         $this->stack = $stack;
 	}
 
-	/**
+    /**
 	 * @return EntityManagerInterface
 	 */
 	public function getEntityManager(): EntityManagerInterface
@@ -257,21 +258,22 @@ class CalendarManager implements TabManagerInterface
 		return true;
 	}
 
-	/**
-	 *
-	 */
-	private function getCurrentUser()
+    /**
+     * getCurrentUser
+     *
+     */
+    private static function getCurrentUser() 
 	{
-		if (! is_null($this->currentUser))
+		if (! is_null(self::$currentUser))
 			return ;
-		$token = $this->tokenStorage->getToken();
+		$token = self::$tokenStorage->getToken();
 
 		if (is_null($token))
 			return ;
 
 		$user = $token->getUser();
 		if ($user instanceof UserInterface)
-			$this->currentUser = $user;
+			self::$currentUser = $user;
 
 		return;
 	}
@@ -279,32 +281,32 @@ class CalendarManager implements TabManagerInterface
 	/**
 	 * @return Calendar
 	 */
-	public function getCurrentCalendar(): Calendar
+	public static function getCurrentCalendar(): Calendar
 	{
-		if (! is_null($this->currentCalendar))
-			return $this->currentCalendar;
+		if (! is_null(self::$currentCalendar))
+			return self::$currentCalendar;
 
-		$this->getCurrentUser();
-		if ($this->currentUser instanceof UserInterface)
+		self::getCurrentUser();
+		if (self::$currentUser instanceof UserInterface)
 		{
-			$settings = $this->currentUser->getUserSettings();
+			$settings = self::$currentUser->getUserSettings();
 			if (isset($settings['calendar']))
-				$this->currentCalendar = $this->calendarRepository->findOneBy(['id' => $settings['calendar']]);
+				self::$currentCalendar = self::$calendarRepository->findOneBy(['id' => $settings['calendar']]);
 			else
-				$this->currentCalendar = $this->calendarRepository->findOneBy(['status' => 'current']);
+				self::$currentCalendar = self::$calendarRepository->findOneBy(['status' => 'current']);
 		}
 		else
-			$this->currentCalendar = $this->calendarRepository->findOneBy(['status' => 'current']);
+			self::$currentCalendar = self::$calendarRepository->findOneBy(['status' => 'current']);
 
-		return $this->currentCalendar;
+		return self::$currentCalendar;
 	}
 
 	/**
 	 * @return CalendarRepository
 	 */
-	public function getCalendarRepository(): CalendarRepository
+	public static function getCalendarRepository(): CalendarRepository
 	{
-		return $this->calendarRepository;
+		return self::$calendarRepository;
 	}
 
 	/**
@@ -763,5 +765,22 @@ calendarGrades:
     public function isDisplay(string $method = ''): bool
     {
         return true;
+    }
+
+    /**
+     * getStudentCurrentCalendar
+     *
+     * @param Student $student
+     * @return CalendarGrade|null
+     */
+    public static function getStudentCurrentCalendar(Student $student): ?CalendarGrade
+    {
+        $grades = $student->getCalendarGrades();
+
+        foreach ($grades as $grade)
+            if ($grade->getCalendar() === self::getCurrentCalendar())
+                return $grade->getCalendarGrade();
+
+        return null;
     }
 }

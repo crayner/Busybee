@@ -7,6 +7,7 @@ use App\Entity\Space;
 use App\Entity\Staff;
 use App\Entity\Student;
 use App\School\Form\Subscriber\ActivitySubscriber;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
@@ -38,6 +39,12 @@ class ActivityType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+
+        $grades = [];
+        foreach($options['data']->getCalendarGrades()->getIterator() as $grade)
+            $grades[] = $grade->getId();
+        $stu = new Student();
+        $statuses = $stu->getStatusList('active');
 		$builder
             ->add('name', TextType::class,
                 [
@@ -65,12 +72,6 @@ class ActivityType extends AbstractType
                     'choice_label' => 'fullName',
                 ]
             )
-            ->add('useCourseName', ToggleType::class,
-                [
-                    'label' => 'activity.use_course_name.label',
-                    'help' => 'activity.use_course_name.help',
-                ]
-            )
             ->add('students', EntityType::class,
                 [
                     'label' => 'activity.students.label',
@@ -79,14 +80,20 @@ class ActivityType extends AbstractType
                     'class' => ActivityStudent::class,
                     'choice_label' => 'fullStudentName',
                     'choice_value' => 'id',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('a')
-                            ->leftJoin('a.student', 's')
+                    'query_builder' => function(EntityRepository $er) use ($grades, $statuses) {
+                        return $er->createQueryBuilder('a_s')
+                            ->leftJoin('a_s.student', 's')
                             ->orderBy('s.surname', 'ASC')
                             ->addOrderBy('s.firstName', 'ASC')
                             ->groupBy('s.id')
                             ->where('s.id > :zero')
                             ->setParameter('zero', 0)
+                            ->leftJoin('a_s.activity', 'a')
+                            ->leftJoin('a.calendarGrades', 'cg')
+                            ->andWhere('cg.id IN (:grades)')
+                            ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY )
+                            ->andWhere('s.status IN (:statuses)')
+                            ->setParameter('statuses', $statuses, Connection::PARAM_STR_ARRAY)
                         ;
                     },
                 ]
@@ -100,6 +107,8 @@ class ActivityType extends AbstractType
                 ]
             )
         ;
+
+		dump($grades);
 		$builder->addEventSubscriber($this->activitySubscriber);
 	}
 

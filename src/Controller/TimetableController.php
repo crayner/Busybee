@@ -584,7 +584,24 @@ class TimetableController extends Controller
      * @Route("/grade/{grade}/{value}/control/", name="grade_control")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function gradeControl($grade, $value){}
+    public function gradeControl($grade, $value, Request $request)
+    {
+        $session = $request->getSession();
+
+        $gradeControl = $session->get('gradeControl');
+
+        if (!is_array($gradeControl))
+            $gradeControl = [];
+
+        if (!isset($gradeControl[$grade]))
+            $gradeControl[$grade] = boolval($value);
+
+        $gradeControl[$grade] = $gradeControl[$grade] ? false : true;
+
+        $session->set('gradeControl', $gradeControl);
+
+        return new JsonResponse([], 200);
+    }
 
     /**
      * builderLineActivity
@@ -595,7 +612,48 @@ class TimetableController extends Controller
      * @Route("/line/builder/", name="timetable_builder_line_activity")
      */
     public function builderLineActivity(Request $request,
-                                           LinePagination $linePagination)    {}
+                                           LinePagination $linePagination)    {
+        $linePagination->injectRequest($request);
+
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $param = [];
+        if (is_array($gradeControl)) {
+            foreach ($gradeControl as $q => $w)
+                if ($w)
+                    $param[] = $q;
+        }
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $linePagination->setDisplaySearch(false)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->setLimit(1000)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $linePagination->getDataSet();
+
+        $content = $this->renderView('Timetable/builder_line_activity.html.twig',
+            [
+                'line_pagination' => $linePagination,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200
+        );
+
+    }
 
     /**
      * builderActivity
@@ -608,7 +666,79 @@ class TimetableController extends Controller
      * @Route("/timetable/{id}/activity/builder/", name="timetable_builder_activity")
      */
     public function builderActivity(Request $request, $id,
-                                       TimetableManager $timetableManager, ClassPagination $classPagination) {}
+                                       TimetableManager $timetableManager, ClassPagination $classPagination) {
+        $timetableManager->find($id);
+
+        $classPagination->injectRequest($request);
+
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
+        $param = [];
+        foreach ($timetableManager->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
+                $param[] = $w->getGrade();
+            else
+                $gradeControl[$w->getGrade()] = false;
+        }
+
+        $request->getSession()->set('gradeControl', $gradeControl);
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $classPagination->setLimit(1000)
+            ->setJoin([
+                'f.course' => [
+                    'alias' => 'c',
+                    'type' => 'leftJoin',
+                ],
+                'c.calendarGrades' => [
+                    'alias' => 'g',
+                    'type' => 'leftJoin',
+                ],
+            ])
+            ->setSortByList(
+                [
+                    'facetoface.name.sort' =>            [
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                    'bySequence' => [
+                        'g.sequence' => 'ASC',
+                        'f.name' => 'ASC',
+                        'f.code' => 'ASC',
+                    ],
+                ]
+            )
+            ->setSortByName('bySequence')
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+
+        $classPagination->getDataSet();
+
+        $content = $this->renderView('Timetable/builder_activity_list.html.twig',
+            [
+                'class_pagination' => $classPagination,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200
+        );
+
+    }
 
     /**
      * builderPeriod
@@ -624,7 +754,62 @@ class TimetableController extends Controller
      */
     public function builderPeriod(Request $request, $id, $all = 'All',
                                      TimetableManager $timetableManager, PeriodPagination $periodPagination,
-                                     PeriodManager $periodManager){}
+                                     PeriodManager $periodManager)
+    {
+        $timetable = $timetableManager->find($id);
+
+        $periodPagination->setTimetable($timetable);
+
+        $periodPagination->injectRequest($request);
+
+        $gradeControl = $request->getSession()->get('gradeControl');
+
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
+        $param = [];
+        foreach ($timetableManager->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
+                $param[] = $w->getGrade();
+            else
+                $gradeControl[$w->getGrade()] = false;
+        }
+
+        $request->getSession()->set('gradeControl', $gradeControl);
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
+        $periodPagination->setLimit(1000)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $periodPagination->getDataSet();
+
+        $report = $timetableManager->getReport($periodPagination);
+
+        $content = $this->renderView('Timetable/Period/builder.html.twig',
+            [
+                'pagination' => $periodPagination,
+                'periodManager' => $periodManager,
+                'all' => $all,
+                'report' => $report,
+                'manager' => $timetableManager,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200);
+    }
 
     /**
      * setTimetableGrade

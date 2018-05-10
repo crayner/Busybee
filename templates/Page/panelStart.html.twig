@@ -15,15 +15,18 @@
 {% if name is not defined %}
     {% set name = 'Default' %}
 {% endif %}
+{% if name is not iterable %}
+    {% set name = {'%name%': name} %}
+{% endif %}
 
 {% if panelParams is not defined %}
     {% set panelParams = {} %}
 {% endif %}
 
 {% if headerParams is not defined %}
-    {% set headerParams = {'%name%': name} %}
+    {% set headerParams = name %}
 {% else %}
-    {% set headerParams = headerParams|merge({'%name%': name}) %}
+    {% set headerParams = headerParams|merge(name) %}
 {% endif %}
 
 {% if h3Content is not defined %}

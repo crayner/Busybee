@@ -21,6 +21,7 @@ timetable:
     builder:
         button: 'Timetable Builder'
         help: 'Use this button to build the timetable days and periods.  This button will only work when the timetable is not locked. It will use a best guess algorithm to create the days for the timetable, removing any existing work.'
+        title: 'Build Time Table'
     columns:
         header: Timetable Days
         help: A column represents a day of school. The columns can be sorted to ensure that the column is correctly be allocated to the days in the order given here.
@@ -59,6 +60,25 @@ timetable:
             success: 'The start rotate was toggled for %{date}'
             failed: 'The start rotate toggle was not successful.'
     term.tab: '%name%'
+    grade:
+        control:
+            title: Grade Monitoring
+            description: 'Monitor only those grades selected.'
+            label: 'Monitor %grade%'
+            toggle:
+                on: 'Toggle Grade Monitor.'
+                off: 'Toggle Grade Monitor.'
+        view.button: View Grade Timetable
+    period:
+        list:
+            title: Timetable Period List
+            description: ''
+    build:
+        activity:
+            count: '{0}(%count%)|]0,Inf[(%count% of %load%)'
+            list:
+                title: 'Activities'
+                description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
 line:
     list:
         menu.label: Manage Lines
@@ -80,6 +100,7 @@ line:
         confirm: Delete TimetableLine?
     edit.button: Edit TimetableLine
     add.button: Add TimetableLine
+    period.search.button: Search for Period
     test:
         help: Generate a report on the Activity TimetableLine
         label: Test Activity Lines
@@ -120,3 +141,13 @@ column:
     periods:
         count: '{0}No periods are attached.|{1}One Period is attached.|]1,Inf[%{count} periods are attached.'
         manage: 'Create / Manage Periods'
+period:
+    activities:
+        report.button: Period Report
+        activity:
+            overwrite.button: 'Overwrite Activity Space or Staff'
+            edit:
+                button: 'Edit Activity'
+            remove:
+                button: Remove Activity from Period.
+    status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'

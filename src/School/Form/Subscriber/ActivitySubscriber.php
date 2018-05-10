@@ -6,26 +6,13 @@ use App\Entity\ExternalActivity;
 use App\Entity\FaceToFace;
 use App\Entity\Roll;
 use Hillrange\Form\Type\EntityType;
+use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 class ActivitySubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var CalendarManager
-     */
-    private $calendarManager;
-
-    /**
-     * ActivitySubscriber constructor.
-     * @param CalendarManager $calendarManager
-     */
-    public function __construct(CalendarManager $calendarManager)
-    {
-        $this->calendarManager = $calendarManager;
-    }
-
 	/**
 	 * @return array
 	 */
@@ -49,13 +36,13 @@ class ActivitySubscriber implements EventSubscriberInterface
             $data = $event->getData();
             if (!isset($data['terms']))
             {
-                $terms = $this->calendarManager->getCurrentCalendar()->getTerms();
+                $terms = CalendarManager::getCurrentCalendar()->getTerms();
                 foreach($terms->getIterator() as $term)
                     $data['terms'][] = $term->getId();
             }
             if (!isset($data['calendarGrades']))
             {
-                $cgs = $this->calendarManager->getCurrentCalendar()->getCalendarGrades();
+                $cgs = CalendarManager::getCurrentCalendar()->getCalendarGrades();
                 foreach($cgs->getIterator() as $cg)
                     $data['calendarGrades'][] = $cg->getId();
             }
@@ -83,14 +70,21 @@ class ActivitySubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
         if ($data instanceof Roll)
-        {
             $form->add('nextRoll', EntityType::class,
                 [
                     'class' => Roll::class,
                     'choice_label' => 'fullName',
                     'label' => 'activity.next_roll.label',
+                    'placeholder' => 'activity.next_roll.placeholder',
                 ]
             );
-        }
+
+        if ($data instanceof FaceToFace)
+            $form->add('useCourseName', ToggleType::class,
+                [
+                    'label' => 'activity.use_course_name.label',
+                    'help' => 'activity.use_course_name.help',
+                ]
+            );
     }
 }

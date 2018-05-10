@@ -2,14 +2,7 @@
 namespace App\Pagination;
 
 use App\Calendar\Util\CalendarManager;
-use App\Core\Util\UserManager;
 use App\Entity\Roll;
-use App\Entity\RollGroup;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\RouterInterface;
 
 class RollPagination extends PaginationManager
 {
@@ -42,7 +35,7 @@ class RollPagination extends PaginationManager
 	 */
 	protected $searchList = [
 		'r.name',
-        'r.nameShort',
+        'r.code',
         'r.website',
         's.name',
 	];
@@ -52,7 +45,7 @@ class RollPagination extends PaginationManager
 	 */
 	protected $select = [
 		'r.name',
-		'r.nameShort',
+		'r.code',
         'r.id',
         's.name as spaceName',
         'r.website'
@@ -80,11 +73,6 @@ class RollPagination extends PaginationManager
 	 * @var string
 	 */
 	protected $repositoryName = Roll::class;
-
-    /**
-     * @var UserManager
-     */
-	private $calendarManager;
 
 	/**
 	 * @var string
@@ -116,33 +104,15 @@ class RollPagination extends PaginationManager
 				->setSearchWhere();
 
         $this->getQuery()
-            ->andWhere('c.id = :calendar_id')
-            ->setParameter('calendar_id', $this->calendarManager->getCurrentCalendar()->getId())
+            ->andWhere('c = :calendar')
+            ->setParameter('calendar', $this->getCurrentCalendar())
         ;
 
 		return $this->getQuery();
 	}
 
-    /**
-     * RollPagination constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param SessionInterface $session
-     * @param RouterInterface $router
-     * @param RequestStack $requestStack
-     * @param FormFactoryInterface $formFactory
-     * @param UserManager $calendarManager
-     */
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, RouterInterface $router, RequestStack $requestStack, FormFactoryInterface $formFactory, CalendarManager $calendarManager)
+	public function getCurrentCalendar()
     {
-        $this->calendarManager = $calendarManager;
-        parent::__construct($entityManager, $session, $router, $requestStack, $formFactory);
-    }
-
-    /**
-     * @return CalendarManager
-     */
-    public function getCalendarManager(): CalendarManager
-    {
-        return $this->calendarManager;
+        return CalendarManager::getCurrentCalendar();
     }
 }

@@ -2,8 +2,8 @@
 
 {% trans_default_domain 'School' %}
 
-{% block title %}{{ 'school.roll.list.title'|trans({'%{calendar}': pagination.calendarManager.currentCalendar.name}) }}{% endblock title %}
-{% block headerTitle %}{{ 'school.roll.list.title'|trans({'%{calendar}': pagination.calendarManager.currentCalendar.name}) }}{% endblock headerTitle %}
+{% block title %}{{ 'school.roll.list.title'|trans({'%{calendar}': pagination.currentCalendar.name}) }}{% endblock title %}
+{% block headerTitle %}{{ 'school.roll.list.title'|trans({'%{calendar}': pagination.currentCalendar.name}) }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'school.roll.list.description'|trans  }}{% endblock headerLead %}
 
 {% block contentContainer %}
@@ -11,11 +11,11 @@
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
         {% set h3Content = addButton({windowOpen: {route: path('activity_edit', {id: 'Add', activityType: 'roll'})}}) %}
     {% endif %}
-    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': pagination.calendarManager.currentCalendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': pagination.currentCalendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-3 text-center" style="display: inline-block;">
-                   {{ 'roll.name.label'|trans }}<br /><small>{{ 'roll.name_short.label'|trans }}</small>
+                   {{ 'roll.name.label'|trans }}<br /><small>{{ 'roll.code.label'|trans }}</small>
             </div>
             <div class="col-3">
                 {{ 'roll.space.label'|trans({}) }}
@@ -30,7 +30,7 @@
         {% for roll in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-3 form-inline text-center">
-                    {{ roll.name }}<br /><small>{{ roll.nameShort }}</small>
+                    {{ roll.name }}<br /><small>{{ roll.code }}</small>
                 </div>
                 <div class="col-3 form-inline">
                     {{ roll.spaceName }}

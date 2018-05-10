@@ -1,6 +1,7 @@
 <?php
 namespace App\People\Entity;
 
+use App\Calendar\Util\CalendarManager;
 use App\Entity\Activity;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
@@ -86,17 +87,18 @@ abstract class StudentExtension extends Person
     }
 
     /**
-     * @param Calendar $calendar
+     * @var CalendarGrade|null
+     */
+    private $currentGrade;
+
+    /**
      * @return null|CalendarGrade
      */
-    public function getStudentCurrentGrade(Calendar $calendar): ?CalendarGrade
+    public function getStudentCurrentGrade(): ?CalendarGrade
     {
-        $grades = $this->getCalendarGrades();
-
-        foreach ($grades as $grade)
-            if ($grade->getCalendar() === $calendar)
-                return $grade->getCalendarGrade();
-
-        return null;
+        if ($this->currentGrade)
+            return $this->currentGrade;
+        $this->currentGrade = CalendarManager::getStudentCurrentCalendar($this);
+        return $this->currentGrade;
     }
 }
