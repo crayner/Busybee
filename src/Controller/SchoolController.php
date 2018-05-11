@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Course;
+use App\Core\Manager\FlashBagManager;
 use App\Pagination\ClassPagination;
 use App\Pagination\CoursePagination;
 use App\Pagination\ExternalActivityPagination;
@@ -71,7 +71,7 @@ class SchoolController extends Controller
     /**
      *
      * @Route("/school/course/{id}/edit/", name="course_edit")
-     * @IsGranted("ROLE_REGISTRAR")
+     * @IsGranted("ROLE_PRINCIPAL")
      * @param $id
      * @param Request $request
      * @param ClassPagination $classPagination
@@ -79,7 +79,7 @@ class SchoolController extends Controller
      */
     public function courseEdit($id, Request $request, ClassPagination $classPagination, CourseManager $courseManager)
     {
-        $course = $this->getDoctrine()->getRepository(Course::class)->find($id) ?: new Course();
+        $course = $courseManager->find($id, true);
 
         $form = $this->createForm(CourseType::class, $course);
 
@@ -110,6 +110,25 @@ class SchoolController extends Controller
                 'manager' => $courseManager,
             ]
         );
+    }
+
+    /**
+     * courseActivityRemove
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/course/{id}/activity/{aid}/remove/", name="course_activity_remove")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function courseActivityRemove(int $id, int $aid, CourseManager $courseManager, FlashBagManager $flashBagManager)
+    {
+        $courseManager->find($id);
+
+        $courseManager->removeActivity($aid);
+
+        $flashBagManager->addMessages($courseManager->getMessageManager());
+
+        return $this->redirectToRoute('course_edit', ['id' => $id, '_fragment' => 'classlist']);
     }
 
     /**

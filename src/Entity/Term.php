@@ -21,7 +21,7 @@ class Term extends TermExtension
 	/**
 	 * @var string
 	 */
-	private $nameShort;
+	private $code;
 
 	/**
 	 * @var \DateTime
@@ -74,25 +74,25 @@ class Term extends TermExtension
 	}
 
 	/**
-	 * Get nameShort
+	 * Get code
 	 *
 	 * @return string
 	 */
-	public function getNameShort()
+	public function getcode()
 	{
-		return $this->nameShort;
+		return $this->code;
 	}
 
 	/**
-	 * Set nameShort
+	 * Set code
 	 *
-	 * @param string $nameShort
+	 * @param string $code
 	 *
 	 * @return Term
 	 */
-	public function setNameShort($nameShort)
+	public function setcode($code)
 	{
-		$this->nameShort = $nameShort;
+		$this->code = $code;
 
 		return $this;
 	}

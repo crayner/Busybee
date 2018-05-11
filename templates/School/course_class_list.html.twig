@@ -36,6 +36,8 @@
             <div class="col-3 form-inline text-center">
                 {{ editButton({title: 'school.face_to_face.edit.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: face.id, course_id: app.request.get('id')})}, style: ''})|raw }}
                 {{ editButton({title: 'school.face_to_face.students.title', transDomain: 'School', windowOpen: {route: path('face_to_face_edit', {id: face.id, course_id: app.request.get('id'), '_fragment': 'class_students'})}, style: '', class: 'btn btn-info fas fa-users'})|raw }}
+                {{ deleteButton({title: 'school.face_to_face.remove.title', transDomain: 'School', style: '', colour: 'warning',
+                    windowOpen: {route: path('course_activity_remove', {aid: face.id, id: app.request.get('id')}) }})|raw }}
             </div>
         </div>
     {% endfor %}

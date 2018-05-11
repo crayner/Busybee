@@ -273,23 +273,23 @@ class User
     /**
      * @var null|string
      */
-    private $orgNameShort;
+    private $orgcode;
 
     /**
      * @return null|string
      */
-    public function getOrgNameShort(): ?string
+    public function getOrgcode(): ?string
     {
-        return $this->orgNameShort;
+        return $this->orgcode;
     }
 
     /**
-     * @param null|string $orgNameShort
+     * @param null|string $orgcode
      * @return User
      */
-    public function setOrgNameShort(?string $orgNameShort): User
+    public function setOrgcode(?string $orgcode): User
     {
-        $this->orgNameShort = $orgNameShort;
+        $this->orgcode = $orgcode;
         return $this;
     }
 

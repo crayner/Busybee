@@ -489,38 +489,6 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @var null|Course
-     */
-    private $course;
-
-    /**
-     * @return Course|null
-     */
-    public function getCourse(): ?Course
-    {
-        if ($this->course instanceof Course)
-            $this->course->getId();
-        return $this->course;
-    }
-
-    /**
-     * @param Course|null $courses
-     * @return FaceToFace
-     */
-    public function setCourse(?Course $course, $add = true): FaceToFace
-    {
-        if (empty($course))
-            $course = null;
-
-        if ($add)
-            $course->addActivity($this, false);
-
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
      * @param null|Collection $students
      * @return Activity
      */
@@ -530,28 +498,4 @@ class Activity extends ActivityExtension
 
         return $this;
     }
-
-    /**
-     * @var bool
-     */
-    private $useCourseName;
-
-    /**
-     * @return bool
-     */
-    public function isUseCourseName(): bool
-    {
-        return $this->useCourseName ? true : false ;
-    }
-
-    /**
-     * @param bool $useCourseName
-     * @return Activity
-     */
-    public function setUseCourseName(bool $useCourseName): Activity
-    {
-        $this->useCourseName = $useCourseName ? true : false ;
-        return $this;
-    }
-
 }

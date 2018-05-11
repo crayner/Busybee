@@ -12,7 +12,7 @@ class ActivityStudentExtension
      */
     public function canDelete(): bool
     {
-        return false;
+        return true;
     }
 
     public function getFullStudentName($options = []): string

@@ -313,6 +313,8 @@ class Course extends CourseExtension
         if (empty($activity))
             return $this;
 
+        $activity->setCourse(null, false);
+
         $this->activities->removeElement($activity);
 
         return $this;

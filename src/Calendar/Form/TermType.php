@@ -52,10 +52,10 @@ class TermType extends AbstractType
 					),
 				)
 			)
-			->add('nameShort', TextType::class,
+			->add('code', TextType::class,
 				array(
-					'label' => 'term.name_short.label',
-					'help' => 'term.name_short.help',
+					'label' => 'term.code.label',
+					'help' => 'term.code.help',
 				)
 			)
 			->add('firstDay', DateType::class,

@@ -34,11 +34,6 @@ App\Entity\Activity:
         code:
             type: string
             length: 8
-        useCourseName:
-            type: boolean
-            column: use_course_name
-            options:
-                default: 1
         teachingLoad:
             type: integer
             length: 2
@@ -88,10 +83,3 @@ App\Entity\Activity:
             joinColumns:
                 student_reference_id:
                     referencedColumnName: id
-        course:
-            targetEntity: App\Entity\Course
-            inversedBy: activities
-            joinColumn:
-                name: course_id
-                referencedColumnName: id
-                nullable: true

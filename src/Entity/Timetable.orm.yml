@@ -7,7 +7,7 @@ App\Entity\Timetable:
             columns:
                 - name
                 - calendar_id
-        nameshort_year:
+        code_year:
             columns:
                 - code
                 - calendar_id

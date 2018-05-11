@@ -57,7 +57,7 @@ class TermDateValidator extends ConstraintValidator
 
 		foreach ($value as $key => $term)
 		{
-			if (empty($term->getName()) || empty($term->getnameShort()))
+			if (empty($term->getName()) || empty($term->getcode()))
 			{
 				$value->remove($key);
 				$constraint->calendar->removeTerm($term);

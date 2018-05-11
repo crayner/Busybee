@@ -74,6 +74,7 @@ school:
             title: 'Manage %name%'
             help: 'Possible students are limited to the selected !!!form_grade!!! in the course to which this activity belongs. Reportable will be set to true if the activity reportable is true.'
         students.title: Manage Students
+        remove.title: Remove Activity
         tutors.label: Class Tutors
     activity:
         edit:
@@ -196,6 +197,7 @@ course:
     code:
         label: Code
         sort: Code
+        help:
     target_years.label: Target Years
     department:
         label: Learning Area
@@ -217,6 +219,11 @@ course:
     details.tab: Details
     class_list.tab: Class List
     students.details: '%{current} of (%{possible})'
+    activity.remove:
+        missing: The activity was not found.
+        locked: 'The activity "%{activity}" is locked. Ensure that all students are removed from the activity.'
+        error: 'The activity "%{activity}" encounted a database error on removal. Please try again. %{message}'
+        success: 'The activity "%{activity}" was successfully removed from the course.'
 activity:
     name:
         label: Name
@@ -243,6 +250,7 @@ activity:
             message: 'The student %{student} was removed from the activity.'
             restricted: 'The student %{student} is locked to activity and was not removed.'
         missing.message: 'The student was not found to remove from the activity.'
+        remove.restricted: 'The student "%{student}" is locked to the activity.'
     students:
         label: Possible Students
         help: 'The system found %{count} students available for this class.'

@@ -16,25 +16,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CourseType extends AbstractType
 {
-    /**
-     * @var \App\Entity\Calendar
-     */
-    private $currentCalendar;
-
-    /**
-     * CourseType constructor.
-     * @param CalendarManager $calendarManager
-     */
-    public function __construct(CalendarManager $calendarManager)
-    {
-        $this->currentCalendar = $calendarManager->getCurrentCalendar();
-    }
 	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-	    $cal = $this->currentCalendar;
+	    $cal = CalendarManager::getCurrentCalendar();
 		$builder
 			->add('name', TextType::class,
 				array(
@@ -93,8 +80,8 @@ class CourseType extends AbstractType
                     {
                         return $er->createQueryBuilder('g')
                             ->leftJoin('g.calendar', 'c')
-                            ->where('c.id = :cal_id')
-                            ->setParameter('cal_id', $cal->getId())
+                            ->where('c.id = :cal')
+                            ->setParameter('cal', $cal)
                             ->orderBy('g.sequence', 'ASC')
                         ;
                     },

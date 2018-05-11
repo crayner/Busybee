@@ -12,6 +12,7 @@ use App\Entity\Term;
 use App\Entity\Timetable;
 use App\Entity\TimetableAssignedDay;
 use App\Entity\TimetableColumn;
+use App\Entity\TimetablePeriod;
 use App\Pagination\PeriodPagination;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -571,6 +572,32 @@ timetable:
     }
 
     /**
+     * Get Report
+     * @param PeriodPagination $pag
+     * @return TimetableReportManager
+     */
+    public function getPeriodReport(TimetablePeriod $period)
+    {
+        $this->setTimetable($period->getColumn()->getTimetable());
+        if (!$this->timetable instanceof TimeTable)
+            throw new \InvalidArgumentException('The timetable has not been injected into the manager.');
+
+        $this->report = new TimetableReportManager();
+        $this->report = $this->report->setEntityManager($this->getEntityManager())->retrieveCache($this->getTimetable(), TimetableReportManager::class);
+
+        $this->report
+            ->setGrades($this->getGrades())
+            ->setCalendar($this->getCurrentCalendar())
+            ->setSpaceTypes($this->getSettingManager()->get('space.type.teaching_space'))
+            ->addPeriod($period)
+        ;
+
+        $this->report->saveReport();
+
+        return $this->report;
+    }
+
+    /**
      * @var ArrayCollection
      */
     private $grades;
@@ -637,4 +664,13 @@ timetable:
         return $this->stack;
     }
 
+    /**
+     * @param Timetable|null $timetable
+     * @return TimetableManager
+     */
+    public function setTimetable(?Timetable $timetable): TimetableManager
+    {
+        $this->timetable = $timetable;
+        return $this;
+    }
 }

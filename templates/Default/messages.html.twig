@@ -30,7 +30,7 @@
                 {% endif %}
             {% endif %}
             <button type="button" class="close far fa-times-circle" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}" aria-hidden="true"></button>
-        </{{ element }}>{% dump(message) %}
+        </{{ element }}>
     {% endfor %}
     {% set x = messages.clearMessages() %}
 {% endif %}

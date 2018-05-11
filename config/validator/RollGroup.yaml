@@ -20,7 +20,7 @@ App\Entity\RollGroup:
             - Url: ~
         name:
             - NotBlank: ~
-        nameShort:
+        code:
             - NotBlank: ~
         calendar:
             - Valid: ~

@@ -91,7 +91,7 @@ class ActivityManager implements TabManagerInterface
             $result .= $this->translator->trans('All Terms', [], 'School');
 
         foreach($activity->getTerms()->getIterator() as $term)
-            $result .= $term->getNameShort() . ', ';
+            $result .= $term->getcode() . ', ';
 
         $result = trim($result, ', '). "<br />\n";
 
@@ -308,6 +308,8 @@ class_students:
             $this->setStatus('danger');
             return;
         }
+
+        dump($student);
         if (! $student->canDelete()) {
             $this->messageManager->add('warning', 'activity.student.remove.restricted', ['%{student}' => $student->getStudent()->getFullName()]);
             $this->setStatus('warning');

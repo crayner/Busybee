@@ -20,7 +20,6 @@ use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\Space;
-use App\Entity\Staff;
 use App\Entity\Student;
 use App\Entity\TimetablePeriodActivity;
 use App\Timetable\Organism\TutorActivity;
@@ -742,7 +741,7 @@ class PeriodReportManager extends ReportManager
         // Duplicated Students
         if ($this->getDuplicateStudentCount() > 0)
         {
-            $this->addMessage('danger', 'report.students.duplicated', ['transChoice' => $this->getDuplicateStudents()]);
+            $this->addMessage('danger', 'report.students.duplicated', ['transChoice' => $this->getDuplicateStudentCount()]);
             foreach($this->getDuplicateStudents()->getIterator() as $id=>$students)
             {
                 $grade = $this->getGrades()[$id];

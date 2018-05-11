@@ -97,7 +97,7 @@ term:
     name:
         help: ''
         label:  Term Name
-    name_short:
+    code:
         label: Term Short Name
         help: ''
     delete:

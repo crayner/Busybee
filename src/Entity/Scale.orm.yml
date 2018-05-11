@@ -13,10 +13,10 @@ App\Entity\Scale:
             type: string
             length: 40
             unique: true
-        nameShort:
+        code:
             type: string
             length: 5
-            column: name_short
+            column: code
             unique: true
         usage:
             type: string

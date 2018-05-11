@@ -541,15 +541,31 @@ class TimetableController extends Controller
     /**
      * addLineToPeriod
      *
+     * @Route("/period/{id}/line/{line}/drop/", name="period_drop_line")
+     * @IsGranted("ROLE_PRINCIPAL")
      * @param int $id
      * @param int $line
      * @param Request $request
      * @param PeriodManager $periodManager
      * @param TwigManager $twig
-     * @Route("/period/{id}/line/{line}/drop/", name="period_drop_line")
-     * @IsGranted("ROLE_PRINCIPAL")
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function addLineToPeriod(int $id, int $line, Request $request, PeriodManager $periodManager, TwigManager $twig){}
+    public function addLineToPeriod(int $id, int $line, Request $request, PeriodManager $periodManager, TwigManager $twig)
+    {
+        $period = $periodManager->find($id);
+
+        $periodManager->addLine($line);
+
+        return new JsonResponse(
+            [
+                'status' => $periodManager->getMessageManager()->getHighestLevel(),
+                'message' => $periodManager->getMessageManager()->renderView($twig->getTwig()),
+            ],
+            200);
+    }
 
     /**
      * addActivityToPeriod
@@ -567,14 +583,32 @@ class TimetableController extends Controller
     /**
      * removePeriodActivity
      *
+     * @Route("/period/{id}/activity/{activity}/remove/", name="period_remove_activity")
+     * @IsGranted("ROLE_PRINCIPAL")
      * @param $id
      * @param $activity
      * @param PeriodManager $periodManager
      * @param TwigManager $twig
-     * @Route("/period/{id}/activity/{activity}/remove/", name="period_remove_activity")
-     * @IsGranted("ROLE_PRINCIPAL")
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function removePeriodActivity($id, $activity, PeriodManager $periodManager, TwigManager $twig){}
+    public function removePeriodActivity($id, $activity, PeriodManager $periodManager, TwigManager $twig)
+    {
+        $periodManager->find($id);
+
+        $periodManager->removeActivity($activity);
+
+        return new JsonResponse(
+            [
+                'status'    => $periodManager->getMessageManager()->getHighestLevel(),
+                'message'   => $periodManager->getMessageManager()->renderView($twig->getTwig()),
+            ],
+            200
+        );
+
+    }
 
     /**
      * gradeControl

@@ -150,8 +150,15 @@ period:
                 button: 'Edit Activity'
             remove:
                 button: Remove Activity from Period.
+                success: 'The activity "%name%" was removed from the period.'
+        line.added: '{0} No activities|{1}The line added one activity to the period.|]1,Inf[The line added %count% activities to the period.'
     status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'
 report:
-    students.missing: '{0}|{1}There is one student not allocated to this period!|]1,Inf[There are %count% students not allocated to this period!'
+    students:
+        missing: '{0}|{1}There is one student not allocated to this period!|]1,Inf[There are %count% students not allocated to this period!'
+        duplicated: '{0}|{1}There is one student duplicated in this period!|]1,Inf[There are %count% students duplicated in this period!'
     grade.name: '!!!form_grade!!! %grade%'
     student.details: 'Student: %identifier% - %name%'
+    activity:
+        space.missing: 'The activity "%name%" does not have a space allocated!'
+        tutor.missing: 'The activity "%name%" does not have a tutor allocated!'

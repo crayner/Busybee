@@ -106,9 +106,9 @@ class UserType extends AbstractType
                     ],
                 ]
             )
-            ->add('orgNameShort', TextType::class,
+            ->add('orgcode', TextType::class,
                 [
-                    'label' => 'system.org_name_short.label',
+                    'label' => 'system.org_code.label',
                     'translation_domain' => 'System',
                     'data' => $this->settingManager->get('org.name.short'),
                     'constraints' => [

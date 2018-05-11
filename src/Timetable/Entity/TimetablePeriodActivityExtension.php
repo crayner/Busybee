@@ -23,9 +23,9 @@ abstract class TimetablePeriodActivityExtension implements UserTrackInterface
     /**
      * @return mixed
      */
-    public function getNameShort()
+    public function getcode()
     {
-        return $this->getActivity()->getNameShort();
+        return $this->getActivity()->getcode();
     }
 
     /**

@@ -113,11 +113,11 @@ class Month
 		return (int) $firstDate->format('n');
 	}
 
-	public function getnameShort()
+	public function getcode()
 	{
-		$nameShorts = $this->year->getMonthnameShorts();
+		$codes = $this->year->getMonthcodes();
 
-		return $nameShorts[$this->getNumber() - 1];
+		return $codes[$this->getNumber() - 1];
 	}
 
 	public function setParameter($key, $value)

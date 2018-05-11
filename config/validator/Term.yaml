@@ -5,13 +5,13 @@ App\Entity\Term:
             errorPath: name
             message: 'The Term Name must be unique within the year.'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [nameShort, calendar]
-            errorPath: nameShort
+            fields: [code, calendar]
+            errorPath: code
             message: 'The term Short Name must be unique within the year.'
     properties:
         name:
             - NotBlank: ~
-        nameShort:
+        code:
             - NotBlank: ~
         calendar:
             - NotBlank: ~

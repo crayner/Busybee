@@ -123,11 +123,11 @@ class Week
 		return (int) $this->weekNumber;
 	}
 
-	public function getnameShort()
+	public function getcode()
 	{
-		$nameShorts = $this->calendar->getWeeknameShorts();
+		$codes = $this->calendar->getWeekcodes();
 
-		return $nameShorts[$this->getNumber() - 1];
+		return $codes[$this->getNumber() - 1];
 	}
 
 	public function setParameter($key, $value)

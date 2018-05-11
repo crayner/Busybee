@@ -199,21 +199,21 @@ class Year
 	{
 		$w = strtotime('20180107');
 		$this->monthFullNames  = [];
-		$this->monthnameShorts = [];
+		$this->monthcodes = [];
 		for($x=1; $x<=12; $x++)
 		{
 			$this->monthFullNames[] = strftime('%B', $w);
-			$this->monthnameShorts[] = strftime('%b', $w);
+			$this->monthcodes[] = strftime('%b', $w);
 			$w = $w + 2592000;
 		}
 
 		$w = strtotime('20180107');
 		$this->weekFullNames   = [];
-		$this->weeknameShorts  = [];
+		$this->weekcodes  = [];
 		for($x=1; $x<=7; $x++)
 		{
 			$this->weekFullNames[] = strftime('%A', $w);
-			$this->weeknameShorts[] = strftime('%a', $w);
+			$this->weekcodes[] = strftime('%a', $w);
 			$w = $w + 86400;
 		}
 
@@ -222,8 +222,8 @@ class Year
 		{
 			$day = array_shift($this->weekFullNames);
 			$this->weekFullNames[] = $day;
-			$day = array_shift($this->weeknameShorts);
-			$this->weeknameShorts[] = $day;
+			$day = array_shift($this->weekcodes);
+			$this->weekcodes[] = $day;
 		}
 	}
 
@@ -280,8 +280,8 @@ class Year
 	/**
 	 * @return array
 	 */
-	public function getWeeknameShorts(): array
+	public function getWeekcodes(): array
 	{
-		return $this->weeknameShorts;
+		return $this->weekcodes;
 	}
 }

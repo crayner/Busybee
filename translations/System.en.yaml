@@ -74,7 +74,7 @@ system:
         title: System Settings
         description: 'Set these values for your school so we can get some sensible defaults.'
     org_name.label: Organisation Name
-    org_name_short.label: Short Organisation Name
+    org_code.label: Short Organisation Name
 photo.delete: Delete Photo
 translate:
     locale:

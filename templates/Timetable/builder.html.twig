@@ -231,6 +231,8 @@
                     $('#periodFrame').html(data['content']);
                     if (period != 'All') {
                         fixPeriod(period);
+                        messages = $('#periodMessage' + period).html();
+                        $('#periodMessage' + period).html(message + messages);
                     } else {
                         $('#allPeriodMessages').html(message);
                     }

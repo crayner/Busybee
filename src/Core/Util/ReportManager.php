@@ -191,7 +191,7 @@ abstract class ReportManager implements ReportInterface
 
         $report->setClassName(get_class($this->getEntity()));
         $report->setClassId($this->getEntity()->getId());
-        $em = clone $this->getEntityManager();
+        $em = $this->getEntityManager();
         $this->setEntityManager(null);
         $report->setReport($this);
         $em->persist($report);

@@ -89,6 +89,7 @@ class TimetableReportManager extends ReportManager
 
         return $this;
     }
+
     /**
      * @var ArrayCollection|null
      */

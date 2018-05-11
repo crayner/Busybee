@@ -30,23 +30,23 @@ class Scale
     /**
      * @var null|string
      */
-    private $nameShort;
+    private $code;
 
     /**
      * @return null|string
      */
-    public function getNameShort(): ?string
+    public function getcode(): ?string
     {
-        return $this->nameShort;
+        return $this->code;
     }
 
     /**
-     * @param null|string $nameShort
+     * @param null|string $code
      * @return Scale
      */
-    public function setNameShort(?string $nameShort): Scale
+    public function setcode(?string $code): Scale
     {
-        $this->nameShort = $nameShort;
+        $this->code = $code;
         return $this;
     }
 
