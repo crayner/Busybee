@@ -158,12 +158,13 @@ class MessageManager
     /**
      * Compare Level
      *
-     * Returns true if stat1 is higher that stat2, otherwise false.
+     * Returns true if stat1 is higher that stat2, or if stat1 >= stat2 when compare set to '>=" otherwise false.
      * @param string $stat1
      * @param string $stat2
+     * @param string $compare
      * @return bool
      */
-    public static function compareLevel($stat1, $stat2 = 'default'): bool
+    public static function compareLevel($stat1, $stat2 = 'default', string $compare = '>'): bool
     {
         $stat1 = strtolower($stat1);
         $stat2 = strtolower($stat2);
@@ -172,7 +173,9 @@ class MessageManager
         if (! in_array($stat2, self::$statusLevel))
             return false;
 
-        if (self::$statusLevel[$stat1] > self::$statusLevel[$stat2])
+        if ($compare === '>' && self::$statusLevel[$stat1] > self::$statusLevel[$stat2])
+            return true;
+        if ($compare === '>=' && self::$statusLevel[$stat1] >= self::$statusLevel[$stat2])
             return true;
         return false;
     }
@@ -193,11 +196,14 @@ class MessageManager
     }
 
     /**
+     * addStatusMessages
+     *
      * @param $status
      * @param null $domain
+     * @param string $level
      * @return MessageManager
      */
-    public function addStatusMessages($status, $domain = null): MessageManager
+    public function addStatusMessages($status, $domain = null, string $level = 'default'): MessageManager
     {
         if (empty($status))
             return $this;
@@ -205,14 +211,14 @@ class MessageManager
         if (! is_array($status))
             $status = [$status];
 
-        foreach($status as $item)
-        {
-            if (is_array($item))
-                $this->add($item['level'], $item['message'], $item['options'], $domain);
-            elseif ($item instanceof \stdClass)
-                $this->add($item->level, $item->message, $item->options, $domain);
+        foreach($status as $item) {
+            if (self::compareLevel($item->level, $level, '>=')) {
+                if (is_array($item))
+                    $this->add($item['level'], $item['message'], $item['options'], $domain);
+                elseif ($item instanceof \stdClass)
+                    $this->add($item->level, $item->message, $item->options, $domain);
+            }
         }
-
         return $this;
     }
 }

@@ -4,11 +4,9 @@
     {% else %}
         {% set flashClass = "" %}
     {% endif %}
-    {% if element is not defined %}
-        {% set element = 'div' %}
-    {% endif %}
+    {% set element = element|default('div') %}
     {% for message in messages.messages %}
-        <{{ element }} class="alert alert-{{ message.level }}{{ flashClass }}alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
+        <{{ element }} class="alert alert-{{ message.level ~ flashClass }} alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
             {% for button in message.buttons %}
                 {% if button['name'] is same as('closeButton') %}
                     {{ closeButton(button)|raw }}
@@ -32,7 +30,7 @@
                 {% endif %}
             {% endif %}
             <button type="button" class="close far fa-times-circle" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}" aria-hidden="true"></button>
-        </{{ element }}>
+        </{{ element }}>{% dump(message) %}
     {% endfor %}
     {% set x = messages.clearMessages() %}
 {% endif %}
