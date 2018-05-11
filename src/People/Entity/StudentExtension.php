@@ -59,15 +59,9 @@ abstract class StudentExtension extends Person
 	}
 
     /**
-     * @param string $active
-     * @return array
+     * @var array 
      */
-    public function getStatusList(string $limit = ''): array
-    {
-        if (! in_array(strtolower($limit), ['active','inactive','']))
-            throw new \InvalidArgumentException('Dear Programmer: The list accepts only [active, inactive] for Status List');
-
-        $x = [
+	private static $statusList  = [
             'active' => [
                 'future',
                 'current',
@@ -79,11 +73,16 @@ abstract class StudentExtension extends Person
             ],
         ];
 
+    public static function getStatusList(string $limit = ''): array
+    {
+        if (! in_array(strtolower($limit), ['active','inactive','']))
+            throw new \InvalidArgumentException('Dear Programmer: The list accepts only "active, inactive or an empty string" for Status List');
+
         if ($limit === 'active')
-            return $x['active'];
+            return self::$statusList['active'];
         if ($limit === 'inactive')
-            return $x['inactive'];
-        return $x;
+            return self::$statusList['inactive'];
+        return self::$statusList;
     }
 
     /**

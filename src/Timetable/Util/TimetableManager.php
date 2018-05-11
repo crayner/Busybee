@@ -184,6 +184,7 @@ timetable:
      */
     public function getMessageManager(): MessageManager
     {
+        $this->messageManager->setDomain('Timetable');
         return $this->messageManager;
     }
 
@@ -560,6 +561,7 @@ timetable:
         $this->report
             ->setGrades($this->getGrades())
             ->setCalendar($this->getCurrentCalendar())
+            ->setSpaceTypes($this->getSettingManager()->get('space.type.teaching_space'))
             ->setPeriodList($pag->getResult())
         ;
 
@@ -634,4 +636,5 @@ timetable:
     {
         return $this->stack;
     }
+
 }

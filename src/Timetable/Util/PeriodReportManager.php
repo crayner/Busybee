@@ -19,8 +19,11 @@ namespace App\Timetable\Util;
 use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
+use App\Entity\Space;
+use App\Entity\Staff;
 use App\Entity\Student;
 use App\Entity\TimetablePeriodActivity;
+use App\Timetable\Organism\TutorActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -329,13 +332,23 @@ class PeriodReportManager extends ReportManager
     /**
      * @return Collection|null
      */
-    public function getMissingStudents(): Collection
+    public function getMissingStudents(): ?Collection
+    {
+        return $this->missingStudents;
+    }
+
+    /**
+     * setMissingStudents
+     *
+     * @return PeriodReportManager
+     */
+    public function setMissingStudents(): PeriodReportManager
     {
         if (empty($this->missingStudents))
             $this->missingStudents = new ArrayCollection();
 
         if ($this->getPossibleStudentCount() === 0)
-            return $this->missingStudents;
+            return $this;
 
         foreach($this->getPossibleStudents()->getIterator() as $id=>$studentList)
         {
@@ -347,10 +360,9 @@ class PeriodReportManager extends ReportManager
                 if (!$students->contains($student))
                     $this->addMissingStudent($student, $grade);
             }
-            dump([$this,$grade,$students]);
         }
 
-        return $this->missingStudents;
+        return $this;
     }
 
     /**
@@ -465,6 +477,353 @@ class PeriodReportManager extends ReportManager
     {
         $id = $this->getGradeID($grade);
         $this->getDuplicateStudents()->set($id, $students);
+        return $this;
+    }
+    /**
+     * @var null|Collection
+     */
+    private $possibleSpaces;
+
+    /**
+     * @return Collection
+     */
+    public function getPossibleSpaces(): Collection
+    {
+        if (empty($this->possibleSpaces))
+            $this->possibleSpaces = new ArrayCollection();
+        return $this->possibleSpaces;
+    }
+
+    /**
+     * @param Collection|null $possibleSpaces
+     * @return PeriodReportManager
+     */
+    public function setPossibleSpaces(?Collection $possibleSpaces): PeriodReportManager
+    {
+        $this->possibleSpaces = $possibleSpaces;
+        return $this;
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $allocatedSpaces;
+
+    /**
+     * @return Collection|null
+     */
+    public function getAllocatedSpaces(): Collection
+    {
+        if (empty($this->allocatedSpaces))
+            $this->allocatedSpaces = new ArrayCollection();
+        return $this->allocatedSpaces;
+    }
+
+    /**
+     * @return PeriodReportManager
+     */
+    public function setAllocatedSpaces(): PeriodReportManager
+    {
+        if (empty($this->getEntity()) || empty($this->getEntity()->getActivities()))
+            return $this;
+
+        foreach ($this->getEntity()->getActivities()->getIterator() as $activity)
+            if ($activity->loadSpace())
+                if (!$this->getAllocatedSpaces()->contains($activity->loadSpace()))
+                    $this->allocatedSpaces->add($activity->loadSpace());
+                else
+                    $this->addDuplicateSpace($activity->loadSpace());
+
+        return $this;
+    }
+
+    /**
+     * @var Collection|null
+     */
+    private $duplicateSpaces;
+
+    /**
+     * @var int
+     */
+    private $duplicateSpaceCount = 0;
+
+    /**
+     * @return Collection
+     */
+    public function getDuplicateSpaces(): Collection
+    {
+        if (empty($this->duplicateSpaces))
+            $this->duplicateSpaces = new ArrayCollection();
+        return $this->duplicateSpaces;
+    }
+
+    /**
+     * @param Space|null $space
+     * @return PeriodReportManager
+     */
+    public function addDuplicateSpace(?Space $space): PeriodReportManager
+    {
+        if (empty($space) || $this->getDuplicateSpaces()->contains($space))
+            return $this;
+
+        $this->duplicateSpaces->add($space);
+        $this->duplicateSpaceCount++;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAvailableSpaces(): Collection
+    {
+        $diff = array_diff($this->getPossibleSpaces()->toArray(), $this->getAllocatedSpaces()->toArray());
+        return new ArrayCollection($diff);
+    }
+    /**
+     * @var null|Collection
+     */
+    private $possibleTutors;
+
+    /**
+     * @return Collection
+     */
+    public function getPossibleTutors(): Collection
+    {
+        if (empty($this->possibleTutors))
+            $this->possibleTutors = new ArrayCollection();
+        return $this->possibleTutors;
+    }
+
+    /**
+     * @param Collection|null $possibleTutors
+     * @return PeriodReportManager
+     */
+    public function setPossibleTutors(?Collection $possibleTutors): PeriodReportManager
+    {
+        $this->possibleTutors = $possibleTutors;
+        return $this;
+    }
+
+    /**
+     * @var null|Collection
+     */
+    private $allocatedTutors;
+
+    /**
+     * @var int
+     */
+    private $allocatedTutorCount = 0;
+
+    /**
+     * @return Collection
+     */
+    public function getAllocatedTutors(): Collection
+    {
+        if (empty($this->allocatedTutors))
+            $this->allocatedTutors = new ArrayCollection();
+        return $this->allocatedTutors;
+    }
+
+    /**
+     * @return PeriodReportManager
+     */
+    public function setAllocatedTutors(): PeriodReportManager
+    {
+        if (empty($this->getEntity()) || empty($this->getEntity()->getActivities()))
+            return $this;
+
+        foreach ($this->getEntity()->getActivities()->getIterator() as $activity)
+            if ($activity->loadTutors())
+            {
+                foreach($activity->loadTutors()->getIterator() as $at)
+                {
+                    $this->addAllocatedTutor(new TutorActivity($at->getTutor(), $activity));
+                }
+            }
+        return $this;
+    }
+
+    /**
+     * @param TutorActivity|null $tutor
+     * @return PeriodReportManager
+     */
+    public function addAllocatedTutor(?TutorActivity $tutor): PeriodReportManager
+    {
+        if (empty($tutor))
+            return $this;
+
+        if ($this->getAllocatedTutors()->contains($tutor)) {
+            $this->addDuplicateTutor($tutor);
+            return $this;
+        }
+
+        $this->allocatedTutors->add($tutor);
+        $this->allocatedTutorCount++;
+
+        return $this;
+    }
+
+    /**
+     * @var Collection|null
+     */
+    private $duplicateTutors;
+
+    /**
+     * @var integer
+     */
+    private $duplicateTutorCount = 0;
+
+    /**
+     * @return Collection|null
+     */
+    public function getDuplicateTutors(): ?Collection
+    {
+        if (empty($this->duplicateTutors))
+            $this->duplicateTutors = new ArrayCollection();
+        return $this->duplicateTutors;
+    }
+
+    /**
+     * @param TutorActivity|null $tutor
+     * @return PeriodReportManager
+     */
+    public function addDuplicateTutor(?TutorActivity $tutor): PeriodReportManager
+    {
+        if (empty($tutor) || $this->getDuplicateTutors()->contains($tutor))
+            return $this;
+
+        $this->getDuplicateTutors()->add($tutor);
+        $this->duplicateTutorCount++;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAvailableTutors(): Collection
+    {
+        $diff = array_diff($this->getPossibleTutors()->toArray(), $this->getAllocatedTutors()->toArray());
+        return new ArrayCollection($diff);
+    }
+
+    /**
+     * writeReport
+     *
+     * @return PeriodReportManager
+     */
+    public function writeReport(): PeriodReportManager
+    {
+        return $this->writeStudentReport()
+            ->writeSpaceReport()
+            ->writeTutorReport();
+    }
+
+    /**
+     * writeStudentReport
+     *
+     * @return PeriodReportManager
+     */
+    private function writeStudentReport(): PeriodReportManager
+    {
+        // Missing Students
+        if ($this->getMissingStudentCount() > 0)
+        {
+            $this->addMessage('warning', 'report.students.missing', ['transChoice' => $this->getMissingStudentCount()]);
+            foreach($this->getMissingStudents()->getIterator() as $id=>$students)
+            {
+                $grade = $this->getGrades()[$id];
+                $this->addMessage('info', 'report.grade.name', ['%grade%' => $grade->getFullName()]);
+                foreach($students->getIterator() as $student)
+                    $this->addMessage('light', 'report.student.details', ['%identifier%' => $student->getIdentifier(), '%name%' => $student->getFullName()]);
+            }
+        }
+
+        // Duplicated Students
+        if ($this->getDuplicateStudentCount() > 0)
+        {
+            $this->addMessage('danger', 'report.students.duplicated', ['transChoice' => $this->getDuplicateStudents()]);
+            foreach($this->getDuplicateStudents()->getIterator() as $id=>$students)
+            {
+                $grade = $this->getGrades()[$id];
+                $this->addMessage('info', 'report.grade.name', ['%grade%' => $grade->getFullName()]);
+                foreach($students->getIterator() as $student)
+                    $this->addMessage('light', 'report.student.details', ['%identifier%' => $student->getIdentifier(), '%name%' => $student->getFullName()]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * getDuplicateTutorCount
+     *
+     * @return int
+     */
+    public function getDuplicateTutorCount(): int
+    {
+        return $this->duplicateTutorCount;
+    }
+
+    /**
+     * getDuplicateStudentCount
+     *
+     * @return int
+     */
+    public function getDuplicateStudentCount(): int
+    {
+        return $this->duplicateStudentCount;
+    }
+
+    /**
+     * writeSpaceReport
+     *
+     * @return PeriodReportManager
+     */
+    private function writeSpaceReport(): PeriodReportManager
+    {
+        // Duplicate Spaces
+        if ($this->getDuplicateSpaceCount() > 0)
+        {
+            foreach($this->getDuplicateSpaces()->getIterator() as $space)
+                $this->addMessage('danger', 'report.space.duplicated', ['%name%' => $space->getName()]);
+        }
+
+        // No space allocated.
+        foreach($this->getActivities()->getIterator() as $activityReport)
+        {
+            if ($activityReport->hasSpace())
+                continue;
+            $this->addMessage('warning', 'report.activity.space.missing', ['%name%' => $activityReport->getEntity()->getFullName()]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDuplicateSpaceCount(): int
+    {
+        return $this->duplicateSpaceCount;
+    }
+
+    private function writeTutorReport(): PeriodReportManager
+    {
+        // Duplicate Tutors
+        if ($this->getDuplicateTutorCount() > 0)
+        {
+            foreach($this->getDuplicateTutors()->getIterator() as $tutor)
+                $this->addMessage('danger', 'report.tutor.duplicate', ['%name%' => $tutor->getTutor()->getFullName(), '%activity%' => $tutor->getActivity()->getActivity()->getFullName()]);
+        }
+
+        // No tutors allocated.
+        foreach($this->getActivities()->getIterator() as $activityReport)
+        {
+            if ($activityReport->hasTutors())
+                continue;
+            $this->addMessage('warning', 'report.activity.tutor.missing', ['%name%' => $activityReport->getEntity()->getFullName()]);
+        }
         return $this;
     }
 }

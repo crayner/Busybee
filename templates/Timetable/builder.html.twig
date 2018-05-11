@@ -8,7 +8,7 @@
 
 {% set transDomain = 'Timetable' %}
 
-{% block contentContainer %}{{ dump(report) }}
+{% block contentContainer %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 card">
@@ -231,7 +231,6 @@
                     $('#periodFrame').html(data['content']);
                     if (period != 'All') {
                         fixPeriod(period);
-                        $('#periodMessage' + period).html(message);
                     } else {
                         $('#allPeriodMessages').html(message);
                     }

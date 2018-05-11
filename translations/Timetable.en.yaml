@@ -151,3 +151,7 @@ period:
             remove:
                 button: Remove Activity from Period.
     status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'
+report:
+    students.missing: '{0}|{1}There is one student not allocated to this period!|]1,Inf[There are %count% students not allocated to this period!'
+    grade.name: '!!!form_grade!!! %grade%'
+    student.details: 'Student: %identifier% - %name%'

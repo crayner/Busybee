@@ -3,8 +3,12 @@ namespace App\Timetable\Util;
 
 use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
+use App\Entity\Space;
+use App\Entity\Staff;
 use App\Entity\TimetablePeriod;
+use App\School\Util\SpaceManager;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Connection;
 
 class TimetableReportManager extends ReportManager
 {
@@ -109,15 +113,54 @@ class TimetableReportManager extends ReportManager
         $report = new PeriodReportManager();
         $report = $report->setEntityManager($this->getEntityManager())->retrieveCache($period, TimetablePeriod::class);
 
+        $spaces = $this->getEntityManager()->getRepository(Space::class)->createQueryBuilder('s')
+            ->where('s.type in (:types)')
+            ->setParameter('types', $this->getSpaceTypes(), Connection::PARAM_STR_ARRAY)
+            ->orderBy('s.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+        $spaces = new ArrayCollection($spaces);
+
+        $tutors = $this->getEntityManager()->getRepository(Staff::class)->findBy([], ['surname' => 'ASC', 'firstName' => 'ASC']);
+        $tutors = new ArrayCollection($tutors);
+
         $report
             ->setGrades($this->getGrades())
             ->setCalendar($this->getCalendar())
             ->generateActivityReports()
             ->addPossibleStudents()
             ->addAllocatedStudents()
-            ->getMissingStudents()
+            ->setMissingStudents()
+            ->setPossibleSpaces($spaces)
+            ->setAllocatedSpaces()
+            ->setPossibleTutors($tutors)
+            ->setAllocatedTutors()
+            ->writeReport()
         ;
         $this->getPeriods()->set($period->getId(), $report);
+        return $this;
+    }
+
+    /**
+     * @var array
+     */
+    private $spaceTypes;
+
+    /**
+     * @return array
+     */
+    public function getSpaceTypes(): array
+    {
+        return $this->spaceTypes;
+    }
+
+    /**
+     * @param array $spaceTypes
+     * @return TimetableReportManager
+     */
+    public function setSpaceTypes(array $spaceTypes): TimetableReportManager
+    {
+        $this->spaceTypes = $spaceTypes;
         return $this;
     }
 }

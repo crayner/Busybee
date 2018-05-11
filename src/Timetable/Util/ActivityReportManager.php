@@ -17,6 +17,7 @@
 namespace App\Timetable\Util;
 
 use App\Core\Util\ReportManager;
+use App\Entity\Space;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class ActivityReportManager extends ReportManager
@@ -85,5 +86,29 @@ class ActivityReportManager extends ReportManager
                 break;
             }
         return $this->activityActive;
+    }
+
+    /**
+     * hasSpace
+     *
+     * @return bool
+     */
+    public function hasSpace(): bool
+    {
+        if ($this->getEntity()->loadSpace() instanceof Space)
+            return true;
+        return false;
+    }
+
+    /**
+     * hasTutors
+     *
+     * @return bool
+     */
+    public function hasTutors(): bool
+    {
+        if ($this->getEntity()->loadTutors()->count() > 0)
+            return true;
+        return false;
     }
 }

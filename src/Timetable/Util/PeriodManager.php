@@ -16,12 +16,27 @@
 
 namespace App\Timetable\Util;
 
-
+use App\Core\Manager\MessageManager;
 use App\Entity\Space;
 use App\Entity\TimetablePeriodActivity;
 
 class PeriodManager
 {
+    /**
+     * @var TimetableManager
+     */
+    private $timetableManager;
+
+    /**
+     * PeriodManager constructor.
+     * @param TimetableManager $timetableManager
+     */
+    public function __construct(TimetableManager $timetableManager)
+    {
+        $this->timetableManager = $timetableManager;
+
+    }
+
     /**
      * hasSpace
      *
@@ -53,5 +68,21 @@ class PeriodManager
         if ($activity->loadTutors()->count() > 0)
             return true;
         return false;
+    }
+
+    /**
+     * @return MessageManager
+     */
+    public function getMessageManager(): MessageManager
+    {
+        return $this->getTimetableManager()->getMessageManager();
+    }
+
+    /**
+     * @return TimetableManager
+     */
+    public function getTimetableManager(): TimetableManager
+    {
+        return $this->timetableManager;
     }
 }
