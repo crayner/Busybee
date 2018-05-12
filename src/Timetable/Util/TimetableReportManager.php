@@ -125,19 +125,20 @@ class TimetableReportManager extends ReportManager
         $tutors = $this->getEntityManager()->getRepository(Staff::class)->findBy([], ['surname' => 'ASC', 'firstName' => 'ASC']);
         $tutors = new ArrayCollection($tutors);
 
-        $report
-            ->setGrades($this->getGrades())
-            ->setCalendar($this->getCalendar())
-            ->generateActivityReports()
-            ->addPossibleStudents()
-            ->addAllocatedStudents()
-            ->setMissingStudents()
-            ->setPossibleSpaces($spaces)
-            ->setAllocatedSpaces()
-            ->setPossibleTutors($tutors)
-            ->setAllocatedTutors()
-            ->writeReport()
-        ;
+        if (in_array($report->getEntity()->getPeriodType(), TimetablePeriod::getPeriodTypeList('students')))
+            $report
+                ->setGrades($this->getGrades())
+                ->setCalendar($this->getCalendar())
+                ->generateActivityReports()
+                ->addPossibleStudents()
+                ->addAllocatedStudents()
+                ->setMissingStudents()
+                ->setPossibleSpaces($spaces)
+                ->setAllocatedSpaces()
+                ->setPossibleTutors($tutors)
+                ->setAllocatedTutors()
+                ->writeReport()
+            ;
         $this->getPeriods()->set($period->getId(), $report);
         return $this;
     }

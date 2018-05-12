@@ -72,32 +72,33 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
         return $interval;
     }
 
+
+    private static $periodTypes = [
+        'students' => [
+            'class',
+            'pastoral',
+        ],
+        'no students' => [
+            'break',
+            'meeting',
+        ],
+    ];
+
     /**
      * @return array
      */
-    public function getPeriodTypeList(string $limit = '')
+    public static function getPeriodTypeList(string $limit = '')
     {
         if (! in_array($limit, ['no students','students','','flat']))
-            throw new \InvalidArgumentException('Dear Programmer: The list accepts only [no students, students] for Period Type List');
-
-        $x =  [
-            'students' => [
-                'class',
-                'pastoral',
-            ],
-            'no students' => [
-                'break',
-                'meeting',
-            ],
-        ];
+            throw new \InvalidArgumentException('Dear Programmer: The list accepts only "no students, students, flat" or an empty string for Period Type List');
 
         if ($limit === 'no students')
-            return $x['no students'];
+            return self::$periodTypes['no students'];
         if ($limit === 'students')
-            return $x['students'];
+            return self::$periodTypes['students'];
         if ($limit === 'flat')
-            return array_merge($x['students'], $x['no students']);
-        return $x;
+            return array_merge(self::$periodTypes['students'], self::$periodTypes['no students']);
+        return self::$periodTypes;
     }
 
     /**

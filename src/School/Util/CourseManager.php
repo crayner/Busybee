@@ -220,6 +220,7 @@ class CourseManager implements TabManagerInterface
         try {
             $this->getCourse()->removeActivity($this->getActivity());
             $this->getEntityManager()->persist($this->getCourse());
+            $this->getEntityManager()->remove($this->getActivity());
             $this->getEntityManager()->flush();
         } catch (\Exception $e)
         {

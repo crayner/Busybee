@@ -223,7 +223,7 @@ class TimetablePeriod extends TimetablePeriodExtension
      */
     public function getPeriodType(): string
     {
-        if (! in_array($this->periodType, $this->getPeriodTypeList('flat')))
+        if (! in_array($this->periodType, self::getPeriodTypeList('flat')))
             $this->periodType = 'class';
         return $this->periodType;
     }
@@ -234,7 +234,7 @@ class TimetablePeriod extends TimetablePeriodExtension
      */
     public function setPeriodType(?string $periodType): TimetablePeriod
     {
-        if (! in_array($this->periodType, $this->getPeriodTypeList('flat')))
+        if (! in_array($this->periodType, self::getPeriodTypeList('flat')))
             $periodType = 'class';
         $this->periodType = $periodType;
         return $this;

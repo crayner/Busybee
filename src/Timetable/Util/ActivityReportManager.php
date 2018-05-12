@@ -19,6 +19,7 @@ namespace App\Timetable\Util;
 use App\Core\Util\ReportManager;
 use App\Entity\Space;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class ActivityReportManager extends ReportManager
 {
@@ -56,9 +57,9 @@ class ActivityReportManager extends ReportManager
     /**
      * getAllocatedStudents
      *
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getAllocatedStudents(): ArrayCollection
+    public function getAllocatedStudents(): Collection
     {
         if (! $this->isActivityActive())
             return new ArrayCollection();
