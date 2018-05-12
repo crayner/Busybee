@@ -20,6 +20,8 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
         'forms_grades' => 'forms_grades',
         'unique' => 'unique',
         'this_school' => 'this_school',
+        'roll_name' => 'roll_name',
+        'rolls_name' => 'rolls_name',
     ];
 
     /**
