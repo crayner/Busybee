@@ -90,16 +90,15 @@ line:
     code:
         label: Code
         sort: Sort by Code
-    courses:
-        label: Attached Courses
-        sort: Sort by Course Name
-        placeholder: Select a Course
-        help: Courses attached to the line can be in one or more grades.
+    activities:
+        label: Attached Activities
+        placeholder: Select an Activity
+        help: Activities may contain students in more than one grade.
     delete:
-        button: Delete TimetableLine
-        confirm: Delete TimetableLine?
-    edit.button: Edit TimetableLine
-    add.button: Add TimetableLine
+        button: Delete Timetable Line
+        confirm: Delete Timetable Line?
+    edit.button: Edit Timetable Line
+    add.button: Add Timetable Line
     period.search.button: Search for Period
     test:
         help: Generate a report on the Activity TimetableLine

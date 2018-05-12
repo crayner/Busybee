@@ -498,4 +498,27 @@ class Activity extends ActivityExtension
 
         return $this;
     }
+
+    /**
+     * @var TimetableLine
+     */
+    private $line;
+
+    /**
+     * @return TimetableLine
+     */
+    public function getLine(): TimetableLine
+    {
+        return $this->line;
+    }
+
+    /**
+     * @param TimetableLine $line
+     * @return Activity
+     */
+    public function setLine(TimetableLine $line): Activity
+    {
+        $this->line = $line;
+        return $this;
+    }
 }

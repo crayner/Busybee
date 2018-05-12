@@ -29,10 +29,10 @@ App\Entity\TimetableLine:
                 calendar_id:
                     referencedColumnName: id
     oneToMany:
-        courses:
-            targetEntity: App\Entity\Course
+        activities:
+            targetEntity: App\Entity\Activity
             nullable: true
-            orderBy: { 'name': 'ASC' }
+            orderBy: { 'name': 'ASC', code: 'ASC' }
             cascade: [ 'persist' ]
             mappedBy: line
 

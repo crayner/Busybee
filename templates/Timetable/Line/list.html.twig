@@ -27,10 +27,10 @@
                 {% endif %}
             </div>
             <div class="col-4 form-inline text-center">
-                {% if pagination.getSortByName == 'line.courses.sort' %}
-                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'line.courses.label'|trans }}
+                {% if pagination.getSortByName == 'line.activities.sort' %}
+                    <span class="fas fa-sort-alpha-down"></span>&nbsp;{{ 'line.activities.label'|trans }}
                 {% else %}
-                    {{ 'line.courses.label'|trans }}
+                    {{ 'line.activities.label'|trans }}
                 {% endif %}
             </div>
             <div class="col-2 withAdd">
@@ -46,7 +46,7 @@
                     {{ line.code }}
                 </div>
                 <div class="col-4 form-inline">
-                    {{ line.course }}
+                    {{ line.entity.activityNames }}
                 </div>
                 <div class="col-2 form-inline">
                     {{ editButton({title: 'line.edit.button', transDomain: 'Timetable', windowOpen: {route: path('line_manage', {id: line.id})}})|raw }}

@@ -1,12 +1,17 @@
 <?php
 namespace App\Entity;
 
+use App\Timetable\Entity\TimetableLineExtn;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
+use Hillrange\Security\Util\UserTrackInterface;
+use Hillrange\Security\Util\UserTrackTrait;
 
-class TimetableLine
+class TimetableLine extends TimetableLineExtn implements UserTrackInterface
 {
+    use UserTrackTrait;
+
     /**
      * @var null|integer
      */
@@ -99,63 +104,33 @@ class TimetableLine
     }
 
     /**
-     * @var null|Collection
+     * @var Collection|null
      */
-    private $courses;
+    private $activities;
 
     /**
      * @return Collection|null
      */
-    public function getCourses(): Collection
+    public function getActivities(): ?Collection
     {
-        if (empty($this->courses))
-            $this->courses = new ArrayCollection();
+        if (empty($this->activities))
+            $this->activities = new ArrayCollection();
 
-        if ($this->courses instanceof PersistentCollection && ! $this->courses->isInitialized())
-            $this->courses->initialize();
+        if ($this->activities instanceof PersistentCollection)
+            $this->activities->initialize();
 
-        return $this->courses;
+        return $this->activities;
     }
 
     /**
-     * @param Collection|null $courses
+     * @param Collection|null $activities
      * @return TimetableLine
      */
-    public function setCourses(?Collection $courses): TimetableLine
+    public function setActivities(?Collection $activities): TimetableLine
     {
-        $this->courses = $courses;
+        $this->activities = $activities;
         return $this;
     }
 
-    /**
-     * @param Course|null $course
-     * @param bool $add
-     * @return TimetableLine
-     */
-    public function addCourse(?Course $course, $add = true): TimetableLine
-    {
-        if (empty($course) || $this->getCourses()->contains($course))
-            return $this;
 
-        if ($add)
-            $course->setLine($this, false);
-
-        $this->getCourses()->add($course);
-
-        return $this;
-    }
-
-    /**
-     * @param Course|null $course
-     * @return TimetableLine
-     */
-    public function removeCourse(?Course $course): TimetableLine
-    {
-        $this->getCourses()->removeElement($course);
-
-        if ($course instanceof Course)
-            $course->setLine(null);
-
-        return $this;
-    }
 }

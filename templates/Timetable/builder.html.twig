@@ -248,7 +248,7 @@
             buildPeriod('', id);
         }
 
-        $(".dragActivity").dblclick(function () {
+        $(document).on('dblclick', '.dragActivity', function () {
             var id = $(this).prop('id');
             id = id.replace('activity', '');
 
@@ -256,7 +256,7 @@
             path = path.replace('__id__', id);
             window.open(path, 'ActivityEdit', 'width=1200,height=750')
         });
-        $(".dragLine").dblclick(function () {
+        $(document).on('dblclick', '.dragLine', function () {
             var id = $(this).prop('id');
             id = id.replace('line', '');
 

@@ -4,8 +4,8 @@ App\Entity\FaceToFace:
     manyToOne:
         scale:
             targetEntity: App\Entity\Scale
-            joinColumns:
-                scale_id:
+            joinColumn:
+                    name: scale_id
                     referencedColumnName: id
                     nullable: true
         course:

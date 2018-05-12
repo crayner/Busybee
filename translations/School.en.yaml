@@ -70,6 +70,7 @@ school:
         edit:
             title: Edit Class
             description: Face to Face Class Management
+        add.title: Add Class
         manage:
             title: 'Manage %name%'
             help: 'Possible students are limited to the selected !!!form_grade!!! in the course to which this activity belongs. Reportable will be set to true if the activity reportable is true.'
@@ -197,7 +198,7 @@ course:
     code:
         label: Code
         sort: Code
-        help:
+        help: '!!!unique!!!'
     target_years.label: Target Years
     department:
         label: Learning Area
