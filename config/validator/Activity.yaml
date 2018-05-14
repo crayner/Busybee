@@ -1,4 +1,0 @@
-App\Entity\Activity:
-    properties:
-        course:
-            - Valid: ~

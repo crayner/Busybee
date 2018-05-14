@@ -45,14 +45,28 @@
     <div class="card-header{% if headerClass is defined %} {{ headerClass }}{% endif %}">
         <h3 class="card-title d-flex mb-12 justify-content-between">
             <span class="p-6">
-                {{ header|trans(headerParams)|raw }}
+                {% if headerParams['transChoice'] is defined %}
+                    {% set transChoice = headerParams['transChoice'] %}
+                    {% set headerParams = headerParams|merge({'transChoice': ''}) %}
+                    {{ header|transchoice(transChoice, headerParams) }}
+                {% else %}
+                    {{ header|trans(headerParams)|raw }}
+                {% endif %}
             </span>
             <span class="p-6">
                 {{ h3Content|raw }}
             </span>
         </h3>
         {% if panelParagraph is defined %}
-            <p>{{ panelParagraph|trans(panelParams)|raw }}</p>
+            <p>
+            {% if panelParams['transChoice'] is defined %}
+                {% set transChoice = panelParams['transChoice'] %}
+                {% set panelParams = panelParams|merge({'transChoice': ''}) %}
+                {{ panelParagraph|transchoice(transChoice, panelParams)|raw }}
+            {% else %}
+                {{ panelParagraph|trans(panelParams)|raw }}
+            {% endif %}
+            </p>
         {% endif %}
     </div>
     <div class="card-body"{% if bodyAttr is defined %} {{ bodyAttr }}{% endif %}>

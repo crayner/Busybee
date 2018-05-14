@@ -74,7 +74,10 @@ school:
             add.title: Add Class
             manage:
                 title: 'Manage %name%'
-                help: 'Possible students (%{possible}) are limited to the selected !!!form_grade!!! in the course to which this activity belongs. You currently have allocated (%{allocated}) students. Reportable will be set to true if the activity reportable is true.'
+                help: |
+                    Possible students are limited to the selected !!!form_grade!!! in the course to which this activity belongs. You currently %1% of %0%. Reportable will be set to true if the activity reportable is true.
+                    {0}no possible students|{1}one possible student|]1,Inf[%count% possible students
+                    {0}have no students allocated|{1}have one student allocated|]1,Inf[have %count% students allocated
             students.title: Manage Students
             remove.title: Remove Activity
             tutors.label: Class Tutors

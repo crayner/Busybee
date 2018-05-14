@@ -36,7 +36,7 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
      *
      * @throws InvalidArgumentException If the locale contains invalid characters
      */
-    public function trans($id, array $parameters = array(), $domain = null, $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         $trans = $this->translator->trans($id, $parameters, $domain, $locale);
 
@@ -56,9 +56,14 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
      *
      * @throws InvalidArgumentException If the locale contains invalid characters
      */
-    public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
+    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
     {
-        return $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
+        if (is_array($number))
+            return $this->multipleTransChoice($id, $number, $parameters, $domain, $locale);
+
+        $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
+
+        return $this->getInstituteTranslation($trans, $locale);
     }
 
     /**
@@ -252,5 +257,53 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
     {
         asort($this->source);
         return $this->source;
+    }
+
+
+    /**
+     * Translates the given choice message by choosing a translation according to a number.
+     *
+     * @param string      $id         The message id (may also be an object that can be cast to string)
+     * @param int         $number     The number to use to find the indice of the message
+     * @param array       $parameters An array of parameters for the message
+     * @param string|null $domain     The domain for the message or null to use the default
+     * @param string|null $locale     The locale or null to use the default
+     *
+     * @return string The translated string
+     *
+     * @throws InvalidArgumentException If the locale contains invalid characters
+     */
+    private function multipleTransChoice($id, $number, array $parameters = [], $domain = null, $locale = null): ?string
+    {
+        $message = $this->getCatalogue($locale)->get($id, $domain);
+
+        $messages = explode("\n", $message);
+        $message = reset($messages);
+
+        array_shift($messages);
+
+        $last = end($messages);
+
+        if (empty($last))
+            array_pop($messages);
+
+        $translations = [];
+        foreach($messages as $q=>$item)
+            $translations[$id.'.'.$q] = $item;
+
+        $this->getCatalogue($locale)->replace($translations, '_temporary');
+
+        $x = 0;
+        $messages = [];
+        foreach($translations as $q=>$w) {
+            if (empty($number[$x]))
+                $number[$x] = 0;
+            $parameters['%count%'] = $number[$x];
+            $messages['%'.$x.'%'] = $this->transChoice($q, $number[$x++], $parameters, '_temporary', $locale);
+        }
+
+        $message = strtr($message, $messages);
+
+        return $message;
     }
 }

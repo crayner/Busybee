@@ -91,3 +91,10 @@ school.search.replace:
     unique: 'Must be unique!'
     roll_name: Name for Roll
     rolls_name: Name for Rolls
+test:
+    message: |
+        %0%, %1%, %2%, %3%
+        {0}No bananas|{1}One banana|]1,Inf[%count% bananas
+        {0}No oranges|{1}One orange|]1,Inf[%count% oranges
+        {0}No apples|{1}One apple|]1,Inf[%count% apples
+        {0}No pears|{1}One pear|]1,Inf[%count% pears
