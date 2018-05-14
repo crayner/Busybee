@@ -1,9 +1,0 @@
-{% trans_default_domain 'School' %}
-{% set h3Content = '' %}
-{% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
-{% set h3Content = h3Content ~ resetButton() %}
-{% set h3Content = h3Content ~ saveButton() %}
-{% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.face_to_face.manage.help'} %}
-     {{ collection_widget(form.students) }}
-     {% do form.students.setRendered %}
-{% include 'Page/panelEnd.html.twig' %}

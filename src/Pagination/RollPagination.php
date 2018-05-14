@@ -2,6 +2,7 @@
 namespace App\Pagination;
 
 use App\Calendar\Util\CalendarManager;
+use App\Entity\Calendar;
 use App\Entity\Roll;
 
 class RollPagination extends PaginationManager
@@ -105,14 +106,20 @@ class RollPagination extends PaginationManager
 
         $this->getQuery()
             ->andWhere('c = :calendar')
-            ->setParameter('calendar', $this->getCurrentCalendar())
+            ->setParameter('calendar', CalendarManager::getCurrentCalendar())
         ;
 
 		return $this->getQuery();
 	}
 
-	public function getCurrentCalendar()
+    /**
+     * getCurrentCalendar
+     *
+     * @return Calendar
+     */
+    public function getCurrentCalendar(): Calendar
     {
         return CalendarManager::getCurrentCalendar();
     }
+
 }

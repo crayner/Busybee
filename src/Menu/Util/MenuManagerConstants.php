@@ -212,7 +212,7 @@ School Admin:
         - edit_grade
         - student_add_to_calendar_group
         - space_edit
-        - activity_edit
+        - roll_edit
 Person Admin:
     people_manage:
 #        family_manage:

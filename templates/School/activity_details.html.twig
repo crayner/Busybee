@@ -2,13 +2,13 @@
 
 {% set h3Content = '' %}
 {% if app.request.get('closeWindow') is empty %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('course_edit', {id: course_id})}}) %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id')})}}) %}
 {% else %}
     {% set h3Content = h3Content ~ closeButton() %}
 {% endif %}
 {% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
-{% include 'Page/panelStart.html.twig' with {header: 'school.face_to_face.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
+{% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School'} %}
 
 <div class="row">
     <div class="col-6 card">
@@ -17,9 +17,16 @@
     <div class="col-3 card">
         {{ form_row(form.code) }}
     </div>
-    <div class="col-3 card">
-        {{ form_row(form.useCourseName) }}
-    </div>
+    {% if form.useCourseName is defined %}
+        <div class="col-3 card">
+            {{ form_row(form.useCourseName) }}
+        </div>
+    {% endif %}
+    {% if form.nextRoll is defined %}
+        <div class="col-3 card">
+            {{ form_row(form.nextRoll) }}
+        </div>
+    {% endif %}
 </div>
 <div class="row">
     <div class="col-6 card">
@@ -38,10 +45,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
+    <div class="col-3 card">
+        {{ form_row(form.calendarGrades) }}
+    </div>
+    <div class="col-9">
         {% set h3Content = '' %}
         {% set h3Content = h3Content ~ resetButton() %}
-        {% include 'Page/panelStart.html.twig' with {colour: 'success', header: 'school.face_to_face.tutors.label', transDomain: 'School'} %}
+        {% include 'Page/panelStart.html.twig' with {colour: 'success', header: 'school.activity.' ~ tabManager.activityType ~ '.tutors.label', transDomain: 'School'} %}
         <section id="activity_tutors_target">
             {{ form_widget(form.tutors) }}
         </section>

@@ -1,10 +1,13 @@
 <?php
 namespace App\School\Form;
 
+use App\Calendar\Util\CalendarManager;
+use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
 use App\Entity\Space;
 use App\School\Form\Subscriber\ActivitySubscriber;
 use App\School\Util\ActivityManager;
+use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\TextType;
@@ -92,12 +95,13 @@ class FaceToFaceType extends AbstractType
                     'label' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => ClassStudentType::class,
+                    'entry_type' => ActivityStudentType::class,
                     'required' => false,
                     'entry_options' => [
-                        'student_list' => $this->activityManager->generatePossibleStudents($options['data']),
+                        'student_list' => $this->activityManager->getPossibleStudents($options['data']),
                     ],
-                    'route' => 'class_student_manage',
+                    'route' => 'activity_student_manage',
+                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('tutors', CollectionType::class,
@@ -108,7 +112,8 @@ class FaceToFaceType extends AbstractType
                     'allow_up' => true,
                     'allow_down' => true,
                     'sort_manage' => true,
-                    'route' => 'class_tutor_manage',
+                    'route' => 'activity_tutor_manage',
+                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('reportable', ToggleType::class,
@@ -119,6 +124,28 @@ class FaceToFaceType extends AbstractType
             ->add('attendance', ToggleType::class,
                 [
                     'label' => 'activity.attendance.label',
+                ]
+            )
+            ->add('calendarGrades', EntityType::class,
+                [
+                    'label' => 'external_activity.calendar_grade.label',
+                    'help' => 'external_activity.calendar_grade.help',
+                    'class' => CalendarGrade::class,
+                    'choice_label' => 'grade',
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'attr' => [
+                        'class' => 'form-control-sm',
+                    ],
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('g')
+                            ->leftJoin('g.calendar', 'c')
+                            ->where('c.id = :calendar_id')
+                            ->setParameter('calendar_id', CalendarManager::getCurrentCalendar())
+                            ->orderBy('g.sequence', 'ASC')
+                            ;
+                    },
                 ]
             )
         ;

@@ -162,4 +162,14 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
 
         return $this;
     }
+
+    /**
+     * isUseCourseName
+     *
+     * @return bool
+     */
+    public function isUseCourseName(): bool
+    {
+        return false;
+    }
 }

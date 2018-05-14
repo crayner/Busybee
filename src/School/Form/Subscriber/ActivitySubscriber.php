@@ -5,6 +5,7 @@ use App\Calendar\Util\CalendarManager;
 use App\Entity\ExternalActivity;
 use App\Entity\FaceToFace;
 use App\Entity\Roll;
+use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -76,6 +77,16 @@ class ActivitySubscriber implements EventSubscriberInterface
                     'choice_label' => 'fullName',
                     'label' => 'activity.next_roll.label',
                     'placeholder' => 'activity.next_roll.placeholder',
+                    'help' => 'activity.next_roll.help',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('r')
+                            ->leftJoin('r.calendarGrades', 'cg')
+                            ->leftJoin('cg.calendar', 'c')
+                            ->where('c = :next')
+                            ->setParameter('next', CalendarManager::getNextCalendar(CalendarManager::getCurrentCalendar()))
+                            ->orderBy('r.name', 'ASC')
+                            ;
+                    },
                 ]
             );
 

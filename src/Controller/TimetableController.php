@@ -234,8 +234,8 @@ class TimetableController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $lineManager->getEntityManager();
-            foreach($entity->getCourses()->getIterator() as $course)
-                $em->persist($course->setLine($entity));
+            foreach($entity->getActivities()->getIterator() as $activity)
+                $em->persist($activity->setLine($entity));
             $em->persist($entity);
             $em->flush();
 
@@ -274,20 +274,25 @@ class TimetableController extends Controller
      * @param $id
      * @param $cid
      * @param LineManager $lineManager
-     * @Route("/line/{id}/course/{cid}/remove/", name="line_remove_course")
+     * @param TwigManager $twig
+     * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @Route("/line/{id}/activity/{cid}/remove/", name="line_remove_activity")
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function lineRemoveCourse($id, $cid, LineManager $lineManager, TwigManager $twig)
     {
         $entity = $lineManager->find($id);
 
-        $lineManager->removeCourse($cid);
+        $lineManager->removeActivity($cid);
 
         $form = $this->createForm(LineType::class, $entity, ['calendar_data' => $lineManager->getCalendar()]);
 
         $content = $this->renderView('Timetable/Line/line_collections.html.twig',
             [
-                'collection' => $form->get('courses')->createView(),
+                'collection' => $form->get('activities')->createView(),
             ]
         );
 

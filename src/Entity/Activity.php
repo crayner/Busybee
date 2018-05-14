@@ -513,11 +513,15 @@ class Activity extends ActivityExtension
     }
 
     /**
-     * @param TimetableLine $line
+     * @param TimetableLine|null $line
+     * @param bool $add
      * @return Activity
      */
-    public function setLine(TimetableLine $line): Activity
+    public function setLine(?TimetableLine $line, bool $add = true): Activity
     {
+        if ($add && $line instanceof TimetableLine)
+            $line->addActivity($this, false);
+
         $this->line = $line;
         return $this;
     }

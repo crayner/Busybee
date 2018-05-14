@@ -1,16 +1,16 @@
 {% trans_default_domain "Timetable" %}
 
-{% block line_course_label %}{% endblock %}
-{% block line_course_errors %}{% endblock %}
+{% block line_activity_label %}{% endblock %}
+{% block line_activity_errors %}{% endblock %}
 
-{% block line_course_widget %}
+{% block line_activity_widget %}
     {% spaceless %}
         {% set panelStyle = 'default' %}
         {% set transDomain = 'Timetable' %}
         {% set header = 'courses.title.header' %}
         {% set h3Content = '<div class="collection-actions">' %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
-        {% set h3Content = h3Content ~ editButton({windowOpen: {route: path('course_edit', {id: getValueData(form)|default('Add')})}})|raw %}
+        {% set h3Content = h3Content ~ editButton({windowOpen: {route: path('activity_edit', {id: getValueData(form)|default('Add'), activityType: 'activity', closeWindow: '_closeWindow'}), target: 'ActivityEdit', params: 'width=1200,height=950'}})|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         <div class="row">
             <div class="col-8 card">
@@ -21,4 +21,4 @@
             </div>
         </div>
     {% endspaceless %}
-{% endblock line_course_widget %}
+{% endblock line_activity_widget %}

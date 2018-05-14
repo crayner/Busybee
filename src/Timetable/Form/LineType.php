@@ -1,10 +1,13 @@
 <?php
 namespace App\Timetable\Form;
 
+use App\Calendar\Util\CalendarManager;
+use App\Entity\Activity;
 use App\Entity\Calendar;
 use App\Entity\Course;
 use App\Entity\TimetableLine;
 use App\Timetable\Form\Subscriber\LineSubscriber;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\CollectionEntityType;
 use Hillrange\Form\Type\CollectionType;
@@ -38,19 +41,33 @@ class LineType extends AbstractType
                     ],
                 ]
             )
-            ->add('courses', CollectionType::class, [
-                    'label' => 'line.courses.label',
-                    'help' => 'line.courses.help',
+            ->add('activities', CollectionType::class, [
+                    'label' => 'line.activities.label',
+                    'help' => 'line.activities.help',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'required'  => false,
                     'entry_type' => CollectionEntityType::class,
-                    'route' => 'line_remove_course',
+                    'route' => 'line_remove_activity',
                     'entry_options' => [
-                        'class' => Course::class,
-                        'block_prefix' => 'line_course',
-                        'choice_label' => 'name',
-                        'placeholder' => 'line.courses.placeholder'
+                        'class' => Activity::class,
+                        'block_prefix' => 'line_activity',
+                        'choice_label' => 'fullName',
+                        'placeholder' => 'line.activities.placeholder',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('a')
+                                ->leftJoin('a.calendarGrades', 'cg')
+                                ->leftJoin('cg.calendar', 'c')
+                                ->where('c = :calendar')
+                                ->setParameter('calendar', CalendarManager::getCurrentCalendar())
+                                ->orderBy('a.name', 'ASC')
+                                ->andwhere('(a INSTANCE OF :facetoface OR a INSTANCE OF :roll)')
+                                ->setParameter('roll', 'roll')
+                                ->setParameter('facetoface', 'class')
+                                ->orderBy('cg.sequence', 'ASC')
+                                ->orderBy('a.name', 'ASC')
+                            ;
+                        },
                     ],
                 ]
             )
@@ -69,11 +86,11 @@ class LineType extends AbstractType
                     'choice_label' => 'name',
                     'mapped' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) use ($calendar) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('l')
                             ->leftJoin('l.calendar', 'c')
-                            ->where('c.id = :calendar_id')
-                            ->setParameter('calendar_id', $calendar->getId())
+                            ->where('c = :calendar')
+                            ->setParameter('calendar', CalendarManager::getCurrentCalendar())
                             ->orderBy('l.name', 'ASC');
                     },
                     'placeholder' => 'line.change_record.placeholder',

@@ -67,11 +67,10 @@ class LineReportManager extends ReportManager
 
         $this->grades = new ArrayCollection();
 
-        foreach ($this->getLine()->getCourses()->getIterator() as $course) {
-            foreach($course->getActivities()->getIterator() as $activity)
-                foreach ($activity->getCalendarGrades()->getIterator() as $grade)
-                    if (! $this->grades->contains($grade))
-                        $this->grades->add($grade);
+        foreach ($this->getLine()->getActivities()->getIterator() as $activity) {
+            foreach ($activity->getCalendarGrades()->getIterator() as $grade)
+                if (! $this->grades->contains($grade))
+                    $this->grades->add($grade);
         }
 
         return $this->grades;
@@ -138,16 +137,15 @@ class LineReportManager extends ReportManager
         $this->participatingStudents = new ArrayCollection();
         $this->duplicatedStudents = new ArrayCollection();
 
-        foreach ($this->getLine()->getCourses()->getIterator() as $course)
-            foreach($course->getActivities()->getIterator() as $activity)
-                foreach ($activity->getStudents()->getIterator() as $studentActivity) {
-                    $student = $studentActivity->getStudent();
-                    if (!$this->participatingStudents->contains($student))
-                        $this->participatingStudents->add($student);
-                    else
-                        if (!$this->duplicatedStudents->contains($student))
-                            $this->duplicatedStudents->add($student);
-                }
+        foreach ($this->getLine()->getActivities()->getIterator() as $activity)
+            foreach ($activity->getStudents()->getIterator() as $studentActivity) {
+                $student = $studentActivity->getStudent();
+                if (!$this->participatingStudents->contains($student))
+                    $this->participatingStudents->add($student);
+                else
+                    if (!$this->duplicatedStudents->contains($student))
+                        $this->duplicatedStudents->add($student);
+            }
 
         return $this->participatingStudents;
     }
@@ -252,7 +250,7 @@ class LineReportManager extends ReportManager
                     $data = [];
                     $data['%name%'] = $student->formatName();
                     $data['%identifier%'] = $student->getPerson()->getIdentifier();
-                    $this->addMessage('info','line.report.student.extra', $data);
+                    $this->addMessage('dark','line.report.student.extra', $data);
             }
         }
 

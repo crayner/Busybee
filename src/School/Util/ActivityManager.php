@@ -2,21 +2,25 @@
 namespace App\School\Util;
 
 use App\Core\Exception\Exception;
+use App\Core\Exception\MissingClassException;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\TabManagerInterface;
 use App\Entity\Activity;
 use App\Entity\ActivitySlot;
 use App\Entity\ActivityStudent;
 use App\Entity\ActivityTutor;
+use App\Entity\Course;
 use App\Entity\ExternalActivity;
 use App\Entity\FaceToFace;
 use App\Entity\Roll;
 use App\Entity\Student;
+use App\School\Form\RollType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Monolog\Handler\GelfHandlerLegacyTest;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -65,12 +69,17 @@ class ActivityManager implements TabManagerInterface
     private $stack;
 
     /**
+     * @var FormFactoryInterface
+     */
+    private $form;
+
+    /**
      * ActivityManager constructor.
      * @param TranslatorInterface $translator
      * @param EntityManagerInterface $entityManager
      * @param MessageManager $messageManager
      */
-    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, MessageManager $messageManager, RequestStack $stack, RouterInterface $router)
+    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, MessageManager $messageManager, RequestStack $stack, RouterInterface $router, FormFactoryInterface $form)
     {
         $this->translator = $translator;
         $this->entityManager = $entityManager;
@@ -78,6 +87,7 @@ class ActivityManager implements TabManagerInterface
         $this->messageManager->setDomain('School');
         $this->router = $router;
         $this->stack = $stack;
+        $this->form = $form;
     }
 
     /**
@@ -143,7 +153,21 @@ external_activity_slots:
                 return Yaml::parse("
 class_details:
     label: class.details.tab
-    include: School/class_details.html.twig
+    include: School/activity_details.html.twig
+    message: classDetailsMessage
+    translation: School
+class_students:
+    label: class.students.tab
+    include: School/activity_students.html.twig
+    message: classStudentsMessage
+    translation: School
+");
+                break;
+            case 'roll':
+                return Yaml::parse("
+class_details:
+    label: class.details.tab
+    include: School/activity_details.html.twig
     message: classDetailsMessage
     translation: School
 class_students:
@@ -203,6 +227,15 @@ class_students:
             case 'class':
                 $activity = $this->entityManager->getRepository(FaceToFace::class)->find($id) ?: new FaceToFace();
                 break;
+            case 'activity':
+                $activity = $this->entityManager->getRepository(Activity::class)->find($id) ?: new Activity();
+                if ($activity instanceof FaceToFace)
+                    return $this->setActivityType('class')->findActivity($id);
+                if ($activity instanceof ExternalActivity)
+                    return $this->setActivityType('external')->findActivity($id);
+                if ($activity instanceof Roll)
+                    return $this->setActivityType('roll')->findActivity($id);
+                break;
             default:
                 throw new Exception('Activity type is not defined. ' . $this->getActivityType() );
         }
@@ -230,13 +263,21 @@ class_students:
         return $this;
     }
 
+    static $activityTypes = [
+        'class',
+        'roll',
+        'external',
+        'activity'
+    ];
+
     /**
      * @throws Exception
      */
-    private function isActivityType()
+    private function isActivityType(): bool
     {
-        if (empty($this->getActivityType()))
-            throw new Exception('Failed to see a valid activity type.');
+        if (! in_array($this->getActivityType(), self::$activityTypes))
+            throw new Exception('Failed to see a valid activity type. ' . $this->getActivityType());
+        return true;
     }
 
     /**
@@ -309,7 +350,6 @@ class_students:
             return;
         }
 
-        dump($student);
         if (! $student->canDelete()) {
             $this->messageManager->add('warning', 'activity.student.remove.restricted', ['%{student}' => $student->getStudent()->getFullName()]);
             $this->setStatus('warning');
@@ -359,63 +399,26 @@ class_students:
     private $possibleStudentCount = 0;
 
     /**
-     * @param FaceToFace|null $activity
-     * @return Collection
-     */
-    public function generatePossibleStudents(FaceToFace $activity = null): Collection
-    {
-        $activity = $activity ?: $this->getActivity();
-
-        $students = new ArrayCollection();
-
-        $ca = $activity->getCourse()->getActivities();
-        $activities = [];
-        foreach($ca->getIterator() as $face)
-            $activities[] = $face->getId();
-
-        $result1 = $this->getPossibleStudents($activity);
-
-        $result2 = new ArrayCollection($this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
-            ->leftJoin('s.activities', 'sa')
-            ->leftJoin('sa.activity', 'a')
-            ->where('a.id IN (:activities)')
-            ->setParameter('activities', $activities, Connection::PARAM_STR_ARRAY)
-            ->getQuery()
-            ->getResult());
-
-        foreach($result1 as $student)
-            if (! $result2->contains($student))
-                $students->add($student);
-
-
-        foreach($activity->getStudents()->getIterator() as $student)
-            if (! $students->contains($student->getStudent()))
-                $students->add($student->getStudent());
-
-        $iterator = $students->getIterator();
-        $iterator->uasort(
-            function ($a, $b) {
-                return ($a->formatName(['surnameFirst' => true]) < $b->formatName(['surnameFirst' => true])) ? -1 : 1;
-            }
-        );
-
-        return new ArrayCollection(iterator_to_array($iterator, false));
-    }
-
-    /**
      * @param Activity $activity
      * @return array
      */
-    public function getPossibleStudents(Activity $activity): array
+    public function getPossibleStudents(?Activity $activity): array
     {
+        $activity = $activity ?: $this->getActivity();
+
         $grades = [];
-        foreach($activity->getCourse()->getCalendarGrades()->getIterator() as $grade)
+        foreach($activity->getCalendarGrades()->getIterator() as $grade)
             $grades[] = $grade->getId();
 
         $result = $this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
-            ->leftJoin('s.calendarGrades', 'cg')
+            ->leftJoin('s.calendarGrades', 'cgs')
+            ->leftJoin('cgs.calendarGrade', 'cg')
             ->where('cg.id IN (:grades)')
-            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
+            ->orderBy('s.surname', 'ASC')
+            ->addOrderBy('s.firstName', 'ASC')
+            ->andWhere('s.status in (:status)')
+            ->setParameter('status', Student::getStatusList('active'), Connection::PARAM_STR_ARRAY)
             ->getQuery()
             ->getResult();
 
@@ -452,8 +455,14 @@ class_students:
                 return $xx;
                 break;
             case 'class':
-                $xx = "manageCollection('" . $this->router->generate("class_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
-                $xx .= "manageCollection('" . $this->router->generate("class_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
+                $xx = "manageCollection('" . $this->router->generate("activity_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
+                $xx .= "manageCollection('" . $this->router->generate("activity_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
+
+                return $xx;
+                break;
+            case 'roll':
+                $xx = "manageCollection('" . $this->router->generate("activity_tutor_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','tutorCollection', '')\n";
+                $xx .= "manageCollection('" . $this->router->generate("activity_student_manage", ["id" => $request->get("id"), "cid" => "ignore"]) . "','studentCollection', '')\n";
 
                 return $xx;
                 break;
@@ -469,5 +478,72 @@ class_students:
     public function isDisplay(string $method = ''): bool
     {
         return true;
+    }
+
+    public function createForm(): FormInterface
+    {
+        switch ($this->getActivityType())
+        {
+            case 'external':
+            case 'class':
+            case 'roll':
+                return $this->getForm()->create(RollType::class, $this->getActivity());
+            default:
+                throw new \TypeError('The activity type is not valid for creating a form.');
+        }
+    }
+
+    /**
+     * @return FormFactoryInterface
+     */
+    public function getForm(): FormFactoryInterface
+    {
+        return $this->form;
+    }
+
+    /**
+     * Find Course
+     *
+     * @param $id
+     * @return Course
+     */
+    public function findCourse($id): Course
+    {
+        $course = $this->getEntityManager()->getRepository(Course::class)->find(intval($id));
+
+        if ($course instanceof Course)
+            return $course;
+
+        throw new MissingClassException('The course was not available', ['id' => $id]);
+    }
+
+    /**
+     * @var int
+     */
+    private $allocatedStudentCount = 0;
+
+    /**
+     * @param Activity $activity
+     * @return array
+     */
+    public function getAllocatedStudents(?Activity $activity): Collection
+    {
+        $activity = $activity ?: $this->getActivity();
+
+        $students = $activity->getStudents();
+
+        $this->allocatedStudentCount = $students->count();
+
+        return $students;
+    }
+
+    /**
+     * @param Activity|null $activity
+     * @return int
+     */
+    public function getAllocatedStudentCount(?Activity $activity = null): int
+    {
+        $this->getAllocatedStudents($activity);
+        return $this->allocatedStudentCount;
     }
 }

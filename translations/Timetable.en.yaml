@@ -85,7 +85,7 @@ line:
         title: Manage Activity Lines
         description: 'Drag and drop activity lines into a period to assign the line to the period. DblClick on any line to edit the line details.'
     name:
-        label: Activity TimetableLine
+        label: Activity Timetable Line
         sort: Sort by Name
     code:
         label: Code
@@ -101,12 +101,12 @@ line:
     add.button: Add Timetable Line
     period.search.button: Search for Period
     test:
-        help: Generate a report on the Activity TimetableLine
+        help: Generate a report on the Activity Timetable Line
         label: Test Activity Lines
     report:
-        button: Generate TimetableLine Report
+        button: Generate Timetable Line Report
         header: |
-            <h3>Activity Line Report</h3>
+            <h3>Timetable Line Report</h3>
             <p>Activity Line: <strong>%learninggroup%</strong></p>
             <p>Participating Student Count: <strong>%participantCount%</strong> of a possible student count: <strong>%possibleCount%</strong>.</p>
         include_all: |
@@ -119,18 +119,18 @@ line:
             extra: '%identifier%: %name% is allocated to the line, but is not a possible student.'
         footer: 'End of Report'
         extra: |
-            {1}An extra student has been found in the participant list.  This can happen if the grade of a student has been changed.
-            <h4>Extra Student</h4>|]1,Inf[%count% extra students have been found in the participant list.  This can happen if the grade of a student has been changed.
-            <h4>Extra Students</h4>
+            {1}<h4>Extra Student</h4>An extra student has been found in the participant list.  This can happen if the grade of a student has been changed.
+            |]1,Inf[<h4>Extra Students</h4>%count% extra students have been found in the participant list.  This can happen if the grade of a student has been changed.
+
         duplicated: |
             {1}A student appears in this Timetable Line more than once.
             <h4>Duplicated Student</h4>|]1,Inf[%count% students appear in this Timetable Line more than once.
             <h4>Duplicated Students</h4>
-        refresh.button: Refresh TimetableLine Report
-        title: TimetableLine Report
+        refresh.button: Refresh Timetable Line Report
+        title: Timetable Line Report
     manage:
-        title: Manage Activity TimetableLine
-        description: Create, edit and test an Activity TimetableLine
+        title: Manage Activity Timetable Line
+        description: Create, edit and test an Activity Timetable Line
         help: Lines are a timetable mapping tool.  All courses in a line MUST have the same number of periods per timetable cycle.  The line is allocated to the number of periods to meet the largest requirement of the courses attached, and the test will flag any differences in courses attached to the line.
     change_record.placeholder: Add or edit selected Activity Line
 column:

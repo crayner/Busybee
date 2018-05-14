@@ -50,9 +50,10 @@ class CourseManager implements TabManagerInterface
             $grades[] = $grade->getId();
 
         $result = $this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
-            ->leftJoin('s.calendarGrades', 'cg')
+            ->leftJoin('s.calendarGrades', 'cgs')
+            ->leftJoin('cgs.calendarGrade', 'cg')
             ->where('cg.id IN (:grades)')
-            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
             ->getQuery()
             ->getResult();
 
@@ -137,14 +138,13 @@ class CourseManager implements TabManagerInterface
      */
     public function getCurrentStudents(Course $course): int
     {
-        $students = 0;
+        $this->currentStudentCount = 0;
         foreach($course->getActivities()->getIterator() as $class)
         {
-            $students += $class->getStudents()->count();
+            $this->currentStudentCount += $class->getStudents()->count();
         }
-        $this->currentStudentCount = $students;
 
-        return $students;
+        return $this->currentStudentCount;
     }
 
     /**

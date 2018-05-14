@@ -28,6 +28,9 @@ class ActivityTutorType extends AbstractType
                     'help' => 'activity_tutor.role.help',
                     'placeholder' => 'activity_tutor.role.placeholder',
                     'setting_name' => 'tutor.type.list',
+                    'attr'  => [
+                        'class' => 'form-control-sm',
+                    ],
                 ]
             )
             ->add('activity', HiddenEntityType::class,
@@ -50,6 +53,9 @@ class ActivityTutorType extends AbstractType
                             ->addOrderBy('p.firstName')
                         ;
                     },
+                    'attr'  => [
+                        'class' => 'form-control-sm',
+                    ],
                 ]
             )
         ;

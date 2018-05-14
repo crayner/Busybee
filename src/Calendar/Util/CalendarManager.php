@@ -57,7 +57,7 @@ class CalendarManager implements TabManagerInterface
     /**
      * @var Calendar
      */
-    private $nextCalendar;
+    private static $nextCalendar;
 
 	/**
 	 * @var CalendarRepository
@@ -515,22 +515,22 @@ calendarGrades:
      * @param Calendar|null $calendar
      * @return null|Calendar
      */
-    public function getNextCalendar(?Calendar $calendar): ?Calendar
+    public static function getNextCalendar(?Calendar $calendar): ?Calendar
     {
-        if ($this->nextCalendar && is_null($calendar))
-            return $this->nextCalendar;
+        if (self::$nextCalendar && is_null($calendar))
+            return self::$nextCalendar;
 
-        $calendar = $calendar ?: $this->getCurrentCalendar();
+        $calendar = $calendar ?: self::getCurrentCalendar();
 
-        $result = $this->getCalendarRepository()->createQueryBuilder('c')
+        $result = self::getCalendarRepository()->createQueryBuilder('c')
             ->where('c.firstDay > :firstDay')
             ->setParameter('firstDay', $calendar->getFirstDay()->format('Y-m-d'))
             ->getQuery()
             ->getResult();
 
-        $this->nextCalendar = $result ? $result[0] : null ;
+        self::$nextCalendar = $result ? $result[0] : null ;
 
-        return $this->nextCalendar;
+        return self::$nextCalendar;
     }
 
     /**

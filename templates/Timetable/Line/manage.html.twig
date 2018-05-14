@@ -3,7 +3,7 @@
 {% extends "Default/template.html.twig" %}
 
 {% form_theme form
-    'Timetable/Line/line_course_collection.html.twig'
+    'Timetable/Line/line_activity_collection.html.twig'
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
     '@HillrangeForm/FormTheme/bootstrap.html.twig'
 %}
@@ -60,14 +60,14 @@
                         {% include '@HillrangeForm/Script/collection_message.html.twig' %}
                         <div class="row row-header">
                             <div class="col-8 card-header">
-                                {{ form.courses.vars.label|trans }}
+                                {{ form.activities.vars.label|trans }}
                             </div>
                             <div class="col-4 card-header text-center">
                                 {{ 'actions'|trans({}, 'home') }}
                             </div>
                         </div>
-                        {{ collection_widget(form.courses, 0, 0) }}
-                        {{ form_errors(form.courses) }}
+                        {{ collection_widget(form.activities, 0, 0) }}
+                        {{ form_errors(form.activities) }}
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ collections_manage(form, ['courses'])|raw }}
+    {{ collections_manage(form, ['activities'])|raw }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {% set route = 'line_manage' %}
     {% include 'Script/monitorForm.html.twig' %}

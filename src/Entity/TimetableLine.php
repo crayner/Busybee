@@ -132,5 +132,23 @@ class TimetableLine extends TimetableLineExtn implements UserTrackInterface
         return $this;
     }
 
+    /**
+     * addActivity
+     *
+     * @param Activity|null $activity
+     * @return TimetableLine
+     */
+    public function addActivity(?Activity $activity, bool $add = true): TimetableLine
+    {
+        if (empty($activity) || $this->getActivities()->contains($activity))
+            return $this;
 
+        if (! ($activity instanceof FaceToFace || $activity instanceof Roll))
+            throw new \TypeError('The activity for the line must be a class (face to face) or roll.  External activities must not be used here.');
+
+        if ($add)
+            $activity->setLine($this, false);
+
+        return $this;
+    }
 }

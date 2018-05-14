@@ -9,7 +9,7 @@
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
     {% if is_granted('ROLE_SYSTEM_ADMIN') %}
-        {% set h3Content = addButton({windowOpen: {route: path('activity_edit', {id: 'Add', activityType: 'roll'})}}) %}
+        {% set h3Content = addButton({windowOpen: {route: path('roll_edit', {id: 'Add'})}}) %}
     {% endif %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.roll.list.title', name: {'%{calendar}': pagination.currentCalendar.name}, transDomain: 'School', panelParagraph: 'school.roll.list.help'} %}
     <div class="container-fluid">
@@ -39,7 +39,7 @@
 
                 </div>
                 <div class="col-3 form-inline text-center">
-                    {{ editButton({title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('activity_edit', {id: roll.id, activityType: 'roll'})}, style: ''})|raw }}
+                    {{ editButton({title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}, style: ''})|raw }}
                 </div>
             </div>
         {% endfor %}

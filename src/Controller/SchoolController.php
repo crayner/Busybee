@@ -6,7 +6,7 @@ use App\Pagination\ClassPagination;
 use App\Pagination\CoursePagination;
 use App\Pagination\ExternalActivityPagination;
 use App\Pagination\RollPagination;
-use App\School\Form\ActivityType;
+use App\School\Form\RollType;
 use App\School\Form\CourseType;
 use App\School\Form\DaysTimesType;
 use App\School\Form\ExternalActivityType;
@@ -152,19 +152,19 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/activity/{id}/edit/{activityType}/{closeWindow}", name="activity_edit")
+     * @Route("/school/roll/{id}/edit/{closeWindow}", name="roll_edit")
      * @IsGranted("ROLE_REGISTRAR")
      * @param Request $request
      * @param string $id
-     * @param $activityType
      * @param ActivityManager $activityManager
+     * @param null $closeWindow
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function activityEdit(Request $request, $id = 'Add', $activityType, ActivityManager $activityManager, $closeWindow = null)
+    public function rollEdit(Request $request, $id = 'Add', ActivityManager $activityManager, string $closeWindow = null)
     {
-        $activity = $activityManager->setActivityType($activityType)->findActivity($id);
+        $activity = $activityManager->setActivityType('roll')->findActivity($id);
 
-        $form = $this->createForm(ActivityType::class, $activity);
+        $form = $this->createForm(RollType::class, $activity);
     
         $form->handleRequest($request);
     
@@ -174,34 +174,64 @@ class SchoolController extends Controller
             $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
-                return $this->redirectToRoute('activity_edit', ['id' => $activity->getId(), 'activityType' => $activityType, 'closeWindow' => $closeWindow]);
+                return $this->redirectToRoute('roll_edit', ['id' => $activity->getId(),  'closeWindow' => $closeWindow]);
         }
     
         return $this->render('School/activity_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'activity_type' => $activityType,
+                'fullForm' => $form,
+                'tabManager' => $activityManager,
             ]
         );
     }
 
     /**
-     * @Route("/school/face_to_face/{id}/{course_id}/edit/{closeWindow}", name="face_to_face_edit")
+     * activityReturn
+     *
+     * @param $id
+     * @param ActivityManager $activityManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/activity/{id}/return/{closeWindow}", name="activity_return")
+     */
+    public function activityReturn($id, string $closeWindow = null, ActivityManager $activityManager)
+    {
+        $activityManager->setActivityType('activity')->findActivity($id);
+
+        switch ($activityManager->getActivityType())
+        {
+            case 'class':
+                return $this->redirectToRoute('course_edit', ['id' => $activityManager->getActivity()->getCourse()->getId(), '_fragment' => 'classlist', 'closeWindow' => $closeWindow]);
+                break;
+            case 'roll':
+                return $this->redirectToRoute('roll_edit', ['id' => $id]);
+                break;
+            case 'external':
+                return $this->redirectToRoute('external_activity_edit', ['id' => $id]);
+            default:
+                throw new \TypeError('000 The Activity type could not be determined.');
+        }
+    }
+
+    /**
+     * @Route("/school/face_to_face/{id}/course/{course_id}/edit/{closeWindow}", name="face_to_face_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
      * @param string $id
-     * @param $course_id
+     * @param string $course_id
+     * @param null $closeWindow
      * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id, $closeWindow = null, ActivityManager $activityManager)
+    public function faceToFaceEdit(Request $request, $id = 'Add', $course_id = 'ignore', string $closeWindow = null, ActivityManager $activityManager)
     {
         $activityManager->setActivityType('class');
 
         $face = $activityManager->findActivity($id);
+        if ($id === 'Add')
+            $face->setCourse($activityManager->findCourse($course_id));
 
-        if ($course_id === '__course__')
-            $course_id = $face->getCourse()->getId();
+        $course_id = $face->getCourse()->getId();
 
         $form = $this->createForm(FaceToFaceType::class, $face);
 
@@ -217,16 +247,15 @@ class SchoolController extends Controller
             $activityManager->getEntityManager()->flush();
 
             if ($id === 'Add')
-                return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'course_id' => $course_id, 'closeWindow' => $closeWindow]);
+                return $this->redirectToRoute('face_to_face_edit', ['id' => $face->getId(), 'closeWindow' => $closeWindow]);
 
             $face->getStudents(true);
             $form = $this->createForm(FaceToFaceType::class, $face);
         }
 
-        return $this->render('School/class_edit.html.twig',
+        return $this->render('School/activity_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'course_id' => $course_id,
                 'tabManager' => $activityManager,
                 'fullForm' => $form,
             ]
@@ -395,30 +424,43 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/class/{id}/tutor/{cid}/manage/", name="class_tutor_manage")
+     * @Route("/activity/{id}/tutor/{cid}/manage/", name="activity_tutor_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param string $cid
      * @param ActivityManager $activityManager
      * @param \Twig_Environment $twig
      * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function classTutorManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    public function activityTutorManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
     {
         //if cid != ignore, then remove cid from collection
-        $activity = $activityManager->setActivityType('class')->findActivity($id);
+        $activity = $activityManager->setActivityType('activity')->findActivity($id);
 
         if (intval($cid) > 0)
             $activityManager->removeTutor($cid);
 
-        $form = $this->createForm(FaceToFaceType::class, $activity);
+        switch ($activityManager->getActivityType()) {
+            case 'class':
+                $form = $this->createForm(FaceToFaceType::class, $activity);
+                break;
+            case 'roll':
+                $form = $this->createForm(RollType::class, $activity);
+                break;
+            case 'external':
+                $form = $this->createForm(ExternalActivityType::class, $activity);
+                break;
+        }
 
         return new JsonResponse(
             [
                 'content' => $this->renderView("School/external_activity_collection.html.twig",
                     [
                         'collection' => $form->get('tutors')->createView(),
-                        'route' => 'class_tutor_manage',
+                        'route' => 'activity_tutor_manage',
                         'contentTarget' => 'tutorCollection',
                     ]
                 ),
@@ -430,27 +472,39 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/class/{id}/student{cid}/manage/", name="class_student_manage")
+     * @Route("/activity/{id}/student/{cid}/manage/", name="activity_student_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param string $cid
      * @param ActivityManager $activityManager
      * @param \Twig_Environment $twig
      * @return JsonResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function classStudentManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    public function activityStudentManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
     {
         //if cid != ignore, then remove cid from collection
-        $activity = $activityManager->setActivityType('class')->findActivity($id);
+        $activity = $activityManager->setActivityType('activity')->findActivity($id);
 
         if (intval($cid) > 0)
             $activityManager->removeStudent($cid);
 
-        $form = $this->createForm(FaceToFaceType::class, $activity);
-
+        switch ($activityManager->getActivityType()) {
+            case 'class':
+                $form = $this->createForm(FaceToFaceType::class, $activity);
+                break;
+            case 'roll':
+                $form = $this->createForm(RollType::class, $activity);
+                break;
+            case 'external':
+                $form = $this->createForm(ExternalActivityType::class, $activity);
+                break;
+        }
         return new JsonResponse(
             [
-                'content' => $this->renderView("School/external_activity_collection.html.twig",
+                'content' => $this->renderView("School/activity_collection.html.twig",
                     [
                         'collection' => $form->get('students')->createView(),
                         'route' => 'class_student_manage',

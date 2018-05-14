@@ -4,6 +4,7 @@ namespace App\Timetable\Util;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
+use App\Entity\Activity;
 use App\Entity\Calendar;
 use App\Entity\Course;
 use App\Entity\TimetableLine;
@@ -98,20 +99,23 @@ class LineManager
     }
 
     /**
+     * removeActivity
+     *
      * @param $id
      */
-    public function removeCourse($id)
+    public function removeActivity($id)
     {
         if (intval($id) == 0)
             return ;
 
-        $course = $this->getEntityManager()->getRepository(Course::class)->find($id);
+        $course = $this->getEntityManager()->getRepository(Activity::class)->find($id);
 
-        if ($course instanceof Course)
+        if ($course instanceof Activity)
         {
-            $this->line->removeCourse($course);
+            $this->line->removeActivity($course);
 
             $this->getEntityManager()->persist($course);
+            $this->getEntityManager()->persist($this->getLine());
             $this->getEntityManager()->flush();
             $this->getMessageManager()->add('success', 'line.course.remove.success', ['%{name}' => $course->getName()]);
             return ;

@@ -1,6 +1,7 @@
 <?php
 namespace App\School\Form;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
 use App\Entity\CalendarGrade;
@@ -47,8 +48,6 @@ class ExternalActivityType extends AbstractType
         $grades = $options['data']->getCalendarGrades()->toArray();
         foreach($grades as $q=>$w)
             $grades[$q] = $w->getId();
-
-        $currentCalendar = $this->studentManager->getCalendarManager()->getCurrentCalendar();
 
 		$builder
             ->add('name', TextType::class,
@@ -123,11 +122,11 @@ class ExternalActivityType extends AbstractType
                     'attr' => [
                         'class' => 'form-control-sm',
                     ],
-                    'query_builder' => function (EntityRepository $er) use ($currentCalendar) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                             ->leftJoin('t.calendar', 'c')
-                            ->where('c.id = :calendar_id')
-                            ->setParameter('calendar_id', $currentCalendar->getId())
+                            ->where('c = :calendar')
+                            ->setParameter('calendar', CalendarManager::getCurrentCalendar())
                             ->orderBy('t.firstDay', 'ASC')
                         ;
                     },
@@ -145,11 +144,11 @@ class ExternalActivityType extends AbstractType
                     'attr' => [
                         'class' => 'form-control-sm',
                     ],
-                    'query_builder' => function (EntityRepository $er) use ($currentCalendar) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('g')
                             ->leftJoin('g.calendar', 'c')
-                            ->where('c.id = :calendar_id')
-                            ->setParameter('calendar_id', $currentCalendar->getId())
+                            ->where('c = :calendar')
+                            ->setParameter('calendar', CalendarManager::getCurrentCalendar())
                             ->orderBy('g.sequence', 'ASC')
                             ;
                     },
