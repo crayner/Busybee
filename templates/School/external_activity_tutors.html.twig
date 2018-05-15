@@ -1,5 +1,11 @@
 {% trans_default_domain 'School' %}
 
+{% if app.request.get('closeWindow')|default('') is not same as('') %}
+    {% set h3Content = closeButton() %}
+{% else %}
+    {% set h3Content = returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id'), hint: 'external', closeWindow: app.request.get('closeWindow')|default('')  })}}) %}
+{% endif %}
+{% set h3Content = h3Content ~ saveButton() %}
 {% include 'Page/panelStart.html.twig' with {header: 'activity.external.tutors.tab', panelParagraph: 'school.external_activity.manage.title', panelParams: {'%name%': form.vars.value.fullName}, transDomain: 'School'} %}
 <div class="row">
     <div class="col-12 card">

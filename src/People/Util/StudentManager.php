@@ -27,36 +27,4 @@ class StudentManager extends PersonManager
     {
         parent::__construct($entityManager, $addressManager, $settingManager, $userManager, $calendarManager);
     }
-
-    /**
-     * @param Collection|null $grades
-     * @return QueryBuilder
-     */
-    public function generateStudentList(?Collection $grades): QueryBuilder
-    {
-        if ($grades->count() == 0)
-        {
-            $result = $this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
-                ->leftJoin('s.calendarGrades', 'g')
-                ->leftJoin('g.calendar', 'c')
-                ->where('c.id = :calendar')
-                ->setParameter('calendar', $this->getCurrentCalendar())
-                ->orderBy('s.surname')
-                ->addOrderBy('s.firstName');
-
-            return $result;
-        }
-
-        $x = [];
-        foreach($grades->getIterator() as $grade)
-            $x[] = $grade->getId();
-
-        $result = $this->getEntityManager()->getRepository(Student::class)->createQueryBuilder('s')
-            ->leftJoin('s.calendarGrades', 'g')
-            ->where('g.id IN (:grades)')
-            ->setParameter('grades', $x, Connection::PARAM_STR_ARRAY)
-            ->orderBy('s.surname')
-            ->addOrderBy('s.firstName');
-        return $result;
-    }
 }

@@ -147,6 +147,11 @@ external_activity_slots:
     include: School/external_activity_slots.html.twig
     message: activitySlotMessage
     translation: School
+external_activity_payment:
+    label: activity.external.payment.tab
+    include: School/external_activity_payment.html.twig
+    message: activityPaymentMessage
+    translation: School
 ");
                 break;
             case 'class':

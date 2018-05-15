@@ -8,9 +8,7 @@
 
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
-    {% if is_granted('ROLE_SYSTEM_ADMIN') %}
-        {% set h3Content = addButton({windowOpen: {route: path('external_activity_edit', {id: 'Add'})}}) %}
-    {% endif %}
+    {% set h3Content = addButton({windowOpen: {route: path('external_activity_edit', {id: 'Add'})}}) %}
     {% include 'Page/panelStart.html.twig' with {header: 'school.external_activity.list.title', transDomain: 'School', panelParagraph: 'school.external_activity.list.help'} %}
     <div class="container-fluid">
         <div class="row row-header text-center">

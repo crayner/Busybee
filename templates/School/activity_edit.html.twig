@@ -3,6 +3,7 @@
 {% trans_default_domain 'School' %}
 
 {% form_theme form
+    'School/activity_slot.html.twig'
     'School/activity_tutor.html.twig'
     'School/activity_student.html.twig'
     '@HillrangeForm/FormTheme/jquery.collection.html.twig'
@@ -24,10 +25,13 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
-    {{ collections_manage(form, ['students','tutors'])|raw }}
+    {{ collections_manage(form, ['students','tutors', 'slots'])|raw }}
     {% if tabManager.activityType is same as('class') %}
         {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {closeWindow: app.request.get('closeWindow')}} %}
     {% elseif tabManager.activityType is same as('roll') %}
         {% include 'Script/formTabSubmitScript.html.twig' with {route: 'roll_edit', options: {closeWindow: app.request.get('closeWindow')}} %}
+    {% elseif tabManager.activityType is same as('external') %}
+        {% include 'Script/formTabSubmitScript.html.twig' with {route: 'external_activity_edit', options: {closeWindow: app.request.get('closeWindow')}} %}
+        {{ collection_script(form.activitySlots) }}
     {% endif %}
 {% endblock %}

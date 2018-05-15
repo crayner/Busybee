@@ -81,6 +81,10 @@ school:
             students.title: Manage Students
             remove.title: Remove Activity
             tutors.label: Class Tutors
+        external:
+            edit:
+                title: External Activities
+                description: ''
         edit:
             title: 'Manage Activity %name%'
             description: ''
@@ -285,6 +289,7 @@ activity:
         students.tab: Students
         tutors.tab: Tutors
         slots.tab: Time Slots
+        payment.tab: Payment/Desc
         slot:
             day:
                 label: Day of the Week

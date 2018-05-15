@@ -192,11 +192,14 @@ class SchoolController extends Controller
      * @param $id
      * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/activity/{id}/return/{closeWindow}", name="activity_return")
+     * @Route("/activity/{id}/return/{hint}/{closeWindow}", name="activity_return")
      */
-    public function activityReturn($id, string $closeWindow = null, ActivityManager $activityManager)
+    public function activityReturn($id, string $hint = 'activity', string $closeWindow = null, ActivityManager $activityManager)
     {
-        $activityManager->setActivityType('activity')->findActivity($id);
+        if ($hint !== 'activity')
+            $activityManager->setActivityType($hint)->findActivity($id);
+        else
+            $activityManager->setActivityType($hint);
 
         switch ($activityManager->getActivityType())
         {
@@ -207,7 +210,7 @@ class SchoolController extends Controller
                 return $this->redirectToRoute('roll_edit', ['id' => $id]);
                 break;
             case 'external':
-                return $this->redirectToRoute('external_activity_edit', ['id' => $id]);
+                return $this->redirectToRoute('external_activity_list');
             default:
                 throw new \TypeError('000 The Activity type could not be determined.');
         }
@@ -283,15 +286,14 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/school/activity/external/{id}/edit/{refresh}", name="external_activity_edit")
+     * @Route("/school/activity/{id}/external/edit/{refresh}/{closeWindow}", name="external_activity_edit")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param Request $request
-     * @param int|string $id
-     * @param int $refresh
+     * @param $id
      * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function externalActivityEdit(Request $request, $id = 'Add', $refresh = 0, ActivityManager $activityManager)
+    public function externalActivityEdit(Request $request, $id = 'Add', $refresh = false, string $closeWindow = null, ActivityManager $activityManager)
     {
         $activity = $activityManager->setActivityType('external')->findActivity($id);
 
@@ -306,13 +308,13 @@ class SchoolController extends Controller
                 $activityManager->getEntityManager()->flush();
 
                 if ($id === 'Add')
-                    return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $activity->getId()]);
+                    return $this->forward(SchoolController::class . '::externalActivityEdit', ['id' => $activity->getId(), 'closeWindow' => $closeWindow]);
             }
         }
-        return $this->render('School/external_activity_edit.html.twig',
+        return $this->render('School/activity_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'manager' => $activityManager,
+                'tabManager' => $activityManager,
                 'fullForm' => $form,
             ]
         );

@@ -5,7 +5,6 @@ use App\Core\Type\SettingChoiceType;
 use App\Entity\ActivityStudent;
 use App\Entity\ExternalActivity;
 use App\Entity\Student;
-use App\People\Util\StudentManager;
 use Hillrange\Form\Type\EntityType;
 use Hillrange\Form\Type\HiddenEntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,14 +22,16 @@ class ExternalActivityStudentsType extends AbstractType
 	    $builder
             ->add('student', EntityType::class,
                 [
-                    'label' => 'activity.student.external.student.label',
-                    'placeholder' => 'activity.student.external.student.placeholder',
-                    'choice_label' => 'fullName',
                     'class' => Student::class,
+                    'choice_label' => 'fullName',
+                    'choice_value' => 'id',
+                    'label' => 'activity_student.student.label',
+                    'help' => 'activity_student.student.help',
+                    'placeholder' => 'activity_student.student.placeholder',
+                    'choices' => $options['student_list'],
                     'attr' => [
                         'class' => 'form-control-sm',
                     ],
-                    'query_builder' => $options['student_list'],
                 ]
             )
             ->add('externalStatus', SettingChoiceType::class,
@@ -42,13 +43,6 @@ class ExternalActivityStudentsType extends AbstractType
                     'required' => false,
                     'attr' => [
                         'class' => 'form-control-sm',
-                    ],
-                ]
-            )
-            ->add('id', HiddenType::class,
-                [
-                    'attr' => [
-                        'class' => 'removeElement',
                     ],
                 ]
             )

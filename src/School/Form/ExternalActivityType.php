@@ -8,6 +8,7 @@ use App\Entity\CalendarGrade;
 use App\Entity\Term;
 use App\People\Util\StudentManager;
 use App\School\Form\Subscriber\ActivitySubscriber;
+use App\School\Util\ActivityManager;
 use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Hillrange\Form\Type\CollectionType;
@@ -22,9 +23,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ExternalActivityType extends AbstractType
 {
     /**
-     * @var StudentManager
+     * @var ActivityManager
      */
-    private $studentManager;
+    private $activityManager;
 
     /**
      * @var ActivitySubscriber
@@ -34,9 +35,9 @@ class ExternalActivityType extends AbstractType
      * ExternalActivityType constructor.
      * @param StudentManager $studentManager
      */
-    public function __construct(StudentManager $studentManager, ActivitySubscriber $activitySubscriber)
+    public function __construct(ActivityManager $activityManager, ActivitySubscriber $activitySubscriber)
     {
-        $this->studentManager = $studentManager;
+        $this->activityManager = $activityManager;
         $this->activitySubscriber = $activitySubscriber;
     }
 
@@ -69,9 +70,10 @@ class ExternalActivityType extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => ExternalActivityStudentsType::class,
                     'entry_options' => [
-                        'student_list' => $this->studentManager->generateStudentList($options['data']->getCalendarGrades()),
+                        'student_list' => $this->activityManager->getPossibleStudents($options['data']),
                     ],
                     'route' => 'external_activity_student_manage',
+                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('provider', SettingChoiceType::class,
@@ -90,6 +92,7 @@ class ExternalActivityType extends AbstractType
                     'allow_down' => true,
                     'sort_manage' => true,
                     'route' => 'external_activity_tutor_manage',
+                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('registration', ToggleType::class,
