@@ -15,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.32';
+	const VERSION = '0.0.33';
 
 	/**
 	 * @var SettingManager

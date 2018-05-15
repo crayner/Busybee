@@ -6,6 +6,7 @@ use App\Repository\TranslateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -59,9 +60,9 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
     public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
     {
         if (is_array($number))
-            return $this->multipleTransChoice($id, $number, $parameters, $domain, $locale);
-
-        $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
+            $trans = $this->multipleTransChoice($id, $number, $parameters, $domain, $locale);
+        else
+            $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
 
         return $this->getInstituteTranslation($trans, $locale);
     }
@@ -172,16 +173,22 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
     private $settingManager;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * TranslationManager constructor.
      * @param TranslatorInterface $translator
      * @param TranslateRepository $translateRepository
      */
-    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, SettingManager $settingManager)
+    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, SettingManager $settingManager, LoggerInterface $logger)
     {
         $this->translator = $translator;
         $this->translateRepository = $entityManager->getRepository(Translate::class);
         $this->settingManager = $settingManager;
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
 
     /**
@@ -275,7 +282,12 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
      */
     private function multipleTransChoice($id, $number, array $parameters = [], $domain = null, $locale = null): ?string
     {
-        $message = $this->getCatalogue($locale)->get($id, $domain);
+        $catalogue = $this->getCatalogue($locale);
+
+        if (! $catalogue->has($id, $domain))
+            return $id;
+
+        $message = $catalogue->get($id, $domain);
 
         $messages = explode("\n", $message);
         $message = reset($messages);
@@ -286,6 +298,9 @@ class TranslationManager implements TranslatorInterface, TranslatorBagInterface
 
         if (empty($last))
             array_pop($messages);
+
+        if (count($messages) !== count($number))
+            $this->logger->warning(sprintf('The number of options "%u" in the translation choice does not match the message string count "%u".', count($number), count($messages)), array('numbers' => count($number), 'messages' => $messages, 'id' => $id, 'domain' => $domain, 'locale' => $catalogue->getLocale() ));
 
         $translations = [];
         foreach($messages as $q=>$item)
