@@ -4,9 +4,7 @@
 {% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
 
-{#{% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.activity.' ~ tabManager.activityType ~ '.manage.help', panelParams: {'%{possible}': tabManager.possibleStudentCount, '%{allocated}': tabManager.allocatedStudentCount} }} %}
-#}
-{% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.activity.' ~ tabManager.activityType ~ '.manage.help', panelParams: {transChoice: [tabManager.possibleStudentCount, tabManager.allocatedStudentCount]} } %}
+    {% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.activity.' ~ tabManager.activityType ~ '.manage.help', panelParams: {transChoice: [tabManager.possibleStudentCount, tabManager.allocatedStudentCount]} } %}
     <div class="row row-header text-center">
         <div class="col-6 card">
             {{ 'activity.student.name.label'|trans }}
