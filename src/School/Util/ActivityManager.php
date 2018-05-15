@@ -177,7 +177,7 @@ class_details:
     translation: School
 class_students:
     label: class.students.tab
-    include: School/class_students.html.twig
+    include: School/activity_students.html.twig
     message: classStudentsMessage
     translation: School
 ");
@@ -240,9 +240,10 @@ class_students:
                     return $this->setActivityType('external')->findActivity($id);
                 if ($activity instanceof Roll)
                     return $this->setActivityType('roll')->findActivity($id);
+                throw new Exception('000 Activity type is not defined. ' . $this->getActivityType() );
                 break;
             default:
-                throw new Exception('Activity type is not defined. ' . $this->getActivityType() );
+                throw new Exception('000 Activity type is not defined. ' . $this->getActivityType() );
         }
 
         $this->setActivity($activity);

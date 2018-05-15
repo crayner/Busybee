@@ -87,9 +87,10 @@ class RollType extends AbstractType
                     'entry_type' => ClassStudentType::class,
                     'required' => false,
                     'entry_options' => [
-                        'student_list' => $this->activityManager->generatePossibleStudents($options['data']),
+                        'student_list' => $this->activityManager->getPossibleStudents($options['data']),
                     ],
                     'route' => 'activity_student_manage',
+                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('tutors', CollectionType::class,

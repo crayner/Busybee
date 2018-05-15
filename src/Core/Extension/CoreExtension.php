@@ -33,6 +33,7 @@ class CoreExtension extends AbstractExtension
             new \Twig_SimpleFunction('callManagerMethod', array($this->twigManager, 'callManagerMethod')),
             new \Twig_SimpleFunction('addScript', array($this->scriptManager, 'addScript')),
             new \Twig_SimpleFunction('getScripts', array($this->scriptManager, 'getScripts')),
+            new \Twig_SimpleFunction('isInstanceof', array($this, 'isInstanceof')),
 		);
 	}
 
@@ -43,4 +44,16 @@ class CoreExtension extends AbstractExtension
 	{
 		return 'core_extension';
 	}
+
+    /**
+     * isInstanceof
+     *
+     * @param $var
+     * @param string $instance
+     * @return bool
+     */
+    public function isInstanceof($var, string $instance)
+    {
+        return ($var instanceof $instance);
+    }
 }

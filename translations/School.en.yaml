@@ -85,6 +85,17 @@ school:
             edit:
                 title: External Activities
                 description: ''
+        roll:
+            edit:
+                title: 'Attendance !!!roll_name!!! Manage'
+                description: ''
+            manage:
+                title: 'Manage %name%'
+                help: |
+                    Possible students are limited to the selected !!!form_grade!!! in the course to which this activity belongs. You currently %1% of %0%. Reportable will be set to true if the activity reportable is true.
+                    {0}no possible students|{1}one possible student|]1,Inf[%count% possible students
+                    {0}have no students allocated|{1}have one student allocated|]1,Inf[have %count% students allocated
+            tutors.label: Class Tutors
         edit:
             title: 'Manage Activity %name%'
             description: ''
@@ -316,6 +327,7 @@ activity_tutor:
         label: Tutor
         placeholder: Select Tutor
         help: ''
+activity_student.student.placeholder: Select Student
 external_activity:
     name:
         label: Activity

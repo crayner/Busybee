@@ -16,6 +16,8 @@ use Hillrange\Form\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClassStudentType extends AbstractType
@@ -30,6 +32,7 @@ class ClassStudentType extends AbstractType
                 [
                     'label' => 'activity_student.class_reportable.label',
                     'help' => 'activity_student.class_reportable.help',
+                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('activity', HiddenEntityType::class,
@@ -46,6 +49,9 @@ class ClassStudentType extends AbstractType
                     'help' => 'activity_student.student.help',
                     'placeholder' => 'activity_student.student.placeholder',
                     'choices' => $options['student_list'],
+                    'attr' => [
+                        'class' => 'form-control-sm',
+                    ],
                 ]
             )
             ->add('id', HiddenType::class,
@@ -83,6 +89,4 @@ class ClassStudentType extends AbstractType
 	{
 		return 'class_student';
 	}
-
-
 }

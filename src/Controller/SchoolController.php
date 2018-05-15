@@ -196,8 +196,8 @@ class SchoolController extends Controller
      */
     public function activityReturn($id, string $hint = 'activity', string $closeWindow = null, ActivityManager $activityManager)
     {
-        if ($hint !== 'activity')
-            $activityManager->setActivityType($hint)->findActivity($id);
+        if ($hint === 'activity')
+            $activityManager->setActivityType('activity')->findActivity($id);
         else
             $activityManager->setActivityType($hint);
 
@@ -207,12 +207,42 @@ class SchoolController extends Controller
                 return $this->redirectToRoute('course_edit', ['id' => $activityManager->getActivity()->getCourse()->getId(), '_fragment' => 'classlist', 'closeWindow' => $closeWindow]);
                 break;
             case 'roll':
-                return $this->redirectToRoute('roll_edit', ['id' => $id]);
+                return $this->redirectToRoute('roll_list');
                 break;
             case 'external':
                 return $this->redirectToRoute('external_activity_list');
             default:
-                throw new \TypeError('000 The Activity type could not be determined.');
+                throw new \TypeError(sprintf('000 The Activity type could not be determined. %s', $activityManager->getActivityType()));
+        }
+    }
+
+    /**
+     * activityReturn
+     *
+     * @param $id
+     * @param ActivityManager $activityManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/activity/{id}/return/{hint}/{closeWindow}", name="activity_edit")
+     */
+    public function activityEdit($id, string $hint = 'activity', string $closeWindow = null, ActivityManager $activityManager)
+    {
+        if ($hint === 'activity')
+            $activityManager->setActivityType('activity')->findActivity($id);
+        else
+            $activityManager->setActivityType($hint);
+
+        switch ($activityManager->getActivityType())
+        {
+            case 'class':
+                return $this->redirectToRoute('face_to_face_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow]);
+                break;
+            case 'roll':
+                return $this->redirectToRoute('roll_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow]);
+                break;
+            case 'external':
+                return $this->redirectToRoute('external_activity_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow]);
+            default:
+                throw new \TypeError(sprintf('000 The Activity type could not be determined. %s', $activityManager->getActivityType()));
         }
     }
 

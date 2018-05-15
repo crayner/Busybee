@@ -8,12 +8,17 @@
         {% set h3Content = '<div class="collection-actions">' %}
         {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
         {% set h3Content = h3Content ~ '</div>' %}
-        <div class="row">
+        <div class="row row-hover">
             <div class="col-6 card">
                 {{ form_widget(form.student, {value: transformData(form.student.vars)}) }}
             </div>
-            <div class="col-3 card">
-                {{ form_widget(form.classReportable) }}
+            <div class="col-3">
+                {% if isInstanceof(form.parent.vars.value, 'App\Entity\Class') %}
+                    {{ form_widget(form.classReportable) }}
+                {% else %}
+                    <input type="hidden" id="{{ form.classReportable.vars.id }}" name="{{ form.classReportable.vars.full_name }}" value="1" />
+                    {% do form.classReportable.setRendered %}
+                {% endif %}
             </div>
             <div class="col-3 card">
                 {{ h3Content|raw }}
@@ -33,7 +38,7 @@
         {% set h3Content = '<div class="collection-actions">' %}
         {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
         {% set h3Content = h3Content ~ '</div>' %}
-        <div class="row">
+        <div class="row row-striped">
             <div class="col-4 card">
                 {{ form_widget(form.student, {value: transformData(form.student.vars.data)}) }}
             </div>
