@@ -50,14 +50,14 @@ class TutorActivity
     }
 
     /**
-     * @var Activity
+     * @var TimetablePeriodActivity
      */
     private $activity;
 
     /**
      * @return TimetablePeriodActivity
      */
-    public function getActivity(): Activity
+    public function getActivity(): TimetablePeriodActivity
     {
         return $this->activity;
     }
@@ -70,5 +70,15 @@ class TutorActivity
     {
         $this->activity = $activity;
         return $this;
+    }
+
+    /**
+     * __toString
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getActivity()->getFullName() . ' ' . $this->getTutor()->getFullName();
     }
 }

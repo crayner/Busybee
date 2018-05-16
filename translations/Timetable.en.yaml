@@ -150,8 +150,21 @@ period:
             remove:
                 button: Remove Activity from Period.
                 success: 'The activity "%name%" was removed from the period.'
+            report:
+                availableStaff: 'Available Staff (%count%)'
+                availableSpace: 'Available Spaces (Capacity) (%count%)'
+                unallocatedStudents: 'Students not assigned to Period'
         line.added: '{0} No activities|{1}The line added one activity to the period.|]1,Inf[The line added %count% activities to the period.'
     status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'
+    plan:
+        header: 'Period %day%'
+        panelparagraph: '%start% - %end%.  You can add a line of activities to this period by selecting a line from the select list above.  Any duplicates are ignored.'
+        reportparagraph: '%start% - %end%'
+    report:
+        student.name: '%{name}'
+        help: 'This report is based on the selections made on the timetable builder page.  The report is limited to the grades selected in the users selected calendar. These details can be change on the timetable page and the current calendar can be selected on the user detail page.'
+        title: 'Period Activity Report'
+        grade.header: '{0}No !!!form_grade!!!|]0,Inf[!!!form_grade!!!: %{grade}'
 report:
     students:
         missing: '{0}|{1}There is one student not allocated to this period!|]1,Inf[There are %count% students not allocated to this period!'
@@ -159,6 +172,9 @@ report:
     grade.name: '!!!form_grade!!! %grade%'
     student.details: 'Student: %identifier% - %name%'
     activity:
-        space.missing: 'The activity "%name%" does not have a space allocated!'
+        space:
+            missing: 'The activity "%name%" does not have a space allocated!'
+            small: 'The space "%{space}" for activity "%{name}" is too small for "%{count}" students!'
         tutor.missing: 'The activity "%name%" does not have a tutor allocated!'
     period.ok: No problems have been detected in this period.
+    space.duplicated: 'The space "%{name}" is duplicated in activity "%{activity}"'

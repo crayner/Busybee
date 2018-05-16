@@ -120,6 +120,7 @@ class TimetableReportManager extends ReportManager
             ->orderBy('s.name', 'ASC')
             ->getQuery()
             ->getResult();
+
         $spaces = new ArrayCollection($spaces);
 
         $tutors = $this->getEntityManager()->getRepository(Staff::class)->findBy([], ['surname' => 'ASC', 'firstName' => 'ASC']);
@@ -165,5 +166,16 @@ class TimetableReportManager extends ReportManager
     {
         $this->spaceTypes = $spaceTypes;
         return $this;
+    }
+
+    /**
+     * @param TimetablePeriod $period
+     * @return PeriodReportManager
+     */
+    public function getFullPeriodReport(TimetablePeriod $period): PeriodReportManager
+    {
+        $this->addPeriod($period);
+
+        return $this->getPeriods()->get($period->getId());
     }
 }

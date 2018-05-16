@@ -36,7 +36,7 @@
                     {{ roll.spaceName }}
                 </div>
                 <div class="col-3 form-inline small">
-
+                    {{ 'roll.students.count'|transchoice(roll.entity.students|length) }}
                 </div>
                 <div class="col-3 form-inline text-center">
                     {{ editButton({title: 'school.roll.edit.title', transDomain: 'School', windowOpen: {route: path('roll_edit', {id: roll.id})}, style: ''})|raw }}

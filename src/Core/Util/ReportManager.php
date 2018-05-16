@@ -83,11 +83,12 @@ abstract class ReportManager implements ReportInterface
     private $refreshReport;
 
     /**
+     * retrieveCache
+     *
      * @param $entity
-     * @param string $reportClass
      * @return ReportInterface
      */
-    public function retrieveCache($entity, string $reportClass): ReportInterface
+    public function retrieveCache($entity): ReportInterface
     {
         $em = $this->getEntityManager();
         $report = $this->loadReport($entity);
@@ -208,6 +209,7 @@ abstract class ReportManager implements ReportInterface
     {
         if (empty($entity))
             $entity = $this->getEntity();
+        $this->setEntity($entity);
         $report = $this->getEntityManager()->getRepository(ReportCache::class)->findOneBy(['classId' => $entity->getId(), 'className' => get_class($entity)]);
         if ($report)
             $this->setReportId($report->getId());

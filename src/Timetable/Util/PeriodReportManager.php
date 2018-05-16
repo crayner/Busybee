@@ -16,12 +16,14 @@
 
 namespace App\Timetable\Util;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\Space;
 use App\Entity\Student;
 use App\Entity\TimetablePeriodActivity;
+use App\Timetable\Organism\SpaceActivity;
 use App\Timetable\Organism\TutorActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -313,9 +315,7 @@ class PeriodReportManager extends ReportManager
      */
     private function getGradeID(?CalendarGrade $grade): int
     {
-        if (empty($grade))
-            return 0;
-        return intval($grade->getId());
+        return $grade instanceof CalendarGrade ? $grade->getId() : 0 ;
     }
 
     /**
@@ -377,7 +377,7 @@ class PeriodReportManager extends ReportManager
      * @param CalendarGrade|null $grade
      * @return PeriodReportManager
      */
-    public function addMissingStudent(Student $student, ?CalendarGrade $grade): PeriodReportManager
+    public function addMissingStudent(?Student $student, ?CalendarGrade $grade): PeriodReportManager
     {
         if (empty($student))
             return $this;
@@ -396,10 +396,10 @@ class PeriodReportManager extends ReportManager
     }
 
     /**
-     * @param CalendarGrade|null $grade
+     * @param CalendarGrade $grade
      * @return Collection
      */
-    public function getMissingStudentGrade(?CalendarGrade $grade): Collection
+    public function getMissingStudentGrade(CalendarGrade $grade): Collection
     {
         if (empty($this->missingStudents))
             $this->missingStudents = new ArrayCollection();
@@ -531,7 +531,7 @@ class PeriodReportManager extends ReportManager
                 if (!$this->getAllocatedSpaces()->contains($activity->loadSpace()))
                     $this->allocatedSpaces->add($activity->loadSpace());
                 else
-                    $this->addDuplicateSpace($activity->loadSpace());
+                    $this->addDuplicateSpace(new SpaceActivity($activity->loadSpace(), $activity));
 
         return $this;
     }
@@ -557,10 +557,10 @@ class PeriodReportManager extends ReportManager
     }
 
     /**
-     * @param Space|null $space
+     * @param SpaceActivity|null $space
      * @return PeriodReportManager
      */
-    public function addDuplicateSpace(?Space $space): PeriodReportManager
+    public function addDuplicateSpace(?SpaceActivity $space): PeriodReportManager
     {
         if (empty($space) || $this->getDuplicateSpaces()->contains($space))
             return $this;
@@ -783,17 +783,22 @@ class PeriodReportManager extends ReportManager
     private function writeSpaceReport(): PeriodReportManager
     {
         // Duplicate Spaces
-        if ($this->getDuplicateSpaceCount() > 0)
-        {
-            foreach($this->getDuplicateSpaces()->getIterator() as $space)
-                $this->addMessage('danger', 'report.space.duplicated', ['%name%' => $space->getName()]);
+        if ($this->getDuplicateSpaceCount() > 0) {
+            foreach ($this->getDuplicateSpaces()->getIterator() as $space) {
+                $this->addMessage('danger', 'report.space.duplicated', ['%{name}' => $space->getSpace()->getName(), '%{activity}' => $space->getActivity()->getActivity()->getFullName()]);
+                dump($space);
+            }
         }
 
         // No space allocated.
         foreach($this->getActivities()->getIterator() as $activityReport)
         {
-            if ($activityReport->hasSpace())
+            if ($activityReport->hasSpace()) {
+
+                if ($activityReport->getEntity()->loadSpace()->getCapacity() > 0 && $activityReport->getEntity()->loadSpace()->getCapacity() < $activityReport->getEntity()->getActivity()->getStudents()->count())
+                    $this->addMessage('warning', 'report.activity.space.small', ['%{name}' => $activityReport->getEntity()->getFullName(), '%{space}' => $activityReport->getEntity()->loadSpace()->getFullName(), '%{count}' => $activityReport->getEntity()->getActivity()->getStudents()->count()]);
                 continue;
+            }
             $this->addMessage('warning', 'report.activity.space.missing', ['%name%' => $activityReport->getEntity()->getFullName()]);
         }
 
@@ -837,5 +842,20 @@ class PeriodReportManager extends ReportManager
         if ($this->getStatus() === 'default' && count($this->getMessages()) === 0)
             $this->addMessage('success', 'report.period.ok');
         return $this;
+    }
+
+    /**
+     * getGrade
+     *
+     * @param int $id
+     * @return CalendarGrade
+     */
+    public function getGrade(int $id): CalendarGrade
+    {
+        $grades = $this->getGrades();
+        if (isset($grades[$id]) && $id !== 0)
+            return $grades[$id];
+        $grade = new CalendarGrade();
+        return $grade->setGrade('Empty')->setCalendar(CalendarManager::getCurrentCalendar());
     }
 }

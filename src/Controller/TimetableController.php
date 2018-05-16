@@ -514,6 +514,15 @@ class TimetableController extends Controller
      */
     public function periodReport(int $id, PeriodManager $periodManager)
     {
+        $periodManager->find($id);
+        $report = $periodManager->generateFullPeriodReport();
+
+        return $this->render('Timetable/Period/report.html.twig',
+            [
+                'report' => $report,
+                'manager' => $periodManager,
+            ]
+        );
     }
 
     /**

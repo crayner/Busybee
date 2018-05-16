@@ -1,6 +1,10 @@
 {% trans_default_domain 'School' %}
 {% set h3Content = '' %}
-{% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id')})}}) %}
+{% if app.request.get('closeWindow') is empty %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id')})}}) %}
+{% else %}
+    {% set h3Content = h3Content ~ closeButton() %}
+{% endif %}
 {% set h3Content = h3Content ~ resetButton() %}
 {% set h3Content = h3Content ~ saveButton() %}
 

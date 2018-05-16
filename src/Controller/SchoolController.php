@@ -222,7 +222,7 @@ class SchoolController extends Controller
      * @param $id
      * @param ActivityManager $activityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/activity/{id}/return/{hint}/{closeWindow}", name="activity_edit")
+     * @Route("/activity/{id}/edit/{hint}/{closeWindow}", name="activity_edit")
      */
     public function activityEdit($id, string $hint = 'activity', string $closeWindow = null, ActivityManager $activityManager)
     {

@@ -16,12 +16,14 @@
 
 namespace App\Timetable\Util;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
 use App\Entity\Space;
 use App\Entity\TimetableLine;
 use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PeriodManager
@@ -224,5 +226,53 @@ class PeriodManager
     {
         $this->activity = $activity;
         return $this;
+    }
+
+    /**
+     * @return PeriodReportManager
+     */
+    public function generateFullPeriodReport()
+    {
+        $this->isValidPeriod(true);
+        $report = new TimetableReportManager();
+        $report->setEntityManager($this->getEntityManager())->retrieveCache($this->getPeriod()->getColumn()->getTimetable());
+        $this->getTimetableManager()->setTimetable($this->getPeriod()->getColumn()->getTimetable());
+        if ($report)
+            $report
+                ->setGrades($this->getGrades())
+                ->setCalendar(CalendarManager::getCurrentCalendar())
+                ->setSpaceTypes($this->getTimetableManager()->getSettingManager()->get('space.type.teaching_space'))
+            ;
+
+        $periodReport = $report->getFullPeriodReport($this->getPeriod());
+
+        $periodReport->setGrades($this->getGrades())
+            ->generateActivityReports();
+
+        return $periodReport;
+    }
+
+    /**
+     * Is Valid Period
+     * @return bool
+     */
+    public function isValidPeriod($stop = false): bool
+    {
+        if ($this->getPeriod() instanceof TimetablePeriod && $this->getPeriod()->getId() > 0)
+            return true;
+        if ($stop)
+            throw new \InvalidArgumentException('Dear Programmer: You must set the period in the manager.');
+
+        return false;
+    }
+
+    /**
+     * getGrades
+     *
+     * @return Collection
+     */
+    private function getGrades(): Collection
+    {
+        return $this->getTimetableManager()->getGrades();
     }
 }

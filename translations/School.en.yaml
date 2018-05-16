@@ -209,6 +209,7 @@ roll:
     details:
         label: Details
     menu.list: Manage Attendance Lists
+    students.count: '{0}No students.|{1}One student.|]1,Inf[%count% students.'
 course:
     name:
         label: Name

@@ -97,11 +97,12 @@
 
                 $fix.css({
                     'position': 'fixed',
-                    'top': '250px',
+                    'top': '55px',
                     'display': 'flex',
                     'min-height': '75px',
                     'background-image': 'linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%)',
-                    'width': $width
+                    'width': $width,
+                    'z-index': 100,
                 });
                 button.toggleClass('fa-lock fa-unlock');
                 $('#resetButton').attr('reset', id);
