@@ -181,7 +181,7 @@
             grade = grade.replace('grade_', '');
             grade = grade.replace('_span', '');
 
-            var path = '{{ path('grade_control', {'grade': '__grade__', value: '__value__'}) }}';
+            var path = '{{ path('grade_control', {id: '__grade__', value: '__value__'}) }}';
             path = path.replace('__grade__', grade);
             path = path.replace('__value__', val);
 
@@ -195,7 +195,7 @@
         }
 
         function buildLine() {
-            var path = '{{ path('timetable_builder_line_activity') }}';
+            var path = '{{ path('timetable_builder_line_activity', {id: app.request.get('id')}) }}';
             $.ajax({
                 url: path,
                 type: 'POST',
@@ -266,7 +266,7 @@
         });
 
         function openGradeTimeTable(grade) {
-            var path = '{{ path('timetable_grade_set', {grade: '__grade__'}) }}';
+            var path = '{{ path('timetable_grade_set', {id: '__grade__'}) }}';
             path = path.replace('__grade__', grade);
             $.ajax({
                 url: path,

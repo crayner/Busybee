@@ -2,12 +2,10 @@
 namespace App\Pagination;
 
 use App\Calendar\Util\CalendarManager;
-use App\Entity\Calendar;
 use App\Entity\TimetableLine;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\RouterInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\QueryBuilder;
 
 class LinePagination extends PaginationManager
 {
@@ -45,7 +43,7 @@ class LinePagination extends PaginationManager
     protected $searchList = [
         'l.name',
         'l.code',
-        'a.name'
+        'a.name',
     ];
 
     /**
@@ -65,9 +63,9 @@ class LinePagination extends PaginationManager
             'type' => 'leftJoin',
             'alias' => 'a',
         ],
-        'l.calendar' => [
+        'a.calendarGrades' => [
             'type' => 'leftJoin',
-            'alias' => 'c',
+            'alias' => 'cg',
         ],
     ];
 
@@ -89,26 +87,69 @@ class LinePagination extends PaginationManager
      *
      * @param    boolean $count
      *
-     * @return    query
+     * @return    QueryBuilder
      */
-    public function buildQuery($count = false)
+    public function buildQuery($count = false): QueryBuilder
     {
         $this->initiateQuery($count);
         if ($count)
             $this
                 ->setQueryJoin()
-                ->setSearchWhere();
+                ->setSearchWhere()
+                ->andCalendarGrades()
+            ;
         else
             $this
                 ->setQuerySelect()
                 ->setQueryJoin()
                 ->setOrderBy()
-                ->setSearchWhere();
-
-        $this->getQuery()
-            ->andWhere('c = :calendar')
-            ->setParameter('calendar', CalendarManager::getCurrentCalendar());
+                ->setSearchWhere()
+                ->andCalendarGrades()
+            ;
 
         return $this->getQuery();
+    }
+
+    /**
+     * @var Collection
+     */
+    private $calendarGrades;
+
+    /**
+     * @return Collection
+     */
+    public function getCalendarGrades(): Collection
+    {
+        if (empty($this->calendarGrades) || $this->calendarGrades->count() === 0)
+            $this->calendarGrades = CalendarManager::getCurrentCalendar()->getCalendarGrades();
+
+        return $this->calendarGrades;
+    }
+
+    /**
+     * @param Collection $calendarGrades
+     * @return LinePagination
+     */
+    public function setCalendarGrades(Collection $calendarGrades): LinePagination
+    {
+        $this->calendarGrades = $calendarGrades;
+        return $this;
+    }
+
+    /**
+     * andCalendarGrades
+     *
+     * @return LinePagination
+     */
+    private function andCalendarGrades(): LinePagination
+    {
+        $grades = [];
+        foreach($this->getCalendarGrades()->getIterator() as $grade)
+            $grades[] = $grade->getId();
+        $this->getQuery()
+            ->andWhere('cg.id in (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
+        ;
+        return $this;
     }
 }

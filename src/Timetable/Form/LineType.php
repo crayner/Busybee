@@ -49,11 +49,16 @@ class LineType extends AbstractType
                     'required'  => false,
                     'entry_type' => CollectionEntityType::class,
                     'route' => 'line_remove_activity',
+                    'button_merge_class' => 'btn-sm',
+
                     'entry_options' => [
                         'class' => Activity::class,
                         'block_prefix' => 'line_activity',
                         'choice_label' => 'fullName',
                         'placeholder' => 'line.activities.placeholder',
+                        'attr' => [
+                            'class' => 'form-control-sm'
+                        ],
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('a')
                                 ->leftJoin('a.calendarGrades', 'cg')

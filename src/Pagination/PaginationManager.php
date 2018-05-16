@@ -4,6 +4,7 @@ namespace App\Pagination;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
@@ -431,14 +432,17 @@ abstract class PaginationManager implements PaginationInterface
 			}
 		}
 
-		if (is_array($this->injectedSearch))
-			foreach ($this->injectedSearch as $search)
-			{
-				$paramName = 'search' . $x++;
-				$this->query->orWhere(str_replace('__name__', ':' . $paramName, $search['where']));
-				$this->query->setParameter($paramName, $search['parameter']);
-			}
-
+		if (! empty($this->getInjectedSearch())) {
+            foreach ($this->getInjectedSearch() as $search) {
+                $this->query->orWhere($search['where']);
+                foreach($search['parameter'] as $name => $value) {
+                    if (isset($search['type'][$name]))
+                        $this->query->setParameter($name, $value, $search['type'][$name]);
+                    else
+                        $this->query->setParameter($name, $value);
+                }
+            }
+        }
 		return $this;
 	}
 
@@ -896,9 +900,9 @@ abstract class PaginationManager implements PaginationInterface
 	}
 
 	/**
-	 * @return Query
+	 * @return QueryBuilder
 	 */
-	public function getQuery()
+	public function getQuery(): QueryBuilder
 	{
 		return $this->query;
 	}
@@ -978,13 +982,17 @@ abstract class PaginationManager implements PaginationInterface
 		return $this;
 	}
 
-	public function addInjectedSearch($search): PaginationManager
+    /**
+     * addInjectedSearch
+     *
+     * @param array|null $search
+     * @return PaginationManager
+     */
+    public function addInjectedSearch(?array $search): PaginationManager
 	{
-		if (is_array($search) && isset($search['where']) && isset($search['parameter']) && false !== strpos($search['where'], '__name__'))
-			if (!in_array($search, $this->injectedSearch))
-				$this->injectedSearch[] = $search;
-
-		return $this;
+        if (isset($search['where']) && isset($search['parameter']))
+    	    $this->injectedSearch[] = $search;
+        return $this;
 	}
 
 	public function getIdName()
@@ -1021,9 +1029,9 @@ abstract class PaginationManager implements PaginationInterface
     /**
      * @return null|array
      */
-    public function getInjectedSearch(): ?array
+    public function getInjectedSearch(): array
     {
-        return $this->injectedSearch;
+        return $this->injectedSearch ?: [];
     }
 
     /**
@@ -1140,7 +1148,7 @@ abstract class PaginationManager implements PaginationInterface
 				$this->query->addSelect($name);
 			elseif (is_array($name))
 			{
-				$k      = key($name);dump($k);
+				$k      = key($name);
 				if ($k == '0')
 				    $k = 'entity';
 				$concat = new Query\Expr\Func('CONCAT', $name[$k]);

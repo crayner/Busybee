@@ -284,13 +284,13 @@ class Course extends CourseExtension
     }
 
     /**
-     * @param FaceToFace $activity
+     * @param Activity $activity
      * @param bool $add
      * @return Course
      */
-    public function addActivity(FaceToFace $activity, $add = true): Course
+    public function addActivity(Activity $activity, $add = true): Course
     {
-        if (empty($activity))
+        if (empty($activity) || ! $activity instanceof FaceToFace)
             return $this;
 
         if ($add)

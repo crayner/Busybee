@@ -136,10 +136,8 @@ class TimetablePeriod extends TimetablePeriodExtension
         if (empty($this->activities))
             $this->activities = new ArrayCollection();
 
-        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
+        if ($this->activities instanceof PersistentCollection)
             $this->activities->initialize();
-
-
 
         return $this->activities;
     }

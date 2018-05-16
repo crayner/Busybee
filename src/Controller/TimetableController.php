@@ -3,10 +3,16 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
+use App\Entity\FaceToFace;
+use App\Entity\Person;
+use App\Entity\Roll;
+use App\Entity\Scale;
+use App\Pagination\ActivityPagination;
 use App\Pagination\ClassPagination;
 use App\Pagination\LinePagination;
 use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
+use App\People\Form\PersonType;
 use App\Security\VoterDetails;
 use App\Timetable\Form\LineType;
 use App\Timetable\Form\TimetableType;
@@ -15,6 +21,8 @@ use App\Timetable\Util\LineManager;
 use App\Timetable\Util\PeriodManager;
 use App\Timetable\Util\TimetableDisplayManager;
 use App\Timetable\Util\TimetableManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Connection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -88,20 +96,20 @@ class TimetableController extends Controller
     /**
      * builder
      *
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/builder/{all}/", name="timetable_builder")
      * @param $id
      * @param string $all
      * @param TimetableManager $timetableManager
      * @param PeriodPagination $periodPagination
      * @param Request $request
-     * @param ClassPagination $classPagination
+     * @param ActivityPagination $classPagination
      * @param LinePagination $linePagination
      * @param PeriodManager $periodManager
-     * @return  \Symfony\Component\HttpFoundation\Response
-     * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/timetable/{id}/builder/{all}/", name="timetable_builder")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function builder($id, $all = 'All', TimetableManager $timetableManager, PeriodPagination $periodPagination,
-                               Request $request, ClassPagination $classPagination, LinePagination $linePagination,
+                               Request $request, ActivityPagination $classPagination, LinePagination $linePagination,
                                PeriodManager $periodManager)
     {
         $timetable = $timetableManager->find($id);
@@ -112,63 +120,15 @@ class TimetableController extends Controller
         $classPagination->injectRequest($request);
         $linePagination->injectRequest($request);
 
+        $grades = $timetableManager->gradeControl();
 
-        $gradeControl = $request->getSession()->get('gradeControl');
-
-        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
-
-        $param = [];
-        foreach ($timetableManager->getCalendarGrades() as $q => $w)
-        {
-            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
-                $param[] = $w->getGrade();
-            else
-                $gradeControl[$w->getGrade()] = false;
-        }
-
-        $request->getSession()->set('gradeControl', $gradeControl);
-
-        $search = [];
-        if (!empty($param)) {
-            $search['where'] = 'g.grade IN (__name__)';
-            $search['parameter'] = $param;
-        }
-
-        $classPagination->setLimit(1000)
-            ->setJoin([
-                'f.course' => [
-                    'alias' => 'c',
-                    'type' => 'leftJoin',
-                ],
-                'c.calendarGrades' => [
-                    'alias' => 'g',
-                    'type' => 'leftJoin',
-                ],
-            ])
-            ->setSortByList(
-                [
-                    'facetoface.name.sort' =>            [
-                        'f.name' => 'ASC',
-                        'f.code' => 'ASC',
-                    ],
-                    'bySequence' => [
-                        'g.sequence' => 'ASC',
-                        'f.name' => 'ASC',
-                        'f.code' => 'ASC',
-                    ],
-                ]
-            )
-            ->setSortByName('bySequence')
-            ->setDisplaySort(false)
-            ->setDisplayChoice(false)
-            ->addInjectedSearch($search)
-            ->setDisplayResult(false);
+        $classPagination->setCalendarGrades($grades);
+        $linePagination->setCalendarGrades($grades);
 
         $periodPagination->setLimit(1000)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
-            ->addInjectedSearch($search)
             ->setDisplayResult(false);
 
         $linePagination->setDisplaySearch(false)
@@ -176,7 +136,32 @@ class TimetableController extends Controller
             ->setDisplayChoice(false)
             ->setSearch('')
             ->setLimit(1000)
-            ->addInjectedSearch($search)
+            ->setDisplayResult(false);
+
+        $classPagination->setActivityType(
+            [
+                'class',
+                'roll',
+            ]
+        );
+
+        $classPagination->setLimit(1000)
+            ->setSortByList(
+                [
+                    'activity.sort.name' =>            [
+                        'a.name' => 'ASC',
+                        'a.code' => 'ASC',
+                    ],
+                    'bySequence' => [
+                        'cg.sequence' => 'ASC',
+                        'a.name' => 'ASC',
+                        'a.code' => 'ASC',
+                    ],
+                ]
+            )
+            ->setSortByName('bySequence')
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
             ->setDisplayResult(false);
 
         $classPagination->getDataSet();
@@ -558,9 +543,9 @@ class TimetableController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function addLineToPeriod(int $id, int $line, Request $request, PeriodManager $periodManager, TwigManager $twig)
+    public function addLineToPeriod(int $id, int $line, PeriodManager $periodManager, TwigManager $twig)
     {
-        $period = $periodManager->find($id);
+        $periodManager->find($id);
 
         $periodManager->addLine($line);
 
@@ -620,10 +605,10 @@ class TimetableController extends Controller
      *
      * @param $grade
      * @param $value
-     * @Route("/grade/{grade}/{value}/control/", name="grade_control")
+     * @Route("/grade/{id}/{value}/control/", name="grade_control")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function gradeControl($grade, $value, Request $request)
+    public function gradeControl(int $id, bool $value, Request $request)
     {
         $session = $request->getSession();
 
@@ -632,10 +617,10 @@ class TimetableController extends Controller
         if (!is_array($gradeControl))
             $gradeControl = [];
 
-        if (!isset($gradeControl[$grade]))
-            $gradeControl[$grade] = boolval($value);
+        if (!isset($gradeControl[$id]))
+            $gradeControl[$id] = boolval($value);
 
-        $gradeControl[$grade] = $gradeControl[$grade] ? false : true;
+        $gradeControl[$id] = $gradeControl[$id] ? false : true;
 
         $session->set('gradeControl', $gradeControl);
 
@@ -648,33 +633,20 @@ class TimetableController extends Controller
      * @param Request $request
      * @param LinePagination $linePagination
      * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/line/builder/", name="timetable_builder_line_activity")
+     * @Route("/timetable/{id}/line/builder/", name="timetable_builder_line_activity")
      */
-    public function builderLineActivity(Request $request,
-                                           LinePagination $linePagination)    {
+    public function builderLineActivity(int $id, Request $request, LinePagination $linePagination, TimetableManager $timetableManager)
+    {
         $linePagination->injectRequest($request);
-
-        $gradeControl = $request->getSession()->get('gradeControl');
-
-        $param = [];
-        if (is_array($gradeControl)) {
-            foreach ($gradeControl as $q => $w)
-                if ($w)
-                    $param[] = $q;
-        }
-
-        $search = [];
-        if (!empty($param)) {
-            $search['where'] = 'g.grade IN (__name__)';
-            $search['parameter'] = $param;
-        }
+        $timetableManager->find($id);
+        $grades = $timetableManager->gradeControl();
 
         $linePagination->setDisplaySearch(false)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
             ->setLimit(1000)
-            ->addInjectedSearch($search)
+            ->setCalendarGrades($grades)
             ->setDisplayResult(false);
 
         $linePagination->getDataSet();
@@ -697,70 +669,48 @@ class TimetableController extends Controller
     /**
      * builderActivity
      *
+     * @IsGranted("ROLE_PRINCIPAL")
+     * @Route("/timetable/{id}/activity/builder/", name="timetable_builder_activity")
      * @param Request $request
      * @param $id
      * @param TimetableManager $timetableManager
-     * @param ClassPagination $classPagination
-     * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/timetable/{id}/activity/builder/", name="timetable_builder_activity")
+     * @param ActivityPagination $classPagination
+     * @return JsonResponse
      */
     public function builderActivity(Request $request, $id,
-                                       TimetableManager $timetableManager, ClassPagination $classPagination) {
+                                       TimetableManager $timetableManager, ActivityPagination $classPagination) {
         $timetableManager->find($id);
+
+        $grades = $timetableManager->gradeControl();
 
         $classPagination->injectRequest($request);
 
-        $gradeControl = $request->getSession()->get('gradeControl');
-
-        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
-
-        $param = [];
-        foreach ($timetableManager->getCalendarGrades() as $q => $w)
-        {
-            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
-                $param[] = $w->getGrade();
-            else
-                $gradeControl[$w->getGrade()] = false;
-        }
-
-        $request->getSession()->set('gradeControl', $gradeControl);
-
-        $search = [];
-        if (!empty($param)) {
-            $search['where'] = 'g.grade IN (__name__)';
-            $search['parameter'] = $param;
-        }
+        $classPagination->setActivityType(
+            [
+                'class',
+                'roll',
+            ]
+        );
 
         $classPagination->setLimit(1000)
-            ->setJoin([
-                'f.course' => [
-                    'alias' => 'c',
-                    'type' => 'leftJoin',
-                ],
-                'c.calendarGrades' => [
-                    'alias' => 'g',
-                    'type' => 'leftJoin',
-                ],
-            ])
             ->setSortByList(
                 [
-                    'facetoface.name.sort' =>            [
-                        'f.name' => 'ASC',
-                        'f.code' => 'ASC',
+                    'activity.sort.name' =>            [
+                        'a.name' => 'ASC',
+                        'a.code' => 'ASC',
                     ],
                     'bySequence' => [
-                        'g.sequence' => 'ASC',
-                        'f.name' => 'ASC',
-                        'f.code' => 'ASC',
+                        'cg.sequence' => 'ASC',
+                        'a.name' => 'ASC',
+                        'a.code' => 'ASC',
                     ],
                 ]
             )
             ->setSortByName('bySequence')
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
-            ->addInjectedSearch($search)
+            ->setCalendarGrades($grades)
             ->setDisplayResult(false);
-
 
         $classPagination->getDataSet();
 
@@ -789,7 +739,7 @@ class TimetableController extends Controller
      * @param PeriodPagination $periodPagination
      * @param PeriodManager $periodManager
      * @IsGranted("ROLE_PRINCIPAL")
-     * @Route("/timetable/{id}/period/builder/{all}/", name="timetable_period_builder")
+     * @Route("/timetable/{id}/period/{all}/builder/", name="timetable_period_builder")
      */
     public function builderPeriod(Request $request, $id, $all = 'All',
                                      TimetableManager $timetableManager, PeriodPagination $periodPagination,
@@ -797,36 +747,17 @@ class TimetableController extends Controller
     {
         $timetable = $timetableManager->find($id);
 
+        $grades = $timetableManager->gradeControl();
+
         $periodPagination->setTimetable($timetable);
 
         $periodPagination->injectRequest($request);
-
-        $gradeControl = $request->getSession()->get('gradeControl');
-
-        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
-
-        $param = [];
-        foreach ($timetableManager->getCalendarGrades() as $q => $w)
-        {
-            if (isset($gradeControl[$w->getGrade()]) && $gradeControl[$w->getGrade()])
-                $param[] = $w->getGrade();
-            else
-                $gradeControl[$w->getGrade()] = false;
-        }
-
-        $request->getSession()->set('gradeControl', $gradeControl);
-
-        $search = [];
-        if (!empty($param)) {
-            $search['where'] = 'g.grade IN (__name__)';
-            $search['parameter'] = $param;
-        }
 
         $periodPagination->setLimit(1000)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
-            ->addInjectedSearch($search)
+            ->setCalendarGrades($grades)
             ->setDisplayResult(false);
 
         $periodPagination->getDataSet();
@@ -854,10 +785,10 @@ class TimetableController extends Controller
      * setTimetableGrade
      *
      * @param $grade
-     * @Route("/timetable/{grade}/grade/", name="timetable_grade_set")
+     * @Route("/timetable/{id}/grade/", name="timetable_grade_set")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function setTimetableGrade($grade){}
+    public function setTimetableGrade($id){}
 
     /**
      * Display Timetable

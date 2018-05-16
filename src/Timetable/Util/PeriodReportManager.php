@@ -193,12 +193,12 @@ class PeriodReportManager extends ReportManager
                 continue;
             foreach($newStudents as $as) {
                 $student = $as->getStudent();
-                $currentStudents = $this->getAllocatedStudentGrade($student->getStudentCurrentGrade($student));
+                $currentStudents = $this->getAllocatedStudentGrade($student->getGradeInCurrentGrade());
                 if ($currentStudents->contains($student))
-                    $this->addDuplicateStudent($student, $student->getStudentCurrentGrade($student));
+                    $this->addDuplicateStudent($student, $student->getGradeInCurrentGrade());
                 else {
                     $currentStudents->add($student);
-                    $this->setAllocatedStudentGrade($currentStudents, $student->getStudentCurrentGrade($student));
+                    $this->setAllocatedStudentGrade($currentStudents, $student->getGradeInCurrentGrade());
                     $this->allocatedStudentCount++;
                 }
             }
@@ -715,7 +715,8 @@ class PeriodReportManager extends ReportManager
     {
         return $this->writeStudentReport()
             ->writeSpaceReport()
-            ->writeTutorReport();
+            ->writeTutorReport()
+            ->writeSummaryReport();
     }
 
     /**
@@ -807,6 +808,11 @@ class PeriodReportManager extends ReportManager
         return $this->duplicateSpaceCount;
     }
 
+    /**
+     * writeTutorReport
+     *
+     * @return PeriodReportManager
+     */
     private function writeTutorReport(): PeriodReportManager
     {
         // Duplicate Tutors
@@ -823,6 +829,13 @@ class PeriodReportManager extends ReportManager
                 continue;
             $this->addMessage('warning', 'report.activity.tutor.missing', ['%name%' => $activityReport->getEntity()->getFullName()]);
         }
+        return $this;
+    }
+
+    private function writeSummaryReport(): PeriodReportManager
+    {
+        if ($this->getStatus() === 'default' && count($this->getMessages()) === 0)
+            $this->addMessage('success', 'report.period.ok');
         return $this;
     }
 }

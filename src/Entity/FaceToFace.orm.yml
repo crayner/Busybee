@@ -8,18 +8,6 @@ App\Entity\FaceToFace:
                     name: scale_id
                     referencedColumnName: id
                     nullable: true
-        course:
-            targetEntity: App\Entity\Course
-            inversedBy: activities
-            joinColumn:
-                name: course_id
-                referencedColumnName: id
-                nullable: true
-    oneToMany:
-        periods:
-            targetEntity: App\Entity\TimetablePeriodActivity
-            cascade: [ 'all' ]
-            mappedBy: activity
     fields:
         useCourseName:
             type: boolean

@@ -39,7 +39,7 @@
                         </div>
                     {% endfor %}
                     <div id="periodMessage{{ period.entity.id }}">{% if period.entity.id == app.request.get('all') %}
-                        {% include 'Default/messages.html.twig' with {messages: periodManager.messageManager.addStatusMessages(period.messages, 'Timetable', 'warning')} %}{% endif %}
+                        {% include 'Default/messages.html.twig' with {messages: periodManager.messageManager.addStatusMessages(period.messages, 'Timetable', 'success')} %}{% endif %}
                     </div>
                 </div>
             </div>

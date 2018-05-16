@@ -768,12 +768,12 @@ calendarGrades:
     }
 
     /**
-     * getStudentCurrentCalendar
+     * getGradeInCurrentCalendar
      *
      * @param Student $student
      * @return CalendarGrade|null
      */
-    public static function getStudentCurrentCalendar(Student $student): ?CalendarGrade
+    public static function getStudentGradeInCurrentCalendar(Student $student): ?CalendarGrade
     {
         $grades = $student->getCalendarGrades();
 

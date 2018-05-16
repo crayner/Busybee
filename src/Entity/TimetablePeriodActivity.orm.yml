@@ -16,21 +16,23 @@ App\Entity\TimetablePeriodActivity:
     manyToOne:
         space:
             targetEntity: App\Entity\Space
-            joinColumns:
-                space_id:
-                    referencedColumnName: id
+            joinColumn:
+                name: space_id
+                referencedColumnName: id
         activity:
-            targetEntity: App\Entity\FaceToFace
+            targetEntity: App\Entity\Activity
             inversedBy: periods
-            joinColumns:
-                activity_id:
-                    referencedColumnName: id
+            joinColumn:
+                name: activity_id
+                referencedColumnName: id
+                nullable: false
         period:
             targetEntity: App\Entity\TimetablePeriod
             inversedBy: activities
-            joinColumns:
-                period_id:
-                    referencedColumnName: id
+            joinColumn:
+                name: period_id
+                referencedColumnName: id
+                nullable: false
     oneToMany:
         tutors:
             targetEntity: App\Entity\TimetablePeriodActivityTutor

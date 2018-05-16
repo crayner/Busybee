@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class TimetableManager extends TabManager
@@ -610,34 +611,12 @@ timetable:
         if (! empty($this->grades))
             return $this->grades;
 
-        $grades = $this->getGradeControls();
-
-        $results = $this->getEntityManager()->getRepository(CalendarGrade::class)->createQueryBuilder('cg')
-            ->where('cg.calendar = :calendar')
-            ->setParameter('calendar', $this->getCurrentCalendar())
-            ->andWhere('cg.grade in (:grades)')
-            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
-            ->orderBy('cg.sequence', 'ASC')
-            ->getQuery()
-            ->getResult();
         $this->grades = new ArrayCollection();
-        foreach($results as $grade)
+
+        foreach($this->gradeControl() as $grade)
             $this->grades->set($grade->getId(), $grade);
 
         return $this->grades;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGradeControls(): array
-    {
-        $grades =  $this->getStack()->getCurrentRequest()->getSession()->has('gradeControl') ? $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl') : [];
-        $x = [];
-        foreach($grades as $q=>$w)
-            if ($w)
-                $x[] = $q;
-        return $x;
     }
 
     /**
@@ -672,5 +651,41 @@ timetable:
     {
         $this->timetable = $timetable;
         return $this;
+    }
+
+    /**
+     * gradeControl
+     *
+     * @return Collection
+     */
+    public function gradeControl(): Collection
+    {
+        $grades = new ArrayCollection();
+
+        $gradeControl = $this->getSession()->get('gradeControl');
+
+        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
+
+        foreach ($this->getCalendarGrades() as $q => $w)
+        {
+            if (isset($gradeControl[$w->getId()]) && $gradeControl[$w->getId()]) {
+                if (!$grades->contains($w))
+                    $grades->add($w);
+            } else
+                $gradeControl[$w->getId()] = false;
+        }
+        $this->getSession()->set('gradeControl', $gradeControl);
+
+        return $grades;
+    }
+
+    /**
+     * getSession
+     *
+     * @return SessionInterface
+     */
+    private function getSession(): SessionInterface
+    {
+        return $this->getStack()->getCurrentRequest()->getSession();
     }
 }

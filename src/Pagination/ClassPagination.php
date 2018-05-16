@@ -1,10 +1,12 @@
 <?php
 namespace App\Pagination;
 
+use App\Entity\Activity;
 use App\Entity\Course;
 use App\Entity\FaceToFace;
 use App\School\Util\ClassManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
@@ -65,7 +67,7 @@ class ClassPagination extends PaginationManager
 	/**
 	 * @var string
 	 */
-	protected $repositoryName = FaceToFace::class;
+	protected $repositoryName = Activity::class;
 
 	/**
 	 * @var string
@@ -80,9 +82,9 @@ class ClassPagination extends PaginationManager
 	 *
 	 * @param    boolean $count
 	 *
-	 * @return    query
+	 * @return    QueryBuilder
 	 */
-	public function buildQuery($count = false)
+	public function buildQuery($count = false): QueryBuilder
 	{
         $this->initiateQuery($count);
 		if ($count)

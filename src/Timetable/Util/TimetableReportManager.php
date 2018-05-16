@@ -139,6 +139,7 @@ class TimetableReportManager extends ReportManager
                 ->setAllocatedTutors()
                 ->writeReport()
             ;
+
         $this->getPeriods()->set($period->getId(), $report);
         return $this;
     }

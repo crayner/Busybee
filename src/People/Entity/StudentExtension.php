@@ -93,11 +93,10 @@ abstract class StudentExtension extends Person
     /**
      * @return null|CalendarGrade
      */
-    public function getStudentCurrentGrade(): ?CalendarGrade
+    public function getGradeInCurrentGrade(): ?CalendarGrade
     {
         if ($this->currentGrade)
             return $this->currentGrade;
-        $this->currentGrade = CalendarManager::getStudentCurrentCalendar($this);
-        return $this->currentGrade;
+        return $this->currentGrade = CalendarManager::getStudentGradeInCurrentCalendar($this);
     }
 }

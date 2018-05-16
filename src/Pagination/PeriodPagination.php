@@ -1,8 +1,12 @@
 <?php
 namespace App\Pagination;
 
+use App\Calendar\Util\CalendarManager;
 use App\Entity\Timetable;
 use App\Entity\TimetablePeriod;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\QueryBuilder;
 
 class PeriodPagination extends PaginationManager
 {
@@ -79,7 +83,7 @@ class PeriodPagination extends PaginationManager
         ],
         'ca.calendarGrades' => [
             'type' => 'leftJoin',
-            'alias' =>'g',
+            'alias' =>'cg',
         ],
     ];
 
@@ -101,26 +105,30 @@ class PeriodPagination extends PaginationManager
 	 *
 	 * @param    boolean $count
 	 *
-	 * @return    query
+	 * @return    QueryBuilder
 	 */
-	public function buildQuery($count = false)
+	public function buildQuery($count = false): QueryBuilder
 	{
 		$this->initiateQuery($count);
 		if ($count)
 			$this
 				->setQueryJoin()
-				->setSearchWhere();
+				->setSearchWhere()
+                ->andCalendarGrades()
+            ;
 		else
 			$this
 				->setQuerySelect()
 				->setQueryJoin()
 				->setOrderBy()
-				->setSearchWhere();
+				->setSearchWhere()
+                ->andCalendarGrades()
+            ;
 
 		if ($this->getTimetable())
             $this->getQuery()
-                ->andWhere('t.id = :tt_id')
-                ->setParameter('tt_id', $this->getTimetable()->getId());
+                ->andWhere('t = :tt_id')
+                ->setParameter('tt_id', $this->getTimetable());
 
 		return $this->getQuery();
 	}
@@ -139,12 +147,55 @@ class PeriodPagination extends PaginationManager
     }
 
     /**
-     * @param Timetable $timetable
+     * @param Timetable|null $timetable
      * @return PeriodPagination
      */
-    public function setTimetable(Timetable $timetable): PeriodPagination
+    public function setTimetable(?Timetable $timetable): PeriodPagination
     {
         $this->timetable = $timetable;
+        return $this;
+    }
+
+    /**
+     * @var Collection
+     */
+    private $calendarGrades;
+
+    /**
+     * @return Collection
+     */
+    public function getCalendarGrades(): Collection
+    {
+        if (empty($this->calendarGrades) || $this->calendarGrades->count() === 0)
+            $this->calendarGrades = CalendarManager::getCurrentCalendar()->getCalendarGrades();
+
+        return $this->calendarGrades;
+    }
+
+    /**
+     * @param Collection $calendarGrades
+     * @return LinePagination
+     */
+    public function setCalendarGrades(Collection $calendarGrades): PeriodPagination
+    {
+        $this->calendarGrades = $calendarGrades;
+        return $this;
+    }
+
+    /**
+     * andCalendarGrades
+     *
+     * @return LinePagination
+     */
+    private function andCalendarGrades(): PeriodPagination
+    {
+        $grades = [];
+        foreach($this->getCalendarGrades()->getIterator() as $grade)
+            $grades[] = $grade->getId();
+        $this->getQuery()
+            ->andWhere('cg.id in (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
+        ;
         return $this;
     }
 }

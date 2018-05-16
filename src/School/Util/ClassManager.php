@@ -18,12 +18,12 @@ class ClassManager
     private $activityCount;
 
     /**
-     * @param FaceToFace $activity
+     * @param Activity $activity
      * @return string
      */
-    public function getAlert(FaceToFace $activity): string
+    public function getAlert(Activity $activity): string
     {
-        if (!$activity instanceof Activity)
+        if (!$activity instanceof FaceToFace)
             return '';
         if ($activity->getCount() === 0 || $activity->getAlert() === '')
             $this->getActivityCount($activity);
@@ -47,7 +47,7 @@ class ClassManager
         if (isset($this->activityCount[$activity->getId()]))
             return $this->activityCount[$activity->getId()];
 
-        $result = $this->getEntityManager()->getRepository(FaceToFace::class)->createQueryBuilder('f')
+        $result = $this->getEntityManager()->getRepository(Activity::class)->createQueryBuilder('f')
             ->leftJoin('f.periods', 'p')
             ->select('COUNT(p.id)')
             ->where('f.id = :face_id')

@@ -145,14 +145,13 @@ class PeriodManager
         foreach ($this->getPeriod()->getActivities() as $act)
             $exists->add($act->getActivity());
 
-        foreach ($line->getCourses()->getIterator() as $course)
-            foreach($course->getActivities()->getIterator() as $activity)
-                if (! $exists->contains($activity)) {
-                    $act = new TimetablePeriodActivity();
-                    $act->setPeriod($this->period);
-                    $act->setActivity($activity);
-                    $count++;
-                }
+        foreach($line->getActivities()->getIterator() as $activity)
+            if (! $exists->contains($activity)) {
+                $act = new TimetablePeriodActivity();
+                $act->setPeriod($this->period);
+                $act->setActivity($activity);
+                $count++;
+            }
 
         if ($count > 0) {
             $this->getEntityManager()->persist($this->period);

@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Core\Exception\MissingClassException;
 use App\Timetable\Entity\TimetablePeriodActivityExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -59,23 +60,35 @@ class TimetablePeriodActivity extends TimetablePeriodActivityExtension
     private $activity;
 
     /**
-     * @return FaceToFace|null
+     * @return Activity|null
+     * @throws MissingClassException
      */
-    public function getActivity(): ?FaceToFace
+    public function getActivity(): ?Activity
     {
-        return $this->activity;
+        if (empty($this->activity) || $this->activity instanceof Roll || $this->activity instanceof FaceToFace)
+            return $this->activity;
+        throw new MissingClassException('000 The activity must be a Roll or FaceToFace type.', ['activity' => $this->activity]);
     }
 
     /**
-     * @param FaceToFace|null $activity
+     * setActivity
+     *
+     * @param Activity|null $activity
+     * @param bool $add
      * @return TimetablePeriodActivity
+     * @throws MissingClassException
      */
-    public function setActivity(?FaceToFace $activity, $add = true): TimetablePeriodActivity
+    public function setActivity(?Activity $activity, $add = true): TimetablePeriodActivity
     {
-        if ($add && $activity)
-            $activity->addPeriod($this, false);
+        if (empty($activity) || $activity instanceof Roll || $activity instanceof FaceToFace) {
+            if ($add && $activity)
+                $activity->addPeriod($this, false);
 
-        $this->activity = $activity;
+            $this->activity = $activity;
+        }
+        else
+            throw new MissingClassException('000 The activity must be a Roll or FaceToFace type.', ['activity' => $activity]);
+
         return $this;
     }
 

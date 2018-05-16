@@ -61,6 +61,11 @@ App\Entity\Activity:
             targetEntity: App\Entity\ActivityStudent
             mappedBy: activity
             cascade: ['all']
+        periods:
+            targetEntity: App\Entity\TimetablePeriodActivity
+            cascade: [ 'all' ]
+            mappedBy: activity
+            nullable: true
     manyToMany:
         calendarGrades:
             targetEntity: App\Entity\CalendarGrade
@@ -75,18 +80,27 @@ App\Entity\Activity:
     manyToOne:
         space:
             targetEntity: App\Entity\Space
-            joinColumns:
-                space_id:
-                    referencedColumnName: id
+            joinColumn:
+                name: space_id
+                referencedColumnName: id
+                nullable: true
         studentReference:
             targetEntity: App\Entity\Activity
-            joinColumns:
-                student_reference_id:
-                    referencedColumnName: id
+            joinColumn:
+                name: student_reference_id
+                referencedColumnName: id
+                nullable: true
         line:
             targetEntity: App\Entity\TimetableLine
             inversedBy: activities
             joinColumn:
                 name: line_id
+                referencedColumnName: id
+                nullable: true
+        course:
+            targetEntity: App\Entity\Course
+            inversedBy: activities
+            joinColumn:
+                name: course_id
                 referencedColumnName: id
                 nullable: true

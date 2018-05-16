@@ -161,3 +161,4 @@ report:
     activity:
         space.missing: 'The activity "%name%" does not have a space allocated!'
         tutor.missing: 'The activity "%name%" does not have a tutor allocated!'
+    period.ok: No problems have been detected in this period.
