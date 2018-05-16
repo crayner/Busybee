@@ -25,8 +25,8 @@ class MessageManager
         'dark'      => 2,
         'secondary' => 4,
         'primary'   => 8,
-        'success'   => 16,
-        'info'      => 32,
+        'info'      => 16,
+        'success'   => 32,
         'warning'   => 64,
         'danger'    => 128,
     ];
