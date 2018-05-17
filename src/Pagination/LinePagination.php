@@ -63,7 +63,11 @@ class LinePagination extends PaginationManager
             'type' => 'leftJoin',
             'alias' => 'a',
         ],
-        'a.calendarGrades' => [
+        'l.calendar' => [
+            'type' => 'leftJoin',
+            'alias' => 'c',
+        ],
+        'c.calendarGrades' => [
             'type' => 'leftJoin',
             'alias' => 'cg',
         ],
@@ -97,6 +101,7 @@ class LinePagination extends PaginationManager
                 ->setQueryJoin()
                 ->setSearchWhere()
                 ->andCalendarGrades()
+                ->andActivityTypes()
             ;
         else
             $this
@@ -105,6 +110,7 @@ class LinePagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere()
                 ->andCalendarGrades()
+                ->andActivityTypes()
             ;
 
         return $this->getQuery();
@@ -150,6 +156,25 @@ class LinePagination extends PaginationManager
             ->andWhere('cg.id in (:grades)')
             ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
         ;
+        return $this;
+    }
+
+    /**
+     * andActivityTypes
+     *
+     * @return LinePagination
+     */
+    private function andActivityTypes(): LinePagination
+    {
+        $types = ['class', 'roll'];
+        $x = '';
+        foreach($types as $y=>$class)
+        {
+            $x .= ' OR a INSTANCE OF :entity_'.$y;
+            $this->getQuery()->setParameter('entity_'.$y, $class);
+        }
+        $x = '(' . trim($x, ' OR ') . ')';
+        $this->getQuery()->andWhere($x);
         return $this;
     }
 }

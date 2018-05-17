@@ -460,6 +460,8 @@ timetable:
      */
     public function getWeeks(): array
     {
+        if (empty($this->weeks))
+            $this->weeks = [];
         return $this->weeks;
     }
 
@@ -684,7 +686,7 @@ timetable:
      *
      * @return SessionInterface
      */
-    private function getSession(): SessionInterface
+    protected function getSession(): SessionInterface
     {
         return $this->getStack()->getCurrentRequest()->getSession();
     }

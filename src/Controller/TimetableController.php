@@ -3,16 +3,10 @@ namespace App\Controller;
 
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
-use App\Entity\FaceToFace;
-use App\Entity\Person;
-use App\Entity\Roll;
-use App\Entity\Scale;
 use App\Pagination\ActivityPagination;
-use App\Pagination\ClassPagination;
 use App\Pagination\LinePagination;
 use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
-use App\People\Form\PersonType;
 use App\Security\VoterDetails;
 use App\Timetable\Form\LineType;
 use App\Timetable\Form\TimetableType;
@@ -21,8 +15,6 @@ use App\Timetable\Util\LineManager;
 use App\Timetable\Util\PeriodManager;
 use App\Timetable\Util\TimetableDisplayManager;
 use App\Timetable\Util\TimetableManager;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Connection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -30,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class TimetableController extends Controller
 {
@@ -577,7 +570,19 @@ class TimetableController extends Controller
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function addActivityToPeriod(int $id, int $activity, PeriodManager $periodManager, TwigManager $twig)
-    {}
+    {
+        $period = $periodManager->find($id);
+
+        $periodManager->addActivity($activity);
+
+        return new JsonResponse(
+            [
+                'status' => $periodManager->getMessageManager()->getHighestLevel(),
+                'message' => $periodManager->getMessageManager()->renderView($twig->getTwig()),
+            ],
+            200)
+            ;
+    }
 
     /**
      * removePeriodActivity
@@ -791,23 +796,53 @@ class TimetableController extends Controller
     }
 
     /**
-     * setTimetableGrade
+     * set TimetableGrade
      *
-     * @param $grade
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      * @Route("/timetable/{id}/grade/", name="timetable_grade_set")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function setTimetableGrade($id){}
+    public function setTimetableGrade($id, Request $request)
+    {
+        $sess = $request->getSession();
+
+        $sess->set('tt_identifier', 'grad' . $id);
+
+        return new JsonResponse([], 200);
+
+    }
 
     /**
      * Display Timetable
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/timetable/display/{closeWindow}", name="timetable_display")
+     * @Route("/timetable/{id}/display/{closeWindow}", name="timetable_display")
      * @Security("is_granted('ROLE_PRINCIPAL')")
      */
-    public function display(Request $request, VoterDetails $voterDetails, $closeWindow = '', TimetableDisplayManager $timetableDisplayManager){}
+    public function display(int $id, Request $request, VoterDetails $voterDetails, $closeWindow = '', TimetableDisplayManager $timetableDisplayManager)
+    {
+        $sess = $request->getSession();
+        $timetableDisplayManager->find($id);
+
+        $fullPage = !empty($closeWindow) ? true : false;
+
+        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $timetableDisplayManager->getTimetableIdentifier($this->getUser());
+
+        $voterDetails->parseIdentifier($identifier);
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $voterDetails, '');
+
+        return $this->render('Timetable/Display/index.html.twig',
+            [
+                'manager' => $timetableDisplayManager,
+                'fullPage' => $fullPage,
+                'headerOff' => $fullPage,
+            ]
+        );
+    }
 
     /**
      * Set Timetable Space
@@ -838,4 +873,90 @@ class TimetableController extends Controller
      * @IsGranted("ROLE_PRINCIPAL")
      */
     public function searchPeriods($tt, $id){}
+
+    /**
+     * Refresh Display TimeTable
+     *
+     * @param string $displayDate
+     * @return JsonResponse
+     * @Route("/timetable/display/{displayDate}/refresh/", name="timetable_refresh_display")
+     * @IsGranted("ROLE_USER");
+     */
+    public function refreshDisplay($displayDate, VoterDetails $voterDetails, TimetableDisplayManager $timetableDisplayManager, Request $request)
+    {
+        $sess = $request->getSession();
+
+        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $timetableDisplayManager->getTimeTableIdentifier($this->getUser());
+
+        $voterDetails->parseIdentifier($identifier);
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $voterDetails, '');
+
+        if ($this->getUser())
+            $timetableDisplayManager->generateTimeTable($identifier, $displayDate);
+
+        $content = $this->renderView('Timetable/Display/timetable.html.twig',
+            [
+                'manager' => $timetableDisplayManager,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content'     => $content,
+                'description' => $timetableDisplayManager->getDescription(true),
+            ],
+            200
+        );
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return null|string
+     */
+    public function getTimeTableIdentifier(UserInterface $user): ?string
+    {
+        // Determine if user is staff or student
+        if (!$this->isDisplayTimetable()) {
+            if ($this->getSession()->has('tt_identifier'))
+                $this->getSession()->remove('tt_identifier');
+            return null;
+        }
+        $identifier = '';
+
+        if ($this->personManager->isStudent($user->getPerson())) {
+            $identifier = 'stud' . $user->getPerson()->getStudent()->getId();
+        }
+        if ($this->personManager->isStaff($user->getPerson())) {
+            $identifier = 'staf' . $user->getPerson()->getStaff()->getId();
+        }
+        $this->getSession()->set('tt_identifier', $identifier);
+
+        return $identifier;
+    }
+
+    /**
+     * Is Valid User
+     *
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function isValidUser(UserInterface $user): bool
+    {
+        return $user->hasPerson();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    private function generateTimeTable($id)
+    {
+        return $this->render('TimeTable/Display/generate.html.twig',
+            [
+                'id' => $id,
+            ]
+        );
+    }
 }

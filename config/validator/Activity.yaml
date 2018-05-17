@@ -1,0 +1,8 @@
+App\Entity\Activity:
+    fields:
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 8
+        name:
+            - NotBlank: ~

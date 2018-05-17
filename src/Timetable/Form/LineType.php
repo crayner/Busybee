@@ -65,12 +65,13 @@ class LineType extends AbstractType
                                 ->leftJoin('cg.calendar', 'c')
                                 ->where('c = :calendar')
                                 ->setParameter('calendar', CalendarManager::getCurrentCalendar())
-                                ->orderBy('a.name', 'ASC')
                                 ->andwhere('(a INSTANCE OF :facetoface OR a INSTANCE OF :roll)')
                                 ->setParameter('roll', 'roll')
                                 ->setParameter('facetoface', 'class')
+                                ->leftJoin('a.course', 'cs')
                                 ->orderBy('cg.sequence', 'ASC')
-                                ->orderBy('a.name', 'ASC')
+                                ->addOrderBy('cs.name', 'ASC')
+                                ->addOrderBy('a.name', 'ASC')
                             ;
                         },
                     ],

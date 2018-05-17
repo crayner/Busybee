@@ -2,6 +2,7 @@
 namespace App\Core\Manager;
 
 use App\Core\Exception\MissingClassException;
+use App\Core\Organism\Message;
 use Symfony\Component\Form\FormView;
 
 class TwigManager
@@ -35,7 +36,7 @@ class TwigManager
     /**
      * @var \Twig_Environment
      */
-    private $twig;
+    private static $twig;
 
     /**
      * TwigManager constructor.
@@ -43,7 +44,7 @@ class TwigManager
      */
     public function __construct(\Twig_Environment $twig)
     {
-        $this->twig = $twig;
+        self::$twig = $twig;
     }
 
     /**
@@ -76,7 +77,7 @@ class TwigManager
      */
     public function getTwig(): \Twig_Environment
     {
-        return $this->twig;
+        return self::$twig;
     }
 
     /**
@@ -95,5 +96,19 @@ class TwigManager
         }
 
         return $entity;
+    }
+
+    /**
+     * renderMessage
+     *
+     * @param Message $message
+     * @return string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public static function renderMessage(Message $message): string
+    {
+        return self::$twig->render('Default/message.html.twig', ['message' => $message]);
     }
 }

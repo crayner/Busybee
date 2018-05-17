@@ -154,6 +154,9 @@ period:
                 availableStaff: 'Available Staff (%count%)'
                 availableSpace: 'Available Spaces (Capacity) (%count%)'
                 unallocatedStudents: 'Students not assigned to Period'
+            added: 'The activity "%{name}" was added to the period successfully.'
+            exists: 'The activity "%{name}" already exists in this period.'
+            missing: 'The activity could not be found to add to the period.'
         line.added: '{0} No activities|{1}The line added one activity to the period.|]1,Inf[The line added %count% activities to the period.'
     status.messages: '{0}No messages.|{1}One message.|]1,Inf[There are %count% messages.'
     plan:

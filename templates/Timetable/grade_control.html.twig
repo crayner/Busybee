@@ -9,7 +9,7 @@
     {% endif %}
     <div class="col-4 card">
         <div>
-            {{ miscButton({title: 'timetable.grade.view.button', class: 'btn btn-info fas fa-eye', javascript: {function: 'openGradeTimeTable', options: [grade.id]}, transDomain: 'Timetable'})|raw }}
+            {{ miscButton({title: 'timetable.grade.view.button', class: 'btn btn-info fas fa-eye', javascript: {function: 'openGradeTimeTable', options: [app.request.get('id'), grade.id]}, transDomain: 'Timetable'})|raw }}
             {% set checked = '0' %}
             {% set button_class = 'btn btn-danger far fa-times-circle' %}
             {% if control[grade.id] is not defined or control[grade.id] %}

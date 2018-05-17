@@ -38,9 +38,11 @@ class Message
 	/**
 	 * Message constructor.
 	 */
-	public function __construct()
+	public function __construct(string $message = '', array $options = [], string $domain = 'messages')
 	{
-		$this->setOptions([]);
+	    $this->setMessage($message);
+		$this->setOptions($options);
+		$this->setDomain($domain);
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Message
 	public function getDomain(): string
 	{
 		if (empty($this->domain))
-			return 'home';
+			return 'messages';
 
 		return $this->domain;
 	}
@@ -146,7 +148,7 @@ class Message
 	 */
 	public function setDomain(string $domain)
 	{
-		$this->domain = $domain;
+		$this->domain = $domain ?: 'messages';
 
 		return $this;
 	}

@@ -266,14 +266,15 @@
             window.open(path, 'LineEdit', 'width=1200,height=750')
         });
 
-        function openGradeTimeTable(grade) {
+        function openGradeTimeTable(id, grade) {
             var path = '{{ path('timetable_grade_set', {id: '__grade__'}) }}';
             path = path.replace('__grade__', grade);
             $.ajax({
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    path = '{{ path('timetable_display', {closeWindow: '_closeWindow'}) }}';
+                    path = '{{ path('timetable_display', {id: '__tt__', closeWindow: '_closeWindow'}) }}';
+                    path = path.replace('__tt__', id);
                     window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
                 }
             });
@@ -286,7 +287,7 @@
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    path = '{{ path('timetable_display', {closeWindow: '_closeWindow'}) }}';
+                    path = '{{ path('timetable_display', {id: app.request.get('id'), closeWindow: '_closeWindow'}) }}';
                     window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
                 }
             });
@@ -299,7 +300,7 @@
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    path = '{{ path('timetable_display', {closeWindow: '_closeWindow'}) }}';
+                    path = '{{ path('timetable_display', {id: app.request.get('id'), closeWindow: '_closeWindow'}) }}';
                     window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
                 }
             });

@@ -18,6 +18,7 @@ namespace App\Timetable\Util;
 
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\MessageManager;
+use App\Entity\Activity;
 use App\Entity\Space;
 use App\Entity\TimetableLine;
 use App\Entity\TimetablePeriod;
@@ -274,5 +275,39 @@ class PeriodManager
     private function getGrades(): Collection
     {
         return $this->getTimetableManager()->getGrades();
+    }
+
+    /**
+     * add Activity
+     *
+     * @param int $activity
+     */
+    public function addActivity(int $activity)
+    {
+        $activity = $this->getEntityManager()->getRepository(Activity::class)->find($activity);
+
+        if (! $activity )
+        {
+            $this->getMessageManager()->add('warning', 'period.activities.activity.missing', [], 'Timetable');
+            return;
+        }
+
+        $exists = new ArrayCollection();
+        foreach ($this->getPeriod()->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        if (!$exists->contains($activity)) {
+            $act = new TimetablePeriodActivity();
+            $act->setPeriod($this->getPeriod());
+            $act->setActivity($activity);
+            $this->getMessageManager()->add('success', 'period.activities.activity.added', ['%{name}' => $activity->getFullName()], 'Timetable');
+            $this->getEntityManager()->persist($this->getPeriod());
+            $this->getEntityManager()->flush();
+        } else
+            $this->getMessageManager()->add('warning', 'period.activities.activity.exists', ['%{name}' => $activity->getFullName()], 'Timetable');
+
+        $this->getTimetableManager()->getPeriodReport($this->getPeriod());
+
+        return;
     }
 }
