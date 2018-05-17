@@ -49,8 +49,9 @@
 		"twig/twig": "^2.4"
 	},
     "require-dev": {
-        "symfony/dotenv": "^4.0|^4.1"
-    },
+		"doctrine/doctrine-fixtures-bundle": "^3.0",
+		"symfony/dotenv": "^4.0|^4.1"
+	},
     "config": {
         "preferred-install": {
             "*": "dist"
