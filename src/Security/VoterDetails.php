@@ -1,10 +1,12 @@
 <?php
 namespace App\Security;
 
+use App\Core\Util\UserManager;
 use App\Entity\Activity;
 use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
+use App\Entity\TimetablePeriodActivity;
 use App\People\Util\PersonManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,19 +42,25 @@ class VoterDetails
 	/**
 	 * @var EntityManagerInterface
 	 */
-	private $om;
+	private $entityManager;
+
+    /**
+     * @var UserManager 
+     */
+	private $userManager;
 
 	/**
 	 * VoterDetails constructor.
 	 */
-	public function __construct(EntityManagerInterface $om)
+	public function __construct(EntityManagerInterface $entityManager, UserManager $userManager)
 	{
 		$this->grades         = new ArrayCollection();
 		$this->student        = null;
 		$this->activity       = null;
 		$this->staff          = null;
-		$this->om             = $om;
+		$this->entityManager             = $entityManager;
 		$this->identifierType = null;
+        $this->userManager = $userManager;
 	}
 
 	public function parseIdentifier($identifier)
@@ -91,7 +99,7 @@ class VoterDetails
 		if (gettype($id) !== 'integer' || empty($id))
 			return $this->setStaff(null);
 
-		$staff = $this->om->getRepository(Staff::class)->find($id);
+		$staff = $this->entityManager->getRepository(Staff::class)->find($id);
 
 		if ($staff instanceof Staff)
 			return $this->setStaff($staff);
@@ -116,7 +124,7 @@ class VoterDetails
 		if (gettype($id) !== 'integer' || empty($id))
 			return $this->setStudent(null);
 
-		$student = $this->om->getRepository(Student::class)->find($id);
+		$student = $this->entityManager->getRepository(Student::class)->find($id);
 		if ($student instanceof Student)
 			$this->setStudent($student);
 
@@ -213,13 +221,17 @@ class VoterDetails
 		return $this;
 	}
 
-	/**
-	 * @param PersonManager $pm
-	 * @param User          $user
-	 */
-	public function userIdentifier(PersonManager $pm, User $user): VoterDetails
+    /**
+     * userIdentifier
+     *
+     * @param PersonManager $pm
+     * @param UserManager $userManager
+     * @return VoterDetails
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function userIdentifier(PersonManager $pm): VoterDetails
 	{
-		$person = $user->getPerson();
+		$person = $this->getUserManager()->getPerson();
 
 		if ($person instanceof Person)
 		{
@@ -227,13 +239,13 @@ class VoterDetails
 			{
 				$this->setIdentifierType('staff');
 
-				return $this->addStaff('staf' . $person->getStaff()->getId());
+				return $this->addStaff('staf' . $person->getId());
 			}
 			if ($pm->isStudent($person))
 			{
 				$this->setIdentifierType('student');
 
-				return $this->addStudent('stud' . $person->getStudent()->getId());
+				return $this->addStudent('stud' . $person->getId());
 			}
 		}
 
@@ -247,7 +259,7 @@ class VoterDetails
 	 */
 	public function activityIdentifier($id): VoterDetails
 	{
-		$this->activity = $this->om->getRepository(PeriodActivity::class)->find($id);
+		$this->activity = $this->entityManager->getRepository(TimetablePeriodActivity::class)->find($id);
 
 		return $this;
 	}
@@ -294,4 +306,20 @@ class VoterDetails
 
 		return $this;
 	}
+
+    /**
+     * @return UserManager
+     */
+    public function getUserManager(): UserManager
+    {
+        return $this->userManager;
+    }
+
+    /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
+    }
 }
