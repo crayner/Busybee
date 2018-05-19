@@ -1,0 +1,80 @@
+{% extends 'Default/template.html.twig' %}
+
+{% trans_default_domain 'School' %}
+
+{% block title %}{{ parent() }}{% endblock title %}
+{% block contentContainer %}
+    <div class="container-fluid">
+        <div class="row row-header">
+            <div class="col-12 text-center">
+                {{ activity.fullName }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 card">
+                <div class="row">
+                    <div class="col-12 text-center card">
+                        Space: {% if activity.space is not empty %}{{ activity.space.name }}{% else %}{{ 'activity.space.notAssigned'|trans }}{% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center card">
+                        {% for period in activity.periods %}
+                            {{ period.period.columnName }}<br>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="fa-3x">
+                        {{ miscButton({class: 'fas fa-users', title: 'activity.attendance', transDomain: 'School', windowOpen: {route: path('attendance_by_activity', {id: activity.id}) }, style: 'background: white;'})|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="fa-3x">
+                            {{ miscButton({class: 'fas fa-clock', additional: {'data-fa-transform': 'shrink-8 down-4 right-4', 'data-fa-mask': 'fas fa-calendar-alt'}, title: 'activity.attendance', transDomain: 'School', style: "background: white;"})|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="fa-3x">
+                            {{ miscButton({class: 'fas fa-check-square', additional: {'data-fa-transform': 'shrink-8 down-5 right-4', 'data-fa-mask': 'fas fa-book'}, title: 'activity.markbook', transDomain: 'School', style: "background: white;"})|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="fa-3x">
+                            {{ miscButton({class: 'fas fa-sticky-note', additional: {'data-fa-transform': 'shrink-10 up-2 left-2', 'data-fa-mask': 'fas fa-home'}, title: 'activity.homework', transDomain: 'School', style: "background: white;"})|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="fa-3x">
+                            {{ miscButton({class: 'fas fa-check-square', additional: {'data-fa-transform': 'shrink-8 down-5 right-5', 'data-fa-mask': 'fas fa-list-alt'}, title: 'activity.internalAssessment', transDomain: 'School', style: "background: white;"})|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9 card">
+                {% for student in activity.students %}
+                    <div class="row row-striped">
+                        <div class="col-3 text-center">
+                            {{ student.student.photo75()|raw }}
+                        </div>
+                        <div class="col-4">
+                            {{ student.student.fullName }}
+                        </div>
+                        <div class="col-5">
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock contentContainer %}

@@ -443,7 +443,7 @@ timetable:
     private $days;
 
     /**
-     * @var array
+     * @var Colection
      */
     private $weeks;
 
@@ -456,12 +456,14 @@ timetable:
     }
 
     /**
-     * @return array
+     * @return Collection
      */
-    public function getWeeks(): array
+    public function getWeeks(): Collection
     {
         if (empty($this->weeks))
-            $this->weeks = [];
+            $this->weeks = new ArrayCollection();
+        if (is_array($this->weeks))
+            $this->weeks = new ArrayCollection($this->weeks);
         return $this->weeks;
     }
 
@@ -689,5 +691,23 @@ timetable:
     protected function getSession(): SessionInterface
     {
         return $this->getStack()->getCurrentRequest()->getSession();
+    }
+
+    /**
+     * @return array
+     */
+    public function getSchoolWeek(): array
+    {
+        return $this->schoolWeek;
+    }
+
+    /**
+     * @param Collection $weeks
+     * @return TimetableManager
+     */
+    public function setWeeks(?Collection $weeks): TimetableManager
+    {
+        $this->weeks = $weeks ?: new ArrayCollection();
+        return $this;
     }
 }

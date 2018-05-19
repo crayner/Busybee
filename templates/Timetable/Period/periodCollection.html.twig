@@ -1,0 +1,32 @@
+{% trans_default_domain "Timetable" %}
+
+{% block timetable_column_period_label %}{% endblock %}
+{% block timetable_column_period_errors %}{% endblock %}
+
+{% block timetable_column_period_widget %}
+    {% spaceless %}
+    <div class="row">
+        <div class="col-2 card">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-2 card">
+            {{ form_row(form.code) }}
+        </div>
+            <div class="col-2 card">
+            {{ form_row(form.periodType) }}
+        </div>
+        <div class="col-2 card">
+            {{ form_row(form.start) }}
+        </div>
+        <div class="col-2 card">
+            {{ form_row(form.end) }}
+            {{ form_widget(form.column, {value: app.request.get('id')}) }}
+        </div>
+        <div class="col-2 card">
+            <div class="collection-actions">
+                {{ saveButton()|raw }}
+            </div>
+        </div>
+    </div>
+    {% endspaceless %}
+{% endblock timetable_column_period_widget %}

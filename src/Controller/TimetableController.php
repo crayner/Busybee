@@ -8,6 +8,7 @@ use App\Pagination\LinePagination;
 use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
 use App\Security\VoterDetails;
+use App\Timetable\Form\ColumnType;
 use App\Timetable\Form\LineType;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\ColumnManager;
@@ -859,10 +860,17 @@ class TimetableController extends Controller
      *
      * @param $grade
      * @return JsonResponse
-     * @Route("/staff/{staff}/set/", name="timetable_staff_set")
+     * @Route("/timetable/staff/{staff}/set/", name="timetable_staff_set")
      * @IsGranted("ROLE_PRINCIPAL")
      */
-    public function setTimetableStaff($staff){}
+    public function setTimetableStaff($staff, Request $request)
+    {
+        $sess = $request->getSession();
+
+        $sess->set('tt_identifier', 'staf' . $staff);
+
+        return new JsonResponse([], 200);
+    }
 
     /**
      * searchPeriods
@@ -879,12 +887,14 @@ class TimetableController extends Controller
      *
      * @param string $displayDate
      * @return JsonResponse
-     * @Route("/timetable/display/{displayDate}/refresh/", name="timetable_refresh_display")
+     * @Route("/timetable/{id}/display/{displayDate}/refresh/", name="timetable_refresh_display")
      * @IsGranted("ROLE_USER");
      */
-    public function refreshDisplay($displayDate, VoterDetails $voterDetails, TimetableDisplayManager $timetableDisplayManager, Request $request)
+    public function refreshDisplay($id, $displayDate, VoterDetails $voterDetails, TimetableDisplayManager $timetableDisplayManager, Request $request)
     {
         $sess = $request->getSession();
+
+        $timetableDisplayManager->find($id);
 
         $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $timetableDisplayManager->getTimeTableIdentifier($this->getUser());
 

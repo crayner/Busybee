@@ -79,6 +79,12 @@ timetable:
             list:
                 title: 'Activities'
                 description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
+    loading: Loading Timetable
+    display:
+        title: 'Timetable'
+    header:
+        blank: My Timetable
+        staff: 'Staff: %name%'
 line:
     list:
         menu.label: Manage Lines
@@ -139,7 +145,14 @@ column:
         confirm: 'You wish to reset all column times to the default values?'
     periods:
         count: '{0}No periods are attached.|{1}One Period is attached.|]1,Inf[%{count} periods are attached.'
-        manage: 'Create / Manage Periods'
+        manage.title: 'Create / Manage Periods'
+    period.period_type:
+        class: Teaching
+        break: Break
+        pastoral: Pastoral
+        meeting: Meeting
+        students: Student Attend
+        'no students': Student Free
 period:
     activities:
         report.button: Period Report
@@ -168,6 +181,17 @@ period:
         help: 'This report is based on the selections made on the timetable builder page.  The report is limited to the grades selected in the users selected calendar. These details can be change on the timetable page and the current calendar can be selected on the user detail page.'
         title: 'Period Activity Report'
         grade.header: '{0}No !!!form_grade!!!|]0,Inf[!!!form_grade!!!: %{grade}'
+    name:
+        label: Period Name.
+    code:
+        label: Period Code.
+        help: Maximum 3 characters.
+    start:
+        label: Start of Period.
+    end:
+        label: End of Period.
+    period_type:
+        label: Period Type
 report:
     students:
         missing: '{0}|{1}There is one student not allocated to this period!|]1,Inf[There are %count% students not allocated to this period!'
@@ -181,3 +205,6 @@ report:
         tutor.missing: 'The activity "%name%" does not have a tutor allocated!'
     period.ok: No problems have been detected in this period.
     space.duplicated: 'The space "%{name}" is duplicated in activity "%{activity}"'
+weekShort: W
+time: Time
+today: Today

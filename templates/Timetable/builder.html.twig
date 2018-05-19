@@ -11,7 +11,7 @@
 {% block contentContainer %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 card">
+            <div class="col-8 card">
                 <div class="hideSearch">{% include 'Pagination/search_only.html.twig' %}</div>
 
                 {% include 'Timetable/grade_control.html.twig' %}
@@ -19,7 +19,7 @@
                 <div id="periodFrame">{% include 'Timetable/Period/builder.html.twig' %}</div>
 
             </div>
-            <div class="col-md-4 card">
+            <div class="col-4 card">
                 <div id="line_tt_manage">
                     {% include 'Timetable/builder_line_activity.html.twig' %}
                 </div>
@@ -266,14 +266,14 @@
             window.open(path, 'LineEdit', 'width=1200,height=750')
         });
 
-        function openGradeTimeTable(id, grade) {
+        function openGradeTimeTable(grade) {
             var path = '{{ path('timetable_grade_set', {id: '__grade__'}) }}';
             path = path.replace('__grade__', grade);
             $.ajax({
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    path = '{{ path('timetable_display', {id: '__tt__', closeWindow: '_closeWindow'}) }}';
+                    path = '{{ path('timetable_display', {id: app.request.get('id'), closeWindow: '_closeWindow'}) }}';
                     path = path.replace('__tt__', id);
                     window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
                 }
@@ -293,9 +293,9 @@
             });
         }
 
-        function openStaffTimeTable(id) {
+        function openStaffTimeTable(staff) {
             var path = '{{ path('timetable_staff_set', {staff: '__staff__'}) }}';
-            path = path.replace('__staff__', id);
+            path = path.replace('__staff__', staff);
             $.ajax({
                 url: path,
                 type: 'POST',

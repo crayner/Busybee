@@ -1,52 +1,53 @@
 {% trans_default_domain "Timetable" %}
-{{ dump() }}
-{#
 <div class="row">
-    <div class="col-sm-12 text-center" id="timetableHeader">
+    <div class="col-12 text-center" id="timetableHeader">
         <h3>{{ manager.header|trans({'%name%': manager.idDesc}) }}</h3>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-2 col-sm-offset-8">
-        <select class="form-control" id="selectDate">
-            {% for week in manager.weeks %}
-                {% set select = '' %}
-                {% if manager.displayDate >= week.start and manager.displayDate <= week.finish %}
-                    {% set select = ' selected' %}
-                {% endif %}
-                <option value="{{ week.start|date('Ymd') }}"{{ select }}>{{ week.start|date(get_setting('date.format.long')) }}</option>
-                {% if manager.today >= week.start and manager.today <= week.finish %}
-                    <option value="today">{{ 'today'|trans }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-    </div>
-    <div class="col-sm-2">
-        <div>
-            {{ miscButton({class: 'btn btn-info fas fa-arrow-circle-right', transDomain: 'Timetable', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Next Week',
-                javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('+7 Days')}})|raw }}
-            {{ miscButton({class: 'btn btn-info fas fa-arrow-circle-left', transDomain: 'Timetable', style: 'float: right; height: 33px; margin-top: -2px; ',
-                title: 'Previous Week', javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('-7 Days')}})|raw }}            </div>
+    <div class="col-3 offset-8">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                {{ miscButton({class: 'btn btn-sm btn-info fas fa-arrow-circle-left', transDomain: 'Timetable', style: 'margin: -1px 0 0 0; height: 30px;',
+                    title: 'Previous Week', javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('-7 Days')}})|raw }}
+            </div>
+            <select class="form-control form-control-sm" id="selectDate">
+                {% for week in manager.weeks %}
+                    {% set select = '' %}
+                    {% if manager.displayDate >= week.start and manager.displayDate <= week.finish %}
+                        {% set select = ' selected' %}
+                    {% endif %}
+                    <option value="{{ week.start|date('Ymd') }}"{{ select }}>{{ week.start|date(get_setting('date.format.long')) }}</option>
+                    {% if manager.today >= week.start and manager.today <= week.finish %}
+                        <option value="today">{{ 'today'|trans }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                {{ miscButton({class: 'btn btn-sm btn-info fas fa-arrow-circle-right', transDomain: 'Timetable', title: 'Next Week', style: 'margin: -1px 0 0 0; height: 30px;',
+                    javascript: {function: 'displayTimeTable', options: manager.displayDate|date_modify('+7 Days')}})|raw }}
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-1">
+    <div class="col-1">
         <div class="row ">
-            <div class="col-sm-12 text-center">
+            <div class="col-12 text-center">
                 {% if manager.week.title == 'Hol' %}
-                    <strong>{{ 'break'|trans }} {{ 'weekShort'|trans }}{{ manager.week.weekNumber }}</strong>
+                    <strong>{{ 'break'|trans }} {{ 'weekShort'|trans }}{{ manager.week.number }}</strong>
                 {% else %}
-                    <strong>{{ manager.week.title }} {{ 'weekShort'|trans }}{{ manager.week.weekNumber }}</strong>
+                    <strong>{{ manager.week.title }} {{ 'weekShort'|trans }}{{ manager.week.number }}</strong>
                 {% endif %}
                 <em>{{ 'time'|trans }}</em>
             </div>
         </div>
     </div>
-    <div class="col-md-11">
+    <div class="col-11">
         <div class="row">
             {% for day in manager.week.days %}
-                <div class="col-sm-2 text-center">
-                    <strong>{{ day.ttday.nameShort }}
+                <div class="col-2 text-center">
+                    <strong>{{ day.date.format('D') }}
                         <br/><em>{{ day.date.format(get_setting('date.format.short')) }}</em></strong>
                 </div>
             {% endfor %}
@@ -57,9 +58,9 @@
 
 <div class="row">
 
-    <div class="col-md-1">
+    <div class="col-1">
         <div class="row ">
-            <div class="col-sm-12 text-center">
+            <div class="col-12 text-center">
                 {% for hour in manager.dayHours %}
                     <div class="calendarHours">
                         <em>{{ hour }}</em>
@@ -69,36 +70,23 @@
         </div>
     </div>
 
-    <div class="col-md-11">
+    <div class="col-11">
         <div class="row">
             {% for day in manager.week.days %}
-                <div class="col-sm-2 text-center small">
-                    {% for period in day.ttday.periods %}
-                        {% set calendarClass = 'calendarPeriod' %}
-                        {% if period.break %}
-                            {% set calendarClass = calendarClass ~ ' calendarBreak' %}
-                        {% endif %}
-                        {% if period.activity is defined and period.activity is not empty %}
-                            {% set calendarClass = calendarClass ~ ' calendarActive' %}
-                        {% endif %}
-                        {% if manager.currentTime(day.date, period) %}
-                            {% set calendarClass = calendarClass ~ ' calendarCurrent' %}
-                        {% endif %}
-                        {% if period.class is defined %}
-                            {% set calendarClass = calendarClass ~ period.class %}
-                        {% endif %}
-                        <div class="{{ calendarClass }}"
-                             style="height: {{ period.minutes }}px; max-height: {{ period.minutes }}px; ">
+                <div class="col-2 text-center small">
+                    {% for period in day.periods %}
+                        <div class="{{ manager.class(period, day.date) }}"
+                             style="height: {{ (period.minutes * 1.25) }}px; max-height: {{ (period.minutes * 1.25) }}px; ">
                             {{ period.name }}<br/>
                             {{ period.start.format(get_setting('time.format.short')) }}
                             - {{ period.end.format(get_setting('time.format.short')) }}
                             {% if period.activity is defined and period.activity is not empty %}
                                 <br/>
                                 {% if manager.type == 'Grade' %}
-                                    <strong style="color: red">{{ period.activity.nameShort }}</strong>
+                                    <strong style="color: red">{{ period.activity.courseCode }}</strong>
                                 {% else %}
                                     <a href="{{ path('activity_route', {id: period.activity.id}) }}" target="_self">
-                                        <strong style="color: red">{{ period.activity.nameShort }}</strong></a><br/>
+                                        <strong style="color: red">{{ period.activity.courseCode }}</strong></a><br/>
                                     {{ period.activity.spaceName }}
                                 {% endif %}
                             {% endif %}
@@ -107,7 +95,7 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                    {% if day.ttday.id is empty %}
+                    {% if day.day.id is empty %}
                         {% set calendarClass = 'calendarPeriod calendarClosure' %}
                         <div class="{{ calendarClass }}"
                              style="height: {{ manager.schoolDayTime }}px; max-height: {{ manager.schoolDayTime }}px; ">
@@ -121,4 +109,3 @@
     </div>
 </div>
 <div class="row">&nbsp;</div>
-#}

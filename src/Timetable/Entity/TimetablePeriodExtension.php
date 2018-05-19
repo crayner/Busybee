@@ -65,7 +65,7 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
      *
      * @return int
      */
-    public function getMinutes()
+    public function getMinutes(): int
     {
         $interval = ($this->getEnd()->getTimeStamp() - $this->getStart()->getTimeStamp()) / 60;
 
@@ -114,5 +114,52 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
             return false;
 
         return true;
+    }
+
+    /**
+     * isBreak
+     *
+     * @return bool
+     */
+    public function isBreak(): bool
+    {
+        if ($this->getPeriodType() === 'break')
+            return true;
+        return false;
+    }
+
+    /**
+     * hasActivities
+     *
+     * @return bool
+     */
+    public function hasActivities(): bool
+    {
+        if ($this->getActivities()->count() > 0)
+            return true;
+        return false;
+    }
+
+    /**
+     * @var string
+     */
+    private $class;
+
+    /**
+     * @return string
+     */
+    public function getClass(): string
+    {
+        return $this->class ?: '';
+    }
+
+    /**
+     * @param string $class
+     * @return TimetablePeriodExtension
+     */
+    public function setClass(string $class): TimetablePeriodExtension
+    {
+        $this->class = $class;
+        return $this;
     }
 }

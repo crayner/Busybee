@@ -6,6 +6,7 @@ use App\Pagination\ClassPagination;
 use App\Pagination\CoursePagination;
 use App\Pagination\ExternalActivityPagination;
 use App\Pagination\RollPagination;
+use App\People\Util\PersonManager;
 use App\School\Form\RollType;
 use App\School\Form\CourseType;
 use App\School\Form\DaysTimesType;
@@ -14,6 +15,7 @@ use App\School\Form\FaceToFaceType;
 use App\School\Util\ActivityManager;
 use App\School\Util\CourseManager;
 use App\School\Util\DaysTimesManager;
+use App\Security\VoterDetails;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -547,6 +549,44 @@ class SchoolController extends Controller
                 'status' => $activityManager->getStatus(),
             ],
             200
+        );
+    }
+
+    /**
+     * activityRoute
+     *
+     * @param $id
+     * @return mixed
+     * @Route("/activity/{id}/route/", name="activity_route")
+     * @IsGranted("ROLE_USER")
+     */
+    public function activityRoute($id, VoterDetails $voterDetails, PersonManager $personManager)
+    {
+        $voterDetails->userIdentifier($personManager, $this->getUser())
+            ->activityIdentifier($id);
+
+        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', $voterDetails);
+
+        $target = $voterDetails->getIdentifierType();
+
+        if (!is_null($target) && method_exists($this, $target))
+            return $this->$target($voterDetails->getActivity()->getActivity());
+
+        throw new \TypeError('The activity cannot be displayed for the user type.');
+    }
+
+    /**
+     * staf
+     *
+     * @param $activity
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    private function staf($activity)
+    {
+        return $this->render('School/Display/staff.html.twig',
+            [
+                'activity' => $activity,
+            ]
         );
     }
 }

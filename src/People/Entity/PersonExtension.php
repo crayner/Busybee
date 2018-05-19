@@ -1,6 +1,7 @@
 <?php
 namespace App\People\Entity;
 
+use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
 use Hillrange\Security\Util\UserTrackInterface;
@@ -286,5 +287,22 @@ abstract class PersonExtension implements UserTrackInterface
     public function fullName($options = array())
     {
         return $this->formatName($options);
+    }
+
+    public function isEqualTo(Person $person): bool
+    {
+        if ($this->getId() !== $person->getId())
+            return false;
+
+        if (get_class($this) !== get_class($person))
+            return false;
+
+        if ($this->getIdentifier() !== $person->getIdentifier())
+            return false;
+
+        if ($this->getFullName() !== $person->getFullName())
+            return false;
+
+        return true;
     }
 }

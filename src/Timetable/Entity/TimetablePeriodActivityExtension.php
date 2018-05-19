@@ -142,4 +142,28 @@ abstract class TimetablePeriodActivityExtension implements UserTrackInterface
 
         return true;
     }
+
+    /**
+     * getSpaceName
+     *
+     * @return string
+     */
+    public function getSpaceName(): string
+    {
+        $space = $this->loadSpace();
+        if ($space)
+            return $space->getNameCapacity();
+        return '';
+    }
+
+    public function getCourseCode(): string
+    {
+        if (! $this->getActivity())
+            return $this;
+
+        if ($this->getActivity()->isUseCourseName())
+            return $this->getActivity()->getCourse()->getCode() . '.' . $this->getActivity()->getCode();
+
+        return $this->getActivity()->getCode();
+    }
 }

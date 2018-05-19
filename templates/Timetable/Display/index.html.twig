@@ -14,3 +14,14 @@
     {% set x = addScript('Timetable/Display/selectDate.html.twig') %}
 {% endblock contentContainer %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="javascript">
+        if (document.createStyleSheet){  // Bloody IE
+            document.createStyleSheet('{{ asset('css/timetable.css') }}');
+        }
+        else {
+            $("head").append($("<link rel='stylesheet' href='{{ asset('css/timetable.css') }}' type='text/css' media='screen' />"));
+        }
+    </script>
+{% endblock javascripts %}

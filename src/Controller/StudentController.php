@@ -219,4 +219,15 @@ class StudentController extends Controller
 			],
 			200);
 	}
+
+    /**
+     * attendanceActivity
+     *
+     * @param $id
+     * @Route("/school/activity/{id}/attendance/", name="attendance_by_activity")
+     */
+	public function attendanceActivity($id)
+    {
+
+    }
 }

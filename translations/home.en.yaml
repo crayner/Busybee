@@ -39,7 +39,7 @@ menu:
         manage: Manage Calendars
         grades: Calendar Grades
         display: Display Calendar
-        special_days: Manage Special Day
+        special_days: Manage Special Days
         terms: Manage Terms
     school:
         daysandtimes: Manage School Day and Times

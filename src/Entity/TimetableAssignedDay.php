@@ -1,6 +1,9 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 class TimetableAssignedDay
 {
     /**
@@ -220,5 +223,21 @@ class TimetableAssignedDay
     {
         $this->specialDay = $specialDay;
         return $this;
+    }
+
+    /**
+     * get Periods
+     *
+     * @return Collection
+     */
+    public function getPeriods(): Collection
+    {
+        if (empty($this->getColumn()))
+            return new ArrayCollection();
+
+        if (empty($this->getColumn()->getPeriods()))
+            return new ArrayCollection();
+
+        return $this->getColumn()->getPeriods();
     }
 }
