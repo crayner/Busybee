@@ -94,7 +94,7 @@ App\Entity\Activity:
             targetEntity: App\Entity\TimetableLine
             inversedBy: activities
             joinColumn:
-                name: line_id
+                name: tt_line_id
                 referencedColumnName: id
                 nullable: true
         course:

@@ -5,7 +5,7 @@ App\Entity\TimetablePeriodActivity:
     uniqueConstraints:
         period_activity:
             columns:
-                - period_id
+                - tt_period_id
                 - activity_id
     id:
         id:
@@ -30,7 +30,7 @@ App\Entity\TimetablePeriodActivity:
             targetEntity: App\Entity\TimetablePeriod
             inversedBy: activities
             joinColumn:
-                name: period_id
+                name: tt_period_id
                 referencedColumnName: id
                 nullable: false
     oneToMany:

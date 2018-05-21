@@ -201,4 +201,14 @@ class Campus implements UserTrackInterface
 
 		return $this;
 	}
+
+    /**
+     * @param int $id
+     * @return Campus
+     */
+    public function setId(int $id): Campus
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

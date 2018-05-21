@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\People\Entity\PersonExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -90,7 +91,7 @@ class Person extends PersonExtension
 	/**
 	 * @var Collection
 	 */
-	private $phone;
+	private $phones;
 	/**
 	 * @var string
 	 */
@@ -126,7 +127,7 @@ class Person extends PersonExtension
 	 */
 	public function __construct()
 	{
-		$this->phone      = new ArrayCollection();
+		$this->phones      = new ArrayCollection();
 		$this->careGivers = new ArrayCollection();
 		parent::__construct();
 	}
@@ -488,39 +489,58 @@ class Person extends PersonExtension
 		return $this;
 	}
 
-	/**
-	 * Add phone
-	 *
-	 * @param Phone $phone
-	 *
-	 * @return Person
-	 */
-	public function addPhone(Phone $phone)
-	{
-		$this->phone[] = $phone;
+    /**
+     * @return Collection
+     */
+    public function getPhones(): Collection
+    {
+        if (empty($this->phones))
+            $this->phones = new ArrayCollection();
 
-		return $this;
-	}
+        if($this->phones instanceof PersistentCollection)
+            $this->phones->initialize();
 
-	/**
-	 * Remove phone
-	 *
-	 * @param Phone $phone
-	 */
-	public function removePhone(Phone $phone)
-	{
-		$this->phone->removeElement($phone);
-	}
+        return $this->phones;
+    }
 
-	/**
-	 * Get phone
-	 *
-	 * @return Collection
-	 */
-	public function getPhone()
-	{
-		return $this->phone;
-	}
+    /**
+     * @param Collection|null $phones
+     * @return Family
+     */
+    public function setPhones(?Collection $phones): Person
+    {
+        $this->phones = $phones;
+        return $this;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param Phone $phone
+     *
+     * @return Family
+     */
+    public function addPhone(?Phone $phone): Person
+    {
+        if (empty($this->phones) || $this->getPhones()->contains($phone))
+            return $this;
+
+        $this->phones->add($phone);
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param Phone $phone
+     */
+    public function removePhone(?Phone $phone): Person
+    {
+        $this->getPhones()->removeElement($phone);
+
+        return $this;
+    }
 
 	/**
 	 * Get identifier
@@ -701,20 +721,6 @@ class Person extends PersonExtension
 	public function setVehicleRegistration($vehicleRegistration): Person
 	{
 		$this->vehicleRegistration = $vehicleRegistration;
-
-		return $this;
-	}
-
-	/**
-	 * Set Phone
-	 *
-	 * @param Collection $phone
-	 *
-	 * @return $this
-	 */
-	public function setPhone(Collection $phone): Person
-	{
-		$this->phone = $phone;
 
 		return $this;
 	}

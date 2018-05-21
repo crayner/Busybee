@@ -264,12 +264,12 @@ user:
         $phones = new ArrayCollection();
 
         foreach ($families as $family) {
-            foreach ($family->getPhone() as $phone)
+            foreach ($family->getPhones() as $phone)
                 if (!$phones->contains($phone)) $phones->add($phone);
         }
 
         if ($all)
-            foreach ($person->getPhone() as $phone)
+            foreach ($person->getPhones() as $phone)
                 if (!$phones->contains($phone)) $phones->add($phone);
 
         return $phones;

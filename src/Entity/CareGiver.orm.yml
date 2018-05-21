@@ -1,6 +1,6 @@
 App\Entity\CareGiver:
     type: entity
-    table: caregiver
+    table: care_giver
     repositoryClass: App\Repository\CareGiverRepository
     uniqueConstraints:
         familyPerson:

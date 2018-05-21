@@ -5,12 +5,12 @@ App\Entity\Address:
     uniqueConstraints:
         address:
             columns:
-                - buildingType
-                - buildingNumber
-                - streetNumber
-                - propertyName
-                - streetName
-                - locality
+                - building_type
+                - building_number
+                - street_number
+                - property_name
+                - street_name
+                - locality_id
     id:
         id:
             type: integer
@@ -22,25 +22,31 @@ App\Entity\Address:
             type: string 
             length: '10'
             nullable: true
+            column: building_type
         buildingNumber:
             type: string
             length: '10'
             nullable: true
+            column: building_number
         streetNumber:
             type: string
             length: '15'
             nullable: true
+            column: street_number
         propertyName:
             type: string
             length: '50'
             nullable: true
+            column: property_name
         streetName:
             type: string
             length: '70'
+            column: street_name
     manyToOne:
         locality:
             targetEntity: App\Entity\Locality
             cascade: ['persist']
-            joinColumns:
-                locality:
-                    referencedColumnName: id
+            joinColumn:
+                name: locality_id
+                referencedColumnName: id
+                nullable: false

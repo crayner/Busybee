@@ -77,7 +77,7 @@ class PersonPagination extends PaginationManager
 				'type'  => 'leftJoin',
 				'alias' => 'u',
 			],
-			'p.phone' => [
+			'p.phones' => [
 				'type' => 'leftJoin',
 				'alias' =>'ph',
 			],

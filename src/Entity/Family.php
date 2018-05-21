@@ -3,6 +3,8 @@ namespace App\Entity;
 
 use App\People\Entity\FamilyExtension;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Family
@@ -32,7 +34,7 @@ class Family extends FamilyExtension
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
-	private $phone;
+	private $phones;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
@@ -160,48 +162,17 @@ class Family extends FamilyExtension
 	}
 
 	/**
-	 * Add phone
-	 *
-	 * @param Phone $phone
-	 *
-	 * @return Family
-	 */
-	public function addPhone(Phone $phone)
-	{
-		$this->phone[] = $phone;
-
-		return $this;
-	}
-
-	/**
-	 * Remove phone
-	 *
-	 * @param Phone $phone
-	 */
-	public function removePhone(Phone $phone)
-	{
-		$this->phone->removeElement($phone);
-	}
-
-	/**
-	 * Get phone
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getPhone()
-	{
-		return $this->phone;
-	}
-
-	/**
 	 * Add student
 	 *
 	 * @param  Student $student
 	 *
 	 * @return Family
 	 */
-	public function addStudent(Student $student)
+	public function addStudent(?Student $student): Family
 	{
+	    if (empty($student) || $this->getStudents()->contains($student))
+	        return $this;
+
 		$this->students->add($student);
 
 		return $this;
@@ -222,8 +193,14 @@ class Family extends FamilyExtension
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getStudents()
+	public function getStudents(): Collection
 	{
+	    if (empty($this->students))
+            $this->students = new ArrayCollection();
+
+	    if ($this->students instanceof PersistentCollection)
+	        $this->students->initialize();
+
 		return $this->students;
 	}
 
@@ -403,4 +380,57 @@ class Family extends FamilyExtension
 
 		return $this;
 	}
+
+    /**
+     * @return Collection
+     */
+    public function getPhones(): Collection
+    {
+        if (empty($this->phones))
+            $this->phones = new ArrayCollection();
+
+        if($this->phones instanceof PersistentCollection)
+            $this->phones->initialize();
+
+        return $this->phones;
+    }
+
+    /**
+     * @param Collection $phones
+     * @return Family
+     */
+    public function setPhones(Collection $phones): Family
+    {
+        $this->phones = $phones;
+        return $this;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param Phone $phone
+     *
+     * @return Family
+     */
+    public function addPhone(?Phone $phone): Family
+    {
+        if (empty($this->phones) || $this->getPhones()->contains($phone))
+            return $this;
+
+        $this->phones->add($phone);
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     * @param Phone|null $phone
+     * @return Family
+     */
+    public function removePhone(?Phone $phone): Family
+    {
+        $this->getPhones()->removeElement($phone);
+
+        return $this;
+    }
 }

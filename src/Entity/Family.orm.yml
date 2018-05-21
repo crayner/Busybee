@@ -43,7 +43,7 @@ App\Entity\Family:
                 - 'persist'
             orphanRemoval: true
     manyToMany:
-        phone:
+        phones:
             targetEntity: App\Entity\Phone
             cascade: [ 'persist' ]
             joinTable:
@@ -69,13 +69,13 @@ App\Entity\Family:
     manyToOne:
         address1:
             targetEntity: App\Entity\Address
-            nullable: true
-            joinColumns:
-                address1:
-                    referencedColumnName: id
+            joinColumn:
+                name: address_1
+                referencedColumnName: id
+                nullable: true
         address2:
             targetEntity: App\Entity\Address
-            nullable: true
-            joinColumns:
-                address2:
-                    referencedColumnName: id
+            joinColumn:
+                name: address_2
+                referencedColumnName: id
+                nullable: true

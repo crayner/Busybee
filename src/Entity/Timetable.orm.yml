@@ -44,6 +44,6 @@ App\Entity\Timetable:
         calendar:
             targetEntity: App\Entity\Calendar
             orderBy: { 'firstDay': 'DESC' }
-            joinColumns:
-                calendar_id:
-                    referencedColumnName: id
+            joinColumn:
+                name: calendar_id
+                referencedColumnName: id

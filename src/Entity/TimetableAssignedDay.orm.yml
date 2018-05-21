@@ -35,25 +35,25 @@ App\Entity\TimetableAssignedDay:
     manyToOne:
         timetable:
             targetEntity: App\Entity\Timetable
-            joinColumns:
-                timetable_id:
-                    referencedColumnName: id
-                    nullable: false
+            joinColumn:
+                name: timetable_id
+                referencedColumnName: id
+                nullable: false
         term:
             targetEntity: App\Entity\Term
-            joinColumns:
-                term_id:
-                    referencedColumnName: id
-                    nullable: true
+            joinColumn:
+                name: term_id
+                referencedColumnName: id
+                nullable: true
         column:
             targetEntity: App\Entity\TimetableColumn
-            joinColumns:
-                column_id:
-                    nullable: true
-                    referencedColumnName: id
+            joinColumn:
+                name: tt_column_id
+                nullable: true
+                referencedColumnName: id
         specialDay:
             targetEntity: App\Entity\SpecialDay
-            joinColumns:
-                special_day_id:
-                    nullable: true
-                    referencedColumnName: id
+            joinColumn:
+                name: special_day_id
+                nullable: true
+                referencedColumnName: id
