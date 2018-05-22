@@ -66,6 +66,26 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		if (is_null($setting))
 			throw new Exception('The setting '.$options['setting_name'].' was not found.');
 
+
+        if ($options['use_label_as_value'] && $options['use_value_as_label'])
+            throw new Exception('The Setting Choice must not set both `use_label_as_value` and `use_value_as_label`');
+
+        if ($options['use_label_as_value'])
+        {
+            $x = [];
+            foreach ($choices as $label)
+                $x[$label] = $label;
+            $choices = $x;
+        }
+
+        if ($options['use_value_as_label'])
+        {
+            $x = [];
+            foreach ($choices as $value=>$label)
+                $x[$value] = $value;
+            $choices = $x;
+        }
+
 		$newChoices = [];
 		if (!is_null($options['setting_data_value']))
 		{
@@ -111,25 +131,6 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
 
 		$choices = $newChoices;
-
-		if ($options['use_label_as_value'] && $options['use_value_as_label'])
-		    throw new Exception('The Setting Choice must not set both `use_label_as_value` and `use_value_as_label`');
-
-        if ($options['use_label_as_value'])
-        {
-            $x = [];
-            foreach ($choices as $label)
-                $x[$label] = $label;
-            $choices = $x;
-        }
-
-        if ($options['use_value_as_label'])
-        {
-            $x = [];
-            foreach ($choices as $value=>$label)
-                $x[$value] = $value;
-            $choices = $x;
-        }
 
         if (empty($choices))
             throw new Exception('No choices found for the setting. '. $options['setting_name']);
