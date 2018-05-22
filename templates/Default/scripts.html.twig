@@ -7,6 +7,7 @@
 <script src="{{ asset('js/tether.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/fontawesome-all.min.js') }}"></script>
 
 
 {% if app.getUser is not empty %}
@@ -41,51 +42,41 @@
 <script type="text/javascript" charset="utf-8">
 
     $('.foldMenu').on('click', function(){
-        var that = this;
-
-        if ($('.foldMenu').hasClass('fa-times-circle')) {
-
+        var foldMenu = $('.foldMenu');
+        var container = foldMenu.parent();
+        var icon = foldMenu.children('svg');
+        if (icon.hasClass('fa-times-circle')) {
             $.ajax({
                 url: '{{ path('section_menu_display', {display: 'hide'}) }}',
                 type: 'POST'
             });
-            setTimeout(function() {
-                console.log(that.parentNode);
-                that.parentNode.style.flex = 'auto';
-                that.parentNode.style['max-width'] = 'none';}, 200);
+            console.log(container);
+            container.css('flex', 'auto');
+            container.css('max-width', 'none');
         } else {
             $.ajax({
                 url: '{{ path('section_menu_display', {display: 'show'}) }}',
                 type: 'POST'
             });
-            setTimeout(function() {
-                console.log(that.parentNode);
-                that.parentNode.style = '';}, 200);
+            console.log(container);
+            container.removeAttr('style');
         }
-        $('.foldMenu').toggleClass('fa-times-circle fa-bars fas far');
+        icon.toggleClass('fa-times-circle fa-bars');
+        if (icon.attr('data-prefix') == 'far') {
+            icon.attr('data-prefix', 'fas');
+        } else {
+            icon.attr('data-prefix', 'far');
+        }
     });
 
-    $(document).ready(function () {
+    function iconDoneRendering () {
         var show = '{{ app.session.get('showSectionMenu')|default(0) }}';
 
-        if (! show) {
+        if (show == 0) {
             $('.foldMenu').click();
         }
-
-        var hideSideBar = '{{ get_section()|length }}';
-
-        var open = $('.foldMenu').hasClass('fa-times-circle');
-
-        if (open) {
-            if (hideSideBar == '0') {
-                $('.foldMenu').toggleClass('fa-times-circle fa-bars fas far');
-                $('#contentContainer').css('flex', 'auto');
-                $('#contentContainer').css('max-width', 'none');
-            }
-        }
-
-    });
-
+    }
+    FontAwesome.dom.i2svg({ callback: iconDoneRendering })
 </script>
 {% for xx in getScripts() %}
     {% include xx %}

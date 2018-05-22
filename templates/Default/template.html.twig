@@ -54,8 +54,8 @@
                 <div class="col-12" id="contentContainer">
             {% else %}
                 <main class="col-9" id="contentContainer">
-                    <span class="far fa-times-circle foldMenu" data-toggle="collapse" data-target="#sidebar" aria-hidden="true"
-                          aria-expanded="false" aria-controls="sidebar" style="float: right; margin: 2px;"></span>
+                    <span class="foldMenu" data-toggle="collapse" data-target="#sidebar" aria-hidden="true"
+                          aria-expanded="false" aria-controls="sidebar" style="float: right; margin: 2px;"><span class="far fa-times-circle"></span></span>
                     <div style="margin-right: 20px;">
             {% endif %}
                 {% block flashMessages %}
@@ -92,6 +92,8 @@
                 {{ include('Default/carousel.html.twig') }}
 
                 {% endblock contentContainer %}
+                        {% dump(app.session.get('showSectionMenu')) %}
+                        {% dump(get_section()|length) %}
             {% if fullPage is defined and fullPage %}
                 </div>
             {% else %}
