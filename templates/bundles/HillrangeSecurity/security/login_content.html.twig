@@ -8,7 +8,7 @@
 <div class="form_error container"></div>
 
 {{ form_start(form) }}
-    {% set h3Content = miscButton({windowOpen: {route: path(get_SecurityRoute('security_password_forgot'))}, transDomain: 'security', class: 'btn btn-info', title: 'security.login.reset_password.label', type: 'submit', icon: {class: 'fas fa-key', 'data-fa-transform': 'shrink-10 down-3', 'data-fa-mask': 'fas fa-lock'}}) %}
+    {% set h3Content = miscButton({additional: {onclick: "this.form.action='" ~ path(get_SecurityRoute('security_password_forgot'))|raw ~ "'", tabindex: '2'}, transDomain: 'security', class: 'btn btn-info', title: 'security.login.reset_password.label', type: 'submit', icon: {class: 'fas fa-key', 'data-fa-transform': 'shrink-10 down-3', 'data-fa-mask': 'fas fa-lock'}}) %}
 
     {% if get_setting('google.o_auth', false) %}
         {% set h3Content = h3Content ~ miscButton({class: 'btn btn-success fab fa-google', title: 'google.oauth', transDomain: 'home', windowOpen: {route: path('google_oauth')}})|raw %}
@@ -25,7 +25,7 @@
         {% endif %}
         {% if error %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ error.messageKey|trans(error.messageData, 'security') }}{{ dump() }}
+                {{ error.messageKey|trans(error.messageData, 'security') }}
                 {{ closeButton({class: 'far fa-times-circle close', title: 'Close Message', transDomain: 'home', additional: {'data-dismiss': 'alert', 'aria-label': 'Close', 'aria-hidden': 'true'}})|raw }}
             </div>
         {% endif %}

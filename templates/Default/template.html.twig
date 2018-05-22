@@ -92,8 +92,6 @@
                 {{ include('Default/carousel.html.twig') }}
 
                 {% endblock contentContainer %}
-                        {% dump(app.session.get('showSectionMenu')) %}
-                        {% dump(get_section()|length) %}
             {% if fullPage is defined and fullPage %}
                 </div>
             {% else %}
