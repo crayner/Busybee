@@ -35,18 +35,54 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
      * @var array
      */
     private $assoc = [
-        'created_by'   => 'createdBy',
-        'modified_by' => 'modifiedBy',
-        'space_id' => 'space',
-        'student_reference_id' => 'studentReference',
-        'tt_line_id' => 'line',
-        'course_id' => 'course',
-        'activity_slot_id' => 'activity',
-        'activity_id' => 'activity',
-        'external_activity_backup_id' => 'externalActivityBackup',
-        'external_activity_invoice_id' => 'externalInvoiceID',
-        'student_id' => 'student',
-        'tutor_id' => 'tutor',
+        'created_by'   => [
+            'name' => 'createdBy',
+            'method' => 'setCreatedBy'
+            ],
+        'modified_by' => [
+            'name' => 'modifiedBy',
+            'method' => 'setModifiedBy',
+            ],
+        'space_id' => [
+            'name' => 'space',
+            'method' => 'setSpace',
+            ],
+        'student_reference_id' => [
+            'name' => 'studentReference',
+            'method' => 'setStudentReference',
+            ],
+        'tt_line_id' => [
+            'name' => 'line',
+            'method' => 'setLine',
+            ],
+        'course_id' => [
+            'name' => 'course',
+            'method' => 'setCourse',
+            ],
+        'activity_slot_id' => [
+            'name' => 'activity',
+            'method' => 'setActivity',
+            ],
+        'activity_id' => [
+            'name' => 'activity',
+            'method' => 'setActivity',
+            ],
+        'external_activity_backup_id' => [
+            'name' => 'externalActivityBackup',
+            'method' => 'setExternalActivityBackup',
+            ],
+        'external_activity_invoice_id' => [
+            'name' => 'externalInvoiceID',
+            'method' => 'setExternalInvoiceID',
+            ],
+        'student_id' => [
+            'name' => 'student',
+            'method' => 'setStudent',
+            ],
+        'tutor_id' => [
+            'name' => 'tutor',
+            'method' => 'setTutor',
+            ],
     ];
 
     /**
@@ -56,31 +92,31 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $data = Yaml::parse(file_get_contents('/SQL/App/activity.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/activity.yml'));
 
         $this->buildTable($data, Activity::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/activity_calendar_grade.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/activity_calendar_grade.yml'));
 
         $this->buildJoinTable($data ?: [], Activity::class, CalendarGrade::class,
             'activity_id', 'calendar_grade_id', 'addCalendarGrade', $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/activity_slot.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/activity_slot.yml'));
 
         $this->buildTable($data, ActivitySlot::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/activity_student.yml'));
-
-        $this->buildTable($data, ActivityStudent::class, $manager);
-
-        $data = Yaml::parse(file_get_contents('/SQL/App/activity_term.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/activity_term.yml'));
 
         $this->buildJoinTable($data ?: [], ExternalActivity::class, Term::class,
             'activity_id', 'term_id', 'addTerm', $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/activity_tutor.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/activity_tutor.yml'));
 
         $this->buildTable($data, ActivityTutor::class, $manager);
+
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/activity_student.yml'));
+
+        $this->buildTable($data, ActivityStudent::class, $manager);
     }
 
     /**
@@ -92,6 +128,10 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             TimetableFixtures::class,
+            CalendarFixtures::class,
+            SchoolFixtures::class,
+            UserFixtures::class,
+            PeopleFixtures::class,
         ];
     }
 }

@@ -1,0 +1,102 @@
+%YAML 1.1
+---
+# craigray_core.koala_tt_line
+-
+  id: 1
+  calendar_id: 5
+  name: "Math 07"
+  code: "MA07"
+-
+  id: 2
+  calendar_id: 5
+  name: "English 07"
+  code: "EN07"
+-
+  id: 3
+  calendar_id: 5
+  name: "Art 10"
+  code: "AR10"
+-
+  id: 4
+  calendar_id: 5
+  name: "TOK 13"
+  code: "TOK13"
+-
+  id: 5
+  calendar_id: 5
+  name: "PSYCHOLOGY 12"
+  code: "PYL12"
+-
+  id: 6
+  calendar_id: 5
+  name: "12A"
+  code: "12A"
+-
+  id: 7
+  calendar_id: 5
+  name: "Roll 12"
+  code: "RL12"
+-
+  id: 8
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll 07"
+  code: "RL07"
+  last_modified: "2018-05-12 12:38:34"
+  created_on: "2018-05-12 12:38:34"
+-
+  id: 10
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll 13"
+  code: "RL13"
+  last_modified: "2018-05-12 12:45:17"
+  created_on: "2018-05-12 12:45:17"
+-
+  id: 11
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll 11"
+  code: "RL11"
+  last_modified: "2018-05-16 16:50:16"
+  created_on: "2018-05-16 16:50:16"
+-
+  id: 12
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll 10"
+  code: "RL10"
+  last_modified: "2018-05-16 16:53:01"
+  created_on: "2018-05-16 16:53:01"
+-
+  id: 13
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll 09"
+  code: "RL09"
+  last_modified: "2018-05-16 17:22:47"
+  created_on: "2018-05-16 17:22:47"
+-
+  id: 14
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll 08"
+  code: "RL08"
+  last_modified: "2018-05-16 17:24:10"
+  created_on: "2018-05-16 17:24:10"
+-
+  id: 15
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Roll All"
+  code: "RLA"
+  last_modified: "2018-05-17 12:45:37"
+  created_on: "2018-05-17 12:45:37"
+...

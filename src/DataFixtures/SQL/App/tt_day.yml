@@ -1,0 +1,49 @@
+%YAML 1.1
+---
+# craigray_core.koala_tt_day
+-
+  id: 3
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Mon"
+  dayType: 1
+  last_modified: "2018-05-09 11:33:13"
+  created_on: "2018-04-05 12:58:39"
+-
+  id: 4
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Tue"
+  dayType: 1
+  last_modified: "2018-04-05 12:58:39"
+  created_on: "2018-04-05 12:58:39"
+-
+  id: 5
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Wed"
+  dayType: 1
+  last_modified: "2018-05-01 09:09:02"
+  created_on: "2018-04-05 12:58:39"
+-
+  id: 6
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Thu"
+  dayType: 1
+  last_modified: "2018-04-05 12:58:39"
+  created_on: "2018-04-05 12:58:39"
+-
+  id: 7
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Fri"
+  dayType: 1
+  last_modified: "2018-04-05 12:58:39"
+  created_on: "2018-04-05 12:58:39"
+...

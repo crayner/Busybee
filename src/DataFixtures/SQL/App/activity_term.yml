@@ -1,0 +1,424 @@
+%YAML 1.1
+---
+# craigray_core.koala_activity_term
+-
+  activity_id: 17
+  term_id: 8
+-
+  activity_id: 18
+  term_id: 9
+-
+  activity_id: 19
+  term_id: 7
+-
+  activity_id: 20
+  term_id: 7
+-
+  activity_id: 21
+  term_id: 7
+-
+  activity_id: 22
+  term_id: 7
+-
+  activity_id: 23
+  term_id: 8
+-
+  activity_id: 24
+  term_id: 9
+-
+  activity_id: 25
+  term_id: 7
+-
+  activity_id: 26
+  term_id: 9
+-
+  activity_id: 27
+  term_id: 7
+-
+  activity_id: 28
+  term_id: 8
+-
+  activity_id: 29
+  term_id: 9
+-
+  activity_id: 30
+  term_id: 9
+-
+  activity_id: 31
+  term_id: 9
+-
+  activity_id: 32
+  term_id: 9
+-
+  activity_id: 33
+  term_id: 9
+-
+  activity_id: 34
+  term_id: 7
+-
+  activity_id: 35
+  term_id: 9
+-
+  activity_id: 36
+  term_id: 9
+-
+  activity_id: 37
+  term_id: 9
+-
+  activity_id: 38
+  term_id: 9
+-
+  activity_id: 39
+  term_id: 9
+-
+  activity_id: 40
+  term_id: 9
+-
+  activity_id: 41
+  term_id: 8
+-
+  activity_id: 42
+  term_id: 9
+-
+  activity_id: 43
+  term_id: 9
+-
+  activity_id: 44
+  term_id: 7
+-
+  activity_id: 45
+  term_id: 9
+-
+  activity_id: 46
+  term_id: 9
+-
+  activity_id: 47
+  term_id: 9
+-
+  activity_id: 48
+  term_id: 9
+-
+  activity_id: 49
+  term_id: 9
+-
+  activity_id: 50
+  term_id: 9
+-
+  activity_id: 51
+  term_id: 9
+-
+  activity_id: 52
+  term_id: 7
+-
+  activity_id: 53
+  term_id: 9
+-
+  activity_id: 54
+  term_id: 9
+-
+  activity_id: 55
+  term_id: 9
+-
+  activity_id: 56
+  term_id: 8
+-
+  activity_id: 57
+  term_id: 8
+-
+  activity_id: 58
+  term_id: 8
+-
+  activity_id: 59
+  term_id: 7
+-
+  activity_id: 60
+  term_id: 8
+-
+  activity_id: 61
+  term_id: 8
+-
+  activity_id: 62
+  term_id: 8
+-
+  activity_id: 63
+  term_id: 8
+-
+  activity_id: 64
+  term_id: 8
+-
+  activity_id: 65
+  term_id: 8
+-
+  activity_id: 66
+  term_id: 8
+-
+  activity_id: 67
+  term_id: 8
+-
+  activity_id: 68
+  term_id: 8
+-
+  activity_id: 69
+  term_id: 9
+-
+  activity_id: 70
+  term_id: 8
+-
+  activity_id: 71
+  term_id: 8
+-
+  activity_id: 72
+  term_id: 8
+-
+  activity_id: 73
+  term_id: 8
+-
+  activity_id: 74
+  term_id: 8
+-
+  activity_id: 75
+  term_id: 8
+-
+  activity_id: 76
+  term_id: 9
+-
+  activity_id: 77
+  term_id: 8
+-
+  activity_id: 78
+  term_id: 8
+-
+  activity_id: 79
+  term_id: 8
+-
+  activity_id: 80
+  term_id: 8
+-
+  activity_id: 81
+  term_id: 7
+-
+  activity_id: 82
+  term_id: 8
+-
+  activity_id: 83
+  term_id: 8
+-
+  activity_id: 84
+  term_id: 9
+-
+  activity_id: 85
+  term_id: 7
+-
+  activity_id: 86
+  term_id: 8
+-
+  activity_id: 87
+  term_id: 7
+-
+  activity_id: 87
+  term_id: 8
+-
+  activity_id: 87
+  term_id: 9
+-
+  activity_id: 88
+  term_id: 7
+-
+  activity_id: 89
+  term_id: 7
+-
+  activity_id: 90
+  term_id: 7
+-
+  activity_id: 91
+  term_id: 7
+-
+  activity_id: 92
+  term_id: 7
+-
+  activity_id: 92
+  term_id: 8
+-
+  activity_id: 92
+  term_id: 9
+-
+  activity_id: 93
+  term_id: 8
+-
+  activity_id: 94
+  term_id: 7
+-
+  activity_id: 95
+  term_id: 7
+-
+  activity_id: 96
+  term_id: 7
+-
+  activity_id: 97
+  term_id: 7
+-
+  activity_id: 98
+  term_id: 7
+-
+  activity_id: 99
+  term_id: 8
+-
+  activity_id: 100
+  term_id: 8
+-
+  activity_id: 101
+  term_id: 7
+-
+  activity_id: 102
+  term_id: 7
+-
+  activity_id: 103
+  term_id: 7
+-
+  activity_id: 104
+  term_id: 7
+-
+  activity_id: 105
+  term_id: 7
+-
+  activity_id: 106
+  term_id: 8
+-
+  activity_id: 107
+  term_id: 8
+-
+  activity_id: 108
+  term_id: 7
+-
+  activity_id: 109
+  term_id: 7
+-
+  activity_id: 110
+  term_id: 9
+-
+  activity_id: 111
+  term_id: 7
+-
+  activity_id: 112
+  term_id: 7
+-
+  activity_id: 113
+  term_id: 7
+-
+  activity_id: 114
+  term_id: 7
+-
+  activity_id: 115
+  term_id: 9
+-
+  activity_id: 116
+  term_id: 7
+-
+  activity_id: 117
+  term_id: 7
+-
+  activity_id: 118
+  term_id: 7
+-
+  activity_id: 119
+  term_id: 8
+-
+  activity_id: 120
+  term_id: 9
+-
+  activity_id: 121
+  term_id: 7
+-
+  activity_id: 122
+  term_id: 8
+-
+  activity_id: 123
+  term_id: 9
+-
+  activity_id: 124
+  term_id: 8
+-
+  activity_id: 125
+  term_id: 9
+-
+  activity_id: 126
+  term_id: 8
+-
+  activity_id: 127
+  term_id: 8
+-
+  activity_id: 128
+  term_id: 7
+-
+  activity_id: 129
+  term_id: 7
+-
+  activity_id: 130
+  term_id: 7
+-
+  activity_id: 131
+  term_id: 7
+-
+  activity_id: 132
+  term_id: 7
+-
+  activity_id: 133
+  term_id: 7
+-
+  activity_id: 134
+  term_id: 7
+-
+  activity_id: 135
+  term_id: 9
+-
+  activity_id: 136
+  term_id: 8
+-
+  activity_id: 137
+  term_id: 7
+-
+  activity_id: 138
+  term_id: 8
+-
+  activity_id: 139
+  term_id: 7
+-
+  activity_id: 140
+  term_id: 8
+-
+  activity_id: 141
+  term_id: 9
+-
+  activity_id: 142
+  term_id: 7
+-
+  activity_id: 143
+  term_id: 8
+-
+  activity_id: 144
+  term_id: 7
+-
+  activity_id: 145
+  term_id: 8
+-
+  activity_id: 146
+  term_id: 9
+-
+  activity_id: 147
+  term_id: 7
+-
+  activity_id: 148
+  term_id: 8
+-
+  activity_id: 149
+  term_id: 7
+-
+  activity_id: 149
+  term_id: 8
+-
+  activity_id: 149
+  term_id: 9
+-
+  activity_id: 150
+  term_id: 8
+...

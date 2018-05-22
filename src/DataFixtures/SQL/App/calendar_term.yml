@@ -1,0 +1,103 @@
+%YAML 1.1
+---
+# craigray_core.koala_calendar_term
+-
+  id: 1
+  calendar_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Term 1"
+  code: "T1"
+  first_day: "2015-08-19"
+  last_day: "2015-12-18"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 2
+  calendar_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Term 2"
+  code: "T2"
+  first_day: "2016-01-04"
+  last_day: "2016-03-24"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 3
+  calendar_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Term 3"
+  code: "T3"
+  first_day: "2016-04-11"
+  last_day: "2016-06-23"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 4
+  calendar_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Term 1"
+  code: "T1"
+  first_day: "2016-08-22"
+  last_day: "2016-12-16"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 5
+  calendar_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Term 2"
+  code: "T2"
+  first_day: "2017-01-03"
+  last_day: "2017-03-31"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 6
+  calendar_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Term 3"
+  code: "T3"
+  first_day: "2017-04-18"
+  last_day: "2017-06-28"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 7
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Term 1"
+  code: "T1"
+  first_day: "2017-08-16"
+  last_day: "2017-12-15"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 8
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Term 2"
+  code: "T2"
+  first_day: "2018-01-08"
+  last_day: "2018-03-28"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 9
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Term 3"
+  code: "T3"
+  first_day: "2018-04-16"
+  last_day: "2018-06-28"
+  last_modified: "2018-03-26 23:06:33"
+  created_on: "2018-03-26 23:06:33"
+...

@@ -1,0 +1,3127 @@
+%YAML 1.1
+---
+# craigray_core.koala_activity_calendar_grade
+-
+  activity_id: 1
+  calendar_grade_id: 1
+-
+  activity_id: 2
+  calendar_grade_id: 1
+-
+  activity_id: 3
+  calendar_grade_id: 1
+-
+  activity_id: 4
+  calendar_grade_id: 2
+-
+  activity_id: 5
+  calendar_grade_id: 2
+-
+  activity_id: 6
+  calendar_grade_id: 3
+-
+  activity_id: 7
+  calendar_grade_id: 3
+-
+  activity_id: 8
+  calendar_grade_id: 4
+-
+  activity_id: 9
+  calendar_grade_id: 4
+-
+  activity_id: 10
+  calendar_grade_id: 5
+-
+  activity_id: 11
+  calendar_grade_id: 5
+-
+  activity_id: 12
+  calendar_grade_id: 6
+-
+  activity_id: 13
+  calendar_grade_id: 7
+-
+  activity_id: 14
+  calendar_grade_id: 2
+-
+  activity_id: 15
+  calendar_grade_id: 4
+-
+  activity_id: 16
+  calendar_grade_id: 6
+-
+  activity_id: 17
+  calendar_grade_id: 1
+-
+  activity_id: 17
+  calendar_grade_id: 2
+-
+  activity_id: 17
+  calendar_grade_id: 3
+-
+  activity_id: 17
+  calendar_grade_id: 4
+-
+  activity_id: 17
+  calendar_grade_id: 5
+-
+  activity_id: 17
+  calendar_grade_id: 6
+-
+  activity_id: 17
+  calendar_grade_id: 7
+-
+  activity_id: 18
+  calendar_grade_id: 4
+-
+  activity_id: 18
+  calendar_grade_id: 5
+-
+  activity_id: 18
+  calendar_grade_id: 6
+-
+  activity_id: 18
+  calendar_grade_id: 7
+-
+  activity_id: 19
+  calendar_grade_id: 1
+-
+  activity_id: 19
+  calendar_grade_id: 2
+-
+  activity_id: 19
+  calendar_grade_id: 3
+-
+  activity_id: 19
+  calendar_grade_id: 4
+-
+  activity_id: 19
+  calendar_grade_id: 5
+-
+  activity_id: 19
+  calendar_grade_id: 6
+-
+  activity_id: 19
+  calendar_grade_id: 7
+-
+  activity_id: 20
+  calendar_grade_id: 1
+-
+  activity_id: 20
+  calendar_grade_id: 2
+-
+  activity_id: 20
+  calendar_grade_id: 3
+-
+  activity_id: 20
+  calendar_grade_id: 4
+-
+  activity_id: 20
+  calendar_grade_id: 5
+-
+  activity_id: 20
+  calendar_grade_id: 6
+-
+  activity_id: 20
+  calendar_grade_id: 7
+-
+  activity_id: 21
+  calendar_grade_id: 1
+-
+  activity_id: 21
+  calendar_grade_id: 2
+-
+  activity_id: 21
+  calendar_grade_id: 3
+-
+  activity_id: 21
+  calendar_grade_id: 4
+-
+  activity_id: 21
+  calendar_grade_id: 5
+-
+  activity_id: 21
+  calendar_grade_id: 6
+-
+  activity_id: 21
+  calendar_grade_id: 7
+-
+  activity_id: 22
+  calendar_grade_id: 1
+-
+  activity_id: 22
+  calendar_grade_id: 2
+-
+  activity_id: 22
+  calendar_grade_id: 3
+-
+  activity_id: 22
+  calendar_grade_id: 4
+-
+  activity_id: 22
+  calendar_grade_id: 5
+-
+  activity_id: 22
+  calendar_grade_id: 6
+-
+  activity_id: 22
+  calendar_grade_id: 7
+-
+  activity_id: 23
+  calendar_grade_id: 1
+-
+  activity_id: 23
+  calendar_grade_id: 2
+-
+  activity_id: 23
+  calendar_grade_id: 3
+-
+  activity_id: 23
+  calendar_grade_id: 4
+-
+  activity_id: 23
+  calendar_grade_id: 5
+-
+  activity_id: 23
+  calendar_grade_id: 6
+-
+  activity_id: 23
+  calendar_grade_id: 7
+-
+  activity_id: 24
+  calendar_grade_id: 1
+-
+  activity_id: 24
+  calendar_grade_id: 2
+-
+  activity_id: 24
+  calendar_grade_id: 3
+-
+  activity_id: 24
+  calendar_grade_id: 4
+-
+  activity_id: 24
+  calendar_grade_id: 5
+-
+  activity_id: 24
+  calendar_grade_id: 6
+-
+  activity_id: 24
+  calendar_grade_id: 7
+-
+  activity_id: 25
+  calendar_grade_id: 1
+-
+  activity_id: 25
+  calendar_grade_id: 2
+-
+  activity_id: 25
+  calendar_grade_id: 3
+-
+  activity_id: 25
+  calendar_grade_id: 4
+-
+  activity_id: 25
+  calendar_grade_id: 5
+-
+  activity_id: 25
+  calendar_grade_id: 6
+-
+  activity_id: 25
+  calendar_grade_id: 7
+-
+  activity_id: 26
+  calendar_grade_id: 1
+-
+  activity_id: 26
+  calendar_grade_id: 2
+-
+  activity_id: 26
+  calendar_grade_id: 3
+-
+  activity_id: 26
+  calendar_grade_id: 4
+-
+  activity_id: 26
+  calendar_grade_id: 5
+-
+  activity_id: 26
+  calendar_grade_id: 6
+-
+  activity_id: 26
+  calendar_grade_id: 7
+-
+  activity_id: 27
+  calendar_grade_id: 4
+-
+  activity_id: 27
+  calendar_grade_id: 5
+-
+  activity_id: 27
+  calendar_grade_id: 6
+-
+  activity_id: 27
+  calendar_grade_id: 7
+-
+  activity_id: 28
+  calendar_grade_id: 1
+-
+  activity_id: 28
+  calendar_grade_id: 2
+-
+  activity_id: 28
+  calendar_grade_id: 3
+-
+  activity_id: 28
+  calendar_grade_id: 4
+-
+  activity_id: 28
+  calendar_grade_id: 5
+-
+  activity_id: 28
+  calendar_grade_id: 6
+-
+  activity_id: 28
+  calendar_grade_id: 7
+-
+  activity_id: 29
+  calendar_grade_id: 1
+-
+  activity_id: 29
+  calendar_grade_id: 2
+-
+  activity_id: 29
+  calendar_grade_id: 3
+-
+  activity_id: 29
+  calendar_grade_id: 4
+-
+  activity_id: 29
+  calendar_grade_id: 5
+-
+  activity_id: 29
+  calendar_grade_id: 6
+-
+  activity_id: 29
+  calendar_grade_id: 7
+-
+  activity_id: 30
+  calendar_grade_id: 1
+-
+  activity_id: 30
+  calendar_grade_id: 2
+-
+  activity_id: 30
+  calendar_grade_id: 3
+-
+  activity_id: 31
+  calendar_grade_id: 4
+-
+  activity_id: 31
+  calendar_grade_id: 5
+-
+  activity_id: 31
+  calendar_grade_id: 6
+-
+  activity_id: 31
+  calendar_grade_id: 7
+-
+  activity_id: 32
+  calendar_grade_id: 4
+-
+  activity_id: 32
+  calendar_grade_id: 5
+-
+  activity_id: 32
+  calendar_grade_id: 6
+-
+  activity_id: 32
+  calendar_grade_id: 7
+-
+  activity_id: 33
+  calendar_grade_id: 1
+-
+  activity_id: 33
+  calendar_grade_id: 2
+-
+  activity_id: 33
+  calendar_grade_id: 3
+-
+  activity_id: 33
+  calendar_grade_id: 4
+-
+  activity_id: 33
+  calendar_grade_id: 5
+-
+  activity_id: 33
+  calendar_grade_id: 6
+-
+  activity_id: 33
+  calendar_grade_id: 7
+-
+  activity_id: 34
+  calendar_grade_id: 1
+-
+  activity_id: 34
+  calendar_grade_id: 2
+-
+  activity_id: 34
+  calendar_grade_id: 3
+-
+  activity_id: 34
+  calendar_grade_id: 4
+-
+  activity_id: 34
+  calendar_grade_id: 5
+-
+  activity_id: 34
+  calendar_grade_id: 6
+-
+  activity_id: 34
+  calendar_grade_id: 7
+-
+  activity_id: 35
+  calendar_grade_id: 1
+-
+  activity_id: 35
+  calendar_grade_id: 2
+-
+  activity_id: 35
+  calendar_grade_id: 3
+-
+  activity_id: 35
+  calendar_grade_id: 4
+-
+  activity_id: 35
+  calendar_grade_id: 5
+-
+  activity_id: 35
+  calendar_grade_id: 6
+-
+  activity_id: 35
+  calendar_grade_id: 7
+-
+  activity_id: 36
+  calendar_grade_id: 1
+-
+  activity_id: 36
+  calendar_grade_id: 2
+-
+  activity_id: 36
+  calendar_grade_id: 3
+-
+  activity_id: 36
+  calendar_grade_id: 4
+-
+  activity_id: 36
+  calendar_grade_id: 5
+-
+  activity_id: 36
+  calendar_grade_id: 6
+-
+  activity_id: 36
+  calendar_grade_id: 7
+-
+  activity_id: 37
+  calendar_grade_id: 1
+-
+  activity_id: 37
+  calendar_grade_id: 2
+-
+  activity_id: 37
+  calendar_grade_id: 3
+-
+  activity_id: 37
+  calendar_grade_id: 4
+-
+  activity_id: 37
+  calendar_grade_id: 5
+-
+  activity_id: 37
+  calendar_grade_id: 6
+-
+  activity_id: 37
+  calendar_grade_id: 7
+-
+  activity_id: 38
+  calendar_grade_id: 1
+-
+  activity_id: 38
+  calendar_grade_id: 2
+-
+  activity_id: 38
+  calendar_grade_id: 3
+-
+  activity_id: 38
+  calendar_grade_id: 4
+-
+  activity_id: 38
+  calendar_grade_id: 5
+-
+  activity_id: 38
+  calendar_grade_id: 6
+-
+  activity_id: 38
+  calendar_grade_id: 7
+-
+  activity_id: 39
+  calendar_grade_id: 1
+-
+  activity_id: 39
+  calendar_grade_id: 2
+-
+  activity_id: 39
+  calendar_grade_id: 3
+-
+  activity_id: 39
+  calendar_grade_id: 4
+-
+  activity_id: 39
+  calendar_grade_id: 5
+-
+  activity_id: 39
+  calendar_grade_id: 6
+-
+  activity_id: 39
+  calendar_grade_id: 7
+-
+  activity_id: 40
+  calendar_grade_id: 4
+-
+  activity_id: 40
+  calendar_grade_id: 6
+-
+  activity_id: 40
+  calendar_grade_id: 7
+-
+  activity_id: 41
+  calendar_grade_id: 1
+-
+  activity_id: 41
+  calendar_grade_id: 2
+-
+  activity_id: 41
+  calendar_grade_id: 3
+-
+  activity_id: 41
+  calendar_grade_id: 4
+-
+  activity_id: 41
+  calendar_grade_id: 5
+-
+  activity_id: 41
+  calendar_grade_id: 6
+-
+  activity_id: 41
+  calendar_grade_id: 7
+-
+  activity_id: 42
+  calendar_grade_id: 1
+-
+  activity_id: 42
+  calendar_grade_id: 2
+-
+  activity_id: 42
+  calendar_grade_id: 3
+-
+  activity_id: 42
+  calendar_grade_id: 4
+-
+  activity_id: 42
+  calendar_grade_id: 5
+-
+  activity_id: 42
+  calendar_grade_id: 6
+-
+  activity_id: 42
+  calendar_grade_id: 7
+-
+  activity_id: 43
+  calendar_grade_id: 1
+-
+  activity_id: 43
+  calendar_grade_id: 2
+-
+  activity_id: 43
+  calendar_grade_id: 3
+-
+  activity_id: 44
+  calendar_grade_id: 1
+-
+  activity_id: 44
+  calendar_grade_id: 2
+-
+  activity_id: 44
+  calendar_grade_id: 3
+-
+  activity_id: 44
+  calendar_grade_id: 4
+-
+  activity_id: 44
+  calendar_grade_id: 5
+-
+  activity_id: 44
+  calendar_grade_id: 6
+-
+  activity_id: 44
+  calendar_grade_id: 7
+-
+  activity_id: 45
+  calendar_grade_id: 4
+-
+  activity_id: 45
+  calendar_grade_id: 5
+-
+  activity_id: 45
+  calendar_grade_id: 6
+-
+  activity_id: 45
+  calendar_grade_id: 7
+-
+  activity_id: 46
+  calendar_grade_id: 1
+-
+  activity_id: 46
+  calendar_grade_id: 2
+-
+  activity_id: 46
+  calendar_grade_id: 3
+-
+  activity_id: 46
+  calendar_grade_id: 4
+-
+  activity_id: 46
+  calendar_grade_id: 5
+-
+  activity_id: 46
+  calendar_grade_id: 6
+-
+  activity_id: 46
+  calendar_grade_id: 7
+-
+  activity_id: 47
+  calendar_grade_id: 1
+-
+  activity_id: 47
+  calendar_grade_id: 2
+-
+  activity_id: 47
+  calendar_grade_id: 3
+-
+  activity_id: 47
+  calendar_grade_id: 4
+-
+  activity_id: 48
+  calendar_grade_id: 1
+-
+  activity_id: 49
+  calendar_grade_id: 1
+-
+  activity_id: 49
+  calendar_grade_id: 2
+-
+  activity_id: 49
+  calendar_grade_id: 3
+-
+  activity_id: 49
+  calendar_grade_id: 4
+-
+  activity_id: 50
+  calendar_grade_id: 1
+-
+  activity_id: 50
+  calendar_grade_id: 2
+-
+  activity_id: 50
+  calendar_grade_id: 3
+-
+  activity_id: 51
+  calendar_grade_id: 1
+-
+  activity_id: 51
+  calendar_grade_id: 2
+-
+  activity_id: 51
+  calendar_grade_id: 3
+-
+  activity_id: 51
+  calendar_grade_id: 4
+-
+  activity_id: 51
+  calendar_grade_id: 5
+-
+  activity_id: 51
+  calendar_grade_id: 6
+-
+  activity_id: 51
+  calendar_grade_id: 7
+-
+  activity_id: 52
+  calendar_grade_id: 1
+-
+  activity_id: 52
+  calendar_grade_id: 2
+-
+  activity_id: 52
+  calendar_grade_id: 3
+-
+  activity_id: 53
+  calendar_grade_id: 1
+-
+  activity_id: 53
+  calendar_grade_id: 2
+-
+  activity_id: 53
+  calendar_grade_id: 3
+-
+  activity_id: 53
+  calendar_grade_id: 4
+-
+  activity_id: 53
+  calendar_grade_id: 5
+-
+  activity_id: 53
+  calendar_grade_id: 6
+-
+  activity_id: 53
+  calendar_grade_id: 7
+-
+  activity_id: 54
+  calendar_grade_id: 1
+-
+  activity_id: 54
+  calendar_grade_id: 2
+-
+  activity_id: 54
+  calendar_grade_id: 3
+-
+  activity_id: 54
+  calendar_grade_id: 4
+-
+  activity_id: 54
+  calendar_grade_id: 5
+-
+  activity_id: 54
+  calendar_grade_id: 6
+-
+  activity_id: 54
+  calendar_grade_id: 7
+-
+  activity_id: 55
+  calendar_grade_id: 1
+-
+  activity_id: 55
+  calendar_grade_id: 2
+-
+  activity_id: 55
+  calendar_grade_id: 3
+-
+  activity_id: 55
+  calendar_grade_id: 4
+-
+  activity_id: 55
+  calendar_grade_id: 5
+-
+  activity_id: 55
+  calendar_grade_id: 6
+-
+  activity_id: 55
+  calendar_grade_id: 7
+-
+  activity_id: 56
+  calendar_grade_id: 1
+-
+  activity_id: 56
+  calendar_grade_id: 2
+-
+  activity_id: 56
+  calendar_grade_id: 3
+-
+  activity_id: 56
+  calendar_grade_id: 4
+-
+  activity_id: 56
+  calendar_grade_id: 5
+-
+  activity_id: 56
+  calendar_grade_id: 6
+-
+  activity_id: 56
+  calendar_grade_id: 7
+-
+  activity_id: 57
+  calendar_grade_id: 1
+-
+  activity_id: 57
+  calendar_grade_id: 2
+-
+  activity_id: 57
+  calendar_grade_id: 3
+-
+  activity_id: 57
+  calendar_grade_id: 4
+-
+  activity_id: 57
+  calendar_grade_id: 5
+-
+  activity_id: 57
+  calendar_grade_id: 6
+-
+  activity_id: 57
+  calendar_grade_id: 7
+-
+  activity_id: 58
+  calendar_grade_id: 4
+-
+  activity_id: 58
+  calendar_grade_id: 5
+-
+  activity_id: 58
+  calendar_grade_id: 6
+-
+  activity_id: 58
+  calendar_grade_id: 7
+-
+  activity_id: 59
+  calendar_grade_id: 1
+-
+  activity_id: 59
+  calendar_grade_id: 2
+-
+  activity_id: 59
+  calendar_grade_id: 3
+-
+  activity_id: 59
+  calendar_grade_id: 4
+-
+  activity_id: 59
+  calendar_grade_id: 5
+-
+  activity_id: 59
+  calendar_grade_id: 6
+-
+  activity_id: 59
+  calendar_grade_id: 7
+-
+  activity_id: 60
+  calendar_grade_id: 1
+-
+  activity_id: 60
+  calendar_grade_id: 2
+-
+  activity_id: 60
+  calendar_grade_id: 3
+-
+  activity_id: 60
+  calendar_grade_id: 4
+-
+  activity_id: 60
+  calendar_grade_id: 5
+-
+  activity_id: 60
+  calendar_grade_id: 6
+-
+  activity_id: 60
+  calendar_grade_id: 7
+-
+  activity_id: 61
+  calendar_grade_id: 1
+-
+  activity_id: 61
+  calendar_grade_id: 2
+-
+  activity_id: 61
+  calendar_grade_id: 3
+-
+  activity_id: 62
+  calendar_grade_id: 4
+-
+  activity_id: 62
+  calendar_grade_id: 5
+-
+  activity_id: 62
+  calendar_grade_id: 6
+-
+  activity_id: 62
+  calendar_grade_id: 7
+-
+  activity_id: 63
+  calendar_grade_id: 1
+-
+  activity_id: 63
+  calendar_grade_id: 2
+-
+  activity_id: 63
+  calendar_grade_id: 3
+-
+  activity_id: 64
+  calendar_grade_id: 1
+-
+  activity_id: 64
+  calendar_grade_id: 2
+-
+  activity_id: 64
+  calendar_grade_id: 3
+-
+  activity_id: 64
+  calendar_grade_id: 4
+-
+  activity_id: 64
+  calendar_grade_id: 5
+-
+  activity_id: 64
+  calendar_grade_id: 6
+-
+  activity_id: 64
+  calendar_grade_id: 7
+-
+  activity_id: 65
+  calendar_grade_id: 1
+-
+  activity_id: 65
+  calendar_grade_id: 2
+-
+  activity_id: 65
+  calendar_grade_id: 3
+-
+  activity_id: 65
+  calendar_grade_id: 4
+-
+  activity_id: 65
+  calendar_grade_id: 5
+-
+  activity_id: 65
+  calendar_grade_id: 6
+-
+  activity_id: 65
+  calendar_grade_id: 7
+-
+  activity_id: 66
+  calendar_grade_id: 1
+-
+  activity_id: 66
+  calendar_grade_id: 2
+-
+  activity_id: 66
+  calendar_grade_id: 3
+-
+  activity_id: 66
+  calendar_grade_id: 4
+-
+  activity_id: 66
+  calendar_grade_id: 5
+-
+  activity_id: 66
+  calendar_grade_id: 6
+-
+  activity_id: 66
+  calendar_grade_id: 7
+-
+  activity_id: 67
+  calendar_grade_id: 1
+-
+  activity_id: 67
+  calendar_grade_id: 2
+-
+  activity_id: 67
+  calendar_grade_id: 3
+-
+  activity_id: 67
+  calendar_grade_id: 4
+-
+  activity_id: 67
+  calendar_grade_id: 5
+-
+  activity_id: 67
+  calendar_grade_id: 6
+-
+  activity_id: 67
+  calendar_grade_id: 7
+-
+  activity_id: 68
+  calendar_grade_id: 1
+-
+  activity_id: 68
+  calendar_grade_id: 2
+-
+  activity_id: 68
+  calendar_grade_id: 3
+-
+  activity_id: 68
+  calendar_grade_id: 4
+-
+  activity_id: 68
+  calendar_grade_id: 5
+-
+  activity_id: 68
+  calendar_grade_id: 6
+-
+  activity_id: 68
+  calendar_grade_id: 7
+-
+  activity_id: 69
+  calendar_grade_id: 1
+-
+  activity_id: 69
+  calendar_grade_id: 2
+-
+  activity_id: 69
+  calendar_grade_id: 3
+-
+  activity_id: 69
+  calendar_grade_id: 4
+-
+  activity_id: 69
+  calendar_grade_id: 5
+-
+  activity_id: 69
+  calendar_grade_id: 6
+-
+  activity_id: 69
+  calendar_grade_id: 7
+-
+  activity_id: 70
+  calendar_grade_id: 1
+-
+  activity_id: 70
+  calendar_grade_id: 2
+-
+  activity_id: 70
+  calendar_grade_id: 3
+-
+  activity_id: 70
+  calendar_grade_id: 4
+-
+  activity_id: 70
+  calendar_grade_id: 5
+-
+  activity_id: 70
+  calendar_grade_id: 6
+-
+  activity_id: 70
+  calendar_grade_id: 7
+-
+  activity_id: 71
+  calendar_grade_id: 1
+-
+  activity_id: 71
+  calendar_grade_id: 2
+-
+  activity_id: 71
+  calendar_grade_id: 3
+-
+  activity_id: 71
+  calendar_grade_id: 4
+-
+  activity_id: 71
+  calendar_grade_id: 5
+-
+  activity_id: 71
+  calendar_grade_id: 6
+-
+  activity_id: 71
+  calendar_grade_id: 7
+-
+  activity_id: 72
+  calendar_grade_id: 1
+-
+  activity_id: 72
+  calendar_grade_id: 2
+-
+  activity_id: 72
+  calendar_grade_id: 3
+-
+  activity_id: 72
+  calendar_grade_id: 4
+-
+  activity_id: 72
+  calendar_grade_id: 5
+-
+  activity_id: 72
+  calendar_grade_id: 6
+-
+  activity_id: 72
+  calendar_grade_id: 7
+-
+  activity_id: 73
+  calendar_grade_id: 1
+-
+  activity_id: 73
+  calendar_grade_id: 2
+-
+  activity_id: 73
+  calendar_grade_id: 3
+-
+  activity_id: 73
+  calendar_grade_id: 4
+-
+  activity_id: 73
+  calendar_grade_id: 5
+-
+  activity_id: 73
+  calendar_grade_id: 6
+-
+  activity_id: 73
+  calendar_grade_id: 7
+-
+  activity_id: 74
+  calendar_grade_id: 4
+-
+  activity_id: 74
+  calendar_grade_id: 5
+-
+  activity_id: 74
+  calendar_grade_id: 6
+-
+  activity_id: 74
+  calendar_grade_id: 7
+-
+  activity_id: 75
+  calendar_grade_id: 1
+-
+  activity_id: 75
+  calendar_grade_id: 2
+-
+  activity_id: 75
+  calendar_grade_id: 3
+-
+  activity_id: 75
+  calendar_grade_id: 4
+-
+  activity_id: 75
+  calendar_grade_id: 5
+-
+  activity_id: 75
+  calendar_grade_id: 6
+-
+  activity_id: 75
+  calendar_grade_id: 7
+-
+  activity_id: 76
+  calendar_grade_id: 1
+-
+  activity_id: 76
+  calendar_grade_id: 2
+-
+  activity_id: 76
+  calendar_grade_id: 3
+-
+  activity_id: 76
+  calendar_grade_id: 4
+-
+  activity_id: 76
+  calendar_grade_id: 5
+-
+  activity_id: 76
+  calendar_grade_id: 6
+-
+  activity_id: 76
+  calendar_grade_id: 7
+-
+  activity_id: 77
+  calendar_grade_id: 1
+-
+  activity_id: 77
+  calendar_grade_id: 2
+-
+  activity_id: 77
+  calendar_grade_id: 3
+-
+  activity_id: 77
+  calendar_grade_id: 4
+-
+  activity_id: 77
+  calendar_grade_id: 5
+-
+  activity_id: 77
+  calendar_grade_id: 6
+-
+  activity_id: 78
+  calendar_grade_id: 1
+-
+  activity_id: 78
+  calendar_grade_id: 2
+-
+  activity_id: 78
+  calendar_grade_id: 3
+-
+  activity_id: 78
+  calendar_grade_id: 4
+-
+  activity_id: 78
+  calendar_grade_id: 5
+-
+  activity_id: 78
+  calendar_grade_id: 6
+-
+  activity_id: 78
+  calendar_grade_id: 7
+-
+  activity_id: 79
+  calendar_grade_id: 1
+-
+  activity_id: 79
+  calendar_grade_id: 2
+-
+  activity_id: 79
+  calendar_grade_id: 3
+-
+  activity_id: 80
+  calendar_grade_id: 1
+-
+  activity_id: 80
+  calendar_grade_id: 2
+-
+  activity_id: 80
+  calendar_grade_id: 3
+-
+  activity_id: 80
+  calendar_grade_id: 4
+-
+  activity_id: 81
+  calendar_grade_id: 1
+-
+  activity_id: 81
+  calendar_grade_id: 2
+-
+  activity_id: 81
+  calendar_grade_id: 3
+-
+  activity_id: 81
+  calendar_grade_id: 4
+-
+  activity_id: 81
+  calendar_grade_id: 5
+-
+  activity_id: 81
+  calendar_grade_id: 6
+-
+  activity_id: 81
+  calendar_grade_id: 7
+-
+  activity_id: 82
+  calendar_grade_id: 1
+-
+  activity_id: 82
+  calendar_grade_id: 2
+-
+  activity_id: 82
+  calendar_grade_id: 3
+-
+  activity_id: 83
+  calendar_grade_id: 1
+-
+  activity_id: 83
+  calendar_grade_id: 2
+-
+  activity_id: 83
+  calendar_grade_id: 3
+-
+  activity_id: 83
+  calendar_grade_id: 4
+-
+  activity_id: 83
+  calendar_grade_id: 5
+-
+  activity_id: 83
+  calendar_grade_id: 6
+-
+  activity_id: 83
+  calendar_grade_id: 7
+-
+  activity_id: 84
+  calendar_grade_id: 1
+-
+  activity_id: 84
+  calendar_grade_id: 2
+-
+  activity_id: 84
+  calendar_grade_id: 3
+-
+  activity_id: 84
+  calendar_grade_id: 4
+-
+  activity_id: 84
+  calendar_grade_id: 5
+-
+  activity_id: 84
+  calendar_grade_id: 6
+-
+  activity_id: 84
+  calendar_grade_id: 7
+-
+  activity_id: 85
+  calendar_grade_id: 1
+-
+  activity_id: 85
+  calendar_grade_id: 2
+-
+  activity_id: 85
+  calendar_grade_id: 3
+-
+  activity_id: 85
+  calendar_grade_id: 4
+-
+  activity_id: 85
+  calendar_grade_id: 5
+-
+  activity_id: 85
+  calendar_grade_id: 6
+-
+  activity_id: 85
+  calendar_grade_id: 7
+-
+  activity_id: 86
+  calendar_grade_id: 1
+-
+  activity_id: 86
+  calendar_grade_id: 2
+-
+  activity_id: 86
+  calendar_grade_id: 3
+-
+  activity_id: 86
+  calendar_grade_id: 4
+-
+  activity_id: 86
+  calendar_grade_id: 5
+-
+  activity_id: 86
+  calendar_grade_id: 6
+-
+  activity_id: 86
+  calendar_grade_id: 7
+-
+  activity_id: 87
+  calendar_grade_id: 1
+-
+  activity_id: 87
+  calendar_grade_id: 2
+-
+  activity_id: 87
+  calendar_grade_id: 3
+-
+  activity_id: 87
+  calendar_grade_id: 4
+-
+  activity_id: 87
+  calendar_grade_id: 5
+-
+  activity_id: 87
+  calendar_grade_id: 6
+-
+  activity_id: 87
+  calendar_grade_id: 7
+-
+  activity_id: 88
+  calendar_grade_id: 1
+-
+  activity_id: 88
+  calendar_grade_id: 2
+-
+  activity_id: 88
+  calendar_grade_id: 3
+-
+  activity_id: 88
+  calendar_grade_id: 4
+-
+  activity_id: 88
+  calendar_grade_id: 5
+-
+  activity_id: 88
+  calendar_grade_id: 6
+-
+  activity_id: 88
+  calendar_grade_id: 7
+-
+  activity_id: 89
+  calendar_grade_id: 1
+-
+  activity_id: 89
+  calendar_grade_id: 2
+-
+  activity_id: 89
+  calendar_grade_id: 3
+-
+  activity_id: 89
+  calendar_grade_id: 4
+-
+  activity_id: 90
+  calendar_grade_id: 1
+-
+  activity_id: 90
+  calendar_grade_id: 2
+-
+  activity_id: 90
+  calendar_grade_id: 3
+-
+  activity_id: 90
+  calendar_grade_id: 4
+-
+  activity_id: 90
+  calendar_grade_id: 5
+-
+  activity_id: 90
+  calendar_grade_id: 6
+-
+  activity_id: 90
+  calendar_grade_id: 7
+-
+  activity_id: 91
+  calendar_grade_id: 1
+-
+  activity_id: 91
+  calendar_grade_id: 2
+-
+  activity_id: 91
+  calendar_grade_id: 3
+-
+  activity_id: 91
+  calendar_grade_id: 4
+-
+  activity_id: 91
+  calendar_grade_id: 5
+-
+  activity_id: 91
+  calendar_grade_id: 6
+-
+  activity_id: 91
+  calendar_grade_id: 7
+-
+  activity_id: 92
+  calendar_grade_id: 1
+-
+  activity_id: 92
+  calendar_grade_id: 2
+-
+  activity_id: 92
+  calendar_grade_id: 3
+-
+  activity_id: 92
+  calendar_grade_id: 4
+-
+  activity_id: 92
+  calendar_grade_id: 5
+-
+  activity_id: 92
+  calendar_grade_id: 6
+-
+  activity_id: 92
+  calendar_grade_id: 7
+-
+  activity_id: 93
+  calendar_grade_id: 1
+-
+  activity_id: 93
+  calendar_grade_id: 2
+-
+  activity_id: 93
+  calendar_grade_id: 3
+-
+  activity_id: 93
+  calendar_grade_id: 4
+-
+  activity_id: 93
+  calendar_grade_id: 5
+-
+  activity_id: 93
+  calendar_grade_id: 6
+-
+  activity_id: 93
+  calendar_grade_id: 7
+-
+  activity_id: 94
+  calendar_grade_id: 1
+-
+  activity_id: 94
+  calendar_grade_id: 2
+-
+  activity_id: 94
+  calendar_grade_id: 3
+-
+  activity_id: 94
+  calendar_grade_id: 4
+-
+  activity_id: 94
+  calendar_grade_id: 5
+-
+  activity_id: 94
+  calendar_grade_id: 6
+-
+  activity_id: 94
+  calendar_grade_id: 7
+-
+  activity_id: 95
+  calendar_grade_id: 1
+-
+  activity_id: 95
+  calendar_grade_id: 2
+-
+  activity_id: 95
+  calendar_grade_id: 3
+-
+  activity_id: 95
+  calendar_grade_id: 4
+-
+  activity_id: 95
+  calendar_grade_id: 5
+-
+  activity_id: 95
+  calendar_grade_id: 6
+-
+  activity_id: 95
+  calendar_grade_id: 7
+-
+  activity_id: 96
+  calendar_grade_id: 1
+-
+  activity_id: 96
+  calendar_grade_id: 2
+-
+  activity_id: 96
+  calendar_grade_id: 3
+-
+  activity_id: 96
+  calendar_grade_id: 4
+-
+  activity_id: 96
+  calendar_grade_id: 5
+-
+  activity_id: 96
+  calendar_grade_id: 6
+-
+  activity_id: 97
+  calendar_grade_id: 1
+-
+  activity_id: 97
+  calendar_grade_id: 2
+-
+  activity_id: 97
+  calendar_grade_id: 3
+-
+  activity_id: 97
+  calendar_grade_id: 4
+-
+  activity_id: 97
+  calendar_grade_id: 5
+-
+  activity_id: 97
+  calendar_grade_id: 6
+-
+  activity_id: 97
+  calendar_grade_id: 7
+-
+  activity_id: 98
+  calendar_grade_id: 1
+-
+  activity_id: 98
+  calendar_grade_id: 2
+-
+  activity_id: 98
+  calendar_grade_id: 3
+-
+  activity_id: 98
+  calendar_grade_id: 4
+-
+  activity_id: 98
+  calendar_grade_id: 5
+-
+  activity_id: 98
+  calendar_grade_id: 6
+-
+  activity_id: 98
+  calendar_grade_id: 7
+-
+  activity_id: 99
+  calendar_grade_id: 1
+-
+  activity_id: 99
+  calendar_grade_id: 2
+-
+  activity_id: 99
+  calendar_grade_id: 3
+-
+  activity_id: 99
+  calendar_grade_id: 4
+-
+  activity_id: 99
+  calendar_grade_id: 5
+-
+  activity_id: 99
+  calendar_grade_id: 6
+-
+  activity_id: 99
+  calendar_grade_id: 7
+-
+  activity_id: 100
+  calendar_grade_id: 1
+-
+  activity_id: 100
+  calendar_grade_id: 2
+-
+  activity_id: 100
+  calendar_grade_id: 3
+-
+  activity_id: 100
+  calendar_grade_id: 4
+-
+  activity_id: 100
+  calendar_grade_id: 5
+-
+  activity_id: 100
+  calendar_grade_id: 6
+-
+  activity_id: 100
+  calendar_grade_id: 7
+-
+  activity_id: 101
+  calendar_grade_id: 1
+-
+  activity_id: 101
+  calendar_grade_id: 2
+-
+  activity_id: 101
+  calendar_grade_id: 3
+-
+  activity_id: 101
+  calendar_grade_id: 4
+-
+  activity_id: 101
+  calendar_grade_id: 5
+-
+  activity_id: 101
+  calendar_grade_id: 6
+-
+  activity_id: 101
+  calendar_grade_id: 7
+-
+  activity_id: 102
+  calendar_grade_id: 1
+-
+  activity_id: 102
+  calendar_grade_id: 2
+-
+  activity_id: 102
+  calendar_grade_id: 3
+-
+  activity_id: 102
+  calendar_grade_id: 4
+-
+  activity_id: 102
+  calendar_grade_id: 5
+-
+  activity_id: 102
+  calendar_grade_id: 6
+-
+  activity_id: 102
+  calendar_grade_id: 7
+-
+  activity_id: 103
+  calendar_grade_id: 1
+-
+  activity_id: 103
+  calendar_grade_id: 2
+-
+  activity_id: 103
+  calendar_grade_id: 3
+-
+  activity_id: 103
+  calendar_grade_id: 4
+-
+  activity_id: 103
+  calendar_grade_id: 5
+-
+  activity_id: 103
+  calendar_grade_id: 6
+-
+  activity_id: 103
+  calendar_grade_id: 7
+-
+  activity_id: 104
+  calendar_grade_id: 4
+-
+  activity_id: 104
+  calendar_grade_id: 5
+-
+  activity_id: 104
+  calendar_grade_id: 6
+-
+  activity_id: 104
+  calendar_grade_id: 7
+-
+  activity_id: 105
+  calendar_grade_id: 1
+-
+  activity_id: 105
+  calendar_grade_id: 2
+-
+  activity_id: 105
+  calendar_grade_id: 3
+-
+  activity_id: 105
+  calendar_grade_id: 4
+-
+  activity_id: 105
+  calendar_grade_id: 5
+-
+  activity_id: 105
+  calendar_grade_id: 6
+-
+  activity_id: 105
+  calendar_grade_id: 7
+-
+  activity_id: 106
+  calendar_grade_id: 1
+-
+  activity_id: 106
+  calendar_grade_id: 2
+-
+  activity_id: 106
+  calendar_grade_id: 3
+-
+  activity_id: 106
+  calendar_grade_id: 4
+-
+  activity_id: 106
+  calendar_grade_id: 5
+-
+  activity_id: 106
+  calendar_grade_id: 6
+-
+  activity_id: 106
+  calendar_grade_id: 7
+-
+  activity_id: 107
+  calendar_grade_id: 1
+-
+  activity_id: 107
+  calendar_grade_id: 2
+-
+  activity_id: 107
+  calendar_grade_id: 3
+-
+  activity_id: 107
+  calendar_grade_id: 4
+-
+  activity_id: 107
+  calendar_grade_id: 5
+-
+  activity_id: 107
+  calendar_grade_id: 6
+-
+  activity_id: 107
+  calendar_grade_id: 7
+-
+  activity_id: 108
+  calendar_grade_id: 1
+-
+  activity_id: 108
+  calendar_grade_id: 2
+-
+  activity_id: 108
+  calendar_grade_id: 3
+-
+  activity_id: 108
+  calendar_grade_id: 4
+-
+  activity_id: 108
+  calendar_grade_id: 5
+-
+  activity_id: 108
+  calendar_grade_id: 6
+-
+  activity_id: 108
+  calendar_grade_id: 7
+-
+  activity_id: 109
+  calendar_grade_id: 1
+-
+  activity_id: 109
+  calendar_grade_id: 2
+-
+  activity_id: 109
+  calendar_grade_id: 3
+-
+  activity_id: 109
+  calendar_grade_id: 4
+-
+  activity_id: 109
+  calendar_grade_id: 5
+-
+  activity_id: 110
+  calendar_grade_id: 1
+-
+  activity_id: 110
+  calendar_grade_id: 2
+-
+  activity_id: 110
+  calendar_grade_id: 3
+-
+  activity_id: 110
+  calendar_grade_id: 4
+-
+  activity_id: 110
+  calendar_grade_id: 5
+-
+  activity_id: 110
+  calendar_grade_id: 6
+-
+  activity_id: 110
+  calendar_grade_id: 7
+-
+  activity_id: 111
+  calendar_grade_id: 1
+-
+  activity_id: 111
+  calendar_grade_id: 2
+-
+  activity_id: 111
+  calendar_grade_id: 3
+-
+  activity_id: 111
+  calendar_grade_id: 4
+-
+  activity_id: 111
+  calendar_grade_id: 5
+-
+  activity_id: 112
+  calendar_grade_id: 1
+-
+  activity_id: 112
+  calendar_grade_id: 2
+-
+  activity_id: 112
+  calendar_grade_id: 3
+-
+  activity_id: 113
+  calendar_grade_id: 1
+-
+  activity_id: 113
+  calendar_grade_id: 2
+-
+  activity_id: 113
+  calendar_grade_id: 3
+-
+  activity_id: 113
+  calendar_grade_id: 4
+-
+  activity_id: 113
+  calendar_grade_id: 5
+-
+  activity_id: 113
+  calendar_grade_id: 6
+-
+  activity_id: 113
+  calendar_grade_id: 7
+-
+  activity_id: 114
+  calendar_grade_id: 1
+-
+  activity_id: 114
+  calendar_grade_id: 2
+-
+  activity_id: 114
+  calendar_grade_id: 3
+-
+  activity_id: 114
+  calendar_grade_id: 4
+-
+  activity_id: 114
+  calendar_grade_id: 5
+-
+  activity_id: 114
+  calendar_grade_id: 6
+-
+  activity_id: 114
+  calendar_grade_id: 7
+-
+  activity_id: 115
+  calendar_grade_id: 1
+-
+  activity_id: 115
+  calendar_grade_id: 2
+-
+  activity_id: 115
+  calendar_grade_id: 3
+-
+  activity_id: 115
+  calendar_grade_id: 4
+-
+  activity_id: 115
+  calendar_grade_id: 5
+-
+  activity_id: 115
+  calendar_grade_id: 6
+-
+  activity_id: 115
+  calendar_grade_id: 7
+-
+  activity_id: 116
+  calendar_grade_id: 1
+-
+  activity_id: 116
+  calendar_grade_id: 2
+-
+  activity_id: 116
+  calendar_grade_id: 3
+-
+  activity_id: 117
+  calendar_grade_id: 1
+-
+  activity_id: 117
+  calendar_grade_id: 2
+-
+  activity_id: 117
+  calendar_grade_id: 3
+-
+  activity_id: 117
+  calendar_grade_id: 4
+-
+  activity_id: 117
+  calendar_grade_id: 5
+-
+  activity_id: 117
+  calendar_grade_id: 6
+-
+  activity_id: 117
+  calendar_grade_id: 7
+-
+  activity_id: 118
+  calendar_grade_id: 1
+-
+  activity_id: 118
+  calendar_grade_id: 2
+-
+  activity_id: 118
+  calendar_grade_id: 3
+-
+  activity_id: 118
+  calendar_grade_id: 4
+-
+  activity_id: 118
+  calendar_grade_id: 5
+-
+  activity_id: 118
+  calendar_grade_id: 6
+-
+  activity_id: 118
+  calendar_grade_id: 7
+-
+  activity_id: 119
+  calendar_grade_id: 1
+-
+  activity_id: 119
+  calendar_grade_id: 2
+-
+  activity_id: 119
+  calendar_grade_id: 3
+-
+  activity_id: 119
+  calendar_grade_id: 4
+-
+  activity_id: 119
+  calendar_grade_id: 5
+-
+  activity_id: 119
+  calendar_grade_id: 6
+-
+  activity_id: 119
+  calendar_grade_id: 7
+-
+  activity_id: 120
+  calendar_grade_id: 1
+-
+  activity_id: 120
+  calendar_grade_id: 2
+-
+  activity_id: 120
+  calendar_grade_id: 3
+-
+  activity_id: 120
+  calendar_grade_id: 4
+-
+  activity_id: 120
+  calendar_grade_id: 5
+-
+  activity_id: 120
+  calendar_grade_id: 6
+-
+  activity_id: 120
+  calendar_grade_id: 7
+-
+  activity_id: 121
+  calendar_grade_id: 4
+-
+  activity_id: 121
+  calendar_grade_id: 5
+-
+  activity_id: 121
+  calendar_grade_id: 6
+-
+  activity_id: 121
+  calendar_grade_id: 7
+-
+  activity_id: 122
+  calendar_grade_id: 4
+-
+  activity_id: 122
+  calendar_grade_id: 5
+-
+  activity_id: 122
+  calendar_grade_id: 6
+-
+  activity_id: 122
+  calendar_grade_id: 7
+-
+  activity_id: 123
+  calendar_grade_id: 4
+-
+  activity_id: 123
+  calendar_grade_id: 5
+-
+  activity_id: 123
+  calendar_grade_id: 6
+-
+  activity_id: 123
+  calendar_grade_id: 7
+-
+  activity_id: 124
+  calendar_grade_id: 3
+-
+  activity_id: 124
+  calendar_grade_id: 4
+-
+  activity_id: 124
+  calendar_grade_id: 5
+-
+  activity_id: 124
+  calendar_grade_id: 6
+-
+  activity_id: 124
+  calendar_grade_id: 7
+-
+  activity_id: 125
+  calendar_grade_id: 1
+-
+  activity_id: 125
+  calendar_grade_id: 2
+-
+  activity_id: 125
+  calendar_grade_id: 3
+-
+  activity_id: 125
+  calendar_grade_id: 4
+-
+  activity_id: 125
+  calendar_grade_id: 5
+-
+  activity_id: 125
+  calendar_grade_id: 6
+-
+  activity_id: 125
+  calendar_grade_id: 7
+-
+  activity_id: 126
+  calendar_grade_id: 1
+-
+  activity_id: 126
+  calendar_grade_id: 2
+-
+  activity_id: 126
+  calendar_grade_id: 3
+-
+  activity_id: 126
+  calendar_grade_id: 4
+-
+  activity_id: 126
+  calendar_grade_id: 5
+-
+  activity_id: 126
+  calendar_grade_id: 6
+-
+  activity_id: 126
+  calendar_grade_id: 7
+-
+  activity_id: 127
+  calendar_grade_id: 1
+-
+  activity_id: 127
+  calendar_grade_id: 2
+-
+  activity_id: 127
+  calendar_grade_id: 3
+-
+  activity_id: 127
+  calendar_grade_id: 4
+-
+  activity_id: 127
+  calendar_grade_id: 5
+-
+  activity_id: 127
+  calendar_grade_id: 6
+-
+  activity_id: 127
+  calendar_grade_id: 7
+-
+  activity_id: 128
+  calendar_grade_id: 4
+-
+  activity_id: 128
+  calendar_grade_id: 5
+-
+  activity_id: 128
+  calendar_grade_id: 6
+-
+  activity_id: 128
+  calendar_grade_id: 7
+-
+  activity_id: 129
+  calendar_grade_id: 1
+-
+  activity_id: 129
+  calendar_grade_id: 2
+-
+  activity_id: 129
+  calendar_grade_id: 3
+-
+  activity_id: 129
+  calendar_grade_id: 4
+-
+  activity_id: 129
+  calendar_grade_id: 5
+-
+  activity_id: 129
+  calendar_grade_id: 6
+-
+  activity_id: 129
+  calendar_grade_id: 7
+-
+  activity_id: 130
+  calendar_grade_id: 1
+-
+  activity_id: 130
+  calendar_grade_id: 2
+-
+  activity_id: 130
+  calendar_grade_id: 3
+-
+  activity_id: 130
+  calendar_grade_id: 4
+-
+  activity_id: 130
+  calendar_grade_id: 5
+-
+  activity_id: 130
+  calendar_grade_id: 6
+-
+  activity_id: 130
+  calendar_grade_id: 7
+-
+  activity_id: 131
+  calendar_grade_id: 1
+-
+  activity_id: 131
+  calendar_grade_id: 2
+-
+  activity_id: 131
+  calendar_grade_id: 3
+-
+  activity_id: 131
+  calendar_grade_id: 4
+-
+  activity_id: 131
+  calendar_grade_id: 5
+-
+  activity_id: 131
+  calendar_grade_id: 6
+-
+  activity_id: 131
+  calendar_grade_id: 7
+-
+  activity_id: 132
+  calendar_grade_id: 1
+-
+  activity_id: 132
+  calendar_grade_id: 2
+-
+  activity_id: 132
+  calendar_grade_id: 3
+-
+  activity_id: 132
+  calendar_grade_id: 4
+-
+  activity_id: 132
+  calendar_grade_id: 5
+-
+  activity_id: 132
+  calendar_grade_id: 6
+-
+  activity_id: 132
+  calendar_grade_id: 7
+-
+  activity_id: 133
+  calendar_grade_id: 1
+-
+  activity_id: 133
+  calendar_grade_id: 2
+-
+  activity_id: 133
+  calendar_grade_id: 3
+-
+  activity_id: 133
+  calendar_grade_id: 4
+-
+  activity_id: 133
+  calendar_grade_id: 5
+-
+  activity_id: 133
+  calendar_grade_id: 6
+-
+  activity_id: 133
+  calendar_grade_id: 7
+-
+  activity_id: 134
+  calendar_grade_id: 1
+-
+  activity_id: 134
+  calendar_grade_id: 2
+-
+  activity_id: 134
+  calendar_grade_id: 3
+-
+  activity_id: 134
+  calendar_grade_id: 4
+-
+  activity_id: 134
+  calendar_grade_id: 5
+-
+  activity_id: 134
+  calendar_grade_id: 6
+-
+  activity_id: 134
+  calendar_grade_id: 7
+-
+  activity_id: 135
+  calendar_grade_id: 1
+-
+  activity_id: 135
+  calendar_grade_id: 2
+-
+  activity_id: 135
+  calendar_grade_id: 3
+-
+  activity_id: 135
+  calendar_grade_id: 4
+-
+  activity_id: 135
+  calendar_grade_id: 5
+-
+  activity_id: 135
+  calendar_grade_id: 6
+-
+  activity_id: 135
+  calendar_grade_id: 7
+-
+  activity_id: 136
+  calendar_grade_id: 1
+-
+  activity_id: 136
+  calendar_grade_id: 2
+-
+  activity_id: 136
+  calendar_grade_id: 3
+-
+  activity_id: 136
+  calendar_grade_id: 4
+-
+  activity_id: 136
+  calendar_grade_id: 5
+-
+  activity_id: 136
+  calendar_grade_id: 6
+-
+  activity_id: 136
+  calendar_grade_id: 7
+-
+  activity_id: 137
+  calendar_grade_id: 1
+-
+  activity_id: 137
+  calendar_grade_id: 2
+-
+  activity_id: 137
+  calendar_grade_id: 3
+-
+  activity_id: 137
+  calendar_grade_id: 4
+-
+  activity_id: 137
+  calendar_grade_id: 5
+-
+  activity_id: 137
+  calendar_grade_id: 6
+-
+  activity_id: 137
+  calendar_grade_id: 7
+-
+  activity_id: 138
+  calendar_grade_id: 1
+-
+  activity_id: 138
+  calendar_grade_id: 2
+-
+  activity_id: 138
+  calendar_grade_id: 3
+-
+  activity_id: 138
+  calendar_grade_id: 4
+-
+  activity_id: 138
+  calendar_grade_id: 5
+-
+  activity_id: 138
+  calendar_grade_id: 6
+-
+  activity_id: 138
+  calendar_grade_id: 7
+-
+  activity_id: 139
+  calendar_grade_id: 1
+-
+  activity_id: 139
+  calendar_grade_id: 2
+-
+  activity_id: 139
+  calendar_grade_id: 3
+-
+  activity_id: 139
+  calendar_grade_id: 4
+-
+  activity_id: 139
+  calendar_grade_id: 5
+-
+  activity_id: 139
+  calendar_grade_id: 6
+-
+  activity_id: 139
+  calendar_grade_id: 7
+-
+  activity_id: 140
+  calendar_grade_id: 1
+-
+  activity_id: 140
+  calendar_grade_id: 2
+-
+  activity_id: 140
+  calendar_grade_id: 3
+-
+  activity_id: 140
+  calendar_grade_id: 4
+-
+  activity_id: 140
+  calendar_grade_id: 5
+-
+  activity_id: 140
+  calendar_grade_id: 6
+-
+  activity_id: 140
+  calendar_grade_id: 7
+-
+  activity_id: 141
+  calendar_grade_id: 1
+-
+  activity_id: 141
+  calendar_grade_id: 2
+-
+  activity_id: 141
+  calendar_grade_id: 3
+-
+  activity_id: 141
+  calendar_grade_id: 4
+-
+  activity_id: 141
+  calendar_grade_id: 5
+-
+  activity_id: 141
+  calendar_grade_id: 6
+-
+  activity_id: 141
+  calendar_grade_id: 7
+-
+  activity_id: 142
+  calendar_grade_id: 1
+-
+  activity_id: 142
+  calendar_grade_id: 2
+-
+  activity_id: 142
+  calendar_grade_id: 3
+-
+  activity_id: 142
+  calendar_grade_id: 4
+-
+  activity_id: 142
+  calendar_grade_id: 5
+-
+  activity_id: 142
+  calendar_grade_id: 6
+-
+  activity_id: 142
+  calendar_grade_id: 7
+-
+  activity_id: 143
+  calendar_grade_id: 1
+-
+  activity_id: 143
+  calendar_grade_id: 2
+-
+  activity_id: 143
+  calendar_grade_id: 3
+-
+  activity_id: 143
+  calendar_grade_id: 4
+-
+  activity_id: 143
+  calendar_grade_id: 5
+-
+  activity_id: 143
+  calendar_grade_id: 6
+-
+  activity_id: 143
+  calendar_grade_id: 7
+-
+  activity_id: 144
+  calendar_grade_id: 1
+-
+  activity_id: 144
+  calendar_grade_id: 2
+-
+  activity_id: 144
+  calendar_grade_id: 3
+-
+  activity_id: 144
+  calendar_grade_id: 4
+-
+  activity_id: 144
+  calendar_grade_id: 5
+-
+  activity_id: 144
+  calendar_grade_id: 6
+-
+  activity_id: 144
+  calendar_grade_id: 7
+-
+  activity_id: 145
+  calendar_grade_id: 1
+-
+  activity_id: 145
+  calendar_grade_id: 2
+-
+  activity_id: 145
+  calendar_grade_id: 3
+-
+  activity_id: 145
+  calendar_grade_id: 4
+-
+  activity_id: 145
+  calendar_grade_id: 5
+-
+  activity_id: 145
+  calendar_grade_id: 6
+-
+  activity_id: 145
+  calendar_grade_id: 7
+-
+  activity_id: 146
+  calendar_grade_id: 1
+-
+  activity_id: 146
+  calendar_grade_id: 2
+-
+  activity_id: 146
+  calendar_grade_id: 3
+-
+  activity_id: 146
+  calendar_grade_id: 4
+-
+  activity_id: 146
+  calendar_grade_id: 5
+-
+  activity_id: 146
+  calendar_grade_id: 6
+-
+  activity_id: 146
+  calendar_grade_id: 7
+-
+  activity_id: 147
+  calendar_grade_id: 1
+-
+  activity_id: 147
+  calendar_grade_id: 2
+-
+  activity_id: 147
+  calendar_grade_id: 3
+-
+  activity_id: 147
+  calendar_grade_id: 4
+-
+  activity_id: 147
+  calendar_grade_id: 5
+-
+  activity_id: 147
+  calendar_grade_id: 6
+-
+  activity_id: 147
+  calendar_grade_id: 7
+-
+  activity_id: 148
+  calendar_grade_id: 1
+-
+  activity_id: 148
+  calendar_grade_id: 2
+-
+  activity_id: 148
+  calendar_grade_id: 3
+-
+  activity_id: 148
+  calendar_grade_id: 4
+-
+  activity_id: 148
+  calendar_grade_id: 5
+-
+  activity_id: 148
+  calendar_grade_id: 6
+-
+  activity_id: 148
+  calendar_grade_id: 7
+-
+  activity_id: 149
+  calendar_grade_id: 1
+-
+  activity_id: 149
+  calendar_grade_id: 2
+-
+  activity_id: 149
+  calendar_grade_id: 3
+-
+  activity_id: 149
+  calendar_grade_id: 4
+-
+  activity_id: 149
+  calendar_grade_id: 5
+-
+  activity_id: 149
+  calendar_grade_id: 6
+-
+  activity_id: 149
+  calendar_grade_id: 7
+-
+  activity_id: 150
+  calendar_grade_id: 1
+-
+  activity_id: 150
+  calendar_grade_id: 2
+-
+  activity_id: 150
+  calendar_grade_id: 3
+-
+  activity_id: 150
+  calendar_grade_id: 4
+-
+  activity_id: 150
+  calendar_grade_id: 5
+-
+  activity_id: 150
+  calendar_grade_id: 6
+-
+  activity_id: 150
+  calendar_grade_id: 7
+-
+  activity_id: 151
+  calendar_grade_id: 6
+-
+  activity_id: 152
+  calendar_grade_id: 7
+-
+  activity_id: 153
+  calendar_grade_id: 1
+-
+  activity_id: 154
+  calendar_grade_id: 1
+-
+  activity_id: 155
+  calendar_grade_id: 1
+-
+  activity_id: 156
+  calendar_grade_id: 3
+-
+  activity_id: 157
+  calendar_grade_id: 4
+-
+  activity_id: 158
+  calendar_grade_id: 5
+-
+  activity_id: 159
+  calendar_grade_id: 1
+-
+  activity_id: 160
+  calendar_grade_id: 1
+-
+  activity_id: 161
+  calendar_grade_id: 1
+-
+  activity_id: 165
+  calendar_grade_id: 6
+-
+  activity_id: 166
+  calendar_grade_id: 7
+-
+  activity_id: 167
+  calendar_grade_id: 6
+-
+  activity_id: 168
+  calendar_grade_id: 7
+-
+  activity_id: 169
+  calendar_grade_id: 1
+-
+  activity_id: 171
+  calendar_grade_id: 2
+-
+  activity_id: 172
+  calendar_grade_id: 2
+-
+  activity_id: 173
+  calendar_grade_id: 3
+-
+  activity_id: 174
+  calendar_grade_id: 3
+-
+  activity_id: 175
+  calendar_grade_id: 4
+-
+  activity_id: 176
+  calendar_grade_id: 4
+-
+  activity_id: 177
+  calendar_grade_id: 5
+-
+  activity_id: 178
+  calendar_grade_id: 5
+-
+  activity_id: 179
+  calendar_grade_id: 6
+-
+  activity_id: 180
+  calendar_grade_id: 7
+-
+  activity_id: 181
+  calendar_grade_id: 6
+-
+  activity_id: 182
+  calendar_grade_id: 7
+-
+  activity_id: 185
+  calendar_grade_id: 2
+-
+  activity_id: 186
+  calendar_grade_id: 2
+-
+  activity_id: 187
+  calendar_grade_id: 3
+-
+  activity_id: 188
+  calendar_grade_id: 4
+-
+  activity_id: 189
+  calendar_grade_id: 4
+-
+  activity_id: 190
+  calendar_grade_id: 5
+-
+  activity_id: 191
+  calendar_grade_id: 6
+-
+  activity_id: 192
+  calendar_grade_id: 7
+-
+  activity_id: 193
+  calendar_grade_id: 6
+-
+  activity_id: 194
+  calendar_grade_id: 7
+-
+  activity_id: 195
+  calendar_grade_id: 2
+-
+  activity_id: 196
+  calendar_grade_id: 2
+-
+  activity_id: 197
+  calendar_grade_id: 2
+-
+  activity_id: 198
+  calendar_grade_id: 4
+-
+  activity_id: 200
+  calendar_grade_id: 4
+-
+  activity_id: 201
+  calendar_grade_id: 5
+-
+  activity_id: 202
+  calendar_grade_id: 6
+-
+  activity_id: 204
+  calendar_grade_id: 6
+-
+  activity_id: 205
+  calendar_grade_id: 7
+-
+  activity_id: 206
+  calendar_grade_id: 1
+-
+  activity_id: 207
+  calendar_grade_id: 1
+-
+  activity_id: 208
+  calendar_grade_id: 1
+-
+  activity_id: 209
+  calendar_grade_id: 2
+-
+  activity_id: 210
+  calendar_grade_id: 2
+-
+  activity_id: 211
+  calendar_grade_id: 2
+-
+  activity_id: 212
+  calendar_grade_id: 3
+-
+  activity_id: 213
+  calendar_grade_id: 3
+-
+  activity_id: 214
+  calendar_grade_id: 3
+-
+  activity_id: 215
+  calendar_grade_id: 4
+-
+  activity_id: 216
+  calendar_grade_id: 4
+-
+  activity_id: 217
+  calendar_grade_id: 4
+-
+  activity_id: 218
+  calendar_grade_id: 5
+-
+  activity_id: 219
+  calendar_grade_id: 5
+-
+  activity_id: 220
+  calendar_grade_id: 5
+-
+  activity_id: 221
+  calendar_grade_id: 4
+-
+  activity_id: 222
+  calendar_grade_id: 4
+-
+  activity_id: 223
+  calendar_grade_id: 4
+-
+  activity_id: 224
+  calendar_grade_id: 5
+-
+  activity_id: 225
+  calendar_grade_id: 6
+-
+  activity_id: 226
+  calendar_grade_id: 6
+-
+  activity_id: 227
+  calendar_grade_id: 7
+-
+  activity_id: 228
+  calendar_grade_id: 7
+-
+  activity_id: 229
+  calendar_grade_id: 6
+-
+  activity_id: 230
+  calendar_grade_id: 6
+-
+  activity_id: 231
+  calendar_grade_id: 7
+-
+  activity_id: 232
+  calendar_grade_id: 7
+-
+  activity_id: 233
+  calendar_grade_id: 6
+-
+  activity_id: 234
+  calendar_grade_id: 7
+-
+  activity_id: 235
+  calendar_grade_id: 4
+-
+  activity_id: 236
+  calendar_grade_id: 5
+-
+  activity_id: 237
+  calendar_grade_id: 5
+-
+  activity_id: 238
+  calendar_grade_id: 1
+-
+  activity_id: 239
+  calendar_grade_id: 1
+-
+  activity_id: 240
+  calendar_grade_id: 1
+-
+  activity_id: 241
+  calendar_grade_id: 2
+-
+  activity_id: 242
+  calendar_grade_id: 2
+-
+  activity_id: 243
+  calendar_grade_id: 2
+-
+  activity_id: 244
+  calendar_grade_id: 3
+-
+  activity_id: 245
+  calendar_grade_id: 1
+-
+  activity_id: 246
+  calendar_grade_id: 1
+-
+  activity_id: 247
+  calendar_grade_id: 1
+-
+  activity_id: 248
+  calendar_grade_id: 2
+-
+  activity_id: 249
+  calendar_grade_id: 2
+-
+  activity_id: 250
+  calendar_grade_id: 2
+-
+  activity_id: 251
+  calendar_grade_id: 3
+-
+  activity_id: 252
+  calendar_grade_id: 3
+-
+  activity_id: 253
+  calendar_grade_id: 6
+-
+  activity_id: 254
+  calendar_grade_id: 7
+-
+  activity_id: 255
+  calendar_grade_id: 6
+-
+  activity_id: 256
+  calendar_grade_id: 5
+-
+  activity_id: 257
+  calendar_grade_id: 4
+-
+  activity_id: 258
+  calendar_grade_id: 5
+-
+  activity_id: 259
+  calendar_grade_id: 6
+-
+  activity_id: 260
+  calendar_grade_id: 7
+-
+  activity_id: 261
+  calendar_grade_id: 1
+-
+  activity_id: 262
+  calendar_grade_id: 1
+-
+  activity_id: 263
+  calendar_grade_id: 1
+-
+  activity_id: 264
+  calendar_grade_id: 2
+-
+  activity_id: 265
+  calendar_grade_id: 2
+-
+  activity_id: 266
+  calendar_grade_id: 2
+-
+  activity_id: 267
+  calendar_grade_id: 3
+-
+  activity_id: 268
+  calendar_grade_id: 3
+-
+  activity_id: 269
+  calendar_grade_id: 4
+-
+  activity_id: 270
+  calendar_grade_id: 4
+-
+  activity_id: 271
+  calendar_grade_id: 3
+-
+  activity_id: 272
+  calendar_grade_id: 3
+-
+  activity_id: 274
+  calendar_grade_id: 2
+-
+  activity_id: 275
+  calendar_grade_id: 3
+-
+  activity_id: 276
+  calendar_grade_id: 4
+-
+  activity_id: 277
+  calendar_grade_id: 5
+-
+  activity_id: 278
+  calendar_grade_id: 1
+-
+  activity_id: 279
+  calendar_grade_id: 1
+-
+  activity_id: 280
+  calendar_grade_id: 1
+-
+  activity_id: 281
+  calendar_grade_id: 2
+-
+  activity_id: 282
+  calendar_grade_id: 2
+-
+  activity_id: 283
+  calendar_grade_id: 2
+-
+  activity_id: 284
+  calendar_grade_id: 3
+-
+  activity_id: 285
+  calendar_grade_id: 3
+-
+  activity_id: 287
+  calendar_grade_id: 4
+-
+  activity_id: 288
+  calendar_grade_id: 4
+-
+  activity_id: 289
+  calendar_grade_id: 4
+-
+  activity_id: 290
+  calendar_grade_id: 5
+-
+  activity_id: 291
+  calendar_grade_id: 5
+-
+  activity_id: 292
+  calendar_grade_id: 5
+-
+  activity_id: 293
+  calendar_grade_id: 6
+-
+  activity_id: 294
+  calendar_grade_id: 7
+-
+  activity_id: 295
+  calendar_grade_id: 6
+-
+  activity_id: 296
+  calendar_grade_id: 7
+-
+  activity_id: 298
+  calendar_grade_id: 4
+-
+  activity_id: 299
+  calendar_grade_id: 5
+-
+  activity_id: 300
+  calendar_grade_id: 5
+-
+  activity_id: 301
+  calendar_grade_id: 6
+-
+  activity_id: 302
+  calendar_grade_id: 7
+-
+  activity_id: 303
+  calendar_grade_id: 1
+-
+  activity_id: 304
+  calendar_grade_id: 1
+-
+  activity_id: 305
+  calendar_grade_id: 1
+-
+  activity_id: 306
+  calendar_grade_id: 2
+-
+  activity_id: 307
+  calendar_grade_id: 2
+-
+  activity_id: 308
+  calendar_grade_id: 2
+-
+  activity_id: 309
+  calendar_grade_id: 3
+-
+  activity_id: 310
+  calendar_grade_id: 3
+-
+  activity_id: 311
+  calendar_grade_id: 4
+-
+  activity_id: 312
+  calendar_grade_id: 4
+-
+  activity_id: 313
+  calendar_grade_id: 5
+-
+  activity_id: 314
+  calendar_grade_id: 5
+-
+  activity_id: 315
+  calendar_grade_id: 6
+-
+  activity_id: 316
+  calendar_grade_id: 7
+-
+  activity_id: 317
+  calendar_grade_id: 6
+-
+  activity_id: 318
+  calendar_grade_id: 6
+-
+  activity_id: 319
+  calendar_grade_id: 7
+-
+  activity_id: 320
+  calendar_grade_id: 6
+-
+  activity_id: 321
+  calendar_grade_id: 7
+-
+  activity_id: 322
+  calendar_grade_id: 1
+-
+  activity_id: 323
+  calendar_grade_id: 1
+-
+  activity_id: 324
+  calendar_grade_id: 1
+-
+  activity_id: 325
+  calendar_grade_id: 2
+-
+  activity_id: 326
+  calendar_grade_id: 2
+-
+  activity_id: 327
+  calendar_grade_id: 2
+-
+  activity_id: 328
+  calendar_grade_id: 3
+-
+  activity_id: 329
+  calendar_grade_id: 3
+-
+  activity_id: 330
+  calendar_grade_id: 4
+-
+  activity_id: 331
+  calendar_grade_id: 4
+-
+  activity_id: 332
+  calendar_grade_id: 4
+-
+  activity_id: 333
+  calendar_grade_id: 5
+-
+  activity_id: 334
+  calendar_grade_id: 5
+-
+  activity_id: 336
+  calendar_grade_id: 2
+-
+  activity_id: 337
+  calendar_grade_id: 3
+-
+  activity_id: 338
+  calendar_grade_id: 4
+-
+  activity_id: 339
+  calendar_grade_id: 5
+-
+  activity_id: 341
+  calendar_grade_id: 6
+-
+  activity_id: 343
+  calendar_grade_id: 6
+-
+  activity_id: 344
+  calendar_grade_id: 7
+-
+  activity_id: 345
+  calendar_grade_id: 6
+-
+  activity_id: 346
+  calendar_grade_id: 6
+-
+  activity_id: 347
+  calendar_grade_id: 7
+-
+  activity_id: 348
+  calendar_grade_id: 6
+-
+  activity_id: 349
+  calendar_grade_id: 6
+-
+  activity_id: 349
+  calendar_grade_id: 7
+-
+  activity_id: 350
+  calendar_grade_id: 6
+-
+  activity_id: 351
+  calendar_grade_id: 6
+-
+  activity_id: 351
+  calendar_grade_id: 7
+-
+  activity_id: 352
+  calendar_grade_id: 6
+-
+  activity_id: 353
+  calendar_grade_id: 6
+-
+  activity_id: 354
+  calendar_grade_id: 6
+-
+  activity_id: 356
+  calendar_grade_id: 7
+-
+  activity_id: 357
+  calendar_grade_id: 7
+-
+  activity_id: 358
+  calendar_grade_id: 7
+-
+  activity_id: 359
+  calendar_grade_id: 6
+...

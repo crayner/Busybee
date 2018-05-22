@@ -16,6 +16,7 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Hillrange\Security\Entity\User;
 use Symfony\Component\Yaml\Yaml;
@@ -23,6 +24,21 @@ use Symfony\Component\Yaml\Yaml;
 class UserFixtures extends Fixture
 {
     use buildTable;
+
+    /**
+     * @var array
+     */
+    private $assoc = [
+        'created_by'   => [
+            'name' => 'createdBy',
+            'method' => 'setCreatedBy'
+        ],
+        'modified_by' => [
+            'name' => 'modifiedBy',
+            'method' => 'setModifiedBy',
+        ],
+    ];
+
     /**
      * Load data fixtures with the passed EntityManager
      *
@@ -32,7 +48,7 @@ class UserFixtures extends Fixture
     {
         // Bundle to manage file and directories
 
-        $data = Yaml::parse(file_get_contents(__DIR__.'/SQL/App/hrs_user.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/hrs_user.yml'));
 
         $this->buildTable($data, User::class, $manager);
     }

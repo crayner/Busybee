@@ -22,6 +22,7 @@ App\Entity\DepartmentMember:
             joinColumn:
                 name: dept_id
                 referencedColumnName: id
+                nullable: false
         staff:
             targetEntity: App\Entity\Staff
             inversedBy: departments

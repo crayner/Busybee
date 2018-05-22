@@ -148,16 +148,11 @@ class Department extends DepartmentExtension
      */
 	public function addMember(DepartmentMember $member, $add = true): Department
 	{
-	    $this->getMembers();
+	    if (empty($member) || $this->getMembers()->contains($member))
+            return $this;
 
 	    if ($add)
 		    $member->setDepartment($this);
-
-	    if (is_null($member->getStaff()))
-	        throw new Exception('The staff member must be set in the DepartmentMember entity before the DepartmentMember can be added to the Department.');
-
-		if ($this->members->contains($member) || isset($this->getStaff()[intval($member->getStaff()->getId())]))
-			return $this;
 
 		$this->members->add($member);
 
@@ -216,7 +211,7 @@ class Department extends DepartmentExtension
 	 */
 	public function addCourse(Course $course, $add = true)
 	{
-	    if (empty($course))
+	    if (empty($course) || $this->getCourses()->contains($course))
 	        return $this ;
 
 	    if ($add)
@@ -257,7 +252,7 @@ class Department extends DepartmentExtension
 	    if (empty($this->courses))
 	        $this->courses = new ArrayCollection();
 
-	    if ($this->courses instanceof PersistentCollection && $this->courses->isInitialized())
+	    if ($this->courses instanceof PersistentCollection)
             $this->courses->initialize();
 
 		if ($sorted)
@@ -335,6 +330,16 @@ class Department extends DepartmentExtension
     {
         $this->logo = $logo;
 
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return Department
+     */
+    public function setId(int $id): Department
+    {
+        $this->id = $id;
         return $this;
     }
 }

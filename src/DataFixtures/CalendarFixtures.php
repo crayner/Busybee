@@ -15,7 +15,7 @@
  */
 namespace App\DataFixtures;
 
-use App\Calendar\Util\CalendarManager;
+use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
 use App\Entity\Course;
 use App\Entity\SpecialDay;
@@ -33,9 +33,18 @@ class CalendarFixtures extends Fixture implements DependentFixtureInterface
      * @var array
      */
     private $assoc = [
-        'calendar_id' => 'calendar',
-        'created_by'   => 'createdBy',
-        'modified_by' => 'modifiedBy',
+        'calendar_id' => [
+            'name' => 'calendar',
+            'method' => 'setCalendar',
+            ],
+        'created_by'   => [
+            'name' => 'createdBy',
+            'method' => 'setCreatedBy'
+        ],
+        'modified_by' => [
+            'name' => 'modifiedBy',
+            'method' => 'setModifiedBy',
+        ],
     ];
 
     /**
@@ -45,23 +54,23 @@ class CalendarFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $data = Yaml::parse(file_get_contents('/SQL/App/calendar.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar.yml'));
 
-        $this->buildTable($data, CalendarManager::class, $manager);
+        $this->buildTable($data, Calendar::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/calendar_grade.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar_grade.yml'));
 
         $this->buildTable($data, CalendarGrade::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/calendar_term.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar_term.yml'));
 
         $this->buildTable($data, Term::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/calendar_special_day.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar_special_day.yml'));
 
         $this->buildTable($data, SpecialDay::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/course_calendar_grade.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/course_calendar_grade.yml'));
 
         $this->buildJoinTable($data ?: [], Course::class, CalendarGrade::class,
             'course_id', 'calendar_grade_id', 'addCalendarGrade', $manager);
@@ -76,6 +85,7 @@ class CalendarFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             SchoolFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

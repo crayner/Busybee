@@ -1,0 +1,153 @@
+%YAML 1.1
+---
+# craigray_core.koala_department
+-
+  id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Science"
+  type: "Learning Area"
+  code: "SCI"
+  importIdentifier: 4
+  blurb: "Sciences"
+  last_modified: "2018-04-14 08:37:52"
+  created_on: "2018-03-26 23:06:27"
+-
+  id: 2
+  created_by: 1
+  modified_by: 1
+  name: "The Arts"
+  type: "Learning Area"
+  code: "TA"
+  importIdentifier: 5
+  blurb: "Art, Dance, Drama, Media, Music"
+  last_modified: "2018-03-26 23:06:27"
+  created_on: "2018-03-26 23:06:27"
+-
+  id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Humanities"
+  type: "Learning Area"
+  code: "HUM"
+  importIdentifier: 6
+  blurb: "Humanities, PSHE, Economics, Religious Studies, Environmental Management"
+  last_modified: "2018-05-11 14:32:21"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English"
+  type: "Learning Area"
+  code: "ENG"
+  importIdentifier: 7
+  blurb: "English, English as an Additional Language"
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Languages"
+  type: "Learning Area"
+  code: "LNG"
+  importIdentifier: 8
+  blurb: "Chinese First Language, Chinese Second Language, Japanese, Spanish"
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education"
+  type: "Learning Area"
+  code: "PE"
+  importIdentifier: 10
+  blurb: "Physical Education"
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 7
+  created_by: 1
+  modified_by: 1
+  name: "Finance"
+  type: "Administration"
+  code: "FIN"
+  importIdentifier: 11
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 8
+  created_by: 1
+  modified_by: 1
+  name: "Library"
+  type: "Administration"
+  code: "LIB"
+  importIdentifier: 12
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 9
+  created_by: 1
+  modified_by: 1
+  name: "IT Services"
+  type: "Administration"
+  code: "ITS"
+  importIdentifier: 14
+  last_modified: "2018-04-23 08:59:55"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 10
+  created_by: 1
+  modified_by: 1
+  name: "Pastoral"
+  type: "Learning Area"
+  code: "PAST"
+  importIdentifier: 15
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics"
+  type: "Learning Area"
+  code: "MA"
+  importIdentifier: 16
+  blurb: "Maths"
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 12
+  created_by: 1
+  modified_by: 1
+  name: "ICT"
+  type: "Learning Area"
+  code: "ICT"
+  importIdentifier: 17
+  blurb: "<h2>ICT</h2>\r\n\r\n<h3>Philosophy</h3>\r\n\r\n<p>At it&rsquo;s heart, learning is not possible without student engagement and participation. In order to give students the greatest chance to access the curriculum, the ICT Department aims to deliver&nbsp;<a href=\"https://gibbon.ichk.edu.hk/uploads/2015/08/201516StudyCalendar_s3u5rkodsxjcrp8r.pdf\">lessons and units</a> which engage students through a combination of authenticity, relevance, challenge, creativity and novelty. As students progress, the scaffolding of learning is removed, and students are encourage to become ever more independent and self-motivated. This process is being powered by a new pedagogy, that we call <a href=\"http://rossparker.org/free-learning\">Free Learning</a>. Please look at our&nbsp;<a href=\"https://gibbon.ichk.edu.hk/index.php?q=/modules/Free%20Learning/units_browse.php\">public Free Learning units</a> to discover some of the options our students have available to them.<br />\r\n<br />\r\nAcross all years, we seek to place ICT into the broader picture of technology, whilst asking students to consider the impact upon themselves, our societies and the world at large.<br />\r\n<br />\r\nUltimately we look to encourage students to apply ICT (and other technologies) in a balanced, positive and meaningful manner, whilst building skills and attitudes which they can apply across the curriculum, at home and in the workplace.</p>\r\n\r\n<h3>Organisation</h3>\r\n\r\n<p>An ICT course is undertaken by all students in Years 7-9, with each student receiving 70 minutes of contact time per week. Beyond Year 9 the department currently offers extracurricular opportunities for students to study further via our ICT Extension Group, which meets each week.</p>\r\n\r\n<h3>Assessment</h3>\r\n\r\n<p>Rather than focusing a large inventory of ICT skills, which are bound to change rapidly, the department assesses by considering the kind of student we wish to see emerging at the end of the Year 7-9 ICT course. As such, assessment focuses on the following 7 major traits, which are showcased in our <a href=\"https://gibbon.ichk.edu.hk/uploads/2014/11/VisualAssessmentGuide_bfvcw5rrrop6hwk.pdf\">Visual Assessment Guide</a>.</p>\r\n\r\n<ul>\r\n	<li><u><strong>Tech Sensitive</strong></u> - students understand that ICT is a subset of many technologies used by humans. All technologies are simply tools, each with its own positives and negatives. We need to understand the technology we use in order to apply it effectively. Historically, it was technology, not physical prowess, that allowed humans to thrive and become dominant. The result is students who understand technology for what it really is, and appreciate what it has enabled and forced us to be as a species.</li>\r\n	<li><u><strong>ICT Enabled</strong></u> - students posses practical, ICT-based skills enabling them to effectively carry out a wide variety of tasks across school subjects and fields of employment. They are exposed to, and understand, the theoretical underpinnings which enable computers and networks to function. The result is students who choose the right tools for the job, make good use of technical vocabulary and make technology do what they need.</li>\r\n	<li><u><strong>Hacking &amp; Making</strong></u> - students understand that they can learn to use ICT themselves by exploring software and hardware. They are encouraged to tear down and rebuild hardware and cobble together hardware/software solutions. They learn to program, play with mechanical systems and tools and use robotics. The result is students who eventually do not need ICT teachers, but can learn themselves, and fix, rather than dispose of, things which are broken.</li>\r\n	<li><u><strong>Problem Solving</strong></u> - extending logically from 3), students are exposed to opportunities to struggle with problems beyond their current ability, and given the intellectual and emotional tools needed to solve them. Problems become harder over time, as does the time they are expected to work on them. The result is students who don&#39;t always need someone to help them when stuck, display persistence in the face of adversity and actively seek challenge.</li>\r\n	<li><u><strong>Sharing &amp; Respecting</strong></u> - students value their own work and strive to build an audience for it. They do real work, solving real problems for real clients. They build on existing work using Creative Commons, and understand that we all benefit when people share their ideas and work. They value and respect the choices of other content creators when it comes to sharing and/or protecting their creations. This results in students who share, collaborate, build, remix and respect intellectual property.</li>\r\n	<li><u><strong>Digitally Positive</strong></u> - students understand that the digital world is, like the real world, best served when individuals are good citizens, and that when we do what we like without thinking of others, the result is negative for all. Students learn to think about the results of their actions and make decisions accordingly. The result is students who think before they act, who care for others online, and who treat the Internet as a positive commons.</li>\r\n	<li><u><strong>Media Savvy</strong></u> - students understand the nature of the media they encounter and consume, and see how they can manipulated by the systems of government, commerce and religion. They seek quality information in a world flooded with rubbish. They are able to plan and produce sophisticated media artefacts. The result is students who see the world, and the way it is portrayed, for what it really is, and are stronger for it.</li>\r\n</ul>\r\n\r\n<p><br />\r\nStudents work through a number of traditional and Free Learning units of work over their 3 years of compulsory study. Each unit results in the production of an artefact (e.g. a website, a remix video, some technical writing, etc) which is assessed by the teacher. In addition, students are regularly asked to self assess their own progress in relation to the 7 traits described above.</p>\r\n\r\n<h4>Cross-Curricular Links</h4>\r\n\r\n<p>The influence of ICT is pervasive across the curriculum, with student laptops in use in almost every course of study. In relation to other departments, it is a primary concern that ICT classes prepare students to simultaneously maximise the learning power of their connectivity, whilst&nbsp; controlling the tendency to distraction.<br />\r\n<br />\r\nIn addition, strategic cross-curricular links are built into the ICT curriculum, including, for example:</p>\r\n\r\n<ul>\r\n	<li>Making explicit links to concepts learned in human technologies, relating to the nature of technology and its impact upon use.</li>\r\n	<li>Encouraging students to make use of different writing styles, to complement what has been learned in English.</li>\r\n	<li>Using student linguistic talents within the Languages department to build multilingual features into Gibbon.</li>\r\n	<li>Encouraging the Mathematics department to build on student experience with Scratch as a tool to learn geometry, logic and arithmetic.</li>\r\n	<li>Continuing student studies into electricity, undertaken in Science, by teaching students to rewire electrical plugs.</li>\r\n</ul>\r\n\r\n<h3>Resources</h3>\r\n\r\n<p>The ICT department make extensive use of student provisioned laptops and the wider school infrastructure of wireless Internet connectivity and web-based learning platforms (e.g. Gibbon, ICHK Sites, Google Apps).<br />\r\n<br />\r\nBeyond this, resourcing is performed almost entirely via the Internet, with the use of a large bank of online tools, provocations, stimuli and other materials. There is no textbook, not are there are workbooks or paper quizzes.<br />\r\n<br />\r\nAs students move towards the end of their Year 7-9 studies, they are given opportunities to use their skills working with real-world clients. Such clients are not easy to find, and are treated as a resource which must be curated, tended and utilised responsibly.</p>\r\n\r\n<h3>Real World Links</h3>\r\n\r\n<p>Whilst working for real clients (see above) is not always possible, as a department we aim to expose students to as many real-world applications and processes as possible. For example, WordPress and Drupal are used instead of the simpler Google Sites, giving students experience with industry-level software for website development. In addition, students are given multiple opportunities to solve real problems with real hardware (e.g taking apart PCs, setting up a local area network, etc). When models must substitute for the real thing (e.g. remote control cars instead of real cars), students are encourage to consider how the model compares, and what might be different in the genuine article.</p>\r\n\r\n<h3>Differentiation</h3>\r\n\r\n<p>In delivering content, multi-modal information is used to enable access for students with a variety of learning-style preferences. In addition, students are encouraged to work independently, which allows for more teacher time to be spent with those students who require extra support. This also allows for students who can work at a faster pace, or who have prior experience, to push themselves in new directions, without waiting for permission to move ahead.<br />\r\n<br />\r\nWhen students struggle to access the curriculum on an ongoing basis, provisions are made for them on an individual basis. This may include a separate course of study for a student with one-to-one EA support, differentiated assessment tasks which allow students to choose the best task for themselves, or short-term reliance on translation software for students not fluent in English.<br />\r\n<br />\r\nThe ICT classroom and teaching staff are almost always available during break for students who require additional support, or who wish to seek guidance as they move beyond, or branch out from, the formal curriculum. Over time, technically-minded students have developed a positive culture of spending time discussing and debating technology issues in the ICT room at break. This gives such students a mediated yet open space for developing their own skills, ideas, knowledge and opinion, leading to a stronger ICT program overall.</p>"
+  last_modified: "2018-04-23 08:59:47"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Human Technologies"
+  type: "Learning Area"
+  code: "HT"
+  importIdentifier: 18
+  blurb: "HT, PSHE, DCVT, ENF"
+  last_modified: "2018-04-03 14:47:25"
+  created_on: "2018-03-26 23:06:28"
+-
+  id: 14
+  created_by: 1
+  modified_by: 1
+  name: "Deep Learning"
+  type: "Learning Area"
+  code: "DL"
+  importIdentifier: 19
+  last_modified: "2018-03-26 23:06:28"
+  created_on: "2018-03-26 23:06:28"
+...

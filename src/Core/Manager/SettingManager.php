@@ -239,12 +239,11 @@ class SettingManager implements ContainerAwareInterface
         } else
             $reload = true;
 
-        if ($reload) {
+        if ($reload || in_array($name, ['version'])) {
             $this->setting = $this->findOneByName($name);
 
-            if ($this->setting instanceof Setting) {
+            if ($this->setting instanceof Setting)
                 $this->flushToSession($this->setting);
-            }
         } else
             $this->setting = $this->settings[$name];
 

@@ -1,0 +1,158 @@
+%YAML 1.1
+---
+# craigray_core.koala_calendar_special_day
+-
+  id: 1
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2017-10-02"
+  type: "closure"
+  name: "Half Term Break"
+  open: "07:45:00"
+  start: "08:45:00"
+  finish: "15:00:00"
+  close: "17:00:00"
+  last_modified: "2018-04-02 15:02:30"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 2
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2017-10-03"
+  type: "closure"
+  name: "Half Term Break"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 3
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2017-10-04"
+  type: "closure"
+  name: "Half Term Break"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 4
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2017-10-05"
+  type: "closure"
+  name: "Half Term Break"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 5
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2017-10-06"
+  type: "closure"
+  name: "Half Term Break"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 6
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-15"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 7
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-16"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 8
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-19"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 9
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-20"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 10
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-21"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 11
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-22"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 12
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-02-23"
+  type: "closure"
+  name: "Chinese New Year"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 13
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-06-18"
+  type: "closure"
+  name: "Tuen Ng Festival"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 14
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-05-22"
+  type: "closure"
+  name: "Birthday of Buddha"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+-
+  id: 15
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  day: "2018-05-01"
+  type: "closure"
+  name: "Labour Day"
+  last_modified: "2018-03-26 23:53:32"
+  created_on: "2018-03-26 23:06:33"
+...

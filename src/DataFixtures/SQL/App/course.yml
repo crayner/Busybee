@@ -1,0 +1,1555 @@
+%YAML 1.1
+---
+# craigray_core.koala_course
+-
+  id: 1
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Art 10"
+  code: "AR10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 09:54:38"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 2
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese First Language 10"
+  code: "CF10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 09:54:57"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 3
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language 10"
+  code: "CS10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 09:55:15"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 4
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Drama 10"
+  code: "DR10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:33:50"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 5
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Economics 10"
+  code: "EC10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:47:22"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 6
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English 10"
+  code: "EN10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:37:00"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 7
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Enrichment & Flow 10"
+  code: "ENF10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:47:41"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 8
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Environmental Management 10"
+  code: "EV10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:47:57"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 9
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Global Perspectives 10"
+  code: "GP10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:48:12"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 10
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "History 10"
+  code: "HI10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:48:27"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 11
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Human Technologies 10"
+  code: "HT10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:48:42"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 12
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Japanese 10"
+  code: "JP10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:48:56"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 13
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics 10"
+  code: "MA10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:49:12"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 14
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Media Studies 10"
+  code: "ME10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:49:27"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 15
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 10"
+  code: "PE10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:49:48"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 16
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Science 10"
+  code: "SC10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:50:06"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 17
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish 10"
+  code: "SP10"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:50:43"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 18
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Art 11"
+  code: "AR11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 09:56:17"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 19
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese First Language 11"
+  code: "CF11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:50:55"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 20
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language 11"
+  code: "CS11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:51:06"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 21
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Drama 11"
+  code: "DR11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:36:20"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 22
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Economics 11"
+  code: "EC11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:51:33"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 23
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English 11"
+  code: "EN11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:51:48"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 24
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Enrichment & Flow 11"
+  code: "ENF11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:52:00"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 25
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Environmental Management 11"
+  code: "EV11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:52:10"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 26
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Expressive Arts 11"
+  code: "EX11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:52:21"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 27
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Global Perspectives 11"
+  code: "GP11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:52:31"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 28
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "History 11"
+  code: "HI11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:54:21"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 29
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Japanese 11"
+  code: "JP11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:54:38"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 30
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics 11"
+  code: "MA11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:54:53"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 31
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Media Studies 11"
+  code: "ME11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:55:12"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 32
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 11"
+  code: "PE11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:56:00"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 33
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Science 11"
+  code: "SC11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:56:13"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 34
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Self Study 11"
+  code: "SS11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:56:29"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 35
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish 11"
+  code: "SP11"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:56:40"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 36
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Biology (Higher) 12"
+  code: "BIHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:56:59"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 37
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Biology (Standard) 12"
+  code: "BISL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:57:10"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 38
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Chemistry (Higher) 12"
+  code: "CHHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:57:27"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 39
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Chemistry (Standard) 12"
+  code: "CHSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:57:42"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 40
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language (Higher) 12"
+  code: "CSHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:57:55"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 41
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language (Standard) 12"
+  code: "CSSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:58:07"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 42
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Economics (Higher) 12"
+  code: "ECHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:58:25"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 43
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Economics (Standard) 12"
+  code: "ECSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 17:59:37"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 44
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English (Higher) 12"
+  code: "ENHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 18:00:23"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 45
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English (Standard) 12"
+  code: "ENSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 18:00:36"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 46
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Envir. Systems & Societies (Standard) 12"
+  code: "ESSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-16 18:05:07"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 47
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Film Studies (Higher) 12"
+  code: "FSHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:59:25"
+  created_on: "2018-03-26 23:21:32"
+-
+  id: 48
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Film Studies (Standard) 12"
+  code: "FSSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 10:11:20"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 49
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "History (Standard) 12"
+  code: "HISL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:49:58"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 50
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Language Clinic (Ab Initio) 12"
+  code: "LCAI12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:59:42"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 51
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics (Higher) 12"
+  code: "MAHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:36:09"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 52
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics (Standard) 12"
+  code: "MASL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:36:23"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 53
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics (Studies) 12"
+  code: "MSSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:36:45"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 54
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 12"
+  code: "PE12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:51:00"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 55
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Physics (Higher) 12"
+  code: "PHHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:51:12"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 56
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Physics (Standard) 12"
+  code: "PHSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:51:24"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 57
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Psychology (Higher) 12"
+  code: "PYHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:00:02"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 58
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Psychology (Standard) 12"
+  code: "PYSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:00:15"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 59
+  department_id: 10
+  created_by: 1
+  modified_by: 1
+  name: "Self Study 12"
+  code: "SS12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:54:42"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 60
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish (Higher) 12"
+  code: "SPHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:54:05"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 61
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish (Standard) 12"
+  code: "SPSL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:00:24"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 62
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish AB Initio (Standard) 12"
+  code: "SASL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:00:37"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 63
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Theatre Arts (Higher) 12"
+  code: "TAHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:00:47"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 64
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Theatre Arts (Standard) 12"
+  code: "TASL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:00:57"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 65
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Theory of Knowledge 12"
+  code: "TOK12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:01:07"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 66
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Visual Arts (Higher) 12"
+  code: "VAHL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:34:50"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 67
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Visual Arts (Standard) 12"
+  code: "VASL12"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:35:29"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 68
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Biology (Higher) 13"
+  code: "BIHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:01:24"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 69
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Biology (Standard) 13"
+  code: "BISL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:01:33"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 70
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Chemistry (Higher) 13"
+  code: "CHHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:57:36"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 71
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Chemistry (Standard) 13"
+  code: "CHSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:57:49"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 72
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Ab initio (Standard Level) 13"
+  code: "CASL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:58:20"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 73
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language (Higher) 13"
+  code: "CSHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:58:37"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 74
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language (Standard) 13"
+  code: "CSSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:59:05"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 75
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Economics (Higher) 13"
+  code: "ECHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:56:53"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 76
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Economics (Standard) 13"
+  code: "ECSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:57:05"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 77
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English (Higher) 13"
+  code: "ENHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:54:19"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 78
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English (Standard) 13"
+  code: "ENSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:55:07"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 79
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Environ. Systems & Societies (Standard) 13"
+  code: "ESSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:01:49"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 80
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Film Studies (Higher) 13"
+  code: "FSHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:02:01"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 81
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "French Ab Initio (Standard) 13"
+  code: "FASL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:02:13"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 82
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "History (Higher) 13"
+  code: "HIHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:49:30"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 83
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "History (Standard) 13"
+  code: "HISL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:50:12"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 84
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Language Clinic (Ab Initio) 13"
+  code: "LCAI13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:02:25"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 85
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics (Higher) 13"
+  code: "MAHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:39:08"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 86
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics (Standard) 13"
+  code: "MASL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:39:36"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 87
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics (Studies) 13"
+  code: "MSSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:39:22"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 88
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 13"
+  code: "PE13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:51:34"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 89
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Physics (Higher) 13"
+  code: "PHHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:51:49"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 90
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Physics (Standard) 13"
+  code: "PHSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:52:33"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 91
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Psychology (Higher) 13"
+  code: "PYHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:02:34"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 92
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Psychology (Standard) 13"
+  code: "PYSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:02:44"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 93
+  department_id: 10
+  created_by: 1
+  modified_by: 1
+  name: "Self Study 13"
+  code: "SS13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:54:56"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 94
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish (Higher) 13"
+  code: "SPHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:02:53"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 95
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish (Standard) 13"
+  code: "SPSL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:03:03"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 96
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish Ab Initio (Standard) 13"
+  code: "SASL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:03:13"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 97
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Theatre Arts (Higher) 13"
+  code: "TAHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:03:22"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 98
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Theory of Knowledge 13"
+  code: "TOK13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:03:32"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 99
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Visual Arts (Higher) 13"
+  code: "VAHL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:35:44"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 100
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Visual Arts (Standard) 13"
+  code: "VASL13"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:36:00"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 101
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Art 07"
+  code: "AR07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 09:55:49"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 102
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Big History 07"
+  code: "BH07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:08:13"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 103
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese First Language 07"
+  code: "CF07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:58:51"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 104
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language 07"
+  code: "CS07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:03:43"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 105
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English 07"
+  code: "EN07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:55:21"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 106
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Expressive Arts 07"
+  code: "EX07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-15 10:35:50"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 107
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Human Technologies 07"
+  code: "HT07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:03:54"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 108
+  department_id: 12
+  created_by: 1
+  modified_by: 1
+  name: "ICT 07"
+  code: "ICT07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:04:05"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 109
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Japanese 07"
+  code: "JP07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:04:16"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 110
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics 07"
+  code: "MA07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:08:29"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 111
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 07"
+  code: "PE07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:52:49"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 112
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Science 07"
+  code: "SC07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:04:27"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 113
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish 07"
+  code: "SP07"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:04:38"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 114
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Big History 08"
+  code: "BH08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:08:50"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 115
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese First Language 08"
+  code: "CF08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:04:47"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 116
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language 08"
+  code: "CS08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:04:57"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 117
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Digital Creativity & Visual Thinking 08"
+  code: "DCVT08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:35:10"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 118
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English 08"
+  code: "EN08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:55:37"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 119
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Expressive Arts 08"
+  code: "EX08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:05:07"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 120
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Free Learning 08"
+  code: "FL08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:05:17"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 121
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Human Technologies 08"
+  code: "HT08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:05:29"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 122
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Humanities 08"
+  code: "HU08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:05:38"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 123
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Japanese 08"
+  code: "JP08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:05:47"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 124
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics 08"
+  code: "MA08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:10:58"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 125
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 08"
+  code: "PE08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:53:03"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 126
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Science 08"
+  code: "SC08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:05:57"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 127
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish 08"
+  code: "SP08"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:06:07"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 128
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Art 09"
+  code: "AR09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-12 11:32:42"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 129
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese First Language 09"
+  code: "CF09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:06:16"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 130
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Chinese Second Language 09"
+  code: "CS09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:06:39"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 131
+  department_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "English 09"
+  code: "EN09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:55:53"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 132
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Expressive Arts 09"
+  code: "EX09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:06:53"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 133
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Free Learning 09"
+  code: "FL09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:06:29"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 134
+  department_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Human Technologies 09"
+  code: "HT09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:07:04"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 135
+  department_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Humanities 09"
+  code: "HU09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:07:14"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 136
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Japanese 09"
+  code: "JP09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:07:25"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 137
+  department_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Mathematics 09"
+  code: "MA09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:09:10"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 138
+  department_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Media 09"
+  code: "ME09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:07:35"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 139
+  department_id: 6
+  created_by: 1
+  modified_by: 1
+  name: "Physical Education 09"
+  code: "PE09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 13:52:17"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 140
+  department_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Science 09"
+  code: "SC09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:07:45"
+  created_on: "2018-03-26 23:21:33"
+-
+  id: 141
+  department_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Spanish 09"
+  code: "SP09"
+  map: 1
+  sort_by: 0
+  last_modified: "2018-05-17 14:07:56"
+  created_on: "2018-03-26 23:21:33"
+...

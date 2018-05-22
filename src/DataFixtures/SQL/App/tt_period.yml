@@ -1,0 +1,508 @@
+%YAML 1.1
+---
+# craigray_core.koala_tt_period
+-
+  id: 1
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Registration"
+  code: "REG"
+  start: "08:15:00"
+  end: "08:30:00"
+  period_type: "pastoral"
+  last_modified: "2018-05-01 09:10:03"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 2
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Period 1"
+  code: "P1"
+  start: "08:30:00"
+  end: "09:40:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:09:23"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 3
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Period 2"
+  code: "P2"
+  start: "09:40:00"
+  end: "10:50:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:09:23"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 4
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Morning Tea"
+  code: "MT"
+  start: "10:50:00"
+  end: "11:10:00"
+  period_type: "break"
+  last_modified: "2018-05-01 09:10:03"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 5
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Period 3"
+  code: "P3"
+  start: "11:10:00"
+  end: "12:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:09:23"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 6
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Lunch"
+  code: "LCH"
+  start: "12:20:00"
+  end: "13:10:00"
+  period_type: "break"
+  last_modified: "2018-05-01 09:10:03"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 7
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Period 4"
+  code: "P4"
+  start: "13:10:00"
+  end: "14:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:09:23"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 8
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Period 5"
+  code: "P5"
+  start: "14:20:00"
+  end: "15:30:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:09:23"
+  created_on: "2018-05-01 09:09:23"
+-
+  id: 9
+  tt_column_id: 4
+  created_by: 1
+  modified_by: 1
+  name: "Meeting"
+  code: "MEE"
+  start: "15:30:00"
+  end: "16:30:00"
+  period_type: "meeting"
+  last_modified: "2018-05-01 09:10:03"
+  created_on: "2018-05-01 09:10:03"
+-
+  id: 10
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Registration"
+  code: "REG"
+  start: "08:15:00"
+  end: "08:30:00"
+  period_type: "pastoral"
+  last_modified: "2018-05-01 09:10:48"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 11
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Period 1"
+  code: "P1"
+  start: "08:30:00"
+  end: "09:40:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:10:36"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 12
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Period 2"
+  code: "P2"
+  start: "09:40:00"
+  end: "10:50:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:10:36"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 13
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Morning Tea"
+  code: "MT"
+  start: "10:50:00"
+  end: "11:10:00"
+  period_type: "break"
+  last_modified: "2018-05-01 09:10:48"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 14
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Period 3"
+  code: "P3"
+  start: "11:10:00"
+  end: "12:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:10:36"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 15
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Lunch"
+  code: "LCH"
+  start: "12:20:00"
+  end: "13:10:00"
+  period_type: "break"
+  last_modified: "2018-05-01 09:10:48"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 16
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Period 4"
+  code: "P4"
+  start: "13:10:00"
+  end: "14:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:10:36"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 17
+  tt_column_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Period 5"
+  code: "P5"
+  start: "14:20:00"
+  end: "15:30:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:10:36"
+  created_on: "2018-05-01 09:10:36"
+-
+  id: 18
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Registration"
+  code: "REG"
+  start: "08:15:00"
+  end: "08:30:00"
+  period_type: "pastoral"
+  last_modified: "2018-05-01 09:15:29"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 19
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Period 1"
+  code: "P1"
+  start: "09:10:00"
+  end: "10:15:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:20:01"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 20
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Period 2"
+  code: "P2"
+  start: "10:35:00"
+  end: "11:40:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:19:38"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 21
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Morning Tea"
+  code: "MT"
+  start: "10:15:00"
+  end: "10:35:00"
+  period_type: "break"
+  last_modified: "2018-05-01 09:15:29"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 22
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Period 3"
+  code: "P3"
+  start: "11:40:00"
+  end: "12:45:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:19:38"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 23
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Lunch"
+  code: "LCH"
+  start: "12:45:00"
+  end: "13:55:00"
+  period_type: "break"
+  last_modified: "2018-05-01 09:15:29"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 24
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Period 4"
+  code: "P4"
+  start: "13:55:00"
+  end: "15:00:00"
+  period_type: "class"
+  last_modified: "2018-05-01 09:15:29"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 25
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Meeting"
+  code: "MEE"
+  start: "15:00:00"
+  end: "16:30:00"
+  period_type: "meeting"
+  last_modified: "2018-05-01 09:15:29"
+  created_on: "2018-05-01 09:11:00"
+-
+  id: 35
+  tt_column_id: 5
+  created_by: 1
+  modified_by: 1
+  name: "Tutorial"
+  code: "TUT"
+  start: "08:30:00"
+  end: "09:10:00"
+  period_type: "pastoral"
+  last_modified: "2018-05-01 09:33:49"
+  created_on: "2018-05-01 09:33:49"
+-
+  id: 36
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Registration"
+  code: "REG"
+  start: "08:15:00"
+  end: "08:30:00"
+  period_type: "pastoral"
+  last_modified: "2018-05-19 09:12:31"
+  created_on: "2018-05-01 10:20:29"
+-
+  id: 37
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Period 1"
+  code: "P1"
+  start: "08:30:00"
+  end: "09:40:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:20:29"
+  created_on: "2018-05-01 10:20:29"
+-
+  id: 38
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Period 2"
+  code: "P2"
+  start: "09:40:00"
+  end: "10:50:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:20:29"
+  created_on: "2018-05-01 10:20:29"
+-
+  id: 39
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Morning Tea"
+  code: "MT"
+  start: "10:50:00"
+  end: "11:10:00"
+  period_type: "break"
+  last_modified: "2018-05-19 09:12:31"
+  created_on: "2018-05-01 10:20:29"
+-
+  id: 40
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Period 3"
+  code: "P3"
+  start: "11:10:00"
+  end: "12:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:20:30"
+  created_on: "2018-05-01 10:20:30"
+-
+  id: 41
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Lunch"
+  code: "LCH"
+  start: "12:20:00"
+  end: "13:10:00"
+  period_type: "break"
+  last_modified: "2018-05-19 09:12:31"
+  created_on: "2018-05-01 10:20:30"
+-
+  id: 42
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Period 4"
+  code: "P4"
+  start: "13:10:00"
+  end: "14:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:20:30"
+  created_on: "2018-05-01 10:20:30"
+-
+  id: 43
+  tt_column_id: 2
+  created_by: 1
+  modified_by: 1
+  name: "Period 5"
+  code: "P5"
+  start: "14:20:00"
+  end: "15:30:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:20:30"
+  created_on: "2018-05-01 10:20:30"
+-
+  id: 44
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Registration"
+  code: "REG"
+  start: "08:15:00"
+  end: "08:30:00"
+  period_type: "pastoral"
+  last_modified: "2018-05-19 09:12:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 45
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Period 1"
+  code: "P1"
+  start: "08:30:00"
+  end: "09:40:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:22:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 46
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Period 2"
+  code: "P2"
+  start: "09:40:00"
+  end: "10:50:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:22:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 47
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Morning Tea"
+  code: "MT"
+  start: "10:50:00"
+  end: "11:10:00"
+  period_type: "break"
+  last_modified: "2018-05-19 09:12:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 48
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Period 3"
+  code: "P3"
+  start: "11:10:00"
+  end: "12:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:22:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 49
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Lunch"
+  code: "LCH"
+  start: "12:20:00"
+  end: "13:10:00"
+  period_type: "break"
+  last_modified: "2018-05-19 09:12:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 50
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Period 4"
+  code: "P4"
+  start: "13:10:00"
+  end: "14:20:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:22:12"
+  created_on: "2018-05-01 10:22:12"
+-
+  id: 51
+  tt_column_id: 3
+  created_by: 1
+  modified_by: 1
+  name: "Period 5"
+  code: "P5"
+  start: "14:20:00"
+  end: "15:30:00"
+  period_type: "class"
+  last_modified: "2018-05-01 10:22:12"
+  created_on: "2018-05-01 10:22:12"
+...

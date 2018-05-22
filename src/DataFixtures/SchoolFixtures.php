@@ -37,9 +37,18 @@ class SchoolFixtures extends Fixture implements DependentFixtureInterface
      * @var array
      */
     private $assoc = [
-        'created_by'   => 'createdBy',
-        'modified_by' => 'modifiedBy',
-        'department_id' => 'department',
+        'created_by'   => [
+            'name' => 'createdBy',
+            'method' => 'setCreatedBy'
+        ],
+        'modified_by' => [
+            'name' => 'modifiedBy',
+            'method' => 'setModifiedBy',
+        ],
+        'department_id' => [
+            'name' => 'department',
+            'method' => 'setDepartment'
+        ],
     ];
     /**
      * Load data fixtures with the passed EntityManager
@@ -48,37 +57,37 @@ class SchoolFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $data = Yaml::parse(file_get_contents('/SQL/App/campus.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/campus.yml'));
 
         $this->buildTable($data, Campus::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/space.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/space.yml'));
 
         $this->buildTable($data, Space::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/department.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/department.yml'));
 
         $this->buildTable($data, Department::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/course.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/course.yml'));
 
         $this->buildTable($data, Course::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/scale.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/scale.yml'));
 
         $this->buildTable($data, Scale::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/setting.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/setting.yml'));
 
         $this->buildTable($data, Setting::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/translate.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/translate.yml'));
 
         $this->buildTable($data, Translate::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/invoice.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/invoice.yml'));
 
-        $this->buildTable($data, Invoice::class, $manager);
+        $this->buildTable($data ?: [], Invoice::class, $manager);
     }
 
     /**

@@ -160,4 +160,14 @@ class Scale
     {
         return $this->id;
     }
+
+    /**
+     * @param int|null $id
+     * @return Scale
+     */
+    public function setId(?int $id): Scale
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

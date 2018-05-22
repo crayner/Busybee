@@ -1,0 +1,427 @@
+%YAML 1.1
+---
+# craigray_core.koala_course_calendar_grade
+-
+  course_id: 1
+  calendar_grade_id: 4
+-
+  course_id: 2
+  calendar_grade_id: 4
+-
+  course_id: 3
+  calendar_grade_id: 4
+-
+  course_id: 4
+  calendar_grade_id: 4
+-
+  course_id: 5
+  calendar_grade_id: 4
+-
+  course_id: 6
+  calendar_grade_id: 4
+-
+  course_id: 7
+  calendar_grade_id: 4
+-
+  course_id: 8
+  calendar_grade_id: 4
+-
+  course_id: 9
+  calendar_grade_id: 4
+-
+  course_id: 10
+  calendar_grade_id: 4
+-
+  course_id: 11
+  calendar_grade_id: 4
+-
+  course_id: 12
+  calendar_grade_id: 4
+-
+  course_id: 13
+  calendar_grade_id: 4
+-
+  course_id: 14
+  calendar_grade_id: 4
+-
+  course_id: 15
+  calendar_grade_id: 4
+-
+  course_id: 16
+  calendar_grade_id: 4
+-
+  course_id: 17
+  calendar_grade_id: 4
+-
+  course_id: 18
+  calendar_grade_id: 5
+-
+  course_id: 19
+  calendar_grade_id: 5
+-
+  course_id: 20
+  calendar_grade_id: 5
+-
+  course_id: 21
+  calendar_grade_id: 5
+-
+  course_id: 22
+  calendar_grade_id: 5
+-
+  course_id: 23
+  calendar_grade_id: 5
+-
+  course_id: 24
+  calendar_grade_id: 5
+-
+  course_id: 25
+  calendar_grade_id: 5
+-
+  course_id: 26
+  calendar_grade_id: 5
+-
+  course_id: 27
+  calendar_grade_id: 5
+-
+  course_id: 28
+  calendar_grade_id: 5
+-
+  course_id: 29
+  calendar_grade_id: 5
+-
+  course_id: 30
+  calendar_grade_id: 5
+-
+  course_id: 31
+  calendar_grade_id: 5
+-
+  course_id: 32
+  calendar_grade_id: 5
+-
+  course_id: 33
+  calendar_grade_id: 5
+-
+  course_id: 34
+  calendar_grade_id: 5
+-
+  course_id: 35
+  calendar_grade_id: 5
+-
+  course_id: 36
+  calendar_grade_id: 6
+-
+  course_id: 37
+  calendar_grade_id: 6
+-
+  course_id: 38
+  calendar_grade_id: 6
+-
+  course_id: 39
+  calendar_grade_id: 6
+-
+  course_id: 40
+  calendar_grade_id: 6
+-
+  course_id: 41
+  calendar_grade_id: 6
+-
+  course_id: 42
+  calendar_grade_id: 6
+-
+  course_id: 43
+  calendar_grade_id: 6
+-
+  course_id: 44
+  calendar_grade_id: 6
+-
+  course_id: 45
+  calendar_grade_id: 6
+-
+  course_id: 46
+  calendar_grade_id: 6
+-
+  course_id: 47
+  calendar_grade_id: 6
+-
+  course_id: 48
+  calendar_grade_id: 6
+-
+  course_id: 49
+  calendar_grade_id: 6
+-
+  course_id: 50
+  calendar_grade_id: 6
+-
+  course_id: 51
+  calendar_grade_id: 6
+-
+  course_id: 52
+  calendar_grade_id: 6
+-
+  course_id: 53
+  calendar_grade_id: 6
+-
+  course_id: 54
+  calendar_grade_id: 6
+-
+  course_id: 55
+  calendar_grade_id: 6
+-
+  course_id: 56
+  calendar_grade_id: 6
+-
+  course_id: 57
+  calendar_grade_id: 6
+-
+  course_id: 58
+  calendar_grade_id: 6
+-
+  course_id: 59
+  calendar_grade_id: 6
+-
+  course_id: 60
+  calendar_grade_id: 6
+-
+  course_id: 61
+  calendar_grade_id: 6
+-
+  course_id: 62
+  calendar_grade_id: 6
+-
+  course_id: 63
+  calendar_grade_id: 6
+-
+  course_id: 64
+  calendar_grade_id: 6
+-
+  course_id: 65
+  calendar_grade_id: 6
+-
+  course_id: 66
+  calendar_grade_id: 6
+-
+  course_id: 67
+  calendar_grade_id: 6
+-
+  course_id: 68
+  calendar_grade_id: 7
+-
+  course_id: 69
+  calendar_grade_id: 7
+-
+  course_id: 70
+  calendar_grade_id: 7
+-
+  course_id: 71
+  calendar_grade_id: 7
+-
+  course_id: 72
+  calendar_grade_id: 7
+-
+  course_id: 73
+  calendar_grade_id: 7
+-
+  course_id: 74
+  calendar_grade_id: 7
+-
+  course_id: 75
+  calendar_grade_id: 7
+-
+  course_id: 76
+  calendar_grade_id: 7
+-
+  course_id: 77
+  calendar_grade_id: 7
+-
+  course_id: 78
+  calendar_grade_id: 7
+-
+  course_id: 79
+  calendar_grade_id: 7
+-
+  course_id: 80
+  calendar_grade_id: 7
+-
+  course_id: 81
+  calendar_grade_id: 7
+-
+  course_id: 82
+  calendar_grade_id: 7
+-
+  course_id: 83
+  calendar_grade_id: 7
+-
+  course_id: 84
+  calendar_grade_id: 7
+-
+  course_id: 85
+  calendar_grade_id: 7
+-
+  course_id: 86
+  calendar_grade_id: 7
+-
+  course_id: 87
+  calendar_grade_id: 7
+-
+  course_id: 88
+  calendar_grade_id: 7
+-
+  course_id: 89
+  calendar_grade_id: 7
+-
+  course_id: 90
+  calendar_grade_id: 7
+-
+  course_id: 91
+  calendar_grade_id: 7
+-
+  course_id: 92
+  calendar_grade_id: 7
+-
+  course_id: 93
+  calendar_grade_id: 7
+-
+  course_id: 94
+  calendar_grade_id: 7
+-
+  course_id: 95
+  calendar_grade_id: 7
+-
+  course_id: 96
+  calendar_grade_id: 7
+-
+  course_id: 97
+  calendar_grade_id: 7
+-
+  course_id: 98
+  calendar_grade_id: 7
+-
+  course_id: 99
+  calendar_grade_id: 7
+-
+  course_id: 100
+  calendar_grade_id: 7
+-
+  course_id: 101
+  calendar_grade_id: 1
+-
+  course_id: 102
+  calendar_grade_id: 1
+-
+  course_id: 103
+  calendar_grade_id: 1
+-
+  course_id: 104
+  calendar_grade_id: 1
+-
+  course_id: 105
+  calendar_grade_id: 1
+-
+  course_id: 106
+  calendar_grade_id: 1
+-
+  course_id: 107
+  calendar_grade_id: 1
+-
+  course_id: 108
+  calendar_grade_id: 1
+-
+  course_id: 109
+  calendar_grade_id: 1
+-
+  course_id: 110
+  calendar_grade_id: 1
+-
+  course_id: 111
+  calendar_grade_id: 1
+-
+  course_id: 112
+  calendar_grade_id: 1
+-
+  course_id: 113
+  calendar_grade_id: 1
+-
+  course_id: 114
+  calendar_grade_id: 2
+-
+  course_id: 115
+  calendar_grade_id: 2
+-
+  course_id: 116
+  calendar_grade_id: 2
+-
+  course_id: 117
+  calendar_grade_id: 2
+-
+  course_id: 118
+  calendar_grade_id: 2
+-
+  course_id: 119
+  calendar_grade_id: 2
+-
+  course_id: 120
+  calendar_grade_id: 2
+-
+  course_id: 121
+  calendar_grade_id: 2
+-
+  course_id: 122
+  calendar_grade_id: 2
+-
+  course_id: 123
+  calendar_grade_id: 2
+-
+  course_id: 124
+  calendar_grade_id: 2
+-
+  course_id: 125
+  calendar_grade_id: 2
+-
+  course_id: 126
+  calendar_grade_id: 2
+-
+  course_id: 127
+  calendar_grade_id: 2
+-
+  course_id: 128
+  calendar_grade_id: 3
+-
+  course_id: 129
+  calendar_grade_id: 3
+-
+  course_id: 130
+  calendar_grade_id: 3
+-
+  course_id: 131
+  calendar_grade_id: 3
+-
+  course_id: 132
+  calendar_grade_id: 3
+-
+  course_id: 133
+  calendar_grade_id: 3
+-
+  course_id: 134
+  calendar_grade_id: 3
+-
+  course_id: 135
+  calendar_grade_id: 3
+-
+  course_id: 136
+  calendar_grade_id: 3
+-
+  course_id: 137
+  calendar_grade_id: 3
+-
+  course_id: 138
+  calendar_grade_id: 3
+-
+  course_id: 139
+  calendar_grade_id: 3
+-
+  course_id: 140
+  calendar_grade_id: 3
+-
+  course_id: 141
+  calendar_grade_id: 3
+...

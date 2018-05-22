@@ -1,0 +1,69 @@
+%YAML 1.1
+---
+# craigray_core.koala_tt_column
+-
+  id: 1
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Tuesday"
+  code: "TUE"
+  mappingInfo: "rotate"
+  start: "08:15:00"
+  end: "15:30:00"
+  sequence: 2
+  last_modified: "2018-05-09 11:30:06"
+  created_on: "2018-04-27 12:27:45"
+-
+  id: 2
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Thursday"
+  code: "THU"
+  mappingInfo: "rotate"
+  start: "08:15:00"
+  end: "15:30:00"
+  sequence: 4
+  last_modified: "2018-05-09 11:30:06"
+  created_on: "2018-04-06 11:49:08"
+-
+  id: 3
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Friday"
+  code: "FRI"
+  mappingInfo: "rotate"
+  start: "08:15:00"
+  end: "15:30:00"
+  sequence: 5
+  last_modified: "2018-05-09 11:30:06"
+  created_on: "2018-04-06 11:49:08"
+-
+  id: 4
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Monday"
+  code: "MON"
+  mappingInfo: "rotate"
+  start: "08:15:00"
+  end: "16:30:00"
+  sequence: 1
+  last_modified: "2018-05-09 11:33:13"
+  created_on: "2018-04-06 14:52:50"
+-
+  id: 5
+  timetable_id: 1
+  created_by: 1
+  modified_by: 1
+  name: "Wed"
+  code: "WED"
+  mappingInfo: "rotate"
+  start: "08:15:00"
+  end: "16:30:00"
+  sequence: 3
+  last_modified: "2018-05-09 11:30:06"
+  created_on: "2018-04-06 11:49:08"
+...

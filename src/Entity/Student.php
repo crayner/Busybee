@@ -809,7 +809,7 @@ class Student extends StudentExtension
     {
         $this->activities = $this->activities instanceof Collection ? $this->activities : new ArrayCollection();
 
-        if ($this->activities instanceof PersistentCollection && ! $this->activities->isInitialized())
+        if ($this->activities instanceof PersistentCollection)
             $this->activities->initialize();
 
         return $this->activities;
@@ -825,19 +825,33 @@ class Student extends StudentExtension
         return $this;
     }
 
-    public function addActivity(ActivityStudent $activity, $add = true): Student
+    /**
+     * addActivity
+     *
+     * @param ActivityStudent $activity
+     * @param bool $add
+     * @return Student
+     */
+    public function addActivity(?ActivityStudent $activity, $add = true): Student
     {
+        if ($activity || $this->getActivities()->contains($activity))
+            return $this;
+
         if ($add)
             $activity->setStudent($this, false);
-
-        if ($this->getActivities()->contains($activity))
-            return $this;
 
         $this->activities->add($activity);
 
         return $this;
     }
 
+    /**
+     * removeActivity
+     *
+     * @param ActivityStudent $activity
+     * @param bool $remove
+     * @return Student
+     */
     public function removeActivity(ActivityStudent $activity, $remove = true): Student
     {
         if ($remove)

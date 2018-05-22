@@ -1,0 +1,29 @@
+%YAML 1.1
+---
+# craigray_core.koala_translate
+-
+  id: 1
+  source: "forms_grades"
+  locale: "en"
+  value: "Grades"
+-
+  id: 2
+  source: "form_grade"
+  locale: "en"
+  value: "Grade"
+-
+  id: 3
+  source: "unique"
+  locale: "en"
+  value: "Must be unique!"
+-
+  id: 4
+  source: "roll_name"
+  locale: "en"
+  value: "Roll"
+-
+  id: 5
+  source: "rolls_name"
+  locale: "en"
+  value: "Rolls"
+...

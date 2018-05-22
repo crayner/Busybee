@@ -87,9 +87,9 @@ class DepartmentMember
 	/**
 	 * Get staff
 	 *
-	 * @return \Busybee\People\StaffBundle\Entity\Staff|null
+	 * @return Staff|null
 	 */
-	public function getStaff()
+	public function getStaff(): ?Staff
 	{
 		return $this->staff;
 	}
@@ -101,7 +101,7 @@ class DepartmentMember
 	 *
 	 * @return DepartmentMember
 	 */
-	public function setStaff(Staff $staff)
+	public function setStaff(Staff $staff): DepartmentMember
 	{
 		$this->staff = $staff;
 

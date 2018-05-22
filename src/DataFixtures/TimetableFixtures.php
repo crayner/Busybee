@@ -22,6 +22,7 @@ use App\Entity\TimetableDay;
 use App\Entity\TimetableLine;
 use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
+use App\Entity\TimetablePeriodActivityTutor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -35,17 +36,50 @@ class TimetableFixtures extends Fixture implements DependentFixtureInterface
      * @var array
      */
     private $assoc = [
-        'calendar_id' => 'calendar',
-        'created_by'   => 'createdBy',
-        'modified_by' => 'modifiedBy',
-        'timetable_id' => 'timetable',
-        'term_id' => 'term',
-        'tt_column_id' => 'column',
-        'special_day_id' => 'specialDay',
-        'space_id' => 'space',
-        'activity_is' => 'activity',
-        'tt_period_id' => 'period',
-        'tutor_id' => 'tutor',
+        'calendar_id' => [
+            'name' => 'calendar',
+            'method' => 'setCalendar',
+            ],
+        'created_by'   => [
+            'name' => 'createdBy',
+            'method' => 'setCreatedBy'
+        ],
+        'modified_by' => [
+            'name' => 'modifiedBy',
+            'method' => 'setModifiedBy',
+        ],
+        'timetable_id' => [
+            'name' => 'timetable',
+            'method' => 'setTimetable',
+            ],
+        'term_id' => [
+            'name' => 'term',
+            'method' => 'setTerm',
+            ],
+        'tt_column_id' => [
+            'name' => 'column',
+            'method' => 'setColumn',
+            ],
+        'special_day_id' => [
+            'name' => 'specialDay',
+            'method' => 'setSpecialDay',
+            ],
+        'space_id' => [
+            'name' => 'space',
+            'method' => 'setSpace',
+            ],
+        'activity_id' => [
+            'name' => 'activity',
+            'method' => 'setActivity',
+            ],
+        'tt_period_id' => [
+            'name' => 'period',
+            'method' => 'setPeriod',
+            ],
+        'tutor_id' => [
+            'name' => 'tutor',
+            'method' => 'setTutor',
+            ],
     ];
 
     /**
@@ -55,37 +89,37 @@ class TimetableFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_line.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_line.yml'));
 
         $this->buildTable($data, TimetableLine::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt.yml'));
 
         $this->buildTable($data, Timetable::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_column.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_column.yml'));
 
         $this->buildTable($data, TimetableColumn::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_assigned_day.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_assigned_day.yml'));
 
         $this->buildTable($data, TimetableAssignedDay::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_day.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_day.yml'));
 
         $this->buildTable($data, TimetableDay::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_period.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_period.yml'));
 
         $this->buildTable($data, TimetablePeriod::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_period_activity.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_period_activity.yml'));
 
-        $this->buildTable($data, TimetablePeriodActivity::class, $manager);
+        $this->buildTable($data ?: [], TimetablePeriodActivity::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/tt_period_activity_tutor.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/tt_period_activity_tutor.yml'));
 
-        $this->buildTable($data, TimetablePeriodActivity::class, $manager);
+        $this->buildTable($data ?: [], TimetablePeriodActivityTutor::class, $manager);
     }
 
     /**
@@ -96,6 +130,9 @@ class TimetableFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            CalendarFixtures::class,
+            SchoolFixtures::class,
+            UserFixtures::class,
             PeopleFixtures::class,
         ];
     }

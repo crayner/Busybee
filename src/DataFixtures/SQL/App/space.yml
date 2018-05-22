@@ -1,0 +1,1070 @@
+%YAML 1.1
+---
+# craigray_core.koala_space
+-
+  id: 1
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "AHT"
+  type: "office"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 2
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "B001"
+  type: "office"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 3
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "B001A"
+  type: "classroom"
+  capacity: 6
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 4
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "B001B"
+  type: "classroom"
+  capacity: 4
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 5
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "B001C (Finance)"
+  type: "office"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 6
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "B002"
+  type: "office"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 7
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "B003"
+  type: "performance"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 8
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "Back Court"
+  type: "outdoor"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 9
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C101"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  studentComputers: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  last_modified: "2018-05-07 02:03:34"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 10
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C102"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 11
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C103"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 12
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C104"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 13
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C105"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 14
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C106"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 15
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C107"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 16
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C108"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 17
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C201"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 18
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C202"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 19
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C203"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 20
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C204"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 21
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C205"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 22
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C206A"
+  type: "classroom"
+  capacity: 12
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 23
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C206B"
+  type: "classroom"
+  capacity: 12
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 24
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C208"
+  type: "performance"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 25
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C301"
+  type: "laboratory"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 26
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C302"
+  type: "office"
+  capacity: 24
+  computer: 0
+  studentComputers: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  last_modified: "2018-05-03 15:56:33"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 27
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C303"
+  type: "laboratory"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 28
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C304"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 29
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C305"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 30
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C306"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 31
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C307"
+  type: "laboratory"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 32
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C308"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 33
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "C309"
+  type: "office"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+-
+  id: 34
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "Court"
+  type: "outdoor"
+  capacity: 100
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 35
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D002"
+  type: "classroom"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 36
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D004"
+  type: "laboratory"
+  capacity: 24
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 37
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D100"
+  type: "classroom"
+  capacity: 4
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 38
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D100A (Testing)"
+  type: "other"
+  capacity: 6
+  computer: 0
+  studentComputers: 6
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 39
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D100B (Admissions)"
+  type: "office"
+  capacity: 2
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 40
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D101"
+  type: "classroom"
+  capacity: 20
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 41
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D102"
+  type: "classroom"
+  capacity: 20
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 42
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D103"
+  type: "classroom"
+  capacity: 20
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 43
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D104"
+  type: "classroom"
+  capacity: 20
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 44
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D105"
+  type: "classroom"
+  capacity: 20
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 45
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D106"
+  type: "classroom"
+  capacity: 20
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 46
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "D107 (IB Center)"
+  type: "classroom"
+  capacity: 30
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 47
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "Hall"
+  type: "hall"
+  capacity: 300
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 1
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 48
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "HOS"
+  type: "office"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 49
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "House 1"
+  type: "other"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 50
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "House 2"
+  type: "other"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 51
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "House 3"
+  type: "other"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 52
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "House 8"
+  type: "other"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 53
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "Library"
+  type: "library"
+  capacity: 30
+  computer: 0
+  studentComputers: 2
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+-
+  id: 54
+  campus: 1
+  created_by: 1
+  modified_by: 1
+  name: "Server Room"
+  type: "other"
+  computer: 0
+  projector: 0
+  tv: 0
+  dvd: 0
+  hifi: 0
+  speakers: 0
+  iwb: 0
+  phoneInt: ""
+  phoneExt: ""
+  comment: ""
+  last_modified: "2018-03-26 23:06:37"
+  created_on: "2018-03-26 23:06:37"
+...

@@ -1,0 +1,409 @@
+%YAML 1.1
+---
+# craigray_core.koala_department_member
+-
+  id: 1
+  dept_id: 1
+  staff_id: 121
+  staffType: "Coordinator"
+-
+  id: 2
+  dept_id: 1
+  staff_id: 220
+  staffType: "Teacher (Curriculum)"
+-
+  id: 3
+  dept_id: 1
+  staff_id: 303
+  staffType: "Teacher (Curriculum)"
+-
+  id: 4
+  dept_id: 1
+  staff_id: 310
+  staffType: "Teacher (Curriculum)"
+-
+  id: 5
+  dept_id: 1
+  staff_id: 307
+  staffType: "Teacher (Curriculum)"
+-
+  id: 6
+  dept_id: 1
+  staff_id: 545
+  staffType: "Teacher (Curriculum)"
+-
+  id: 7
+  dept_id: 1
+  staff_id: 541
+  staffType: "Teacher (Curriculum)"
+-
+  id: 8
+  dept_id: 1
+  staff_id: 890
+  staffType: "Teacher (Curriculum)"
+-
+  id: 9
+  dept_id: 1
+  staff_id: 889
+  staffType: "Teacher (Curriculum)"
+-
+  id: 10
+  dept_id: 2
+  staff_id: 65
+  staffType: "Coordinator"
+-
+  id: 11
+  dept_id: 2
+  staff_id: 63
+  staffType: "Teacher (Curriculum)"
+-
+  id: 12
+  dept_id: 2
+  staff_id: 187
+  staffType: "Teacher (Curriculum)"
+-
+  id: 13
+  dept_id: 2
+  staff_id: 681
+  staffType: "Teacher (Curriculum)"
+-
+  id: 14
+  dept_id: 2
+  staff_id: 537
+  staffType: "Teacher (Curriculum)"
+-
+  id: 15
+  dept_id: 3
+  staff_id: 5
+  staffType: "Coordinator"
+-
+  id: 16
+  dept_id: 3
+  staff_id: 7
+  staffType: "Teacher (Curriculum)"
+-
+  id: 17
+  dept_id: 3
+  staff_id: 187
+  staffType: "Teacher (Curriculum)"
+-
+  id: 18
+  dept_id: 3
+  staff_id: 305
+  staffType: "Teacher (Curriculum)"
+-
+  id: 19
+  dept_id: 3
+  staff_id: 310
+  staffType: "Teacher (Curriculum)"
+-
+  id: 20
+  dept_id: 3
+  staff_id: 121
+  staffType: "Teacher (Curriculum)"
+-
+  id: 21
+  dept_id: 3
+  staff_id: 543
+  staffType: "Teacher (Curriculum)"
+-
+  id: 22
+  dept_id: 3
+  staff_id: 544
+  staffType: "Teacher (Curriculum)"
+-
+  id: 23
+  dept_id: 3
+  staff_id: 541
+  staffType: "Teacher (Curriculum)"
+-
+  id: 24
+  dept_id: 3
+  staff_id: 891
+  staffType: "Teacher (Curriculum)"
+-
+  id: 25
+  dept_id: 3
+  staff_id: 892
+  staffType: "Teacher (Curriculum)"
+-
+  id: 26
+  dept_id: 4
+  staff_id: 218
+  staffType: "Coordinator"
+-
+  id: 27
+  dept_id: 4
+  staff_id: 542
+  staffType: "Teacher (Curriculum)"
+-
+  id: 28
+  dept_id: 4
+  staff_id: 686
+  staffType: "Teacher (Curriculum)"
+-
+  id: 29
+  dept_id: 4
+  staff_id: 681
+  staffType: "Teacher (Curriculum)"
+-
+  id: 30
+  dept_id: 4
+  staff_id: 685
+  staffType: "Teacher (Curriculum)"
+-
+  id: 31
+  dept_id: 5
+  staff_id: 6
+  staffType: "Teacher (Curriculum)"
+-
+  id: 32
+  dept_id: 5
+  staff_id: 33
+  staffType: "Teacher (Curriculum)"
+-
+  id: 33
+  dept_id: 5
+  staff_id: 7
+  staffType: "Coordinator"
+-
+  id: 34
+  dept_id: 5
+  staff_id: 219
+  staffType: "Teacher (Curriculum)"
+-
+  id: 35
+  dept_id: 5
+  staff_id: 308
+  staffType: "Teacher (Curriculum)"
+-
+  id: 36
+  dept_id: 5
+  staff_id: 311
+  staffType: "Teacher (Curriculum)"
+-
+  id: 37
+  dept_id: 5
+  staff_id: 573
+  staffType: "Teacher (Curriculum)"
+-
+  id: 38
+  dept_id: 5
+  staff_id: 681
+  staffType: "Teacher (Curriculum)"
+-
+  id: 39
+  dept_id: 6
+  staff_id: 3
+  staffType: "Coordinator"
+-
+  id: 40
+  dept_id: 6
+  staff_id: 62
+  staffType: "Teacher (Curriculum)"
+-
+  id: 42
+  dept_id: 10
+  staff_id: 307
+  staffType: "Teacher (Curriculum)"
+-
+  id: 43
+  dept_id: 10
+  staff_id: 220
+  staffType: "Teacher (Curriculum)"
+-
+  id: 44
+  dept_id: 10
+  staff_id: 303
+  staffType: "Teacher (Curriculum)"
+-
+  id: 45
+  dept_id: 10
+  staff_id: 217
+  staffType: "Teacher (Curriculum)"
+-
+  id: 46
+  dept_id: 10
+  staff_id: 5
+  staffType: "Teacher (Curriculum)"
+-
+  id: 47
+  dept_id: 10
+  staff_id: 218
+  staffType: "Teacher (Curriculum)"
+-
+  id: 48
+  dept_id: 10
+  staff_id: 6
+  staffType: "Teacher (Curriculum)"
+-
+  id: 49
+  dept_id: 10
+  staff_id: 33
+  staffType: "Teacher (Curriculum)"
+-
+  id: 50
+  dept_id: 10
+  staff_id: 308
+  staffType: "Teacher (Curriculum)"
+-
+  id: 51
+  dept_id: 10
+  staff_id: 219
+  staffType: "Teacher (Curriculum)"
+-
+  id: 52
+  dept_id: 10
+  staff_id: 4
+  staffType: "Teacher (Curriculum)"
+-
+  id: 53
+  dept_id: 10
+  staff_id: 65
+  staffType: "Teacher (Curriculum)"
+-
+  id: 54
+  dept_id: 10
+  staff_id: 310
+  staffType: "Coordinator"
+-
+  id: 55
+  dept_id: 11
+  staff_id: 4
+  staffType: "Coordinator"
+-
+  id: 56
+  dept_id: 11
+  staff_id: 217
+  staffType: "Teacher (Curriculum)"
+-
+  id: 57
+  dept_id: 11
+  staff_id: 303
+  staffType: "Teacher (Curriculum)"
+-
+  id: 58
+  dept_id: 11
+  staff_id: 307
+  staffType: "Teacher (Curriculum)"
+-
+  id: 59
+  dept_id: 11
+  staff_id: 541
+  staffType: "Teacher (Curriculum)"
+-
+  id: 60
+  dept_id: 12
+  staff_id: 187
+  staffType: "Teacher (Curriculum)"
+-
+  id: 62
+  dept_id: 13
+  staff_id: 305
+  staffType: "Teacher (Curriculum)"
+-
+  id: 63
+  dept_id: 13
+  staff_id: 891
+  staffType: "Teacher (Curriculum)"
+-
+  id: 64
+  dept_id: 13
+  staff_id: 62
+  staffType: "Teacher (Curriculum)"
+-
+  id: 66
+  dept_id: 13
+  staff_id: 686
+  staffType: "Teacher (Curriculum)"
+-
+  id: 67
+  dept_id: 13
+  staff_id: 685
+  staffType: "Teacher (Curriculum)"
+-
+  id: 68
+  dept_id: 13
+  staff_id: 537
+  staffType: "Teacher (Curriculum)"
+-
+  id: 69
+  dept_id: 13
+  staff_id: 308
+  staffType: "Teacher (Curriculum)"
+-
+  id: 70
+  dept_id: 13
+  staff_id: 219
+  staffType: "Teacher (Curriculum)"
+-
+  id: 71
+  dept_id: 13
+  staff_id: 543
+  staffType: "Teacher (Curriculum)"
+-
+  id: 72
+  dept_id: 13
+  staff_id: 187
+  staffType: "Teacher (Curriculum)"
+-
+  id: 73
+  dept_id: 14
+  staff_id: 3
+  staffType: "Coordinator"
+-
+  id: 74
+  dept_id: 14
+  staff_id: 62
+  staffType: "Teacher (Curriculum)"
+-
+  id: 75
+  dept_id: 14
+  staff_id: 5
+  staffType: "Teacher (Curriculum)"
+-
+  id: 76
+  dept_id: 14
+  staff_id: 305
+  staffType: "Teacher (Curriculum)"
+-
+  id: 77
+  dept_id: 14
+  staff_id: 121
+  staffType: "Teacher (Curriculum)"
+-
+  id: 78
+  dept_id: 14
+  staff_id: 4
+  staffType: "Teacher (Curriculum)"
+-
+  id: 79
+  dept_id: 14
+  staff_id: 303
+  staffType: "Teacher (Curriculum)"
+-
+  id: 80
+  dept_id: 14
+  staff_id: 311
+  staffType: "Teacher (Curriculum)"
+-
+  id: 81
+  dept_id: 14
+  staff_id: 308
+  staffType: "Teacher (Curriculum)"
+-
+  id: 82
+  dept_id: 14
+  staff_id: 686
+  staffType: "Teacher (Curriculum)"
+-
+  id: 83
+  dept_id: 12
+  staff_id: 1
+  staffType: "Coordinator"
+-
+  id: 84
+  dept_id: 9
+  staff_id: 1
+  staffType: "Manager"
+...

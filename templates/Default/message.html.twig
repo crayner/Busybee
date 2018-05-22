@@ -7,16 +7,16 @@
         {{ miscButton(button)|raw }}
     {% endif %}
 {% endfor %}
-            {% if message.useRaw is same as(true) %}
-                {% if message.transChoice is same as(false) %}
-                    {{ message.message|trans(message.options, message.domain)|raw }}
-                {% else %}
-                    {{ message.message|transchoice(message.transChoice, message.options, message.domain)|raw }}
-                {% endif %}
-            {% else %}
-                {% if message.transChoice is same as(false) %}
-                    {{ message.message|trans(message.options, message.domain) }}
-                {% else %}
-                    {{ message.message|transchoice(message.transChoice, message.options, message.domain) }}
-                {% endif %}
-            {% endif %}
+{% if message.useRaw is same as(true) %}
+    {% if message.transChoice is same as(false) %}
+        {{ message.message|trans(message.options, message.domain)|raw }}
+    {% else %}
+        {{ message.message|transchoice(message.transChoice, message.options, message.domain)|raw }}
+    {% endif %}
+{% else %}
+    {% if message.transChoice is same as(false) %}
+        {{ message.message|trans(message.options, message.domain) }}
+    {% else %}
+        {{ message.message|transchoice(message.transChoice, message.options, message.domain) }}
+    {% endif %}
+{% endif %}

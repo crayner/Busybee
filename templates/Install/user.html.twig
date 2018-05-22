@@ -36,7 +36,7 @@
                 </div>
                 <div class="card col-6">
                     <div class="form-group">
-                        {{ miscButton({additional: {id: 'generatePassword'}, class: 'btn btn-info', prompt: 'misc.password1.generate', transDomain: 'Install', title: 'misc.password1.generate'})|raw }}
+                        {{ miscButton({additional: {id: 'generatePassword'}, class: 'fas fa-key btn btn-info', transDomain: 'Install', title: 'misc.password1.generate'})|raw }}
                         <div class="small text-info"
                              style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': manager.passwordSetting('min_length'), '%numbers%': manager.passwordSetting('numbers'), '%mixedCase%': manager.passwordSetting('mixed_case'), '%specials%': manager.passwordSetting('specials')}) }}</div>
                     </div>
@@ -78,7 +78,7 @@
                     {{ form_row(form.orgName) }}
                 </div>
                 <div class="card col-6">
-                    {{ form_row(form.orgcode) }}
+                    {{ form_row(form.orgCode) }}
                 </div>
             </div>
         </div>

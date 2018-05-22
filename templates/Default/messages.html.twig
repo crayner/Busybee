@@ -8,7 +8,7 @@
     {% for message in messages.messages %}
         <{{ element }} class="alert alert-{{ message.level ~ flashClass }} alert-dismissible fade show" id="{{ message.message|replace({' ': '_', '.': '_'}) }}" role="alert" data-dismiss="alert">
         {% include 'Default/message.html.twig' with {message: message} %}
-            <button type="button" class="close far fa-times-circle" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}" aria-hidden="true"></button>
+            {{ closeButton({additional: {'data-dismiss': "alert", 'aria-label': "Close", 'aria-hidden': "true"}, title: 'Close Message', transDomain: 'home', class: 'close far fa-times-circle'})|raw }}
         </{{ element }}>
     {% endfor %}
     {% set x = messages.clearMessages() %}

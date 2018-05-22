@@ -2,9 +2,15 @@
 namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
+use App\DataFixtures\ActivityFixtures;
+use App\DataFixtures\CalendarFixtures;
+use App\DataFixtures\PeopleFixtures;
+use App\DataFixtures\SchoolFixtures;
+use App\DataFixtures\TimetableFixtures;
+use App\DataFixtures\TruncateTables;
+use App\DataFixtures\UserFixtures;
 use App\Entity\Person;
 use App\Install\Form\MailerType;
-use App\Install\Form\MailerTypeTrait;
 use App\Install\Form\MiscellaneousType;
 use App\Install\Form\UserType;
 use App\Install\Manager\SystemBuildManager;
@@ -12,10 +18,16 @@ use App\Install\Manager\VersionManager;
 use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
 use App\Install\Organism\User;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Yaml\Yaml;
 
 class InstallController extends Controller
@@ -174,12 +186,13 @@ class InstallController extends Controller
 	}
 
 
-	/**
-	 * @param Request $request
-	 * @Route("/install/miscellaneous/", name="install_misc_check")
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * @param Request $request
+     * @param InstallManager $installer
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @Route("/install/miscellaneous/", name="install_misc_check")
+     */
 	public function miscellaneousInstall(Request $request, InstallManager $installer)
 	{
 		$installer->setProceed(false);
@@ -207,12 +220,13 @@ class InstallController extends Controller
 		);
 	}
 
-	/**
-	 * @param Request $request
-	 * @Route("/install/database/", name="install_database")
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * @param SystemBuildManager $systemBuildManager
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @Route("/install/database/", name="install_database")
+     */
 	public function installDatabase(SystemBuildManager $systemBuildManager, Request $request)
 	{
 	    if ($request->getSession()->isStarted())
@@ -234,14 +248,18 @@ class InstallController extends Controller
 		);
 	}
 
-	/**
-	 * @param Request $request
-	 * @Route("/install/user/", name="install_user")
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function installUser(Request $request, SystemBuildManager $systemBuildManager)
+    /**
+     * @param Request $request
+     * @param SystemBuildManager $systemBuildManager
+     * @param TokenStorageInterface $tokenStorage
+     * @param EventDispatcherInterface $eventDispatcher
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @Route("/install/user/", name="install_user")
+     */
+	public function installUser(Request $request, EventDispatcherInterface $eventDispatcher, SystemBuildManager $systemBuildManager, TokenStorageInterface $tokenStorage)
     {
+        dump([version_compare($systemBuildManager->getSystemVersion(), '0.0.00', '='), $systemBuildManager->getSystemVersion()]);
         if (version_compare($systemBuildManager->getSystemVersion(), '0.0.00', '='))
         {
             $systemBuildManager->writeSystemUser();
@@ -276,8 +294,11 @@ class InstallController extends Controller
 
             $user1 = $em->getRepository(\Hillrange\Security\Entity\User::class)->find(1);
 
+            $user1 = $user1 ?: new \Hillrange\Security\Entity\User();
+
             $user1->setCredentialsExpireAt(null);
             $user1->setCredentialsExpired(false);
+            $user1->setSuperAdmin(true);
 
             $person = new Person();
             $person->setHonorific($data['title']);
@@ -293,12 +314,13 @@ class InstallController extends Controller
             $settingManager->setInstallMode(true);
 
             $settingManager->set('currency', $data['currency']);
-            $orgName = [];
+            $orgName = [];dump($data);
             $orgName['long'] = $data['orgName'];
-            $orgName['short'] = $data['orgNameShort'];
+            $orgName['short'] = $data['orgCode'];
             $settingManager->set('org.name', $orgName);
 
             $google = [];
+            $data['googleOAuth'] = isset($data['googleOAuth']) ?: false;
             $google['o_auth'] = $data['googleOAuth'];
             $google['client_id'] = $data['googleClientId'];
             $google['client_secret'] = $data['googleClientSecret'];
@@ -319,8 +341,20 @@ class InstallController extends Controller
 
             $request->getSession()->clear();
 
-            return $this->redirectToRoute('home');
+            //Handle getting or creating the user entity likely with a posted form
+            // The third parameter "main" can change according to the name of your firewall in security.yml
+            $token = new UsernamePasswordToken($user1, null, 'main', $user1->getRoles());
+            $tokenStorage->setToken($token);
 
+            // If the firewall name is not main, then the set value would be instead:
+            // $this->get('session')->set('_security_XXXFIREWALLNAMEXXX', serialize($token));
+            $request->getSession()->set('_security_main', serialize($token));
+
+            // Fire the login event manually
+            $event = new InteractiveLoginEvent($request, $token);
+            $eventDispatcher->dispatch("security.interactive_login", $event);
+
+            return $this->redirectToRoute('home');
 		}
 
 
@@ -332,4 +366,36 @@ class InstallController extends Controller
 			]
 		);
 	}
+
+    /**
+     * loadDummyData
+     * @Route("/load/dummy/data/", name="load_dummy_data")
+     * @param ObjectManager $objectManager
+     * @return RedirectResponse
+     */
+	public function loadDummyData(ObjectManager $objectManager)
+    {
+        $load = new TruncateTables();
+        $load->execute($objectManager);
+
+        $load = new UserFixtures();
+        $load->load($objectManager);
+
+        $load = new SchoolFixtures();
+        $load->load($objectManager);
+
+        $load = new CalendarFixtures();
+        $load->load($objectManager);
+
+        $load = new PeopleFixtures();
+        $load->load($objectManager);
+
+        $load = new TimetableFixtures();
+        $load->load($objectManager);
+
+        $load = new ActivityFixtures();
+        $load->load($objectManager);
+
+        return $this->redirectToRoute('homepage');
+    }
 }

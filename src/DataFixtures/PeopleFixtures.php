@@ -16,6 +16,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Address;
+use App\Entity\CalendarGradeStudent;
 use App\Entity\CareGiver;
 use App\Entity\DepartmentMember;
 use App\Entity\Family;
@@ -36,18 +37,46 @@ class PeopleFixtures extends Fixture implements DependentFixtureInterface
      * @var array
      */
     private $assoc = [
-        'user_id' => 'user',
-        'address_1' => 'address1',
-        'address_2' => 'address2',
-        'phone' => 'phone',
-        'created_by'   => 'createdBy',
-        'modified_by' => 'modifiedBy',
-        'person_id' => 'person',
-        'dept_id' => 'department',
-        'staff_id' => 'staff',
-        'student_id' => 'student',
-        'calendar_grade_id' => 'calendarGrade',
-        'locality_id' => 'locality',
+        'user_id' => [
+            'name' => 'user',
+            'method' => 'setUser',
+            ],
+        'created_by'   => [
+            'name' => 'createdBy',
+            'method' => 'setCreatedBy'
+            ],
+        'modified_by' => [
+            'name' => 'modifiedBy',
+            'method' => 'setModifiedBy',
+            ],
+        'person_id' => [
+            'name' => 'person',
+            'method' => 'setPerson',
+            ],
+        'student_id' => [
+            'name' => 'student',
+            'method' => 'setStudent',
+            ],
+        'calendar_grade_id' => [
+            'name' => 'calendarGrade',
+            'method' => 'setCalendarGrade',
+            ],
+        'locality_id' => [
+            'name' => 'locality',
+            'method' => 'setLocality',
+            ],
+        'family_id' => [
+            'name' => 'family',
+            'method' => 'setFamily',
+            ],
+        'dept_id' => [
+            'name' => 'department',
+            'method' => 'setDepartment',
+            ],
+        'staff_id' => [
+            'name' => 'staff',
+            'method' => 'setStaff',
+            ],
     ];
 
     /**
@@ -57,25 +86,33 @@ class PeopleFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $data = Yaml::parse(file_get_contents('/SQL/App/locality.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/locality.yml'));
 
-        $this->buildTable($data, Locality::class, $manager);
+        $this->buildTable($data ?: [], Locality::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/address.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/address.yml'));
 
-        $this->buildTable($data, Address::class, $manager);
+        $this->buildTable($data ?: [], Address::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/people.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/person.yml'));
 
         $this->buildTable($data, Person::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/family.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/family.yml'));
 
         $this->buildTable($data, Family::class, $manager);
 
-        $data = Yaml::parse(file_get_contents('/SQL/App/caregiver.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/care_giver.yml'));
 
         $this->buildTable($data, CareGiver::class, $manager);
+
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar_grade_student.yml'));
+
+        $this->buildTable($data, CalendarGradeStudent::class, $manager);
+
+        $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/department_member.yml'));
+
+        $this->buildTable($data, DepartmentMember::class, $manager);
 
         $data = Yaml::parse(file_get_contents(__DIR__. '/../DataFixtures/SQL/App/family_student.yml'));
 
@@ -87,15 +124,7 @@ class PeopleFixtures extends Fixture implements DependentFixtureInterface
 
         $data = Yaml::parse(file_get_contents(__DIR__. '/../DataFixtures/SQL/App/person_phone.yml'));
 
-        $this->buildJoinTable($data ?: [], Person::class, Phone::class, 'family_id', 'phone_id', 'addPhone', $manager);
-
-        $data = Yaml::parse(file_get_contents('/SQL/App/department_member.yml'));
-
-        $this->buildTable($data, DepartmentMember::class, $manager);
-
-        $data = Yaml::parse(file_get_contents('/SQL/App/calendar_grade_student.yml'));
-
-        $this->buildTable($data, DepartmentMember::class, $manager);
+        $this->buildJoinTable($data ?: [], Person::class, Phone::class, 'person_id', 'phone_id', 'addPhone', $manager);
     }
 
     /**
@@ -107,6 +136,8 @@ class PeopleFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CalendarFixtures::class,
+            SchoolFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

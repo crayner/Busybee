@@ -1,0 +1,25 @@
+%YAML 1.1
+---
+# craigray_core.koala_hrs_user
+-
+    id: 1
+    created_by: 1
+    modified_by: 1
+    username: "admin"
+    username_canonical: "admin"
+    email: "admin@platypus_learning.com.au"
+    email_canonical: "admin@platypus_learning.com.au"
+    enabled: 1
+    locale: "en"
+    password: "This is not a password."
+    last_login: null
+    expired: 0
+    confirmation_token: null
+    password_requested_at: null
+    credentials_expired: 0
+    groups: "a:0:{}"
+    direct_roles: "a:1:{i:0;s:17:\"ROLE_SYSTEM_ADMIN\";}"
+    user_settings: "a:0:{}"
+    last_modified: "2018-04-14 16:29:43"
+    created_on: "2018-03-26 23:03:30"
+...

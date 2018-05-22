@@ -31,6 +31,17 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
     }
 
     /**
+     * @param int|null $id
+     * @return ActivityStudent
+     */
+    public function setId(?int $id): ActivityStudent
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * @var null|Student
      */
     private $student;
@@ -204,17 +215,6 @@ class ActivityStudent extends ActivityStudentExtension implements UserTrackInter
     public function setClassReportable(?bool $classReportable): ActivityStudent
     {
         $this->classReportable = $classReportable ? true : false ;
-
-        return $this;
-    }
-
-    /**
-     * @param int|null $id
-     * @return ActivityStudent
-     */
-    public function setId(?int $id): ActivityStudent
-    {
-        $this->id = $id;
 
         return $this;
     }

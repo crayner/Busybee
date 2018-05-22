@@ -1,0 +1,7553 @@
+%YAML 1.1
+---
+# craigray_core.koala_activity
+-
+  id: 1
+  space_id: 9
+  tt_line_id: 8
+  created_by: 1
+  modified_by: 1
+  name: "Roll 07.1"
+  code: 07.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 2
+  space_id: 10
+  tt_line_id: 8
+  created_by: 1
+  modified_by: 1
+  name: "Roll 07.2"
+  code: 07.2
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 3
+  space_id: 11
+  tt_line_id: 8
+  created_by: 1
+  modified_by: 1
+  name: "Roll 07.3"
+  code: 07.3
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 4
+  space_id: 12
+  tt_line_id: 14
+  created_by: 1
+  modified_by: 1
+  name: "Roll 08.1"
+  code: 08.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 5
+  space_id: 13
+  tt_line_id: 14
+  created_by: 1
+  modified_by: 1
+  name: "Roll 08.2"
+  code: 08.2
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 6
+  space_id: 32
+  tt_line_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Roll 09.1"
+  code: 09.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 7
+  space_id: 33
+  tt_line_id: 13
+  created_by: 1
+  modified_by: 1
+  name: "Roll 09.2"
+  code: 09.2
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-17 14:14:50"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 8
+  space_id: 29
+  tt_line_id: 12
+  created_by: 1
+  modified_by: 1
+  name: "Roll 10.1"
+  code: 10.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 9
+  space_id: 30
+  tt_line_id: 12
+  created_by: 1
+  modified_by: 1
+  name: "Roll 10.2"
+  code: 10.2
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 10
+  space_id: 27
+  tt_line_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Roll 11.1"
+  code: 11.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 11
+  space_id: 28
+  tt_line_id: 11
+  created_by: 1
+  modified_by: 1
+  name: "Roll 11.2"
+  code: 11.2
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 12
+  space_id: 25
+  tt_line_id: 7
+  created_by: 1
+  modified_by: 1
+  name: "Roll 12.1"
+  code: 12.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 13
+  space_id: 24
+  tt_line_id: 10
+  created_by: 1
+  modified_by: 1
+  name: "Roll 13.1"
+  code: 13.1
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 14
+  space_id: 14
+  tt_line_id: 14
+  created_by: 1
+  modified_by: 1
+  name: "Roll 08.3"
+  code: 08.3
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 15
+  space_id: 31
+  tt_line_id: 12
+  created_by: 1
+  modified_by: 1
+  name: "Roll 10.3"
+  code: 10.3
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 16
+  space_id: 26
+  tt_line_id: 7
+  created_by: 1
+  modified_by: 1
+  name: "Roll 12.2"
+  code: 12.2
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:07:41"
+  activity_type: "roll"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 17
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Climbing"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 12
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 18
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Primary - Teaching to Read"
+  code: "TTP-TTR5"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 19
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Climbing"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 12
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 20
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Calligraphy"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 21
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Alternative Field Games"
+  code: "TTAFG5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 22
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Bicycle Maintenance"
+  code: "TTBM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 4
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action/Service"
+  use_course_name: 1
+-
+  id: 23
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Cycling"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 24
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues SCUBA Diving"
+  code: "TTSD5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 12
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 25
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Chinese Speech and Debate"
+  code: "TTCSAD5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 26
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Volleyball"
+  code: "TTV5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 27
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Primary - Teaching to Read"
+  code: "TTP-TTR5"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 28
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Primary - Teaching to Read"
+  code: "TTP-TTR5"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 29
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Horse Riding"
+  code: "TTHR5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 18
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Action/Service"
+  use_course_name: 1
+-
+  id: 30
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Touch U14 Boys"
+  code: "TTTUB5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 31
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Touch U19 Girls"
+  code: "TTTUG5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 32
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Touch U19 Boys"
+  code: "TTTUB5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 33
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Tennis"
+  code: "TTT5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 34
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Volleyball"
+  code: "TTV5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 35
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Cycling"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 18
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 36
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Street Hockey"
+  code: "TTSH5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 37
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Volleyball"
+  code: "TTV5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 38
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Sailing"
+  code: "TTS5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 17
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 39
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Knitting"
+  code: "TTK5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 40
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Bicycle Maintenance"
+  code: "TTBM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 5
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 41
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Volleyball"
+  code: "TTV5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 42
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Calligraphy"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 43
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Touch U14 Girls"
+  code: "TTTUG5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 44
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Cycling"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 45
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Gym"
+  code: "TTG5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 46
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues School Media"
+  code: "TTSM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 50
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 47
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Dodgeball"
+  code: "TTD5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 48
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs U12 Football"
+  code: "TTUF5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 49
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Table Tennis"
+  code: "TTTT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 50
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Library Time"
+  code: "TTLT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 40
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 51
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Weight Training"
+  code: "TTWT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 12
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 52
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues U14 Boys Football"
+  code: "TTUBF5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 53
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Leaving School at 3.30"
+  code: "TTLSA35A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 40
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 54
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs 3.30 Bus to MTR and HLY"
+  code: "TT3BTMAH"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 40
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 55
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Community Art"
+  code: "TTCA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 56
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Creative Thinking"
+  code: "TTCT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 57
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Volleyball"
+  code: "TTV5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 58
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Yoga"
+  code: "TTY5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 59
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Community Art"
+  code: "TTCA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 60
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Community Art"
+  code: "TTCA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 61
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Touch Grade C Boys"
+  code: "TTTGCB5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 62
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Touch Grade A/B Mixed"
+  code: "TTTGAM5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 63
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Touch Grade C Girls"
+  code: "TTTGCG5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 64
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Cycling"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 65
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Knitting"
+  code: "TTK5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 66
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues School Media"
+  code: "TTSM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 67
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Table Top Games"
+  code: "TTTTG5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 8
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 68
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Blogging and Creative Writing"
+  code: "TTBACW5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 69
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Blogging and Creative Writing"
+  code: "TTBACW5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 70
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Tennis"
+  code: "TTT5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 71
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Street Hockey"
+  code: "TTSH5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 72
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Nam Chung Community Action"
+  code: "TTNCCA5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 8
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 73
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Horse Riding"
+  code: "TTHR5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 18
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Action/Service"
+  use_course_name: 1
+-
+  id: 74
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Gym"
+  code: "TTG5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 75
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Project: G"
+  code: "TTPG5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Action/Service"
+  use_course_name: 1
+-
+  id: 76
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Community Art"
+  code: "TTCA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 77
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues U16 Basketball"
+  code: "TTUB5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 78
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Badminton"
+  code: "TTB5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 16
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 79
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Library Time"
+  code: "TTLT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 100
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 80
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Table Tennis"
+  code: "TTTT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 81
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Community Art"
+  code: "TTCA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 82
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs U14 Basketball"
+  code: "TTUB5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 83
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs 3.30 Bus to MTR and HLY"
+  code: "TT3BTMAH"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 55
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 84
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Climbing"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 12
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 85
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Cardio Training"
+  code: "TTCT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 86
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Cardio Training"
+  code: "TTCT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 87
+  created_by: 1
+  modified_by: 1
+  name: "T1-T3 Thurs ICT Extension"
+  code: "TTIE5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 88
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues/Thurs Drama Production"
+  code: "TTDP5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 100
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 89
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues U14 Girls Football"
+  code: "TTUGF5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 90
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Table Top Games"
+  code: "TTTTG5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 8
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 91
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Volleyball"
+  code: "TTV5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 92
+  created_by: 1
+  modified_by: 1
+  name: "T1-T3 Tues Student Council"
+  code: "TTSC5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 22
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 93
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Squash"
+  code: "TTS5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 8
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 94
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Squash"
+  code: "TTS5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 8
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 95
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Tennis"
+  code: "TTT5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 96
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues U16 Basketball"
+  code: "TTUB5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 97
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Cycling"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 18
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 98
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Street Hockey"
+  code: "TTSH5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 99
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Calligraphy"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 100
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Chinese Speech and Debate"
+  code: "TTCSAD5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 101
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Sailing"
+  code: "TTS5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 11
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 102
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Knitting"
+  code: "TTK5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 103
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Library Support"
+  code: "TTLS5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 104
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Gym"
+  code: "TTG5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 12
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 105
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Sock Monsters"
+  code: "TTSM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 106
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Sock Monsters"
+  code: "TTSM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 107
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Community Art"
+  code: "TTCA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 108
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Blogging and Creative Writing"
+  code: "TTBACW5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 109
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Dodgeball"
+  code: "TTD5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 110
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Project: G"
+  code: "TTPG5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:04"
+  created_on: "2018-03-26 23:08:04"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Action/Service"
+  use_course_name: 1
+-
+  id: 111
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Table Tennis"
+  code: "TTTT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 112
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Library Time"
+  code: "TTLT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 50
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 113
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Leaving School at 3.30"
+  code: "TTLSA35A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 100
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 114
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Weight Training"
+  code: "TTWT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 115
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Creative Thinking"
+  code: "TTCT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 116
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs U14 Basketball"
+  code: "TTUB5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 117
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs 3.30 Bus to MTR and HLY"
+  code: "TT3BTMAH"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-15 11:20:06"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 55
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "estimated"
+  type: "action"
+  use_course_name: 1
+-
+  id: 118
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Gardening"
+  code: "TTG5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 119
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Gardening"
+  code: "TTG5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 120
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Gardening"
+  code: "TTG5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 15
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 121
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Year 10-13 Study Session"
+  code: "TTY1SS5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 250
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 122
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Year 10-13 Study Session"
+  code: "TTY1SS5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 250
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 123
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Year 10-13 Study Session"
+  code: "TTY1SS5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 250
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 124
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Weight Training"
+  code: "TTWT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 125
+  created_by: 1
+  modified_by: 1
+  name: "T3 Thurs Cycling"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 18
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 126
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Performing Arts"
+  code: "TTPA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 127
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Performing Arts"
+  code: "TTPA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 128
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Yoga"
+  code: "TTY5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 129
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Project: G"
+  code: "TTPG5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Action/Service"
+  use_course_name: 1
+-
+  id: 130
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues School Media"
+  code: "TTSM5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 30
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 131
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Swimming"
+  code: "TTS5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 132
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Cricket"
+  code: "TTC5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 133
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Maths Club"
+  code: "TTMC5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 134
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Creative Thinking"
+  code: "TTCT5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 135
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Performing Arts"
+  code: "TTPA5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 136
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Maths Club"
+  code: "TTMC5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: ""
+  use_course_name: 1
+-
+  id: 137
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs MUN/History Bee & Bowl"
+  code: "TTMB&B5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 138
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs MUN/History Bee & Bowl"
+  code: "TTMB&B5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity/Service"
+  use_course_name: 1
+-
+  id: 139
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs Japanese Drumming"
+  code: "TTJD5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 6
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action/Creativity"
+  use_course_name: 1
+-
+  id: 140
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Bouldering"
+  code: "TTB5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 16
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 141
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Bouldering"
+  code: "TTB5AB97"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 16
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action"
+  use_course_name: 1
+-
+  id: 142
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues ICHK Service Leader"
+  code: "TTISL5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 143
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues ICHK Service Leader"
+  code: "TTISL5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 144
+  created_by: 1
+  modified_by: 1
+  name: "T1 Tues Sha Tau Kok Farming"
+  code: "TTSTKF5A"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action/Service"
+  use_course_name: 1
+-
+  id: 145
+  created_by: 1
+  modified_by: 1
+  name: "T2 Tues Library Support"
+  code: "TTLS5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 146
+  created_by: 1
+  modified_by: 1
+  name: "T3 Tues Library Support"
+  code: "TTLS5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 11
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Service"
+  use_course_name: 1
+-
+  id: 147
+  created_by: 1
+  modified_by: 1
+  name: "T1 Thurs  Arts & Identity Activity Plan"
+  code: "TTA&IAP5"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 20
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 148
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Japanese Drumming"
+  code: "TTJD5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 6
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Action/Creativity"
+  use_course_name: 1
+-
+  id: 149
+  created_by: 1
+  modified_by: 1
+  name: "Adventure Week - Maclehose Trail"
+  code: "AW-MT5AB"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-05-15 12:31:35"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 25
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "estimated"
+  type: "action"
+  use_course_name: 1
+-
+  id: 150
+  created_by: 1
+  modified_by: 1
+  name: "T2 Thurs Digital Illustration"
+  code: "TTDI5AB9"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 1
+  last_modified: "2018-03-26 23:08:05"
+  created_on: "2018-03-26 23:08:05"
+  activity_type: "external"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 10
+  payment: 0.00
+  payment_type: "Entire Programme"
+  payment_firmness: "Finalised"
+  type: "Creativity"
+  use_course_name: 1
+-
+  id: 151
+  course_id: 50
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:59:42"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 152
+  course_id: 84
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:02:25"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 153
+  course_id: 101
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-13 11:50:15"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 154
+  course_id: 101
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-13 11:50:15"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 155
+  course_id: 101
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-13 11:50:15"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 156
+  course_id: 128
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-15 13:18:05"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 157
+  tt_line_id: 3
+  course_id: 1
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:23:04"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 158
+  course_id: 18
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 09:56:18"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 159
+  course_id: 102
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:13"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 160
+  course_id: 102
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:13"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 161
+  course_id: 102
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:13"
+  created_on: "2018-03-26 23:08:08"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 162
+  course_id: 114
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:50"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 163
+  course_id: 114
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:50"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 164
+  course_id: 114
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:50"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 165
+  space_id: 31
+  course_id: 36
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:56:59"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 166
+  space_id: 40
+  course_id: 68
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 167
+  course_id: 37
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:57:11"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 168
+  course_id: 69
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 169
+  course_id: 103
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:58:51"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 170
+  course_id: 103
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:09"
+  created_on: "2018-03-26 23:08:09"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 171
+  course_id: 115
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:48"
+  created_on: "2018-03-26 23:08:11"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 172
+  course_id: 115
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:48"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 173
+  course_id: 129
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:17"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 174
+  course_id: 129
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:17"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 175
+  course_id: 2
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 09:54:57"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 176
+  course_id: 2
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 09:54:57"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 177
+  course_id: 19
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:50:55"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 178
+  course_id: 19
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:50:55"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 179
+  course_id: 38
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:57:27"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 180
+  course_id: 70
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 181
+  course_id: 39
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:57:42"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 182
+  course_id: 71
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 183
+  course_id: 104
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:12"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 184
+  course_id: 104
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:12"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 185
+  course_id: 116
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:58"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 186
+  course_id: 116
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:58"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 187
+  course_id: 130
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:40"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 188
+  course_id: 3
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 09:55:15"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 189
+  course_id: 3
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 09:55:15"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 190
+  course_id: 20
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:51:21"
+  created_on: "2018-03-26 23:08:12"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 191
+  course_id: 40
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:57:55"
+  created_on: "2018-03-26 23:08:14"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 192
+  course_id: 73
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:58:37"
+  created_on: "2018-03-26 23:08:14"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 193
+  course_id: 41
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:58:08"
+  created_on: "2018-03-26 23:08:14"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 194
+  course_id: 74
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:14"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 195
+  course_id: 117
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:35:11"
+  created_on: "2018-03-26 23:08:14"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 196
+  course_id: 117
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:35:11"
+  created_on: "2018-03-26 23:08:14"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 197
+  course_id: 117
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:35:11"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 198
+  course_id: 4
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:33:50"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 199
+  course_id: 21
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:36:20"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 200
+  course_id: 5
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:47:23"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 201
+  course_id: 22
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:51:33"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 202
+  course_id: 42
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:58:25"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 203
+  course_id: 75
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-04-30 16:36:26"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 204
+  course_id: 43
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:59:37"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 205
+  course_id: 76
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:57:06"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 206
+  tt_line_id: 2
+  course_id: 105
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:17:28"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 207
+  tt_line_id: 2
+  course_id: 105
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:17:28"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 208
+  tt_line_id: 2
+  course_id: 105
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:17:28"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 209
+  course_id: 118
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:55:37"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 210
+  course_id: 118
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:55:37"
+  created_on: "2018-03-26 23:08:15"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 211
+  course_id: 118
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:55:37"
+  created_on: "2018-03-26 23:08:19"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 212
+  course_id: 131
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:55:53"
+  created_on: "2018-03-26 23:08:19"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 213
+  course_id: 131
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:55:53"
+  created_on: "2018-03-26 23:08:19"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 214
+  course_id: 131
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:55:53"
+  created_on: "2018-03-26 23:08:19"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 215
+  course_id: 6
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:37:01"
+  created_on: "2018-03-26 23:08:19"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 216
+  course_id: 6
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:37:01"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 217
+  course_id: 6
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:37:01"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 218
+  course_id: 23
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:51:48"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 219
+  course_id: 23
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:51:48"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 220
+  course_id: 23
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:51:48"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 221
+  course_id: 7
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:47:41"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 222
+  course_id: 7
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:47:41"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 223
+  course_id: 7
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:47:41"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 224
+  course_id: 24
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:52:01"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 225
+  course_id: 44
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:39:34"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 226
+  course_id: 44
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 18:00:23"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 227
+  course_id: 77
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 228
+  course_id: 77
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 229
+  course_id: 45
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 18:00:37"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 230
+  course_id: 45
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 18:00:37"
+  created_on: "2018-03-26 23:08:20"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 231
+  course_id: 78
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 232
+  course_id: 78
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 233
+  course_id: 46
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 18:05:07"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 234
+  course_id: 79
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:01:49"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 235
+  course_id: 8
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:47:57"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 236
+  course_id: 25
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:52:11"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 237
+  course_id: 25
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:52:11"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 238
+  course_id: 106
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-15 10:35:51"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 239
+  space_id: 7
+  course_id: 106
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-15 10:37:06"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 240
+  course_id: 106
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-15 10:35:51"
+  created_on: "2018-03-26 23:08:24"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 241
+  course_id: 119
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:07"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 242
+  course_id: 119
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:07"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 243
+  course_id: 119
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:07"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 244
+  course_id: 132
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:53"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 245
+  course_id: 108
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:06"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 246
+  course_id: 108
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:06"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 247
+  course_id: 108
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:06"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 248
+  course_id: 120
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:18"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 249
+  course_id: 120
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:18"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 250
+  course_id: 120
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:18"
+  created_on: "2018-03-26 23:08:25"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 251
+  course_id: 133
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:29"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 252
+  course_id: 133
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:29"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 253
+  course_id: 47
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:59:25"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 254
+  course_id: 80
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:02:01"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 255
+  space_id: 12
+  course_id: 48
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 10:26:41"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 256
+  course_id: 27
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:52:31"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 257
+  course_id: 10
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:48:27"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 258
+  course_id: 28
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:54:21"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 259
+  course_id: 49
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:49:59"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 260
+  course_id: 83
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:50:12"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 261
+  course_id: 107
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:03:54"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 262
+  course_id: 107
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:03:54"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 263
+  course_id: 107
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:03:54"
+  created_on: "2018-03-26 23:08:30"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 264
+  course_id: 121
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:29"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 265
+  course_id: 121
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:29"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 266
+  course_id: 121
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:29"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 267
+  course_id: 134
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:04"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 268
+  course_id: 134
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:04"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 269
+  course_id: 11
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:48:43"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 270
+  course_id: 11
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:48:43"
+  created_on: "2018-03-26 23:08:31"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 271
+  course_id: 135
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:14"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 272
+  course_id: 135
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:14"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 273
+  course_id: 109
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:35"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 274
+  course_id: 123
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:47"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 275
+  course_id: 136
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:25"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 276
+  course_id: 12
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:48:57"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 277
+  course_id: 29
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:54:38"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 278
+  tt_line_id: 1
+  course_id: 110
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:30"
+  created_on: "2018-03-26 23:08:35"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 279
+  tt_line_id: 1
+  course_id: 110
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:30"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 280
+  tt_line_id: 1
+  course_id: 110
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:08:30"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 281
+  course_id: 124
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:10:58"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 282
+  course_id: 124
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:10:58"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 283
+  course_id: 124
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:10:58"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 284
+  course_id: 137
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:09:10"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 285
+  course_id: 137
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:09:10"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 286
+  course_id: 137
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:36"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 287
+  course_id: 13
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:49:12"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 288
+  course_id: 13
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:49:12"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 289
+  course_id: 13
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:49:12"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 290
+  course_id: 30
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:54:53"
+  created_on: "2018-03-26 23:08:36"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 291
+  course_id: 30
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:54:53"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 292
+  course_id: 30
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:54:53"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 293
+  course_id: 51
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:36:09"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 294
+  course_id: 85
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:39:09"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 295
+  course_id: 52
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:36:24"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 296
+  course_id: 86
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 297
+  course_id: 138
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:35"
+  created_on: "2018-03-26 23:08:39"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 298
+  course_id: 14
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:49:27"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 299
+  course_id: 31
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:55:12"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 300
+  course_id: 31
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:55:12"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 301
+  course_id: 53
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:37:02"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 302
+  course_id: 87
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:39:22"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 303
+  course_id: 111
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:52:49"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 304
+  course_id: 111
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:52:49"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 305
+  course_id: 111
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:52:49"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 306
+  course_id: 125
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:53:03"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 307
+  course_id: 125
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:53:03"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 308
+  course_id: 125
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:53:03"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 309
+  course_id: 139
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:52:18"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 310
+  course_id: 139
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:52:18"
+  created_on: "2018-03-26 23:08:40"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 311
+  course_id: 15
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:49:49"
+  created_on: "2018-03-26 23:08:44"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 312
+  course_id: 15
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:49:49"
+  created_on: "2018-03-26 23:08:44"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 313
+  course_id: 32
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:56:00"
+  created_on: "2018-03-26 23:08:44"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 314
+  course_id: 32
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:56:00"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 315
+  course_id: 55
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:51:13"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 316
+  course_id: 89
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:51:49"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 317
+  course_id: 56
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:51:24"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 318
+  course_id: 57
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:00:03"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 319
+  course_id: 91
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:02:34"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 320
+  space_id: 25
+  tt_line_id: 5
+  course_id: 58
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 321
+  course_id: 92
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 322
+  course_id: 112
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:27"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 323
+  course_id: 112
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:27"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 324
+  course_id: 112
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:04:27"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 325
+  course_id: 126
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:57"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 326
+  course_id: 126
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:57"
+  created_on: "2018-03-26 23:08:45"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 327
+  course_id: 126
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:05:57"
+  created_on: "2018-03-26 23:08:46"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 328
+  course_id: 140
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:45"
+  created_on: "2018-03-26 23:08:46"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 329
+  course_id: 140
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:45"
+  created_on: "2018-03-26 23:08:46"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 330
+  course_id: 16
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:50:06"
+  created_on: "2018-03-26 23:08:46"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 331
+  course_id: 16
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:50:06"
+  created_on: "2018-03-26 23:08:49"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 332
+  course_id: 16
+  created_by: 1
+  modified_by: 1
+  name: 3
+  code: 3
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:50:06"
+  created_on: "2018-03-26 23:08:49"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 333
+  course_id: 33
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:56:13"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 334
+  course_id: 33
+  created_by: 1
+  modified_by: 1
+  name: 2
+  code: 2
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:56:13"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 335
+  course_id: 113
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:50"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 336
+  course_id: 127
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:06:07"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 337
+  course_id: 141
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:07:56"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 338
+  course_id: 17
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:50:43"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 339
+  course_id: 35
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-16 17:56:41"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 340
+  course_id: 60
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 13:54:05"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 341
+  course_id: 61
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:00:24"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 342
+  course_id: 59
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-03-26 23:08:50"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 343
+  course_id: 63
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:00:47"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 344
+  course_id: 97
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:03:22"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 345
+  course_id: 64
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:00:57"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 346
+  course_id: 65
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-17 14:01:07"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 347
+  space_id: 26
+  tt_line_id: 4
+  course_id: 98
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-19 13:05:17"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 348
+  course_id: 66
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:34:50"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 349
+  course_id: 99
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:35:44"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 350
+  course_id: 67
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:35:29"
+  created_on: "2018-03-26 23:08:50"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 351
+  course_id: 100
+  created_by: 1
+  modified_by: 1
+  name: 1
+  code: 1
+  teachingLoad: 0
+  reportable: 1
+  attendance: 1
+  last_modified: "2018-05-12 11:36:00"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 352
+  course_id: 42
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-16 17:58:25"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 353
+  course_id: 57
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-17 14:00:03"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 354
+  course_id: 62
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-17 14:00:37"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 356
+  course_id: 96
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-17 14:03:13"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 357
+  course_id: 81
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-17 14:02:13"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 358
+  course_id: 72
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-17 13:58:20"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+-
+  id: 359
+  course_id: 47
+  created_by: 1
+  modified_by: 1
+  name: "Pamoja"
+  code: "P"
+  teachingLoad: 0
+  reportable: 0
+  attendance: 0
+  last_modified: "2018-05-17 13:59:25"
+  created_on: "2018-03-26 23:08:55"
+  activity_type: "class"
+  active: 1
+  registration: 1
+  provider: "school"
+  maxParticipants: 0
+  payment: 0.00
+  payment_type: "program"
+  payment_firmness: "finalised"
+  use_course_name: 1
+...

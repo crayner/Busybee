@@ -106,7 +106,7 @@ class UserType extends AbstractType
                     ],
                 ]
             )
-            ->add('orgcode', TextType::class,
+            ->add('orgCode', TextType::class,
                 [
                     'label' => 'system.org_code.label',
                     'translation_domain' => 'System',
@@ -124,7 +124,7 @@ class UserType extends AbstractType
                     'setting_name' => 'person.titlelist',
                     'required' => false,
                     'constraints' => [
-                        new SettingChoice(['name' => 'person.titlelist', 'strict' => false,])
+                        new SettingChoice(['settingName' => 'person.titlelist', 'strict' => false,])
                     ],
                 ]
             )

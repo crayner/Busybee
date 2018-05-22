@@ -121,19 +121,20 @@ schoolday.periods:
             start: '14:20'
             end: '15:30'
             code: P5
-      displayName: Default Periods schedule for a Day.
-      description: A default set of period times for days in the timetable.  These values are used to seed the timetable, which allows the timing to be changed if necessary.
-      role: ROLE_PRINCIPAL
+    displayName: Default Periods schedule for a Day.
+    description: A default set of period times for days in the timetable.  These values are used to seed the timetable, which allows the timing to be changed if necessary.
+    role: ROLE_PRINCIPAL
 languages.translated:
-      type: array
-      value:
-          English (Australia): en_AU
-          English (Great Britian): en_GB
-          English (United States): en_US
-      displayName: Languages Translated
-      choice: en_GB
-      description: Languages that have been translated for the system.
-      role: ROLE_REGISTRAR
+    type: array
+    value:
+        English: en
+        English (Australia): en_AU
+        English (Great Britian): en_GB
+        English (United States): en_US
+    displayName: Languages Translated
+    choice: en_GB
+    description: Languages that have been translated for the system.
+    role: ROLE_REGISTRAR
 teachingload.timetable.maximum:
       type: integer
       value: 9

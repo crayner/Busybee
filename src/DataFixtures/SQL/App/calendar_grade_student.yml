@@ -1,0 +1,2902 @@
+%YAML 1.1
+---
+# craigray_core.koala_calendar_grade_student
+-
+  id: 1
+  student_id: 2
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-04 10:38:00"
+  created_on: "2018-05-04 10:38:00"
+-
+  id: 2
+  student_id: 744
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-05 10:38:00"
+  created_on: "2018-05-05 10:38:00"
+-
+  id: 3
+  student_id: 748
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-06 10:38:00"
+  created_on: "2018-05-06 10:38:00"
+-
+  id: 4
+  student_id: 752
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-07 10:38:00"
+  created_on: "2018-05-07 10:38:00"
+-
+  id: 5
+  student_id: 753
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-08 10:38:00"
+  created_on: "2018-05-08 10:38:00"
+-
+  id: 6
+  student_id: 756
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-09 10:38:00"
+  created_on: "2018-05-09 10:38:00"
+-
+  id: 7
+  student_id: 758
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-10 10:38:00"
+  created_on: "2018-05-10 10:38:00"
+-
+  id: 8
+  student_id: 759
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-11 10:38:00"
+  created_on: "2018-05-11 10:38:00"
+-
+  id: 9
+  student_id: 760
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-12 10:38:00"
+  created_on: "2018-05-12 10:38:00"
+-
+  id: 10
+  student_id: 761
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-13 10:38:00"
+  created_on: "2018-05-13 10:38:00"
+-
+  id: 11
+  student_id: 762
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-14 10:38:00"
+  created_on: "2018-05-14 10:38:00"
+-
+  id: 12
+  student_id: 765
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-15 10:38:00"
+  created_on: "2018-05-15 10:38:00"
+-
+  id: 13
+  student_id: 766
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-16 10:38:00"
+  created_on: "2018-05-16 10:38:00"
+-
+  id: 14
+  student_id: 767
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-17 10:38:00"
+  created_on: "2018-05-17 10:38:00"
+-
+  id: 15
+  student_id: 768
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-18 10:38:00"
+  created_on: "2018-05-18 10:38:00"
+-
+  id: 16
+  student_id: 771
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-19 10:38:00"
+  created_on: "2018-05-19 10:38:00"
+-
+  id: 17
+  student_id: 774
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-20 10:38:00"
+  created_on: "2018-05-20 10:38:00"
+-
+  id: 18
+  student_id: 777
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-21 10:38:00"
+  created_on: "2018-05-21 10:38:00"
+-
+  id: 19
+  student_id: 778
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-22 10:38:00"
+  created_on: "2018-05-22 10:38:00"
+-
+  id: 20
+  student_id: 784
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-23 10:38:00"
+  created_on: "2018-05-23 10:38:00"
+-
+  id: 21
+  student_id: 786
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-24 10:38:00"
+  created_on: "2018-05-24 10:38:00"
+-
+  id: 22
+  student_id: 787
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-25 10:38:00"
+  created_on: "2018-05-25 10:38:00"
+-
+  id: 23
+  student_id: 788
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-26 10:38:00"
+  created_on: "2018-05-26 10:38:00"
+-
+  id: 24
+  student_id: 791
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-27 10:38:00"
+  created_on: "2018-05-27 10:38:00"
+-
+  id: 25
+  student_id: 794
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-28 10:38:00"
+  created_on: "2018-05-28 10:38:00"
+-
+  id: 26
+  student_id: 799
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-29 10:38:00"
+  created_on: "2018-05-29 10:38:00"
+-
+  id: 27
+  student_id: 802
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-30 10:38:00"
+  created_on: "2018-05-30 10:38:00"
+-
+  id: 28
+  student_id: 807
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-31 10:38:00"
+  created_on: "2018-05-31 10:38:00"
+-
+  id: 29
+  student_id: 810
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-01 10:38:00"
+  created_on: "2018-06-01 10:38:00"
+-
+  id: 30
+  student_id: 813
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-02 10:38:00"
+  created_on: "2018-06-02 10:38:00"
+-
+  id: 31
+  student_id: 816
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-03 10:38:00"
+  created_on: "2018-06-03 10:38:00"
+-
+  id: 32
+  student_id: 819
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-04 10:38:00"
+  created_on: "2018-06-04 10:38:00"
+-
+  id: 33
+  student_id: 822
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-05 10:38:00"
+  created_on: "2018-06-05 10:38:00"
+-
+  id: 34
+  student_id: 825
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-06 10:38:00"
+  created_on: "2018-06-06 10:38:00"
+-
+  id: 35
+  student_id: 826
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-07 10:38:00"
+  created_on: "2018-06-07 10:38:00"
+-
+  id: 36
+  student_id: 827
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-08 10:38:00"
+  created_on: "2018-06-08 10:38:00"
+-
+  id: 37
+  student_id: 828
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-09 10:38:00"
+  created_on: "2018-06-09 10:38:00"
+-
+  id: 38
+  student_id: 831
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-10 10:38:00"
+  created_on: "2018-06-10 10:38:00"
+-
+  id: 39
+  student_id: 834
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-11 10:38:00"
+  created_on: "2018-06-11 10:38:00"
+-
+  id: 40
+  student_id: 837
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-12 10:38:00"
+  created_on: "2018-06-12 10:38:00"
+-
+  id: 41
+  student_id: 840
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-13 10:38:00"
+  created_on: "2018-06-13 10:38:00"
+-
+  id: 42
+  student_id: 843
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-14 10:38:00"
+  created_on: "2018-06-14 10:38:00"
+-
+  id: 43
+  student_id: 846
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-15 10:38:00"
+  created_on: "2018-06-15 10:38:00"
+-
+  id: 44
+  student_id: 850
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-16 10:38:00"
+  created_on: "2018-06-16 10:38:00"
+-
+  id: 45
+  student_id: 851
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-17 10:38:00"
+  created_on: "2018-06-17 10:38:00"
+-
+  id: 46
+  student_id: 854
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-18 10:38:00"
+  created_on: "2018-06-18 10:38:00"
+-
+  id: 47
+  student_id: 857
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-19 10:38:00"
+  created_on: "2018-06-19 10:38:00"
+-
+  id: 48
+  student_id: 860
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-20 10:38:00"
+  created_on: "2018-06-20 10:38:00"
+-
+  id: 49
+  student_id: 861
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-21 10:38:00"
+  created_on: "2018-06-21 10:38:00"
+-
+  id: 50
+  student_id: 862
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-22 10:38:00"
+  created_on: "2018-06-22 10:38:00"
+-
+  id: 51
+  student_id: 864
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-23 10:38:00"
+  created_on: "2018-06-23 10:38:00"
+-
+  id: 52
+  student_id: 867
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-24 10:38:00"
+  created_on: "2018-06-24 10:38:00"
+-
+  id: 53
+  student_id: 870
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-25 10:38:00"
+  created_on: "2018-06-25 10:38:00"
+-
+  id: 54
+  student_id: 873
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-26 10:38:00"
+  created_on: "2018-06-26 10:38:00"
+-
+  id: 55
+  student_id: 876
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-27 10:38:00"
+  created_on: "2018-06-27 10:38:00"
+-
+  id: 56
+  student_id: 879
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-28 10:38:00"
+  created_on: "2018-06-28 10:38:00"
+-
+  id: 57
+  student_id: 886
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-29 10:38:00"
+  created_on: "2018-06-29 10:38:00"
+-
+  id: 58
+  student_id: 901
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-06-30 10:38:00"
+  created_on: "2018-06-30 10:38:00"
+-
+  id: 59
+  student_id: 909
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-01 10:38:00"
+  created_on: "2018-07-01 10:38:00"
+-
+  id: 60
+  student_id: 912
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-02 10:38:00"
+  created_on: "2018-07-02 10:38:00"
+-
+  id: 61
+  student_id: 917
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-03 10:38:00"
+  created_on: "2018-07-03 10:38:00"
+-
+  id: 62
+  student_id: 926
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-04 10:38:00"
+  created_on: "2018-07-04 10:38:00"
+-
+  id: 63
+  student_id: 927
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-05 10:38:00"
+  created_on: "2018-07-05 10:38:00"
+-
+  id: 64
+  student_id: 933
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-06 10:38:00"
+  created_on: "2018-07-06 10:38:00"
+-
+  id: 65
+  student_id: 943
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-07 10:38:00"
+  created_on: "2018-07-07 10:38:00"
+-
+  id: 66
+  student_id: 950
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-08 10:38:00"
+  created_on: "2018-07-08 10:38:00"
+-
+  id: 67
+  student_id: 952
+  calendar_grade_id: 1
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-09 10:38:00"
+  created_on: "2018-07-09 10:38:00"
+-
+  id: 68
+  student_id: 314
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-10 10:38:00"
+  created_on: "2018-07-10 10:38:00"
+-
+  id: 69
+  student_id: 560
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-11 10:38:00"
+  created_on: "2018-07-11 10:38:00"
+-
+  id: 70
+  student_id: 570
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-12 10:38:00"
+  created_on: "2018-07-12 10:38:00"
+-
+  id: 71
+  student_id: 571
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-13 10:38:00"
+  created_on: "2018-07-13 10:38:00"
+-
+  id: 72
+  student_id: 572
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-14 10:38:00"
+  created_on: "2018-07-14 10:38:00"
+-
+  id: 73
+  student_id: 576
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-15 10:38:00"
+  created_on: "2018-07-15 10:38:00"
+-
+  id: 74
+  student_id: 580
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-16 10:38:00"
+  created_on: "2018-07-16 10:38:00"
+-
+  id: 75
+  student_id: 581
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-17 10:38:00"
+  created_on: "2018-07-17 10:38:00"
+-
+  id: 76
+  student_id: 582
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-18 10:38:00"
+  created_on: "2018-07-18 10:38:00"
+-
+  id: 77
+  student_id: 583
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-19 10:38:00"
+  created_on: "2018-07-19 10:38:00"
+-
+  id: 78
+  student_id: 586
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-20 10:38:00"
+  created_on: "2018-07-20 10:38:00"
+-
+  id: 79
+  student_id: 587
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-21 10:38:00"
+  created_on: "2018-07-21 10:38:00"
+-
+  id: 80
+  student_id: 588
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-22 10:38:00"
+  created_on: "2018-07-22 10:38:00"
+-
+  id: 81
+  student_id: 589
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-23 10:38:00"
+  created_on: "2018-07-23 10:38:00"
+-
+  id: 82
+  student_id: 590
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-24 10:38:00"
+  created_on: "2018-07-24 10:38:00"
+-
+  id: 83
+  student_id: 593
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-25 10:38:00"
+  created_on: "2018-07-25 10:38:00"
+-
+  id: 84
+  student_id: 596
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-26 10:38:00"
+  created_on: "2018-07-26 10:38:00"
+-
+  id: 85
+  student_id: 599
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-27 10:38:00"
+  created_on: "2018-07-27 10:38:00"
+-
+  id: 86
+  student_id: 604
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-28 10:38:00"
+  created_on: "2018-07-28 10:38:00"
+-
+  id: 87
+  student_id: 607
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-29 10:38:00"
+  created_on: "2018-07-29 10:38:00"
+-
+  id: 88
+  student_id: 608
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-30 10:38:00"
+  created_on: "2018-07-30 10:38:00"
+-
+  id: 89
+  student_id: 612
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-07-31 10:38:00"
+  created_on: "2018-07-31 10:38:00"
+-
+  id: 90
+  student_id: 619
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-01 10:38:00"
+  created_on: "2018-08-01 10:38:00"
+-
+  id: 91
+  student_id: 622
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-02 10:38:00"
+  created_on: "2018-08-02 10:38:00"
+-
+  id: 92
+  student_id: 625
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-03 10:38:00"
+  created_on: "2018-08-03 10:38:00"
+-
+  id: 93
+  student_id: 628
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-04 10:38:00"
+  created_on: "2018-08-04 10:38:00"
+-
+  id: 94
+  student_id: 631
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-05 10:38:00"
+  created_on: "2018-08-05 10:38:00"
+-
+  id: 95
+  student_id: 632
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-06 10:38:00"
+  created_on: "2018-08-06 10:38:00"
+-
+  id: 96
+  student_id: 634
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-07 10:38:00"
+  created_on: "2018-08-07 10:38:00"
+-
+  id: 97
+  student_id: 641
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-08 10:38:00"
+  created_on: "2018-08-08 10:38:00"
+-
+  id: 98
+  student_id: 652
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-09 10:38:00"
+  created_on: "2018-08-09 10:38:00"
+-
+  id: 99
+  student_id: 655
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-10 10:38:00"
+  created_on: "2018-08-10 10:38:00"
+-
+  id: 100
+  student_id: 657
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-11 10:38:00"
+  created_on: "2018-08-11 10:38:00"
+-
+  id: 101
+  student_id: 660
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-12 10:38:00"
+  created_on: "2018-08-12 10:38:00"
+-
+  id: 102
+  student_id: 663
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-13 10:38:00"
+  created_on: "2018-08-13 10:38:00"
+-
+  id: 103
+  student_id: 664
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-14 10:38:00"
+  created_on: "2018-08-14 10:38:00"
+-
+  id: 104
+  student_id: 668
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-15 10:38:00"
+  created_on: "2018-08-15 10:38:00"
+-
+  id: 105
+  student_id: 673
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-16 10:38:00"
+  created_on: "2018-08-16 10:38:00"
+-
+  id: 106
+  student_id: 676
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-17 10:38:00"
+  created_on: "2018-08-17 10:38:00"
+-
+  id: 107
+  student_id: 679
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-18 10:38:00"
+  created_on: "2018-08-18 10:38:00"
+-
+  id: 108
+  student_id: 682
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-19 10:38:00"
+  created_on: "2018-08-19 10:38:00"
+-
+  id: 109
+  student_id: 687
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-20 10:38:00"
+  created_on: "2018-08-20 10:38:00"
+-
+  id: 110
+  student_id: 690
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-21 10:38:00"
+  created_on: "2018-08-21 10:38:00"
+-
+  id: 111
+  student_id: 692
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-22 10:38:00"
+  created_on: "2018-08-22 10:38:00"
+-
+  id: 112
+  student_id: 696
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-23 10:38:00"
+  created_on: "2018-08-23 10:38:00"
+-
+  id: 113
+  student_id: 698
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-24 10:38:00"
+  created_on: "2018-08-24 10:38:00"
+-
+  id: 114
+  student_id: 705
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-25 10:38:00"
+  created_on: "2018-08-25 10:38:00"
+-
+  id: 115
+  student_id: 722
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-26 10:38:00"
+  created_on: "2018-08-26 10:38:00"
+-
+  id: 116
+  student_id: 735
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-27 10:38:00"
+  created_on: "2018-08-27 10:38:00"
+-
+  id: 117
+  student_id: 740
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-28 10:38:00"
+  created_on: "2018-08-28 10:38:00"
+-
+  id: 118
+  student_id: 885
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-29 10:38:00"
+  created_on: "2018-08-29 10:38:00"
+-
+  id: 119
+  student_id: 895
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-30 10:38:00"
+  created_on: "2018-08-30 10:38:00"
+-
+  id: 120
+  student_id: 915
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-08-31 10:38:00"
+  created_on: "2018-08-31 10:38:00"
+-
+  id: 121
+  student_id: 916
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-01 10:38:00"
+  created_on: "2018-09-01 10:38:00"
+-
+  id: 122
+  student_id: 920
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-02 10:38:00"
+  created_on: "2018-09-02 10:38:00"
+-
+  id: 123
+  student_id: 921
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-03 10:38:00"
+  created_on: "2018-09-03 10:38:00"
+-
+  id: 124
+  student_id: 940
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-04 10:38:00"
+  created_on: "2018-09-04 10:38:00"
+-
+  id: 125
+  student_id: 64
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-05 10:38:00"
+  created_on: "2018-09-05 10:38:00"
+-
+  id: 126
+  student_id: 452
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-06 10:38:00"
+  created_on: "2018-09-06 10:38:00"
+-
+  id: 127
+  student_id: 454
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-07 10:38:00"
+  created_on: "2018-09-07 10:38:00"
+-
+  id: 128
+  student_id: 455
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-08 10:38:00"
+  created_on: "2018-09-08 10:38:00"
+-
+  id: 129
+  student_id: 460
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-09 10:38:00"
+  created_on: "2018-09-09 10:38:00"
+-
+  id: 130
+  student_id: 463
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-10 10:38:00"
+  created_on: "2018-09-10 10:38:00"
+-
+  id: 131
+  student_id: 466
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-11 10:38:00"
+  created_on: "2018-09-11 10:38:00"
+-
+  id: 132
+  student_id: 469
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-12 10:38:00"
+  created_on: "2018-09-12 10:38:00"
+-
+  id: 133
+  student_id: 472
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-13 10:38:00"
+  created_on: "2018-09-13 10:38:00"
+-
+  id: 134
+  student_id: 473
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-14 10:38:00"
+  created_on: "2018-09-14 10:38:00"
+-
+  id: 135
+  student_id: 474
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-15 10:38:00"
+  created_on: "2018-09-15 10:38:00"
+-
+  id: 136
+  student_id: 477
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-16 10:38:00"
+  created_on: "2018-09-16 10:38:00"
+-
+  id: 137
+  student_id: 479
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-17 10:38:00"
+  created_on: "2018-09-17 10:38:00"
+-
+  id: 138
+  student_id: 482
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-18 10:38:00"
+  created_on: "2018-09-18 10:38:00"
+-
+  id: 139
+  student_id: 485
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-19 10:38:00"
+  created_on: "2018-09-19 10:38:00"
+-
+  id: 140
+  student_id: 486
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-20 10:38:00"
+  created_on: "2018-09-20 10:38:00"
+-
+  id: 141
+  student_id: 489
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-21 10:38:00"
+  created_on: "2018-09-21 10:38:00"
+-
+  id: 142
+  student_id: 492
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-22 10:38:00"
+  created_on: "2018-09-22 10:38:00"
+-
+  id: 143
+  student_id: 494
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-23 10:38:00"
+  created_on: "2018-09-23 10:38:00"
+-
+  id: 144
+  student_id: 495
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-24 10:38:00"
+  created_on: "2018-09-24 10:38:00"
+-
+  id: 145
+  student_id: 496
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-25 10:38:00"
+  created_on: "2018-09-25 10:38:00"
+-
+  id: 146
+  student_id: 498
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-26 10:38:00"
+  created_on: "2018-09-26 10:38:00"
+-
+  id: 147
+  student_id: 500
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-27 10:38:00"
+  created_on: "2018-09-27 10:38:00"
+-
+  id: 148
+  student_id: 503
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-28 10:38:00"
+  created_on: "2018-09-28 10:38:00"
+-
+  id: 149
+  student_id: 506
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-29 10:38:00"
+  created_on: "2018-09-29 10:38:00"
+-
+  id: 150
+  student_id: 509
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-09-30 10:38:00"
+  created_on: "2018-09-30 10:38:00"
+-
+  id: 151
+  student_id: 510
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-01 10:38:00"
+  created_on: "2018-10-01 10:38:00"
+-
+  id: 152
+  student_id: 515
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-02 10:38:00"
+  created_on: "2018-10-02 10:38:00"
+-
+  id: 153
+  student_id: 518
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-03 10:38:00"
+  created_on: "2018-10-03 10:38:00"
+-
+  id: 154
+  student_id: 521
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-04 10:38:00"
+  created_on: "2018-10-04 10:38:00"
+-
+  id: 155
+  student_id: 527
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-05 10:38:00"
+  created_on: "2018-10-05 10:38:00"
+-
+  id: 156
+  student_id: 530
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-06 10:38:00"
+  created_on: "2018-10-06 10:38:00"
+-
+  id: 157
+  student_id: 533
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-07 10:38:00"
+  created_on: "2018-10-07 10:38:00"
+-
+  id: 158
+  student_id: 536
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-08 10:38:00"
+  created_on: "2018-10-08 10:38:00"
+-
+  id: 159
+  student_id: 538
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-09 10:38:00"
+  created_on: "2018-10-09 10:38:00"
+-
+  id: 160
+  student_id: 551
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-10 10:38:00"
+  created_on: "2018-10-10 10:38:00"
+-
+  id: 161
+  student_id: 557
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-11 10:38:00"
+  created_on: "2018-10-11 10:38:00"
+-
+  id: 162
+  student_id: 563
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-12 10:38:00"
+  created_on: "2018-10-12 10:38:00"
+-
+  id: 163
+  student_id: 566
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-13 10:38:00"
+  created_on: "2018-10-13 10:38:00"
+-
+  id: 164
+  student_id: 577
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-14 10:38:00"
+  created_on: "2018-10-14 10:38:00"
+-
+  id: 165
+  student_id: 615
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-15 10:38:00"
+  created_on: "2018-10-15 10:38:00"
+-
+  id: 166
+  student_id: 649
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-16 10:38:00"
+  created_on: "2018-10-16 10:38:00"
+-
+  id: 167
+  student_id: 656
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-17 10:38:00"
+  created_on: "2018-10-17 10:38:00"
+-
+  id: 168
+  student_id: 708
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-18 10:38:00"
+  created_on: "2018-10-18 10:38:00"
+-
+  id: 169
+  student_id: 709
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-19 10:38:00"
+  created_on: "2018-10-19 10:38:00"
+-
+  id: 170
+  student_id: 729
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-20 10:38:00"
+  created_on: "2018-10-20 10:38:00"
+-
+  id: 171
+  student_id: 749
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-21 10:38:00"
+  created_on: "2018-10-21 10:38:00"
+-
+  id: 172
+  student_id: 939
+  calendar_grade_id: 3
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-22 10:38:00"
+  created_on: "2018-10-22 10:38:00"
+-
+  id: 173
+  student_id: 105
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-23 10:38:00"
+  created_on: "2018-10-23 10:38:00"
+-
+  id: 174
+  student_id: 312
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-24 10:38:00"
+  created_on: "2018-10-24 10:38:00"
+-
+  id: 175
+  student_id: 315
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-25 10:38:00"
+  created_on: "2018-10-25 10:38:00"
+-
+  id: 176
+  student_id: 318
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-26 10:38:00"
+  created_on: "2018-10-26 10:38:00"
+-
+  id: 177
+  student_id: 321
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-27 10:38:00"
+  created_on: "2018-10-27 10:38:00"
+-
+  id: 178
+  student_id: 324
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-28 10:38:00"
+  created_on: "2018-10-28 10:38:00"
+-
+  id: 179
+  student_id: 327
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-29 10:38:00"
+  created_on: "2018-10-29 10:38:00"
+-
+  id: 180
+  student_id: 330
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-30 10:38:00"
+  created_on: "2018-10-30 10:38:00"
+-
+  id: 181
+  student_id: 333
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-10-31 10:38:00"
+  created_on: "2018-10-31 10:38:00"
+-
+  id: 182
+  student_id: 336
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-01 10:38:00"
+  created_on: "2018-11-01 10:38:00"
+-
+  id: 183
+  student_id: 339
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-02 10:38:00"
+  created_on: "2018-11-02 10:38:00"
+-
+  id: 184
+  student_id: 340
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-03 10:38:00"
+  created_on: "2018-11-03 10:38:00"
+-
+  id: 185
+  student_id: 341
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-04 10:38:00"
+  created_on: "2018-11-04 10:38:00"
+-
+  id: 186
+  student_id: 344
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-05 10:38:00"
+  created_on: "2018-11-05 10:38:00"
+-
+  id: 187
+  student_id: 347
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-06 10:38:00"
+  created_on: "2018-11-06 10:38:00"
+-
+  id: 188
+  student_id: 351
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-07 10:38:00"
+  created_on: "2018-11-07 10:38:00"
+-
+  id: 189
+  student_id: 354
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-08 10:38:00"
+  created_on: "2018-11-08 10:38:00"
+-
+  id: 190
+  student_id: 357
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-09 10:38:00"
+  created_on: "2018-11-09 10:38:00"
+-
+  id: 191
+  student_id: 360
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-10 10:38:00"
+  created_on: "2018-11-10 10:38:00"
+-
+  id: 192
+  student_id: 363
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-11 10:38:00"
+  created_on: "2018-11-11 10:38:00"
+-
+  id: 193
+  student_id: 366
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-12 10:38:00"
+  created_on: "2018-11-12 10:38:00"
+-
+  id: 194
+  student_id: 369
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-13 10:38:00"
+  created_on: "2018-11-13 10:38:00"
+-
+  id: 195
+  student_id: 373
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-14 10:38:00"
+  created_on: "2018-11-14 10:38:00"
+-
+  id: 196
+  student_id: 376
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-15 10:38:00"
+  created_on: "2018-11-15 10:38:00"
+-
+  id: 197
+  student_id: 379
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-16 10:38:00"
+  created_on: "2018-11-16 10:38:00"
+-
+  id: 198
+  student_id: 382
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-17 10:38:00"
+  created_on: "2018-11-17 10:38:00"
+-
+  id: 199
+  student_id: 385
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-18 10:38:00"
+  created_on: "2018-11-18 10:38:00"
+-
+  id: 200
+  student_id: 388
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-19 10:38:00"
+  created_on: "2018-11-19 10:38:00"
+-
+  id: 201
+  student_id: 391
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-20 10:38:00"
+  created_on: "2018-11-20 10:38:00"
+-
+  id: 202
+  student_id: 394
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-21 10:38:00"
+  created_on: "2018-11-21 10:38:00"
+-
+  id: 203
+  student_id: 395
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-22 10:38:00"
+  created_on: "2018-11-22 10:38:00"
+-
+  id: 204
+  student_id: 398
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-23 10:38:00"
+  created_on: "2018-11-23 10:38:00"
+-
+  id: 205
+  student_id: 401
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-24 10:38:00"
+  created_on: "2018-11-24 10:38:00"
+-
+  id: 206
+  student_id: 404
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-25 10:38:00"
+  created_on: "2018-11-25 10:38:00"
+-
+  id: 207
+  student_id: 405
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-26 10:38:00"
+  created_on: "2018-11-26 10:38:00"
+-
+  id: 208
+  student_id: 419
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-27 10:38:00"
+  created_on: "2018-11-27 10:38:00"
+-
+  id: 209
+  student_id: 553
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-28 10:38:00"
+  created_on: "2018-11-28 10:38:00"
+-
+  id: 210
+  student_id: 559
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-29 10:38:00"
+  created_on: "2018-11-29 10:38:00"
+-
+  id: 211
+  student_id: 644
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-11-30 10:38:00"
+  created_on: "2018-11-30 10:38:00"
+-
+  id: 212
+  student_id: 648
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-01 10:38:00"
+  created_on: "2018-12-01 10:38:00"
+-
+  id: 213
+  student_id: 680
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-02 10:38:00"
+  created_on: "2018-12-02 10:38:00"
+-
+  id: 214
+  student_id: 727
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-03 10:38:00"
+  created_on: "2018-12-03 10:38:00"
+-
+  id: 215
+  student_id: 900
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-04 10:38:00"
+  created_on: "2018-12-04 10:38:00"
+-
+  id: 216
+  student_id: 946
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-05 10:38:00"
+  created_on: "2018-12-05 10:38:00"
+-
+  id: 217
+  student_id: 957
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-06 10:38:00"
+  created_on: "2018-12-06 10:38:00"
+-
+  id: 218
+  student_id: 963
+  calendar_grade_id: 4
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-07 10:38:00"
+  created_on: "2018-12-07 10:38:00"
+-
+  id: 219
+  student_id: 221
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-08 10:38:00"
+  created_on: "2018-12-08 10:38:00"
+-
+  id: 220
+  student_id: 224
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-09 10:38:00"
+  created_on: "2018-12-09 10:38:00"
+-
+  id: 221
+  student_id: 227
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-10 10:38:00"
+  created_on: "2018-12-10 10:38:00"
+-
+  id: 222
+  student_id: 228
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-11 10:38:00"
+  created_on: "2018-12-11 10:38:00"
+-
+  id: 223
+  student_id: 230
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-12 10:38:00"
+  created_on: "2018-12-12 10:38:00"
+-
+  id: 224
+  student_id: 232
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-13 10:38:00"
+  created_on: "2018-12-13 10:38:00"
+-
+  id: 225
+  student_id: 233
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-14 10:38:00"
+  created_on: "2018-12-14 10:38:00"
+-
+  id: 226
+  student_id: 236
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-15 10:38:00"
+  created_on: "2018-12-15 10:38:00"
+-
+  id: 227
+  student_id: 239
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-16 10:38:00"
+  created_on: "2018-12-16 10:38:00"
+-
+  id: 228
+  student_id: 242
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-17 10:38:00"
+  created_on: "2018-12-17 10:38:00"
+-
+  id: 229
+  student_id: 243
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-18 10:38:00"
+  created_on: "2018-12-18 10:38:00"
+-
+  id: 230
+  student_id: 246
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-19 10:38:00"
+  created_on: "2018-12-19 10:38:00"
+-
+  id: 231
+  student_id: 247
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-20 10:38:00"
+  created_on: "2018-12-20 10:38:00"
+-
+  id: 232
+  student_id: 248
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-21 10:38:00"
+  created_on: "2018-12-21 10:38:00"
+-
+  id: 233
+  student_id: 249
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-22 10:38:00"
+  created_on: "2018-12-22 10:38:00"
+-
+  id: 234
+  student_id: 252
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-23 10:38:00"
+  created_on: "2018-12-23 10:38:00"
+-
+  id: 235
+  student_id: 255
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-24 10:38:00"
+  created_on: "2018-12-24 10:38:00"
+-
+  id: 236
+  student_id: 257
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-25 10:38:00"
+  created_on: "2018-12-25 10:38:00"
+-
+  id: 237
+  student_id: 260
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-26 10:38:00"
+  created_on: "2018-12-26 10:38:00"
+-
+  id: 238
+  student_id: 261
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-27 10:38:00"
+  created_on: "2018-12-27 10:38:00"
+-
+  id: 239
+  student_id: 264
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-09 09:29:30"
+  created_on: "2018-12-28 10:38:00"
+-
+  id: 240
+  student_id: 265
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-29 10:38:00"
+  created_on: "2018-12-29 10:38:00"
+-
+  id: 241
+  student_id: 268
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-30 10:38:00"
+  created_on: "2018-12-30 10:38:00"
+-
+  id: 242
+  student_id: 270
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-12-31 10:38:00"
+  created_on: "2018-12-31 10:38:00"
+-
+  id: 243
+  student_id: 273
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-01 10:38:00"
+  created_on: "2019-01-01 10:38:00"
+-
+  id: 244
+  student_id: 275
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-02 10:38:00"
+  created_on: "2019-01-02 10:38:00"
+-
+  id: 245
+  student_id: 278
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-03 10:38:00"
+  created_on: "2019-01-03 10:38:00"
+-
+  id: 246
+  student_id: 281
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-04 10:38:00"
+  created_on: "2019-01-04 10:38:00"
+-
+  id: 247
+  student_id: 284
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-05 10:38:00"
+  created_on: "2019-01-05 10:38:00"
+-
+  id: 248
+  student_id: 408
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-06 10:38:00"
+  created_on: "2019-01-06 10:38:00"
+-
+  id: 249
+  student_id: 411
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-07 10:38:00"
+  created_on: "2019-01-07 10:38:00"
+-
+  id: 250
+  student_id: 414
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-08 10:38:00"
+  created_on: "2019-01-08 10:38:00"
+-
+  id: 251
+  student_id: 423
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-09 10:38:00"
+  created_on: "2019-01-09 10:38:00"
+-
+  id: 252
+  student_id: 554
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-10 10:38:00"
+  created_on: "2019-01-10 10:38:00"
+-
+  id: 253
+  student_id: 702
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-11 10:38:00"
+  created_on: "2019-01-11 10:38:00"
+-
+  id: 254
+  student_id: 743
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-12 10:38:00"
+  created_on: "2019-01-12 10:38:00"
+-
+  id: 255
+  student_id: 906
+  calendar_grade_id: 5
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-13 10:38:00"
+  created_on: "2019-01-13 10:38:00"
+-
+  id: 256
+  student_id: 122
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-14 10:38:00"
+  created_on: "2019-01-14 10:38:00"
+-
+  id: 257
+  student_id: 125
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-15 10:38:00"
+  created_on: "2019-01-15 10:38:00"
+-
+  id: 258
+  student_id: 129
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-16 10:38:00"
+  created_on: "2019-01-16 10:38:00"
+-
+  id: 259
+  student_id: 130
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-17 10:38:00"
+  created_on: "2019-01-17 10:38:00"
+-
+  id: 260
+  student_id: 133
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-18 10:38:00"
+  created_on: "2019-01-18 10:38:00"
+-
+  id: 261
+  student_id: 136
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-19 10:38:00"
+  created_on: "2019-01-19 10:38:00"
+-
+  id: 262
+  student_id: 138
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-04 11:47:39"
+  created_on: "2019-01-20 10:38:00"
+-
+  id: 263
+  student_id: 141
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-21 10:38:00"
+  created_on: "2019-01-21 10:38:00"
+-
+  id: 264
+  student_id: 144
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-22 10:38:00"
+  created_on: "2019-01-22 10:38:00"
+-
+  id: 265
+  student_id: 147
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-23 10:38:00"
+  created_on: "2019-01-23 10:38:00"
+-
+  id: 266
+  student_id: 150
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-24 10:38:00"
+  created_on: "2019-01-24 10:38:00"
+-
+  id: 267
+  student_id: 152
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-25 10:38:00"
+  created_on: "2019-01-25 10:38:00"
+-
+  id: 268
+  student_id: 153
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-26 10:38:00"
+  created_on: "2019-01-26 10:38:00"
+-
+  id: 269
+  student_id: 154
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-27 10:38:00"
+  created_on: "2019-01-27 10:38:00"
+-
+  id: 270
+  student_id: 155
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-28 10:38:00"
+  created_on: "2019-01-28 10:38:00"
+-
+  id: 271
+  student_id: 157
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-29 10:38:00"
+  created_on: "2019-01-29 10:38:00"
+-
+  id: 272
+  student_id: 158
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-30 10:38:00"
+  created_on: "2019-01-30 10:38:00"
+-
+  id: 273
+  student_id: 161
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-01-31 10:38:00"
+  created_on: "2019-01-31 10:38:00"
+-
+  id: 274
+  student_id: 164
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-01 10:38:00"
+  created_on: "2019-02-01 10:38:00"
+-
+  id: 275
+  student_id: 169
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-02 10:38:00"
+  created_on: "2019-02-02 10:38:00"
+-
+  id: 276
+  student_id: 171
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-03 10:38:00"
+  created_on: "2019-02-03 10:38:00"
+-
+  id: 277
+  student_id: 176
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-04 10:38:00"
+  created_on: "2019-02-04 10:38:00"
+-
+  id: 278
+  student_id: 177
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-05 10:38:00"
+  created_on: "2019-02-05 10:38:00"
+-
+  id: 279
+  student_id: 178
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-06 10:38:00"
+  created_on: "2019-02-06 10:38:00"
+-
+  id: 280
+  student_id: 179
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-07 10:38:00"
+  created_on: "2019-02-07 10:38:00"
+-
+  id: 281
+  student_id: 182
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-08 10:38:00"
+  created_on: "2019-02-08 10:38:00"
+-
+  id: 282
+  student_id: 190
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-09 10:38:00"
+  created_on: "2019-02-09 10:38:00"
+-
+  id: 283
+  student_id: 195
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-10 10:38:00"
+  created_on: "2019-02-10 10:38:00"
+-
+  id: 284
+  student_id: 199
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-11 10:38:00"
+  created_on: "2019-02-11 10:38:00"
+-
+  id: 285
+  student_id: 204
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-12 10:38:00"
+  created_on: "2019-02-12 10:38:00"
+-
+  id: 286
+  student_id: 206
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-13 10:38:00"
+  created_on: "2019-02-13 10:38:00"
+-
+  id: 287
+  student_id: 207
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-14 10:38:00"
+  created_on: "2019-02-14 10:38:00"
+-
+  id: 288
+  student_id: 209
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-15 10:38:00"
+  created_on: "2019-02-15 10:38:00"
+-
+  id: 289
+  student_id: 214
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-16 10:38:00"
+  created_on: "2019-02-16 10:38:00"
+-
+  id: 290
+  student_id: 256
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-17 10:38:00"
+  created_on: "2019-02-17 10:38:00"
+-
+  id: 291
+  student_id: 289
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-18 10:38:00"
+  created_on: "2019-02-18 10:38:00"
+-
+  id: 292
+  student_id: 294
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-19 10:38:00"
+  created_on: "2019-02-19 10:38:00"
+-
+  id: 293
+  student_id: 313
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-20 10:38:00"
+  created_on: "2019-02-20 10:38:00"
+-
+  id: 294
+  student_id: 430
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-21 10:38:00"
+  created_on: "2019-02-21 10:38:00"
+-
+  id: 295
+  student_id: 524
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-22 10:38:00"
+  created_on: "2019-02-22 10:38:00"
+-
+  id: 296
+  student_id: 548
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-23 10:38:00"
+  created_on: "2019-02-23 10:38:00"
+-
+  id: 297
+  student_id: 558
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-24 10:38:00"
+  created_on: "2019-02-24 10:38:00"
+-
+  id: 298
+  student_id: 647
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-25 10:38:00"
+  created_on: "2019-02-25 10:38:00"
+-
+  id: 299
+  student_id: 701
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-26 10:38:00"
+  created_on: "2019-02-26 10:38:00"
+-
+  id: 300
+  student_id: 960
+  calendar_grade_id: 6
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-27 10:38:00"
+  created_on: "2019-02-27 10:38:00"
+-
+  id: 301
+  student_id: 66
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-02-28 10:38:00"
+  created_on: "2019-02-28 10:38:00"
+-
+  id: 302
+  student_id: 69
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-01 10:38:00"
+  created_on: "2019-03-01 10:38:00"
+-
+  id: 303
+  student_id: 72
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-02 10:38:00"
+  created_on: "2019-03-02 10:38:00"
+-
+  id: 304
+  student_id: 75
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-03 10:38:00"
+  created_on: "2019-03-03 10:38:00"
+-
+  id: 305
+  student_id: 78
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-04 10:38:00"
+  created_on: "2019-03-04 10:38:00"
+-
+  id: 306
+  student_id: 81
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-05 10:38:00"
+  created_on: "2019-03-05 10:38:00"
+-
+  id: 307
+  student_id: 84
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-06 10:38:00"
+  created_on: "2019-03-06 10:38:00"
+-
+  id: 308
+  student_id: 89
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-07 10:38:00"
+  created_on: "2019-03-07 10:38:00"
+-
+  id: 309
+  student_id: 92
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-08 10:38:00"
+  created_on: "2019-03-08 10:38:00"
+-
+  id: 310
+  student_id: 95
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-09 10:38:00"
+  created_on: "2019-03-09 10:38:00"
+-
+  id: 311
+  student_id: 102
+  calendar_grade_id: 2
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2018-05-09 09:28:18"
+  created_on: "2019-03-10 10:38:00"
+-
+  id: 312
+  student_id: 106
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-11 10:38:00"
+  created_on: "2019-03-11 10:38:00"
+-
+  id: 313
+  student_id: 109
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-12 10:38:00"
+  created_on: "2019-03-12 10:38:00"
+-
+  id: 314
+  student_id: 112
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-13 10:38:00"
+  created_on: "2019-03-13 10:38:00"
+-
+  id: 315
+  student_id: 118
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-14 10:38:00"
+  created_on: "2019-03-14 10:38:00"
+-
+  id: 316
+  student_id: 192
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-15 10:38:00"
+  created_on: "2019-03-15 10:38:00"
+-
+  id: 317
+  student_id: 426
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-16 10:38:00"
+  created_on: "2019-03-16 10:38:00"
+-
+  id: 318
+  student_id: 436
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-17 10:38:00"
+  created_on: "2019-03-17 10:38:00"
+-
+  id: 319
+  student_id: 693
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-18 10:38:00"
+  created_on: "2019-03-18 10:38:00"
+-
+  id: 320
+  student_id: 716
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-19 10:38:00"
+  created_on: "2019-03-19 10:38:00"
+-
+  id: 321
+  student_id: 717
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-20 10:38:00"
+  created_on: "2019-03-20 10:38:00"
+-
+  id: 322
+  student_id: 732
+  calendar_grade_id: 7
+  created_by: 1
+  modified_by: 1
+  status: "current"
+  last_modified: "2019-03-21 10:38:00"
+  created_on: "2019-03-21 10:38:00"
+...

@@ -1,0 +1,116 @@
+%YAML 1.1
+---
+# craigray_core.koala_scale
+-
+  id: 1
+  name: "International Baccalaureate"
+  code: "IB"
+  usage_details: "7 (highest) to 1 (lowest)"
+  lowest_acceptable: ""
+  active: 0
+  numeric_only: 1
+-
+  id: 2
+  name: "International Baccalaureate EE"
+  code: "IBEE"
+  usage_details: "A (highest) to E (lowest)"
+  lowest_acceptable: ""
+  active: 0
+  numeric_only: 0
+-
+  id: 3
+  name: "United Kingdom GCSE/iGCSE"
+  code: "GCSE"
+  usage_details: "A* (highest) to U (lowest)"
+  lowest_acceptable: ""
+  active: 1
+  numeric_only: 0
+-
+  id: 4
+  name: "Percentage"
+  code: "%"
+  usage_details: "100 (highest) to 0 (lowest)"
+  lowest_acceptable: 51
+  active: 1
+  numeric_only: 1
+-
+  id: 5
+  name: "Full Letter Grade"
+  code: "FLG"
+  usage_details: "A+ (highest) to F (lowest)"
+  lowest_acceptable: ""
+  active: 0
+  numeric_only: 0
+-
+  id: 6
+  name: "Simple Letter Grade"
+  code: "SLG"
+  usage_details: "A (highest) to F (lowest)"
+  lowest_acceptable: ""
+  active: 0
+  numeric_only: 0
+-
+  id: 7
+  name: "International College HK"
+  code: "ICHK"
+  usage_details: "7 (highest) to 1 (lowest)"
+  lowest_acceptable: 4
+  active: 1
+  numeric_only: 1
+-
+  id: 8
+  name: "Completion"
+  code: "Comp"
+  usage_details: "Has task has been completed?"
+  lowest_acceptable: 1
+  active: 1
+  numeric_only: 0
+-
+  id: 9
+  name: "Cognitive Abilities Test"
+  code: "CAT"
+  usage_details: "140 (highest) to 60 (lowest)"
+  lowest_acceptable: 70
+  active: 1
+  numeric_only: 1
+-
+  id: 10
+  name: "UK National Curriculum KS3"
+  code: "KS3"
+  usage_details: "8A (highest) to B3 (lowest)"
+  lowest_acceptable: 14
+  active: 1
+  numeric_only: 0
+-
+  id: 11
+  name: "United Kingdom GCSE/iGCSE Predicted"
+  code: "GPrd"
+  usage_details: "8A (highest) to B3 (lowest)"
+  lowest_acceptable: ""
+  active: 1
+  numeric_only: 0
+-
+  id: 12
+  name: "IB Diploma (Subject)"
+  code: "IBDS"
+  usage_details: "7 (highest) to 1 (lowest)"
+  lowest_acceptable: 4
+  active: 1
+  numeric_only: 1
+-
+  id: 13
+  name: "IB Diploma (Total)"
+  code: "IBDT"
+  usage_details: "45 (highest) to 0"
+  lowest_acceptable: 22
+  active: 1
+  numeric_only: 1
+-
+  id: 14
+  name: "UK National Curriculum KS3 Simplified"
+  code: "KS3S"
+  usage_details: "Level 8 (highest) to Level 3 (lowest)"
+  lowest_acceptable: 4
+  active: 1
+  numeric_only: 0
+...

@@ -1,0 +1,15 @@
+%YAML 1.1
+---
+# craigray_core.koala_activity_slot
+-
+  id: 3
+  activity_slot_id: 149
+  created_by: 1
+  modified_by: 1
+  external_location: "Maclehose Trail"
+  day: 3
+  startTime: "14:00:00"
+  endTime: "15:00:00"
+  last_modified: "2018-04-14 09:10:10"
+  created_on: "2018-04-14 09:09:52"
+...

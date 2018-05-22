@@ -1,0 +1,862 @@
+%YAML 1.1
+---
+# craigray_core.koala_family_student
+-
+  family_id: 1
+  student_id: 206
+-
+  family_id: 2
+  student_id: 169
+-
+  family_id: 3
+  student_id: 473
+-
+  family_id: 4
+  student_id: 150
+-
+  family_id: 5
+  student_id: 227
+-
+  family_id: 6
+  student_id: 152
+-
+  family_id: 7
+  student_id: 260
+-
+  family_id: 8
+  student_id: 246
+-
+  family_id: 9
+  student_id: 247
+-
+  family_id: 10
+  student_id: 177
+-
+  family_id: 11
+  student_id: 161
+-
+  family_id: 12
+  student_id: 153
+-
+  family_id: 13
+  student_id: 66
+-
+  family_id: 14
+  student_id: 69
+-
+  family_id: 14
+  student_id: 404
+-
+  family_id: 15
+  student_id: 72
+-
+  family_id: 16
+  student_id: 75
+-
+  family_id: 16
+  student_id: 230
+-
+  family_id: 17
+  student_id: 78
+-
+  family_id: 17
+  student_id: 369
+-
+  family_id: 17
+  student_id: 580
+-
+  family_id: 18
+  student_id: 81
+-
+  family_id: 19
+  student_id: 84
+-
+  family_id: 20
+  student_id: 655
+-
+  family_id: 21
+  student_id: 89
+-
+  family_id: 21
+  student_id: 242
+-
+  family_id: 21
+  student_id: 472
+-
+  family_id: 22
+  student_id: 92
+-
+  family_id: 23
+  student_id: 95
+-
+  family_id: 24
+  student_id: 136
+-
+  family_id: 25
+  student_id: 850
+-
+  family_id: 26
+  student_id: 102
+-
+  family_id: 26
+  student_id: 264
+-
+  family_id: 27
+  student_id: 106
+-
+  family_id: 28
+  student_id: 109
+-
+  family_id: 29
+  student_id: 112
+-
+  family_id: 30
+  student_id: 118
+-
+  family_id: 31
+  student_id: 122
+-
+  family_id: 32
+  student_id: 125
+-
+  family_id: 32
+  student_id: 509
+-
+  family_id: 33
+  student_id: 130
+-
+  family_id: 34
+  student_id: 133
+-
+  family_id: 34
+  student_id: 787
+-
+  family_id: 35
+  student_id: 587
+-
+  family_id: 36
+  student_id: 138
+-
+  family_id: 37
+  student_id: 141
+-
+  family_id: 38
+  student_id: 144
+-
+  family_id: 39
+  student_id: 147
+-
+  family_id: 40
+  student_id: 157
+-
+  family_id: 41
+  student_id: 155
+-
+  family_id: 42
+  student_id: 158
+-
+  family_id: 43
+  student_id: 154
+-
+  family_id: 44
+  student_id: 164
+-
+  family_id: 45
+  student_id: 129
+-
+  family_id: 45
+  student_id: 248
+-
+  family_id: 46
+  student_id: 171
+-
+  family_id: 47
+  student_id: 179
+-
+  family_id: 48
+  student_id: 182
+-
+  family_id: 49
+  student_id: 176
+-
+  family_id: 50
+  student_id: 178
+-
+  family_id: 51
+  student_id: 190
+-
+  family_id: 51
+  student_id: 347
+-
+  family_id: 52
+  student_id: 192
+-
+  family_id: 53
+  student_id: 494
+-
+  family_id: 54
+  student_id: 199
+-
+  family_id: 54
+  student_id: 340
+-
+  family_id: 55
+  student_id: 204
+-
+  family_id: 55
+  student_id: 401
+-
+  family_id: 56
+  student_id: 207
+-
+  family_id: 56
+  student_id: 825
+-
+  family_id: 57
+  student_id: 209
+-
+  family_id: 58
+  student_id: 214
+-
+  family_id: 59
+  student_id: 221
+-
+  family_id: 59
+  student_id: 551
+-
+  family_id: 60
+  student_id: 224
+-
+  family_id: 61
+  student_id: 641
+-
+  family_id: 62
+  student_id: 228
+-
+  family_id: 62
+  student_id: 394
+-
+  family_id: 63
+  student_id: 233
+-
+  family_id: 64
+  student_id: 232
+-
+  family_id: 64
+  student_id: 756
+-
+  family_id: 65
+  student_id: 236
+-
+  family_id: 66
+  student_id: 239
+-
+  family_id: 67
+  student_id: 243
+-
+  family_id: 68
+  student_id: 249
+-
+  family_id: 68
+  student_id: 607
+-
+  family_id: 69
+  student_id: 252
+-
+  family_id: 69
+  student_id: 255
+-
+  family_id: 70
+  student_id: 257
+-
+  family_id: 71
+  student_id: 261
+-
+  family_id: 72
+  student_id: 265
+-
+  family_id: 73
+  student_id: 268
+-
+  family_id: 73
+  student_id: 608
+-
+  family_id: 74
+  student_id: 270
+-
+  family_id: 75
+  student_id: 273
+-
+  family_id: 76
+  student_id: 275
+-
+  family_id: 77
+  student_id: 105
+-
+  family_id: 77
+  student_id: 278
+-
+  family_id: 78
+  student_id: 281
+-
+  family_id: 79
+  student_id: 284
+-
+  family_id: 80
+  student_id: 256
+-
+  family_id: 81
+  student_id: 289
+-
+  family_id: 82
+  student_id: 294
+-
+  family_id: 83
+  student_id: 315
+-
+  family_id: 84
+  student_id: 419
+-
+  family_id: 85
+  student_id: 318
+-
+  family_id: 86
+  student_id: 321
+-
+  family_id: 86
+  student_id: 758
+-
+  family_id: 87
+  student_id: 324
+-
+  family_id: 87
+  student_id: 777
+-
+  family_id: 88
+  student_id: 327
+-
+  family_id: 89
+  student_id: 330
+-
+  family_id: 90
+  student_id: 333
+-
+  family_id: 91
+  student_id: 336
+-
+  family_id: 91
+  student_id: 632
+-
+  family_id: 92
+  student_id: 341
+-
+  family_id: 93
+  student_id: 344
+-
+  family_id: 93
+  student_id: 560
+-
+  family_id: 94
+  student_id: 312
+-
+  family_id: 95
+  student_id: 351
+-
+  family_id: 95
+  student_id: 485
+-
+  family_id: 96
+  student_id: 354
+-
+  family_id: 96
+  student_id: 570
+-
+  family_id: 97
+  student_id: 357
+-
+  family_id: 98
+  student_id: 360
+-
+  family_id: 98
+  student_id: 586
+-
+  family_id: 99
+  student_id: 363
+-
+  family_id: 99
+  student_id: 767
+-
+  family_id: 100
+  student_id: 366
+-
+  family_id: 101
+  student_id: 339
+-
+  family_id: 102
+  student_id: 64
+-
+  family_id: 103
+  student_id: 373
+-
+  family_id: 104
+  student_id: 376
+-
+  family_id: 105
+  student_id: 379
+-
+  family_id: 105
+  student_id: 612
+-
+  family_id: 106
+  student_id: 382
+-
+  family_id: 107
+  student_id: 385
+-
+  family_id: 108
+  student_id: 388
+-
+  family_id: 109
+  student_id: 391
+-
+  family_id: 109
+  student_id: 786
+-
+  family_id: 110
+  student_id: 195
+-
+  family_id: 111
+  student_id: 395
+-
+  family_id: 112
+  student_id: 398
+-
+  family_id: 112
+  student_id: 761
+-
+  family_id: 113
+  student_id: 663
+-
+  family_id: 114
+  student_id: 405
+-
+  family_id: 114
+  student_id: 572
+-
+  family_id: 115
+  student_id: 408
+-
+  family_id: 116
+  student_id: 313
+-
+  family_id: 117
+  student_id: 414
+-
+  family_id: 117
+  student_id: 826
+-
+  family_id: 118
+  student_id: 411
+-
+  family_id: 119
+  student_id: 423
+-
+  family_id: 120
+  student_id: 426
+-
+  family_id: 120
+  student_id: 495
+-
+  family_id: 121
+  student_id: 496
+-
+  family_id: 122
+  student_id: 430
+-
+  family_id: 123
+  student_id: 563
+-
+  family_id: 124
+  student_id: 436
+-
+  family_id: 125
+  student_id: 452
+-
+  family_id: 125
+  student_id: 759
+-
+  family_id: 126
+  student_id: 455
+-
+  family_id: 127
+  student_id: 454
+-
+  family_id: 128
+  student_id: 536
+-
+  family_id: 129
+  student_id: 460
+-
+  family_id: 130
+  student_id: 463
+-
+  family_id: 131
+  student_id: 466
+-
+  family_id: 132
+  student_id: 469
+-
+  family_id: 132
+  student_id: 765
+-
+  family_id: 133
+  student_id: 474
+-
+  family_id: 134
+  student_id: 477
+-
+  family_id: 135
+  student_id: 479
+-
+  family_id: 136
+  student_id: 482
+-
+  family_id: 137
+  student_id: 486
+-
+  family_id: 138
+  student_id: 489
+-
+  family_id: 139
+  student_id: 492
+-
+  family_id: 140
+  student_id: 498
+-
+  family_id: 141
+  student_id: 500
+-
+  family_id: 142
+  student_id: 503
+-
+  family_id: 143
+  student_id: 506
+-
+  family_id: 144
+  student_id: 510
+-
+  family_id: 145
+  student_id: 558
+-
+  family_id: 146
+  student_id: 554
+-
+  family_id: 146
+  student_id: 557
+-
+  family_id: 147
+  student_id: 559
+-
+  family_id: 148
+  student_id: 518
+-
+  family_id: 149
+  student_id: 521
+-
+  family_id: 150
+  student_id: 524
+-
+  family_id: 151
+  student_id: 527
+-
+  family_id: 152
+  student_id: 515
+-
+  family_id: 153
+  student_id: 530
+-
+  family_id: 154
+  student_id: 533
+-
+  family_id: 155
+  student_id: 538
+-
+  family_id: 156
+  student_id: 548
+-
+  family_id: 156
+  student_id: 693
+-
+  family_id: 157
+  student_id: 553
+-
+  family_id: 158
+  student_id: 566
+-
+  family_id: 159
+  student_id: 577
+-
+  family_id: 160
+  student_id: 590
+-
+  family_id: 161
+  student_id: 593
+-
+  family_id: 162
+  student_id: 581
+-
+  family_id: 163
+  student_id: 599
+-
+  family_id: 164
+  student_id: 589
+-
+  family_id: 165
+  student_id: 604
+-
+  family_id: 165
+  student_id: 744
+-
+  family_id: 166
+  student_id: 582
+-
+  family_id: 167
+  student_id: 314
+-
+  family_id: 168
+  student_id: 596
+-
+  family_id: 169
+  student_id: 615
+-
+  family_id: 170
+  student_id: 576
+-
+  family_id: 171
+  student_id: 619
+-
+  family_id: 172
+  student_id: 622
+-
+  family_id: 172
+  student_id: 625
+-
+  family_id: 173
+  student_id: 628
+-
+  family_id: 174
+  student_id: 631
+-
+  family_id: 174
+  student_id: 701
+-
+  family_id: 175
+  student_id: 634
+-
+  family_id: 176
+  student_id: 644
+-
+  family_id: 176
+  student_id: 647
+-
+  family_id: 176
+  student_id: 648
+-
+  family_id: 177
+  student_id: 649
+-
+  family_id: 178
+  student_id: 652
+-
+  family_id: 179
+  student_id: 657
+-
+  family_id: 180
+  student_id: 583
+-
+  family_id: 181
+  student_id: 660
+-
+  family_id: 182
+  student_id: 664
+-
+  family_id: 183
+  student_id: 588
+-
+  family_id: 184
+  student_id: 668
+-
+  family_id: 185
+  student_id: 571
+-
+  family_id: 186
+  student_id: 673
+-
+  family_id: 187
+  student_id: 676
+-
+  family_id: 187
+  student_id: 963
+-
+  family_id: 188
+  student_id: 682
+-
+  family_id: 189
+  student_id: 679
+-
+  family_id: 190
+  student_id: 687
+-
+  family_id: 190
+  student_id: 879
+-
+  family_id: 191
+  student_id: 690
+-
+  family_id: 192
+  student_id: 692
+-
+  family_id: 193
+  student_id: 696
+-
+  family_id: 194
+  student_id: 698
+-
+  family_id: 195
+  student_id: 705
+-
+  family_id: 196
+  student_id: 680
+-
+  family_id: 197
+  student_id: 702
+-
+  family_id: 198
+  student_id: 716
+-
+  family_id: 199
+  student_id: 708
+-
+  family_id: 200
+  student_id: 656
+-
+  family_id: 200
+  student_id: 722
+-
+  family_id: 201
+  student_id: 717
+-
+  family_id: 201
+  student_id: 732
+-
+  family_id: 202
+  student_id: 709
+-
+  family_id: 202
+  student_id: 727
+-
+  family_id: 203
+  student_id: 729
+-
+  family_id: 203
+  student_id: 735
+-
+  family_id: 203
+  student_id: 917
+-
+  family_id: 204
+  student_id: 740
+-
+  family_id: 205
+  student_id: 743
+-
+  family_id: 206
+  student_id: 749
+-
+  family_id: 206
+  student_id: 837
+-
+  family_id: 207
+  student_id: 748
+-
+  family_id: 208
+  student_id: 762
+-
+  family_id: 209
+  student_id: 768
+-
+  family_id: 210
+  student_id: 771
+-
+  family_id: 211
+  student_id: 774
+-
+  family_id: 212
+  student_id: 766
+-
+  family_id: 213
+  student_id: 778
+-
+  family_id: 214
+  student_id: 753
+-
+  family_id: 215
+  student_id: 784
+-
+  family_id: 216
+  student_id: 788
+-
+  family_id: 217
+  student_id: 791
+-
+  family_id: 218
+  student_id: 794
+-
+  family_id: 219
+  student_id: 752
+-
+  family_id: 220
+  student_id: 799
+-
+  family_id: 221
+  student_id: 802
+-
+  family_id: 222
+  student_id: 760
+-
+  family_id: 223
+  student_id: 807
+-
+  family_id: 224
+  student_id: 810
+-
+  family_id: 225
+  student_id: 813
+-
+  family_id: 226
+  student_id: 816
+-
+  family_id: 227
+  student_id: 819
+-
+  family_id: 228
+  student_id: 822
+-
+  family_id: 229
+  student_id: 828
+-
+  family_id: 230
+  student_id: 831
+-
+  family_id: 231
+  student_id: 834
+-
+  family_id: 232
+  student_id: 827
+-
+  family_id: 232
+  student_id: 840
+-
+  family_id: 233
+  student_id: 2
+...

@@ -57,6 +57,11 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ActivityFixtures::class,
+            UserFixtures::class,
+            CalendarFixtures::class,
+            SchoolFixtures::class,
+            TimetableFixtures::class,
+            PeopleFixtures::class,
         ];
     }
 }

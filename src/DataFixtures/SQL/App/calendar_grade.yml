@@ -1,0 +1,67 @@
+%YAML 1.1
+---
+# craigray_core.koala_calendar_grade
+-
+  id: 1
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y7"
+  sequence: 7
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+-
+  id: 2
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y8"
+  sequence: 6
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+-
+  id: 3
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y9"
+  sequence: 5
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+-
+  id: 4
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y10"
+  sequence: 4
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+-
+  id: 5
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y11"
+  sequence: 3
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+-
+  id: 6
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y12"
+  sequence: 2
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+-
+  id: 7
+  calendar_id: 5
+  created_by: 1
+  modified_by: 1
+  grade: "Y13"
+  sequence: 1
+  last_modified: "2018-03-26 23:53:58"
+  created_on: "2018-03-26 23:07:41"
+...

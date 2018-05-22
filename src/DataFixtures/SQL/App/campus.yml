@@ -1,0 +1,15 @@
+%YAML 1.1
+---
+# craigray_core.koala_campus
+-
+  id: 1
+  created_by: 1
+  modified_by: 1
+  identifier: "GIBBON"
+  name: "Gibbon"
+  postcode: 0000
+  locality: "Some Where"
+  country: "COUNTRY"
+  last_modified: "2018-03-26 23:06:36"
+  created_on: "2018-03-26 23:06:36"
+...

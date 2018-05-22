@@ -91,6 +91,14 @@ class MenuManagerConstants
     parameters: []
     node: 9
     order: 91
+92:
+    label: menu.load.dummy.data
+    name: Load Dummy Data
+    route: load_dummy_data
+    role: ROLE_SYSTEM_ADMIN
+    parameters: []
+    node: 9
+    order: 92
 ';
 
 	CONST SECTIONS = '

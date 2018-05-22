@@ -380,7 +380,17 @@ class Setting implements UserTrackInterface
 		return $this;
 	}
 
-	/**
+    /**
+     * @param int $id
+     * @return Setting
+     */
+    public function setId(int $id): Setting
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
 	 * @return array
 	 */
 	private function getArray(): array

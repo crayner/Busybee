@@ -360,4 +360,14 @@ class Calendar extends CalendarExtension
 
         return $this;
     }
+
+    /**
+     * @param int $id
+     * @return Calendar
+     */
+    public function setId(int $id): Calendar
+    {
+        $this->id = $id;
+        return $this;
+    }
 }
