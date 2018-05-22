@@ -34,9 +34,7 @@ class PhoneType extends AbstractType
 			->add('phoneNumber', TextType::class,
 				[
 					'label' => 'phone.number.label',
-					'attr'  => [
-						'help' => 'phone.number.help',
-					],
+					'help' => 'phone.number.help',
 				]
 			)
 			->add('countryCode', SettingChoiceType::class,
@@ -53,7 +51,7 @@ class PhoneType extends AbstractType
                     'label'        => 'phone.type.label',
                     'setting_name' => 'phone.typelist',
                     'placeholder' => 'phone.type.placeholder',
-                    'translation_prefix' => false,
+                    'use_label_as_value' => true,
                 ]
             )
         ;

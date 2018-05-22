@@ -71,16 +71,16 @@ Address.BuildingType:
         'Unit':  'Unit'
         'Apartment':  'Apt'
         'Town House':  'THse'
-Phone.TypeList:
+phone.typelist:
     type: 'array'
     displayName: 'Types of Phones'
     description: "List of phone types. The key : key: value) is displayed on your system, and the value is stored in the database."
     role: 'ROLE_REGISTRAR'
     value:
-        'Home': 'Home'
-        'Mobile': 'Mobile'
-        'Work': 'Work'
-        'Imported': 'Imported'
+        - home
+        - mobile
+        - work
+        - imported
 phone.country.list:
     type: 'array'
     displayName: 'List of Phone Country Codes'

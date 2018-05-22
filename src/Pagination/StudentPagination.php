@@ -78,7 +78,7 @@ class StudentPagination extends PaginationManager
 				'type'  => 'leftJoin',
 				'alias' => 'u',
 			],
-			's.phone' => [
+			's.phones' => [
 				'type' => 'leftJoin',
 				'alias' =>'ph',
 			],

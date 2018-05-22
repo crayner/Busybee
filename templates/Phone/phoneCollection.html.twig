@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col-7 card">
-                {{ form_row(form.phoneNumber, {value: get_setting('Phone.Display', null, {'phone': form.phoneNumber.vars.value}) } ) }}
+                {{ form_row(form.phoneNumber, {value: get_setting('phone.display', null, {'phone': getValueData(form.phoneNumber)}) } ) }}
                 {{ form_rest(form) }}
             </div>
             <div class="col-5 collection-actions">

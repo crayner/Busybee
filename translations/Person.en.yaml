@@ -212,7 +212,9 @@ phone:
         label: 'Phone Number'
         help: 'Any character but a number is ignored. The display can be altered in the settings.'
         error: 'Not a valid phone number. {regex}'
-    country.label: 'Country Code'
+    country:
+        label: 'Country Code'
+        placeholder: 'Select Calling Code'
     warning: 'Changes in phone details are only linked to the person when the entire form is saved.'
     linked: Linked Family Phone Numbers
 address:

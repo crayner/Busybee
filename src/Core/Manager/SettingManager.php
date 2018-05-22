@@ -606,13 +606,43 @@ class SettingManager implements ContainerAwareInterface
         return (bool) $value ;
     }
 
-    private function getTwig(string $name, $default, $options): ?string
+    /**
+     * getTwig
+     * @param string $name
+     * @param null|string $default
+     * @param array $options
+     * @return null|string
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
+    private function getTwig(string $name, ?string $default, array $options = []): ?string
     {
         $value = $this->setting->getValue();
-
+        try
+        {
+            $value = $this->twig->createTemplate($value)->render($options);
+        }
+        catch (\Twig_Error_Syntax $e)
+        {
+            throw $e;
+        }
+        catch (\Twig_Error_Runtime $e)
+        {
+            // Ignore Runtime Errors
+        }
         return empty($value) ? $this->getDefault($default) : $value ;
     }
 
+    /**
+     * setTwig
+     *
+     * @param $value
+     * @return string
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
     private function setTwig($value)
     {
         if (is_null($value)) $value = '{{ empty }}';

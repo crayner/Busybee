@@ -1,6 +1,6 @@
 {% trans_default_domain "Person" %}
 
-{% include 'Page/panelStart.html.twig' with {header: form_label(form.phone)} %}
+{% include 'Page/panelStart.html.twig' with {header: form_label(form.phones)} %}
     <p class="alert alert-warning">{{ 'phone.warning'|trans }}</p>
     {% if phones is defined %}
         <p class="alert alert-info"><strong>{{ 'phone.linked'|trans }}</strong><br/>
@@ -8,6 +8,6 @@
                 {{ formatPhone(phone)|raw }}<br/>
             {% endfor %}</p>
     {% endif %}
-    {{ collection_widget(form.phone, 0, 0) }}
+    {{ collection_widget(form.phones, 0, 0) }}
+    {% do form.phones.setRendered %}
 {% include 'Page/panelEnd.html.twig' %}
-{% do form.phone.setRendered %}

@@ -7,7 +7,6 @@ use App\Core\Type\AutoCompleteType;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\ImageType;
 use App\Core\Type\SettingChoiceType;
-use App\Core\Validator\SettingChoice;
 use App\Entity\Address;
 use App\Entity\Person;
 use App\People\Form\Subscriber\PersonSubscriber;
@@ -168,7 +167,7 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-			->add('phone', CollectionType::class, array(
+			->add('phones', CollectionType::class, array(
 					'label'              => 'person.phones.label',
 					'entry_type'         => PhoneType::class,
 					'allow_add'          => true,

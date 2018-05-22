@@ -33,7 +33,7 @@ App\Entity\Person:
                 settingName: 'person.titlelist'
         photo:
             - App\People\Validator\PersonImage: ~
-        phone:
+        phones:
             - Valid: ~
         address1:
             - Valid: ~

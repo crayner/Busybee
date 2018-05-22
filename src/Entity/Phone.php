@@ -38,6 +38,16 @@ class Phone extends PhoneExtension
 		return $this->id;
 	}
 
+    /**
+     * @param int|null $id
+     * @return Phone
+     */
+    public function setId(?int $id): Phone
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 	/**
 	 * Get phoneType
 	 *
