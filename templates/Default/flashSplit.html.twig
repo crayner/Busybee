@@ -5,16 +5,16 @@
         {% for message,parameters in theMessage %}
             {% if showFlash(message|trans(parameters)) %}
                 <div class="alert alert-{{ level }}{{ flashClass }} alert-dismissible fade show" role="alert">
-                    {{ message|trans(parameters) }}<button type="button" class="far fa-times-circle close" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }}" aria-hidden="true">
-                    </button>
+                    {{ message|trans(parameters) }}
+                    {{ closeButton({class: "far fa-times-circle close", additional: {'data-dismiss': 'alert', 'aria-label': 'Close', 'aria-hidden': 'true'}, title: 'Close Message', transDomain: 'home' })|raw }}
                 </div>
             {% endif %}
         {% endfor %}
     {% else %}
         {% if showFlash(theMessage|trans) %}
             <div class="alert alert-{{ level }}{{ flashClass }} alert-dismissible fade show" role="alert">
-                {{ theMessage|trans }}<button type="button" class="far fa-times-circle close" data-dismiss="alert" aria-label="Close" title="{{ 'Close Message'|trans({}, 'home') }} aria-hidden="true"">
-                </button>
+                {{ theMessage|trans }}
+                {{ closeButton({class: "far fa-times-circle close", additional: {'data-dismiss': 'alert', 'aria-label': 'Close', 'aria-hidden': 'true'}, title: 'Close Message', transDomain: 'home' })|raw }}
             </div>
         {% endif %}
     {% endif %}

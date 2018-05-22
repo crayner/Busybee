@@ -16,7 +16,6 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Hillrange\Security\Entity\User;
 use Symfony\Component\Yaml\Yaml;
@@ -49,6 +48,13 @@ class UserFixtures extends Fixture
         // Bundle to manage file and directories
 
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/hrs_user.yml'));
+        $data = $data ?: [];
+        foreach($data as $q=>$user) {
+            if (intval($user['id']) === 1) {
+                unset($data[$q]);
+                break;
+            }
+        }
 
         $this->buildTable($data, User::class, $manager);
     }

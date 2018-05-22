@@ -37,11 +37,18 @@ class TruncateTables
 
         foreach ($tables as $table)
         {
-            $sql = sprintf('TRUNCATE TABLE %s', $table->getName());
-            $connection->exec($sql);
+            if (mb_strpos($table->getName(), '_user') === false) {
+                $sql = sprintf('TRUNCATE TABLE %s', $table->getName());
+                $connection->exec($sql);
+            } else {
+                $sql = sprintf('DELETE FROM `%s` WHERE `id` > 1', $table->getName());
+                $connection->exec($sql);
+                $sql = sprintf('ALTER TABLE `%s` AUTO_INCREMENT = 1', $table->getName());
+                $connection->exec($sql);
+            }
         }
         $sql = 'SET FOREIGN_KEY_CHECKS = 1;';
         $connection->exec($sql);
-        unset($this->dbh);
+
     }
 }

@@ -373,8 +373,10 @@ class InstallController extends Controller
      * @param ObjectManager $objectManager
      * @return RedirectResponse
      */
-	public function loadDummyData(ObjectManager $objectManager)
+	public function loadDummyData(ObjectManager $objectManager, Request $request)
     {
+        $request->getSession()->invalidate();
+
         $load = new TruncateTables();
         $load->execute($objectManager);
 
