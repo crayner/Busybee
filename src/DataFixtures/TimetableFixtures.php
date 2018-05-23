@@ -23,12 +23,10 @@ use App\Entity\TimetableLine;
 use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
 use App\Entity\TimetablePeriodActivityTutor;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
-class TimetableFixtures extends Fixture implements DependentFixtureInterface
+class TimetableFixtures
 {
     use buildTable;
 

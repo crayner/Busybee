@@ -14,7 +14,6 @@ class CareGiver extends CareGiverExtension
 	 */
 	private $id;
 
-
 	/**
 	 * @var Person
 	 */
@@ -429,4 +428,14 @@ class CareGiver extends CareGiverExtension
 
 		return $this;
 	}
+
+    /**
+     * @param int $id
+     * @return CareGiver
+     */
+    public function setId(int $id): CareGiver
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

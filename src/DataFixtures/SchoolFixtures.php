@@ -23,12 +23,10 @@ use App\Entity\Scale;
 use App\Entity\Setting;
 use App\Entity\Space;
 use App\Entity\Translate;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
-class SchoolFixtures extends Fixture implements DependentFixtureInterface
+class SchoolFixtures
 {
     use buildTable;
 

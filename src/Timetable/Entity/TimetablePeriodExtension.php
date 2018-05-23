@@ -23,7 +23,9 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
     public function getColumnName()
     {
         if (is_null($this->getColumn()))
-            return '';
+            return $this->getFullName();
+        $this->getColumn()->getId();
+dump($this->getColumn());
         return $this->getColumn()->getName() . ' - ' . $this->getFullName();
     }
 

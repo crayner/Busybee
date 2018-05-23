@@ -20,12 +20,10 @@ use App\Entity\CalendarGrade;
 use App\Entity\Course;
 use App\Entity\SpecialDay;
 use App\Entity\Term;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
-class CalendarFixtures extends Fixture implements DependentFixtureInterface
+class CalendarFixtures
 {
     use buildTable;
 

@@ -3,165 +3,199 @@
 # craigray_core.koala_setting
 -
   id: 1
+  created_by: 1
+  modified_by: 1
   type: "twig"
   name: "address.format"
   display_name: "Address Format"
   description: "A template for displaying an address."
   value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\n{{ locality }} {{ territory }} {{ postCode }}\n{{ country }}</pre>\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 2
+  created_by: 1
+  modified_by: 1
   type: "twig"
   name: "address.listlabel"
   display_name: "Address Label List"
   description: "A template to convert the entity values into a string label for autocomplete."
   value: "{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }} {{ locality }}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 3
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "person.genderlist"
   display_name: "Gender List"
   description: "A list of genders used in the system."
   value: "Unspecified: U\nMale: M\nFemale: F\nOther: '0'\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 4
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "person.titlelist"
   display_name: "List of Titles"
   description: "List of personal titles used in the system."
   value: "'': ''\nMr: Mr\nMrs: Mrs\nMs: Ms\nMiss: Miss\nDr: Dr\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 5
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "address.territorylist"
   display_name: "Territory List"
   description: "List of Territories, States, Provinces or Counties available to addresses in your organisation."
   value: "'Not Specified': Unknown\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 6
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "address.buildingtype"
   display_name: "Dcarding Type"
   description: "List of building types used as dcardings found in your organisation's area."
   value: "'Not Specified': ''\nFlat: Flat\nUnit: Unit\nApartment: Apt\n'Town House': THse\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 7
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "phone.typelist"
   display_name: "Types of Phones"
-  description: "List of phone types. The key : key: value) is displayed on your system, and the value is stored in the database."
-  value: "Home: Home\nMobile: Mobile\nWork: Work\nImported: Imported\n"
+  description: "List of phone types."
+  value: "- home\n- mobile\n- work\n- imported\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 13:37:14"
   created_on: "2018-03-26 23:02:04"
 -
   id: 8
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "phone.country.list"
   display_name: "List of Phone Country Codes"
   description: "List of phone country codes."
   value: "'Australia +61': '+61'\n'Canada +1': '+1'\n'Hong Kong +852': '+852'\n'USA +1': '+1'\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 9
+  created_by: 1
+  modified_by: 1
   type: "regex"
   name: "phone.validation"
   display_name: "Phone Validation Rule"
   description: "Phone Validation Regular Expression"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 10
+  created_by: 1
+  modified_by: 1
   type: "twig"
   name: "phone.display"
   display_name: "Phone Display Format"
   description: "A template to convert phone numbers into display version."
   value: "{{ phone }}"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 11
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "org.name"
   display_name: "Organisation Name"
   description: "The name of your organisation"
-  value: "long: 'Hill Range Institute'\nshort: HRI\n"
+  value: "long: 'Platypus Learning'\nshort: PL\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:03:30"
+  last_modified: "2018-05-22 17:09:07"
   created_on: "2018-03-26 23:02:04"
 -
   id: 12
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.ext.id"
   display_name: "Organisation External Identifier"
   description: "The identifier given to your organisation by your parent or external education authority."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 13
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.postal.address.1"
   display_name: "Organisation Postal Address Line 1"
   description: "First line of this organisation's postal address."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 14
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.postal.address.2"
   display_name: "Organisation Postal Address Line 2"
   description: "Second line of this organisation's postal address."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 15
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.postal.locality"
   display_name: "Organisation Postal Locality"
   description: "Locality of this organisation's postal address. : Town, Suburb or Locality)"
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 16
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.postal.postcode"
   display_name: "Organisation Postal Post Code"
   description: "Post Code of this organisation's postal address."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 17
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.postal.territory"
   display_name: "Organisation Postal Territory"
@@ -169,20 +203,24 @@
   value: ""
   choice: "Address.TerritoryList"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 18
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.contact.name"
   display_name: "Organisation Contact"
   description: "The name of the person to contact in this organisation."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 19
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.contact.phone"
   display_name: "Organisation Contact Phone Number"
@@ -190,10 +228,12 @@
   value: ""
   validator: "phone.validator"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 20
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.contact.facsimile"
   display_name: "Organisation Contact Facsimile Number"
@@ -201,10 +241,12 @@
   value: ""
   validator: "phone.validator"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 21
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.contact.email"
   display_name: "Organisation Contact Email Address"
@@ -212,50 +254,60 @@
   value: ""
   validator: "email.validator"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 22
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.physical.address.1"
   display_name: "Organisation Physical Address Line 1"
   description: "First line of this organisation's physical address."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 23
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.physical.address.2"
   display_name: "Organisation Physical Address Line 2"
   description: "Second line of this organisation's physical address."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 24
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "org.physical.locality"
   display_name: "Organisation Physical Locality"
   description: "Locality of this organisation's physical address. : Town, Suburb or Locality)"
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:04"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 25
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.physical.postcode"
   display_name: "Organisation Physical Post Code"
   description: "Post Code of this organisation's physical address."
   value: ""
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 26
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "org.physical.territory"
   display_name: "Organisation Physical Territory"
@@ -263,40 +315,48 @@
   value: ""
   choice: "Address.TerritoryList"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 27
+  created_by: 1
+  modified_by: 1
   type: "text"
   name: "countrytype"
   display_name: "Country Type Form Handler"
   description: "Determines how the country details are obtained and stored in the database."
   value: "Symfony\\Component\\Form\\Extension\\Core\\Type\\CountryType"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 28
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "firstdayofweek"
   display_name: "First Day of Week"
   description: "The first day of the week for display purposes.  Monday or Sunday, defaults to Monday."
   value: "Monday"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 29
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "schoolweek"
   display_name: "Days in the School Week"
   description: "Defines the list of days that school would normally be open."
   value: "Monday: Mon\nTuesday: Tue\nWednesday: Wed\nThursday: Thu\nFriday: Fri\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 30
+  created_by: 1
+  modified_by: 1
   type: "image"
   name: "org.logo"
   display_name: "Organisation Logo"
@@ -304,10 +364,12 @@
   value: "img/bee.png"
   validator: "App\\Core\\Validator\\Logo"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 31
+  created_by: 1
+  modified_by: 1
   type: "image"
   name: "org.transparent.logo"
   display_name: "Organisation Transparent Logo"
@@ -315,10 +377,12 @@
   value: "img/bee-transparent.png"
   validator: "App\\Core\\Validator\\Logo"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 32
+  created_by: 1
+  modified_by: 1
   type: "image"
   name: "background.image"
   display_name: "Background Image"
@@ -326,7 +390,7 @@
   value: "img/backgroundPage.jpg"
   validator: "App\\Core\\Validator\\BackgroundImage"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 33
@@ -338,7 +402,7 @@
   description: "At what time are students allowed on campus?"
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 07:45:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:53:32"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 34
@@ -350,7 +414,7 @@
   description: "The time that teaching starts. Students would normally be considered late after this time."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 08:15:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-04-27 16:10:03"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 35
@@ -362,7 +426,7 @@
   description: "The time students are released for the day."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 15:30:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-04-27 16:10:03"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 36
@@ -374,7 +438,7 @@
   description: "The time the doors of the campus normally close, all after school and school activities finished."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 17:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:53:32"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 37
@@ -386,20 +450,24 @@
   description: "Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms."
   value: "teaching_space:\n    - classroom\n    - 'common room'\n    - hall\n    - laboratory\n    - library\n    - 'meeting room'\n    - outdoor\n    - performance\n    - study\n    - undercover\nnon_teaching_space:\n    - office\n    - other\n    - 'staff room'\n    - storage\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-07 08:44:34"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 38
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "staff.categories"
   display_name: "Staff Categories"
   description: "List of the staff Categories."
   value: "'Not Specified': Unknown\nTeacher: Teacher\nAncillary: Ancillary\nCleaner: Cleaner\nAdministrative: Administrative\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 39
+  created_by: 1
+  modified_by: 1
   type: "enum"
   name: "phone.country.code"
   display_name: "Phone Country Code"
@@ -407,77 +475,91 @@
   value: ""
   choice: "phone.country.list"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 40
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "person.import"
   display_name: "Person Import Defaults"
   description: "Default values added to imported records."
   value: "{  }"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 41
+  created_by: 1
+  modified_by: 1
   type: "twig"
   name: "phone.format"
   display_name: "Phone Full Display Format"
   description: "A template to convert phone numbers into full display version."
   value: "{{ phoneNumber }}"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 42
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "student.caregiver.relationship.list"
   display_name: "List of Student - Care Giver Relationship"
   description: "List of Student - Care Giver Relationship"
   value: "'Not Defined': Unknown\nParent: Parent\nGuardian: Guardian\n'Grand Parent': 'Grand Parent'\n'Family Friend': 'Family Friend'\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 43
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "ethnicity.list"
   display_name: "List of Ethnicities"
   description: "List of Ethnicities.  Uses the Australian Standard to create this list"
   value: "'Inadequately described': '0'\n'Not stated': '1'\nEurasian: '901'\nAsian: '902'\n'African, so decribed': '903'\n'European, so decribed': '904'\n'Caucasian, so decribed': '905'\n'Creole, so decribed': '906'\nOceanian: '1000'\n'Australian Peoples': '1100'\n'New Zealand Peoples': '1200'\n'Melanesian and Papuan': '1300'\nMicronesian: '1400'\nPolynesian: '1500'\n'North-West European': '2000'\nBritish: '2100'\n'Western European': '2300'\n'Northern European': '2400'\n'Southern and  Eastern European': '3000'\n'Southern European': '3100'\n'South Eastern European': '3200'\n'Eastern European': '3300'\n'North African and Middle Eastern': '4000'\nArab: '4100'\n'Peoples of the Sudan': '4300'\n'Other North African and Middle Eastern': '4900'\n'South-East  Asian': '5000'\n'Mainland South-East Asian': '5100'\n'Maritime South-East Asian': '5200'\n'North-East Asian': '6000'\n'Chinese Asian': '6100'\n'Other North-East Asian': '6900'\n'Southern and Central Asian': '7000'\n'Southern Asian': '7100'\n'Central Asian': '7200'\n'Peoples of the Americas': '8000'\n'North American': '8100'\n'South American': '8200'\n'Central American': '8300'\n'Caribbean Islander': '8400'\n'Sub-Saharan African': '9000'\n'Central and West African': '9100'\n'Southern and East African': '9200'\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 44
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "religion.list"
   display_name: "List of Religions"
   description: "List of Religions.  Uses the Australian Standard to create this list"
   value: "'A God': 7304\n'A2A Churches': 2416\n'A2A Community Church': 2416\n'A2A Pentecostal': 2416\n'Aboriginal Christian Fellowship': 2801\n'Aboriginal Church': 2801\n'Aboriginal Community Church': 2801\n'Aboriginal Dreamtime': 6011\n'Aboriginal Evangelical': 2801\n'Aboriginal Evangelical Church': 2801\n'Aboriginal Evangelical Fellowship': 2801\n'Aboriginal Evangelical Missions': 2801\n'Aboriginal Fellowship': 2801\n'Aboriginal Inland Mission': 2801\n'Aboriginal Lore': 6011\n'Aboriginal Mission': 2801\n'Aboriginal Religion': 6011\n'Aboriginal Spirituality': 6011\n'Aboriginal United Missions': 2801\n'Aborignal Pentecostal': 2400\n'ACC AOG': 2402\n'ACC AOG Christian Life Centre': 2402\n'ACC AOG Pentecostal': 2402\n'ACC Calvary Church': 2402\n'ACC Chinese Community Church': 2402\n'ACC Influencer Church': 2402\n'ACC Pentecostal': 2402\n'ACC Revival Life Centre': 2402\n'ACC Victory Church': 2402\n'Acts 2 Alliance': 2416\n'Acts 2 Alliance Pentecostal': 2416\n'Adelaide Revival': 2413\n'Adelaide Revival Fellowship': 2421\nAdvaita: 3011\n'Adventist Christian': 2311\n'Adventist Reform Seventh Day': 2311\n'Aetherius Society': 6999\n'African Episcopal Methodist Church': 2812\n'African Methodist Episcopal Zion Church': 2812\n'Afrikaans Christian Church of Australia': 2252\n'Ageless Wisdom': 6996\nAglipayan: 2012\nAgnost: 7201\nAgnostic: 7201\nAgnosticism: 7201\nAhmadi: 4011\nAhmadiyya: 4011\n'Aim Aboriginal Inland Mission': 2801\n'Aim Australian Indigenous Ministry': 2801\nAinnu: 6119\nAlavi: 4011\nAlawi: 4011\nAlawite: 4011\n'Albanian Orthodox': 2231\nAlevi: 4011\nAlevibektasi: 4011\nAlevism: 4011\nAlexandrian: 6135\nAlien: 0\n'All Christian': 2000\n'All Denominations': 2000\n'All Embracing': 7301\n'All Faiths': 7301\n'All Nation Christian Fellowship': 2499\n'All Religions': 7301\nAltruism: 7299\nAltruist: 7299\n'American Methodist': 2812\n'American Native Church': 6139\n'American Orthodox': 2239\nAmish: 2999\n'Amun Ra': 6139\nAnabaptist: 2999\n'Ananda Marga': 3011\n'Ancestor Veneration': 6051\n'Ancestor Worship': 6051\n'Ancient Church of the East': 2222\nAngels: 7399\nAnglican: 2012\n'Anglican Catholic': 2013\n'Anglican Catholic Church': 2013\n'Anglican Catholic Church in Australia': 2013\n'Anglican Church': 2012\n'Anglican Church of Australia': 2012\n'Anglican Church of Torres Strait': 2013\n'Anglican Deaf Ministry': 2012\n'Anglican Independent Communion': 2019\n'Anglican Mainstream': 2019\n'Anglican Muslim': 7301\n'Anglican Realignment': 2019\n'Anglo Catholic': 2012\nAnimism: 6131\nAnthroposophist: 6996\nAnthroposophy: 6996\n'Anti Christ': 6995\n'Antioch Orthodox': 2232\n'Antiochian Orthodox': 2232\nANZAC: 7399\n'AOG  Christian': 2402\n'AOG  Christian Churches': 2402\n'AOG  Church': 2402\n'AOG  Pentecostal': 2402\n'Apostolic Armenian': 2212\n'Apostolic Assyrian Church': 2221\n'Apostolic Assyrian Church of the East': 2221\n'Apostolic Christian': 2000\n'Apostolic Christian Centre': 2401\n'Apostolic Christian Church of Nazarene': 2804\n'Apostolic Church (Australia)': 2401\n'Apostolic Church of Australia': 2401\n'Apostolic Church of Queensland': 2901\n'Apostolic Faith Mission of Australia': 2499\n'Apostolic Pentecostal Family Church': 2401\n'Apostolic Pentecostal': 2401\n'Apostolic Society': 2999\n'Arabic Orthodox': 2210\n'Armenian Apostolic': 2212\n'Armenian Apostolic Christian': 2212\n'Armenian Apostolic Church': 2212\n'Armenian Apostolic Church Gregorian': 2212\n'Armenian Apostolic Orthodox': 2212\n'Armenian Catholic': 2079\n'Armenian Evangelical Church': 2806\n'Armenian Gregorian': 2212\nAsatru: 6139\n'Asatru Heathen': 6139\n'Assemblies of God': 2402\n'Assemblies of God Christian': 2402\n'Assemblies of God in Australia': 2402\n'Assembly of Christian Brethren': 2811\n'Assembly of God Pentecostal': 2402\n'Associated Churches of Christ': 2112\n'Assyrian Apostolic': 2220\n'Assyrian Apostolic, nec': 2229\n'Assyrian Christianity': 2220\n'Assyrian Church of the East': 2221\n'Assyrian Orthodox Church of the East': 2221\nAstrology: 7399\nAtheism: 7202\nAtheist: 7202\n'Austral Asian Christian Church': 2806\n'Australian Aboriginal Evangelical Mission': 2801\n'Australian Aboriginal Ministry': 2801\n'Australian Aboriginal Traditional Religions': 6011\n'Australian and New Zealand Union For Progressive Judaism': 5011\n'Australian Anglican': 2012\n'Australian Catholic': 2071\n'Australian Christian': 2000\n'Australian Christian Churches': 2402\n'Australian Christian Churches (Assemblies of God)': 2402\n'Australian Christian Churches AOG': 2402\n'Australian Christian Churches Pentecostal': 2402\n'Australian Church of Antioch': 6996\n'Australian Church of Christ': 2111\n'Australian Deaf Christians': 2999\n'Australian Evangelical Lutheran Church': 2171\n'Australian Indigenous Ministries': 2801\n'Australian Inland Mission': 2801\n'Australian Reformed Church': 2252\n'Australian Revival Fellowship': 2421\n'Australian Unions For Progressive Judaism': 5011\n'Australian Wesleyan Church': 2808\n'Baha''i': 6031\n'Baha''i Faith': 6031\n'Baha''i Word Faith': 6031\n'Balinese Hindu': 3011\nBaptist: 2031\n'Baptist Deaf Ministry': 2031\n'Baptist Faith': 2031\n'Baptist Independent': 2031\n'Basel Mission': 2899\n'Basilio Scientific School': 6996\n'Belarus Orthodox': 2239\nBelief: 7300\n'Believe in God and Jesus': 2000\n'Believer in God': 7304\n'Believer in Jesus Christ': 2000\n'Belong To No Sect': 7101\n'Berean Bible': 2999\n'Berean Bible Church': 2899\n'Bethany Christian Fellowship': 2899\n'Bethel Christian Centre': 2807\nBethesda: 2403\n'Bethesda Churches': 2403\n'Bethesda Ministries International (Bethesda Churches)': 2403\n'Bethesda Pentecostal': 2403\n'Bhakti Yoga': 3011\n'Bible Based Christian': 2000\n'Bible Believing Christian': 2000\n'Bible Methodist': 2812\n'Bible Ministries Church': 2899\n'Bible Presbyterian': 2251\n'Bible Salvation Assembly': 2899\n'Bible Salvation Fellowship': 2999\n'Black Magic': 6995\n'Body Felt Salvation Church': 2499\n'Bohemian Brethren': 2899\n'Born Again': 2802\n'Born Again  Christian': 2802\n'Born Again Believer': 2802\n'Brahma Kumari': 3011\nBrahmin: 3011\n'Branch Davidians': 2311\n'Bread of Life Christian Church': 2999\nBrethren: 2051\nBuddhism: 1011\nBuddhist: 1011\n'Buddhist Christian': 7301\n'Buddhist Zen': 1011\n'Buddism Hinduism': 7301\n'Bulgarian Eastern Orthodox': 2238\n'Bulgarian Orthodox': 2239\n'Byelorussian Autocephalic Orthodox': 2238\n'Byzantine Catholic': 2079\n'C of E': 2012\nC3: 2404\n'C3 Church Global': 2404\n'C3 Global (Christian City Church)': 2404\n'C3 Pentecostal': 2404\n'Calvary Chapel': 2000\n'Calvary Chapel Movement': 2899\nCalvinist: 2251\n'Calvinist Protestant': 2251\n'Cambodian Theravada': 1011\n'Cao Dais': 6991\nCaodaism: 6991\nCapitalism: 0\n'Catch the Fire': 2499\nCatholic: 2071\n'Catholic and Buddhism': 7301\n'Catholic Apostolic Church': 2999\n'Catholic Chaldean': 2075\n'Catholic Christian': 2071\n'Catholic Deaf Ministry': 2071\n'Catholic Greek': 2073\n'Catholic Malankara': 2076\n'Catholic of the East': 2999\n'Catholic Orthodox': 6996\n'Catholic, nec': 2079\n'Caulfield Evangelical Methodist': 2807\n'CCCA  Assembly': 2811\n'CCCA Family Fellowship': 2811\n'CCCA Gospel Fellowship': 2811\n'CCCA Gospel Hall': 2811\n'Celtic Christian': 2999\n'Celtic Druidism': 6132\n'Celtic Faith': 6139\n'Central Evangelical Church': 2899\nChabad: 5011\n'Chaldean Catholic': 2075\n'Chan Buddhism': 1011\nChapel: 2000\nCharedi: 5011\n'Chassidic Movement': 5011\n'Child of God': 2000\n'Child of the Earth': 6139\n'Child of the Universe': 0\n'China Mission': 2899\n'Chinese Alliance Church': 2806\n'Chinese Christian Church': 2806\n'Chinese Church': 2000\n'Chinese Congregation Church': 2806\n'Chinese Evangelical Church': 2806\n'Chinese Methodist Church': 2806\n'Chinese Methodist Church in Australia': 2806\n'Chinese Religions': 6050\n'Chinese Religions, nec': 6059\nChrist: 2000\n'Christ Church of England': 2012\n'Christ Consciousness Yhwh': 6996\nChristadelphian: 2902\n'Christadelphian Christian': 2902\nChristian: 2000\n'Christian - Assyrian': 2220\n'Christian - Congregational Church': 2805\n'Christian - Evangelical Church of Australia': 2807\n'Christian  Jacobite': 2215\n'Christian - No Specific Denomination': 2000\n'Christian Aboriginal Dreaming': 7301\n'Christian Alliance Church': 2803\n'Christian and Missionary Alliance': 2803\n'Christian Anglican': 2012\n'Christian Assembly of God': 2402\n'Christian Assyrian Orthodox Church': 2220\n'Christian Buddhist': 7301\n'Christian Catholic': 2071\n'Christian Church': 2000\n'Christian Church Congregational': 2805\n'Christian Church in Australia': 2417\n'Christian Church of Christ': 2111\n'Christian Church of the East': 2222\n'Christian Church of Tonga': 2806\n'Christian Churches of Australia Pentecostal': 2417\n'Christian City Church': 2404\n'Christian City Church International': 2404\n'Christian City Churches International': 2404\n'Christian Community Churches of Australia': 2811\n'Christian Community Movement For Renewal': 6996\n'Christian Coptic Orthodox': 2214\n'Christian CRC': 2407\n'Christian Crusade': 2407\n'Christian Destiny Church': 2999\n'Christian Disciples': 2899\n'Christian Faith': 2000\n'Christian Fellowship': 2000\n'Christian Four Square Church': 2411\n'Christian Foursquare': 2411\n'Christian Free Church': 2807\n'Christian Free Church of Tonga': 2806\n'Christian Free Reformed': 2253\n'Christian Full Gospel': 2412\n'Christian Gregorian': 2212\n'Christian Gregorian Church': 2212\n'Christian Home Church': 2999\n'Christian Home Group': 2999\n'Christian House Church': 2999\n'Christian Israelite Church': 2999\n'Christian Jesus Is Lord': 2999\n'Christian Latter Day Saints': 2151\n'Christian Life Centre': 2416\n'Christian Marthomite': 2215\n'Christian Mission Fellowship': 2899\n'Christian Molokan': 2999\n'Christian Gnostic': 2904\n'Christian Orthodox Macedonian': 2234\n'Christian Outreach Centre': 2406\n'Christian Outreach Pentecostal': 2406\n'Christian Peoples Church': 2800\n'Christian Plymouth Brethren': 2051\n'Christian Quaker': 2912\n'Christian Ratana': 2908\n'Christian Reformed Church': 2252\n'Christian Reformed Church of Australia': 2252\n'Christian Reformed Churches of Australia': 2252\n'Christian Reformed Community Church': 2252\n'Christian Reformed Fellowship': 2252\n'Christian Renewal': 2999\n'Christian Revival Centre': 2413\n'Christian Revival Crusade': 2407\n'Christian Revival Fellowship': 2421\n'Christian Revival Pentecostal': 2413\n'Christian Rhema': 2414\n'Christian Russian Orthodox': 2236\n'Christian Science': 2903\n'Christian Scientist': 2903\n'Christian Seventh Day Adventist': 2311\n'Christian Shire City Church': 2404\n'Christian Spiritual Church': 2999\n'Christian Tokaikolo': 2806\n'Christian Unaffiliated': 2000\n'Christian Vineyard': 2000\n'Christian Wesleyan Methodist Church': 2808\nChristianity: 2000\n'Christianity Samoan Methodist Church': 2806\n'Church Missionary Society': 2012\n'Church of Australia': 2000\n'Church of Canada': 2000\n'Church of Christ': 2111\n'Church of Christ (Non-denominational)': 2112\n'Church of Christ Iglesia ni Cristo': 2806\n'Church of Christ Restored': 2999\n'Church of Christ Scientist': 2903\n'Church of Christianity': 2000\n'Church of Denmark': 2171\n'Church of Divine Unity': 2999\n'Church of England': 2012\n'Church of God': 2000\n'Church of India': 2012\n'Church of Ireland': 2012\n'Church of Jesus Christ': 2000\n'Church of Jesus Christ of Latter Day Saints': 2151\n'Church of Jesus Christ of Latter Day Saints Mormons': 2151\n'Church of New Jerusalem': 2907\n'Church of Norway': 2171\n'Church of Perfect Liberty': 6999\n'Church of Satan': 6995\n'Church of Scientology': 6992\n'Church of Scotland': 2251\n'Church of South Africa': 2012\n'Church of South India': 2012\n'Church of Sweden': 2171\n'Church of the East': 2220\n'Church of the Nazarene': 2804\n'Church of the Nazarene Evangelical': 2804\n'Church of Things': 7299\n'Church of Tonga Christian': 2806\n'Church of Torres Strait': 2013\n'Church of TSI': 2013\n'Church of Wales': 2012\n'Church of Wicca': 6135\n'Church Origin': 2999\n'Church Universal and Triumphant': 6996\n'Churches of Christ': 2110\n'Churches of Christ (Conference)': 2111\n'City Life Pentecostal': 2418\n'Combination of Faiths': 7301\n'Combination of Religions': 7301\n'Community Churches of Australia': 2811\n'Community of Christ': 2152\nCompassionism: 7399\n'Confraternity of the Blessed Sacrament of the Body and Blood of Christ': 2019\nConfucianism: 6052\nConfucius: 6052\n'Congregation of Friends': 2912\nCongregational: 2805\n'Congregational Christian Church': 2805\n'Congregational Christian Church of Samoa in Australia': 2805\nCongregationalist: 2805\n'Congregationalist Christian Church': 2805\nConservadox: 5011\n'Constitutional Church of Tonga': 2806\n'Continuing Anglican Movement': 2019\n'Cook Is Christian Church': 2806\n'Cook Island Christian Church': 2806\n'Cook Island Congregational': 2806\n'Cook Island Presbyterian': 2251\n'Cook Islands Christian Church': 2806\n'Coptic Catholic': 2079\n'Coptic Christian': 2214\n'Coptic Egyptian': 2214\n'Coptic Orthodox': 2214\n'Coptic Orthodox Christian': 2214\n'Coptic Orthodox Church': 2214\n'CRC  International Revival': 2407\n'CRC  Pentecostal': 2407\n'CRC Churches International': 2407\n'CRC International (Christian Revival Crusade)': 2407\n'Creation Spirituality': 7399\n'Crosslink Christian Network': 2499\n'Crosslink Pentecostal': 2499\n'Crossroads Christian Church': 2807\n'Cypriot Orthodox': 2233\n'Danish Lutheran Church': 2171\n'Danish Protestant': 2171\nDaoist: 6053\n'Deaf Christian Fellowship': 2999\n'Deaf Community Church': 2999\nDedication: 7300\n'Deep Spiritual Lifestyle': 7303\nDervish: 4011\n'Devi Worship': 3011\n'Devil Worshipper': 6995\n'Diamond Way': 1011\n'Disciple of Sri Chinmoy': 3011\nDiscordianism: 6999\n'Do Not Believe': 7101\n'Don''t Believe in God': 7202\n'Don''t Have One': 7101\nDreamtime: 6011\nDruid: 6132\nDruidism: 6132\nDruids: 6132\nDruse: 6071\nDruze: 6071\n'Dutch Free Reformed': 2252\n'Dutch Hervormd': 2252\n'Dutch Reformed Church': 2252\n'Dutch Remonstrant': 2805\n'Earth Church Australia': 6139\n'Earth Religion': 6130\n'Earth Spiritualism': 6171\n'Eastern Orthodox': 2230\n'Eastern Orthodox Christian': 2230\n'Eastern Orthodox Macedonian': 2234\n'Eastern Orthodox, nec': 2239\n'Eastern Rites Catholic': 2079\n'Eastern Spirituality': 7399\n'Ecclesia of God': 2999\nEckankar: 6993\n'Eclectic Beliefs': 7301\n'Ecumenical Christian': 2000\nEFCA: 2806\n'EFKS Congregational Christian Church of Samoa': 2805\nEgocentrism: 0\n'Egyptian Coptic Orthodox': 2214\n'Egyptian Orthodox': 2214\n'Egyptian Orthodox Coptic': 2214\nElementalism: 6139\n'Elim Pentecostal': 2499\n'Emmanuel Pentecostal': 2499\n'English Methodist': 2812\n'Environmental Spiritualism': 7399\n'Episcopal Church': 2012\n'Episcopal Church of Scotland': 2012\n'Episcopal Methodist': 2812\nEpiscopalian: 2012\n'Eritrean Orthodox': 2219\n'Eritrean Tewahedo Orthodox': 2219\nEshamism: 6139\n'Esoteric Christian': 6996\n'Esoteric Spiritual': 7399\nEspiritism: 6171\nEspiritist: 6171\n'Estonian Orthodox': 2239\n'Ethical Green Pagan': 7399\n'Ethiopian Orthodox': 2216\n'Ethiopian Orthodox Christian': 2216\n'Ethiopian Orthodox Church': 2216\n'Ethiopian Orthodox Tewahedo': 2216\n'Ethiopian Tewahedo Orthodox': 2216\n'Ethnic Evangelical Churches': 2806\n'Evangelical  Christian': 2800\n'Evangelical Anglican': 2012\n'Evangelical Baptist': 2031\n'Evangelical Chinese Church': 2806\n'Evangelical Christian Independent': 2800\n'Evangelical Christianity Methodist': 2812\n'Evangelical Church of Czech Brethren': 2899\n'Evangelical Church of Papua': 2806\n'Evangelical Formosan Church': 2806\n'Evangelical Free Church in Australia': 2807\n'Evangelical Greek Free Church': 2806\n'Evangelical Independent': 2807\n'Evangelical Lutheran': 2171\n'Evangelical Mission': 2899\n'Evangelical Nondenominational': 2800\n'Evangelical Presbyterian': 2251\n'Evangelical Protestant': 2800\n'Evangelical Reformed Church': 2252\n'Evangelical Spiritual Brethren': 2811\n'Evangelist Fellowship': 2807\n'Everlasting Gospel': 2899\nEvolutionism: 7299\n'Exclusive Brethren': 2051\nExistentialism: 7299\nFaith: 7300\n'Faith Christian Church': 2000\n'Faith Christian Church  Pentecostal': 2499\n'Faith in God': 7304\n'Faith Life Pentecostal': 2418\n'Falun Dafa': 7399\n'Falun Gong': 7399\n'Family Church': 2000\n'Family of God Church': 2999\n'Family of God Fellowship': 2999\n'Family of Love': 2999\n'Fellowship of Congregational Churches': 2805\n'Fellowship of Evangelical Churches of Australia': 2807\n'Fellowship of Independent Evangelical Churches': 2807\n'Feminist Spirituality': 7399\n'Filipine Independent': 2012\n'Finnish Lutheran': 2171\n'Finnish Orthodox': 2239\n'Finnish Pentecostal Church': 2499\n'First Church of Christ Scientist': 2903\n'Follower of the Way': 6059\n'Follower of Yahshua': 2999\nFootball: 0\n'Forward in Faith Ministries International': 2499\n'Forward in Faith Ministries Pentecostal': 2499\n'Four Square Calvary Chapel': 2411\n'Four Square Gospel': 2411\n'Four Square Pentecostal': 2411\n'Foursquare Gospel Church': 2411\n'Free Christian Church': 2807\n'Free Church of Scotland': 2251\n'Free Church of Tonga': 2806\n'Free Deist': 3011\n'Free Evangelical Church of Australia': 2807\n'Free Presbyterian': 2251\n'Free Presbyterian Church of Scotland': 2251\n'Free Reformed': 2253\n'Free Reformed Church of Australia': 2253\n'Free Thought': 7299\n'Free Wesleyan Church of Tonga': 2806\n'Free Wesleyan Methodist': 2808\n'Full Gospel Christian': 2412\n'Full Gospel Church Australia': 2412\n'Full Gospel Church of Australia (Full Gospel Church)': 2412\n'Full Gospel Churches of Australia': 2412\n'Full Gospel Fellowship': 2412\n'Full Gospel Pentecostal': 2412\n'Fundamentalist Christian': 2800\nGaia: 6139\nGaian: 6139\nGandhian: 3011\nGardnerian: 6135\n'Gaudiga Vaisnava': 3011\n'General Beliefs': 7300\n'Georgian Orthodox': 2236\n'Gereformeerde Evangeliese Kerk': 2252\n'German Evangelical Lutheran': 2171\n'German Lutheran': 2171\n'Ghana Methodist Church': 2812\n'Glory of the Cross Ministry': 2499\n'Gnostic Christian': 2904\n'God Loving': 7304\n'God Squad': 2800\n'Goddess Spirituality': 6139\n'Goddess Worshiper': 6139\n'Good Samaritan Church of Truth': 2999\n'Gospel Christian Church': 2412\n'Gospel Community': 2899\n'Gospel of Jesus Christ': 2000\n'Grace Bible Churches': 2807\n'Grace Christian': 2000\n'Grace Communion International': 2915\n'Grace Communion International (Worldwide Church of God)': 2915\n'Grace Community Church': 2807\n'Grail Movement': 6999\n'Great Commission Church': 2899\n'Great White Spirit': 6996\n'Greek Evangelical': 2806\n'Greek Free Churches': 2806\n'Greek Gods': 6999\n'Greek Orthodox': 2233\n'Green Pagan': 7399\n'Gregorian Orthodox': 2212\nGurdjieff: 6999\n'Haahi Ratana': 2908\n'Hallelujah Worship Centre': 2899\nHappiness: 0\n'Hare Krishna': 3011\nHaredi: 5011\n'Hau Hau Paimarire': 2999\nHeathen: 0\n'Heathen Asatru': 6139\nHeaven: 7399\nHedonist: 6999\nHerbalist: 6139\n'High Anglican': 2012\n'High Church of England': 2012\nHillsong: 2402\n'Hillsong Assemblies of God': 2402\n'Hillsong Church': 2402\nHindu: 3011\n'Hindu Brahmin': 3011\n'Hindu Dharma': 3011\n'Hindu Indian': 3011\n'Hindu Lingayat': 3011\n'Hindu Punjabi': 3011\n'Hindu Swarminarayan': 3011\nHinduism: 3011\nHippy: 0\n'Hoa Hao Buddhism': 1011\n'Holiness Church': 2899\nHolistic: 7302\n'Holistic Spiritual': 7303\n'Holy Apostolic Catholic Church': 2999\n'Holy Bible': 2000\n'House Apostolic Church': 2401\n'House Christian Church': 2000\n'House Church Revival Ministries': 2421\nHuguenot: 2252\nHumanism: 7203\nHumanist: 7203\n'Hungarian Reformed Church': 2252\nHussite: 2899\n'Iglesia Filipina Independiente': 2012\n'Iglesia Ni Cristo': 2806\n'Inadequately Described': 0\n'Independent Evangelical Christian': 2800\n'Independent Evangelical Churches': 2807\n'Independent  Christian': 2000\n'Independent Anglican Church of Canada': 2019\n'Independent Bible Believing Christian': 2800\n'Independent Bible Church': 2807\n'Independent Christian Household Church': 2800\n'Independent Christian Reformed': 2253\n'Independent Church of Australia': 6996\n'Independent Reformed': 2252\n'Indian Orthodox Christian': 2215\n'Individual Faith': 7303\n'Indonesian Christian Church': 2806\n'Indonesian Church': 2806\n'Infinite Way Study Centres': 2911\n'Influencer ACC': 2402\n'Influencer Church': 2402\n'Influencer Pentecostal': 2402\n'Inner Life Ministries': 2999\n'Inner Peace Movement': 6999\n'Inner Religiousness': 7303\n'International Christian Outreach': 2406\n'International Church of Christ': 2113\n'International Network Christian Outreach': 2406\n'International Network of Churches': 2406\n'International Network of Churches (Christian Outreach Centres)': 2406\n'Irish Catholic': 2071\nIslam: 4011\n'Islam Ahmadiyya': 4011\n'Islam Shia': 4011\nIslamic: 4011\nIsraelite: 5011\nJacobite: 2215\n'Jacobite Syrian Orthodox': 2215\nJain: 6997\nJainism: 6997\n'Japanese Religions': 6110\n'Japanese Religions, nec': 6119\n'Jatt Sikh': 6151\n'Jehovah Witness': 2131\n'Jehovah Witness Christian': 2131\n'Jehovah''s Witnesses': 2131\n'Jesus Christ Church of Latter Day Saints': 2151\n'Jesus Christ Church of Latter Day Saints Mormons': 2151\n'Jesus Christ Follower': 2000\nJew: 5011\nJewish: 5011\n'Jewish Conservative': 5011\n'Jewish Liberal': 5011\n'Jewish Modern Orthodox': 5011\n'Jewish Orthodox': 5011\n'Jewish Reform': 5011\nJodoshu: 1011\n'John Wesley Methodist': 2808\n'Johrei Association': 6119\nJoss: 6053\n'Judaic Christian': 2999\nJudaism: 5011\n'Judaism Jewish': 5011\n'Judaism Progressive': 5011\n'Judeo Christian': 2999\nKardecist: 6171\nKarma: 7399\n'Karman Church': 2999\n'Kashmir Shaivism': 3011\nKatolic: 2071\n'Kerala Catholic': 2076\nKiranti: 6999\nKirat: 6999\n'Kirat Mum Dhum': 6999\n'Knights Templar': 2999\nKrishna: 3011\n'Krishna Consciousness': 3011\nLama: 1011\nLamaism: 1011\n'Latin Mass': 2079\n'Latter Day Saints': 2150\n'Latvian Lutheran': 2171\n'Latvian Orthodox': 2239\n'Lebanese Orthodox Antiochian': 2232\n'Liberal Catholic Church': 2905\n'Liberal Humanitarian': 7000\n'Liberal Jew': 5011\n'Liberal Jewish': 5011\n'Liberal Judaism': 5011\nLingsu: 6059\n'Living Word Fellowship': 2999\n'London Mission Society': 2805\nLubavich: 5011\nLubavitch: 5011\nLutheran: 2171\n'Lutheran Church': 2171\n'Lutheran Deaf Ministry': 2171\n'Macedonian Christian Orthodox': 2234\n'Macedonian Orthodox': 2234\n'Macedonian Orthodox Christian': 2234\n'Macedonian Orthodox Church': 2234\nMahikari: 6112\n'Makedonian Orthodox': 2234\n'Malankara Syrian Orthodox': 2215\n'Malankara Syrian Orthodox Indian': 2215\nMandaean: 6901\n'Mandaean Nazoraean': 6901\nMandian: 6901\n'Manna Christian Fellowship': 2899\n'Maori Ringatu': 6999\n'Mar Thoma Syrian Orthodox': 2215\n'Margaret Court Ministries': 2422\nMaronite: 2072\n'Maronite Catholic': 2072\n'Marthoma Christian': 2215\n'Marthoma Syrian Christian': 2215\nMarxism: 0\nMasorti: 5011\nMeditation: 7399\n'Melkite Catholic': 2073\nMennonite: 2999\n'Messianic Christian': 2999\nMetaphysicist: 7399\nMetaphysics: 7399\nMethodist: 2812\n'Methodist (So Described)': 2812\n'Methodist Christian': 2812\n'Methodist Church': 2812\n'Methodist Church of Ghana': 2812\n'Methodist Presbyterian Congregational': 2331\n'Methodist Samoan': 2806\n'Methodist United': 2813\n'Metropolitan Community Churches': 2999\n'Mission Church': 2999\nMithraist: 6998\nMixture: 7301\n'Modern Orthodox': 5011\n'Modern Orthodox Jewish': 5011\n'Modern Spiritualist': 6171\nMolokan: 2999\nMonotheist: 7304\n'Montenegro Orthodox': 2239\n'Moon Worship': 6139\nMoonist: 6999\nMoravian: 2899\n'Mormon Christian': 2151\n'Mormon Lds': 2151\nMosaiah: 5011\nMosaic: 5011\nMoses: 5011\n'Movement For Religious Renewal': 6996\n'Movement For Spiritual Inner Awareness': 6999\n'Multi Faith': 7301\nMuslim: 4011\n'Muslim Alawi': 4011\n'Muslim- Alevi': 4011\n'Muslim Faith': 4011\n'Muslim Islam': 4011\n'Muslim Shia': 4011\n'Muslim Sunni': 4011\n'My Own Belief': 7303\n'Mystical Spirituality': 7399\n'Naming Ceremony': 7000\n'Native American': 6139\n'Native American Totemism': 6139\n'Natural Spirituality': 7303\n'Nature Religions': 6130\n'Nature Religions, nec': 6139\n'Nature Worship': 6139\n'Nederland Hervormde': 2252\n'Neo Heathen': 6139\n'Neo Pagan': 6133\n'Neo Paganism': 6133\nNeotaoist: 6053\nNestorian: 2221\n'New Age': 7302\n'New Age and  Buddhism': 7301\n'New Age Spiritual': 7302\n'New Age Spirituality': 7302\n'New Apostolic Christian': 2906\n'New Apostolic Church': 2906\n'New Churches Swedenborgian': 2907\n'New Testament Christian': 2000\n'New Thought Movement': 2911\n'New Zealand Methodist': 2812\n'Nichiren Buddhism': 1011\nNirankari: 6151\n'No Affiliated Religion': 7101\n'No Comment': 1\n'No Religion': 7101\n'No Religion (So Described)': 7101\n'Non Conformist Christian/Druid': 7301\n'Non Denominational Church of Christ': 2112\n'Non Denominational Pentecostal': 2400\n'None of Your Business': 1\n'Nordic Gods': 6139\n'Norse Heathen': 6139\n'Northern Lakes Evangelical Church': 2807\n'Norwegian Lutheran': 2171\n'Not Christened Yet Catholic': 2071\n'Not Stated': 1\n'Not Yet Baptised': 2000\n'Not Yet Christened': 2000\nNullafidian: 0\nOccultist: 6999\n'Old Apostolic Church Australia': 2999\n'Old Gaelic': 6139\n'Old Norse': 6139\n'Old Russian Orthodox': 2239\n'Olympian Gods': 6999\n'One Humanity': 7399\n'Optional Question': 1\n'Orange People': 6999\n'Order of the Holy Cross': 2999\n'Oriental Orthodox': 2210\n'Oriental Orthodox, nec': 2219\n'Orthodox Albanian': 2231\n'Orthodox Christian Greek': 2233\n'Orthodox Church of Christ the King': 6996\n'Orthodox Eritrea': 2219\n'Orthodox Evangelical Lutheran Church': 2171\n'Orthodox Greek': 2233\n'Orthodox Judaism': 5011\n'Orthodox Romanian': 2235\n'Orthodox Russian': 2236\n'Orthodox Serbian': 2237\n'Orthodox Slavic': 2230\n'Orthodox Syrian Christian': 2215\n'Orthodox Ukrainian': 2238\n'Osho Sanvassin': 6999\n'Other Anglican': 2019\n'Other Christian': 2900\n'Other Christian, nec': 2999\n'Other Protestant': 2800\n'Other Protestant, nec': 2899\n'Other Religions': 6000\n'Other Spiritual Beliefs': 7300\n'Other Spiritual Beliefs, nec': 7399\n'Own Set of Beliefs': 7303\n'Own Spiritual Beliefs': 7303\n'Own Spiritual Path': 7303\nPagan: 6133\n'Pagan - Asatru': 6139\nPaganism: 6133\nPaimarire: 2999\nPantheism: 7304\nPantheist: 7304\n'Pelagian Christian': 2999\n'Pentecostal Revival Fellowship': 2413\nPentecostal: 2400\n'Pentecostal A2A': 2416\n'Pentecostal Apostolic': 2401\n'Pentecostal Australian Christian Churches': 2402\n'Pentecostal Born Again Christian': 2400\n'Pentecostal C3': 2404\n'Pentecostal CCC': 2404\n'Pentecostal Christian AOG': 2402\n'Pentecostal Christian Churches of Australia': 2417\n'Pentecostal Christian City Church': 2404\n'Pentecostal CRC Churches International': 2407\n'Pentecostal Victory Worship Centre': 2423\n'Pentecostal, nec': 2499\nPenteuchal: 2999\n'Personal Blend': 7301\n'Personal Eclectic Spiritual': 7301\n'Personal Life Philosophy': 7200\n'Personal Spiritual Path': 7303\n'Philadelphia Church of God': 2999\n'Philippine Independent Church': 2012\n'Pilbara Aboriginal Apostolic Church': 2401\nPirate: 0\nPlanetarian: 7399\nPluralist: 7301\n'Plymouth Brethren': 2051\n'Plymouth Brethren Christian Church': 2051\n'Polish Catholic': 2071\n'Polish Orthodox': 2239\nPositivism: 7299\n'Potters House Christian Centre': 2499\n'Praise Evangelical Free Church': 2806\n'Pravoslav Serbian': 2237\nPresbyterian: 2251\n'Presbyterian and Reformed': 2250\n'Presbyterian Church': 2251\n'Presbyterian Church of Eastern Australia': 2251\n'Presbyterian Church of Scotland': 2251\n'Presbyterian Deaf Ministry': 2251\n'Presbyterian Free Church of Australia': 2251\n'Presbyterian Reformed': 2251\n'Presbyterian Reformed Church of Australia': 2251\n'Progressive Jewish': 5011\n'Progressive Judaism': 5011\n'Protestant Apostolic': 2901\n'Protestant Reformed Church': 2252\nProtestantism: 2800\nQuaker: 2912\n'Raja Yoga': 3011\n'Ras Tafari': 6994\nRastafari: 6994\nRatana: 2908\n'Ratana Maori': 2908\nRational: 7204\nRationalism: 7204\nRationalist: 7204\nRavidasia: 6151\n'Reach Out For Christ Churches': 2499\n'Rechabite Order': 2999\n'Reformatic Evangelical': 2800\nReformed: 2252\n'Reformed Calvinist Church': 2252\n'Reformed Church of Africa': 2252\n'Reformed Church of Australia': 2252\n'Reformed Evangelical': 2252\n'Reformed Independent': 2252\n'Reformed Presbyterian': 2251\n'Reformed Protestant': 2250\nReiki: 7399\nReincarnation: 7399\n'Religious Science': 2911\n'Religion of Life': 7399\n'Religious Belief': 7300\n'Religious Groups, nec': 6999\n'Religious Society of Friends (Quakers)': 2912\nRemonstrant: 2805\n'Reorganised Church of Jesus Christ Latter Day Saints': 2152\n'Restoration Church of Jesus Christ': 2999\n'Restoration Ministries': 2899\n'Restored Apostolic Sending Congregations': 2999\n'Restored Church of God': 2915\n'Revival Centres': 2413\n'Revival Centres Fellowship': 2421\n'Revival Centres International': 2413\n'Revival Crusade': 2407\n'Revival Fellowship': 2421\n'Revival House Church': 2421\nRevivalist: 2400\nRhema: 2414\n'Rhema Bible Church': 2414\n'Rhema Family Church': 2414\n'Rhema Pentecostal': 2414\n'Rhema Word of Faith': 2414\nRingatu: 6999\n'Roman Catholic': 2071\n'Romanian Orthodox': 2235\nRosicrucian: 7399\n'Rumanian Orthodox': 2235\n'Russian Orthodox': 2236\n'Russian Orthodox Church': 2236\n'Russian Old Orthodox': 2239\nSabian: 6901\n'Sabian Mandaean': 6901\n'Sacred Feminine': 7399\n'Sahaja Yoga': 3011\n'Sai Baba': 3011\nSaints: 7399\n'Salvation Army': 2271\n'Salvation Army Christian': 2271\n'Samoa Worship Centre Christian Church': 2423\n'Samoan Christian Fellowship': 2402\n'Samoan Methodist Church': 2806\n'Samoan Methodist Church of Australia': 2806\n'Samoan Uniting Church': 2331\n'Samoan Unity Christian Church': 2806\n'Samoan Victory Worship Centre': 2423\n'Sanatana Dharma': 3011\n'Sat Sang': 6993\n'Satan Worshipper': 6995\nSatanic: 6995\nSatanism: 6995\nSatanist: 6995\n'Science and Reason': 7204\n'Science of Mind': 2911\nScientologist: 6992\nScientology: 6992\n'Scottish Presbyterian': 2251\n'Secular Beliefs': 7200\n'Secular Beliefs and Other Spiritual Beliefs and No Religious Affiliation': 7000\n'Secular Beliefs, nec': 7299\n'Secular Humanist': 7203\nSecularist: 7200\n'Self Realisation': 0\n'Serbian Eastern Orthodox Church': 2237\n'Serbian Orthodox': 2237\n'Serbian Orthodox Christian': 2237\n'Serbian Orthodox Church': 2237\n'Seventh Day Adventist Christian': 2311\n'Seventh Day Adventist Church': 2311\n'Seventh Day Adventist Reform Movement': 2311\n'Seventh-day Adventist': 2311\nShaker: 2999\nShamanism: 6139\nShamanist: 6139\nShaolin: 1011\nSharman: 6139\nShia: 4011\nShiite: 4011\nShinto: 6111\n'Shinto Buddhist': 7301\nShintoh: 6111\nShintoism: 6111\nShiva: 3011\n'Siddha Yoga': 3011\n'Signs Church': 2400\nSikh: 6151\n'Sikh Punjabi': 6151\n'Sikh Religion': 6151\nSikhism: 6151\nSikhs: 6151\n'Simple Christian': 2000\n'Simple Christianty': 2000\nSingularitarianism: 7299\n'Slavic Church': 2999\n'Slavic Evangelical Pentecostal Churches of Australia': 2499\n'Slavic Orthodox': 2230\n'Slavic Pentecostal Church': 2499\n'Social Humanism': 7203\n'Society of Friends': 2912\n'Society of Pius X': 2079\n'Soka Gakkai': 1011\n'Soto Zen': 1011\n'Sound of God': 6993\n'Southern Baptist': 2031\n'Southern Cross Association of Churches': 2899\n'Spiritism Kardec': 6171\n'Spiritual Christian Molokan': 2999\n'Spiritual Ecclectic': 7301\n'Spiritual Enlightment': 7399\n'Spiritual Evolution': 7399\n'Spiritual Guru': 7399\n'Spiritual Mix of East & West': 7301\nSpiritualism: 6171\nSpiritualist: 6171\n'Spiritualist Church': 6171\n'Spiritualist Union': 6171\n'Spiritualistic Theosophist': 6996\n'St Thomas Catholic': 2076\nSteiner: 6996\nStoicism: 0\n'Strictly Orthodox Jew': 5011\nSubud: 6999\n'Sudanese Orthodox Coptic': 2214\nSufi: 4011\n'Sufi Buddhist': 7301\nSufism: 4011\n'Sukyo Mahikari': 6112\n'Sun Worshipper': 6139\nSunni: 4011\n'Svetosavska Orthodox Faith': 2237\nSwami: 3011\nSwarminarayan: 3011\n'Swedish Lutheran': 2171\n'Swedish Protestant': 2171\n'Swiss Reformed Church': 2252\n'Sydney Anglican': 2012\nSynagogue: 5011\nSyncretic: 7301\n'Syriac Orthodox Church': 2215\n'Syrian Christian Marthoma': 2215\n'Syrian Jacobite': 2215\n'Syrian Orthodox': 2215\n'Syro Malabar Catholic': 2076\nTaoism: 6053\nTaoist: 6053\n'Teaching of the Ascended Masters': 6996\nTechnology: 7299\n'Templar Society of Australia': 2913\n'Temple Society': 2913\nTenrikyo: 6113\n'The Christian Community in Australia Movement For Renewal': 6996\n'The Christian Community Renewal Movement': 6996\n'The Church of Jesus Christ of Latter-day Saints': 2151\n'The Family': 2999\n'The Sun': 6139\nTheism: 7304\nTheist: 7304\n'Theosophical Fellowship Church of Maitreya': 6996\n'Theosophical Philosophy': 6996\n'Theosophical Society': 6996\nTheosophist: 6996\nTheosophy: 6996\nTheravada: 1011\nThien: 1011\n'Tian Dao': 6053\n'Tibetan Buddhism': 1011\n'Tien Tao': 6053\n'Tokaikolo Christian Church': 2806\n'Tongan Christian Church': 2806\n'Tongan Tokaikolo Church': 2806\n'Tongan Weslyan Church in Aust': 2806\n'Toowoomba Bible Truth Fellowship': 2899\n'Torah True': 5011\n'Torres Strait and Kaiwalagal Church': 2013\nTotem: 6999\nTraditional: 6999\n'Traditional Aboriginal Belief': 6011\n'Traditional Anglican Communion': 2012\n'Traditional Belief': 6999\n'Traditionalist Catholic': 2079\n'Tridentine Catholic': 2079\n'Trinity Church': 2999\nUindy: 3011\n'Ukrainian Autocephalic Orthodox Church': 2238\n'Ukrainian Native Faith': 6999\n'Ukrainian Orthodox': 2238\n'Ukrainian Orthodox Christian': 2238\n'Ukrainian Orthodox Church': 2238\n'Ukranian Catholic': 2074\n'Ultra Orthodox Jew': 5011\n'Uniat Catholic': 2079\n'Unification Church': 6999\n'Unitarian Christian': 2999\n'Unitarian Druse': 6071\n'Unitarian Druze': 6071\n'Unitarian Universalism': 7305\n'Unitarian Universalist': 7305\n'United Aborigines Mission': 2801\n'United Church of Australia': 2331\n'United Church of Canada': 2899\n'United Church of Christ': 2899\n'United Church of God': 2999\n'United Church of Tonga': 2806\n'United Methodist': 2813\n'United Methodist Church': 2813\n'United Mission Churches of Australia': 2899\n'United Pentecostal': 2415\n'United Pentecostal Christian': 2415\n'United Pentecostal Church': 2415\n'United Pentecostal Church of Australia': 2415\n'United Reformed Church': 2805\n'United Spiritualism in Australia': 6171\nUniting: 2331\n'Uniting Aboriginal Mission': 2801\n'Uniting Church': 2331\n'Uniting Church of Australia': 2331\n'Uniting Deaf Ministry': 2331\n'Unity School of Christianity': 2911\n'Universal Brotherhood Faithists': 6999\n'Universal Brotherhood Mission': 6151\n'Universal Brotherhood of Faithists': 6999\n'Universal Church': 2915\n'Universal Love': 6996\n'Universal Spiritual Values': 7399\nUnknown: 0\nUnorthodox: 0\nUrantian: 6999\nVaishnavite: 3011\nVaisnavism: 3011\nVarious: 7301\n'Various Beliefs': 7301\nVeda: 3011\nVedic: 3011\nVeershaiva: 3011\nVegetarian: 0\nVerdantic: 3011\n'Victorian Spiritualist Union': 6171\n'Victory Life Centre': 2422\n'Victory Life Church': 2422\n'Victory Life Fellowship': 2422\n'Victory Life Pentecostal': 2422\n'Victory Life River Church': 2422\n'Victory Worship Centre': 2423\n'Vietnamese Evangelical Church in Australia': 2806\n'Vineyard Christian Churches': 2000\n'Vineyard Christian Fellowship': 2899\n'Vipassana Buddhism': 1011\n'Vipassana Meditation': 1011\nVispassana: 1011\nVoodoo: 6139\nVulcan: 6999\n'Waverley Life Pentecostal': 2418\n'Welsh Baptist': 2031\n'Welsh Calvinistic Methodist': 2251\n'Welsh Chapel': 2251\n'Welsh Congregational': 2805\n'Welsh Independent': 2805\n'Welsh Methodist': 2251\n'Welsh Presbyterian': 2251\n'Wesley Central Mission': 2331\n'Wesley Church': 2331\n'Wesley Methodist': 2808\n'Wesleyan Methodist': 2808\n'Wesleyan Methodist Australia': 2808\n'Wesleyan Methodist Church': 2808\n'Weslyan Church of Tonga in Australia': 2806\n'Western Catholic': 2071\n'Westminster Presbyterian Church': 2251\n'White Eagle Lodge': 6171\n'White Lighter': 6171\nWicca: 6135\nWiccan: 6135\n'Wiccan (Witchcraft)': 6135\n'Wiccan Spiritualist': 6135\nWitch: 6135\nWitchcraft: 6135\n'Wong Tai Sin': 1011\n'World Church of God': 2915\n'World Goodwill': 6996\n'World Harvest Ministries': 2422\n'World Wide Churches': 2915\n'Worldwide Church of God': 2915\n'Worship Centre Christian Church': 2424\n'Worship Centre Church': 2424\n'Worship Centre Network': 2424\n'Worship Centre Pentecostal Network': 2424\nXtian: 2000\nYazidi: 6902\nYazidism: 6902\nYezidi: 6902\nYezidism: 6902\nYezidist: 6902\nZarathustrian: 6998\n'Zen Buddhist': 1011\nZoroastrian: 6998\n'Zoroastrian Parsi': 6998\nZoroastrianism: 6998\n'Zwingli Swiss Protestant': 2252\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 45
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "residency.list"
   display_name: "List of Residency Status"
   description: "List of Residency Status.  Usually defined by the government."
   value: "Citizen: Citizen\nTemporary: Temporary\nPermanent: Permanent\nVisitor: Visitor\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 46
+  created_by: 1
+  modified_by: 1
   type: "system"
   name: "settings.default.overwrite"
   display_name: "Setting File Overwrite"
   description: "A file name that allows the update process to change the default settings to match the users pre-set details."
   value: ""
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
   id: 47
@@ -487,62 +569,72 @@
   name: "house.list"
   display_name: "House List"
   description: "House list used in your school."
-  value: "Ming:\n    name: Ming\n    shortName: M\n    logo: null\nSong:\n    name: Song\n    shortName: S\n    logo: null\nTang:\n    name: Tang\n    shortName: T\n    logo: uploads/2018/04/house_logo_463dfa48cd6a58feba52c.png\n"
+  value: "ming:\n    name: Ming\n    shortName: M\n    logo: null\nsong:\n    name: Song\n    shortName: S\n    logo: null\ntang:\n    name: Tang\n    shortName: T\n    logo: null\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-04-14 09:23:16"
+  last_modified: "2018-05-23 14:16:20"
   created_on: "2018-03-26 23:02:05"
 -
   id: 48
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "student.groups"
   display_name: "Student Groups"
   description: "Usually the year groups that attend this school."
   value: "'Year 13': Y13\n'Year 12': Y12\n'Year 11': Y11\n'Year 10': Y10\n'Year 9': Y9\n'Year 8': Y8\n'Year 7': Y7\n'Year 6': Y6\n'Year 5': Y5\n'Year 4': Y4\n'Year 3': Y3\n'Year 2': Y2\n'Year 1': Y1\nKinder: Y0\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 50
+  id: 49
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "department.type.list"
   display_name: "Department Type List"
   description: "Types of departments within the institute."
   value: "'Learning Area': 'Learning Area'\nAdministration: Administration\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 51
+  id: 50
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "department.staff.type.list"
   display_name: "Department Staff Type List"
   description: "Types of staff within departments within the institute."
   value: "Learning:\r\n    Coordinator: Coordinator\r\n    'Assistant Coordinator': 'Assistant Coordinator'\r\n    'Teacher (Curriculum)': 'Teacher (Curriculum)'\r\n    Teacher: Teacher\r\n    Other: Other\r\nAdministration:\r\n    Director: Director\r\n    Manager: Manager\r\n    Administrator: Administrator\r\n    Other: Other\r\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 52
+  id: 51
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "date.format"
   display_name: "Date Format"
   description: "Display the date in reports in this format. Formats are found at http://php.net/manual/en/function.date.php"
   value: "long: 'D, jS M/Y'\nshort: j/m/Y\nwidget: dMMMy\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 53
+  id: 52
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "time.format"
   display_name: "Time Format"
   description: "Display the time in reports in this format. Formats are found at http://php.net/manual/en/function.date.php"
   value: "long: 'h:i:s a'\r\nshort: 'H:i'\r\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 54
+  id: 53
   created_by: 1
   modified_by: 1
   type: "array"
@@ -551,10 +643,12 @@
   description: "A default set of period times for days in the timetable.  These values are used to seed the timetable, which allows the timing to be changed if necessary."
   value: "Registration:\n    code: Reg\n    start: '08:15'\n    end: '08:30'\n    type: pastoral\n'Period 1':\n    start: '08:30'\n    end: '09:40'\n    code: P1\n'Period 2':\n    start: '09:40'\n    end: '10:50'\n    code: P2\n'Morning Tea':\n    start: '10:50'\n    end: '11:10'\n    code: MT\n    type: break\n'Period 3':\n    start: '11:10'\n    end: '12:20'\n    code: P3\nLunch:\n    start: '12:20'\n    end: '13:10'\n    code: Lch\n    type: break\n'Period 4':\n    start: '13:10'\n    end: '14:20'\n    code: P4\n'Period 5':\n    start: '14:20'\n    end: '15:30'\n    code: P5\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-28 17:52:50"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 55
+  id: 54
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "languages.translated"
   display_name: "Languages Translated"
@@ -562,20 +656,22 @@
   value: "'English (Australia)': en_AU\n'English (Great Britian)': en_GB\n'English (United States)': en_US\n"
   choice: "en_GB"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 56
+  id: 55
+  created_by: 1
+  modified_by: 1
   type: "integer"
   name: "teachingload.timetable.maximum"
   display_name: "Timetable Teaching Load Maximum"
   description: "The maximum number of periods in a timetable cycle that a teacher should have face to face teaching."
   value: 9
   role: "ROLE_PRINCIPAL"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 57
+  id: 56
   created_by: 1
   modified_by: 1
   type: "integer"
@@ -585,20 +681,24 @@
   value: 3
   role: "ROLE_PRINCIPAL"
   default_value: 3
-  last_modified: "2018-03-28 09:30:03"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 58
+  id: 57
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "calendar.status.list"
   display_name: "Calendar Status List"
   description: "Calendar Status List - The name will be translated."
   value: "calendar.status.past: past\ncalendar.status.current: current\ncalendar.status.future: future\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 59
+  id: 58
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "activity.provider.type"
   display_name: "Activity Provider List"
@@ -606,20 +706,24 @@
   value: "school: school\nexternal: external\n"
   role: "ROLE_REGISTRAR"
   default_value: "school"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 60
+  id: 59
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "activity.type.type"
   display_name: "Activity Type List"
   description: "Activity Type List - The name will be translated."
   value: "action: action\ncreativity: creativity\nservice: service\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 61
+  id: 60
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "activity.payment.type"
   display_name: "Activity Payment Type List"
@@ -627,10 +731,12 @@
   value: "program: program\nsession: session\nweek: week\nterm: term\n"
   role: "ROLE_REGISTRAR"
   default_value: "program"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 62
+  id: 61
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "activity.payment.firmness"
   display_name: "Activity Payment Firmness List"
@@ -638,20 +744,24 @@
   value: "finalised: finalised\nestimated: estimated\n"
   role: "ROLE_REGISTRAR"
   default_value: "finalised"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 63
+  id: 62
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "tutor.type.list"
   display_name: "Tutor Type List"
   description: "Tutor Type List - The name will be translated."
   value: "teacher: teacher\nassistant: assistant\ntechnician: technician\nparent: parent\ncoach: coach\norganiser: organiser\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 64
+  id: 63
+  created_by: 1
+  modified_by: 1
   type: "string"
   name: "currency"
   display_name: "Currency"
@@ -659,20 +769,24 @@
   value: "AUD"
   validator: "Symfony\\Component\\Validator\\Constraints\\CurrencyValidator"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 65
+  id: 64
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "google"
   display_name: "Google Authentication and App Access"
   description: "Google Authentication and App Access details."
   value: "o_auth: '1'\nclient_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com\nclient_secret: EZ9oJc3uuvHh_2X27lkMexZ-\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:03:30"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 66
+  id: 65
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "external.activity.status.list"
   display_name: "External Activity Status List"
@@ -680,32 +794,34 @@
   value: "accepted: accepted\npanding: pending\nwaiting_list: waiting_list\nnot_accepted: not_accepted\n"
   role: "ROLE_SYSTEM_ADMIN"
   default_value: "pending"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 67
+  id: 66
+  created_by: 1
+  modified_by: 1
   type: "array"
   name: "external.activity.type.list"
   display_name: "External Activity Type List"
   description: "Type of external activity."
   value: "creative: creative\naction: action\nservice: service\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-03-26 23:02:05"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 68
+  id: 67
   created_by: 1
   modified_by: 1
   type: "system"
   name: "version"
   display_name: "System Version"
   description: "The version of Busybee currently configured on your system."
-  value: "0.0.33"
+  value: "0.0.34"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-15 10:45:33"
+  last_modified: "2018-05-23 12:15:06"
   created_on: "2018-03-26 23:02:05"
 -
-  id: 69
+  id: 68
   created_by: 1
   modified_by: 1
   type: "array"
@@ -715,6 +831,6 @@
   value: "lesson: lesson\npastoral: pastoral\nsport: sport\nbreak: break\nservice: service\nother: other\n"
   role: "ROLE_PRINCIPAL"
   default_value: "lesson"
-  last_modified: "2018-03-28 09:54:06"
+  last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-28 09:54:06"
 ...

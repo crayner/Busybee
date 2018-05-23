@@ -614,4 +614,14 @@ class Activity extends ActivityExtension
 
         return $this;
     }
+
+    /**
+     * @param int $id
+     * @return Activity
+     */
+    public function setId(int $id): Activity
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

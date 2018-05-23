@@ -195,7 +195,6 @@ class TimetableColumn extends TimetableColumnExtension
     public function setPeriods(?Collection $periods): TimetableColumn
     {
         $this->periods = $periods;
-
         return $this;
     }
 
@@ -213,7 +212,6 @@ class TimetableColumn extends TimetableColumnExtension
             $period->setColumn($this, false);
 
         $this->periods->add($period);
-
         return $this;
     }
 

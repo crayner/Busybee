@@ -433,4 +433,14 @@ class Family extends FamilyExtension
 
         return $this;
     }
+
+    /**
+     * @param int $id
+     * @return Family
+     */
+    public function setId(int $id): Family
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

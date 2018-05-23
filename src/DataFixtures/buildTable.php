@@ -16,6 +16,7 @@
 
 namespace App\DataFixtures;
 
+use App\Core\Exception\MissingMethodException;
 use Doctrine\Common\Persistence\ObjectManager;
 
 trait buildTable
@@ -41,10 +42,15 @@ trait buildTable
                 $metaData = $manager->getClassMetadata($className);
             }
 
+
             $fieldNames = $metaData->fieldNames;
             $mapping = $metaData->fieldMappings;
             $assocMap = $metaData->associationMappings;
             $entity = new $className();
+            $identifier = $metaData->getIdentifier()[0];
+            $method = 'set' . ucfirst($identifier);
+            if (! method_exists($entity, $method))
+                throw new MissingMethodException(sprintf('The method "%s" is not available in class "%s".', $method, $className));
             $save = true;
             $targets = [];
             foreach($item as $name=>$value)

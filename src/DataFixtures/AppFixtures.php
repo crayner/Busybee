@@ -16,12 +16,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
 
-class AppFixtures extends Fixture implements DependentFixtureInterface
+class AppFixtures
 {
     /**
      * Load data fixtures with the passed EntityManager

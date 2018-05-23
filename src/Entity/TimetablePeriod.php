@@ -207,7 +207,6 @@ class TimetablePeriod extends TimetablePeriodExtension
             $column->addPeriod($this, false);
 
         $this->column = $column;
-
         return $this;
     }
 

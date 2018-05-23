@@ -22,12 +22,10 @@ use App\Entity\ActivityTutor;
 use App\Entity\CalendarGrade;
 use App\Entity\ExternalActivity;
 use App\Entity\Term;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
-class ActivityFixtures extends Fixture implements DependentFixtureInterface
+class ActivityFixtures
 {
     use buildTable;
 

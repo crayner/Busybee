@@ -24,12 +24,10 @@ use App\Entity\Locality;
 use App\Entity\Person;
 use App\Entity\Phone;
 use App\Entity\Student;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
-class PeopleFixtures extends Fixture implements DependentFixtureInterface
+class PeopleFixtures
 {
     use buildTable;
 

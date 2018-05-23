@@ -15,12 +15,11 @@
  */
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Hillrange\Security\Entity\User;
 use Symfony\Component\Yaml\Yaml;
 
-class UserFixtures extends Fixture
+class UserFixtures
 {
     use buildTable;
 
