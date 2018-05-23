@@ -858,4 +858,66 @@ class PeriodReportManager extends ReportManager
         $grade = new CalendarGrade();
         return $grade->setGrade('Empty')->setCalendar(CalendarManager::getCurrentCalendar());
     }
+
+    /**
+     * serialize
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->getStatus(),
+            $this->getMessages(),
+            $this->getEntity(),
+            $this->getGrades(),
+            $this->getCalendar(),
+            $this->possibleStudents,
+            $this->possibleStudentCount,
+            $this->allocatedStudents,
+            $this->allocatedStudentCount,
+            $this->missingStudents,
+            $this->missingStudentCount,
+            $this->duplicateStudents,
+            $this->duplicateStudentCount,
+            $this->possibleTutors,
+            $this->duplicateTutors,
+            $this->duplicateTutorCount,
+            $this->possibleSpaces,
+            $this->duplicateSpaces,
+            $this->duplicateSpaceCount,
+        ]);
+    }
+
+    /**
+     * unserialize
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $status,
+            $messages,
+            $entity,
+            $this->grades,
+            $this->calendar,
+            $this->possibleStudents,
+            $this->possibleStudentCount,
+            $this->allocatedStudents,
+            $this->allocatedStudentCount,
+            $this->missingStudents,
+            $this->missingStudentCount,
+            $this->duplicateStudents,
+            $this->duplicateStudentCount,
+            $this->possibleTutors,
+            $this->duplicateTutors,
+            $this->duplicateTutorCount,
+            $this->possibleSpaces,
+            $this->duplicateSpaces,
+            $this->duplicateSpaceCount
+            ) = unserialize($serialized);
+
+        $this->setStatus($status)->setMessages($messages)->setEntity($entity);
+    }
 }

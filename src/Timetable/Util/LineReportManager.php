@@ -358,4 +358,40 @@ class LineReportManager extends ReportManager
 
         return $this->extraStudents;
     }
+
+    /**
+     * serialize
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->getStatus(),
+            $this->getMessages(),
+            $this->getEntity(),
+            $this->possibleStudents,
+            $this->missingStudents,
+            $this->extraStudents,
+        ]);
+    }
+
+    /**
+     * unserialize
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $status,
+            $messages,
+            $entity,
+            $this->possibleStudents,
+            $this->missingStudents,
+            $this->extraStudents
+            ) = unserialize($serialized);
+
+        $this->setStatus($status)->setMessages($messages)->setEntity($entity);
+    }
 }

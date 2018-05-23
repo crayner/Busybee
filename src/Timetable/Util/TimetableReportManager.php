@@ -178,4 +178,44 @@ class TimetableReportManager extends ReportManager
 
         return $this->getPeriods()->get($period->getId());
     }
+
+    /**
+     * serialize
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->getStatus(),
+            $this->getMessages(),
+            $this->getEntity(),
+            $this->getGrades(),
+            $this->getCalendar(),
+            $this->periodList,
+            $this->getPeriods(),
+            $this->getSpaceTypes(),
+        ]);
+    }
+
+    /**
+     * unserialize
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $status,
+            $messages,
+            $entity,
+            $this->grades,
+            $this->calendar,
+            $this->periodList,
+            $this->periods,
+            $this->spaceTypes
+            ) = unserialize($serialized);
+
+        $this->setStatus($status)->setMessages($messages)->setEntity($entity);
+    }
 }

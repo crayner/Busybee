@@ -73,9 +73,9 @@ class ReportCache implements UserTrackInterface
     private $report;
 
     /**
-     * @return ReportInterface|null
+     * @return string|null
      */
-    public function getReport(): ?ReportInterface
+    public function getReport(): ?string
     {
         return $this->report;
     }
@@ -84,7 +84,7 @@ class ReportCache implements UserTrackInterface
      * @param ReportInterface|null $report
      * @return ReportCache
      */
-    public function setReport(?ReportInterface $report): ReportCache
+    public function setReport(string $report): ReportCache
     {
         $this->report = $report;
         return $this;

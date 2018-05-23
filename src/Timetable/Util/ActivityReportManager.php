@@ -112,4 +112,38 @@ class ActivityReportManager extends ReportManager
             return true;
         return false;
     }
+
+    /**
+     * serialize
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->getStatus(),
+            $this->getMessages(),
+            $this->getEntity(),
+            $this->grades,
+            $this->activityActive,
+        ]);
+    }
+
+    /**
+     * unserialize
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $status,
+            $messages,
+            $entity,
+            $this->grades,
+            $this->activityActive
+            ) = unserialize($serialized);
+
+        $this->setStatus($status)->setMessages($messages)->setEntity($entity);
+    }
 }

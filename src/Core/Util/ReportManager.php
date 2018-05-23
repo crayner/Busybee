@@ -5,7 +5,7 @@ use App\Core\Manager\MessageManager;
 use App\Entity\ReportCache;
 use Doctrine\ORM\EntityManagerInterface;
 
-abstract class ReportManager implements ReportInterface
+abstract class ReportManager implements ReportInterface, \Serializable
 {
     /**
      * @var string
@@ -48,6 +48,21 @@ abstract class ReportManager implements ReportInterface
         return $this->messages;
     }
 
+    /**
+     * @param array $messages
+     * @return ReportManager
+     */
+    public function setMessages(array $messages): ReportManager
+    {
+        $this->messages = $messages;
+        return $this;
+    }
+
+    /**
+     * clearMessages
+     *
+     * @return ReportManager
+     */
     public function clearMessages(): ReportManager
     {
         $this->messages = [];
@@ -90,22 +105,18 @@ abstract class ReportManager implements ReportInterface
      */
     public function retrieveCache($entity): ReportInterface
     {
-        $em = $this->getEntityManager();
         $report = $this->loadReport($entity);
         if ($report instanceof ReportCache) {
             $lastModified = $report->getLastModified();
-            $report = $report->getReport();
-            $report->setRefreshReport(! $entity->isEqualTo($report->getEntity()));
+            $this->setRefreshReport(! $entity->isEqualTo($this->getEntity()));
             if ($lastModified < new \DateTime("-15 minutes"))
-                $report->setRefreshReport(true);
-            if ($report->isRefreshReport())
-                $report->setEntity($entity);
-            $report->setEntityManager($em);
-            return $report;
+                $this->setRefreshReport(true);
+            if ($this->isRefreshReport())
+                $this->setEntity($entity);
+            return $this;
         }
         $this->refreshReport = true;
         $this->setEntity($entity);
-        $this->setEntityManager($em);
         return $this;
     }
 
@@ -192,12 +203,9 @@ abstract class ReportManager implements ReportInterface
 
         $report->setClassName(get_class($this->getEntity()));
         $report->setClassId($this->getEntity()->getId());
-        $em = $this->getEntityManager();
-        $this->setEntityManager(null);
-        $report->setReport($this);
-        $em->persist($report);
-        $em->flush();
-        $this->setEntityManager($em);
+        $report->setReport($this->serialize());
+        $this->getEntityManager()->persist($report);
+        $this->getEntityManager()->flush();
         return $this;
     }
 
@@ -212,7 +220,8 @@ abstract class ReportManager implements ReportInterface
         $this->setEntity($entity);
         $report = $this->getEntityManager()->getRepository(ReportCache::class)->findOneBy(['classId' => $entity->getId(), 'className' => get_class($entity)]);
         if ($report)
-            $this->setReportId($report->getId());
+            $this->unserialize($report->getReport());
+
         return $report;
     }
 
