@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Core\Extension;
 
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,7 +19,7 @@ class SessionExtension extends AbstractExtension
 	 */
 	public function __construct(RequestStack $request)
 	{
-		if (! is_null($request->getCurrentRequest()))
+		if (! is_null($request->getCurrentRequest()) && $request->getCurrentRequest()->hasSession())
 			$this->session = $request->getCurrentRequest()->getSession();
 	}
 

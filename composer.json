@@ -31,8 +31,8 @@
 		"symfony/maker-bundle": "^1.0",
 		"symfony/monolog-bundle": "^3.1",
 		"symfony/orm-pack": "^1.0",
-        "symfony/polyfill-intl-icu": "^1.0",
-        "symfony/polyfill-mbstring": "^1.0",
+		"symfony/polyfill-intl-icu": "^1.0",
+		"symfony/polyfill-mbstring": "^1.0",
 		"symfony/polyfill-php72": "^1.0",
 		"symfony/property-access": "^4.1",
 		"symfony/requirements-checker": "^1.0",
@@ -44,6 +44,7 @@
 		"symfony/twig-bundle": "^4.1",
 		"symfony/validator": "^4.1",
 		"symfony/var-dumper": "^4.1",
+		"symfony/web-profiler-bundle": "^4.1",
 		"symfony/yaml": "^4.1",
 		"twig/extensions": "^1.5",
 		"twig/twig": "^2.4"
