@@ -2,3 +2,8 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    paths:
+        '%kernel.project_dir%/templates/bundles/HillrangeSecurity': HillrangeSecurity
+        '%kernel.project_dir%/templates/bundles/HillrangeForm': HillrangeForm
+    globals:
+        idleTimeout: '%idleTimeout%'

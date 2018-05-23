@@ -11,11 +11,11 @@
 {% block contentContainer %}
     {{ form_start(form) }}
     {% if closeWindow is defined and closeWindow == 'closeWindow' %}
-        {% set h3Content = closeButton()|raw %}
+        {% set h3Content = closeButton({mergeClass: 'btn-sm'})|raw %}
     {% else %}
-        {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
+        {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}, mergeClass: 'btn-sm'}) %}
     {% endif %}
-    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
     {% set h3Content = h3Content ~ form_widget(form.nameSelect, {'value': setting_id ~ ""}) %}
     {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', transDomain: 'System', panelParagraph: 'system.setting.edit.description'} %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}

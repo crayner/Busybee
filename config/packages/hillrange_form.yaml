@@ -1,8 +1,5 @@
 hillrange_form:
     upload_path: 'uploads/%current_year%/%current_month%'
     button_class_off: 'btn btn-danger far fa-thumbs-down'
-    button_toggle_swap:
-        - 'btn-danger'
-        - 'btn-success'
-        - 'fa-thumbs-down'
-        - 'fa-thumbs-up'
+    button_class_on:  'btn btn-success far fa-thumbs-up'
+    use_font_awesome: true

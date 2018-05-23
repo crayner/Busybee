@@ -9,7 +9,7 @@
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
     {% if app.environment == 'dev' %}
-        {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, 'class': 'btn btn-success fas fa-asterisk', transDomain: 'System', title: 'system.setting.create.title'}) %}
+        {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, class: 'btn btn-success fas fa-asterisk', transDomain: 'System', title: 'system.setting.create.title'}) %}
     {% endif %}
     {% include 'Page/panelStart.html.twig' with {header: 'system.setting.manage.title', transDomain: 'System', panelParagraph: form} %}
     <div class="container-fluid">
@@ -41,9 +41,7 @@
                     {{ setting.description }}
                 </div>
                 <div class="col-3 form-inline">
-                    <button title='{{ 'system.setting.edit.title'|trans }}' type="button"
-                            class="fas fa-edit btn btn-warning"
-                            onClick="window.open('{{ path('setting_edit', {'id': setting.id}) }}','_self')"></button>
+                    {{ editButton({windowOpen: {route: path('setting_edit', {id: setting.id})}, title: 'system.setting.edit.title', transDomain: 'System', style: ''})|raw }}
                 </div>
             </div>
         {% endfor %}

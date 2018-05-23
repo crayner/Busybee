@@ -2,7 +2,8 @@
 
 {% block image_label -%}
     {% if imageExists(data) %}
-        <img src="{{ asset( imagePath(data) ) }}" class="{{ attr.imageClass }} card-img"/>
+        {% if attr.imageClass is defined %}{% set imageClass = attr.imageClass %}{% endif %}
+        <img src="{{ asset( imagePath(data) ) }}" class="{{ imageClass }} card-img"/><!-- Hillrange Image -->
         {{- form_label(form) -}}
         {% if deletePhoto is not null %}
             {% set imageDelete = 0 %}
@@ -50,8 +51,8 @@
         &nbsp;{{ 'form.required'|trans({}, 'FormTheme') }} </span>&nbsp;{% endspaceless %}{% set required_printed = true %}{% endif %}
     {% if setting_name is defined %}
         {% spaceless %}<small class="form-text text-info"
-               title="{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}"
-               onclick="window.open('{{ path('setting_edit_name', {name: setting_name, closeWindow: 'closeWindow'}) }}', 'SettingManage', 'width=1200,height=900')">
+                              title="{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}"
+                              onclick="window.open('{{ path('setting_edit_name', {name: setting_name, closeWindow: 'closeWindow'}) }}', 'SettingManage', 'width=1200,height=900')">
             <span class="fas fa-info-circle"></span>&nbsp;{{ 'setting.choice.name'|trans({'%name%': setting_display_name}, 'System') }}</small>{% endspaceless %}
     {% endif %}
 
@@ -61,9 +62,9 @@
     {% if errors|length > 0 -%}
         {% if form.parent %}<small class="form-text text-danger">{% endif %}
         <ul class="list-unstyled">
-        {%- for error in errors -%}
-            <li class="text-danger fas fa-exclamation-circle"> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
-        {%- endfor -%}
+            {%- for error in errors -%}
+                <li class="text-danger"><span class="fas fa-exclamation-circle"></span> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
+            {%- endfor -%}
         </ul>
         {% if form.parent %}</small>{% endif %}
     {%- endif %}
@@ -71,7 +72,10 @@
         {% if help_params is not defined or help_params is not iterable %}
             {% set help_params = {} %}
         {% endif %}
-        <small class="form-text text-muted">{{ (translation_domain is same as(false) ? help : help|trans(help_params, translation_domain)) }}</small>
+        {% if translation_domain is not same as(false) %}{% set help = help|trans(help_params, translation_domain) %}{% endif %}
+        {% if help is not empty %}
+            <small class="form-text text-muted">{{ help }}</small>
+        {% endif %}
     {% endif %}
 {%- endblock form_errors %}
 
@@ -95,13 +99,13 @@
 
 {% block choice_row -%}
     {% if expanded %}
-        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}{% if element_class is not empty%} {{ element_class }}{% endif %}">
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
             {{- form_errors(form) -}}
         </div>
     {% else %}
-        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
+        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}{% if element_class is not empty%} {{ element_class }}{% endif %}">
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
             {{- form_errors(form) -}}
@@ -113,11 +117,14 @@
     {% if form.vars.block_prefixes.1 == 'choice' %}
         {{- block('choice_row') -}}
     {% else %}
-        <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
-            {{- form_widget(form) -}}
-            {{- form_label(form) -}}
-            {{- form_errors(form) -}}
-        </div>
+        {%- if compound is defined and compound -%}
+            {%- set element = 'div' -%}
+        {%- endif -%}
+        <{{ element|default('div') }} class="form-group{% if element_class is not empty%} {{ element_class }}{% endif %}">
+        {{- form_widget(form) -}}
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        </{{ element|default('div') }}>
     {% endif %}
 {%- endblock form_row %}
 
@@ -138,58 +145,118 @@
         {% set use_toggle = true %}
     {% endif %}
     {% if use_toggle %}
-        {% set button_class = button_class_off|default('btn btn-danger far fa-thumbs-down') %}
+        {% set button_class = button_class_off|default('toggle toggle-thumbs-down') %}
 
-        {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'fa-thumbs-down': 'fa-thumbs-up'}) %}
+        {% set button_toggle_swap = button_toggle_swap|default({'toggle-thumbs-down': 'toggle-thumbs-up'}) %}
         {% if checked %}
-            {% set button_class = button_class|replace(button_toggle_on) %}
+            {% for swap in button_toggle_swap %}
+                {% if swap in button_class %}
+                    {% set button_class = button_class|replace({(swap): ""}) %}
+                    {% set button_class = button_class|replace({'  ': ' '}) %}
+                    {% set button_class = button_class|trim %}
+                {% else %}
+                    {% set button_class = button_class ~ ' ' ~ swap %}
+                {% endif %}
+            {% endfor %}
         {% endif %}
 
         {% set swap_list = '' %}
-        {% for x,y in button_toggle_on %}
-            {% set swap_list = swap_list ~ ' ' ~ y ~ ' ' ~ x|trim %}
+        {% for y in button_toggle_swap %}
+            {% set swap_list = swap_list ~ ' ' ~ y %}
         {% endfor %}
 
-        <div class="{{ div_class }}">
-            <div data-toggle="buttons">
-                <span class="{{ button_class }}" toggle_swap="{{ swap_list|trim }}"><input type="hidden" value="{% if checked %}1{% else %}0{% endif %}" id="{{ id }}" name="{{ full_name }}" /></span>
-            </div>
+        <div>
+            {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+            {% set inputClass = '' %}
+            {% if attr.class is defined %}{% set inputClass = 'class=' ~ attr.class  %}{% endif %}
+            <label class="control-label">
+            <span class="{{ button_class }} {{ div_class }}" toggle_swap="{{ swap_list|trim }}" data-toggle="buttons">
+            <input type="hidden" value="{{ value }}" id="{{ id }}" name="{{ full_name }}" {{ inputClass }} /></span>
+                {{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}
+                {% if required %}
+                    <br/><span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span>
+                {% endif %}
+            </label>
         </div>
-
-        {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-        <label class="control-label">{{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}</label>
+        {{- form_errors(form) -}}
     {% else %}
         {{ parent() }}
+        {{- form_errors(form) -}}
     {% endif %}
 {%- endblock checkbox_widget %}
 
-{% block bee_toggle_row -%}
-    {% set button_class = button_class_off|default('btn btn-danger far fa-thumbs-down') %}
+{% block hillrange_toggle_row -%}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+{%- endblock hillrange_toggle_row %}
 
-    {% set button_toggle_on = button_toggle_on|default({'btn-danger': 'btn-success', 'fa-thumbs-down': 'fa-thumbs-up', 'btn-success': 'btn-danger', 'fa-thumbs-up': 'fa-thumbs-down'}) %}
+{% block datetime_widget -%}
+    {%- if widget == 'single_text' -%}
+        {{- block('form_widget_simple') -}}
+    {%- else -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        {% set attr_id = id %}
+        {% if wrapTime %}{% set id = id ~ '_date' %}{% endif %}
+    <div {{ block('widget_container_attributes') }}>
+        {{- form_errors(form.date) -}}
+        {{- form_errors(form.time) -}}
+
+        <div class="sr-only">
+            {%- if form.date.year is defined %}{{ form_label(form.date.year) }}{% endif -%}
+            {%- if form.date.month is defined %}{{ form_label(form.date.month) }}{% endif -%}
+            {%- if form.date.day is defined %}{{ form_label(form.date.day) }}{% endif -%}
+            {%- if form.time.hour is defined %}{{ form_label(form.time.hour) }}{% endif -%}
+            {%- if form.time.minute is defined %}{{ form_label(form.time.minute) }}{% endif -%}
+            {%- if form.time.second is defined %}{{ form_label(form.time.second) }}{% endif -%}
+        </div>
+
+        {{- form_widget(form.date, { datetime: true } ) -}}
+        {% if wrapTime %}{% set id = attr_id ~ '_time' %}</div><div {{ block('widget_container_attributes') }}>{% endif %}
+        {{- form_widget(form.time, { datetime: true } ) -}}
+        </div>
+    {%- endif -%}
+{%- endblock datetime_widget %}
+
+
+{% block hillrange_toggle_widget -%}
+    {% set button_class = button_class_off|default('toggle toggle-thumbs-down') %}
+
+    {% if use_font_awesome is same as(true) %}
+        {% set icon_class = icon_class_off|default('far fa-thumbs-down') %}
+    {% endif %}
     {% if value == '1' %}
-        {% set button_class = button_class|replace(button_toggle_on) %}
+        {% set button_class = button_class_on|default('toggle toggle-thumbs-up') %}
+
+        {% if use_font_awesome is same as(true) %}
+            {% set icon_class = icon_class_on|default('far fa-thumbs-up') %}
+        {% endif %}
     {% endif %}
 
-    {% set swap_list = '' %}
-    {% for x,y in button_toggle_on %}
-        {% if y not in swap_list  %}
-            {% set swap_list = swap_list ~ ' ' ~ y|trim %}
-        {% endif %}
-        {% if x not in swap_list  %}
-            {% set swap_list = swap_list ~ ' ' ~ x|trim %}
-        {% endif %}
-    {% endfor %}
-
-    <div data-toggle="buttons">
+    <div class="toggle-label">
         {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-        <label class="control-label">{{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}
-        {% if required %}
-            <br/><span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span>
-        {% endif %}</label>
-        <span class="{{ button_class }} {{ div_class }}" toggle_swap="{{ swap_list|trim }}"><input type="hidden" value="{{ value }}" id="{{ id }}" name="{{ full_name }}" /></span>
+        {% set inputClass = '' %}
+        {% if attr.class is defined %}{% set inputClass = 'class=' ~ attr.class  %}{% endif %}
+
+        {% set label_class = label_attr.class|default('') %}
+        {% set label_class = (label_class ~ ' control-label')|trim %}
+        {% if label_attr.id is defined %}
+            {% set label_id = ' id="' ~ label_attr.id ~ '"' %}
+        {% endif %}
+
+        {% set value = value|default('0') %}
+
+        <label class="{{ label_class }}"{{ label_id|default('') }}>
+            <div class="{{ div_class }}">
+            <span class="{{ button_class }}{% if disabled %} disabled{% endif %}" toggle_on="{{ button_class_on|default('toggle toggle-thumbs-up') }}" toggle_off="{{ button_class_off|default('toggle toggle-thumbs-down') }}" data-toggle="buttons" id="{{ id ~ '_span' }}">
+                <input type="hidden" value="{{ value }}" id="{{ id }}" name="{{ full_name }}" {{ inputClass }}{% if disabled %} disabled{% endif %} />
+                {% if use_font_awesome is same as(true) %}
+                    <span class="{{ icon_class|trim }}" icon_on="{{ icon_class_on|default('far fa-thumbs-up') }}" icon_off="{{ icon_class_off|default('far fa-thumbs-down') }}" type_on="{{ fa_type_on|default('far') }}" type_off="{{ fa_type_off|default('far') }}"></span>
+                {% endif %}
+            </span></div>
+            {{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}
+            {% if required %}
+                <br/><span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span>
+            {% endif %}
+        </label>
     </div>
-    {{- form_errors(form) -}}
-
-{%- endblock bee_toggle_row %}
-
+{%- endblock hillrange_toggle_widget %}

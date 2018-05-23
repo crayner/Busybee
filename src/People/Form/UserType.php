@@ -73,6 +73,8 @@ class UserType extends AbstractType
 					'attr'  => array(
 						'class'     => 'user',
 					),
+                    'button_class_off' => 'btn btn-danger far fa-thumbs-down',
+                    'button_class_on' => 'btn btn-success far fa-thumbs-up',
 				)
 			)
 			->add('locale', LocaleType::class,
