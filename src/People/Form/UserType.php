@@ -99,7 +99,8 @@ class UserType extends AbstractType
 					'attr'  => array(
 						'class'     => 'user',
 					),
-					'button_class_off' => 'btn btn-success far fa-thumbs-down',
+                    'button_class_off' => 'btn btn-success far fa-thumbs-down',
+                    'button_class_on' => 'btn btn-danger far fa-thumbs-up',
 				)
 			)
 			->add('expiresAt', DateType::class,
@@ -122,7 +123,8 @@ class UserType extends AbstractType
 					'attr'  => array(
 						'class'     => 'user',
 					),
-					'button_class_off' => 'btn btn-success far fa-thumbs-down',
+                    'button_class_off' => 'btn btn-success far fa-thumbs-down',
+                    'button_class_on' => 'btn btn-danger far fa-thumbs-up',
 				)
 			)
 			->add('credentialsExpireAt', DateType::class,

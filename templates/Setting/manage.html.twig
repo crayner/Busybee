@@ -41,7 +41,7 @@
                     {{ setting.description }}
                 </div>
                 <div class="col-3 form-inline">
-                    {{ editButton({windowOpen: {route: path('setting_edit', {id: setting.id})}, title: 'system.setting.edit.title', transDomain: 'System', style: ''})|raw }}
+                    {{ editButton({windowOpen: {route: path('setting_edit', {id: setting.id})}, title: 'system.setting.edit.title', transDomain: 'System', style: '', colour: 'warning'})|raw }}
                 </div>
             </div>
         {% endfor %}

@@ -15,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.0.33';
+	const VERSION = '0.0.34';
 
 	/**
 	 * @var SettingManager
@@ -223,9 +223,9 @@ class VersionManager
 			$versions['Database']['Driver']['flag'] = 'alert alert-success';
 
 		$version             = [];
-		$version['string']   = '4.0+';
-		$version['low']      = '4.0';
-		$version['high']     = '4.0.99';
+		$version['string']   = '4.1+';
+		$version['low']      = '4.1';
+		$version['high']     = '4.1.99';
 		$versions['Symfony'] = $this->fullCompare($versions['Symfony'], $version);
 
 		$version['string'] = '2.4+';

@@ -55,7 +55,7 @@
             {% set xx = manager.getPerson(person.id) %}
             <div class="row row-striped">
                 <div class="col-2 hidden-sm">
-                    {{ person.entity.getPhoto75('left')|raw }}
+                    {{ person.entity.photo75('left')|raw }}
                 </div>
                 <div class="col-3" style="display: inline-block;">
                     {{ person.surname }}<br/>

@@ -621,3 +621,11 @@ input[type=color].form-control {
 .dropPeriod:hover {
     background-color: lightsteelblue;
 }
+.img-photo75 {
+    width: 75px;
+    border-radius: 1rem;
+}
+.img-photo250 {
+    width: 250px;
+    border-radius: 1rem;
+}

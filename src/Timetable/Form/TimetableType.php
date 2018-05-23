@@ -62,12 +62,7 @@ class TimetableType extends AbstractType
                     'help'      => 'timetable.locked.help',
                     'disabled'  => $locked,
                     'button_class_off' => "btn btn-info fas fa-lock-open",
-                    'button_toggle_swap' => [
-                        'btn-info',
-                        'btn-primary',
-                        'fa-lock-open',
-                        'fa-lock',
-                    ],
+                    'button_class_on' => "btn btn-primary fas fa-lock",
                 ]
             )
             ->add('days', CollectionType::class,

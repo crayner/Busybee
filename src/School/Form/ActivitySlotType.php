@@ -66,12 +66,7 @@ class ActivitySlotType extends AbstractType
                 [
                     'label' => 'activity.external.slot.type.label',
                     'button_class_off' => 'btn btn-info fas fa-sign-in-alt',
-                    'button_toggle_swap' => [
-                        'btn-info',
-                        'btn-primary',
-                        'fa-sign-in-alt',
-                        'fa-sign-out-alt',
-                    ],
+                    'button_class_on' => 'btn btn-primary fas fa-sign-out-alt',
                     'label_attr' => [
                         'class' => 'typeMonitor',
                     ],

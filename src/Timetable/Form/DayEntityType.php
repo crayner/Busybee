@@ -55,13 +55,7 @@ class DayEntityType extends AbstractType
                     'label' => 'timetable.day.dayType.label',
                     'help' => 'timetable.day.dayType.help',
                     'button_class_off' => 'fas fa-thumbtack btn btn-warning',
-                    'button_toggle_swap' =>
-                        [
-                            'fa-thumbtack',
-                            'fa-undo',
-                            'btn-primary',
-                            'btn-warning',
-                        ],
+                    'button_class_on' => 'fas fa-undo btn btn-primary',
                     'disabled' => $options['disabled'],
                 ]
             )

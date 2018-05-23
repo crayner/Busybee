@@ -10,12 +10,32 @@
             {% if form.parent.vars.value.name is defined %}
                 {% set imageDelete = form.parent.vars.value.name %}
             {% endif %}
-            {{ deleteButton({title: 'photo.delete', transDomain: translation_domain, windowOpen: {route: deletePhoto|replace({'__imageDelete__': imageDelete}), target: deleteTarget, params: deleteParams}, colour: 'warning'})|raw }}
+            {{ deleteButton({title: 'photo.delete', transDomain: translation_domain, windowOpen: {route: deletePhoto|replace({'__imageDelete__': imageDelete}), target: deleteTarget, params: deleteParams}, colour: 'warning', mergeClass: 'btn-sm'})|raw }}
         {% endif %}
     {% else %}
         {{- form_label(form) -}}
     {% endif %}
 {%- endblock image_label %}
+
+{% block image_row -%}
+    <div class="form-group">
+    <{{ element|default('div') }}>
+    {{- form_widget(form) -}}
+    {{- form_label(form) -}}
+    </{{ element|default('div') }}>
+    </div>
+{% endblock image_row %}
+
+{% block image_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('form-control'))|trim}) -%}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock image_widget %}
+
+{% block file_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('form-control'))|trim}) -%}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock file_widget %}
+
 
 {% block url_label -%}
     {{- form_label(form) -}}
@@ -137,54 +157,6 @@
     <input type="text" {{ block('widget_attributes') }} />
 {%- endblock auto_complete_widget -%}
 
-{% block checkbox_widget -%}
-    {% if use_toggle is not defined %}
-        {% set use_toggle = false %}
-    {% endif %}
-    {% if attr.use_toggle is defined %}
-        {% set use_toggle = true %}
-    {% endif %}
-    {% if use_toggle %}
-        {% set button_class = button_class_off|default('toggle toggle-thumbs-down') %}
-
-        {% set button_toggle_swap = button_toggle_swap|default({'toggle-thumbs-down': 'toggle-thumbs-up'}) %}
-        {% if checked %}
-            {% for swap in button_toggle_swap %}
-                {% if swap in button_class %}
-                    {% set button_class = button_class|replace({(swap): ""}) %}
-                    {% set button_class = button_class|replace({'  ': ' '}) %}
-                    {% set button_class = button_class|trim %}
-                {% else %}
-                    {% set button_class = button_class ~ ' ' ~ swap %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
-        {% set swap_list = '' %}
-        {% for y in button_toggle_swap %}
-            {% set swap_list = swap_list ~ ' ' ~ y %}
-        {% endfor %}
-
-        <div>
-            {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-            {% set inputClass = '' %}
-            {% if attr.class is defined %}{% set inputClass = 'class=' ~ attr.class  %}{% endif %}
-            <label class="control-label">
-            <span class="{{ button_class }} {{ div_class }}" toggle_swap="{{ swap_list|trim }}" data-toggle="buttons">
-            <input type="hidden" value="{{ value }}" id="{{ id }}" name="{{ full_name }}" {{ inputClass }} /></span>
-                {{ (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) }}
-                {% if required %}
-                    <br/><span class="field-required">&nbsp;{{ 'form.required'|trans({}, 'FormTheme') }}</span>
-                {% endif %}
-            </label>
-        </div>
-        {{- form_errors(form) -}}
-    {% else %}
-        {{ parent() }}
-        {{- form_errors(form) -}}
-    {% endif %}
-{%- endblock checkbox_widget %}
-
 {% block hillrange_toggle_row -%}
     {{- form_widget(form) -}}
     {{- form_errors(form) -}}
@@ -216,7 +188,6 @@
         </div>
     {%- endif -%}
 {%- endblock datetime_widget %}
-
 
 {% block hillrange_toggle_widget -%}
     {% set button_class = button_class_off|default('toggle toggle-thumbs-down') %}
