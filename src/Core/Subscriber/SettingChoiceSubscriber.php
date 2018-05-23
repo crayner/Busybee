@@ -85,7 +85,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
                 $x[$value] = $value;
             $choices = $x;
         }
-
+dump($choices);
 		$newChoices = [];
 		if (!is_null($options['setting_data_value']))
 		{

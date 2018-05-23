@@ -41,6 +41,7 @@ school:
     houses:
         title: Manage Houses
         description: ''
+        remove.locked: 'The House "%name%" is locked due to use within system data.'
     house:
         name:
             label: House Name

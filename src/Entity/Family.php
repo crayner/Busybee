@@ -324,7 +324,7 @@ class Family extends FamilyExtension
 	 */
 	public function getHouse()
 	{
-		return $this->house;
+		return strtolower($this->house);
 	}
 
 	/**

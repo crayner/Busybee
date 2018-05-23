@@ -137,7 +137,7 @@ School Admin:
             route: department_edit
             parameters:
                 id: Add
-        house_edit:
+        houses_edit:
             label: menu.setting.houses
             role: ROLE_REGISTRAR
             route: houses_edit

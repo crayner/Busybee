@@ -127,6 +127,7 @@ staff:
     house:
         label: House
         placeholder: Select a House
+        help: Adding the family to a house will populate student records automaically.
 student:
     startAtSchool:
         label: 'First attended school on:'
@@ -204,6 +205,8 @@ student:
     calendar_grade:
         tab: '!!!forms_grades!!!'
         title: 'Student !!!form_grade!!! Details:<br /><small>%name%</small>'
+        add: Add !!!form_grade!!!
+        remove: Remove !!!form_grade!!!
 phone:
     type:
         label: 'Type of Phone'
@@ -293,3 +296,4 @@ locality:
     title: Locality
 people:
     title: All People
+contact.phone.remove: Remove Phone

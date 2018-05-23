@@ -3,12 +3,14 @@ namespace App\School\Util;
 
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
+use App\Entity\Family;
 use App\Entity\Staff;
 use App\Entity\Student;
 use App\School\Entity\House;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Yaml\Yaml;
 
 class HouseManager
 {
@@ -122,16 +124,19 @@ class HouseManager
 		return $this;
 	}
 
-	/**
-	 * @param House $house
-	 *
-	 * @return int
-	 */
-	public function getStatus(House $house): int
+    /**
+     * getStatus
+     *
+     * @param House $house
+     * @return int
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function getStatus(House $house): int
 	{
 		$x = 0;
 		$x = $x + count($this->objectManager->getRepository(Student::class)->findByHouse($house->getName()));
-		$x = $x + count($this->objectManager->getRepository(Staff::class)->findByHouse($house->getName()));
+        $x = $x + count($this->objectManager->getRepository(Staff::class)->findByHouse($house->getName()));
+        $x = $x + count($this->objectManager->getRepository(Family::class)->findByHouse($house->getName()));
 		$house->setStatus($x);
 
 		return $house->getStatus();
@@ -157,6 +162,7 @@ class HouseManager
 		});
 		$data = new ArrayCollection(iterator_to_array($iterator, false));
 
+        $hl = [];
 
 		foreach ($data->toArray() as $house)
 		{
@@ -164,11 +170,20 @@ class HouseManager
 			$w['name']          = $house->getName();
 			$w['shortName']     = $house->getShortName();
 			$w['logo']          = $house->getLogo();
-			$houses[$w['name']] = $w;
+			$houses[strtolower($w['name'])] = $w;
+			$hl[strtolower($w['name'])] = $w['name'];
 		}
 
 		$this->houses = $data;
 
+		if (file_exists(__DIR__.'/../../../config/translations/Setting.en.yaml'))
+            $data = Yaml::parse(file_get_contents(__DIR__.'/../../../config/translations/Setting.en.yaml'));
+        else
+            $data = [];
+
+        $data['house.list'] = $hl;
+
+        file_put_contents(__DIR__.'/../../../config/translations/Setting.en.yaml', Yaml::dump($data));
 		return $this->getSettingManager()->set('house.list', $houses);
 	}
 

@@ -38,24 +38,26 @@ class HousesValidator extends ConstraintValidator
 		foreach ($this->houses as $q => $w)
 		{
 			$house = new House();
-			$house->setName($q);
+			$house->setName($w['name']);
 			if ($this->houseManager->getStatus($house) > 0)
 			{
-				$valid = false;
-				foreach ($value->toArray() as $house)
+				foreach ($value->toArray() as $k=>$house)
 				{
-					if ($q == $house->getName())
+                    $exists = false;
+					if ($q == strtolower($house->getName()))
 					{
-						$valid = true;
-						break;
-					}
+					    $exists = true;
+                        break;
+                    }
 				}
-				if (!$valid)
-					$this->context->buildViolation('school.houses.remove.locked', ['%name%' => $q])
+                if (! $exists)
+                    $this->context->buildViolation('school.houses.remove.locked', ['%name%' => $house->getName()])
                         ->setTranslationDomain('School')
-						->addViolation();
+                        ->atPath('['.$k.'].name')
+                        ->addViolation();
 			}
 		}
-	}
+
+    }
 
 }

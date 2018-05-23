@@ -166,21 +166,22 @@ class PersonSubscriber implements EventSubscriberInterface
 					)
 				)
 			)
-			->add('jobTitle', TextType::class, array(
+			->add('jobTitle', TextType::class, [
 					'label'     => 'staff.jobTitle.label',
-					'attr'      => array(
+					'attr'      => [
 						'class'     => 'staffMember',
-					)
-				)
+					]
+				]
 			)
-			->add('house', SettingChoiceType::class, array(
+			->add('house', SettingChoiceType::class, [
 					'label'              => 'staff.house.label',
 					'placeholder'        => 'staff.house.placeholder',
 					'required'           => false,
 					'help'               => 'staff.house.help',
 					'setting_name'       => 'house.list',
-					'setting_data_value' => 'name',
-				)
+                    'translation_prefix' => true,
+                    'use_value_as_label' => true,
+				]
 			)
 		;
 
@@ -345,16 +346,16 @@ class PersonSubscriber implements EventSubscriberInterface
 					'required' => false,
 				)
 			)
-			->add('house', SettingChoiceType::class,
-				[
-					'label'                     => 'student.house.label',
-					'placeholder'               => 'student.house.placeholder',
-					'required'                  => false,
-					'help'                      => 'student.house.help',
-					'setting_name'              => 'house.list',
-					'setting_data_value'        => 'name',
-				]
-			)
+            ->add('house', SettingChoiceType::class, array(
+                    'label'              => 'staff.house.label',
+                    'placeholder'        => 'staff.house.placeholder',
+                    'required'           => false,
+                    'help'               => 'staff.house.help',
+                    'setting_name'       => 'house.list',
+                    'translation_prefix' => true,
+                    'use_value_as_label' => true,
+                )
+            )
             ->add('calendarGrades', CollectionType::class,
                 [
                     'allow_add' => true,

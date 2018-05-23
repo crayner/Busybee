@@ -121,7 +121,7 @@ class Staff extends StaffExtension
 	 *
 	 * @return Staff
 	 */
-	public function setHouse($house)
+	public function setHouse($house): Staff
 	{
 		$this->house = $house;
 
@@ -133,9 +133,9 @@ class Staff extends StaffExtension
 	 *
 	 * @return string
 	 */
-	public function getHouse()
+	public function getHouse(): ?string
 	{
-		return $this->house;
+		return strtolower($this->house);
 	}
 
 	/**
