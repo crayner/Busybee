@@ -51,10 +51,9 @@ class Locality extends LocalityExtension
 	 *
 	 * @return Locality
 	 */
-	public function setId($id)
+	public function setId($id): Locality
 	{
 		$this->id = $id;
-
 		return $this;
 	}
 

@@ -31,6 +31,7 @@ class TimetableLine extends TimetableLineExtn implements UserTrackInterface
      */
     public function setId(?int $id): TimetableLine
     {
+        $this->id = $id;
         return $this;
     }
 

@@ -290,7 +290,6 @@ class SpecialDay extends SpecialDayExtension
 	public function setClose($close): SpecialDay
 	{
 		$this->close = $close;
-
 		return $this;
 	}
 

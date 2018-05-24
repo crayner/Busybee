@@ -329,7 +329,6 @@ class Department extends DepartmentExtension
 	public function setLogo(string $logo = null): Department
     {
         $this->logo = $logo;
-
         return $this;
     }
 

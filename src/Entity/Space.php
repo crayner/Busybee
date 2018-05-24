@@ -109,10 +109,9 @@ class Space extends SpaceExtension
 	 *
 	 * @return Space
 	 */
-	public function setId($id)
+	public function setId($id): Space
 	{
 		$this->id = $id;
-
 		return $this;
 	}
 

@@ -27,6 +27,7 @@ class Translate
      */
     public function setId(?int $id): Translate
     {
+        $this->id = $id;
         return $this;
     }
 

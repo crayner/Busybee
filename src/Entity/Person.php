@@ -149,7 +149,6 @@ class Person extends PersonExtension
 	public function setId(int $id): Person
 	{
 		$this->id = $id;
-
 		return $this;
 	}
 

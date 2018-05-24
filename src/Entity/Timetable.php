@@ -51,6 +51,7 @@ class Timetable extends TimetableExtension
      */
     public function setId(?int $id): Timetable
     {
+        $this->id = $id;
         return $this;
     }
 
