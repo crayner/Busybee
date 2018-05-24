@@ -24,6 +24,7 @@ class TimetableDay extends TimetableDayExtension
      */
     public function setId(?int $id): TimetableDay
     {
+        $this->id = $id;
         return $this;
     }
 
