@@ -14,7 +14,7 @@
  * Time: 09:40
  */
 
-namespace App\DataFixtures;
+namespace App\DummyData;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;

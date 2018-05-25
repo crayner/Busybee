@@ -2,13 +2,14 @@
 namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
-use App\DataFixtures\ActivityFixtures;
-use App\DataFixtures\CalendarFixtures;
-use App\DataFixtures\PeopleFixtures;
-use App\DataFixtures\SchoolFixtures;
-use App\DataFixtures\TimetableFixtures;
-use App\DataFixtures\TruncateTables;
-use App\DataFixtures\UserFixtures;
+use App\DummyData\ActivityFixtures;
+use App\DummyData\ActivityStudentFixtures;
+use App\DummyData\CalendarFixtures;
+use App\DummyData\PeopleFixtures;
+use App\DummyData\SchoolFixtures;
+use App\DummyData\TimetableFixtures;
+use App\DummyData\TruncateTables;
+use App\DummyData\UserFixtures;
 use App\Entity\Person;
 use App\Install\Form\MailerType;
 use App\Install\Form\MiscellaneousType;
@@ -19,6 +20,7 @@ use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
 use App\Install\Organism\User;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -369,35 +371,84 @@ class InstallController extends Controller
 
     /**
      * loadDummyData
-     * @Route("/load/dummy/data/", name="load_dummy_data")
+     * @Route("/load/dummy/{section}/data/", name="load_dummy_data")
      * @param ObjectManager $objectManager
+     * @param Request $request
      * @return RedirectResponse
      */
-	public function loadDummyData(ObjectManager $objectManager, Request $request)
+	public function loadDummyData(ObjectManager $objectManager, Request $request, string $section)
     {
+        $logger = $this->get('monolog.logger.dummy_data');
         $request->getSession()->invalidate();
 
-        $load = new TruncateTables();
-        $load->execute($objectManager);
+        if ($section === 'Start') {
+            $logger->addInfo(sprintf('Section %s started.', $section));
 
-        $load = new UserFixtures();
-        $load->load($objectManager);
+            $load = new TruncateTables();
+            $load->execute($objectManager);
+            $logger->addInfo('The existing data has been deleted.');
 
-        $load = new SchoolFixtures();
-        $load->load($objectManager);
+            $load = new UserFixtures();
+            $load->load($objectManager, $logger);
 
-        $load = new CalendarFixtures();
-        $load->load($objectManager);
+            $logger->addInfo(sprintf('Section %s completed.', $section));
+            return $this->redirectToRoute('load_dummy_data', ['section' => 'School']);
+        }
 
-        $load = new PeopleFixtures();
-        $load->load($objectManager);
+        if ($section === 'School') {
+            $logger->addInfo(sprintf('Section %s started.', $section));
 
-        $load = new TimetableFixtures();
-        $load->load($objectManager);
+            $load = new SchoolFixtures();
+            $load->load($objectManager, $logger);
 
-        $load = new ActivityFixtures();
-        $load->load($objectManager);
+            $load = new CalendarFixtures();
+            $load->load($objectManager, $logger);
 
-        return $this->redirectToRoute('homepage');
+            $logger->addInfo(sprintf('Section %s completed.', $section));
+            return $this->redirectToRoute('load_dummy_data', ['section' => 'People']);
+        }
+
+        if ($section === 'People') {
+            $logger->addInfo(sprintf('Section %s started.', $section));
+
+            $load = new PeopleFixtures();
+            $load->load($objectManager, $logger);
+
+            $logger->addInfo(sprintf('Section %s completed.', $section));
+            return $this->redirectToRoute('load_dummy_data', ['section' => 'Timetable']);
+        }
+
+        if ($section === 'Timetable') {
+            $logger->addInfo(sprintf('Section %s started.', $section));
+
+            $load = new TimetableFixtures();
+            $load->load($objectManager, $logger);
+
+            $logger->addInfo(sprintf('Section %s completed.', $section));
+            return $this->redirectToRoute('load_dummy_data', ['section' => 'Activity']);
+        }
+
+        if ($section === 'Activity') {
+            $logger->addInfo(sprintf('Section %s started.', $section));
+
+            $load = new ActivityFixtures();
+            $load->load($objectManager, $logger);
+
+            $logger->addInfo(sprintf('Section %s completed.', $section));
+            return $this->redirectToRoute('load_dummy_data', ['section' => 'ActivityStudent']);
+        }
+
+        if ($section === 'ActivityStudent') {
+            $logger->addInfo(sprintf('Section %s started.', $section));
+
+            $load = new ActivityStudentFixtures();
+            $load->load($objectManager, $logger);
+
+            $logger->addInfo(sprintf('Section %s completed.', $section));
+            $logger->addInfo('The Dummy Data Load finished.');
+            return $this->redirectToRoute('homepage');
+        }
+
+        die('Data Load Failed.');
     }
 }

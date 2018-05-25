@@ -13,36 +13,24 @@
  * Date: 20/05/2018
  * Time: 10:57
  */
-namespace App\DataFixtures;
+namespace App\DummyData;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Hillrange\Security\Entity\User;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class UserFixtures
+class UserFixtures implements DummyDataInterface
 {
     use buildTable;
-
-    /**
-     * @var array
-     */
-    private $assoc = [
-        'created_by'   => [
-            'name' => 'createdBy',
-            'method' => 'setCreatedBy'
-        ],
-        'modified_by' => [
-            'name' => 'modifiedBy',
-            'method' => 'setModifiedBy',
-        ],
-    ];
 
     /**
      * Load data fixtures with the passed EntityManager
      *
      * @param ObjectManager $manager
+     * @param LoggerInterface $logger
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager, LoggerInterface $logger)
     {
         // Bundle to manage file and directories
 
@@ -55,6 +43,6 @@ class UserFixtures
             }
         }
 
-        $this->buildTable($data, User::class, $manager);
+        $this->setLogger($logger)->buildTable($data, User::class, $manager);
     }
 }

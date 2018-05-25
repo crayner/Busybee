@@ -1,10 +1,12 @@
 monolog:
+    channels:
+        - 'dummy_data'
     handlers:
         main:
             type: rotating_file
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
-            channels: ["!security", '!mailer', '!request', '!doctrine']
+            channels: ["!security", '!mailer', '!request', '!doctrine', '!dummy_data']
             max_files: 7
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
@@ -17,4 +19,10 @@ monolog:
         console:
             type:   console
             process_psr_3_messages: false
-            channels: ["!event", "!doctrine", "!console"]
+            channels: ["!event", "!doctrine", "!console", "!dummy_data"]
+        dummyData:
+            level:    debug
+            type:     rotating_file
+            path:     '%kernel.logs_dir%/dummy_data.%kernel.environment%.log'
+            channels: [dummy_data]
+            max_files: 1

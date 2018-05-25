@@ -14,7 +14,7 @@
  * Time: 18:41
  */
 
-namespace App\DataFixtures;
+namespace App\DummyData;
 
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -32,6 +32,7 @@ class TruncateTables
         $connection = $objectManager->getConnection();
         $schemaManager = $connection->getSchemaManager();
         $tables = $schemaManager->listTables();
+
         $sql = 'SET FOREIGN_KEY_CHECKS = 0;';
         $connection->exec($sql);
 
@@ -49,6 +50,5 @@ class TruncateTables
         }
         $sql = 'SET FOREIGN_KEY_CHECKS = 1;';
         $connection->exec($sql);
-
     }
 }

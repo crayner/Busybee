@@ -432,10 +432,21 @@ class MenuManager extends MenuManagerConstants
 
 		$className = $node['showTest'];
 
-		if (! class_exists($className, true))
+		if (! $this->getContainer()->has($className))
 			return false;
-		$class = $this->container->get($className);
 
-		return $class->showItem();
+		$class = $this->getContainer()->get($className);
+
+		$options = isset($node['showOptions']) && is_array($node['showOptions']) ? $node['showOptions'] : [] ;
+
+		return $class::showTest($options);
 	}
+
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
 }

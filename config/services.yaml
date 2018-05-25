@@ -129,3 +129,7 @@ services:
             - '@App\Core\Manager\SettingManager'
             - '@monolog.logger.translation'
         public: false
+    App\Menu\Show\EnvironmentIs:
+        arguments:
+            - '%kernel.environment%'
+        public: true

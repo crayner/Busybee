@@ -657,8 +657,7 @@ class Student extends StudentExtension
 	 */
 	public function setHouse($house)
 	{
-		$this->house = $house;
-
+		$this->house = strtolower($house);
 		return $this;
 	}
 

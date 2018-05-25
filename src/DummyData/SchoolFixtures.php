@@ -13,7 +13,7 @@
  * Date: 20/05/2018
  * Time: 10:57
  */
-namespace App\DataFixtures;
+namespace App\DummyData;
 
 use App\Entity\Campus;
 use App\Entity\Course;
@@ -24,40 +24,24 @@ use App\Entity\Setting;
 use App\Entity\Space;
 use App\Entity\Translate;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class SchoolFixtures
+class SchoolFixtures implements DummyDataInterface
 {
     use buildTable;
 
-
-    /**
-     * @var array
-     */
-    private $assoc = [
-        'created_by'   => [
-            'name' => 'createdBy',
-            'method' => 'setCreatedBy'
-        ],
-        'modified_by' => [
-            'name' => 'modifiedBy',
-            'method' => 'setModifiedBy',
-        ],
-        'department_id' => [
-            'name' => 'department',
-            'method' => 'setDepartment'
-        ],
-    ];
     /**
      * Load data fixtures with the passed EntityManager
      *
      * @param ObjectManager $manager
+     * @param LoggerInterface $logger
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager, LoggerInterface $logger)
     {
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/campus.yml'));
 
-        $this->buildTable($data, Campus::class, $manager);
+        $this->setLogger($logger)->buildTable($data, Campus::class, $manager);
 
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/space.yml'));
 
@@ -86,17 +70,5 @@ class SchoolFixtures
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/invoice.yml'));
 
         $this->buildTable($data ?: [], Invoice::class, $manager);
-    }
-
-    /**
-     * getDependencies
-     *
-     * @return array
-     */
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-        ];
     }
 }

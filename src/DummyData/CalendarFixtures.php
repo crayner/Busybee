@@ -13,7 +13,7 @@
  * Date: 20/05/2018
  * Time: 10:57
  */
-namespace App\DataFixtures;
+namespace App\DummyData;
 
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
@@ -21,40 +21,24 @@ use App\Entity\Course;
 use App\Entity\SpecialDay;
 use App\Entity\Term;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class CalendarFixtures
+class CalendarFixtures implements DummyDataInterface
 {
     use buildTable;
-
-    /**
-     * @var array
-     */
-    private $assoc = [
-        'calendar_id' => [
-            'name' => 'calendar',
-            'method' => 'setCalendar',
-            ],
-        'created_by'   => [
-            'name' => 'createdBy',
-            'method' => 'setCreatedBy'
-        ],
-        'modified_by' => [
-            'name' => 'modifiedBy',
-            'method' => 'setModifiedBy',
-        ],
-    ];
 
     /**
      * Load data fixtures with the passed EntityManager
      *
      * @param ObjectManager $manager
+     * @param LoggerInterface $logger
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager, LoggerInterface $logger)
     {
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar.yml'));
 
-        $this->buildTable($data, Calendar::class, $manager);
+        $this->setLogger($logger)->buildTable($data, Calendar::class, $manager);
 
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/calendar_grade.yml'));
 
@@ -72,18 +56,5 @@ class CalendarFixtures
 
         $this->buildJoinTable($data ?: [], Course::class, CalendarGrade::class,
             'course_id', 'calendar_grade_id', 'addCalendarGrade', $manager);
-    }
-
-    /**
-     * getDependencies
-     *
-     * @return array
-     */
-    public function getDependencies()
-    {
-        return [
-            SchoolFixtures::class,
-            UserFixtures::class,
-        ];
     }
 }

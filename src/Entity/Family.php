@@ -336,8 +336,7 @@ class Family extends FamilyExtension
 	 */
 	public function setHouse($house)
 	{
-		$this->house = $house;
-
+		$this->house = strtolower($house);
 		return $this;
 	}
 

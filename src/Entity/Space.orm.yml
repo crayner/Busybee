@@ -4,7 +4,7 @@ App\Entity\Space:
     repositoryClass: App\Repository\SpaceRepository
     uniqueConstraints:
         name_campus:
-            columns: [ name, campus ]
+            columns: [ name, campus_id ]
     id:
         id:
             type: integer
@@ -62,6 +62,6 @@ App\Entity\Space:
     manyToOne:
         campus:
             targetEntity: App\Entity\Campus
-            joinColumns:
-                campus:
-                    referencedColumnName: id
+            joinColumn:
+                name: campus_id
+                referencedColumnName: id

@@ -38,42 +38,6 @@
   person_type: "student"
   status: "current"
 -
-  id: 3
-  created_by: 1
-  modified_by: 1
-  identifier: "W_180301LE"
-  importIdentifier: 119
-  honorific: "Mr."
-  surname: "Wilkinson"
-  firstName: "Ishaan"
-  preferredName: "Ishaan"
-  officialName: "Ishaan Wilkinson"
-  gender: "M"
-  last_modified: "2018-03-29 13:14:47"
-  created_on: "2018-03-26 23:05:09"
-  person_type: "staff"
-  house: "Song"
-  status: "Full"
-  staffType: "Unknown"
-  jobTitle: "Not Specified"
--
-  id: 4
-  created_by: 1
-  modified_by: 1
-  identifier: "V_180301LF"
-  importIdentifier: 120
-  honorific: "Mr."
-  surname: "Villarreal"
-  firstName: "Roderick"
-  preferredName: "Roderick"
-  officialName: "Roderick Villarreal"
-  gender: "M"
-  last_modified: "2018-03-26 23:05:09"
-  created_on: "2018-03-26 23:05:09"
-  person_type: "staff"
-  house: "Tang"
-  status: "Full"
--
   id: 5
   created_by: 1
   modified_by: 1
@@ -140,6 +104,42 @@
   last_modified: "2018-03-26 23:05:09"
   created_on: "2018-03-26 23:05:09"
   person_type: "person"
+-
+  id: 3
+  created_by: 1
+  modified_by: 1
+  identifier: "W_180301LE"
+  importIdentifier: 119
+  honorific: "Mr."
+  surname: "Wilkinson"
+  firstName: "Ishaan"
+  preferredName: "Ishaan"
+  officialName: "Ishaan Wilkinson"
+  gender: "M"
+  last_modified: "2018-03-29 13:14:47"
+  created_on: "2018-03-26 23:05:09"
+  person_type: "staff"
+  house: "Song"
+  status: "Full"
+  staffType: "Unknown"
+  jobTitle: "Not Specified"
+-
+  id: 4
+  created_by: 1
+  modified_by: 1
+  identifier: "V_180301LF"
+  importIdentifier: 120
+  honorific: "Mr."
+  surname: "Villarreal"
+  firstName: "Roderick"
+  preferredName: "Roderick"
+  officialName: "Roderick Villarreal"
+  gender: "M"
+  last_modified: "2018-03-26 23:05:09"
+  created_on: "2018-03-26 23:05:09"
+  person_type: "staff"
+  house: "Tang"
+  status: "Full"
 -
   id: 9
   created_by: 1

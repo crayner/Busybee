@@ -13,7 +13,7 @@
  * Date: 20/05/2018
  * Time: 10:57
  */
-namespace App\DataFixtures;
+namespace App\DummyData;
 
 use App\Entity\Address;
 use App\Entity\CalendarGradeStudent;
@@ -25,68 +25,24 @@ use App\Entity\Person;
 use App\Entity\Phone;
 use App\Entity\Student;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class PeopleFixtures
+class PeopleFixtures implements DummyDataInterface
 {
     use buildTable;
-
-    /**
-     * @var array
-     */
-    private $assoc = [
-        'user_id' => [
-            'name' => 'user',
-            'method' => 'setUser',
-            ],
-        'created_by'   => [
-            'name' => 'createdBy',
-            'method' => 'setCreatedBy'
-            ],
-        'modified_by' => [
-            'name' => 'modifiedBy',
-            'method' => 'setModifiedBy',
-            ],
-        'person_id' => [
-            'name' => 'person',
-            'method' => 'setPerson',
-            ],
-        'student_id' => [
-            'name' => 'student',
-            'method' => 'setStudent',
-            ],
-        'calendar_grade_id' => [
-            'name' => 'calendarGrade',
-            'method' => 'setCalendarGrade',
-            ],
-        'locality_id' => [
-            'name' => 'locality',
-            'method' => 'setLocality',
-            ],
-        'family_id' => [
-            'name' => 'family',
-            'method' => 'setFamily',
-            ],
-        'dept_id' => [
-            'name' => 'department',
-            'method' => 'setDepartment',
-            ],
-        'staff_id' => [
-            'name' => 'staff',
-            'method' => 'setStaff',
-            ],
-    ];
 
     /**
      * Load data fixtures with the passed EntityManager
      *
      * @param ObjectManager $manager
+     * @param LoggerInterface $logger
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager, LoggerInterface $logger)
     {
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/locality.yml'));
 
-        $this->buildTable($data ?: [], Locality::class, $manager);
+        $this->setLogger($logger)->buildTable($data ?: [], Locality::class, $manager);
 
         $data = Yaml::parse(file_get_contents(__DIR__ . '/SQL/App/address.yml'));
 
@@ -112,30 +68,16 @@ class PeopleFixtures
 
         $this->buildTable($data, DepartmentMember::class, $manager);
 
-        $data = Yaml::parse(file_get_contents(__DIR__. '/../DataFixtures/SQL/App/family_student.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__. '/../DummyData/SQL/App/family_student.yml'));
 
         $this->buildJoinTable($data ?: [], Family::class, Student::class, 'family_id', 'student_id', 'addStudent', $manager);
 
-        $data = Yaml::parse(file_get_contents(__DIR__. '/../DataFixtures/SQL/App/family_phone.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__. '/../DummyData/SQL/App/family_phone.yml'));
 
         $this->buildJoinTable($data ?: [], Family::class, Phone::class, 'family_id', 'phone_id', 'addPhone', $manager);
 
-        $data = Yaml::parse(file_get_contents(__DIR__. '/../DataFixtures/SQL/App/person_phone.yml'));
+        $data = Yaml::parse(file_get_contents(__DIR__. '/../DummyData/SQL/App/person_phone.yml'));
 
         $this->buildJoinTable($data ?: [], Person::class, Phone::class, 'person_id', 'phone_id', 'addPhone', $manager);
-    }
-
-    /**
-     * getDependencies
-     *
-     * @return array
-     */
-    public function getDependencies()
-    {
-        return [
-            CalendarFixtures::class,
-            SchoolFixtures::class,
-            UserFixtures::class,
-        ];
     }
 }

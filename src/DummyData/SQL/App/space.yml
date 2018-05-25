@@ -3,7 +3,7 @@
 # craigray_core.koala_space
 -
   id: 1
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "AHT"
@@ -22,7 +22,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 2
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "B001"
@@ -41,7 +41,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 3
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "B001A"
@@ -61,7 +61,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 4
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "B001B"
@@ -81,7 +81,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 5
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "B001C (Finance)"
@@ -100,7 +100,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 6
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "B002"
@@ -119,7 +119,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 7
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "B003"
@@ -139,7 +139,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 8
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "Back Court"
@@ -158,7 +158,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 9
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C101"
@@ -176,7 +176,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 10
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C102"
@@ -196,7 +196,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 11
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C103"
@@ -216,7 +216,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 12
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C104"
@@ -236,7 +236,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 13
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C105"
@@ -256,7 +256,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 14
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C106"
@@ -276,7 +276,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 15
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C107"
@@ -296,7 +296,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 16
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C108"
@@ -316,7 +316,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 17
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C201"
@@ -336,7 +336,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 18
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C202"
@@ -356,7 +356,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 19
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C203"
@@ -376,7 +376,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 20
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C204"
@@ -396,7 +396,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 21
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C205"
@@ -416,7 +416,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 22
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C206A"
@@ -436,7 +436,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 23
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C206B"
@@ -456,7 +456,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 24
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C208"
@@ -476,7 +476,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 25
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C301"
@@ -496,7 +496,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 26
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C302"
@@ -514,7 +514,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 27
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C303"
@@ -534,7 +534,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 28
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C304"
@@ -554,7 +554,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 29
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C305"
@@ -574,7 +574,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 30
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C306"
@@ -594,7 +594,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 31
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C307"
@@ -614,7 +614,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 32
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C308"
@@ -634,7 +634,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 33
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "C309"
@@ -653,7 +653,7 @@
   created_on: "2018-03-26 23:06:36"
 -
   id: 34
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "Court"
@@ -673,7 +673,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 35
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D002"
@@ -693,7 +693,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 36
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D004"
@@ -713,7 +713,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 37
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D100"
@@ -733,7 +733,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 38
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D100A (Testing)"
@@ -754,7 +754,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 39
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D100B (Admissions)"
@@ -774,7 +774,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 40
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D101"
@@ -794,7 +794,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 41
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D102"
@@ -814,7 +814,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 42
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D103"
@@ -834,7 +834,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 43
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D104"
@@ -854,7 +854,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 44
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D105"
@@ -874,7 +874,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 45
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D106"
@@ -894,7 +894,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 46
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "D107 (IB Center)"
@@ -914,7 +914,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 47
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "Hall"
@@ -934,7 +934,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 48
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "HOS"
@@ -953,7 +953,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 49
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "House 1"
@@ -972,7 +972,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 50
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "House 2"
@@ -991,7 +991,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 51
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "House 3"
@@ -1010,7 +1010,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 52
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "House 8"
@@ -1029,7 +1029,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 53
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "Library"
@@ -1050,7 +1050,7 @@
   created_on: "2018-03-26 23:06:37"
 -
   id: 54
-  campus: 1
+  campus_id: 1
   created_by: 1
   modified_by: 1
   name: "Server Room"

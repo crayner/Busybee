@@ -123,8 +123,7 @@ class Staff extends StaffExtension
 	 */
 	public function setHouse($house): Staff
 	{
-		$this->house = $house;
-
+		$this->house = strtolower($house);
 		return $this;
 	}
 

@@ -4,6 +4,8 @@ namespace App\People\Entity;
 use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Connection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 use Symfony\Component\HttpFoundation\File\File;
@@ -305,4 +307,35 @@ abstract class PersonExtension implements UserTrackInterface
 
         return true;
     }
+
+    static $personTypeList = [
+        'person',
+        'staff',
+        'student',
+        'contact',
+    ];
+
+    /**
+     * switchTo
+     *
+     * @param string $type
+     * @param Connection $connection
+     * @return PersonExtension|null
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \TypeError
+     */
+    public function switchTo(string $type = 'person', ObjectManager $objectManager): ?PersonExtension
+    {
+        $tableName = $objectManager->getClassMetadata(Person::class)->getTableName();
+        if (!in_array($type, self::$personTypeList))
+            throw new \TypeError(sprintf('The person type of %s is not valid.', $type));
+
+        $objectManager->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "'.$type.'" WHERE `' . $tableName . '`.`id` = ' . $this->getId());
+        $objectManager->persist($this);
+        $objectManager->flush();
+        $objectManager->refresh($this);
+
+        return $this;
+    }
+
 }

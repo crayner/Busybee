@@ -96,9 +96,13 @@ class MenuManagerConstants
     name: Load Dummy Data
     route: load_dummy_data
     role: ROLE_SYSTEM_ADMIN
-    parameters: []
+    parameters: 
+        section: Start
     node: 9
     order: 92
+    showTest: App\Menu\Show\EnvironmentIs
+    showOptions:
+        environment: dev
 ';
 
 	CONST SECTIONS = '
