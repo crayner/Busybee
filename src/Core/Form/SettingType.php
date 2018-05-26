@@ -136,9 +136,10 @@ class SettingType extends AbstractType
 	{
 		$resolver->setDefaults(
 			array(
-				'data_class'         => Setting::class,
-				'translation_domain' => 'System',
-				'cancelURL'         => null,
+				'data_class'            => Setting::class,
+				'translation_domain'    => 'System',
+				'cancelURL'             => null,
+                'allow_extra_fields'    => true,
 			)
 		);
 	}

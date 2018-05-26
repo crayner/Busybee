@@ -22,10 +22,10 @@ person.titlelist:
     miss: Miss
     dr: Dr
 person.genderlist:
-    unspecified: Not Specified
-    male: Male
-    female: Female
-    other: Other
+    u: Not Specified
+    m: Male
+    f: Female
+    o: Other
 student.enrolment.status:
     future: Future
     current: Current
@@ -80,6 +80,7 @@ setting.import:
     import.error: 'The file upload failed with the following error: %{message}'
 menu.space.type.title: 'Manage Facility Types'
 yaml.validation.error: '%systemMessage%'
+setting.save.error.array: 'The array value is not formatted correctly: %{error}'
 activity.payment.type:
     program: Entire Programme
     session: Per Session

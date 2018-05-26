@@ -36,7 +36,7 @@ class SettingController extends Controller
 
 		$form = $this->createForm(SettingImportType::class);
 
-		$settingManager->handleImportRequest($request, $form);
+		$settingManager->handleImportRequest($form);
 
 		return $this->render('Setting/manage.html.twig',
 			array(
@@ -91,7 +91,7 @@ class SettingController extends Controller
 	 * @param         $id
 	 * @param Request $request
 	 * @Route("/setting/manage/{id}/edit/{closeWindow}", name="setting_edit")
-	 *
+	 * @IsGranted("ROLE_SYSTEM_ADMIN")
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
 	public function edit($id, $closeWindow = null, Request $request, SettingManager $settingManager)
@@ -101,29 +101,24 @@ class SettingController extends Controller
 		if (is_null($setting))
 			throw new \InvalidArgumentException('The System setting of identifier: ' . $id . ' was not found');
 
-		$this->denyAccessUnlessGranted($setting->getRole() ?: 'ROLE_SYSTEM_ADMIN', null);
-
 		$form = $this->createForm(SettingType::class, $setting, ['cancelURL' => $this->generateUrl('setting_manage')]);
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$settingManager->createSetting($setting);
-
-			$setting = $settingManager->getSetting();
+            $settingManager->getEntityManager()->persist($setting);
+            $settingManager->getEntityManager()->flush();
 
 			if ($setting->getType() == 'image')
 				return $this->redirectToRoute('setting_edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
 		}
 
-        $setting = $settingManager->find($setting->getId());
-
 		return $this->render('Setting/edit.html.twig', [
 				'form'       => $form->createView(),
 				'fullForm'   => $form,
-				'setting_id' => $setting->getId(),
 				'closeWindow'=> $closeWindow,
+                'settingManager' => $settingManager,
 			]
 		);
 	}

@@ -2,14 +2,15 @@
 namespace App\Core\Manager;
 
 use App\Entity\Setting;
+use App\Core\Organism\SettingCache;
 use App\Repository\SettingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -29,19 +30,22 @@ class SettingManager implements ContainerAwareInterface
     private $container;
 
     /**
-     * @var SessionInterface
+     * @return ContainerInterface
      */
-    private $session;
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
 
     /**
-     * @var SettingRepository
+     * @param ContainerInterface $container
+     * @return SettingManager
      */
-    private $settingRepository;
-
-    /**
-     * @var MessageManager
-     */
-    private $messageManager;
+    public function setContainer(ContainerInterface $container = null): SettingManager
+    {
+        $this->container = $container;
+        return $this;
+    }
 
     /**
      * @var AuthorizationCheckerInterface
@@ -49,65 +53,14 @@ class SettingManager implements ContainerAwareInterface
     private $authorisation;
 
     /**
-     * @var \Twig_Environment
-     */
-    private $twig;
-
-    /**
-     * @var RequestStack
-     */
-    private $stack;
-
-    /**
-     * @var bool
-     */
-    private $installMode = false;
-
-    /**
      * SettingManager constructor.
-     *
      * @param ContainerInterface $container
-     * @param SessionInterface $session
-     * @param SettingRepository $settingRepository
      */
-    public function __construct(ContainerInterface $container, SessionInterface $session,
-                                SettingRepository $settingRepository, MessageManager $messageManager,
-                                AuthorizationCheckerInterface $authorisation, \Twig_Environment $twig)
+    public function __construct(ContainerInterface $container, MessageManager $messageManager, AuthorizationCheckerInterface $authorisation)
     {
         $this->setContainer($container);
-        $this->session = $session;
-        $this->settingRepository = $settingRepository;
         $this->messageManager = $messageManager;
         $this->authorisation = $authorisation;
-        $this->twig = $twig;
-        $this->stack = $container->get('request_stack');
-    }
-
-    /**
-     * Set Container
-     *
-     * @param ContainerInterface $container
-     *
-     * @return $this
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    /**
-     * @var bool
-     */
-    private $flip = false;
-
-    /**
-     * @return RequestStack
-     */
-    public function getStack(): RequestStack
-    {
-        return $this->stack;
     }
 
     /**
@@ -124,81 +77,83 @@ class SettingManager implements ContainerAwareInterface
      */
     public function get($name, $default = null, $options = [])
     {
-        $this->readSession();
+        $name = strtolower($name);
+        if ($this->readSession()->setName($name)->isSettingExists($name))
+            return $this->getSetting($name)->getValue($default, $options);
 
-        $this->setName($name);
+        $this->loadSetting($name, $default, $options);
 
-        $this->settingExists[$name] = isset($this->settingExists[$name]) ? (bool)$this->settingExists[$name] : false ;
-
-        $this->loadSetting($name);
-
-        if ($this->settingExists[$name])
-        {
-            if (empty($this->setting))
-                $this->setting = $this->settings[$name];
-
-            $func = 'get' . ucfirst($this->setting->getType());
-            $value = $this->$func($name, $default, $options);
-            if ($this->flip && is_array($value))
-                return array_flip($value);
+        if ($this->getSetting($name)) {
+            if ($this->isFlip() && $this->setting->getSetting()->getType() === 'array')
+                return array_flip($this->getSetting($name)->getValue($default, $options));
             else
-                return $value;
+                return $this->getSetting($name)->getValue($default, $options);
         }
-
-        if (mb_strpos($name, '.') !== false)
-        {
-            $n = explode('.', $name);
-            array_pop($n);
-            $name = implode('.', $n);
-            $value = $this->get($name, $default, $options);
-            if ($this->flip && is_array($value))
-                return array_flip($value);
-            else
-                return $value;
-        }
-
         return $default;
     }
 
     /**
-     * @var array
+     * @var ArrayCollection
      */
     private $settings;
 
     /**
-     * @var array
-     */
-    private $settingCache;
-
-    /**
-     * @var array
-     */
-    private $settingExists;
-
-    /**
      * Read Session
      */
-    private function readSession()
+    private function readSession(): SettingManager
     {
-        if ($this->session->isStarted()) {
-            $this->settings = $this->session->get('settings');
-            $this->settingCache = $this->session->get('settingCache');
-            $this->settingExists = $this->session->get('settingExists');
-        }
+        if ($this->hasSession())
+            $this->settings = $this->getSession()->get('settings');
+        else
+            $this->settings = new ArrayCollection();
+        return $this;
     }
 
     /**
-     * @var string
+     * hasSession
+     *
+     * @return bool
+     */
+    public function hasSession(): bool
+    {
+        return $this->getRequest()->hasSession();
+    }
+    /**
+     * @return SessionInterface
+     */
+    public function getSession(): ?SessionInterface
+    {
+        if ($this->hasSession())
+            return $this->getRequest()->getSession();
+
+        return null;
+    }
+
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        if (empty($this->request))
+            $this->request = $this->getContainer()->get('request_stack')->getCurrentRequest();
+
+        return $this->request;
+    }
+
+    /**
+     * @var string|null
      */
     private $name;
 
     /**
-     * @return string
+     * @var bool
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    private $flip = false;
 
     /**
      * @param string $name
@@ -221,56 +176,172 @@ class SettingManager implements ContainerAwareInterface
     }
 
     /**
-     * @var Setting
+     * @var SettingCache
      */
     private $setting;
+
+    /**
+     * getSetting
+     *
+     * @return SettingCache|null
+     */
+    public function getSetting(string $name): ?SettingCache
+    {
+        if ($this->setting && $this->setting->getName() === $name)
+            return $this->setting;
+        if ($this->getSettings()->containsKey($name))
+            $this->setting = $this->settings->get($name);
+        else
+            $this->setting = null;
+
+        return $this->setting;
+    }
+
+    /**
+     * isSettingExists
+     *
+     * @param string $name
+     * @return bool
+     */
+    private function isSettingExists(string $name): bool
+    {
+        if ($this->getSetting($name) && $this->setting->isValidSetting())
+            return true;
+
+        return false;
+    }
+
+    /**
+     * getSettings
+     *
+     * @return ArrayCollection
+     */
+    private function getSettings(): ArrayCollection
+    {
+        if (empty($this->settings))
+            $this->settings = new ArrayCollection();
+
+        return $this->settings;
+    }
+
+    /**
+     * has
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function has(string $name): bool
+    {
+        $this->get($name);
+        return $this->isSettingExists($name);
+    }
 
     /**
      * @param string $name
      * @param bool $reload
      * @return null|Setting
      */
-    private function loadSetting(string $name, $reload = false): ?Setting
+    private function loadSetting(string $name, $default = null, array $options= []): SettingManager
     {
-        if ($this->settingExists[$name])
-        {
-            if (empty($this->settings[$name]) || empty($this->settingCache[$name]) || $this->settingCache[$name]->getTimestamp() > strtotime('-15 Minutes'))
-                $reload = true;
-        } else
-            $reload = true;
+        $setting = $this->findOneByName($name);
 
-        if ($reload || in_array($name, ['version'])) {
-            $this->setting = $this->findOneByName($name);
+        if ($setting instanceof Setting)
+            return $this->writeSettingCache($setting);
 
-            if ($this->setting instanceof Setting)
-                $this->flushToSession($this->setting);
-        } else
-            $this->setting = $this->settings[$name];
+        $parts = explode('.', $name);
 
-        return $this->setting;
-    }
+        if (count($parts) > 1) {
+            $part = array_pop($parts);
+            $name = implode('.', $parts);
+            $value = $this->get($name, $default, $options);
 
-    /**
-     * Write Session
-     */
-    private function writeSession()
-    {
-        if ($this->session->isStarted()){
-            $this->session->set('settings', $this->settings);
-            $this->session->set('settingCache', $this->settingCache);
-            $this->session->set('settingExists', $this->settingExists);
+            if ($this->setting && $this->setting instanceof SettingCache && $this->setting->getName() === $name) {
+                if ($this->setting->getSetting()->getType() !== 'array')
+                    return $this;
+                foreach($this->setting->getValue() as $name=>$value) {
+                    if (strtolower($part) === strtolower($name)) {
+                        $setting = new Setting();
+                        $setting->setType(is_array($value) ? 'array' : 'system')
+                            ->setName($this->setting->getSetting()->getName() . '.' . strtolower($name));
+                        $this->writeSettingCache($setting, $this->setting->getSetting()->getName() . '.' . strtolower($name));
+                        $this->setting->setValue($value);
+                        $this->setting->setBaseSetting(false);
+                        return $this;
+                    }
+                }
+            }
         }
+
+        return $this;
     }
 
     /**
      * @param $name
-     * @return bool
+     * @return Setting|null
      */
-    public function has($name): bool
+    public function findOneByName($name): ?Setting
     {
-        $this->get($name);
-        $this->settingExists[$name] = isset($this->settingExists[$name]) ?  $this->settingExists[$name] : false ;
-        return (bool) $this->settingExists[$name];
+        try {
+            return $this->getSettingRepository()->findOneByName($name);
+        } catch (PDOException $e) {
+            if (in_array($e->getErrorCode(),['1146', '1045']))
+                return null;
+            throw $e;
+        }
+    }
+
+    /**
+     * getSettingRepository
+     *
+     * @return SettingRepository
+     */
+    private function getSettingRepository(): SettingRepository
+    {
+        return $this->getEntityManager()->getRepository(Setting::class);
+    }
+
+    /**
+     * getEntityManager
+     *
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->getContainer()->get('doctrine.orm.default_entity_manager');
+    }
+
+    /**
+     * writeSettingCache
+     *
+     * @param Setting $setting
+     * @return SettingManager
+     */
+    private function writeSettingCache(Setting $setting, $name = null): SettingManager
+    {
+        $this->setting = new SettingCache();
+        $this->setting->setSetting($setting);
+        $this->setting->setName($name ?: $setting->getName());
+        $this->setting->setCacheTime(new \DateTime('now'));
+        $this->addSetting($this->setting, $name ?: $setting->getName() );
+        if ($this->hasSession())
+            $this->getSession()->set('settings', $this->settings);
+        return $this;
+    }
+
+    /**
+     * addSetting
+     *
+     * @param SettingCache|null $setting
+     * @param string $name
+     * @return SettingManager
+     */
+    private function addSetting(?SettingCache $setting, string $name): SettingManager
+    {
+        if (empty($setting) || $this->getSettings()->containsKey(strtolower($name)))
+            return $this;
+        $this->getSettings()->set(strtolower($name), $setting);
+
+        return $this;
     }
 
     /**
@@ -284,7 +355,7 @@ class SettingManager implements ContainerAwareInterface
     public function getParameter($name, $default = null)
     {
         if ($this->hasParameter($name))
-            return $this->container->getParameter($name);
+            return $this->getContainer()->getParameter($name);
 
         if (false === strpos($name, '.'))
             return $default;
@@ -313,8 +384,130 @@ class SettingManager implements ContainerAwareInterface
      */
     public function hasParameter($name)
     {
-        return $this->container->hasParameter($name);
+        return $this->getContainer()->hasParameter($name);
     }
+
+    /**
+     * @param Request       $request
+     * @param FormInterface $form
+     */
+    public function handleImportRequest(FormInterface $form)
+    {
+        $form->handleRequest($this->getRequest());
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $file = $form->get('import_file')->getData();
+            try
+            {
+                $data = Yaml::parse(file_get_contents($file->getPathName()));
+            } catch (\Exception $e) {
+                $this->getMessageManager()->add('danger', 'setting.import.import.error', ['%{message}' => $e->getMessage()], 'Setting');
+                return ;
+            }
+
+            if ($data['name'] !== $form->get('import_file')->getData()->getClientOriginalName())
+            {
+                $this->messageManager->add('danger', 'setting.import.name.error', ['%{name}' => $data['name']], 'Setting');
+                return;
+            }
+
+            $this->loadSettings($data['settings'], $data['name']);
+        }
+    }
+
+    /**
+     * @var MessageManager
+     */
+    private $messageManager;
+
+    /**
+     * @return MessageManager
+     */
+    public function getMessageManager(): MessageManager
+    {
+        $this->messageManager->setDomain('System');
+        return $this->messageManager;
+    }
+
+    /**
+     * find
+     *
+     * @param $id
+     * @return Setting
+     */
+    public function find($id): Setting
+    {
+        $setting = $this->getSettingRepository()->find($id);
+        if ($setting instanceof Setting)
+            $this->clearSetting($setting);
+        return $setting;
+    }
+
+    /**
+     * clearSetting
+     *
+     * @param Setting $setting
+     * @return SettingManager
+     */
+    public function clearSetting(Setting $setting): SettingManager
+    {
+        if ($setting->getName())
+        {
+            if ($this->getSettings()->containsKey($setting->getName()))
+                $this->getSettings()->remove($setting->getName());
+        }
+        $this->setting = null;
+        if ($this->hasSession())
+            $this->getSession()->set('settings', $this->settings);
+
+        return $this;
+    }
+
+    /**
+     * set Setting
+     *
+     * @version 31st October 2016
+     * @since   21st October 2016
+     *
+     * @param   string $name
+     * @param   mixed  $value
+     *
+     * @return  mixed
+     */
+    public function set($name, $value): SettingManager
+    {
+        $name          = strtolower($name);
+
+        $this->get($name);
+
+        if (is_null($this->setting) || empty($this->setting->getSetting()->getName()))
+            return $this;
+
+        if (! $this->isInstallMode())
+            if (! $this->getAuthorisation()->isGranted($this->setting->getSetting()->getRole(), $this->setting->getSetting()))
+                return $this;
+
+        $setting = $this->find($this->setting->getSetting()->getId());
+        $this->writeSettingCache($setting);
+        $this->setting->setValue($value)
+            ->setCacheTime(new \DateTime('now'));
+
+        try {
+            $this->getEntityManager()->persist($this->setting->getSetting());
+            $this->getEntityManager()->flush();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+        $this->flushToSession();
+
+        return $this;
+    }
+
+    /**
+     * @var bool
+     */
+    private $installMode = false;
 
     /**
      * @return bool
@@ -335,477 +528,30 @@ class SettingManager implements ContainerAwareInterface
     }
 
     /**
-     * @param string $name
-     * @return mixed
+     * @return AuthorizationCheckerInterface
      */
-    private function getSystem(string $name, $default, $options)
+    public function getAuthorisation(): AuthorizationCheckerInterface
     {
-        $value = $this->setting->getValue();
-
-        return empty($value) ? $this->getDefault($default) : $value ;
+        return $this->authorisation;
     }
 
     /**
-     * @param string $name
-     * @return mixed
-     */
-    private function getArray(string $name, $default, $options)
-    {
-        $value = $this->setting->getValue();
-        if ($this->name === $name)
-            return $value;
-
-        $extension = trim(str_replace($name, '', $this->name), '.');
-
-        $extension = explode('.', $extension);
-        $x = [];
-        if (is_array($value)) {
-            foreach ($value as $q => $w)
-                $x[strtolower($q)] = $w;
-            $value = $x;
-        }
-
-        foreach($extension as $ext)
-        {
-            if (key_exists($ext, $value))
-            {
-                $this->setting = new Setting();
-                $name .= '.' . $ext;
-                $this->setting->setName(strtolower($name));
-                if (is_array($value[$ext]))
-                    $this->setting->setType('array');
-                else
-                    $this->setting->setType('system');
-                $value = $value[$ext];
-                $this->setting->setValue($value);
-                $this->flushToSession($this->setting);
-                if ($this->name === $name)
-                    if ($this->flip && is_array($value))
-                        return array_flip($value);
-                    else
-                        return $value;
-            }
-            else
-            {
-                $value = null;
-            }
-        }
-
-        return empty($value) ? $this->getDefault($default) : $value;
-    }
-
-    /**
-     * @param $default
-     * @return mixed
-     */
-    private function getDefault($default)
-    {
-        if (empty($default))
-            $default = $this->setting->getDefaultValue();
-        return $default;
-
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    private function getImage(string $name, $default, $options): ?string
-    {
-        $value = $this->setting->getValue();
-
-        return empty($value) ? $this->getDefault($default) : $value ;
-    }
-
-    /**
-     * @param Request       $request
-     * @param FormInterface $form
-     */
-    public function handleImportRequest(Request $request, FormInterface $form)
-    {
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $file = $form->get('import_file')->getData();
-            try
-            {
-                $data = Yaml::parse(file_get_contents($file->getPathName()));
-            } catch (\Exception $e) {
-                $this->messageManager->add('danger', 'setting.import.import.error', ['%{message}' => $e->getMessage()], 'Setting');
-                return ;
-            }
-
-            if ($data['name'] !== $form->get('import_file')->getData()->getClientOriginalName())
-            {
-                $this->messageManager->add('danger', 'setting.import.name.error', ['%{name}' => $data['name']], 'Setting');
-                return;
-            }
-
-            $this->loadSettings($data['settings'], $data['name']);
-        }
-    }
-
-    /**
-     * @param $data
-     * @param $resource
-     */
-    private function buildSettings($data, $resource)
-    {
-        if (empty($data))
-            return;
-        foreach ($data as $name => $datum)
-        {
-            $entity = $this->findOneByName($name);
-
-            if (!$entity instanceof Setting)
-            {
-                $entity = new Setting();
-                $entity->setName($name);
-                if (empty($datum['type']))
-                {
-                    $this->messageManager->addMessage('warning', 'setting.resource.warning', ['{{name}}' => $name], 'System');
-                    continue;
-                }
-                $entity->setType($datum['type']);
-            }
-            foreach ($datum as $field => $value)
-            {
-                $w = 'set' . ucwords($field);
-                $entity->$w($value);
-            }
-            $this->createSetting($entity);
-        }
-
-        $this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource], 'System');
-    }
-
-    /**
-     * @param $name
-     * @return Setting|null
-     */
-    public function findOneByName($name): ?Setting
-    {
-        try {
-            return $this->settingRepository->findOneByName($name);
-        } catch (\Exception $e) {
-            if ($e->getPrevious() instanceof PDOException && in_array($e->getErrorCode(),['1146', '1045']))
-                return null;
-            throw $e;
-        }
-    }
-
-    /**
-     * create Setting
+     * flushToSession
      *
-     * @version 5th April 2017
-     * @since   21st October 2016
-     *
-     * @param   Setting
-     *
-     * @return  SettingManager
+     * @param Setting $setting
      */
-    public function createSetting(Setting $setting)
+    private function flushToSession(): SettingManager
     {
-        if (!$this->has($setting->getName()))
-        {
-            $func = 'set'.ucfirst(strtolower($setting->getType()));
-            $setting->setValue($this->$func($setting->getValue()));
-
-            $em = $this->container->get('doctrine')->getManager();
-            $em->persist($setting);
-            $em->flush();
-        }
-        elseif (! empty($setting->getValue()))
-        {
-            $this->set($setting->getName(), $setting->getValue());
-        }
-        else
-        {
-            $this->get($setting->getName());
-        }
-
+        if ($this->hasSession())
+            $this->getSession()->set('settings', $this->settings);
         return $this;
     }
 
     /**
-     * set Setting
-     *
-     * @version 31st October 2016
-     * @since   21st October 2016
-     *
-     * @param   string $name
-     * @param   mixed  $value
-     *
-     * @return  mixed
+     * @return bool
      */
-    public function set($name, $value)
+    public function isFlip(): bool
     {
-        $name          = strtolower($name);
-
-        $this->setting = $this->findOneByName($name);
-        if (is_null($this->setting) || empty($this->setting->getName()))
-            return $this;
-
-        if (! $this->isInstallMode())
-            if (! $this->authorisation->isGranted($this->setting->getRole(), $this->setting))
-                return $this;
-
-        $func = 'set' . ucfirst(strtolower($this->setting->getType()));
-        $value = $this->$func($value);
-
-        $this->setting->setValue($value);
-        $em = $this->container->get('doctrine')->getManager();
-        $em->persist($this->setting);
-        $em->flush();
-        $this->flushToSession($this->setting);
-
-        return $this;
-    }
-
-    private function flushToSession(Setting $setting)
-    {
-        $name = strtolower($setting->getName());
-        $this->settings[$name] = $setting;
-        $this->settingCache[$name] = new \DateTime();
-        $this->settingExists[$name] = true;
-        $this->writeSession();
-    }
-
-    /**
-     * @param int $id
-     * @return Setting|null
-     */
-    public function find(int $id): ?Setting
-    {
-        $this->setting = $this->settingRepository->find($id);
-
-        if ($this->setting instanceof Setting)
-            $this->flushToSession($this->setting);
-
-        return $this->setting;
-    }
-
-    public function getSetting(): ?Setting
-    {
-        return $this->setting;
-    }
-
-    private function setArray($value)
-    {
-        if (is_array($value))
-            $value = Yaml::dump($value);
-
-        return $value;
-    }
-
-    private function getBoolean(string $name, $default, $options): ?string
-    {
-        $value = $this->setting->getValue();
-
-        return (bool) $value ;
-    }
-
-    /**
-     * getTwig
-     * @param string $name
-     * @param null|string $default
-     * @param array $options
-     * @return null|string
-     * @throws \Throwable
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Syntax
-     */
-    private function getTwig(string $name, ?string $default, array $options = []): ?string
-    {
-        $value = $this->setting->getValue();
-        try
-        {
-            $value = $this->twig->createTemplate($value)->render($options);
-        }
-        catch (\Twig_Error_Syntax $e)
-        {
-            throw $e;
-        }
-        catch (\Twig_Error_Runtime $e)
-        {
-            // Ignore Runtime Errors
-        }
-        return empty($value) ? $this->getDefault($default) : $value ;
-    }
-
-    /**
-     * setTwig
-     *
-     * @param $value
-     * @return string
-     * @throws \Throwable
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Syntax
-     */
-    private function setTwig($value)
-    {
-        if (is_null($value)) $value = '{{ empty }}';
-
-        try
-        {
-            $x = $this->twig->createTemplate($value)->render([]);
-        }
-        catch (\Twig_Error_Syntax $e)
-        {
-            throw $e;
-        }
-        catch (\Twig_Error_Runtime $e)
-        {
-            // Ignore Runtime Errors
-        }
-
-        return $value;
-    }
-
-    private function getString(string $name, $default, $options): ?string
-    {
-        $value = $this->setting->getValue();
-
-        return empty($value) ? $this->getDefault($default) : $value ;
-    }
-
-    private function setString($value)
-    {
-        return strval(mb_substr($value, 0, 25));
-    }
-
-    private function setImage($value): ?string
-    {
-        return $value;
-    }
-
-    private function setBoolean($value): bool
-    {
-        return (bool) $value;
-    }
-
-    public function getInteger(string $name, $default, $options): int
-    {
-        $value = $this->setting->getValue();
-
-        return empty($value) ? intval($this->getDefault($default)) : intval($value) ;
-    }
-
-    private function setInteger($value): int
-    {
-        return intval($value);
-    }
-
-    private function getRegex(string $name, $default, $options): ?string
-    {
-        $value = $this->setting->getValue();
-
-        return empty($value) ? $this->getDefault($default) : $value ;
-    }
-
-    private function setRegex(?string $value): ?string
-    {
-        return $value;
-    }
-
-    private function setSystem($value)
-    {
-        return $value;
-    }
-
-    private function getText(string $name, $default, $options): ?string
-    {
-        $value = $this->setting->getValue();
-
-        return empty($value) ? $this->getDefault($default) : $value ;
-    }
-
-    private function setText(?string $value): ?string
-    {
-        return $value;
-    }
-
-    private function getTime(string $name, $default, $options)
-    {
-        $value = $this->setting->getValue();
-        $value = empty($value) ? $this->getDefault($default) : $value ;
-
-        return $value;
-    }
-
-    private function setTime($value): ?string
-    {
-        if (!empty($value) && $value instanceof \DateTime)
-            $value = $value->format('H:i');
-
-        return $value;
-    }
-
-    private function getEnum(string $name, $default, $options)
-    {
-        return $this->getString($name, $default, $options);
-    }
-
-    private function setEnum($value): ?string
-    {
-        return $this->setString($value);
-    }
-
-    /**
-     * @param $data
-     * @param $resource
-     */
-    private function loadSettings($data, $resource)
-    {
-        if (empty($data)) {
-            $this->messageManager->addMessage('warning', 'setting.resource.settings.missing', ['%{resource}' => $resource], 'System');
-            return;
-        }
-        $count = 0;
-        foreach ($data as $name => $datum) {
-            $this->set($name, $datum);
-            $count++;
-        }
-
-        $this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource, "%{count}" => $count], 'System');
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function getRequestParameter(string $name)
-    {
-        return $this->stack->getCurrentRequest()->get($name);
-    }
-
-    /**
-     * @param $name
-     * @param string $class
-     * @return string
-     */
-    public function settingLink($name, $class = 'gearoge', $style = 'float: none;'): string
-    {
-        if (empty($name))
-            return '';
-
-        $this->get($name);
-
-        if (! $this->settingExists)
-            return '';
-
-        $class = $class ? ' class="'.$class.'"' : '';
-        $style = $style ? ' style="'.$style.'"' : '';
-
-        return '<a href="#" '. $class . $style . '" onClick="window.open(\''.$this->container->get('router')->generate('setting_edit_name', ['name' => $name, 'closeWindow' => 'closeWindow']).'\',\'_blank\',\'width=1200,height=900\')" title="'.$this->setting->getDisplayName().'">'.$this->setting->getDisplayName().'</a>';
-    }
-
-    /**
-     * @return EntityManagerInterface
-     */
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->container->get('doctrine')->getManager();
+        return $this->flip;
     }
 }

@@ -19,7 +19,7 @@
                 <input type="password" id="login__password" name="login[_password]" class="form-control"
                        placeholder="{{ 'Password'|trans }}" />
                 <span class="input-group-append">{{ saveButton({class: 'btn btn-success fas fa-sign-in-alt'})|raw }}</span>
-                {% if get_setting('google.o_auth', false) %}
+                {% if get_setting('google.o_auth', false) is same as(true) %}
                 <span class="input-group-append">
                     {{ miscButton({class: 'btn btn-success fab fa-google', title: 'google.oauth', transDomain: 'home', windowOpen: {route: path('google_oauth')}})|raw }}
                 </span>

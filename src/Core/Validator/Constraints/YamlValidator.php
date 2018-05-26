@@ -3,6 +3,7 @@ namespace App\Core\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlValidator extends ConstraintValidator
@@ -17,9 +18,9 @@ class YamlValidator extends ConstraintValidator
 
 		try
 		{
-			Yaml::parse($value);
+			$x = Yaml::parse($value);
 		}
-		catch (\Exception $e)
+		catch (ParseException $e)
 		{
 			$message = $e->getMessage();
 		}
@@ -30,6 +31,16 @@ class YamlValidator extends ConstraintValidator
 				->setParameter('%systemMessage%', $message)
                 ->setTranslationDomain($constraint->transDomain)
 				->addViolation();
+			return;
 		}
+
+		if (!is_array($x)){
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('%systemMessage%', 'Unable to parse at line 1. (near "'.substr($value, 0, 1).'"')
+                ->setTranslationDomain($constraint->transDomain)
+                ->addViolation();
+            return;
+
+        }
 	}
 }

@@ -43,9 +43,11 @@ class UserManager
 		$this->getUser();
 	}
 
-	/**
-	 * @return string
-	 */
+    /**
+     * @param UserInterface|null $user
+     * @return string
+     * @throws \Doctrine\ORM\ORMException
+     */
 	public function formatUserName(UserInterface $user = null): string
 	{
 		if ($user instanceof UserInterface)
@@ -101,9 +103,9 @@ class UserManager
 	}
 
     /**
-     * @return UserInterface|null
+     * @return UserInterface|string|null
      */
-    public function getUser(): ?UserInterface
+    public function getUser()
     {
         if (! $this->user)
         {

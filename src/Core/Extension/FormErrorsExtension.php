@@ -132,7 +132,7 @@ class FormErrorsExtension extends AbstractExtension
 				$return .= $this->trans->trans($item['label'], array(), $item['translation']);
 				$return .= ': ';
 				$return .= $error->getMessage();  // The translator has already translated any validation error.
-				$return .= '<button type="button" class="far fa-times-circle close" data-dismiss="alert" aria-label="Close" title="'.$this->trans->trans('Close Message', [], 'home').'" aria-hidden="true"></button></' . $tag . '>';
+				$return .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="'.$this->trans->trans('Close Message', [], 'home').'" aria-hidden="true"><span class="far fa-times-circle"></span></button></' . $tag . '>';
 			}
 		}
 

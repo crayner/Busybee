@@ -127,8 +127,9 @@ class Person extends PersonExtension
 	 */
 	public function __construct()
 	{
-		$this->phones      = new ArrayCollection();
-		$this->careGivers = new ArrayCollection();
+		$this->phones       = new ArrayCollection();
+		$this->careGivers   = new ArrayCollection();
+        $this->setGender('u');
 		parent::__construct();
 	}
 
@@ -279,7 +280,7 @@ class Person extends PersonExtension
 	 */
 	public function getGender()
 	{
-		return $this->gender;
+		return strtolower($this->gender);
 	}
 
 	/**
@@ -291,7 +292,7 @@ class Person extends PersonExtension
 	 */
 	public function setGender($gender)
 	{
-		$this->gender = $gender;
+		$this->gender = strtolower($gender);
 
 		return $this;
 	}

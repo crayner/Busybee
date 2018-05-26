@@ -65,6 +65,7 @@ class VersionManager
 		$this->connection     = $entityManager->getConnection();
 		$this->settingManager = $settingManager;
         $this->version        = $this->settingManager->get('version', '0.0.00');
+        $s        = $this->settingManager->get('space.type.teaching_space');
 		$this->translator     = $translator;
 		$this->entityManager  = $entityManager;
 

@@ -101,3 +101,4 @@ string_replacement:
     add.button: Add String Replacement
 third.party.google.label: Google API
 third.party.email.label: EMail Settings
+twig.error: '%{message}'

@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\File\File;
 abstract class PersonExtension implements UserTrackInterface
 {
 	use UserTrackTrait;
+
 	/**
 	 * @var    array
 	 */
@@ -32,7 +33,6 @@ abstract class PersonExtension implements UserTrackInterface
 
 	public function __construct()
 	{
-		$this->setGender('U');
 	}
 
 	/**
@@ -100,19 +100,18 @@ abstract class PersonExtension implements UserTrackInterface
 	 * @since      21st November 2016
 	 *
 	 * @param   array $options
-	 *
-	 * @return    string
+     * @deprecated Use PersonManager->fullName
+     * @return    string
 	 */
 	public function formatName($options = array())
 	{
-		/**
-		 *
+	    /**
 		 * Options
 		 *
 		 * surnameFirst boolean default = true
 		 * preferredOnly boolean default = false
 		 */
-
+        @trigger_error('Use PersonManager->fullName', E_USER_DEPRECATED);
 		if (empty($this->getSurname())) return '';
 
 		$options['surnameFirst']  = !isset($options['surnameFirst']) ? true : $options['surnameFirst'];
@@ -218,10 +217,11 @@ abstract class PersonExtension implements UserTrackInterface
 		return $this;
 	}
 
-	/**
-	 * @return string
-	 * @throws CommonException
-	 */
+    /**
+     * @param array $options
+     * @return string
+     * @deprecated Use PersonManager->getFullName()
+     */
 	public function getFullName($options = array())
 	{
 		return $this->formatName($options);
@@ -277,20 +277,11 @@ abstract class PersonExtension implements UserTrackInterface
 	}
 
     /**
-     * get Format Name
+     * isEqualTo
      *
-     * @version    21st November 2016
-     * @since      21st November 2016
-     *
-     * @param   array $options
-     *
-     * @return    string
+     * @param Person $person
+     * @return bool
      */
-    public function fullName($options = array())
-    {
-        return $this->formatName($options);
-    }
-
     public function isEqualTo(Person $person): bool
     {
         if ($this->getId() !== $person->getId())
@@ -302,7 +293,10 @@ abstract class PersonExtension implements UserTrackInterface
         if ($this->getIdentifier() !== $person->getIdentifier())
             return false;
 
-        if ($this->getFullName() !== $person->getFullName())
+        if ($this->getSurname() !== $person->getSurname())
+            return false;
+
+        if ($this->getFirstName() !== $person->getFirstName())
             return false;
 
         return true;

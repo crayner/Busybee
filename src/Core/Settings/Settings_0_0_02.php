@@ -31,16 +31,16 @@ Address.ListLabel:
     description: 'A template to convert the entity values into a string label for autocomplete.'
     role: 'ROLE_ADMIN'
     value: "{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }} {{ locality }}"
-Person.GenderList:
+person.genderlist:
     type: 'array'
     displayName: 'Gender List'
     description: 'A list of genders used in the system.'
     role: 'ROLE_REGISTRAR'
     value:
-        'Unspecified': 'U'
-        'Male': 'M'
-        'Female': 'F'
-        'Other': '0'
+        - u
+        - m
+        - f
+        - o
 person.titlelist:
     type: 'array'
     displayName: 'List of Titles'

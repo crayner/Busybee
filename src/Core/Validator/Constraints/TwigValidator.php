@@ -28,7 +28,8 @@ class TwigValidator extends ConstraintValidator
 		if (!empty($message))
 		{
 			$this->context->buildViolation($constraint->message)
-				->setParameter('%systemMessage%', $message)
+				->setParameter('%{message}', $message)
+                ->setTranslationDomain($constraint->transDomain)
 				->addViolation();
 		}
 	}

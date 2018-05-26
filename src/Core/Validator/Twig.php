@@ -11,6 +11,8 @@ class Twig extends Constraint
 {
 	public $message = 'twig.error';
 
+	public $transDomain = 'System';
+
 	/**
 	 * @return string
 	 */
