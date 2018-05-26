@@ -124,20 +124,37 @@ class SettingSubscriber implements EventSubscriberInterface
                     );
 					break;
 				case 'image':
-					$form->add('value', ImageType::class, array_merge($options, array(
-								'help'        => 'system.setting.image.help',
-								'attr'        => array_merge($attr,
-									[
-										'imageClass' => 'mediumLogo',
-									]
-								),
-								'fileName'    => 'setting',
-								'deletePhoto' => $this->router->generate('setting_delete_image', ['id' => $data->getId()]),
-								'required'    => false,
-								'fileName'    => 'setting_' . str_replace([' ', '.'], '_', $data->getName()),
-							)
-						)
-					);
+					$form
+                        ->add('value', ImageType::class, array_merge($options, array(
+                                    'help'        => 'system.setting.image.help',
+                                    'attr'        => array_merge($attr,
+                                        [
+                                            'imageClass' => 'mediumLogo',
+                                        ]
+                                    ),
+                                    'fileName'    => 'setting',
+                                    'deletePhoto' => $this->router->generate('setting_delete_image', ['id' => $data->getId()]),
+                                    'required'    => false,
+                                    'fileName'    => 'setting_' . str_replace([' ', '.'], '_', $data->getName()),
+                                )
+                            )
+                        )
+                        ->add('defaultValue', ImageType::class, array_merge($defaultOptions, array(
+                                    'help'        => 'system.setting.image.help',
+                                    'attr'        => array_merge($attr,
+                                        [
+                                            'imageClass' => 'mediumLogo',
+                                        ]
+                                    ),
+                                    'fileName'    => 'setting',
+                                    'deletePhoto' => $this->router->generate('setting_delete_image', ['id' => $data->getId()]),
+                                    'required'    => false,
+                                    'fileName'    => 'setting_' . str_replace([' ', '.'], '_', $data->getName()),
+                                )
+                            )
+                        )
+
+                    ;
 					break;
 				case 'file':
 					$form->add('value', TextType::class, array_merge($options, array(
@@ -274,26 +291,47 @@ class SettingSubscriber implements EventSubscriberInterface
 					break;
                 case 'enum':
                     $this->settingManager->get($data->getChoice());
-                    $choice = $this->settingManager->getSetting();
-                    $form->add('value', SettingChoiceType::class, array_merge($options, [
-                                'setting_name'         => $choice->getName(),
-                                'setting_display_name' => $choice->getDisplayName(),
-                                'constraints'          => $constraints,
-                                'attr'                 => $attr,
-                            ]
+                    $choice = $this->settingManager->getCurrentSetting();
+                    $form
+                        ->add('value', SettingChoiceType::class, array_merge($options,
+                                [
+                                    'setting_name'         => $choice->getName(),
+                                    'setting_display_name' => $choice->getDisplayName(),
+                                    'constraints'          => $constraints,
+                                    'attr'                 => $attr,
+                                    'placeholder'          => 'system.setting.value.placeholder',
+                                ]
+                            )
                         )
-                    )
-                        ->add('defaultValue', SettingChoiceType::class, array_merge($defaultOptions, [
-                                'setting_name'         => $choice->getName(),
-                                'setting_display_name' => $choice->getDisplayName(),
-                                'constraints'          => $constraints,
-                                'attr'                 => $attr,
-                            ]
+                        ->add('defaultValue', SettingChoiceType::class, array_merge($defaultOptions,
+                                [
+                                    'setting_name'         => $choice->getName(),
+                                    'setting_display_name' => $choice->getDisplayName(),
+                                    'constraints'          => $constraints,
+                                    'attr'                 => $attr,
+                                    'placeholder'          => 'system.setting.default_value.placeholder',
+                                ]
+                            )
                         )
-                    );
+                    ;
 					break;
 				case 'regex':
                     $form->add('value', TextareaType::class, array_merge($options, array(
+                                'attr'        => array_merge($attr,
+                                    array(
+                                        'rows' => 5,
+                                    )
+                                ),
+                                'constraints' => array_merge(
+                                    $constraints,
+                                    array(
+                                        new Regex(['transDomain' => 'Setting', 'message' => 'setting.validator.regex.error']),
+                                    )
+                                ),
+                            )
+                        )
+                    );
+                    $form->add('defaultValue', TextareaType::class, array_merge($defaultOptions, array(
                                 'attr'        => array_merge($attr,
                                     array(
                                         'rows' => 5,

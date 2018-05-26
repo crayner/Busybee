@@ -164,6 +164,14 @@ class Setting implements UserTrackInterface
     }
 
     /**
+     * @return bool
+     */
+    public function hasChoice(): bool
+    {
+        return $this->choice ? true : false ;
+    }
+
+    /**
      * @param null|string $choice
      * @return Setting
      */

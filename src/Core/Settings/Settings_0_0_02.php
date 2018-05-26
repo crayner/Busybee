@@ -136,8 +136,8 @@ Org.Postal.Postcode:
     displayName: 'Organisation Postal Post Code'
     description: "Post Code of this organisation's postal address."
     role: 'ROLE_REGISTRAR'
-Org.Postal.Territory: 
-    type: 'string'
+org.postal.territory: 
+    type: 'enum'
     displayName: 'Organisation Postal Territory'
     description: "Territory of this organisation's postal address. : State, Province, County)"
     role: 'ROLE_REGISTRAR'
@@ -186,7 +186,7 @@ Org.Physical.Postcode:
     description: "Post Code of this organisation's physical address."
     role: 'ROLE_REGISTRAR'
 org.physical.territory:
-    type: 'string'
+    type: 'enum'
     displayName: 'Organisation Physical Territory'
     description: "Territory of this organisation's physical address. : State, Province, County)"
     role: 'ROLE_REGISTRAR'

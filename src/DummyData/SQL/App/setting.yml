@@ -196,7 +196,7 @@
   id: 17
   created_by: 1
   modified_by: 1
-  type: "string"
+  type: "enum"
   name: "org.postal.territory"
   display_name: "Organisation Postal Territory"
   description: "Territory of this organisation's postal address. : State, Province, County)"
@@ -308,7 +308,7 @@
   id: 26
   created_by: 1
   modified_by: 1
-  type: "string"
+  type: "enum"
   name: "org.physical.territory"
   display_name: "Organisation Physical Territory"
   description: "Territory of this organisation's physical address. : State, Province, County)"

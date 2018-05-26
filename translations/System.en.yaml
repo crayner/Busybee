@@ -32,7 +32,9 @@ system:
         description:
             label: Setting Description
             help: You can alter the setting decription to better describe the setting.
-        value.label: Setting Value
+        value:
+            label: Setting Value
+            placeholder: Select a Value
         name:
             label: Setting Name
             help: The name is fixed and MUST not be changed.  It is set by the programme.
@@ -50,7 +52,9 @@ system:
         image.help: 'Upload an image.'
         file.help: File are usually set by the system.  As such, file management should only be attempted with extreme care.
         integer.help: Enter a vaild integer value.
-        default_value.label: Default Value
+        default_value:
+            label: Default Value
+            placeholder: Select a Default Value
         choice:
             label: Choice
             help: The value is choosen from this choice list.

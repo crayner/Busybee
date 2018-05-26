@@ -169,7 +169,7 @@ class SettingManager implements ContainerAwareInterface
             $name = str_replace('._flip', '', $name);
         }
 
-        if (mb_strpos($this->name, $name) !== 0 || empty($this->name))
+        if (empty($this->name) || mb_strpos($this->name, $name) !== 0)
             $this->name = $name;
 
         return $this;
@@ -550,8 +550,20 @@ class SettingManager implements ContainerAwareInterface
     /**
      * @return bool
      */
-    public function isFlip(): bool
+    private function isFlip(): bool
     {
         return $this->flip;
+    }
+
+    /**
+     * getCurrentSetting
+     *
+     * @return Setting|null
+     */
+    public function getCurrentSetting(): ?Setting
+    {
+        if (!$this->setting)
+            return null;
+        return $this->setting->getSetting();
     }
 }

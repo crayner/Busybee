@@ -62,7 +62,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
         $choices = $this->settingManager->get($options['setting_name']);
 
-        $setting = $this->settingManager->getSetting();
+        $setting = $this->settingManager->getCurrentSetting();
 		if (is_null($setting))
 			throw new Exception('The setting '.$options['setting_name'].' was not found.');
 

@@ -19,46 +19,46 @@
     {% set h3Content = h3Content ~ form_widget(form.nameSelect, {'value': form.vars.value.id|default('') ~ ""}) %}
     {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', transDomain: 'System', panelParagraph: 'system.setting.edit.description'} %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}
-        <div class="row">
-            <div class="col-6 card alert-warning">
-                {{ 'system.setting.warning'|trans }}
-                {{ form_row(form.name) }}
-            </div>
-            <div class="col-6 card">
-                {{ form_row(form.displayName) }}
-            </div>
+    <div class="row">
+        <div class="col-6 card alert-warning">
+            {{ 'system.setting.warning'|trans }}
+            {{ form_row(form.name) }}
         </div>
-        <div class="row">
-            <div class="col-6 card">
-                {% if form.defaultValue is defined %}
-                    {{ form_row(form.defaultValue) }}
-                {% endif %}
-                {% if form.rawDefaultValue is defined %}
-                    {{ form_row(form.rawDefaultValue) }}
-                {% endif %}
-            </div>
-            <div class="col-6 card">
-                {% if form.value is defined %}
-                    {{ form_row(form.value) }}
-                {% endif %}
-                {% if form.rawValue is defined %}
-                    {{ form_row(form.rawValue) }}
-                {% endif %}
-            </div>
+        <div class="col-6 card">
+            {{ form_row(form.displayName) }}
         </div>
-        <div class="row">
-            <div class="col-6 card">
-                {{ form_row(form.choice) }}
-            </div>
-            <div class="col-6 card">
-                {{ form_row(form.validator) }}
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-6 card">
+            {% if form.defaultValue is defined %}
+                {{ form_row(form.defaultValue) }}
+            {% endif %}
+            {% if form.rawDefaultValue is defined %}
+                {{ form_row(form.rawDefaultValue) }}
+            {% endif %}
         </div>
-        <div class="row">
-            <div class="col-12 card">
-                {{ form_row(form.description) }}
-            </div>
+        <div class="col-6 card">
+            {% if form.value is defined %}
+                {{ form_row(form.value) }}
+            {% endif %}
+            {% if form.rawValue is defined %}
+                {{ form_row(form.rawValue) }}
+            {% endif %}
         </div>
+    </div>
+    <div class="row">
+        <div class="col-6 card">
+            {{ form_row(form.choice) }}
+        </div>
+        <div class="col-6 card">
+            {{ form_row(form.validator) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 card">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
