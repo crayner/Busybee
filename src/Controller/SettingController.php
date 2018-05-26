@@ -107,6 +107,7 @@ class SettingController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
+		    $setting->convertRawValues();
             $settingManager->getEntityManager()->persist($setting);
             $settingManager->getEntityManager()->flush();
 

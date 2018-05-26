@@ -39,10 +39,10 @@
             </div>
             <div class="col-6 card">
                 {% if form.value is defined %}
-                    {{ form_row(form.value, {required: false}) }}
+                    {{ form_row(form.value) }}
                 {% endif %}
                 {% if form.rawValue is defined %}
-                    {{ form_row(form.rawValue, {required: false}) }}{{ dd(form.rawValue) }}
+                    {{ form_row(form.rawValue) }}
                 {% endif %}
             </div>
         </div>

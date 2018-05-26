@@ -67,6 +67,7 @@ class SettingSubscriber implements EventSubscriberInterface
 		{
             $options = [
                 'label' => 'system.setting.value.label',
+                'required' => false,
             ];
             $defaultOptions = [
                 'label' => 'system.setting.default_value.label',
@@ -336,7 +337,6 @@ class SettingSubscriber implements EventSubscriberInterface
                             )
                         )
                     );
-                    dump($form);
 					break;
 				default:
 					throw new \TypeError('Setting Type not defined. ' . $data->getType());

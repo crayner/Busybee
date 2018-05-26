@@ -263,7 +263,7 @@ class SettingCache
             return null;
         if ($value Instanceof \DateTime)
             return serialize($value);
-
+dump($value);
         return $value;
     }
 

@@ -256,7 +256,7 @@ class Setting implements UserTrackInterface
     {
         switch($this->getType()){
             case 'time':
-                $this->value = SettingCache::convertDateTimeFromDataBase($this->getValue());
+                return $this->value = SettingCache::convertDateTimeFromDataBase($this->getValue());
                 break;
             default:
                 return $this->value;
@@ -295,7 +295,7 @@ class Setting implements UserTrackInterface
     {
         switch($this->getType()){
             case 'time':
-                $this->defaultValue = SettingCache::convertDateTimeFromDataBase($this->getDefaultValue());
+                return $this->defaultValue = SettingCache::convertDateTimeFromDataBase($this->getDefaultValue());
                 break;
             default:
                 return $this->defaultValue;
@@ -317,6 +317,18 @@ class Setting implements UserTrackInterface
             default:
                 $this->defaultValue = $value;
         }
+        return $this;
+    }
+
+    /**
+     * convertRawValues
+     *
+     * @return Setting
+     */
+    public function convertRawValues(): Setting
+    {
+        $this->setRawValue($this->getValue());
+        $this->setRawDefaultValue($this->getDefaultValue());
         return $this;
     }
 }
