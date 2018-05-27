@@ -63,26 +63,12 @@ class SettingController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$create = $request->request->get('create');
-			$data   = Yaml::parse($create['setting']);
-			$sm     = $settingManager;
-			foreach ($data as $name => $values)
-			{
-				$setting = new Setting();
-				$setting->setName($name);
-				foreach ($values as $field => $value)
-				{
-					$func = 'set' . ucfirst($field);
-					$setting->$func($value);
-				}
-				$sm->createSetting($setting);
-			}
+		    $settingManager->createSettings();
 		}
 
 		return $this->render('Setting/create.html.twig',
 			[
 				'form'     => $form->createView(),
-				'fullForm' => $form,
 			]
 		);
 	}

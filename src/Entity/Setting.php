@@ -264,7 +264,10 @@ class Setting implements UserTrackInterface
     {
         switch($this->getType()){
             case 'time':
-                return $this->value = SettingCache::convertDateTimeFromDataBase($this->getValue());
+                return $this->value = SettingCache::convertDatabaseToDateTime($this->getValue());
+                break;
+            case 'array':
+                return $this->value = SettingCache::convertDatabaseToArray($this->getValue());
                 break;
             default:
                 return $this->value;
@@ -282,6 +285,9 @@ class Setting implements UserTrackInterface
         switch($this->getType()){
             case 'time':
                 $this->value = SettingCache::convertDateTimeToDataBase($value);
+                break;
+            case 'array':
+                $this->value = SettingCache::convertArrayToDatabase($value);
                 break;
             default:
                 $this->value = $value;
@@ -303,7 +309,10 @@ class Setting implements UserTrackInterface
     {
         switch($this->getType()){
             case 'time':
-                return $this->defaultValue = SettingCache::convertDateTimeFromDataBase($this->getDefaultValue());
+                return $this->defaultValue = SettingCache::convertDatabaseToDateTime($this->getDefaultValue());
+                break;
+            case 'array':
+                return $this->defaultValue = SettingCache::convertDatabaseToArray($this->getDefaultValue());
                 break;
             default:
                 return $this->defaultValue;
@@ -322,6 +331,9 @@ class Setting implements UserTrackInterface
             case 'time':
                 $this->defaultValue = SettingCache::convertDateTimeToDataBase($value);
                 break;
+            case 'array':
+                $this->defaultValue = SettingCache::convertArrayToDataBase($value);
+                break;
             default:
                 $this->defaultValue = $value;
         }
@@ -338,5 +350,22 @@ class Setting implements UserTrackInterface
         $this->setRawValue($this->getValue());
         $this->setRawDefaultValue($this->getDefaultValue());
         return $this;
+    }
+
+    /**
+     * convertImportValues
+     *
+     * @return Setting
+     */
+    public function convertImportValues(): Setting
+    {
+        switch ($this->getType()){
+            case 'time':
+                $this->value = $this->value ? new \DateTime('1970-01-01 ' . $this->value) : null ;
+                $this->defaultValue = $this->defaultValue ? new \DateTime('1970-01-01 ' . $this->defaultValue) : null ;
+                break;
+            default:
+        }
+        return $this->convertRawValues();
     }
 }

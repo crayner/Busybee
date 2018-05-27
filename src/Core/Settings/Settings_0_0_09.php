@@ -15,7 +15,10 @@ class Settings_0_0_09 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.09
+    type: system
+    value: '0.0.09'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 currency:
     type: string
     displayName: Currency

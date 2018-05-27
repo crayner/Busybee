@@ -14,7 +14,10 @@ class Settings_0_0_02 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.02
+    type: system
+    value: '0.0.02'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 address.format:
     type: 'twig'
     displayName: 'Address Format'
@@ -282,7 +285,7 @@ space.type:
         storage: storage
         study: study
         undercover: undercover
-    choice: Classroom
+    defaultValue: Classroom
 Staff.Categories:
     type: 'array'
     displayName: 'Staff Categories'

@@ -54,7 +54,7 @@ class SettingCache
      */
     public function getName(): string
     {
-        return $this->name;
+        return strtolower($this->name);
     }
 
     /**
@@ -73,9 +73,9 @@ class SettingCache
     private $cacheTime;
 
     /**
-     * @return \DateTime
+     * @return null|\DateTime
      */
-    public function getCacheTime(): \DateTime
+    public function getCacheTime(): ?\DateTime
     {
         return $this->cacheTime;
     }
@@ -99,7 +99,7 @@ class SettingCache
     {
         if (empty($this->getCacheTime()))
             return false;
-        if ($this->getCacheTime() < date('-20 minutes'))
+        if ($this->getCacheTime()->getTimestamp() < strtotime('-20 minutes'))
         {
             $this->setCacheTime(null);
             return false;
@@ -150,9 +150,7 @@ class SettingCache
      */
     private function getSystemValue($default = null)
     {
-        if ($this->value)
-            return $this->value;
-        return $this->value = $this->getSetting()->getValue() ?: $this->getDefaultValue($default);
+        return $this->getStringValue($default);
     }
 
     /**
@@ -162,8 +160,7 @@ class SettingCache
      */
     private function setSystemValue(): SettingCache
     {
-        $this->getSetting()->setValue($this->value);
-        return $this;
+        return $this->setStringValue();
     }
 
     /**
@@ -177,7 +174,12 @@ class SettingCache
         if ($this->value && is_array($this->value))
             return $this->value;
 
-        $this->value = Yaml::parse($this->getSetting()->getValue());
+        $this->value = $this->getSetting()->getValue();
+
+        if ($this->value && is_array($this->value))
+            return $this->value;
+
+        $this->value = Yaml::parse($this->value);
 
         if (! is_array($this->value))
             $this->value = [];
@@ -223,9 +225,140 @@ class SettingCache
      */
     private function getImageValue($default = null)
     {
+        return $this->getStringValue($default);
+    }
+
+    /**
+     * getTwigValue
+     *
+     * @param null $default
+     * @param array $options
+     * @return mixed
+     */
+    private function getTwigValue($default = null)
+    {
+        return $this->getStringValue($default);
+    }
+
+    /**
+     * setTwigValue
+     *
+     * @return SettingCache
+     */
+    private function setTwigValue(): SettingCache
+    {
+        return $this->setStringValue();
+    }
+
+    /**
+     * getRegexValue
+     *
+     * @param null $default
+     * @return mixed
+     */
+    private function getRegexValue($default = null)
+    {
+        return $this->getStringValue($default);
+    }
+
+    /**
+     * setRegexValue
+     *
+     * @return SettingCache
+     */
+    private function setRegexValue(): SettingCache
+    {
+        return $this->setStringValue();
+    }
+
+    /**
+     * getStringValue
+     *
+     * @param null $default
+     * @return mixed
+     */
+    private function getStringValue($default = null)
+    {
         if ($this->value)
             return $this->value;
         return $this->value = $this->getSetting()->getValue() ?: $this->getDefaultValue($default);
+    }
+
+    /**
+     * setStringValue
+     *
+     * @return SettingCache
+     */
+    private function setStringValue(): SettingCache
+    {
+        $this->getSetting()->setValue($this->value);
+        return $this;
+    }
+
+    /**
+     * getEnumValue
+     *
+     * @param null $default
+     * @return mixed
+     */
+    private function getEnumValue($default = null)
+    {
+        return $this->getStringValue($default);
+    }
+
+    /**
+     * setEnumValue
+     *
+     * @return SettingCache
+     */
+    private function setEnumValue(): SettingCache
+    {
+        return $this->setStringValue();
+    }
+
+    /**
+     * getDateTimeValue
+     *
+     * @param null $default
+     * @return \DateTime|null
+     */
+    private function getDateTimeValue($default = null): ?\DateTime
+    {
+        if ($this->value)
+            return $this->value;
+        return $this->value = unserialize($this->getSetting()->getValue() ?: $this->getDefaultValue($default));
+    }
+
+    /**
+     * setDateTimeValue
+     *
+     * @return SettingCache
+     */
+    private function setDateTimeValue(): SettingCache
+    {
+        $this->getSetting()->setValue(serialize($this->value));
+        return $this;
+    }
+
+    /**
+     * getTimeValue
+     *
+     * @param null $default
+     * @return \DateTime|null
+     */
+    private function getTimeValue($default = null): ?\DateTime
+    {
+        return $this->getDateTimeValue($default);
+    }
+
+    /**
+     * setTimeValue
+     *
+     * @return SettingCache
+     */
+    private function setTimeValue(): SettingCache
+    {
+        return $this->setDateTimeValue();
     }
 
     /**
@@ -263,7 +396,6 @@ class SettingCache
             return null;
         if ($value Instanceof \DateTime)
             return serialize($value);
-dump($value);
         return $value;
     }
 
@@ -273,7 +405,7 @@ dump($value);
      * @param $value
      * @return \DateTime|null
      */
-    public static function convertDateTimeFromDataBase($value): ?\DateTime
+    public static function convertDatabaseToDateTime($value): ?\DateTime
     {
         if (empty($value) || $value instanceof \DateTime)
             return $value;
@@ -284,5 +416,36 @@ dump($value);
         {
             return null;
         }
+    }
+
+    /**
+     * convertArrayToDatabase
+     *
+     * @param $value
+     * @return null|string
+     */
+    public static function convertArrayToDatabase($value): ?string
+    {
+        if (empty($value))
+            return null;
+        if (is_array($value))
+            return Yaml::dump($value);
+        return $value;
+    }
+
+    /**
+     * convertDatabaseToArray
+     *
+     * @param $value
+     * @return array
+     */
+    public static function convertDatabaseToArray($value): array
+    {
+        if (empty($value))
+            return [];
+        if (is_array($value))
+            return $value;
+
+        return Yaml::parse($value);
     }
 }

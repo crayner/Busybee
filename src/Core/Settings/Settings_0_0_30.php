@@ -15,7 +15,10 @@ class Settings_0_0_30 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.30
+    type: system
+    value: '0.0.30'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 period.type.list:
     type: array
     displayName: Period Type List

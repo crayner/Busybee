@@ -14,7 +14,10 @@ class Settings_0_0_04 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.04
+    type: system
+    value: '0.0.04'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 calendar.status.list:
     type: array
     displayName: Calendar Status List

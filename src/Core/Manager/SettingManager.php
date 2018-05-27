@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -53,14 +54,20 @@ class SettingManager implements ContainerAwareInterface
     private $authorisation;
 
     /**
+     * @var TwigManager
+     */
+    private $twig;
+
+    /**
      * SettingManager constructor.
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container, MessageManager $messageManager, AuthorizationCheckerInterface $authorisation)
+    public function __construct(ContainerInterface $container, MessageManager $messageManager, AuthorizationCheckerInterface $authorisation, TwigManager $twig)
     {
         $this->setContainer($container);
         $this->messageManager = $messageManager;
         $this->authorisation = $authorisation;
+        $this->twig = $twig;
     }
 
     /**
@@ -79,16 +86,13 @@ class SettingManager implements ContainerAwareInterface
     {
         $name = strtolower($name);
         if ($this->readSession()->setName($name)->isSettingExists($name))
-            return $this->getSetting($name)->getValue($default, $options);
+            return $this->getValue($name, $default, $options);
 
         $this->loadSetting($name, $default, $options);
 
-        if ($this->getSetting($name)) {
-            if ($this->isFlip() && $this->setting->getSetting()->getType() === 'array')
-                return array_flip($this->getSetting($name)->getValue($default, $options));
-            else
-                return $this->getSetting($name)->getValue($default, $options);
-        }
+        if ($this->getSetting($name))
+            return $this->getValue($name, $default, $options);
+
         return $default;
     }
 
@@ -205,7 +209,9 @@ class SettingManager implements ContainerAwareInterface
      */
     private function isSettingExists(string $name): bool
     {
-        if ($this->getSetting($name) && $this->setting->isValidSetting())
+        if ($this->getSetting($name) === null)
+            return false;
+        if ($this->getSetting($name)->getName() === strtolower($name) && $this->setting->isValidSetting())
             return true;
 
         return false;
@@ -232,8 +238,8 @@ class SettingManager implements ContainerAwareInterface
      */
     public function has(string $name): bool
     {
-        $this->get($name);
-        return $this->isSettingExists($name);
+        $this->get(strtolower($name));
+        return $this->isSettingExists(strtolower($name));
     }
 
     /**
@@ -282,7 +288,7 @@ class SettingManager implements ContainerAwareInterface
     public function findOneByName($name): ?Setting
     {
         try {
-            return $this->getSettingRepository()->findOneByName($name);
+            return $this->getSettingRepository()->findOneByName(strtolower($name));
         } catch (PDOException $e) {
             if (in_array($e->getErrorCode(),['1146', '1045']))
                 return null;
@@ -478,7 +484,6 @@ class SettingManager implements ContainerAwareInterface
     public function set($name, $value): SettingManager
     {
         $name          = strtolower($name);
-
         $this->get($name);
 
         if (is_null($this->setting) || empty($this->setting->getSetting()->getName()))
@@ -565,5 +570,122 @@ class SettingManager implements ContainerAwareInterface
         if (!$this->setting)
             return null;
         return $this->setting->getSetting();
+    }
+
+    /**
+     * @param $data
+     * @param $resource
+     */
+    private function loadSettings(array $data = [], string $resource)
+    {
+        if (empty($data)) {
+            $this->messageManager->addMessage('warning', 'setting.resource.settings.missing', ['%{resource}' => $resource], 'System');
+            return;
+        }
+        $count = 0;
+        foreach ($data as $name => $datum) {
+            $setting = $this->findOneByName($name);
+            if ($setting instanceof Setting) {
+                switch ($setting->getType()) {
+                    case 'time':
+                        $this->set($name, new \DateTime('1970-01-01 '.$datum));
+                        break;
+                    default:
+                        $this->set($name, $datum);
+                }
+                $count++;
+            } else {
+                $this->messageManager->addMessage('warning', 'setting.resource.missing', ['%{name}' => $name], 'System');
+            }
+        }
+
+        $this->messageManager->addMessage('success', 'setting.resource.success', ['{{name}}' => $resource, "%{count}" => $count], 'System');
+    }
+
+    /**
+     * getValue
+     *
+     * @param string $name
+     * @param null $default
+     * @param array $options
+     * @return array|mixed|null
+     * @throws \Twig_Error_Syntax
+     */
+    private function getValue(string $name, $default = null, $options = [])
+    {
+        switch ($this->setting->getSetting()->getType())
+        {
+            case 'twig':
+                $value = null;
+                try
+                {
+                    return $this->twig->getTwig()->createTemplate($this->setting->getValue())->render($options);
+                }
+                catch (\Twig_Error_Syntax $e)
+                {
+                    throw $e;
+                }
+                catch (\Twig_Error_Runtime $e)
+                {
+                    // Ignore Runtime Errors, and return raw twig value
+                    return $this->setting->getValue();
+                }
+                return $value ?: $this->setting->getValue();
+                break;
+            case 'array':
+                if ($this->flip)
+                    return array_flip($this->setting->getValue());
+                return $this->setting->getValue();
+                break;
+            default:
+                return $this->setting->getValue();
+        }
+        return null;
+    }
+
+    public function createSettings()
+    {
+
+        $resolver = new OptionsResolver();
+        $resolver->setRequired(
+            [
+                'name',
+                'displayName',
+                'type',
+                'description',
+            ]
+        );
+        $resolver->setDefaults(
+            [
+                'value' => null,
+                'defaultValue' => null,
+                'role' => null,
+                'choice' => null,
+                'validator' => null,
+            ]
+        );
+
+        $create = $this->getRequest()->request->get('create');
+        $data   = Yaml::parse($create['setting']);
+        $count = 0;
+        foreach ($data as $name => $values)
+        {
+            $values['name'] = strtolower($name);
+            $values = $resolver->resolve($values);
+            if ($this->has($name))
+                $setting = $this->findOneByName($name);
+            else
+                $setting = new Setting();
+            foreach ($values as $field => $value)
+            {
+                $func = 'set' . ucfirst($field);
+                $setting->$func($value);
+            }
+            $setting->convertImportValues();
+            $this->getEntityManager()->persist($setting);
+            $this->getEntityManager()->flush();
+            $count++;
+        }
+        $this->getMessageManager()->add('success', 'setting.create.success', ['transChoice' => $count], 'System');
     }
 }

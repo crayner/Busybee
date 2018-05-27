@@ -8,7 +8,7 @@
 
 {% block contentContainer %}
     {% include 'Pagination/index.html.twig' %}
-    {% if app.environment == 'dev' %}
+    {% if app.environment is same as('dev') and is_granted('ROLE_SYSTEM_ADMIN') %}
         {% set h3Content = miscButton({'windowOpen': {'route': path('setting_create')}, class: 'btn btn-success fas fa-asterisk', transDomain: 'System', title: 'system.setting.create.title'}) %}
     {% endif %}
     {% include 'Page/panelStart.html.twig' with {header: 'system.setting.manage.title', transDomain: 'System', panelParagraph: form} %}

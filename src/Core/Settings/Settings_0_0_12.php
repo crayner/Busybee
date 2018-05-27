@@ -15,7 +15,10 @@ class Settings_0_0_12 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.12
+    type: system
+    value: '0.0.12'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 external.activity.status.list:
     type: array
     displayName: External Activity Status List

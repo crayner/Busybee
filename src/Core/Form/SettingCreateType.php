@@ -1,6 +1,7 @@
 <?php
 namespace App\Core\Form;
 
+use App\Core\Validator\Yaml;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,11 +19,14 @@ class SettingCreateType extends AbstractType
 				(
 					'label'  => 'setting.create.setting.label',
 					'attr'   => [
-						'rows' => 8,
-						'cols' => 60,
+						'rows' => 12,
+						'cols' => 100,
 					],
 					'mapped' => false,
 					'help' => 'setting.create.setting.help',
+                    'constraints' => [
+                        new Yaml(),
+                    ],
 				)
 			);
 	}

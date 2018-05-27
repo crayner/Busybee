@@ -14,7 +14,10 @@ class Settings_0_0_05 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.05
+    type: system
+    value: '0.0.05'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 activity.provider.type:
     type: array
     displayName: Activity Provider List

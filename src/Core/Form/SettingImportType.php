@@ -20,7 +20,7 @@ class SettingImportType extends AbstractType
 					'label' => 'setting.import_file.label',
 					'attr' =>
 					[
-						'class' => 'form-control form-control-sm'
+						'class' => 'btn-primary'
 					]
 				]
 			)

@@ -14,7 +14,10 @@ class Settings_0_0_03 implements SettingInterface
 	{
 		return <<<LLL
 version:
-    value: 0.0.03
+    type: system
+    value: '0.0.03'
+    displayName: 'System Version'
+    description: 'The version of Busybee currently configured on your system.'
 house.list:
     type: 'array'
     displayName: 'House List'
