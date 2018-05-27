@@ -195,24 +195,11 @@ class SystemBuildManager extends InstallManager
 
                 $data = Yaml::parse($class->getSettings());
 
-                foreach ($data as $name => $datum) {
-                    if ($name !== 'version') {
-                        $entity = $this->settingManager->findOneByName($name);
-                        if (!$entity instanceof Setting) {
-                            $entity = new Setting();
-                            if (empty($datum['type']))
-                                trigger_error('When creating a setting the type must be defined. ' . $name);
-                            $entity->setType($datum['type']);
-                        }
-                        $entity->setName($name);
-                        foreach ($datum as $field => $value) {
-                            $w = 'set' . ucwords($field);
-                            $entity->$w($value);
-                        }
-                        $this->settingManager->createSetting($entity);
-                    }
-                }
-                $this->messages->add('success', 'install.system.setting.file', ['%{class}' => $class->getClassName()]);
+                if (isset($data['version']))
+                    unset($data['version']);
+
+                $count = $this->settingManager->createSettings($data);
+                $this->messages->add('success', 'install.system.setting.file', ['transChoice' => $count, '%{class}' => $class->getClassName()]);
 			} else {
                 $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $current]);
             }
@@ -368,13 +355,15 @@ class SystemBuildManager extends InstallManager
      */
     private function updateCurrentVersion($current)
     {
-        $entity = new Setting();
-        $entity->setName('version');
-        $entity->setType('system');
-        $entity->setDisplayName('System Version');
-        $entity->setDescription('The version of Busybee currently configured on your system.');
-        $entity->setRole('ROLE_SYSTEM_ADMIN');
-        $entity->setValue($current);
-        $this->settingManager->createSetting($entity);
+        $version = [];
+        $data = [];
+        $version['type'] = 'system';
+        $version['displayName'] = 'System Version';
+        $version['description'] = 'The version of Busybee currently configured on your system.';
+        $version['role'] = 'ROLE_SYSTEM_ADMIN';
+        $version['value'] = $current;
+        $version['defaultValue'] = '0.0.00';
+        $data['version'] = $version;
+        $this->getSettingManager()->createSettings($data);
     }
 }

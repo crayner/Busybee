@@ -448,4 +448,28 @@ class SettingCache
 
         return Yaml::parse($value);
     }
+
+    /**
+     * getDefaultImageValue
+     *
+     * @return null|string
+     */
+    private function getDefaultImageValue($default = null): ?string
+    {
+        return $this->getDefaultStringValue($default);
+    }
+
+    /**
+     * getDefaultStringValue
+     *
+     * @param $default
+     * @return null|string
+     */
+    private function getDefaultStringValue($default): ?string
+    {
+        $value = $this->getSetting()->getDefaultValue() ?: $default;
+        if (is_null($value) || is_string($value))
+            return $value;
+        return null;
+    }
 }

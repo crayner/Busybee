@@ -6,6 +6,7 @@ use App\Core\Organism\SettingCache;
 use App\Repository\SettingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Driver\PDOException;
+use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -77,8 +78,8 @@ class SettingManager implements ContainerAwareInterface
      * @since      20th October 2016
      *
      * @param    string $name
-     * @param    mixed  $default
-     * @param    array  $options
+     * @param    mixed $default
+     * @param    array $options
      *
      * @return    mixed    Value
      */
@@ -122,6 +123,7 @@ class SettingManager implements ContainerAwareInterface
     {
         return $this->getRequest()->hasSession();
     }
+
     /**
      * @return SessionInterface
      */
@@ -166,9 +168,8 @@ class SettingManager implements ContainerAwareInterface
     public function setName(string $name): SettingManager
     {
         $name = strtolower($name);
-        $this->flip                = false;
-        if (substr($name, -6) === '._flip')
-        {
+        $this->flip = false;
+        if (substr($name, -6) === '._flip') {
             $this->flip = true;
             $name = str_replace('._flip', '', $name);
         }
@@ -247,7 +248,7 @@ class SettingManager implements ContainerAwareInterface
      * @param bool $reload
      * @return null|Setting
      */
-    private function loadSetting(string $name, $default = null, array $options= []): SettingManager
+    private function loadSetting(string $name, $default = null, array $options = []): SettingManager
     {
         $setting = $this->findOneByName($name);
 
@@ -264,7 +265,7 @@ class SettingManager implements ContainerAwareInterface
             if ($this->setting && $this->setting instanceof SettingCache && $this->setting->getName() === $name) {
                 if ($this->setting->getSetting()->getType() !== 'array')
                     return $this;
-                foreach($this->setting->getValue() as $name=>$value) {
+                foreach ($this->setting->getValue() as $name => $value) {
                     if (strtolower($part) === strtolower($name)) {
                         $setting = new Setting();
                         $setting->setType(is_array($value) ? 'array' : 'system')
@@ -284,13 +285,15 @@ class SettingManager implements ContainerAwareInterface
     /**
      * @param $name
      * @return Setting|null
+     * @throws TableNotFoundException
+     * @throws \Doctrine\ORM\ORMException
      */
     public function findOneByName($name): ?Setting
     {
         try {
             return $this->getSettingRepository()->findOneByName(strtolower($name));
-        } catch (PDOException $e) {
-            if (in_array($e->getErrorCode(),['1146', '1045']))
+        } catch (TableNotFoundException $e) {
+            if (in_array($e->getErrorCode(), ['1146', '1045']))
                 return null;
             throw $e;
         }
@@ -328,7 +331,7 @@ class SettingManager implements ContainerAwareInterface
         $this->setting->setSetting($setting);
         $this->setting->setName($name ?: $setting->getName());
         $this->setting->setCacheTime(new \DateTime('now'));
-        $this->addSetting($this->setting, $name ?: $setting->getName() );
+        $this->addSetting($this->setting, $name ?: $setting->getName());
         if ($this->hasSession())
             $this->getSession()->set('settings', $this->settings);
         return $this;
@@ -354,7 +357,7 @@ class SettingManager implements ContainerAwareInterface
      * Get parameter
      *
      * @param   string $name
-     * @param   mixed  $default
+     * @param   mixed $default
      *
      * @return  mixed
      */
@@ -384,7 +387,7 @@ class SettingManager implements ContainerAwareInterface
      * Has parameter
      *
      * @param   string $name
-     * @param   mixed  $default
+     * @param   mixed $default
      *
      * @return  mixed
      */
@@ -394,26 +397,23 @@ class SettingManager implements ContainerAwareInterface
     }
 
     /**
-     * @param Request       $request
+     * @param Request $request
      * @param FormInterface $form
      */
     public function handleImportRequest(FormInterface $form)
     {
         $form->handleRequest($this->getRequest());
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('import_file')->getData();
-            try
-            {
+            try {
                 $data = Yaml::parse(file_get_contents($file->getPathName()));
             } catch (\Exception $e) {
                 $this->getMessageManager()->add('danger', 'setting.import.import.error', ['%{message}' => $e->getMessage()], 'Setting');
-                return ;
+                return;
             }
 
-            if ($data['name'] !== $form->get('import_file')->getData()->getClientOriginalName())
-            {
+            if ($data['name'] !== $form->get('import_file')->getData()->getClientOriginalName()) {
                 $this->messageManager->add('danger', 'setting.import.name.error', ['%{name}' => $data['name']], 'Setting');
                 return;
             }
@@ -458,8 +458,7 @@ class SettingManager implements ContainerAwareInterface
      */
     public function clearSetting(Setting $setting): SettingManager
     {
-        if ($setting->getName())
-        {
+        if ($setting->getName()) {
             if ($this->getSettings()->containsKey($setting->getName()))
                 $this->getSettings()->remove($setting->getName());
         }
@@ -477,20 +476,21 @@ class SettingManager implements ContainerAwareInterface
      * @since   21st October 2016
      *
      * @param   string $name
-     * @param   mixed  $value
+     * @param   mixed $value
      *
      * @return  mixed
+     * @throws \Exception
      */
     public function set($name, $value): SettingManager
     {
-        $name          = strtolower($name);
+        $name = strtolower($name);
         $this->get($name);
 
         if (is_null($this->setting) || empty($this->setting->getSetting()->getName()))
             return $this;
 
-        if (! $this->isInstallMode())
-            if (! $this->getAuthorisation()->isGranted($this->setting->getSetting()->getRole(), $this->setting->getSetting()))
+        if (!$this->isInstallMode())
+            if (!$this->getAuthorisation()->isGranted($this->setting->getSetting()->getRole(), $this->setting->getSetting()))
                 return $this;
 
         $setting = $this->find($this->setting->getSetting()->getId());
@@ -588,7 +588,7 @@ class SettingManager implements ContainerAwareInterface
             if ($setting instanceof Setting) {
                 switch ($setting->getType()) {
                     case 'time':
-                        $this->set($name, new \DateTime('1970-01-01 '.$datum));
+                        $this->set($name, new \DateTime('1970-01-01 ' . $datum));
                         break;
                     default:
                         $this->set($name, $datum);
@@ -608,25 +608,21 @@ class SettingManager implements ContainerAwareInterface
      * @param string $name
      * @param null $default
      * @param array $options
-     * @return array|mixed|null
+     * @return array|mixed|null|string
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
      */
     private function getValue(string $name, $default = null, $options = [])
     {
-        switch ($this->setting->getSetting()->getType())
-        {
+        switch ($this->setting->getSetting()->getType()) {
             case 'twig':
                 $value = null;
-                try
-                {
+                try {
                     return $this->twig->getTwig()->createTemplate($this->setting->getValue())->render($options);
-                }
-                catch (\Twig_Error_Syntax $e)
-                {
+                } catch (\Twig_Error_Syntax $e) {
                     throw $e;
-                }
-                catch (\Twig_Error_Runtime $e)
-                {
+                } catch (\Twig_Error_Runtime $e) {
                     // Ignore Runtime Errors, and return raw twig value
                     return $this->setting->getValue();
                 }
@@ -643,7 +639,14 @@ class SettingManager implements ContainerAwareInterface
         return null;
     }
 
-    public function createSettings()
+    /**
+     * createSettings
+     * @param array $data
+     * @return int
+     * @throws TableNotFoundException
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function createSettings(array $data = []): int
     {
 
         $resolver = new OptionsResolver();
@@ -666,18 +669,16 @@ class SettingManager implements ContainerAwareInterface
         );
 
         $create = $this->getRequest()->request->get('create');
-        $data   = Yaml::parse($create['setting']);
+        $data = $create ? Yaml::parse($create['setting']) : $data;
         $count = 0;
-        foreach ($data as $name => $values)
-        {
+        foreach ($data as $name => $values) {
             $values['name'] = strtolower($name);
             $values = $resolver->resolve($values);
             if ($this->has($name))
                 $setting = $this->findOneByName($name);
             else
                 $setting = new Setting();
-            foreach ($values as $field => $value)
-            {
+            foreach ($values as $field => $value) {
                 $func = 'set' . ucfirst($field);
                 $setting->$func($value);
             }
@@ -687,5 +688,6 @@ class SettingManager implements ContainerAwareInterface
             $count++;
         }
         $this->getMessageManager()->add('success', 'setting.create.success', ['transChoice' => $count], 'System');
+        return $count;
     }
 }

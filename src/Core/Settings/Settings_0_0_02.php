@@ -223,21 +223,24 @@ org.logo:
     description: 'The organisation Logo'
     role: 'ROLE_ADMIN'
     validator: 'App\Core\Validator\Logo'
-    value: 'img/bee.png'
+    defaultValue: 'img/bee.png'
+    value: null
 org.transparent.logo:
     type: 'image'
     displayName: 'Organisation Transparent Logo'
     description: 'The organisation Logo in a transparent form.  Recommended to be 80% opacity. Only PNG or GIF image formats support transparency.'
     role: 'ROLE_ADMIN'
     validator: 'App\Core\Validator\Logo'
-    value: 'img/bee-transparent.png'
+    defaultValue: 'img/bee-transparent.png'
+    value: null
 background.image:
     type: 'image'
     displayName: 'Background Image'
     description: 'Change the background displayed for the site.  The image needs to be a minimum of 1200px width.  You can load an image of 1M size, but the smaller the size the better.'
     role: 'ROLE_ADMIN'
     validator: 'App\Core\Validator\BackgroundImage'
-    value: 'img/backgroundPage.jpg'
+    defaultValue: 'img/backgroundPage.jpg'
+    value: null
 SchoolDay.Open:
     type: 'time'
     displayName: 'School Day Open Time'

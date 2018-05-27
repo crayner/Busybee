@@ -11,7 +11,8 @@
   description: "A template for displaying an address."
   value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\n{{ locality }} {{ territory }} {{ postCode }}\n{{ country }}</pre>\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\r\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\r\n{{ locality }} {{ territory }} {{ postCode }}\r\n{{ country }}</pre>"
+  last_modified: "2018-05-27 10:57:51"
   created_on: "2018-03-26 23:02:04"
 -
   id: 2
@@ -35,7 +36,7 @@
   description: "A list of genders used in the system."
   value: "Unspecified: U\nMale: M\nFemale: F\nOther: '0'\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 10:57:51"
   created_on: "2018-03-26 23:02:04"
 -
   id: 4
@@ -57,9 +58,9 @@
   name: "address.territorylist"
   display_name: "Territory List"
   description: "List of Territories, States, Provinces or Counties available to addresses in your organisation."
-  value: "'Not Specified': Unknown\n"
+  value: "'Not Specified': '@@'\n'New South Wales': NSW\nVictoria: VIC\nQueensland: QLD\n'South Australia': SA\n'Western Australia': WA\nTasmania: TAS\n'Northern Territory': NT\n'Australian Capital Territory': ACT\n'Overseas Australian Territory': OAT\nOverseas: OS\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 10:57:51"
   created_on: "2018-03-26 23:02:04"
 -
   id: 6
@@ -81,9 +82,9 @@
   name: "phone.typelist"
   display_name: "Types of Phones"
   description: "List of phone types."
-  value: "- home\n- mobile\n- work\n- imported\n"
+  value: "Home: Home\nMobile: Mobile\nWork: Work\nImported: Imported\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 13:37:14"
+  last_modified: "2018-05-27 10:57:51"
   created_on: "2018-03-26 23:02:04"
 -
   id: 8
@@ -93,9 +94,9 @@
   name: "phone.country.list"
   display_name: "List of Phone Country Codes"
   description: "List of phone country codes."
-  value: "'Australia +61': '+61'\n'Canada +1': '+1'\n'Hong Kong +852': '+852'\n'USA +1': '+1'\n"
+  value: "'Australia +61': '+61'\n'Canada +1': '+1'\n'Hong Kong +852': '+852'\n'United Kingdom +44': '+44'\n'USA +1': '+1'\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 11:11:40"
   created_on: "2018-03-26 23:02:04"
 -
   id: 9
@@ -105,8 +106,10 @@
   name: "phone.validation"
   display_name: "Phone Validation Rule"
   description: "Phone Validation Regular Expression"
+  value: "/(^(1300|1800|1900|1902)[0-9]{6}$)|(^0[2|3|4|7|8]{1}[0-9]{8}$)|(^13[0-9]{4}$)/"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "/^([0-9]){6,12}$/"
+  last_modified: "2018-05-26 21:54:33"
   created_on: "2018-03-26 23:02:04"
 -
   id: 10
@@ -116,9 +119,9 @@
   name: "phone.display"
   display_name: "Phone Display Format"
   description: "A template to convert phone numbers into display version."
-  value: "{{ phone }}"
+  value: "{% set start = phone|slice(0,2) %}\n{% set len = phone|length %}\n{% if start in [02,03,07,08,09] %}\n({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}\n{% elseif start in [18,13,04] and len == 10 %}\n{{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}\n{% elseif start in [13] and len == 6 %}\n{{ phone|slice(0,2)}} {{ phone|slice(2)}}\n{% else %}\n{{ phone }}\n{% endif %}\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 10:59:48"
   created_on: "2018-03-26 23:02:04"
 -
   id: 11
@@ -128,9 +131,9 @@
   name: "org.name"
   display_name: "Organisation Name"
   description: "The name of your organisation"
-  value: "long: 'Platypus Learning'\nshort: PL\n"
+  value: "long: Platypus Learning\r\nshort: PL"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 17:09:07"
+  last_modified: "2018-05-26 14:43:09"
   created_on: "2018-03-26 23:02:04"
 -
   id: 12
@@ -308,7 +311,7 @@
   id: 26
   created_by: 1
   modified_by: 1
-  type: "enum"
+  type: "string"
   name: "org.physical.territory"
   display_name: "Organisation Physical Territory"
   description: "Territory of this organisation's physical address. : State, Province, County)"
@@ -337,9 +340,9 @@
   name: "firstdayofweek"
   display_name: "First Day of Week"
   description: "The first day of the week for display purposes.  Monday or Sunday, defaults to Monday."
-  value: "Monday"
+  value: "Sunday"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 11:05:22"
   created_on: "2018-03-26 23:02:05"
 -
   id: 29
@@ -361,10 +364,10 @@
   name: "org.logo"
   display_name: "Organisation Logo"
   description: "The organisation Logo"
-  value: "img/bee.png"
   validator: "App\\Core\\Validator\\Logo"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "img/bee.png"
+  last_modified: "2018-05-27 16:55:19"
   created_on: "2018-03-26 23:02:05"
 -
   id: 31
@@ -374,10 +377,10 @@
   name: "org.transparent.logo"
   display_name: "Organisation Transparent Logo"
   description: "The organisation Logo in a transparent form.  Recommended to be 80% opacity. Only PNG or GIF image formats support transparency."
-  value: "img/bee-transparent.png"
   validator: "App\\Core\\Validator\\Logo"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "img/bee-transparent.png"
+  last_modified: "2018-05-27 17:00:53"
   created_on: "2018-03-26 23:02:05"
 -
   id: 32
@@ -387,9 +390,9 @@
   name: "background.image"
   display_name: "Background Image"
   description: "Change the background displayed for the site.  The image needs to be a minimum of 1200px width.  You can load an image of 1M size, but the smaller the size the better."
-  value: "img/backgroundPage.jpg"
   validator: "App\\Core\\Validator\\BackgroundImage"
   role: "ROLE_ADMIN"
+  default_value: "img/backgroundPage.jpg"
   last_modified: "2018-05-22 12:40:32"
   created_on: "2018-03-26 23:02:05"
 -
@@ -400,9 +403,9 @@
   name: "schoolday.open"
   display_name: "School Day Open Time"
   description: "At what time are students allowed on campus?"
-  value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 07:45:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}"
+  value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 07:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-26 15:56:40"
   created_on: "2018-03-26 23:02:05"
 -
   id: 34
@@ -414,7 +417,7 @@
   description: "The time that teaching starts. Students would normally be considered late after this time."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 08:15:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-26 15:56:23"
   created_on: "2018-03-26 23:02:05"
 -
   id: 35
@@ -426,7 +429,7 @@
   description: "The time students are released for the day."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 15:30:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-26 21:16:10"
   created_on: "2018-03-26 23:02:05"
 -
   id: 36
@@ -436,9 +439,9 @@
   name: "schoolday.close"
   display_name: "School Day Close Time"
   description: "The time the doors of the campus normally close, all after school and school activities finished."
-  value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 17:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}"
+  value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 17:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 15:30:49"
   created_on: "2018-03-26 23:02:05"
 -
   id: 37
@@ -446,11 +449,12 @@
   modified_by: 1
   type: "array"
   name: "space.type"
-  display_name: "Facility Types"
+  display_name: "Type of Space"
   description: "Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms."
-  value: "teaching_space:\n    - classroom\n    - 'common room'\n    - hall\n    - laboratory\n    - library\n    - 'meeting room'\n    - outdoor\n    - performance\n    - study\n    - undercover\nnon_teaching_space:\n    - office\n    - other\n    - 'staff room'\n    - storage\n"
+  value: "classroom: classroom\nhall: hall\nlaboratory: laboratory\nlibrary: library\n'meeting room': 'meeting room'\noffice: office\nother: other\noutdoor: outdoor\nperformance: performance\nstaffroom: staffroom\nstorage: storage\nstudy: study\nundercover: undercover\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "Classroom"
+  last_modified: "2018-05-27 16:05:21"
   created_on: "2018-03-26 23:02:05"
 -
   id: 38
@@ -472,10 +476,9 @@
   name: "phone.country.code"
   display_name: "Phone Country Code"
   description: "Default phone country code."
-  value: ""
   choice: "phone.country.list"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 15:48:02"
   created_on: "2018-03-26 23:02:05"
 -
   id: 40
@@ -485,9 +488,8 @@
   name: "person.import"
   display_name: "Person Import Defaults"
   description: "Default values added to imported records."
-  value: "{  }"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 15:48:02"
   created_on: "2018-03-26 23:02:05"
 -
   id: 41
@@ -499,7 +501,7 @@
   description: "A template to convert phone numbers into full display version."
   value: "{{ phoneNumber }}"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-27 15:48:02"
   created_on: "2018-03-26 23:02:05"
 -
   id: 42
@@ -779,9 +781,9 @@
   name: "google"
   display_name: "Google Authentication and App Access"
   description: "Google Authentication and App Access details."
-  value: "o_auth: '1'\nclient_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com\nclient_secret: EZ9oJc3uuvHh_2X27lkMexZ-\n"
+  value: "o_auth: true\nclient_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com\nclient_secret: EZ9oJc3uuvHh_2X27lkMexZ-\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-26 14:22:08"
   created_on: "2018-03-26 23:02:05"
 -
   id: 65
@@ -818,7 +820,7 @@
   description: "The version of Busybee currently configured on your system."
   value: "0.0.34"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-23 12:15:06"
+  last_modified: "2018-05-26 12:25:38"
   created_on: "2018-03-26 23:02:05"
 -
   id: 68
