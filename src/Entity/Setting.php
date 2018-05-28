@@ -368,4 +368,50 @@ class Setting implements UserTrackInterface
         }
         return $this->convertRawValues();
     }
+
+    /**
+     * @var bool
+     */
+    private $valid = true;
+
+    /**
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        return $this->valid;
+    }
+
+    /**
+     * @param bool $valid
+     * @return Setting
+     */
+    public function setValid(bool $valid): Setting
+    {
+        $this->valid = $valid;
+        return $this;
+    }
+
+    /**
+     * @var string|null
+     */
+    private $translateChoice;
+
+    /**
+     * @return null|string
+     */
+    public function getTranslateChoice(): ?string
+    {
+        return $this->translateChoice;
+    }
+
+    /**
+     * @param null|string $translateChoice
+     * @return Setting
+     */
+    public function setTranslateChoice(?string $translateChoice): Setting
+    {
+        $this->translateChoice = $translateChoice;
+        return $this;
+    }
 }

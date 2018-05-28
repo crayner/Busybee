@@ -3,7 +3,7 @@
 {% trans_default_domain "BusybeeStudentBundle" %}
 
 
-    {% include "Person/panelHeader.html.twig"  with {'header': 'person.immigration.title', name: personManager.person.formatName} %}
+    {% include "Person/panelHeader.html.twig"  with {'header': 'person.immigration.title', name: personManager.fullName(personManager.person)} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-4 card">

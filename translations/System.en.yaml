@@ -1,5 +1,8 @@
 setting:
     choice:
+        name.not_found: 'The setting "%{name}" was not found.'
+        not_valid: Invalid Setting
+        label_value.error: 'The Setting Choice must not set both `use_label_as_value` and `use_value_as_label`'
         name: '%name%'
     create:
         setting:

@@ -781,4 +781,69 @@ user:
     {
         return $this->messageManager;
     }
+
+    /**
+     * getFullName
+     *
+     * @param Person|null $person
+     * @param array $options
+     * @return string
+     */
+    public function getFullName(Person $person = null, array $options = []): string
+    {
+        $person = $person ?: $this->getPerson();
+
+        if (empty($person))
+            return '';
+
+        if (empty($person->getSurname())) return '';
+
+        $options['surnameFirst']  = !isset($options['surnameFirst']) ? true : $options['surnameFirst'];
+        $options['preferredOnly'] = !isset($options['preferredOnly']) ? false : $options['preferredOnly'];
+
+        if ($options['surnameFirst'])
+        {
+            if ($options['preferredOnly'])
+                return $person->getSurname() . ': ' . $person->getPreferredName();
+
+            return $person->getSurname() . ': ' . $person->getFirstName() . ' (' . $person->getPreferredName() . ')';
+        }
+
+        if ($options['preferredOnly'])
+            return $person->getPreferredName() . ' ' . $person->getSurname();
+
+        return $person->getFirstName() . ' (' . $person->getPreferredName() . ') ' . $person->getSurname();
+    }
+
+    /**
+     * getFullUserName
+     *
+     * @param UserInterface $user
+     * @return string
+     */
+    public function getFullUserName(?UserInterface $user): string
+    {
+        if (! $user instanceof UserInterface)
+            if ($this->getUserManager()->getUser())
+                $user = $this->getUserManager()->getUser();
+
+        if ($this->getUserManager()->hasPerson($user))
+            $this->person = $this->getUserManager()->getPerson($user);
+
+        if ($this->person instanceof Person)
+            return $this->getFullName($this->person);
+
+        if ($user instanceof UserInterface)
+            return $user->formatName();
+
+        return '' ;
+    }
+
+    /**
+     * @return UserManager
+     */
+    public function getUserManager(): UserManager
+    {
+        return $this->userManager;
+    }
 }

@@ -183,16 +183,16 @@ class SettingSubscriber implements EventSubscriberInterface
                     )
                         ->add('defaultValue', TextareaType::class, array_merge($defaultOptions, [
                                 'attr'        => array_merge($attr,
-                                    array(
+                                    [
                                         'rows' => 8,
-                                    )
+                                    ]
                                 ),
                                 'help'        => 'system.setting.array.help',
                                 'constraints' => array_merge(
                                     $constraints,
-                                    array(
+                                    [
                                         new Yaml(['transDomain' => 'Setting']),
-                                    )
+                                    ]
                                 ),
                             ]
                         )
@@ -256,17 +256,6 @@ class SettingSubscriber implements EventSubscriberInterface
                         )
                     );
 					break;
-                case 'string':
-                    $form->add('value', TextType::class, array_merge($options, array(
-                                'attr'        => array_merge($attr,
-                                    array(
-                                        'maxLength' => 25,
-                                    )
-                                ),
-                                'constraints' => $constraints,
-                            )
-                        )
-                    );
                 case 'string':
                     $form->add('value', TextType::class, array_merge($options, array(
                                 'attr'        => array_merge($attr,

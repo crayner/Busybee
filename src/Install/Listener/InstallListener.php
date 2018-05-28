@@ -75,7 +75,7 @@ class InstallListener implements EventSubscriberInterface
 			$response = new RedirectResponse($this->router->generate('install_database'));
 		elseif (false === $this->tableManager->isTableInstalled(Setting::class))// Are the database tables installed?
 			$response = new RedirectResponse($this->router->generate('install_database'));
-		elseif (false === $this->systemBuildManager->isUserDefined())// Are the database tables installed?
+		elseif (false === $this->systemBuildManager->isUserDefined())// Is the system Administrator created?
 			$response = new RedirectResponse($this->router->generate('install_user'));
 		elseif (! $this->versionManager->isUpToDate()) //Is the latest settings installed.
 			$response = new RedirectResponse($this->router->generate('update_system_settings'));

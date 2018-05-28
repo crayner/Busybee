@@ -44,3 +44,7 @@ App\Entity\Setting:
             type: text
             nullable: true
             column: default_value
+        translateChoice:
+            length: 128
+            nullable: true
+            column: translate_choice

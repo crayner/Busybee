@@ -4,6 +4,7 @@ namespace App\Core\Util;
 use App\Calendar\Util\CalendarManager;
 use App\Entity\Calendar;
 use App\Entity\Person;
+use App\People\Util\PersonManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -25,10 +26,10 @@ class UserManager
 	 */
 	private $entityManager;
 
-	/**
-	 * @var TokenStorageInterface
-	 */
-	private $tokenStorage;
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
 
 	/**
 	 * UserManager constructor.
@@ -50,17 +51,13 @@ class UserManager
      */
 	public function formatUserName(UserInterface $user = null): string
 	{
+	    @trigger_error(__method__ . ' in class ' . __CLASS__ . ' is deprecated. Use PersonManager->getFullUserName' , E_USER_DEPRECATED);
+	    die();
 		if ($user instanceof UserInterface)
 			$id = $user->getId();
 
 		if ($this->getUser())
 			$id = $this->user->getId();
-
-		if ($this->hasPerson($user))
-			$this->person = $this->getPerson($user);
-
-		if ($this->person instanceof Person)
-			return $this->person->formatName();
 
 		if ($user instanceof UserInterface)
 			return $user->formatName();
@@ -163,5 +160,13 @@ class UserManager
         $this->user = $user;
         $this->person = null;
         return $this;
+    }
+
+    /**
+     * @return PersonManager
+     */
+    public function getPersonManager(): PersonManager
+    {
+        return $this->personManager;
     }
 }

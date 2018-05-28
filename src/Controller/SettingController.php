@@ -99,7 +99,8 @@ class SettingController extends Controller
 
 			if ($setting->getType() == 'image')
 				return $this->redirectToRoute('setting_edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
-		}
+		} else
+		    $setting->setValid(false);
 
 		return $this->render('Setting/edit.html.twig', [
 				'form'       => $form->createView(),

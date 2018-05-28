@@ -11,7 +11,7 @@ class Yaml extends Constraint
 {
 	public $message = 'yaml.validation.error';
 
-	public $transDomain = 'Setting'   ;
+	public $transDomain = 'Setting';
 
 	/**
 	 * @return string

@@ -2,7 +2,7 @@
 
 {% trans_default_domain "Person" %}
 
-{% include 'Person/panelHeader.html.twig' with {header: 'person.student.title', transDomain: 'Person', name: personManager.person.formatName} %}
+{% include 'Person/panelHeader.html.twig' with {header: 'person.student.title', transDomain: 'Person', name: personManager.fullName(personManager.person)} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-4 card">

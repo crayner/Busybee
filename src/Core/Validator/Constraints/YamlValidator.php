@@ -35,8 +35,9 @@ class YamlValidator extends ConstraintValidator
 		}
 
 		if (!is_array($x)){
+		    $x = explode("\n", $value);
             $this->context->buildViolation($constraint->message)
-                ->setParameter('%systemMessage%', 'Unable to parse at line 1. (near "'.substr($value, 0, 1).'"')
+                ->setParameter('%systemMessage%', 'Unable to parse at line 1. (near "'.substr($x[0], -12).'"')
                 ->setTranslationDomain($constraint->transDomain)
                 ->addViolation();
             return;
