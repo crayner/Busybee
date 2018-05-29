@@ -17,7 +17,6 @@ namespace App\Core\Organism;
 
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
-use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -94,48 +93,20 @@ class SettingCache
     }
 
     /**
-     * isValidSetting
-     *
-     * @return bool
-     */
-    public function isValidSetting(): bool
-    {
-        if (empty($this->getCacheTime()))
-            return false;
-        if ($this->getCacheTime()->getTimestamp() < strtotime('-20 minutes'))
-        {
-            $this->setCacheTime(null);
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * @var mixed
      */
     private $value;
 
     /**
-     * @var mixed
-     */
-    private $convertedValue;
-
-    /**
-     * @param null $default
      * @return mixed
      */
-    public function getValue($default = null)
+    public function getValue()
     {
-        if (!empty($this->getConvertedValue()))
-            return $this->getConvertedValue();
-        $method = 'get' . ucfirst($this->getSetting()->getType()) . 'Value';
-        $this->value = $this->$method();
-        $this->defaultValue = $this->getDefaultValue();
-        $value = $this->value ?: $this->defaultValue;
-        $value = $value ?: $default;
-
-        $this->setConvertedValue($value);
-        return $value;
+        if (empty($this->value) && $this->isBaseSetting()) {
+            $method = 'get' . ucfirst($this->getSetting()->getType()) . 'Value';
+            $this->value = $this->$method();
+        }
+        return $this->value;
     }
 
     /**
@@ -144,10 +115,12 @@ class SettingCache
      */
     public function setValue($value): SettingCache
     {
-        $method = 'set' . ucfirst($this->getSetting()->getType()) . 'Value';
         $this->value = $value;
-        $this->setConvertedValue($value);
-        return $this->$method();
+        if ($this->isBaseSetting()) {
+            $method = 'set' . ucfirst($this->getSetting()->getType()) . 'Value';
+            return $this->$method();
+        }
+        return $this;
     }
 
     /**
@@ -156,40 +129,79 @@ class SettingCache
     private $defaultValue;
 
     /**
+     * @var string|null
+     */
+    private $parent;
+
+    /**
+     * @return null|string
+     */
+    public function getParent(): ?string
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param null|string $parent
+     * @return SettingCache
+     */
+    public function setParent(?string $parent): SettingCache
+    {
+        $this->parent = $parent;
+        if (! empty($parent))
+            $this->setBaseSetting(false);
+        return $this;
+    }
+
+    /**
+     * @var string
+     */
+    private $parentKey;
+
+    /**
+     * @return string
+     */
+    public function getParentKey(): string
+    {
+        return $this->parentKey;
+    }
+
+    /**
+     * @param string $parentKey
+     * @return SettingCache
+     */
+    public function setParentKey(string $parentKey): SettingCache
+    {
+        $this->parentKey = $parentKey;
+        return $this;
+    }
+
+    /**
      * getDefaultValue
      *
      * @return mixed
      */
     public function getDefaultValue()
     {
-        $method = 'getDefault' . ucfirst($this->getSetting()->getType()) . 'Value';
-        return $this->defaultValue = $this->$method();
+        if (empty($this->defaultValue) && $this->isBaseSetting()) {
+            $method = 'getDefault' . ucfirst($this->getSetting()->getType()) . 'Value';
+            $this->defaultValue = $this->$method();
+        }
+        return $this->defaultValue;
     }
 
     /**
-     * @return mixed
-     */
-    public function getConvertedValue()
-    {
-        return $this->convertedValue;
-    }
-
-    /**
-     * @param mixed $convertedValue
+     * @param mixed $defaultValue
      * @return SettingCache
      */
-    public function setConvertedValue($convertedValue)
+    public function setDefaultValue($defaultValue)
     {
-        $this->convertedValue = $convertedValue;
+        $this->defaultValue = $defaultValue;
+        if ($this->isBaseSetting()) {
+            $method = 'setDefault' . ucfirst($this->getSetting()->getType()) . 'Value';
+            return $this->$method();
+        }
         return $this;
-    }
-
-    /**
-     * @return EntityManagerInterface
-     */
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->entityManager;
     }
 
     /**
@@ -209,6 +221,16 @@ class SettingCache
      * @return SettingCache
      */
     private function setSystemValue(): SettingCache
+    {
+        return $this->setStringValue();
+    }
+
+    /**
+     * setIntegerValue
+     *
+     * @return SettingCache
+     */
+    private function setIntegerValue(): SettingCache
     {
         return $this->setStringValue();
     }
@@ -234,11 +256,11 @@ class SettingCache
         $this->getSetting()->setValue(Yaml::dump($this->value));
         return $this;
     }
+
     /**
-     * getSystemValue
+     * getImageValue
      *
-     * @param null $default
-     * @return mixed|null
+     * @return null|string
      */
     private function getImageValue(): ?string
     {
@@ -289,6 +311,16 @@ class SettingCache
     }
 
     /**
+     * setTextValue
+     *
+     * @return SettingCache
+     */
+    private function setTextValue(): SettingCache
+    {
+        return $this->setStringValue();
+    }
+
+    /**
      * getStringValue
      *
      * @param null $default
@@ -296,9 +328,7 @@ class SettingCache
      */
     private function getStringValue(): ?string
     {
-        if ($this->getSetting()->getValue())
-            return $this->getSetting()->getValue();
-        return null;
+        return $this->getSetting()->getValue();
     }
 
     /**
@@ -329,6 +359,16 @@ class SettingCache
      * @return SettingCache
      */
     private function setEnumValue(): SettingCache
+    {
+        return $this->setStringValue();
+    }
+
+    /**
+     * setImageValue
+     *
+     * @return SettingCache
+     */
+    private function setImageValue(): SettingCache
     {
         return $this->setStringValue();
     }
@@ -463,8 +503,7 @@ class SettingCache
         if (is_array($value))
             return $value;
 
-        dump($value);
-        $x = is_array(Yaml::parse($value));
+        $x = Yaml::parse($value);
         return is_array($x) ? $x : [];
     }
 
@@ -518,13 +557,32 @@ class SettingCache
     }
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * getType
      *
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
-        return $this->getSetting()->getType();
+        if ($this->isBaseSetting())
+            return $this->getSetting()->getType();
+        return $this->type;
+    }
+
+    /**
+     * setType
+     *
+     * @param $type
+     * @return SettingCache
+     */
+    public function setType($type): SettingCache
+    {
+        $this->type = $type;
+        return $this;
     }
 
     /**
@@ -532,7 +590,7 @@ class SettingCache
      *
      * @return Setting
      */
-    public function convertImportValues(): Setting
+    public function convertImportValues(): SettingCache
     {
         switch ($this->getType()){
             case 'time':
@@ -541,21 +599,9 @@ class SettingCache
                 break;
             default:
         }
-        return $this->convertRawValues();
-    }
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * SettingCache constructor.
-     * @param EntityManagerInterface $entityManager
-     */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
+        $this->setValue($this->value);
+        $this->setDefaultValue($this->defaultValue);
+        return $this;
     }
 
     /**
@@ -566,7 +612,7 @@ class SettingCache
      * @throws TableNotFoundException
      * @throws \Doctrine\ORM\ORMException
      */
-    public function importSetting(array $values): bool
+    public function importSetting(array $values, EntityManagerInterface $entityManager): bool
     {
         $this->findOneByName($values['name']);
         $this->setting = $this->getSetting() instanceof Setting ? $this->getSetting() : new Setting();
@@ -580,8 +626,8 @@ class SettingCache
                 $this->getSetting()->$func($value);
         }
         $this->convertImportValues();
-        $this->getEntityManager()->persist($this->getSetting());
-        $this->getEntityManager()->flush();
+        $entityManager->persist($this->getSetting());
+        $entityManager->flush();
 
         return true;
     }
@@ -591,24 +637,20 @@ class SettingCache
      *
      * @param string $name
      * @return SettingCache|null
+     * @throws TableNotFoundException
      * @throws \Doctrine\ORM\ORMException
      */
-    public function findOneByName(string $name): ?SettingCache
+    public function findOneByName(string $name, EntityManagerInterface $entityManager): ?SettingCache
     {
         try {
-            $this->setting = $this->getSettingRepository()->findOneByName(strtolower($name));
+            $this->setting = $this->getSettingRepository($entityManager)->findOneByName(strtolower($name));
+            $this->setCacheTime(new \DateTime('now'));
+            $this->setName($name);
         } catch (TableNotFoundException $e) {
             if (in_array($e->getErrorCode(), ['1146', '1045']))
                 $this->setting = null;
-            throw $e;
-        } catch (PDOException $e) {
-            if (in_array($e->getErrorCode(), ['1146', '1045']))
-                $this->setting = null;
-            throw $e;
-        } catch (\Exception $e) {
-            if (in_array($e->getErrorCode(), ['1146', '1045']))
-                $this->setting = null;
-            throw $e;
+            else
+                throw $e;
         }
         return $this;
     }
@@ -616,10 +658,204 @@ class SettingCache
     /**
      * getSettingRepository
      *
+     * @param EntityManagerInterface $entityManager
      * @return SettingRepository
      */
-    private function getSettingRepository(): SettingRepository
+    private function getSettingRepository(EntityManagerInterface $entityManager): SettingRepository
     {
-        return $this->getEntityManager()->getRepository(Setting::class);
+        return $entityManager->getRepository(Setting::class);
+    }
+
+    /**
+     * isValid
+     *
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        if ($this->isBaseSetting() && ! $this->getSetting() instanceof Setting)
+            return false;
+
+        if (empty($this->getCacheTime()) || empty($this->getName()))
+            return false;
+
+        if ($this->getCacheTime()->getTimestamp() < strtotime('-20 minutes'))
+        {
+            $this->setCacheTime(null);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * setDefaultTwigValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultTwigValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * setDefaultStringValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultStringValue(): SettingCache
+    {
+        $this->getSetting()->setDefaultValue($this->defaultValue);
+        return $this;
+    }
+
+    /**
+     * setDefaultArrayValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultArrayValue(): SettingCache
+    {
+        $this->getSetting()->setDefaultValue(Yaml::dump($this->defaultValue));
+        return $this;
+    }
+
+    /**
+     * setDefaultRegexValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultRegexValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * setDefaultTextValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultTextValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * setDefaultEnumValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultEnumValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * setDefaultImageValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultImageValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * setDefaultTimeValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultTimeValue(): SettingCache
+    {
+        return $this->setDefaultDateTimeValue();
+    }
+
+    /**
+     * setDefaultDateTimeValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultDateTimeValue(): SettingCache
+    {
+        $this->getSetting()->setDefaultValue(serialize($this->defaultValue));
+        return $this;
+    }
+
+    /**
+     * setDefaultSystemValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultSystemValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * setDefaultIntegerValue
+     *
+     * @return SettingCache
+     */
+    private function setDefaultIntegerValue(): SettingCache
+    {
+        return $this->setDefaultStringValue();
+    }
+
+    /**
+     * getFinalValue
+     *
+     * @param $default
+     * @return mixed|null
+     */
+    public function getFinalValue($default)
+    {
+        $value = null;
+        $value = $this->getValue();
+
+        if (empty($value))
+            $value = $this->getDefaultValue();
+        if (empty($value))
+            $value = $default;
+
+        return $value;
+    }
+
+    /**
+     * writeSetting
+     *
+     * @param EntityManagerInterface $entityManager
+     * @return SettingCache
+     */
+    public function writeSetting(EntityManagerInterface $entityManager): SettingCache
+    {
+        if ($this->isBaseSetting()) {
+            $entityManager->persist($this->getSetting());
+            $entityManager->flush();
+        }
+        return $this;
+    }
+
+    /**
+     * getTranslateChoice
+     *
+     * @return null|string
+     */
+    public function getTranslateChoice(): ?string
+    {
+        if ($this->getSetting())
+            return $this->getSetting()->getTranslateChoice();
+        return null;
+    }
+
+    /**
+     * getId
+     *
+     * @return null|integer
+     */
+    public function getId(): ?int
+    {
+        if ($this->getSetting())
+            return $this->getSetting()->getId();
+        return null;
     }
 }

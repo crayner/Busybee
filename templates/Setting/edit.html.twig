@@ -9,7 +9,7 @@
 {% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success'|trans, "alert alert-success alert-dismissible fade show") }}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert-dismissible fade show", 'system.setting.edit.success', "alert alert-success alert-dismissible fade show", 'System') }}
     {{ form_start(form) }}
     {% if closeWindow is defined and closeWindow == 'closeWindow' %}
         {% set h3Content = closeButton({mergeClass: 'btn-sm'})|raw %}
@@ -63,10 +63,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 card">
-            {{ settingManager.injectSetting(form.vars.value) }}
-            {% for value in settingManager.translateValue %}
-            {% endfor %}
+        <div class="col-12 card-light">
+            <h3 class="alert alert-dark">{{ 'setting.translate.header'|trans }}</h3>
+                <p class="alert-dark alert">{{ 'setting.translate.help'|trans }}</p</h3>
+            {% set x = settingManager.injectSetting(form.vars.value) %}
+            {% include 'Default/messages.html.twig' with {messages: settingManager.translateValue()} %}
         </div>
     </div>
 

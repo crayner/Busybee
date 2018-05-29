@@ -67,7 +67,7 @@ class FormErrorsExtension extends AbstractExtension
 	 *
 	 * @return string
 	 */
-	public function getFormErrors(FormInterface $form, $tag = 'li', $class = "alert alert-danger alert-dismissable show hide", $noErrorMessage = 'form.submit.success', $noErrorClass = 'alert alert-success alert-dismissable show hide')
+	public function getFormErrors(FormInterface $form, $tag = 'li', $class = "alert alert-danger alert-dismissable show hide", $noErrorMessage = 'form.submit.success', $noErrorClass = 'alert alert-success alert-dismissable show hide', $transDomain = 'home')
 	{
 		if (!$form->isSubmitted()) return '<div id="formErrorMessages"></div>';
 		$errorsList = $this->parser->parseErrors($form);
@@ -94,7 +94,7 @@ class FormErrorsExtension extends AbstractExtension
 				$return .= '<ul>';
 			}
 			$return .= '<' . $tag . ' class="' . $noErrorClass . '">';
-			$return .= $this->trans->trans($noErrorMessage, [], 'home');
+			$return .= $this->trans->trans($noErrorMessage, [], $transDomain);
 			$return .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close" title="'.$this->trans->trans('Close Message', [], 'home').'" aria-hidden="true"><span class="far fa-times-circle"></span></button></' . $tag . '>';
 
 			if ($tag == 'li')

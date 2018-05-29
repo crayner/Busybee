@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\Manager\MessageManager;
+use App\Core\Manager\SettingManager;
 use App\DummyData\ActivityFixtures;
 use App\DummyData\ActivityStudentFixtures;
 use App\DummyData\CalendarFixtures;
@@ -10,6 +11,7 @@ use App\DummyData\SchoolFixtures;
 use App\DummyData\TimetableFixtures;
 use App\DummyData\TruncateTables;
 use App\DummyData\UserFixtures;
+use App\Entity\Calendar;
 use App\Entity\Person;
 use App\Install\Form\MailerType;
 use App\Install\Form\MiscellaneousType;
@@ -20,7 +22,6 @@ use App\Install\Form\StartInstallType;
 use App\Install\Manager\InstallManager;
 use App\Install\Organism\User;
 use Doctrine\Common\Persistence\ObjectManager;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -225,16 +226,16 @@ class InstallController extends Controller
     /**
      * @param SystemBuildManager $systemBuildManager
      * @param Request $request
+     * @param TokenStorageInterface $tokenStorage
+     * @param EventDispatcherInterface $eventDispatcher
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      * @Route("/install/database/", name="install_database")
      */
 	public function installDatabase(SystemBuildManager $systemBuildManager, Request $request)
 	{
-	    if ($request->getSession()->isStarted())
-	        $request->getSession()->start();
-
-        $request->getSession()->invalidate();
+	    if ($request->hasSession())
+            $request->getSession()->invalidate();
 
         $systemBuildManager->setAction(true);
 
@@ -261,7 +262,6 @@ class InstallController extends Controller
      */
 	public function installUser(Request $request, EventDispatcherInterface $eventDispatcher, SystemBuildManager $systemBuildManager, TokenStorageInterface $tokenStorage)
     {
-        dump([version_compare($systemBuildManager->getSystemVersion(), '0.0.00', '='), $systemBuildManager->getSystemVersion()]);
         if (version_compare($systemBuildManager->getSystemVersion(), '0.0.00', '='))
         {
             $systemBuildManager->writeSystemUser();
@@ -341,7 +341,7 @@ class InstallController extends Controller
             $em->persist($person);
             $em->flush();
 
-            $request->getSession()->clear();
+            $request->getSession()->invalidate();
 
             //Handle getting or creating the user entity likely with a posted form
             // The third parameter "main" can change according to the name of your firewall in security.yml

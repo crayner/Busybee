@@ -3,7 +3,7 @@ App\Entity\Setting:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name]
             errorPath: name
-            message: 'unique.setting.name'
+            message: 'Must be Unique'
     properties:
         validator:
             - App\Core\Validator\FileExists:

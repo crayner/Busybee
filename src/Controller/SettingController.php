@@ -82,7 +82,7 @@ class SettingController extends Controller
 	 */
 	public function edit($id, $closeWindow = null, Request $request, SettingManager $settingManager)
 	{
-		$setting = $settingManager->find($id);
+		$setting = $settingManager->getEntityManager()->getRepository(Setting::class)->find($id);
 
 		if (is_null($setting))
 			throw new \InvalidArgumentException('The System setting of identifier: ' . $id . ' was not found');
@@ -93,7 +93,6 @@ class SettingController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-		    $setting->convertRawValues();
             $settingManager->getEntityManager()->persist($setting);
             $settingManager->getEntityManager()->flush();
 

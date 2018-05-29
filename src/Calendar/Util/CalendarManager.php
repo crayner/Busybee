@@ -278,10 +278,12 @@ class CalendarManager implements TabManagerInterface
 		return;
 	}
 
-	/**
-	 * @return Calendar
-	 */
-	public static function getCurrentCalendar(): Calendar
+    /**
+     * getCurrentCalendar
+     *
+     * @return Calendar|null
+     */
+    public static function getCurrentCalendar(): ?Calendar
 	{
 		if (! is_null(self::$currentCalendar))
 			return self::$currentCalendar;

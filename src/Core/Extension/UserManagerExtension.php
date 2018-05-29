@@ -1,7 +1,9 @@
 <?php
 namespace App\Core\Extension;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Util\UserManager;
+use App\Entity\Calendar;
 use App\People\Util\PersonManager;
 use Twig\Extension\AbstractExtension;
 
@@ -36,7 +38,8 @@ class UserManagerExtension extends AbstractExtension
 		return [
 			new \Twig_SimpleFunction('formatUserName', [$this->personManager, 'getFullUserName']),
 			new \Twig_SimpleFunction('get_userManager', [$this, 'getUserManager']),
-			new \Twig_SimpleFunction('get_CurrentCalendar', [$this->userManager, 'getCurrentCalendar']),
+            new \Twig_SimpleFunction('get_CurrentCalendar', [$this, 'getCurrentCalendar']),
+            new \Twig_SimpleFunction('get_CurrentCalendarName', [$this, 'getCurrentCalendarName']),
 			new \Twig_SimpleFunction('get_UserSetting', [$this->userManager, 'getUserSetting']),
 		];
 	}
@@ -58,4 +61,26 @@ class UserManagerExtension extends AbstractExtension
 	{
 		return 'user_manager_extension';
 	}
+
+    /**
+     * getCurrentCalendar
+     *
+     * @return Calendar|null
+     */
+    public function getCurrentCalendar(): ?Calendar
+    {
+        return CalendarManager::getCurrentCalendar();
+    }
+
+    /**
+     * getCurrentCalendarName
+     *
+     * @return string
+     */
+    public function getCurrentCalendarName(): string
+    {
+        if ($this->getCurrentCalendar() instanceof Calendar)
+            return $this->getCurrentCalendar()->getName();
+        return 'Unknown';
+    }
 }

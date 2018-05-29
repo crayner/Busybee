@@ -66,19 +66,11 @@ class UserManager
 	}
 
     /**
-     * @return null|object
+     * @return null|Calendar
      */
-    public function getSystemCalendar()
+    public function getSystemCalendar(): ?Calendar
     {
-        if (! $this->getUser())
-            return $this->entityManager->getRepository(Calendar::class)->findOneByStatus('current');
-
-        $calendar = $this->getUser()->getUserSettings('calendar');
-        $cal = is_null($calendar) ? null : $this->entityManager->getRepository(Calendar::class)->find($calendar) ;
-        if (is_null($cal))
-            $cal = $this->entityManager->getRepository(Calendar::class)->loadCurrentCalendar();
-
-        return $cal;
+        return $this->getCurrentCalendar();
     }
 
     /**
@@ -96,7 +88,7 @@ class UserManager
 	 */
 	public function getUserSetting($name)
 	{
-		return $this->getUser() ? $this->getUser()->getUserSettings($name) : null;
+		return $this->getUser() instanceof UserInterface ? $this->getUser()->getUserSettings($name) : null;
 	}
 
     /**

@@ -18,6 +18,12 @@ setting:
     settings.missing: 'The resource "%{resource}" is an empty file.'
     mail.test.delivery: Test Delivery
     create.success: '{0}No settings were processed.|{1}A setting was loaded to the database.|]1,Inf[%count% settings were processed successfully.'
+    translate:
+        header: 'Translation Details'
+        help: 'Translation is attempted using the Setting translation domain when the Choice Translation Domain is blank.  Translation can be turned off by setting Choice Translation Domain = "false". The translation files are found in the "config/translation" directory.  Upgrades do not overwrite these files. Translation files must be in yaml format.'
+        not.required: The setting does not require a translation.
+        definition: 'Translation of "%{name}" is "%{value}"'
+        turned.off: 'Translation for this setting is turned off. (Choice Translation Domain = "false".)'
 system:
     setting:
         warning: "CAUTION: Changing System Settings can have unpredictable affects on the operation of the system, and should only be done with caution."
