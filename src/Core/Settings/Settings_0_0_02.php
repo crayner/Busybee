@@ -275,20 +275,22 @@ space.type:
     role: 'ROLE_ADMIN'
     validator: null
     value:
-        classroom: classroom
-        hall: hall
-        laboratory: laboratory
-        library: library
-        'meeting room': 'meeting room'
-        office: office
-        other: other
-        outdoor: outdoor
-        performance: performance
-        staffroom: staffroom
-        storage: storage
-        study: study
-        undercover: undercover
-    defaultValue: Classroom
+        teaching_space:
+            - classroom
+            - hall
+            - laboratory
+            - library
+            - other
+            - outdoor
+            - performance
+            - study
+            - undercover
+        non_teaching_space:
+            - 'meeting room'
+            - office
+            - staffroom
+            - storage
+    defaultValue: null
 Staff.Categories:
     type: 'array'
     displayName: 'Staff Categories'

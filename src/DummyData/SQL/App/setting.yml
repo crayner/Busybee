@@ -451,10 +451,9 @@
   name: "space.type"
   display_name: "Type of Space"
   description: "Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms."
-  value: "classroom: classroom\nhall: hall\nlaboratory: laboratory\nlibrary: library\n'meeting room': 'meeting room'\noffice: office\nother: other\noutdoor: outdoor\nperformance: performance\nstaffroom: staffroom\nstorage: storage\nstudy: study\nundercover: undercover\n"
+  value: "teaching_space:\r\n    - classroom\r\n    - hall\r\n    - laboratory\r\n    - library\r\n    - other\r\n    - outdoor\r\n    - performance\r\n    - study\r\n    - undercover\r\nnon_teaching_space:\r\n    - 'meeting room'\r\n    - office\r\n    - 'staff room'\r\n    - storage\r\nxxx:\r\n    yyy:\r\n        zzz:\r\n            - craig"
   role: "ROLE_ADMIN"
-  default_value: "Classroom"
-  last_modified: "2018-05-27 16:05:21"
+  last_modified: "2018-05-29 17:09:31"
   created_on: "2018-03-26 23:02:05"
 -
   id: 38
@@ -718,9 +717,9 @@
   name: "activity.type.type"
   display_name: "Activity Type List"
   description: "Activity Type List - The name will be translated."
-  value: "action: action\ncreativity: creativity\nservice: service\n"
+  value: "- action\r\n- creativity\r\n- service"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-05-29 17:03:18"
   created_on: "2018-03-26 23:02:05"
 -
   id: 60

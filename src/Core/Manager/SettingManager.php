@@ -5,7 +5,6 @@ use App\Core\Organism\SettingCache;
 use App\Entity\Setting;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
@@ -704,23 +703,25 @@ class SettingManager implements ContainerAwareInterface
         return $this->getMessageManager();
     }
 
+    /**
+     * generateTranslationKeys
+     *
+     * @param $key
+     * @param $data
+     * @return array
+     */
     public function generateTranslationKeys($key, $data)
     {
         $results = [];
         foreach($data as $name => $value)
         {
-            if (intval($name) != $name)
+            dump([strval(intval($name)), trim($name)]);
+            if (strval(intval($name)) !== trim($name))
                 $results[$name] = $key. '.' . $name;
             if (is_array($value))
-                foreach($value as $q=>$w)
-                {
-                    if (intval($q) == $q && ! is_array($w))
-                        $results[$w] = $key. '.' . $w;
-                    else
-                        $results[$q] = $key. '.' . $q;
-                }
+                $results = array_merge($results, $this->generateTranslationKeys($key, $value));
             else
-                $results[$name] = $key. '.' . $value;
+                $results[$value] = $key. '.' . $value;
         }
 
         return $results;

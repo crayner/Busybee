@@ -1,0 +1,6 @@
+setting.import:
+    name.error: 'The file name does not match the name inside the file. %{name}'
+    import.error: 'The file upload failed with the following error: %{message}'
+menu.space.type.title: 'Manage Facility Types'
+yaml.validation.error: '%systemMessage%'
+setting.save.error.array: 'The array value is not formatted correctly: %{error}'
