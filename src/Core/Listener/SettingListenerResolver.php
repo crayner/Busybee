@@ -15,7 +15,6 @@
  */
 namespace App\Core\Listener;
 
-use App\Entity\Setting;
 use Doctrine\ORM\Mapping\DefaultEntityListenerResolver;
 use Psr\Container\ContainerInterface;
 
@@ -40,9 +39,6 @@ class SettingListenerResolver extends DefaultEntityListenerResolver
      */
     public function resolve($className)
     {
-        // resolve the service id by the given class name;
-        $id = Setting::class;
-
-        return $this->container->get($id);
+        return $this->container->get(SettingUpdateListener::class);
     }
 }

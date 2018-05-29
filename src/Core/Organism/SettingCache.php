@@ -19,6 +19,7 @@ use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class SettingCache
@@ -503,7 +504,12 @@ class SettingCache
         if (is_array($value))
             return $value;
 
-        $x = Yaml::parse($value);
+        try {
+            $x = Yaml::parse($value);
+        } catch (ParseException $e)
+        {
+            return [];
+        }
         return is_array($x) ? $x : [];
     }
 

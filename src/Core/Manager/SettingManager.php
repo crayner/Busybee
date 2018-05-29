@@ -722,7 +722,7 @@ class SettingManager implements ContainerAwareInterface
             else
                 $results[$name] = $key. '.' . $value;
         }
-        dump($results);
+
         return $results;
     }
 

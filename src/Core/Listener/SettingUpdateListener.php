@@ -30,7 +30,7 @@ class SettingUpdateListener
     {
         if ($entity->isValid())
             return;
-
+        // Do not save any update at all.
         foreach ($event->getEntityChangeSet() as $name => $data)
             $event->setNewValue($name, $data[0]);
     }

@@ -133,3 +133,6 @@ services:
         arguments:
             - '%kernel.environment%'
         public: true
+    App\Core\Listener\SettingUpdateListener:
+        tags:
+            - { name: doctrine.orm.entity_listener, entity: 'App\Entity\Setting', event: preUpdate }
