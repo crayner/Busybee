@@ -47,11 +47,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6 card">
+        <div class="col-4 card">
             {{ form_row(form.choice) }}
         </div>
-        <div class="col-6 card">
+        <div class="col-4 card">
             {{ form_row(form.validator) }}
+        </div>
+        <div class="col-4 card">
+            {{ form_row(form.translateChoice) }}
         </div>
     </div>
     <div class="row">
@@ -59,6 +62,14 @@
             {{ form_row(form.description) }}
         </div>
     </div>
+    <div class="row">
+        <div class="col-12 card">
+            {{ settingManager.injectSetting(form.vars.value) }}
+            {% for value in settingManager.translateValue %}
+            {% endfor %}
+        </div>
+    </div>
+
     {% include 'Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}

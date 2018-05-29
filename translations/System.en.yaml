@@ -68,6 +68,9 @@ system:
         validator:
             label: Validator
             help: This validator will be applied to the value when it is changed.
+        translate_choice:
+            label: Choice Translation Domain
+            help: 'When presented as a Setting choice in a form, translate the choices using this domain.  This allows the local staff to overwrite translation with their own file in the "config/translations" directory.'
     string_replacement:
         title: String Replacement
         description: ''

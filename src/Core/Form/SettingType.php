@@ -124,6 +124,16 @@ class SettingType extends AbstractType
                     'required' => false,
                 )
             )
+            ->add('translateChoice', TextType::class,
+                [
+                    'label' => 'system.setting.translate_choice.label',
+                    'help'  => 'system.setting.translate_choice.help',
+                    'attr'  => [
+                        'class' => 'changeSetting',
+                    ],
+                    'required' => false,
+                ]
+            )
         ;
 		$builder->addEventSubscriber($this->settingSubscriber);
 		$builder->get('choice')->addModelTransformer(new SettingToStringTransformer());

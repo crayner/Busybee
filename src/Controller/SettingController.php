@@ -102,6 +102,8 @@ class SettingController extends Controller
 		} else
 		    $setting->setValid(false);
 
+		$settingManager->injectSetting($setting);
+
 		return $this->render('Setting/edit.html.twig', [
 				'form'       => $form->createView(),
 				'fullForm'   => $form,
