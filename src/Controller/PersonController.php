@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Calendar\Util\CalendarManager;
+use App\Core\Manager\SettingManager;
 use App\Pagination\PersonPagination;
 use App\People\Form\PersonType;
 use App\People\Util\PersonManager;
@@ -49,7 +50,7 @@ class PersonController extends Controller
      */
 	public function edit(Request $request, $id, PersonManager $personManager, CalendarManager $calendarManager)
 	{
-		$person = $personManager->getPerson($id);
+        $person = $personManager->getPerson($id);
 
 		$formDefinition = $personManager->getTabs();
 

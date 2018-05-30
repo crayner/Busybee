@@ -51,7 +51,6 @@ class PhoneType extends AbstractType
                     'label'        => 'phone.type.label',
                     'setting_name' => 'phone.typelist',
                     'placeholder' => 'phone.type.placeholder',
-                    'use_label_as_value' => true,
                 ]
             )
         ;

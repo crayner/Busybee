@@ -106,7 +106,7 @@ class PersonType extends AbstractType
 					'attr'     => array(
 						'class' => 'beeDob',
 					),
-					'format' => $this->settingManager->get('date.format.widget'),
+					'format' => $this->settingManager->get('date.format.widget', 'dMMMy'),
 
 	)
 			)

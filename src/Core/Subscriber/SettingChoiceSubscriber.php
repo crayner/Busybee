@@ -6,6 +6,7 @@ use App\Core\Manager\SettingManager;
 use App\Core\Type\ChoiceSettingType;
 use App\Core\Validator\SettingChoice;
 use Hillrange\Form\Type\MessageType;
+use PhpParser\Node\Stmt\Else_;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -72,14 +73,6 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
         $choices = $this->settingManager->get($options['setting_name']);
 
-        $test = $choices;
-        ksort($test);
-        end($test);
-        if ((count($test) - 1) === intval(key($test)) && $test === $choices)
-        {
-            $options['use_label_as_value'] = true;
-            $options['use_value_as_label'] = false;
-        }
 
         $setting = $this->settingManager->getCurrentSetting();
 		if (is_null($setting)) {
@@ -94,46 +87,27 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             return ;
         }
 
-        if ($options['use_label_as_value'] && $options['use_value_as_label']) {
-            $form->getParent()->add($name, MessageType::class,
-                [
-                    'help' => 'setting.choice.label_value.error',
-                    'translation_domain' => 'System',
-                ]
-            );
-            return ;
-        }
-
-        if ($options['use_label_as_value'])
-        {
-            $x = [];
-            foreach ($choices as $label)
-                $x[$label] = $label;
-            $choices = $x;
-        }
-
-        if ($options['use_value_as_label'])
-        {
-            $x = [];
-            foreach ($choices as $value=>$label)
-                $x[$value] = $value;
-            $choices = $x;
-        }
+        $test = $choices;
+        ksort($test);
+        end($test);
+        $sequentialChoices = false;
+        if ((count($test) - 1) === intval(key($test)) && $test === $choices)
+            $sequentialChoices = true;
 
 		if (!is_null($options['setting_data_value']))
 		{
 			if (!is_array($choices)){
-                $form->getParent()->add($name, ChoiceSettingType::class, array_merge($newChoices,
+                $form->getParent()->add($name, MessageType::class,
                     [
-                        'help' => 'setting.choice.label_value.error',
-                        'placeholder' => 'setting.choice.not_valid',
+                        'help' => 'setting.choice.empty.error',
+                        'help_params' => [
+                            '%{name}' => $options['setting_name'],
+                        ],
                         'translation_domain' => 'System',
                         'label' => false,
-                        'choice_translation_domain' => 'System',
                     ]
-                ));
+                );
                 return ;
-                throw new Exception('The setting '.$options['setting_name'] . ' is not correctly configured.');
             }
 
 			foreach ($choices as $label => $data)
@@ -146,38 +120,44 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
                         $newChoices[$data[$options['setting_data_value']]] = $data[$options['setting_data_value']];
                     }
 				} else {
-					throw new Exception('The setting '.$options['setting_name'] . ' is not correctly configured to use a sub array.');
+                    $form->getParent()->add($name, MessageType::class,
+                        [
+                            'help' => 'setting.choice.sub_array.error',
+                            'help_params' => [
+                                '%{name}' => $options['setting_name'],
+                                '%{data}' => $options['setting_data_value'].'/'.$options['setting_data_name'],
+                            ],
+                            'translation_domain' => 'System',
+                            'label' => false,
+                        ]
+                    );
+                    return ;
 				}
 			}
-		} else
-			foreach ($choices as $label => $data)
-			    if (is_array($data))
-                {
-                    if ($options['translation_prefix'])
-                        $optChoice = strtolower($options['setting_name'].'.'.$label);
-                    else
-                        $optChoice = strtolower($label);
-                    $w = [];
-                    foreach($data as $datum)
-                    {
-                        if ($options['translation_prefix'])
-                            $w[strtolower($options['setting_name'].'.'.$datum)] = $datum;
-                        else
-                            $w[strtolower($options['setting_name'].'.'.$datum)] = $datum;
-                    }
-                    $newChoices[$optChoice] = $w;
-                }
-                else
-                    if ($options['translation_prefix'])
-                        $newChoices[strtolower($options['setting_name'].'.'.$label)] = $data;
-                    else
-                        $newChoices[$label] = $data;
+		} else {
+            $key = '';
+            if ($options['translation_prefix'])
+                $key = $options['setting_name'];
 
+            $newChoices = self::generateChoices($key, $choices);
+        }
 
 		$choices = $newChoices;
+dump($choices);
 
-        if (empty($choices))
-            throw new Exception('No choices found for the setting. '. $options['setting_name']);
+        if (empty($choices)) {
+            $form->getParent()->add($name, MessageType::class,
+                [
+                    'help' => 'setting.choice.empty.error',
+                    'help_params' => [
+                        '%{name}' => $options['setting_name'],
+                    ],
+                    'translation_domain' => 'System',
+                    'label' => false,
+                ]
+            );
+            return;
+        }
 
         $newOptions                              = [];
         $newOptions['constraints']               = [];
@@ -191,7 +171,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		if ($options['translation_prefix'] === false)
 		    $newOptions['choice_translation_domain'] = false;
         if ($setting->hasChoice())
-            $newOptions['constraints'][] = new SettingChoice(['settingName' => $options['setting_name'], 'useLabelAsValue' => $options['use_label_as_value'], 'settingDataValue' => $options['setting_data_value']]);
+            $newOptions['constraints'][] = new SettingChoice(['settingName' => $options['setting_name'], 'settingDataValue' => $options['setting_data_value']]);
 
         $newOptions['data'] = $event->getData() ?: '0';
  		$newOptions['setting_name'] = $options['setting_name'];
@@ -222,4 +202,35 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
         return $this->getParentTranslationDomain($form);
     }
+
+
+    /**
+     * generateTranslationKeys
+     *
+     * @param $key
+     * @param $data
+     * @return array
+     */
+    public static function generateChoices($key, $data)
+    {
+        $results = [];
+        foreach($data as $name => $value)
+        {
+            if ($name === $value)
+                $results[rtrim($key. '.' . $value, '.')] = $value;
+            elseif (strval(intval($name)) !== trim($name) && ! is_array($value))
+                $results[$name] = ltrim($key. '.' . $value, '.');
+            elseif (is_array($value))
+                $results[$name] = self::generateChoices($key, $value);
+            else
+                if (strval(intval($name)) !== trim($name))
+                    $results[ltrim($key. '.' . $value, '.')] = $name ;
+                else
+                    if (! empty($value))
+                        $results[rtrim($key. '.' . $value, '.')] = $value;
+
+        }
+        return $results;
+    }
+
 }

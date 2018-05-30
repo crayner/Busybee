@@ -180,7 +180,6 @@ class PersonSubscriber implements EventSubscriberInterface
 					'help'               => 'staff.house.help',
 					'setting_name'       => 'house.list',
                     'translation_prefix' => true,
-                    'use_value_as_label' => true,
 				]
 			)
 		;
@@ -353,7 +352,6 @@ class PersonSubscriber implements EventSubscriberInterface
                     'help'               => 'staff.house.help',
                     'setting_name'       => 'house.list',
                     'translation_prefix' => true,
-                    'use_value_as_label' => true,
                 )
             )
             ->add('calendarGrades', CollectionType::class,

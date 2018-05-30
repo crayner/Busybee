@@ -2,8 +2,9 @@ setting:
     choice:
         name.not_found: 'The setting "%{name}" was not found.'
         not_valid: Invalid Setting
-        label_value.error: 'The Setting Choice must not set both `use_label_as_value` and `use_value_as_label`'
         name: '%name%'
+        empty.error: 'No choices found for the setting: "%{name}"'
+        sub_array.error: 'The setting "%{name}" is not correctly configured to use a sub array.  The data value/name of "%{data}" is missing.'
     create:
         setting:
             label: YAML Formatted Setting

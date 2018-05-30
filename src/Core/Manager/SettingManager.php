@@ -114,14 +114,22 @@ class SettingManager implements ContainerAwareInterface
     private $settings;
 
     /**
+     * @var bool
+     */
+    private $lockedCache = false;
+
+    /**
      * Read Session
      */
     private function readSession(): SettingManager
     {
-        if ($this->hasSession())
+        if ($this->hasSession()) {
             $this->settings = $this->getSession()->get('settings');
-        else
+            $this->removeInvalidSettings();
+        } else
             $this->settings = new ArrayCollection();
+
+        $this->lockedCache = true;
         return $this;
     }
 
@@ -319,6 +327,8 @@ class SettingManager implements ContainerAwareInterface
 
         $name = $name ?: $setting->getName();
 
+        $setting->setCacheTime(new \DateTime('now'));
+
         $this->getSettings()->set(strtolower($name), $setting);
 
         $this->setting = $setting;
@@ -337,6 +347,11 @@ class SettingManager implements ContainerAwareInterface
         if (! $setting instanceof SettingCache)
             return $this;
 
+        if ($setting->getParent() !== null) {
+            $parent = $this->getSetting($setting->getParent());
+            $this->removeSetting($parent);
+        }
+
         $this->getSettings()->remove($setting->getName());
 
         return $this->flushToSession();
@@ -351,7 +366,14 @@ class SettingManager implements ContainerAwareInterface
     {
         if (! $this->setting instanceof SettingCache)
             return false;
-        return $this->setting->isValid();
+
+        if ($this->isLockedCache())
+            return true;
+
+        if ($this->setting->isValid())
+            return true;
+
+        return false;
     }
 
     /**
@@ -805,8 +827,32 @@ class SettingManager implements ContainerAwareInterface
         if (isset($constraints[$type]))
             return $constraints[$type];
         return [];
-
-
     }
 
+    /**
+     * removeInvalidSettings
+     *
+     */
+    private function removeInvalidSettings()
+    {
+        $settings = clone $this->getSettings();
+        foreach ($settings as $setting)
+        {
+            $this->setting = $setting;
+            if ($this->isValid())
+                continue;
+            while (! $setting->isBaseSetting()) {
+                $this->settings->remove($setting->getName());
+                $setting = $settings->get($setting->getParent());
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLockedCache(): bool
+    {
+        return $this->lockedCache;
+    }
 }

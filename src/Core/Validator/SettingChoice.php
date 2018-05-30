@@ -12,7 +12,6 @@ class SettingChoice extends Constraint
 	public $message = 'setting.validator.choice.invalid';
 	public $settingDataValue = null;  //  use this key in a layered array
     public $transDomain = 'Setting';
-    public $useLabelAsValue = false;
 	/**
 	 * @return string
 	 */

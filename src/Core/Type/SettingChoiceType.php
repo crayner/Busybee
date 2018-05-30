@@ -51,13 +51,10 @@ class SettingChoiceType extends AbstractType
 				'multiple'                  => false,
 				'placeholder'               => null,
 				'calendar_data'             => null,
-				'use_label_as_value'        => false,
 				'setting_data_name'         => null,
 				'setting_data_value'        => null,
 				'setting_display_name'      => null,
-				'choice_translation_domain' => 'Setting',
 				'translation_prefix'        => true,
-                'use_value_as_label'        => false,
                 'sort_choice'               => true,
 			)
 		);
@@ -81,8 +78,6 @@ class SettingChoiceType extends AbstractType
 	{
 		$view->vars['setting_name']         = $options['setting_name'];
 		$view->vars['setting_display_name'] = $options['setting_display_name'];
-        $view->vars['use_label_as_value']   = $options['use_label_as_value'];
-        $view->vars['use_value_as_label']   = $options['use_value_as_label'];
 		$view->vars['setting_data_name']    = $options['setting_data_name'];
 		$view->vars['setting_data_value']   = $options['setting_data_value'];
 	}
