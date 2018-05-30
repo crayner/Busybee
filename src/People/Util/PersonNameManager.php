@@ -143,4 +143,12 @@ class PersonNameManager
     {
         self::$userManager = $userManager;
     }
+
+    /**
+     * @param UserManager $userManager
+     */
+    public static function setUserManager(UserManager $userManager): void
+    {
+        self::$userManager = $userManager;
+    }
 }

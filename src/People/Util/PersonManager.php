@@ -801,6 +801,7 @@ dump($this);
      */
     public function getFullUserName(?UserInterface $user): string
     {
+        PersonNameManager::setUserManager($this->getUserManager());
         return PersonNameManager::getFullUserName($user);
     }
 
