@@ -63,7 +63,10 @@ class FlashBagManager
 		{
 			if (!$message instanceof Message)
 				continue;
-			$messages .= "<div class='alert-dismissible fade show alert alert-" . $message->getLevel() . "'>" . $this->translator->trans($message->getMessage(), $message->getOptions(), $message->getDomain()) . "</div>\n";
+			if ($message->getDomain() === false)
+                $messages .= "<div class='alert-dismissible fade show alert alert-" . $message->getLevel() . "'>" . $message->getMessage() . "</div>\n";
+			else
+			    $messages .= "<div class='alert-dismissible fade show alert alert-" . $message->getLevel() . "'>" . $this->translator->trans($message->getMessage(), $message->getOptions(), $message->getDomain()) . "</div>\n";
 		}
 
 		$manager->clearMessages();

@@ -8,15 +8,23 @@
     {% endif %}
 {% endfor %}
 {% if message.useRaw is same as(true) %}
-    {% if message.transChoice is same as(false) %}
-        {{ message.message|trans(message.options, message.domain)|raw }}
+    {% if message.domain is same as(false) %}
+        {{ message.message }}
     {% else %}
-        {{ message.message|transchoice(message.transChoice, message.options, message.domain)|raw }}
+        {% if message.transChoice is same as(false) %}
+            {{ message.message|trans(message.options, message.domain)|raw }}
+        {% else %}
+            {{ message.message|transchoice(message.transChoice, message.options, message.domain)|raw }}
+        {% endif %}
     {% endif %}
 {% else %}
-    {% if message.transChoice is same as(false) %}
-        {{ message.message|trans(message.options, message.domain) }}
+    {% if message.domain is same as(false) %}
+        {{ message.message }}
     {% else %}
-        {{ message.message|transchoice(message.transChoice, message.options, message.domain) }}
+        {% if message.transChoice is same as(false) %}
+            {{ message.message|trans(message.options, message.domain) }}
+        {% else %}
+            {{ message.message|transchoice(message.transChoice, message.options, message.domain) }}
+        {% endif %}
     {% endif %}
 {% endif %}
