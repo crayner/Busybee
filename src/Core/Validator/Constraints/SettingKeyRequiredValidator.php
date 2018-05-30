@@ -23,7 +23,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
-class SpaceTypeValidator extends ConstraintValidator
+class SettingKeyRequiredValidator extends ConstraintValidator
 {
     /**
      * validate
@@ -57,7 +57,7 @@ class SpaceTypeValidator extends ConstraintValidator
                     $this->context->buildViolation('setting.option.extra')
                         ->setParameter('%{option}', $option)
                         ->setParameter('%{defined}', implode(', ', $resolver->getDefinedOptions()))
-                        ->setTranslationDomain($constraint->transDomain)
+                        ->setTranslationDomain('Setting')
                         ->addViolation();
             }
         } catch (MissingOptionsException $e) {
@@ -67,7 +67,7 @@ class SpaceTypeValidator extends ConstraintValidator
                     $this->context->buildViolation('setting.option.missing')
                         ->setParameter('%{option}', $option)
                         ->setParameter('%{defined}', implode(', ', $resolver->getRequiredOptions()))
-                        ->setTranslationDomain($constraint->transDomain)
+                        ->setTranslationDomain('Setting')
                         ->addViolation();
                 }
             }

@@ -13,9 +13,9 @@
  * Date: 30/05/2018
  * Time: 09:10
  */
-namespace App\Core\Validator;
+namespace App\School\Validator;
 
-use App\Core\Validator\Constraints\SpaceTypeValidator;
+use App\Core\Validator\Constraints\SettingKeyRequiredValidator;
 use Symfony\Component\Validator\Constraint;
 
 class SpaceType extends Constraint
@@ -29,17 +29,12 @@ class SpaceType extends Constraint
     ];
 
     /**
-     * @var string
-     */
-    public $transDomain = 'Setting';
-
-    /**
      * validatedBy
      *
      * @return string
      */
     public function validatedBy()
     {
-        return SpaceTypeValidator::class;
+        return SettingKeyRequiredValidator::class;
     }
 }
