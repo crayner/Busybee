@@ -9,7 +9,6 @@ use App\Core\Manager\TabManagerInterface;
 use App\Core\Util\UserManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
-use App\Entity\CalendarGradeStudent;
 use App\Entity\CareGiver;
 use App\Entity\Family;
 use App\Entity\Person;
@@ -283,7 +282,7 @@ user:
     public function isStaff(Person $person = null): bool
     {
         $this->checkPerson($person);
-
+dump($this);
         if ($this->person instanceof Staff)
             return true;
 
@@ -791,28 +790,7 @@ user:
      */
     public function getFullName(Person $person = null, array $options = []): string
     {
-        $person = $person ?: $this->getPerson();
-
-        if (empty($person))
-            return '';
-
-        if (empty($person->getSurname())) return '';
-
-        $options['surnameFirst']  = !isset($options['surnameFirst']) ? true : $options['surnameFirst'];
-        $options['preferredOnly'] = !isset($options['preferredOnly']) ? false : $options['preferredOnly'];
-
-        if ($options['surnameFirst'])
-        {
-            if ($options['preferredOnly'])
-                return $person->getSurname() . ': ' . $person->getPreferredName();
-
-            return $person->getSurname() . ': ' . $person->getFirstName() . ' (' . $person->getPreferredName() . ')';
-        }
-
-        if ($options['preferredOnly'])
-            return $person->getPreferredName() . ' ' . $person->getSurname();
-
-        return $person->getFirstName() . ' (' . $person->getPreferredName() . ') ' . $person->getSurname();
+        return PersonNameManager::getFullName($person, $options);
     }
 
     /**
@@ -823,20 +801,7 @@ user:
      */
     public function getFullUserName(?UserInterface $user): string
     {
-        if (! $user instanceof UserInterface)
-            if ($this->getUserManager()->getUser())
-                $user = $this->getUserManager()->getUser();
-
-        if ($this->getUserManager()->hasPerson($user))
-            $this->person = $this->getUserManager()->getPerson($user);
-
-        if ($this->person instanceof Person)
-            return $this->getFullName($this->person);
-
-        if ($user instanceof UserInterface)
-            return $user->formatName();
-
-        return '' ;
+        return PersonNameManager::getFullUserName($user);
     }
 
     /**

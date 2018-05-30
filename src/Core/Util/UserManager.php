@@ -48,10 +48,11 @@ class UserManager
      * @param UserInterface|null $user
      * @return string
      * @throws \Doctrine\ORM\ORMException
+     * @deprecated Use PersonNameManager->getFullUserName
      */
 	public function formatUserName(UserInterface $user = null): string
 	{
-	    @trigger_error(__method__ . ' in class ' . __CLASS__ . ' is deprecated. Use PersonManager->getFullUserName' , E_USER_DEPRECATED);
+	    @trigger_error(__method__ . ' in class ' . __CLASS__ . ' is deprecated. Use PersonNameManager->getFullUserName' , E_USER_DEPRECATED);
 	    die();
 		if ($user instanceof UserInterface)
 			$id = $user->getId();
@@ -152,13 +153,5 @@ class UserManager
         $this->user = $user;
         $this->person = null;
         return $this;
-    }
-
-    /**
-     * @return PersonManager
-     */
-    public function getPersonManager(): PersonManager
-    {
-        return $this->personManager;
     }
 }
