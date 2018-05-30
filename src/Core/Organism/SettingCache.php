@@ -19,11 +19,19 @@ use App\Entity\Setting;
 use App\Repository\SettingRepository;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Form\Validator\AlwaysInValid;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class SettingCache
 {
+    public function __construct(?Setting $setting)
+    {
+        $this->setSetting($setting);
+    }
+
     /**
      * @var Setting
      */
@@ -830,15 +838,30 @@ class SettingCache
      * writeSetting
      *
      * @param EntityManagerInterface $entityManager
-     * @return SettingCache
+     * @param ValidatorInterface $validator
+     * @param array $constraints
+     * @return boolean|ConstraintViolationListInterface
      */
-    public function writeSetting(EntityManagerInterface $entityManager): SettingCache
+    public function writeSetting(EntityManagerInterface $entityManager, ValidatorInterface $validator, array $constraints)
     {
+        if (! empty($this->getValidator()) && class_exists($this->getValidator())) {
+            $w = $this->getValidator();
+            $constraints[] = new $w();
+            $constraints[] = new AlwaysInValid();
+        }
+        if (! empty($constraints)) {
+            $errors = $validator->validate($this->getSetting()->getValue(), $constraints);
+            $errors->addAll($validator->validate($this->getSetting()->getDefaultValue(), $constraints));
+            if ($errors->count() > 0)
+                return $errors;
+        }
+
         if ($this->isBaseSetting()) {
             $entityManager->persist($this->getSetting());
             $entityManager->flush();
         }
-        return $this;
+
+        return true;
     }
 
     /**
@@ -862,6 +885,18 @@ class SettingCache
     {
         if ($this->getSetting())
             return $this->getSetting()->getId();
+        return null;
+    }
+
+    /**
+     * getValidator
+     *
+     * @return null|string
+     */
+    public function getValidator(): ?string
+    {
+        if ($this->getSetting())
+            return $this->getSetting()->getValidator();
         return null;
     }
 }

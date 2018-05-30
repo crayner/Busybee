@@ -2,9 +2,12 @@
 namespace App\Core\Manager;
 
 use App\Core\Organism\SettingCache;
+use App\Core\Validator\Regex;
+use App\Core\Validator\Twig;
 use App\Entity\Setting;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Hillrange\Form\Validator\Integer;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
@@ -13,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -48,16 +52,22 @@ class SettingManager implements ContainerAwareInterface
     private $twig;
 
     /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
      * SettingManager constructor.
      * @param ContainerInterface $container
      * @param MessageManager $messageManager
      */
-    public function __construct(ContainerInterface $container, MessageManager $messageManager, AuthorizationCheckerInterface $authorisation, TwigManager $twig)
+    public function __construct(ContainerInterface $container, MessageManager $messageManager, AuthorizationCheckerInterface $authorisation, TwigManager $twig, ValidatorInterface $validator)
     {
         $this->setContainer($container);
         $this->messageManager = $messageManager;
         $this->authorisation = $authorisation;
         $this->twig = $twig;
+        $this->validator = $validator;
     }
 
     /**
@@ -277,11 +287,12 @@ class SettingManager implements ContainerAwareInterface
     /**
      * getSettingCache
      *
+     * @param Setting|null $setting
      * @return SettingCache
      */
-    private function getSettingCache(): SettingCache
+    private function getSettingCache(?Setting $setting = null): SettingCache
     {
-        return new SettingCache();
+        return new SettingCache($setting);
     }
 
     /**
@@ -312,9 +323,23 @@ class SettingManager implements ContainerAwareInterface
 
         $this->setting = $setting;
 
-        $this->flushToSession();
+        return $this->flushToSession();
+    }
 
-        return $this;
+    /**
+     * removeSetting
+     *
+     * @param SettingCache|null $setting
+     * @return SettingManager
+     */
+    private function removeSetting(?SettingCache $setting): SettingManager
+    {
+        if (! $setting instanceof SettingCache)
+            return $this;
+
+        $this->getSettings()->remove($setting->getName());
+
+        return $this->flushToSession();
     }
 
     /**
@@ -556,13 +581,21 @@ class SettingManager implements ContainerAwareInterface
             if (!$this->getAuthorisation()->isGranted($this->setting->getSetting()->getRole(), $this->setting->getSetting()))
                 return $this;
 
-        $this->setting = $this->getEntityManager()->getRepository(Setting::class)->find($this->setting->getId());
+        $setting = $this->getEntityManager()->getRepository(Setting::class)->find($this->setting->getId());
+        $this->getEntityManager()->refresh($setting);
+        $this->setting = $this->getSettingCache($setting);
 
-        $this->setting->setValue($value)
+        if (($x = $this->setting->setValue($value)
             ->setCacheTime(new \DateTime('now'))
-            ->writeSetting($this->getEntityManager());
+            ->writeSetting($this->getEntityManager(), $this->getValidator(), $this->getConstraints($this->setting->getType()))) !== true)
+        {
+            foreach($x->getIterator() as $constraintViolation)
+            {
+                $this->getMessageManager()->add('danger', $constraintViolation->getMessage(), [], false);
+            }
+        }
 
-        return $this->addSetting($this->setting);
+        return $this->removeSetting($this->setting)->addSetting($this->setting);
     }
 
     /**
@@ -581,7 +614,7 @@ class SettingManager implements ContainerAwareInterface
     private function flushToSession(): SettingManager
     {
         if ($this->hasSession())
-            $this->getSession()->set('settings', $this->settings);
+            $this->getSession()->set('settings', $this->getSettings());
         return $this;
     }
 
@@ -715,7 +748,6 @@ class SettingManager implements ContainerAwareInterface
         $results = [];
         foreach($data as $name => $value)
         {
-            dump([strval(intval($name)), trim($name)]);
             if (strval(intval($name)) !== trim($name))
                 $results[$name] = $key. '.' . $name;
             if (is_array($value))
@@ -734,4 +766,47 @@ class SettingManager implements ContainerAwareInterface
     {
         return $this->getContainer()->get('translator');
     }
+
+    /**
+     * @return ValidatorInterface
+     */
+    public function getValidator(): ValidatorInterface
+    {
+        return $this->validator;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConstraints(string $type): array
+    {
+        $constraints = [];
+        $constraints['boolean'] = [];
+        $constraints['integer'] = [
+            new Integer(),
+        ];
+        $constraint['image'] = [];
+        $constraints['file'] = [];
+        $constraints['array'] = [
+            new \App\Core\Validator\Yaml(),
+        ];
+        $constraints['twig'] = [
+            new Twig(),
+        ];
+        $constraints['system'] = [];
+        $constraints['string'] = [];
+        $constraints['enum'] = [];  //SettingChoiceType should be used as it adds a Setting Choice Validator
+        $constraints['regex'] = [
+            new Regex(),
+        ];
+        $constraints['text'] = [];
+        $constraints['time'] = [];
+
+        if (isset($constraints[$type]))
+            return $constraints[$type];
+        return [];
+
+
+    }
+
 }

@@ -4,3 +4,5 @@ setting.import:
 menu.space.type.title: 'Manage Facility Types'
 yaml.validation.error: '%systemMessage%'
 setting.save.error.array: 'The array value is not formatted correctly: %{error}'
+setting.option.extra: 'The option "%{option}" is not allowed. Defined options are: "%{defined}".'
+setting.option.missing: 'The required option "%{option}" is missing. Required options are: "%{defined}".'

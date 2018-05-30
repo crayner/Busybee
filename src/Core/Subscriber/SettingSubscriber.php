@@ -83,7 +83,6 @@ class SettingSubscriber implements EventSubscriberInterface
 
 			if (count($constraints) > 0) $options['constraints'] = $constraints;
 
-
 			switch ($data->getType())
 			{
 				case 'boolean':

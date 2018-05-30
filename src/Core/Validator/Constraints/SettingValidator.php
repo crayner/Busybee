@@ -15,7 +15,6 @@
  */
 namespace App\Core\Validator\Constraints;
 
-
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Yaml\Exception\ParseException;

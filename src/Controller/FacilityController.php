@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\SettingManager;
 use App\Core\Organism\Collection;
 use App\Entity\Campus;
@@ -152,12 +153,10 @@ class FacilityController extends Controller
 	}
 
     /**
-     * @param Request $request
-     * @param SettingManager $settingManager
-     * @throws \Exception
      * @Route("/facility/type/manage/", name="facility_type_manage")
+     * @IsGranted("ROLE_REGISTRAR")
      */
-    public function facilityTypeManage(Request $request, SettingManager $settingManager)
+    public function facilityTypeManage(Request $request, SettingManager $settingManager, FlashBagManager $flashBagManager)
     {
         $setting = $settingManager->get('space.type');
 
@@ -184,6 +183,7 @@ class FacilityController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $value = [];
+            dump($form->get('values'));
             foreach($form->get('values')->getData()->getIterator() as $item)
             {
                 if ($item->isTeachingSpace())
@@ -193,7 +193,10 @@ class FacilityController extends Controller
             }
             sort($value['teaching_space']);
             sort($value['non_teaching_space']);
+dump($value);
             $settingManager->set('space.type', $value);
+
+            $flashBagManager->addMessages($settingManager->getMessageManager());
             return $this->redirectToRoute('facility_type_manage');
         }
 
