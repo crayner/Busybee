@@ -25,12 +25,7 @@ App\Entity\Person:
         dob:
             - Date: ~
         gender:
-            - App\Core\Validator\SettingChoice:
-                settingName: 'person.genderlist'
             - NotBlank: ~
-        honorific:
-            - App\Core\Validator\SettingChoice:
-                settingName: 'person.titlelist'
         photo:
             - App\People\Validator\PersonImage: ~
         phones:

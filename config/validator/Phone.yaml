@@ -6,13 +6,8 @@ App\Entity\Phone:
     properties:
         phoneNumber:
             - NotBlank: ~
-            - \App\People\Validator\Phone: ~
+            - App\People\Validator\Phone: ~
         phoneType:
             - NotBlank: ~
-            - \App\Core\Validator\SettingChoice:
-                settingName: 'phone.typelist'
-                useLabelAsValue: 'true'
         countryCode:
             - NotBlank: ~
-            - \App\Core\Validator\SettingChoice:
-                settingName: 'phone.country.list'

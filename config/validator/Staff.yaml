@@ -1,13 +1,7 @@
 App\Entity\Staff:
     properties:
         staffType:
-            - \App\Core\Validator\SettingChoice:
-                settingName: 'staff.categories'
             - NotBlank: ~
         jobTitle:
             - NotBlank: ~
-        house:
-            - \App\Core\Validator\SettingChoice:
-                settingName: 'house.list'
-                settingDataValue: 'name'
 

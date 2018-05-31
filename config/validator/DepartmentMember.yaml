@@ -4,7 +4,3 @@ App\Entity\DepartmentMember:
             fields:
                 - staff
                 - department
-    properties:
-        staffType:
-            - App\Core\Validator\SettingChoice:
-                settingName: 'department.staff.type.list'

@@ -282,7 +282,7 @@ user:
     public function isStaff(Person $person = null): bool
     {
         $this->checkPerson($person);
-dump($this);
+
         if ($this->person instanceof Staff)
             return true;
 

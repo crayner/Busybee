@@ -9,11 +9,6 @@ App\Entity\ActivityTutor:
             errorPath: role
             message: tutor.activity.sequence.duplicate
     properties:
-        role:
-            - App\Core\Validator\SettingChoice:
-                message: 'role.validator.type.unavailable'
-                transDomain: 'School'
-                settingName: 'tutor.type.list'
         sequence:
             - NotBlank: ~
         activity:

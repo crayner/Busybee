@@ -58,17 +58,17 @@ department.staff.type.list:
     role: ROLE_REGISTRAR
     description: Types of staff within departments within the institute.
     value:
-        Learning:
-            Coordinator: Coordinator
-            Assistant Coordinator: Assistant Coordinator
-            Teacher (Curriculum): Teacher (Curriculum)
-            Teacher: Teacher
-            Other: Other
-        Administration:
-            Director: Director
-            Manager: Manager
-            Administrator: Administrator
-            Other: Other
+        learning:
+            - Coordinator
+            - 'Assistant Coordinator'
+            - 'Teacher (Curriculum)'
+            - Teacher
+            - Other
+        administration:
+            - Director
+            - Manager
+            - Administrator
+            - Other
 date.format:
     type: array
     value:

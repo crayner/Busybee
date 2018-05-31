@@ -22,49 +22,6 @@ abstract class PersonExtension implements UserTrackInterface
 	use UserTrackTrait;
 
 	/**
-	 * @var    array
-	 */
-	protected $genderList;
-
-	/**
-	 * @var    array
-	 */
-	protected $titleList;
-
-	public function __construct()
-	{
-	}
-
-	/**
-	 * get Gender List
-	 *
-	 * @version    4th November 2016
-	 * @since      4th November 2016
-	 * @return    array
-	 */
-	public function getGenderList()
-	{
-		return $this->genderList;
-	}
-
-	/**
-	 * set Gender List
-	 *
-	 * @version    4th November 2016
-	 * @since      4th November 2016
-	 *
-	 * @param    array $list
-	 *
-	 * @return    Person
-	 */
-	public function setGenderList($list)
-	{
-		$this->genderList = $list;
-
-		return $this;
-	}
-
-	/**
 	 * get Titles
 	 *
 	 * @version    4th November 2016

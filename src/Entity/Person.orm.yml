@@ -27,23 +27,23 @@ App\Entity\Person:
             nullable: true
         honorific:
             type: string
-            length: '5'
+            length: 12
             nullable: true
         surname:
             type: string
-            length: '50'
+            length: 50
         firstName:
             type: string
-            length: '50'
+            length: 50
         preferredName:
             type: string
-            length: '50'
+            length: 50
         officialName:
             type: string
-            length: '150'
+            length: 150
         gender:
             type: string
-            length: '1'
+            length: 1
         dob:
             type: date
             nullable: true

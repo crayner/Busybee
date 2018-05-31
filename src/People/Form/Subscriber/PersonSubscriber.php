@@ -180,6 +180,7 @@ class PersonSubscriber implements EventSubscriberInterface
 					'help'               => 'staff.house.help',
 					'setting_name'       => 'house.list',
                     'translation_prefix' => true,
+                    'setting_data_name'  => 'name',
 				]
 			)
 		;
@@ -263,6 +264,7 @@ class PersonSubscriber implements EventSubscriberInterface
 					'required'     => false,
 					'setting_name' => 'religion.list',
 					'translation_prefix'    => false,
+                    'strict_validation' => false,
 				)
 			)
 			->add('citizenship1', CountryType::class,
@@ -352,6 +354,7 @@ class PersonSubscriber implements EventSubscriberInterface
                     'help'               => 'staff.house.help',
                     'setting_name'       => 'house.list',
                     'translation_prefix' => true,
+                    'setting_data_name'  => 'name',
                 )
             )
             ->add('calendarGrades', CollectionType::class,

@@ -2,6 +2,7 @@
 namespace App\Core\Validator\Constraints;
 
 use App\Core\Manager\SettingManager;
+use App\Core\Util\SettingChoiceGenerator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -28,39 +29,51 @@ class SettingChoiceValidator extends ConstraintValidator
 	 */
 	public function validate($value, Constraint $constraint)
 	{
-		if (! $constraint->strict && empty($value))
+        if (! $constraint->strict && empty($value))
 			return;
 
+        if ($constraint->translation)
+        {
+            if (! empty($constraint->translation['transDomain']))
+                $constraint->transDomain = $constraint->translation['transDomain'];
+            if (! empty($constraint->translation['message']))
+                $constraint->message = $constraint->translation['message'];
+        }
+
+		if (empty($value)) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('%{name}', $constraint->settingName)
+                ->setParameter('%{value}', '')
+                ->setTranslationDomain($constraint->transDomain)
+                ->addViolation();
+            return ;
+        }
+
+        if ($constraint->useLowerCase)
+            $value = strtolower($value);
 		$s = [];
 
 		$list = $this->settingManager->get($constraint->settingName, []);
-        if (! is_array($list))
+
+        if (! is_array($list) || empty($list))
         {
             $this->context->buildViolation('setting.settings.missing')
                 ->setParameter('%resource%', $constraint->settingName)
-                ->setTranslationDomain('System')
+                ->setTranslationDomain($constraint->transDomain)
                 ->addViolation();
             return;
         }
-		$list = array_merge($list, $constraint->extra_choices);
 
-		foreach ($list as $q => $w)
-		{
-			if (is_array($w) && empty($constraint->settingDataValue))
-				$s = array_merge($s, $w);
-			elseif (is_array($w) && ! empty($constraint->settingDataValue))
-				$s[$q] = $w[$constraint->settingDataValue];
-			else
-				$s[$q] = $w;
-		}
-dump([$s, $value]);
-		foreach($s as $test_value)
-			if ($value == $test_value)
-				return;
+        $list = SettingChoiceGenerator::generateChoices($constraint->settingName, $list, $constraint->settingDataName);
 
-		$this->context->buildViolation($constraint->message)
-			->setParameter('%string%', $value)
-			->setTranslationDomain($constraint->transDomain)
-			->addViolation();
+        $list = array_merge($list, $constraint->extra_choices);
+
+dump([$constraint, $value, $list]);
+		if (! in_array($value, $list))
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('%{value}', $value)
+                ->setParameter('%{name}', $constraint->settingName)
+                ->setTranslationDomain($constraint->transDomain)
+                ->addViolation();
 	}
 }

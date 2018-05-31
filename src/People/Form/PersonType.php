@@ -53,7 +53,8 @@ class PersonType extends AbstractType
 						'class' => 'beeHonorific',
 					),
 					'required'     => false,
-
+                    'use_lower_case' => true,
+                    'strict_validation' => false,
 				)
 			)
 			->add('identifier', HiddenType::class,
@@ -92,13 +93,15 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-			->add('gender', SettingChoiceType::class, array(
+			->add('gender', SettingChoiceType::class, [
 					'setting_name'              => 'person.genderlist',
 					'label'                     => 'person.gender.label',
-					'attr'                      => array(
-						'class' => 'beeGender',
-					),
-				)
+					'attr'                      => [
+						'class'                     => 'beeGender',
+					],
+                    'use_lower_case'            => true,
+                    'strict_validation'         => true,
+				]
 			)
 			->add('dob', BirthdayType::class, array(
 					'label'    => 'person.dob.label',

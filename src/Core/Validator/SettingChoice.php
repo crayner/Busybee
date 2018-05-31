@@ -7,11 +7,14 @@ use Symfony\Component\Validator\Constraint;
 class SettingChoice extends Constraint
 {
 	public $settingName;
-	public $strict = true;
+	public $strict = false;
 	public $extra_choices = [];  // Add additional choices not found in the setting.
 	public $message = 'setting.validator.choice.invalid';
-	public $settingDataValue = null;  //  use this key in a layered array
+	public $settingDataName = null;  //  use this key in a layered array
     public $transDomain = 'Setting';
+    public $useLowerCase = false;
+    public $translation = null;
+
 	/**
 	 * @return string
 	 */

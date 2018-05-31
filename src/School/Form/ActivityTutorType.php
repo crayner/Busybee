@@ -31,6 +31,11 @@ class ActivityTutorType extends AbstractType
                     'attr'  => [
                         'class' => 'form-control-sm',
                     ],
+                    'validation_translation' => [
+                        'transDomain' => 'School',
+                        'message' => 'role.validator.type.unavailable',
+                    ],
+
                 ]
             )
             ->add('activity', HiddenEntityType::class,

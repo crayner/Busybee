@@ -25,10 +25,10 @@ external.activity.status.list:
     description: Status applied to external activity.
     role: 'ROLE_SYSTEM_ADMIN'
     value: 
-        accepted: accepted
-        panding: pending
-        waiting_list: waiting_list
-        not_accepted: not_accepted
+        - accepted
+        - pending
+        - waiting_list
+        - not_accepted
     defaultValue: pending
 external.activity.type.list:
     type: array
@@ -36,9 +36,9 @@ external.activity.type.list:
     description: Type of external activity.
     role: 'ROLE_SYSTEM_ADMIN'
     value: 
-        creative: creative
-        action: action
-        service: service
+        - creative
+        - action
+        - service
 LLL;
 	}
 

@@ -130,7 +130,6 @@ class Person extends PersonExtension
 		$this->phones       = new ArrayCollection();
 		$this->careGivers   = new ArrayCollection();
         $this->setGender('u');
-		parent::__construct();
 	}
 
 	/**

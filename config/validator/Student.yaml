@@ -8,10 +8,6 @@ App\Entity\Student:
             - Date: ~
         lastAtThisSchool:
             - Date: ~
-        house:
-            - App\Core\Validator\SettingChoice:
-                settingName: 'house.list'
-                settingDataValue: 'name'
         citizenship1PassportScan:
             - App\People\Validator\PassportImage: ~
         nationalIDCardScan:

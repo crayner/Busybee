@@ -4,5 +4,11 @@ setting.import:
 menu.space.type.title: 'Manage Facility Types'
 yaml.validation.error: '%systemMessage%'
 setting.save.error.array: 'The array value is not formatted correctly: %{error}'
-setting.option.extra: 'The option "%{option}" is not allowed. Defined options are: "%{defined}".'
-setting.option.missing: 'The required option "%{option}" is missing. Required options are: "%{defined}".'
+setting.option:
+    extra: 'The option "%{option}" is not allowed. Defined options are: %{defined}.'
+    missing: 'The required option "%{option}" is missing. Required options are: %{defined}.'
+    item.invalid: 'The item "%{name}" is not correctly formatted. Each item requires the following sub-items: %{defined}.'
+setting.validator:
+    class.error: The validator was not found!
+    regex.error: 'The regex is not valid!  %systemMessage%'
+    choice.invalid: The choice "%{value}" in "%{name}" is not valid!

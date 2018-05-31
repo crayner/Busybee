@@ -123,6 +123,8 @@ class SettingManager implements ContainerAwareInterface
      */
     private function readSession(): SettingManager
     {
+        if ($this->isLockedCache())
+            return $this;
         if ($this->hasSession()) {
             $this->settings = $this->getSession()->get('settings');
             $this->removeInvalidSettings();

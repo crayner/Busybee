@@ -52,10 +52,14 @@ class SettingChoiceType extends AbstractType
 				'placeholder'               => null,
 				'calendar_data'             => null,
 				'setting_data_name'         => null,
-				'setting_data_value'        => null,
 				'setting_display_name'      => null,
 				'translation_prefix'        => true,
                 'sort_choice'               => true,
+                'use_lower_case'            => false,
+                'strict_validation'         => false,
+                'extra_choices'             => [],
+                'validation_translation'    => null,
+                'validation_off'            => false,
 			)
 		);
 	}
@@ -79,7 +83,12 @@ class SettingChoiceType extends AbstractType
 		$view->vars['setting_name']         = $options['setting_name'];
 		$view->vars['setting_display_name'] = $options['setting_display_name'];
 		$view->vars['setting_data_name']    = $options['setting_data_name'];
-		$view->vars['setting_data_value']   = $options['setting_data_value'];
+        $view->vars['setting_data_value']   = $options['setting_data_value'];
+        $view->vars['use_lower_case']       = $options['use_lower_case'];
+        $view->vars['strict_validation']    = $options['strict_validation'];
+        $view->vars['extra_choices']        = $options['extra_choices'];
+        $view->vars['validation_translation']   = $options['validation_translation'];
+        $view->vars['validation_off']   = $options['validation_off'];
 	}
 
 	/**
