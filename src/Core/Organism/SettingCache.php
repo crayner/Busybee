@@ -899,4 +899,16 @@ class SettingCache
             return $this->getSetting()->getValidator();
         return null;
     }
+
+    /**
+     * getDisplayName
+     *
+     * @return null|string
+     */
+    public function getDisplayName(): ?string
+    {
+        if ($this->getSetting())
+            return $this->getSetting()->getDisplayName();
+        return null;
+    }
 }

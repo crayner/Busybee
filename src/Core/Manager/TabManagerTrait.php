@@ -10,7 +10,6 @@ trait TabManagerTrait
      */
     public function isDisplay($method = []): bool
     {
- dump($method);
         if (is_string($method)) {
             if (empty($method))
                 return true;

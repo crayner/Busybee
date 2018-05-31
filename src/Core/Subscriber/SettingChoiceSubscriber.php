@@ -78,10 +78,11 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
         $newOptions['required']             = isset($options['required']) ? $options['required'] : false;
 
         $choices = $this->settingManager->get($options['setting_name']);
+        $setting = $this->settingManager->getSetting($options['setting_name']);
+        if ($options['setting_name'] === 'department.staff.type.list.administration')
+            dump([$options['setting_name'],$setting,$options,$choices,$this->settingManager]);
 
-
-        $setting = $this->settingManager->getCurrentSetting();
-		if (is_null($setting)) {
+        if (is_null($setting)) {
             $form->getParent()->add($name, MessageType::class,
                 [
                     'label' => isset($options['label']) ? $options['label'] : false,
@@ -93,7 +94,13 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             return ;
         }
 
-        $choices = SettingChoiceGenerator::generateChoices($options['translation_prefix'] ? $options['setting_name'] : '', $choices, $options['setting_data_name']);
+        $settingName = '';
+        if ($setting->isBaseSetting())
+            $settingName = $setting->getName();
+        else
+            $settingName = $setting->getParent();
+
+        $choices = SettingChoiceGenerator::generateChoices($options['translation_prefix'] ? $settingName : '', $choices, $options['setting_data_name']);
 
         if (empty($choices)) {
             $form->getParent()->add($name, MessageType::class,
