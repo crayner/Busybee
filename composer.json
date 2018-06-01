@@ -90,7 +90,7 @@
         "symfony": {
             "id": "01C0J6PERM3GSPZ6J2SW55YM9W",
             "allow-contrib": false,
-            "dev-master": "0.0.x-dev"
+            "dev-master": "0.1.x-dev"
         },
         "ckeditor-tag": "4.9.2",
         "ckeditor-clear": "drop",
