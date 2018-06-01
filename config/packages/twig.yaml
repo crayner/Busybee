@@ -4,6 +4,5 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%kernel.project_dir%/templates/bundles/HillrangeSecurity': HillrangeSecurity
-        '%kernel.project_dir%/templates/bundles/HillrangeForm': HillrangeForm
     globals:
         idleTimeout: '%idleTimeout%'
