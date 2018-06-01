@@ -11,8 +11,6 @@ notifications:
 before_install:
     # turn off XDebug
     - phpenv config-rm xdebug.ini || return 0
-    - cp /config/packages/doctrine.yaml.travis /config/packages/doctrine.yaml
-    - cp .env.travis .env
 
 install:
     - travis_retry composer install
