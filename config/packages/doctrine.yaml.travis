@@ -10,7 +10,7 @@ parameters:
     db_name: craigray_core
     db_user: root
     db_pass: ~
-    db_prefix: koala_
+    db_prefix: bee_
     db_server: mysql
     db_charset: 'utf8mb4'
 
