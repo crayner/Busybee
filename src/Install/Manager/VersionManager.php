@@ -15,7 +15,7 @@ class VersionManager
 	/**
 	 * Version
 	 */
-	const VERSION = '0.1.00';
+	const VERSION = '0.1.01';
 
 	/**
 	 * @var SettingManager
@@ -199,9 +199,9 @@ class VersionManager
 				$versions['PHP'][$name] = $this->fullCompare($versions['PHP'][$name], $version);
 		}
 
-		$version['low']                 = '10.2';
-		$version['high']                = '10.2.99';
-		$version['string']              = '10.2+ - Maria';
+		$version['low']                 = '10.3';
+		$version['high']                = '10.3.99';
+		$version['string']              = '10.3+ - Maria';
 		$versions['Database']['Server'] = $this->fullCompare($versions['Database']['Server'], $version);
 
 		$version = 'utf8mb4';

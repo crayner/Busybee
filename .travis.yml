@@ -18,7 +18,6 @@ install:
     - cp .env.travis .env
     - php bin/console doctrine:database:create --env=test
     - php bin/console doctrine:schema:create --env=test
-    - php bin/console doctrine:fixtures:load -n --env=test
 
 # Allows use container-based infrastructure
 sudo: true
