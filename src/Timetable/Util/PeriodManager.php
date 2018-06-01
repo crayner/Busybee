@@ -143,7 +143,6 @@ class PeriodManager
         $line = $this->getEntityManager()->getRepository(TimetableLine::class)->find($line);
 
         $count = 0;
-
         $exists = new ArrayCollection();
         foreach ($this->getPeriod()->getActivities() as $act)
             $exists->add($act->getActivity());
@@ -194,7 +193,7 @@ class PeriodManager
         $this->getMessageManager()->add('success', 'period.activities.activity.remove.success', ['%name%' => $this->getActivity()->getFullName()], 'Timetable');
         $this->getTimetableManager()->getPeriodReport($this->getPeriod());
 
-    return true;
+        return true;
     }
 
     /**

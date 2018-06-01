@@ -206,6 +206,8 @@ class PeriodReportManager extends ReportManager
             }
         }
 
+
+
         return $this;
     }
 
@@ -251,6 +253,17 @@ class PeriodReportManager extends ReportManager
     {
         if (empty($this->activities))
             $this->activities = new ArrayCollection();
+
+        if ($this->activities->count() > 0) {
+            $iterator = $this->activities->getIterator();
+            $iterator->uasort(
+                function ($a, $b) {
+                    return ($a->getEntity()->getActivity()->getName() < $b->getEntity()->getActivity()->getName() ? -1 : 1);
+                }
+            );
+
+            $this->activities = new ArrayCollection(iterator_to_array($iterator, false));
+        }
         return $this->activities;
     }
 

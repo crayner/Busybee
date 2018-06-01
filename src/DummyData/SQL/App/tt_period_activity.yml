@@ -2,131 +2,643 @@
 ---
 # craigray_core.koala_tt_period_activity
 -
-  id: 1
+  id: 34
+  activity_id: 1
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:56:31"
+  created_on: "2018-05-31 16:56:31"
+-
+  id: 35
+  activity_id: 2
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:56:31"
+  created_on: "2018-05-31 16:56:31"
+-
+  id: 36
+  activity_id: 3
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:56:31"
+  created_on: "2018-05-31 16:56:31"
+-
+  id: 37
+  activity_id: 8
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 38
+  activity_id: 9
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 39
+  activity_id: 15
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 40
+  activity_id: 10
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 41
+  activity_id: 11
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 42
+  activity_id: 12
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 43
+  activity_id: 16
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 44
+  activity_id: 13
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 16:58:36"
+  created_on: "2018-05-31 16:58:36"
+-
+  id: 45
   activity_id: 4
-  tt_period_id: 1
+  tt_period_id: 18
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:40:56"
-  created_on: "2018-05-24 09:40:56"
+  last_modified: "2018-05-31 17:00:37"
+  created_on: "2018-05-31 17:00:37"
 -
-  id: 2
+  id: 46
   activity_id: 5
-  tt_period_id: 1
+  tt_period_id: 18
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:40:56"
-  created_on: "2018-05-24 09:40:56"
+  last_modified: "2018-05-31 17:00:37"
+  created_on: "2018-05-31 17:00:37"
 -
-  id: 3
+  id: 47
   activity_id: 14
-  tt_period_id: 1
+  tt_period_id: 18
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:40:56"
-  created_on: "2018-05-24 09:40:56"
+  last_modified: "2018-05-31 17:00:37"
+  created_on: "2018-05-31 17:00:37"
 -
-  id: 4
+  id: 48
+  activity_id: 6
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:00:37"
+  created_on: "2018-05-31 17:00:37"
+-
+  id: 49
+  activity_id: 7
+  tt_period_id: 18
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:00:37"
+  created_on: "2018-05-31 17:00:37"
+-
+  id: 54
+  activity_id: 1
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 55
+  activity_id: 2
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 56
+  activity_id: 3
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 57
+  activity_id: 4
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 58
+  activity_id: 5
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 59
+  activity_id: 14
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 60
+  activity_id: 6
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 61
+  activity_id: 7
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 62
+  activity_id: 8
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 63
+  activity_id: 9
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 64
+  activity_id: 15
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 65
+  activity_id: 10
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 66
+  activity_id: 11
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 67
+  activity_id: 12
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 68
+  activity_id: 16
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 69
+  activity_id: 13
+  tt_period_id: 10
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:05:51"
+  created_on: "2018-05-31 17:05:51"
+-
+  id: 70
+  activity_id: 1
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 71
+  activity_id: 2
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 72
+  activity_id: 3
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 73
+  activity_id: 4
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 74
+  activity_id: 5
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 75
+  activity_id: 14
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 76
+  activity_id: 6
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 77
+  activity_id: 7
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 78
+  activity_id: 8
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 79
+  activity_id: 9
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 80
+  activity_id: 15
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 81
+  activity_id: 10
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 82
+  activity_id: 11
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 83
+  activity_id: 12
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 84
+  activity_id: 16
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 85
+  activity_id: 13
+  tt_period_id: 36
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:13"
+  created_on: "2018-05-31 17:07:13"
+-
+  id: 86
+  activity_id: 1
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 87
+  activity_id: 2
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 88
+  activity_id: 3
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 89
+  activity_id: 4
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 90
+  activity_id: 5
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 91
+  activity_id: 14
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 92
+  activity_id: 6
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 93
+  activity_id: 7
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 94
+  activity_id: 8
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 95
+  activity_id: 9
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 96
+  activity_id: 15
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 97
+  activity_id: 10
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 98
+  activity_id: 11
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 99
+  activity_id: 12
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 100
+  activity_id: 16
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 101
+  activity_id: 13
+  tt_period_id: 44
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:07:31"
+  created_on: "2018-05-31 17:07:31"
+-
+  id: 102
   activity_id: 1
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 5
+  id: 103
   activity_id: 2
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 6
+  id: 104
   activity_id: 3
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 7
+  id: 105
+  activity_id: 4
+  tt_period_id: 1
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
+-
+  id: 106
+  activity_id: 5
+  tt_period_id: 1
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
+-
+  id: 107
+  activity_id: 14
+  tt_period_id: 1
+  created_by: 1
+  modified_by: 1
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
+-
+  id: 108
   activity_id: 6
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 8
+  id: 109
   activity_id: 7
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 9
+  id: 110
   activity_id: 8
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 10
+  id: 111
   activity_id: 9
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 11
+  id: 112
   activity_id: 15
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 12
+  id: 113
   activity_id: 10
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 13
+  id: 114
   activity_id: 11
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 14
+  id: 115
   activity_id: 12
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 15
+  id: 116
   activity_id: 16
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 -
-  id: 16
+  id: 117
   activity_id: 13
   tt_period_id: 1
   created_by: 1
   modified_by: 1
-  last_modified: "2018-05-24 09:45:05"
-  created_on: "2018-05-24 09:45:05"
+  last_modified: "2018-05-31 17:11:11"
+  created_on: "2018-05-31 17:11:11"
 ...

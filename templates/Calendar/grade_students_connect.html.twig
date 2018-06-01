@@ -32,8 +32,8 @@
         {% if form.students|length > 0 %}
             <div class="card col-12">
                 <div class="row">
-                    <div class="card col-3">{% dump(form.students) %}
-                        {% for student in form.students %}{% dump(student) %}
+                    <div class="card col-3">
+                        {% for student in form.students %}
                             <div class="small">{{ form_row(student) }}</div>
                             {% set y = y + 1 %}
                             {% if y >= z %}

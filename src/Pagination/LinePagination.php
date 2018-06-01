@@ -1,7 +1,6 @@
 <?php
 namespace App\Pagination;
 
-use App\Calendar\Util\CalendarManager;
 use App\Entity\TimetableLine;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Connection;
@@ -63,11 +62,7 @@ class LinePagination extends PaginationManager
             'type' => 'leftJoin',
             'alias' => 'a',
         ],
-        'l.calendar' => [
-            'type' => 'leftJoin',
-            'alias' => 'c',
-        ],
-        'c.calendarGrades' => [
+        'a.calendarGrades' => [
             'type' => 'leftJoin',
             'alias' => 'cg',
         ],
@@ -122,14 +117,14 @@ class LinePagination extends PaginationManager
     private $calendarGrades;
 
     /**
-     * @return Collection
+     * getCalendarGrades
+     *
+     * @return array
      */
-    public function getCalendarGrades(): Collection
+    public function getCalendarGrades(): array
     {
-        if (empty($this->calendarGrades) || $this->calendarGrades->count() === 0)
-            $this->calendarGrades = CalendarManager::getCurrentCalendar()->getCalendarGrades();
-
-        return $this->calendarGrades;
+        $grades = $this->getStack()->getCurrentRequest()->getSession()->get('gradeControl');
+        return $grades ?: [];
     }
 
     /**
@@ -150,8 +145,9 @@ class LinePagination extends PaginationManager
     private function andCalendarGrades(): LinePagination
     {
         $grades = [];
-        foreach($this->getCalendarGrades()->getIterator() as $grade)
-            $grades[] = $grade->getId();
+        foreach($this->getCalendarGrades() as $grade=>$show)
+            if ($show)
+            $grades[] = $grade;
         $this->getQuery()
             ->andWhere('cg.id in (:grades)')
             ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)

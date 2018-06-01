@@ -571,8 +571,6 @@ timetable:
             ->setPeriodList($pag->getResult())
         ;
 
-        $this->report->saveReport();
-
         return $this->report;
     }
 
@@ -596,8 +594,6 @@ timetable:
             ->setSpaceTypes($this->getSettingManager()->get('space.type.teaching_space'))
             ->addPeriod($period)
         ;
-
-        $this->report->saveReport();
 
         return $this->report;
     }

@@ -9,14 +9,14 @@
     {% endif %}
     <div class="col-4 card">
         <div>
-            {{ miscButton({title: 'timetable.grade.view.button', class: 'btn btn-info fas fa-eye', javascript: {function: 'openGradeTimeTable', options: [app.request.get('id'), grade.id]}, transDomain: 'Timetable'})|raw }}
+            {{ miscButton({title: 'timetable.grade.view.button', class: 'btn btn-info fas fa-eye', javascript: {function: 'openGradeTimeTable', options: [app.request.get('id'), grade.id]}, transDomain: 'Timetable', mergeClass: 'btn-sm'})|raw }}
             {% set checked = '0' %}
-            {% set button_class = 'btn btn-danger far fa-times-circle' %}
+            {% set button_class = 'btn btn-sm btn-danger far fa-times-circle' %}
             {% if control[grade.id] is not defined or control[grade.id] %}
                 {% set checked = '1' %}
-                {% set button_class = 'btn btn-success far fa-check-circle' %}
+                {% set button_class = 'btn btn-sm btn-success far fa-check-circle' %}
             {% endif %}
-            {{ toggleButton({class: button_class, toggle_swap: 'btn-success fa-check-circle btn-danger fa-times-circle', id: 'grade_' ~ grade.id, name: 'control[' ~ grade.id ~ ']', value: checked, label: 'timetable.grade.control.label'|trans({'%grade%': grade.grade}), callable: 'gradeControl' })|raw }}
+            {{ toggleButton({class: button_class, toggle_swap: 'btn-success fa-check-circle btn-danger fa-times-circle', id: 'grade_' ~ grade.id, name: 'control[' ~ grade.id ~ ']', value: checked, label: 'timetable.grade.control.label'|trans({'%grade%': grade.grade}), callable: 'gradeControl', mergeClass: 'btn-sm'})|raw }}
         </div>
     </div>
     {% set row = row + 1 %}
