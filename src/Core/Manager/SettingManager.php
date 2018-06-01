@@ -859,6 +859,11 @@ class SettingManager implements ContainerAwareInterface
         return $this->lockedCache;
     }
 
+    /**
+     * exportSettings
+     *
+     * @return string
+     */
     public function exportSettings()
     {
         $result = '';
@@ -877,13 +882,11 @@ class SettingManager implements ContainerAwareInterface
                     $w['defaultValue'] = SettingCache::convertDatabaseToArray($w['defaultValue']);
                     break;
                 case 'time':
-                    $w['value'] = SettingCache::convertDatabaseToDateTime($w['value'])->format('H:i');
-                    $w['defaultValue'] = SettingCache::convertDatabaseToDateTime($w['defaultValue'])->format('H:i');
+                    $w['value'] = $w['value'] ? SettingCache::convertDatabaseToDateTime($w['value'])->format('H:i') : null;
+                    $w['defaultValue'] = $w['defaultValue'] ? SettingCache::convertDatabaseToDateTime($w['defaultValue'])->format('H:i') : null;
                     break;
                 default:
             }
-            $w['value'] = str_replace(array('\n', '\r', "\n", "\r"), ["\n",'',"\n",''], $w['value']);
-            $w['defaultValue'] = str_replace(array('\n', '\r', "\n", "\r"), ["\n",'',"\n",''], $w['defaultValue']);
             $settings[strtolower($w['name'])] = $w;
         }
         $result = Yaml::dump($settings, 4);

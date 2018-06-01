@@ -18,17 +18,19 @@ address.format:
     name: address.format
     displayName: 'Address Format'
     description: 'A template for displaying an address.'
-    value: "<pre>{% if propertyName is not empty %}{{ propertyName }}
+    value: |
+        <pre>{% if propertyName is not empty %}{{ propertyName }}
         {% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber }}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber }} {% endif %}{{ streetName }}
         {{ locality }} {{ territory }} {{ postCode }}
-        {{ country }}</pre>"
+        {{ country }}</pre>
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: "<pre>{% if propertyName is not empty %}{{ propertyName }}
+    defaultValue: |
+        <pre>{% if propertyName is not empty %}{{ propertyName }}
         {% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber }}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber }} {% endif %}{{ streetName }}
         {{ locality }} {{ territory }} {{ postCode }}
-        {{ country }}</pre>"
+        {{ country }}</pre>
     translateChoice: null
 address.listlabel:
     type: twig
@@ -54,7 +56,7 @@ person.genderlist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 person.titlelist:
     type: array
@@ -72,7 +74,7 @@ person.titlelist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 address.territorylist:
     type: array
@@ -94,7 +96,7 @@ address.territorylist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 address.buildingtype:
     type: array
@@ -110,7 +112,7 @@ address.buildingtype:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 phone.typelist:
     type: array
@@ -125,7 +127,7 @@ phone.typelist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 phone.country.list:
     type: array
@@ -141,7 +143,7 @@ phone.country.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 phone.validation:
     type: regex
@@ -176,7 +178,7 @@ org.name:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 org.ext.id:
     type: string
@@ -379,7 +381,7 @@ schoolweek:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 org.logo:
     type: image
@@ -482,7 +484,7 @@ space.type:
     choice: null
     validator: App\School\Validator\SpaceType
     role: ROLE_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 staff.categories:
     type: array
@@ -498,7 +500,7 @@ staff.categories:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 phone.country.code:
     type: enum
@@ -520,7 +522,7 @@ person.import:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 phone.format:
     type: twig
@@ -547,7 +549,7 @@ student.caregiver.relationship.list:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 ethnicity.list:
     type: array
@@ -601,7 +603,7 @@ ethnicity.list:
     choice: null
     validator: null
     role: null
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 religion.list:
     type: array
@@ -743,7 +745,7 @@ religion.list:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 residency.list:
     type: array
@@ -758,7 +760,7 @@ residency.list:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 house.list:
     type: array
@@ -781,7 +783,7 @@ house.list:
     choice: null
     validator: App\School\Validator\Houses
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 student.groups:
     type: array
@@ -806,7 +808,7 @@ student.groups:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 department.type.list:
     type: array
@@ -819,7 +821,7 @@ department.type.list:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 department.staff.type.list:
     type: array
@@ -841,7 +843,7 @@ department.staff.type.list:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 date.format:
     type: array
@@ -855,7 +857,7 @@ date.format:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 time.format:
     type: array
@@ -868,7 +870,7 @@ time.format:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 schoolday.periods:
     type: array
@@ -914,7 +916,7 @@ schoolday.periods:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 languages.translated:
     type: array
@@ -928,7 +930,7 @@ languages.translated:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 teachingload.timetable.maximum:
     type: integer
@@ -964,7 +966,7 @@ calendar.status.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 activity.provider.type:
     type: array
@@ -977,7 +979,7 @@ activity.provider.type:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: school
+    defaultValue: {  }
     translateChoice: null
 activity.type.type:
     type: array
@@ -991,7 +993,7 @@ activity.type.type:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 activity.payment.type:
     type: array
@@ -1006,7 +1008,7 @@ activity.payment.type:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: program
+    defaultValue: {  }
     translateChoice: null
 activity.payment.firmness:
     type: array
@@ -1019,7 +1021,7 @@ activity.payment.firmness:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: finalised
+    defaultValue: {  }
     translateChoice: null
 tutor.type.list:
     type: array
@@ -1036,7 +1038,7 @@ tutor.type.list:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: '''null'''
+    defaultValue: {  }
     translateChoice: null
 currency:
     type: string
@@ -1061,7 +1063,7 @@ google:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 external.activity.status.list:
     type: array
@@ -1076,7 +1078,7 @@ external.activity.status.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 external.activity.type.list:
     type: array
@@ -1090,7 +1092,7 @@ external.activity.type.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: 'null'
+    defaultValue: {  }
     translateChoice: null
 period.type.list:
     type: array
@@ -1107,7 +1109,7 @@ period.type.list:
     choice: null
     validator: null
     role: ROLE_PRINCIPAL
-    defaultValue: lesson
+    defaultValue: {  }
     translateChoice: null
 LLL;
 	}
