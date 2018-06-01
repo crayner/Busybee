@@ -164,6 +164,6 @@ class AddressManager
 			$data = ['propertyName'   => null, 'streetName' => null, 'buildingType' => null,
 			         'buildingNumber' => null, 'streetNumber' => null, 'locality' => null];
 
-		return trim($this->settingManager->get('address.listlabel', null, $data));
+		return trim($this->settingManager->get('address.list.label', null, $data));
 	}
 }

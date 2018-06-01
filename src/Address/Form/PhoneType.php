@@ -49,7 +49,7 @@ class PhoneType extends AbstractType
             ->add('phoneType', SettingChoiceType::class,
                 [
                     'label'        => 'phone.type.label',
-                    'setting_name' => 'phone.typelist',
+                    'setting_name' => 'phone.type.list',
                     'placeholder' => 'phone.type.placeholder',
                 ]
             )

@@ -402,7 +402,10 @@ class SettingCache
      */
     private function setDateTimeValue(): SettingCache
     {
-        $this->getSetting()->setValue(serialize($this->value));
+        if ($this->value)
+            $this->getSetting()->setValue(serialize($this->value));
+        else
+            $this->getSetting()->setValue(null);
         return $this;
     }
 
@@ -791,7 +794,10 @@ class SettingCache
      */
     private function setDefaultDateTimeValue(): SettingCache
     {
-        $this->getSetting()->setDefaultValue(serialize($this->defaultValue));
+        if ($this->defaultValue)
+            $this->getSetting()->setDefaultValue(serialize($this->defaultValue));
+        else
+            $this->getSetting()->setDefaultValue(null);
         return $this;
     }
 

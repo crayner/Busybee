@@ -121,10 +121,10 @@ class UserType extends AbstractType
                 [
                     'label' => 'person.honorific.label',
                     'translation_domain' => 'Person',
-                    'setting_name' => 'person.titlelist',
+                    'setting_name' => 'person.title.list',
                     'required' => false,
                     'constraints' => [
-                        new SettingChoice(['settingName' => 'person.titlelist', 'strict' => false, 'useLowerCase' => true])
+                        new SettingChoice(['settingName' => 'person.title.list', 'strict' => false, 'useLowerCase' => true])
                     ],
                 ]
             )

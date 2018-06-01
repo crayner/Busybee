@@ -9,17 +9,17 @@
   name: "address.format"
   display_name: "Address Format"
   description: "A template for displaying an address."
-  value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\n{{ locality }} {{ territory }} {{ postCode }}\n{{ country }}</pre>\n"
+  value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber }}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber }} {% endif %}{{ streetName }}\n{{ locality }} {{ territory }} {{ postCode }}\n{{ country }}</pre>\n"
   role: "ROLE_REGISTRAR"
-  default_value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\r\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\r\n{{ locality }} {{ territory }} {{ postCode }}\r\n{{ country }}</pre>"
-  last_modified: "2018-05-27 10:57:51"
+  default_value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber }}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber }} {% endif %}{{ streetName }}\n{{ locality }} {{ territory }} {{ postCode }}\n{{ country }}</pre>\n"
+  last_modified: "2018-06-01 15:11:35"
   created_on: "2018-03-26 23:02:04"
 -
   id: 2
   created_by: 1
   modified_by: 1
   type: "twig"
-  name: "address.listlabel"
+  name: "address.list.label"
   display_name: "Address Label List"
   description: "A template to convert the entity values into a string label for autocomplete."
   value: "{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }} {{ locality }}"
@@ -31,60 +31,65 @@
   created_by: 1
   modified_by: 1
   type: "array"
-  name: "person.genderlist"
+  name: "person.gender.list"
   display_name: "Gender List"
   description: "A list of genders used in the system."
-  value: "- u\r\n- m\r\n- f\r\n- o"
+  value: "- u\n- m\n- f\n- o\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-30 15:36:22"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:04"
 -
   id: 4
   created_by: 1
   modified_by: 1
   type: "array"
-  name: "person.titlelist"
+  name: "person.title.list"
   display_name: "List of Titles"
   description: "List of personal titles used in the system."
-  value: "- \r\n- mr\r\n- mrs\r\n- ms\r\n- master\r\n- miss\r\n- dr\r\n- rev"
+  value: "- mr\n- mrs\n- ms\n- master\n- miss\n- dr\n- rev\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-29 19:41:49"
+  default_value: "null"
+  last_modified: "2018-06-01 15:38:00"
   created_on: "2018-03-26 23:02:04"
 -
   id: 5
   created_by: 1
   modified_by: 1
   type: "array"
-  name: "address.territorylist"
+  name: "address.territory.list"
   display_name: "Territory List"
   description: "List of Territories, States, Provinces or Counties available to addresses in your organisation."
-  value: "'Not Specified': '@@'\n'New South Wales': NSW\nVictoria: VIC\nQueensland: QLD\n'South Australia': SA\n'Western Australia': WA\nTasmania: TAS\n'Northern Territory': NT\n'Australian Capital Territory': ACT\n'Overseas Australian Territory': OAT\nOverseas: OS\n"
+  value: "- '@@'\n- NSW\n- VIC\n- QLD\n- SA\n- WA\n- TAS\n- NT\n- ACT\n- OAT\n- OS\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-27 10:57:51"
+  default_value: "{  }"
+  last_modified: "2018-06-01 16:11:52"
   created_on: "2018-03-26 23:02:04"
 -
   id: 6
   created_by: 1
   modified_by: 1
   type: "array"
-  name: "address.buildingtype"
-  display_name: "Dcarding Type"
-  description: "List of building types used as dcardings found in your organisation's area."
-  value: "'Not Specified': ''\nFlat: Flat\nUnit: Unit\nApartment: Apt\n'Town House': THse\n"
+  name: "address.building.type"
+  display_name: "Address Building Type"
+  description: "List of building types used as dwellings found in your organisation's area."
+  value: "- ''\n- Flat\n- Unit\n- Apt\n- THse\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 16:11:52"
   created_on: "2018-03-26 23:02:04"
 -
   id: 7
   created_by: 1
   modified_by: 1
   type: "array"
-  name: "phone.typelist"
+  name: "phone.type.list"
   display_name: "Types of Phones"
   description: "List of phone types."
-  value: "Home: Home\nMobile: Mobile\nWork: Work\nImported: Imported\n"
+  value: "- home\n- mobile\n- work\n- imported\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-27 10:57:51"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:04"
 -
   id: 8
@@ -96,7 +101,8 @@
   description: "List of phone country codes."
   value: "'Australia +61': '+61'\n'Canada +1': '+1'\n'Hong Kong +852': '+852'\n'United Kingdom +44': '+44'\n'USA +1': '+1'\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-27 11:11:40"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:04"
 -
   id: 9
@@ -119,9 +125,9 @@
   name: "phone.display"
   display_name: "Phone Display Format"
   description: "A template to convert phone numbers into display version."
-  value: "{% set start = phone|slice(0,2) %}\n{% set len = phone|length %}\n{% if start in [02,03,07,08,09] %}\n({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}\n{% elseif start in [18,13,04] and len == 10 %}\n{{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}\n{% elseif start in [13] and len == 6 %}\n{{ phone|slice(0,2)}} {{ phone|slice(2)}}\n{% else %}\n{{ phone }}\n{% endif %}\n"
+  value: "{% set start = phone|slice(0,2) %} {% set len = phone|length %} {% if start in [02,03,07,08,09] %} ({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}} {% elseif start in [18,13,04] and len == 10 %} {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}} {% elseif start in [13] and len == 6 %} {{ phone|slice(0,2)}} {{ phone|slice(2)}} {% else %} {{ phone }} {% endif %}"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-27 10:59:48"
+  last_modified: "2018-06-01 14:14:32"
   created_on: "2018-03-26 23:02:04"
 -
   id: 11
@@ -131,9 +137,10 @@
   name: "org.name"
   display_name: "Organisation Name"
   description: "The name of your organisation"
-  value: "long: Platypus Learning\r\nshort: PL"
+  value: "long: 'Busybee Learning'\nshort: BEE\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-26 14:43:09"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:04"
 -
   id: 12
@@ -204,9 +211,9 @@
   display_name: "Organisation Postal Territory"
   description: "Territory of this organisation's postal address. : State, Province, County)"
   value: ""
-  choice: "Address.TerritoryList"
+  choice: "address.territory.list"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-06-01 15:40:25"
   created_on: "2018-03-26 23:02:04"
 -
   id: 18
@@ -316,9 +323,9 @@
   display_name: "Organisation Physical Territory"
   description: "Territory of this organisation's physical address. : State, Province, County)"
   value: ""
-  choice: "Address.TerritoryList"
+  choice: "address.territory.list"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-06-01 15:40:25"
   created_on: "2018-03-26 23:02:05"
 -
   id: 27
@@ -354,7 +361,8 @@
   description: "Defines the list of days that school would normally be open."
   value: "Monday: Mon\nTuesday: Tue\nWednesday: Wed\nThursday: Thu\nFriday: Fri\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 30
@@ -364,10 +372,11 @@
   name: "org.logo"
   display_name: "Organisation Logo"
   description: "The organisation Logo"
+  value: ""
   validator: "App\\Core\\Validator\\Logo"
   role: "ROLE_ADMIN"
   default_value: "img/bee.png"
-  last_modified: "2018-05-27 16:55:19"
+  last_modified: "2018-06-01 14:54:16"
   created_on: "2018-03-26 23:02:05"
 -
   id: 31
@@ -377,10 +386,11 @@
   name: "org.transparent.logo"
   display_name: "Organisation Transparent Logo"
   description: "The organisation Logo in a transparent form.  Recommended to be 80% opacity. Only PNG or GIF image formats support transparency."
+  value: ""
   validator: "App\\Core\\Validator\\Logo"
   role: "ROLE_ADMIN"
   default_value: "img/bee-transparent.png"
-  last_modified: "2018-05-27 17:00:53"
+  last_modified: "2018-06-01 14:54:16"
   created_on: "2018-03-26 23:02:05"
 -
   id: 32
@@ -390,10 +400,11 @@
   name: "background.image"
   display_name: "Background Image"
   description: "Change the background displayed for the site.  The image needs to be a minimum of 1200px width.  You can load an image of 1M size, but the smaller the size the better."
+  value: ""
   validator: "App\\Core\\Validator\\BackgroundImage"
   role: "ROLE_ADMIN"
   default_value: "img/backgroundPage.jpg"
-  last_modified: "2018-05-22 12:40:32"
+  last_modified: "2018-06-01 14:54:16"
   created_on: "2018-03-26 23:02:05"
 -
   id: 33
@@ -405,7 +416,7 @@
   description: "At what time are students allowed on campus?"
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 07:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-26 15:56:40"
+  last_modified: "2018-06-01 16:20:17"
   created_on: "2018-03-26 23:02:05"
 -
   id: 34
@@ -417,7 +428,7 @@
   description: "The time that teaching starts. Students would normally be considered late after this time."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 08:15:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-26 15:56:23"
+  last_modified: "2018-06-01 16:20:17"
   created_on: "2018-03-26 23:02:05"
 -
   id: 35
@@ -429,7 +440,7 @@
   description: "The time students are released for the day."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 15:30:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-26 21:16:10"
+  last_modified: "2018-06-01 16:20:17"
   created_on: "2018-03-26 23:02:05"
 -
   id: 36
@@ -441,7 +452,7 @@
   description: "The time the doors of the campus normally close, all after school and school activities finished."
   value: "O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"1970-01-01 17:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:16:\"Australia/Sydney\";}"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-27 15:30:49"
+  last_modified: "2018-06-01 16:20:17"
   created_on: "2018-03-26 23:02:05"
 -
   id: 37
@@ -451,10 +462,11 @@
   name: "space.type"
   display_name: "Type of Space"
   description: "Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms."
-  value: "teaching_space:\r\n    - classroom\r\n    - hall\r\n    - laboratory\r\n    - library\r\n    - other\r\n    - outdoor\r\n    - performance\r\n    - study\r\n    - undercover\r\nnon_teaching_space:\r\n    - 'meeting room'\r\n    - office\r\n    - staff\r\n    - storage"
+  value: "teaching_space:\n    - classroom\n    - hall\n    - laboratory\n    - library\n    - other\n    - outdoor\n    - performance\n    - study\n    - undercover\nnon_teaching_space:\n    - 'meeting room'\n    - office\n    - staff\n    - storage\n"
   validator: "App\\School\\Validator\\SpaceType"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-31 08:34:33"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 38
@@ -464,9 +476,10 @@
   name: "staff.categories"
   display_name: "Staff Categories"
   description: "List of the staff Categories."
-  value: "'Not Specified': Unknown\nTeacher: Teacher\nAncillary: Ancillary\nCleaner: Cleaner\nAdministrative: Administrative\n"
+  value: "- unknown\n- teacher\n- ancillary\n- cleaner\n- administrative\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 16:11:53"
   created_on: "2018-03-26 23:02:05"
 -
   id: 39
@@ -476,9 +489,10 @@
   name: "phone.country.code"
   display_name: "Phone Country Code"
   description: "Default phone country code."
+  value: ""
   choice: "phone.country.list"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-27 15:48:02"
+  last_modified: "2018-06-01 14:55:38"
   created_on: "2018-03-26 23:02:05"
 -
   id: 40
@@ -488,8 +502,10 @@
   name: "person.import"
   display_name: "Person Import Defaults"
   description: "Default values added to imported records."
+  value: "{  }"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-27 15:48:02"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 41
@@ -509,11 +525,12 @@
   modified_by: 1
   type: "array"
   name: "student.caregiver.relationship.list"
-  display_name: "List of Student - Care Giver Relationship"
+  display_name: "List of Student to Care Giver Relationship"
   description: "List of Student - Care Giver Relationship"
-  value: "'Not Defined': Unknown\nParent: Parent\nGuardian: Guardian\n'Grand Parent': 'Grand Parent'\n'Family Friend': 'Family Friend'\n"
+  value: "- unknown\n- parent\n- guardian\n- grand_parent\n- family_friend\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 43
@@ -523,9 +540,9 @@
   name: "ethnicity.list"
   display_name: "List of Ethnicities"
   description: "List of Ethnicities.  Uses the Australian Standard to create this list"
-  value: "'Inadequately described': '0'\n'Not stated': '1'\nEurasian: '901'\nAsian: '902'\n'African, so decribed': '903'\n'European, so decribed': '904'\n'Caucasian, so decribed': '905'\n'Creole, so decribed': '906'\nOceanian: '1000'\n'Australian Peoples': '1100'\n'New Zealand Peoples': '1200'\n'Melanesian and Papuan': '1300'\nMicronesian: '1400'\nPolynesian: '1500'\n'North-West European': '2000'\nBritish: '2100'\n'Western European': '2300'\n'Northern European': '2400'\n'Southern and  Eastern European': '3000'\n'Southern European': '3100'\n'South Eastern European': '3200'\n'Eastern European': '3300'\n'North African and Middle Eastern': '4000'\nArab: '4100'\n'Peoples of the Sudan': '4300'\n'Other North African and Middle Eastern': '4900'\n'South-East  Asian': '5000'\n'Mainland South-East Asian': '5100'\n'Maritime South-East Asian': '5200'\n'North-East Asian': '6000'\n'Chinese Asian': '6100'\n'Other North-East Asian': '6900'\n'Southern and Central Asian': '7000'\n'Southern Asian': '7100'\n'Central Asian': '7200'\n'Peoples of the Americas': '8000'\n'North American': '8100'\n'South American': '8200'\n'Central American': '8300'\n'Caribbean Islander': '8400'\n'Sub-Saharan African': '9000'\n'Central and West African': '9100'\n'Southern and East African': '9200'\n"
-  role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  value: "'Inadequately described': '0000'\n'Not stated': '0001'\nEurasian: '0901'\nAsian: '0902'\n'African, so decribed': '00903'\n'European, so decribed': '904'\n'Caucasian, so decribed': '0905'\n'Creole, so decribed': '0906'\nOceanian: '1000'\n'Australian Peoples': '1100'\n'New Zealand Peoples': '1200'\n'Melanesian and Papuan': '1300'\nMicronesian: '1400'\nPolynesian: '1500'\n'North-West European': '2000'\nBritish: '2100'\n'Western European': '2300'\n'Northern European': '2400'\n'Southern and  Eastern European': '3000'\n'Southern European': '3100'\n'South Eastern European': '3200'\n'Eastern European': '3300'\n'North African and Middle Eastern': '4000'\nArab: '4100'\n'Peoples of the Sudan': '4300'\n'Other North African and Middle Eastern': '4900'\n'South-East  Asian': '5000'\n'Mainland South-East Asian': '5100'\n'Maritime South-East Asian': '5200'\n'North-East Asian': '6000'\n'Chinese Asian': '6100'\n'Other North-East Asian': '6900'\n'Southern and Central Asian': '7000'\n'Southern Asian': '7100'\n'Central Asian': '7200'\n'Peoples of the Americas': '8000'\n'North American': '8100'\n'South American': '8200'\n'Central American': '8300'\n'Caribbean Islander': '8400'\n'Sub-Saharan African': '9000'\n'Central and West African': '9100'\n'Southern and East African': '9200'\n"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 44
@@ -535,9 +552,10 @@
   name: "religion.list"
   display_name: "List of Religions"
   description: "List of Religions.  Uses the Australian Standard to create this list"
-  value: "Aboriginal Evangelical Missions: 2801\r\nActs 2 Alliance: 2416\r\nAgnosticism: 7201\r\nAlbanian Orthodox: 2231\r\nAncestor Veneration: 6051\r\nAncient Church of the East: 2222\r\nAnglican Catholic Church: 2013\r\nAnglican Church of Australia: 2012\r\nAnimism: 6131\r\nAntiochian Orthodox: 2232\r\nApostolic Church (Australia): 2401\r\nApostolic Church of Queensland: 2901\r\nArmenian Apostolic: 2212\r\nAssyrian Apostolic, nec: 2229\r\nAssyrian Church of the East: 2221\r\nAtheism: 7202\r\nAustralian Aboriginal Traditional Religions: 6011\r\nAustralian Christian Churches (Assemblies of God): 2402\r\nBaha'i: 6031\r\nBaptist: 2031\r\nBethesda Ministries International (Bethesda Churches): 2403\r\nBorn Again Christian : 2802\r\nBrethren: 2051\r\nBuddhism: 1011\r\nC3 Global (Christian City Church): 2404\r\nCaodaism: 6991\r\nCatholic, nec: 2079\r\nChaldean Catholic: 2075\r\nChinese Religions, nec: 6059\r\nChristadelphians: 2902\r\nChristian and Missionary Alliance: 2803\r\nChristian Church in Australia: 2417\r\nChristian Community Churches of Australia: 2811\r\nChristian Science: 2903\r\nChurch of Christ (Nondenominational): 2112\r\nChurch of Jesus Christ of Latter-day Saints: 2151\r\nChurch of Scientology : 6992\r\nChurch of the Nazarene : 2804\r\nChurches of Christ (Conference): 2111\r\nCommunity of Christ: 2152\r\nConfucianism : 6052\r\nCongregational: 2805\r\nCoptic Orthodox: 2214\r\nCRC International (Christian Revival Crusade): 2407\r\nDruidism: 6132\r\nDruse: 6071\r\nEastern Orthodox, nec: 2239\r\nEckankar: 6993\r\nEthiopian Orthodox: 2216\r\nEthnic Evangelical Churches: 2806\r\nFoursquare Gospel Church: 2411\r\nFree Reformed: 2253\r\nFull Gospel Church of Australia (Full Gospel Church): 2412\r\nGnostic Christians: 2904\r\nGrace Communion International (Worldwide Church of God): 2915\r\nGreek Orthodox: 2233\r\nHinduism: 3011\r\nHumanism: 7203\r\nIndependent Evangelical Churches: 2807\r\nInternational Church of Christ: 2113\r\nInternational Network of Churches (Christian Outreach Centres): 2406\r\nIslam: 4011\r\nJainism: 6997\r\nJapanese Religions, nec: 6119\r\nJehovah's Witnesses: 2131\r\nJudaism: 5011\r\nLiberal Catholic Church: 2905\r\nLutheran: 2171\r\nMacedonian Orthodox : 2234\r\nMandaean: 6901\r\nMaronite Catholic: 2072\r\nMelkite Catholic: 2073\r\nMethodist, so described: 2812\r\nMulti Faith: 7301\r\nNature Religions, nec: 6139\r\nNew Age: 7302\r\nNew Apostolic Church : 2906\r\nNew Churches (Swedenborgian): 2907\r\nNo Religion, so described: 7101\r\nOriental Orthodox, nec: 2219\r\nOther Anglican: 2019\r\nOther Christian, nec: 2999\r\nOther Protestant, nec: 2899\r\nOther Spiritual Beliefs, nec: 7399\r\nOwn Spiritual Beliefs: 7303\r\nPaganism: 6133\r\nPentecostal City Life Church: 2418\r\nPentecostal, nec: 2499\r\nPresbyterian: 2251\r\nRastafari: 6994\r\nRatana (Maori): 2908\r\nRationalism: 7204\r\nReformed: 2252\r\nReligious Groups, nec : 6999\r\nReligious Science: 2911\r\nReligious Society of Friends (Quakers) : 2912\r\nRevival Centres: 2413\r\nRevival Fellowship: 2421\r\nRhema Family Church: 2414\r\nRomanian Orthodox: 2235\r\nRussian Orthodox: 2236\r\nSalvation Army: 2271\r\nSatanism : 6995\r\nSecular Beliefs nec: 7299\r\nSerbian Orthodox: 2237\r\nSeventh-day Adventist : 2311\r\nShinto: 6111\r\nSikhism: 6151\r\nSpiritualism: 6171\r\nSukyo Mahikari: 6112\r\nSyrian Orthodox: 2215\r\nSyro Malabar Catholic: 2076\r\nTaoism: 6053\r\nTemple Society: 2913\r\nTenrikyo: 6113\r\nTheism: 7304\r\nTheosophy: 6996\r\nUkrainian Catholic: 2074\r\nUkrainian Orthodox: 2238\r\nUnited Methodist Church: 2813\r\nUnited Pentecostal: 2415\r\nUniting Church: 2331\r\nUniversal Unitarianism: 7305\r\nVictory Life Centre: 2422\r\nVictory Worship Centre: 2423\r\nWesleyan Methodist Church: 2808\r\nWestern Catholic: 2071\r\nWiccan (Witchcraft): 6135\r\nWorship Centre network: 2424\r\nYezidi: 6902\r\nZoroastrianism: 6998"
+  value: "'Aboriginal Evangelical Missions': '2801'\n'Acts 2 Alliance': '2416'\nAgnosticism: '7201'\n'Albanian Orthodox': '2231'\n'Ancestor Veneration': '6051'\n'Ancient Church of the East': '2222'\n'Anglican Catholic Church': '2013'\n'Anglican Church of Australia': '2012'\nAnimism: '6131'\n'Antiochian Orthodox': '2232'\n'Apostolic Church (Australia)': '2401'\n'Apostolic Church of Queensland': '2901'\n'Armenian Apostolic': '2212'\n'Assyrian Apostolic, nec': '2229'\n'Assyrian Church of the East': '2221'\nAtheism: '7202'\n'Australian Aboriginal Traditional Religions': '6011'\n'Australian Christian Churches (Assemblies of God)': '2402'\n'Baha''i': '6031'\nBaptist: '2031'\n'Bethesda Ministries International (Bethesda Churches)': '2403'\n'Born Again Christian': '2802'\nBrethren: '2051'\nBuddhism: '1011'\n'C3 Global (Christian City Church)': '2404'\nCaodaism: '6991'\n'Catholic, nec': '2079'\n'Chaldean Catholic': '2075'\n'Chinese Religions, nec': '6059'\nChristadelphians: '2902'\n'Christian and Missionary Alliance': '2803'\n'Christian Church in Australia': '2417'\n'Christian Community Churches of Australia': '2811'\n'Christian Science': '2903'\n'Church of Christ (Nondenominational)': '2112'\n'Church of Jesus Christ of Latter-day Saints': '2151'\n'Church of Scientology': '6992'\n'Church of the Nazarene': '2804'\n'Churches of Christ (Conference)': '2111'\n'Community of Christ': '2152'\nConfucianism: '6052'\nCongregational: '2805'\n'Coptic Orthodox': '2214'\n'CRC International (Christian Revival Crusade)': '2407'\nDruidism: '6132'\nDruse: '6071'\n'Eastern Orthodox, nec': '2239'\nEckankar: '6993'\n'Ethiopian Orthodox': '2216'\n'Ethnic Evangelical Churches': '2806'\n'Foursquare Gospel Church': '2411'\n'Free Reformed': '2253'\n'Full Gospel Church of Australia (Full Gospel Church)': '2412'\n'Gnostic Christians': '2904'\n'Grace Communion International (Worldwide Church of God)': '2915'\n'Greek Orthodox': '2233'\nHinduism: '3011'\nHumanism: '7203'\n'Independent Evangelical Churches': '2807'\n'International Church of Christ': '2113'\n'International Network of Churches (Christian Outreach Centres)': '2406'\nIslam: '4011'\nJainism: '6997'\n'Japanese Religions, nec': '6119'\n'Jehovah''s Witnesses': '2131'\nJudaism: '5011'\n'Liberal Catholic Church': '2905'\nLutheran: '2171'\n'Macedonian Orthodox': '2234'\nMandaean: '6901'\n'Maronite Catholic': '2072'\n'Melkite Catholic': '2073'\n'Methodist, so described': '2812'\n'Multi Faith': '7301'\n'Nature Religions, nec': '6139'\n'New Age': '7302'\n'New Apostolic Church': '2906'\n'New Churches (Swedenborgian)': '2907'\n'No Religion, so described': '7101'\n'Oriental Orthodox, nec': '2219'\n'Other Anglican': '2019'\n'Other Christian, nec': '2999'\n'Other Protestant, nec': '2899'\n'Other Spiritual Beliefs, nec': '7399'\n'Own Spiritual Beliefs': '7303'\nPaganism: '6133'\n'Pentecostal City Life Church': '2418'\n'Pentecostal, nec': '2499'\nPresbyterian: '2251'\nRastafari: '6994'\n'Ratana (Maori)': '2908'\nRationalism: '7204'\nReformed: '2252'\n'Religious Groups, nec': '6999'\n'Religious Science': '2911'\n'Religious Society of Friends (Quakers)': '2912'\n'Revival Centres': '2413'\n'Revival Fellowship': '2421'\n'Rhema Family Church': '2414'\n'Romanian Orthodox': '2235'\n'Russian Orthodox': '2236'\n'Salvation Army': '2271'\nSatanism: '6995'\n'Secular Beliefs nec': '7299'\n'Serbian Orthodox': '2237'\n'Seventh-day Adventist': '2311'\nShinto: '6111'\nSikhism: '6151'\nSpiritualism: '6171'\n'Sukyo Mahikari': '6112'\n'Syrian Orthodox': '2215'\n'Syro Malabar Catholic': '2076'\nTaoism: '6053'\n'Temple Society': '2913'\nTenrikyo: '6113'\nTheism: '7304'\nTheosophy: '6996'\n'Ukrainian Catholic': '2074'\n'Ukrainian Orthodox': '2238'\n'United Methodist Church': '2813'\n'United Pentecostal': '2415'\n'Uniting Church': '2331'\n'Universal Unitarianism': '7305'\n'Victory Life Centre': '2422'\n'Victory Worship Centre': '2423'\n'Wesleyan Methodist Church': '2808'\n'Western Catholic': '2071'\n'Wiccan (Witchcraft)': '6135'\n'Worship Centre network': '2424'\nYezidi: '6902'\nZoroastrianism: '6998'\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-31 12:41:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 45
@@ -547,9 +565,10 @@
   name: "residency.list"
   display_name: "List of Residency Status"
   description: "List of Residency Status.  Usually defined by the government."
-  value: "Citizen: Citizen\nTemporary: Temporary\nPermanent: Permanent\nVisitor: Visitor\n"
+  value: "- citizen\n- temporary\n- permanent\n- visitor\n"
   role: "ROLE_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 46
@@ -571,10 +590,11 @@
   name: "house.list"
   display_name: "House List"
   description: "House list used in your school."
-  value: "ming:\r\n    name: Ming\r\n    shortName: M\r\n    logo: null\r\nsong:\r\n    name: Song\r\n    shortName: S\r\n    logo: null\r\ntang:\r\n    name: Tang\r\n    shortName: T\r\n    logo: null"
+  value: "ming:\n    name: Ming\n    shortName: M\n    logo: null\nsong:\n    name: Song\n    shortName: S\n    logo: null\ntang:\n    name: Tang\n    shortName: T\n    logo: null\n"
   validator: "App\\School\\Validator\\Houses"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-31 08:56:56"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 48
@@ -584,9 +604,10 @@
   name: "student.groups"
   display_name: "Student Groups"
   description: "Usually the year groups that attend this school."
-  value: "'Year 13': Y13\n'Year 12': Y12\n'Year 11': Y11\n'Year 10': Y10\n'Year 9': Y9\n'Year 8': Y8\n'Year 7': Y7\n'Year 6': Y6\n'Year 5': Y5\n'Year 4': Y4\n'Year 3': Y3\n'Year 2': Y2\n'Year 1': Y1\nKinder: Y0\n"
+  value: "- Y13\n- Y12\n- Y11\n- Y10\n- Y9\n- Y8\n- Y7\n- Y6\n- Y5\n- Y4\n- Y3\n- Y2\n- Y1\n- Y0\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 16:11:53"
   created_on: "2018-03-26 23:02:05"
 -
   id: 49
@@ -596,9 +617,10 @@
   name: "department.type.list"
   display_name: "Department Type List"
   description: "Types of departments within the institute."
-  value: "'Learning Area': 'Learning Area'\nAdministration: Administration\n"
+  value: "- learning_area\n- administration\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 50
@@ -608,9 +630,10 @@
   name: "department.staff.type.list"
   display_name: "Department Staff Type List"
   description: "Types of staff within departments within the institute."
-  value: "Learning:\r\n    Coordinator: Coordinator\r\n    'Assistant Coordinator': 'Assistant Coordinator'\r\n    'Teacher (Curriculum)': 'Teacher (Curriculum)'\r\n    Teacher: Teacher\r\n    Other: Other\r\nAdministration:\r\n    Director: Director\r\n    Manager: Manager\r\n    Administrator: Administrator\r\n    Other: Other\r\n"
+  value: "learning:\n    - coordinator\n    - 'assistant_coordinator'''\n    - teacher_curriculum\n    - teacher\n    - other\nadministration:\n    - director\n    - manager\n    - administrator\n    - other\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 51
@@ -622,7 +645,8 @@
   description: "Display the date in reports in this format. Formats are found at http://php.net/manual/en/function.date.php"
   value: "long: 'D, jS M/Y'\nshort: j/m/Y\nwidget: dMMMy\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 52
@@ -632,9 +656,10 @@
   name: "time.format"
   display_name: "Time Format"
   description: "Display the time in reports in this format. Formats are found at http://php.net/manual/en/function.date.php"
-  value: "long: 'h:i:s a'\r\nshort: 'H:i'\r\n"
+  value: "long: 'h:i:s a'\nshort: 'H:i'\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 53
@@ -646,7 +671,8 @@
   description: "A default set of period times for days in the timetable.  These values are used to seed the timetable, which allows the timing to be changed if necessary."
   value: "Registration:\n    code: Reg\n    start: '08:15'\n    end: '08:30'\n    type: pastoral\n'Period 1':\n    start: '08:30'\n    end: '09:40'\n    code: P1\n'Period 2':\n    start: '09:40'\n    end: '10:50'\n    code: P2\n'Morning Tea':\n    start: '10:50'\n    end: '11:10'\n    code: MT\n    type: break\n'Period 3':\n    start: '11:10'\n    end: '12:20'\n    code: P3\nLunch:\n    start: '12:20'\n    end: '13:10'\n    code: Lch\n    type: break\n'Period 4':\n    start: '13:10'\n    end: '14:20'\n    code: P4\n'Period 5':\n    start: '14:20'\n    end: '15:30'\n    code: P5\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 54
@@ -656,10 +682,10 @@
   name: "languages.translated"
   display_name: "Languages Translated"
   description: "Languages that have been translated for the system."
-  value: "'English (Australia)': en_AU\n'English (Great Britian)': en_GB\n'English (United States)': en_US\n"
-  choice: "en_GB"
+  value: "- en_AU\n- en_GB\n- en_US\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 55
@@ -694,9 +720,10 @@
   name: "calendar.status.list"
   display_name: "Calendar Status List"
   description: "Calendar Status List - The name will be translated."
-  value: "calendar.status.past: past\ncalendar.status.current: current\ncalendar.status.future: future\n"
+  value: "- past\n- current\n- future\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 58
@@ -706,10 +733,10 @@
   name: "activity.provider.type"
   display_name: "Activity Provider List"
   description: "Activity Provider List - The name will be translated."
-  value: "school: school\nexternal: external\n"
+  value: "- school\n- external\n"
   role: "ROLE_REGISTRAR"
-  default_value: "school"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 59
@@ -719,9 +746,10 @@
   name: "activity.type.type"
   display_name: "Activity Type List"
   description: "Activity Type List - The name will be translated."
-  value: "- action\r\n- creativity\r\n- service"
+  value: "- action\n- creativity\n- service\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-29 17:03:18"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 60
@@ -731,10 +759,10 @@
   name: "activity.payment.type"
   display_name: "Activity Payment Type List"
   description: "Activity Payment Type List - The name will be translated."
-  value: "program: program\nsession: session\nweek: week\nterm: term\n"
+  value: "- program\n- session\n- week\n- term\n"
   role: "ROLE_REGISTRAR"
-  default_value: "program"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 61
@@ -744,10 +772,10 @@
   name: "activity.payment.firmness"
   display_name: "Activity Payment Firmness List"
   description: "Activity Payment Firmness List - The name will be translated."
-  value: "finalised: finalised\nestimated: estimated\n"
+  value: "- finalised\n- estimated\n"
   role: "ROLE_REGISTRAR"
-  default_value: "finalised"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 62
@@ -757,9 +785,10 @@
   name: "tutor.type.list"
   display_name: "Tutor Type List"
   description: "Tutor Type List - The name will be translated."
-  value: "teacher: teacher\nassistant: assistant\ntechnician: technician\nparent: parent\ncoach: coach\norganiser: organiser\n"
+  value: "- teacher\n- assistant\n- technician\n- parent\n- coach\n- organiser\n"
   role: "ROLE_REGISTRAR"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 63
@@ -782,9 +811,10 @@
   name: "google"
   display_name: "Google Authentication and App Access"
   description: "Google Authentication and App Access details."
-  value: "o_auth: true\nclient_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com\nclient_secret: EZ9oJc3uuvHh_2X27lkMexZ-\n"
+  value: "o_auth: '1'\nclient_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com\nclient_secret: EZ9oJc3uuvHh_2X27lkMexZ-\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-26 14:22:08"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 65
@@ -794,10 +824,10 @@
   name: "external.activity.status.list"
   display_name: "External Activity Status List"
   description: "Status applied to external activity."
-  value: "accepted: accepted\npanding: pending\nwaiting_list: waiting_list\nnot_accepted: not_accepted\n"
+  value: "- accepted\n- pending\n- waiting_list\n- not_accepted\n"
   role: "ROLE_SYSTEM_ADMIN"
-  default_value: "pending"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 66
@@ -807,9 +837,10 @@
   name: "external.activity.type.list"
   display_name: "External Activity Type List"
   description: "Type of external activity."
-  value: "creative: creative\naction: action\nservice: service\n"
+  value: "- creative\n- action\n- service\n"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-26 23:02:05"
 -
   id: 67
@@ -819,9 +850,10 @@
   name: "version"
   display_name: "System Version"
   description: "The version of Busybee currently configured on your system."
-  value: "0.0.34"
+  value: "0.1.00"
   role: "ROLE_SYSTEM_ADMIN"
-  last_modified: "2018-05-26 12:25:38"
+  default_value: "0.0.00"
+  last_modified: "2018-06-01 16:20:17"
   created_on: "2018-03-26 23:02:05"
 -
   id: 68
@@ -831,9 +863,9 @@
   name: "period.type.list"
   display_name: "Period Type List"
   description: "Define the types of Periods used in your school."
-  value: "lesson: lesson\npastoral: pastoral\nsport: sport\nbreak: break\nservice: service\nother: other\n"
+  value: "- lesson\n- pastoral\n- sport\n- break\n- service\n- other\n"
   role: "ROLE_PRINCIPAL"
-  default_value: "lesson"
-  last_modified: "2018-05-22 12:40:32"
+  default_value: "{  }"
+  last_modified: "2018-06-01 15:27:45"
   created_on: "2018-03-28 09:54:06"
 ...

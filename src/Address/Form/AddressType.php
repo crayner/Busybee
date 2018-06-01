@@ -35,12 +35,12 @@ class AddressType extends AbstractType
 		$builder
 			->add('buildingType', SettingChoiceType::class,
 				array(
-					'label'        => 'address.buildingType.label',
+					'label'        => 'address.building.type.label',
 					'attr'         => array(
 						'class' => 'beeBuildingType monitorChange',
 					),
-					'help'  => 'address.buildingType.help',
-					'setting_name' => 'address.buildingtype',
+					'help'  => 'address.building.type.help',
+					'setting_name' => 'address.building.type',
 					'required'     => false,
 				)
 			)

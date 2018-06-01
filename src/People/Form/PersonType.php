@@ -48,7 +48,7 @@ class PersonType extends AbstractType
 		$builder
 			->add('honorific', SettingChoiceType::class, array(
 					'label'        => 'person.honorific.label',
-					'setting_name' => 'person.titlelist',
+					'setting_name' => 'person.title.list',
 					'attr'         => array(
 						'class' => 'beeHonorific',
 					),
@@ -94,7 +94,7 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('gender', SettingChoiceType::class, [
-					'setting_name'              => 'person.genderlist',
+					'setting_name'              => 'person.gender.list',
 					'label'                     => 'person.gender.label',
 					'attr'                      => [
 						'class'                     => 'beeGender',

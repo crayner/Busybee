@@ -34,7 +34,7 @@ class LocalityType extends AbstractType
 					'attr'         => array(
 						'class' => 'beeTerritory monitorChange',
 					),
-					'setting_name' => 'Address.TerritoryList',
+					'setting_name' => 'address.territory.list',
 					'placeholder'  => 'locality.territory.placeholder',
 					'translation_prefix' => false,
 				)

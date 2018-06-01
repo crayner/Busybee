@@ -32,9 +32,9 @@ address.format:
         {{ locality }} {{ territory }} {{ postCode }}
         {{ country }}</pre>
     translateChoice: null
-address.listlabel:
+address.list.label:
     type: twig
-    name: address.listlabel
+    name: address.list.label
     displayName: 'Address Label List'
     description: 'A template to convert the entity values into a string label for autocomplete.'
     value: '{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }} {{ locality }}'
@@ -43,9 +43,9 @@ address.listlabel:
     role: ROLE_ADMIN
     defaultValue: null
     translateChoice: null
-person.genderlist:
+person.gender.list:
     type: array
-    name: person.genderlist
+    name: person.gender.list
     displayName: 'Gender List'
     description: 'A list of genders used in the system.'
     value:
@@ -58,9 +58,9 @@ person.genderlist:
     role: ROLE_REGISTRAR
     defaultValue: {  }
     translateChoice: null
-person.titlelist:
+person.title.list:
     type: array
-    name: person.titlelist
+    name: person.title.list
     displayName: 'List of Titles'
     description: 'List of personal titles used in the system.'
     value:
@@ -74,35 +74,35 @@ person.titlelist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: {  }
+    defaultValue: null
     translateChoice: null
-address.territorylist:
+address.territory.list:
     type: array
-    name: address.territorylist
+    name: address.territory.list
     displayName: 'Territory List'
     description: 'List of Territories, States, Provinces or Counties available to addresses in your organisation.'
     value:
-        'Not Specified': '@@'
-        'New South Wales': NSW
-        Victoria: VIC
-        Queensland: QLD
-        'South Australia': SA
-        'Western Australia': WA
-        Tasmania: TAS
-        'Northern Territory': NT
-        'Australian Capital Territory': ACT
-        'Overseas Australian Territory': OAT
-        Overseas: OS
+        - '@@'
+        - NSW
+        - VIC
+        - QLD
+        - SA
+        - WA
+        - TAS
+        - NT
+        - ACT
+        - OAT
+        - OS
     choice: null
     validator: null
     role: ROLE_REGISTRAR
     defaultValue: {  }
     translateChoice: null
-address.buildingtype:
+address.building.type:
     type: array
-    name: address.buildingtype
-    displayName: 'Dcarding Type'
-    description: 'List of building types used as dcardings found in your organisation''s area.'
+    name: address.building.type
+    displayName: 'Address Building Type'
+    description: 'List of building types used as dwellings found in your organisation''s area.'
     value:
         - ''
         - Flat
@@ -114,9 +114,9 @@ address.buildingtype:
     role: ROLE_REGISTRAR
     defaultValue: {  }
     translateChoice: null
-phone.typelist:
+phone.type.list:
     type: array
-    name: phone.typelist
+    name: phone.type.list
     displayName: 'Types of Phones'
     description: 'List of phone types.'
     value:
@@ -241,7 +241,7 @@ org.postal.territory:
     displayName: 'Organisation Postal Territory'
     description: 'Territory of this organisation''s postal address. : State, Province, County)'
     value: ''
-    choice: Address.TerritoryList
+    choice: address.territory.list
     validator: null
     role: ROLE_REGISTRAR
     defaultValue: null
@@ -340,7 +340,7 @@ org.physical.territory:
     displayName: 'Organisation Physical Territory'
     description: 'Territory of this organisation''s physical address. : State, Province, County)'
     value: ''
-    choice: Address.TerritoryList
+    choice: address.territory.list
     validator: null
     role: ROLE_REGISTRAR
     defaultValue: null

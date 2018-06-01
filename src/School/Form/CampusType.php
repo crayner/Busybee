@@ -2,12 +2,12 @@
 namespace App\School\Form;
 
 use App\Core\Manager\SettingManager;
+use App\Core\Type\SettingChoiceType;
 use Hillrange\Form\Type\EntityType;
 use App\Entity\Campus;
 use App\School\Form\Subscriber\CampusSubscriber;
 use Hillrange\Form\Type\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -57,10 +57,10 @@ class CampusType extends AbstractType
                     'help'  => 'campus.postcode.help',
 				]
 			)
-			->add('territory', ChoiceType::class, [
+			->add('territory', SettingChoiceType::class, [
 					'label'    => 'campus.territory.label',
 					'required' => false,
-					'choices'  => $this->sm->get('Address.TerritoryList'),
+					'setting_name' => 'address.territory.list',
 					'attr'     => array(
 						'class' => 'locationForm monitorChange',
 					),
