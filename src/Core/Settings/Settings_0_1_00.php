@@ -3,9 +3,9 @@ namespace App\Core\Settings;
 
 use App\Core\Definition\SettingInterface;
 
-class Settings_0_0_01 implements SettingInterface
+class Settings_0_1_00 implements SettingInterface
 {
-	const VERSION = '0.0.01';
+	const VERSION = '0.1.00';
 
 	/**
 	 * @return string
