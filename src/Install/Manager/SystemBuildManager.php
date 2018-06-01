@@ -200,8 +200,6 @@ class SystemBuildManager extends InstallManager
 
                 $count = $this->settingManager->createSettings($data);
                 $this->messages->add('success', 'install.system.setting.file', ['transChoice' => $count, '%{class}' => $class->getClassName()]);
-			} else {
-                $this->messages->add('info', 'install.system.version.updated', ['%{version}' => $current]);
             }
 
 			if (version_compare($current, $software, '='))

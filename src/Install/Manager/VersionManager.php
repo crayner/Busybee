@@ -64,7 +64,7 @@ class VersionManager
 	{
 		$this->connection     = $entityManager->getConnection();
 		$this->settingManager = $settingManager;
-        $this->version        = $this->settingManager->get('version', '0.0.00');
+        $this->version        = $this->settingManager->get('version', '0.1.00');
 		$this->translator     = $translator;
 		$this->entityManager  = $entityManager;
 
@@ -367,7 +367,7 @@ class VersionManager
 			$parts[2]++;
 		} else {
 			$parts[2] = 0;
-			if ($parts[1] + 1 < 99) {
+			if ($parts[1] + 1 <= 99) {
 				$parts[1]++;
 			} else {
 				$parts[1] = 0;

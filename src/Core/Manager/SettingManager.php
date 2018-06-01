@@ -871,8 +871,19 @@ class SettingManager implements ContainerAwareInterface
         foreach($results as $setting) {
             $w = $setting->__toArray();
             unset($w['valid'],$w['createdOn'],$w['lastModified'],$w['createdBy'],$w['modifiedBy'],$w['id']);
-            if ($w['type'] === 'array')
-                $w['value'] = SettingCache::convertDatabaseToArray($w['value']);
+            switch($w['type']){
+                case 'array':
+                    $w['value'] = SettingCache::convertDatabaseToArray($w['value']);
+                    $w['defaultValue'] = SettingCache::convertDatabaseToArray($w['defaultValue']);
+                    break;
+                case 'time':
+                    $w['value'] = SettingCache::convertDatabaseToDateTime($w['value'])->format('H:i');
+                    $w['defaultValue'] = SettingCache::convertDatabaseToDateTime($w['defaultValue'])->format('H:i');
+                    break;
+                default:
+            }
+            $w['value'] = str_replace(array('\n', '\r', "\n", "\r"), ["\n",'',"\n",''], $w['value']);
+            $w['defaultValue'] = str_replace(array('\n', '\r', "\n", "\r"), ["\n",'',"\n",''], $w['defaultValue']);
             $settings[strtolower($w['name'])] = $w;
         }
         $result = Yaml::dump($settings, 4);

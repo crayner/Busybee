@@ -18,11 +18,17 @@ address.format:
     name: address.format
     displayName: 'Address Format'
     description: 'A template for displaying an address.'
-    value: "<pre>{% if propertyName is not empty %}{{ propertyName }}\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\n{{ locality }} {{ territory }} {{ postCode }}\n{{ country }}</pre>\n"
+    value: "<pre>{% if propertyName is not empty %}{{ propertyName }}
+        {% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber }}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber }} {% endif %}{{ streetName }}
+        {{ locality }} {{ territory }} {{ postCode }}
+        {{ country }}</pre>"
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: "<pre>{% if propertyName is not empty %}{{ propertyName }}\r\n{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}\r\n{{ locality }} {{ territory }} {{ postCode }}\r\n{{ country }}</pre>"
+    defaultValue: "<pre>{% if propertyName is not empty %}{{ propertyName }}
+        {% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber }}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber }} {% endif %}{{ streetName }}
+        {{ locality }} {{ territory }} {{ postCode }}
+        {{ country }}</pre>"
     translateChoice: null
 address.listlabel:
     type: twig
@@ -48,7 +54,7 @@ person.genderlist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 person.titlelist:
     type: array
@@ -66,7 +72,7 @@ person.titlelist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 address.territorylist:
     type: array
@@ -88,7 +94,7 @@ address.territorylist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 address.buildingtype:
     type: array
@@ -104,7 +110,7 @@ address.buildingtype:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 phone.typelist:
     type: array
@@ -119,7 +125,7 @@ phone.typelist:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 phone.country.list:
     type: array
@@ -135,7 +141,7 @@ phone.country.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 phone.validation:
     type: regex
@@ -153,7 +159,7 @@ phone.display:
     name: phone.display
     displayName: 'Phone Display Format'
     description: 'A template to convert phone numbers into display version.'
-    value: "{% set start = phone|slice(0,2) %}\n{% set len = phone|length %}\n{% if start in [02,03,07,08,09] %}\n({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}\n{% elseif start in [18,13,04] and len == 10 %}\n{{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}\n{% elseif start in [13] and len == 6 %}\n{{ phone|slice(0,2)}} {{ phone|slice(2)}}\n{% else %}\n{{ phone }}\n{% endif %}\n"
+    value: '{% set start = phone|slice(0,2) %} {% set len = phone|length %} {% if start in [02,03,07,08,09] %} ({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}} {% elseif start in [18,13,04] and len == 10 %} {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}} {% elseif start in [13] and len == 6 %} {{ phone|slice(0,2)}} {{ phone|slice(2)}} {% else %} {{ phone }} {% endif %}'
     choice: null
     validator: null
     role: ROLE_REGISTRAR
@@ -170,7 +176,7 @@ org.name:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 org.ext.id:
     type: string
@@ -373,14 +379,14 @@ schoolweek:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 org.logo:
     type: image
     name: org.logo
     displayName: 'Organisation Logo'
     description: 'The organisation Logo'
-    value: null
+    value: ''
     choice: null
     validator: App\Core\Validator\Logo
     role: ROLE_ADMIN
@@ -391,7 +397,7 @@ org.transparent.logo:
     name: org.transparent.logo
     displayName: 'Organisation Transparent Logo'
     description: 'The organisation Logo in a transparent form.  Recommended to be 80% opacity. Only PNG or GIF image formats support transparency.'
-    value: null
+    value: ''
     choice: null
     validator: App\Core\Validator\Logo
     role: ROLE_ADMIN
@@ -402,7 +408,7 @@ background.image:
     name: background.image
     displayName: 'Background Image'
     description: 'Change the background displayed for the site.  The image needs to be a minimum of 1200px width.  You can load an image of 1M size, but the smaller the size the better.'
-    value: null
+    value: ''
     choice: null
     validator: App\Core\Validator\BackgroundImage
     role: ROLE_ADMIN
@@ -413,7 +419,7 @@ schoolday.open:
     name: schoolday.open
     displayName: 'School Day Open Time'
     description: 'At what time are students allowed on campus?'
-    value: 'O:8:"DateTime":3:{s:4:"date";s:26:"1970-01-01 07:00:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:16:"Australia/Sydney";}'
+    value: '07:00'
     choice: null
     validator: null
     role: ROLE_ADMIN
@@ -424,7 +430,7 @@ schoolday.begin:
     name: schoolday.begin
     displayName: 'School Day Instruction Start Time'
     description: 'The time that teaching starts. Students would normally be considered late after this time.'
-    value: 'O:8:"DateTime":3:{s:4:"date";s:26:"1970-01-01 08:15:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:16:"Australia/Sydney";}'
+    value: '08:15'
     choice: null
     validator: null
     role: ROLE_ADMIN
@@ -435,7 +441,7 @@ schoolday.finish:
     name: schoolday.finish
     displayName: 'School Day Instruction Finish Time'
     description: 'The time students are released for the day.'
-    value: 'O:8:"DateTime":3:{s:4:"date";s:26:"1970-01-01 15:30:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:16:"Australia/Sydney";}'
+    value: '15:30'
     choice: null
     validator: null
     role: ROLE_ADMIN
@@ -446,7 +452,7 @@ schoolday.close:
     name: schoolday.close
     displayName: 'School Day Close Time'
     description: 'The time the doors of the campus normally close, all after school and school activities finished.'
-    value: 'O:8:"DateTime":3:{s:4:"date";s:26:"1970-01-01 17:00:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:16:"Australia/Sydney";}'
+    value: '17:00'
     choice: null
     validator: null
     role: ROLE_ADMIN
@@ -476,7 +482,7 @@ space.type:
     choice: null
     validator: App\School\Validator\SpaceType
     role: ROLE_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 staff.categories:
     type: array
@@ -492,14 +498,14 @@ staff.categories:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 phone.country.code:
     type: enum
     name: phone.country.code
     displayName: 'Phone Country Code'
     description: 'Default phone country code.'
-    value: null
+    value: ''
     choice: phone.country.list
     validator: null
     role: ROLE_SYSTEM_ADMIN
@@ -514,7 +520,7 @@ person.import:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 phone.format:
     type: twig
@@ -541,7 +547,7 @@ student.caregiver.relationship.list:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 ethnicity.list:
     type: array
@@ -595,7 +601,7 @@ ethnicity.list:
     choice: null
     validator: null
     role: null
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 religion.list:
     type: array
@@ -603,141 +609,141 @@ religion.list:
     displayName: 'List of Religions'
     description: 'List of Religions.  Uses the Australian Standard to create this list'
     value:
-        'Aboriginal Evangelical Missions': 2801
-        'Acts 2 Alliance': 2416
-        Agnosticism: 7201
-        'Albanian Orthodox': 2231
-        'Ancestor Veneration': 6051
-        'Ancient Church of the East': 2222
-        'Anglican Catholic Church': 2013
-        'Anglican Church of Australia': 2012
-        Animism: 6131
-        'Antiochian Orthodox': 2232
-        'Apostolic Church (Australia)': 2401
-        'Apostolic Church of Queensland': 2901
-        'Armenian Apostolic': 2212
-        'Assyrian Apostolic, nec': 2229
-        'Assyrian Church of the East': 2221
-        Atheism: 7202
-        'Australian Aboriginal Traditional Religions': 6011
-        'Australian Christian Churches (Assemblies of God)': 2402
-        'Baha''i': 6031
-        Baptist: 2031
-        'Bethesda Ministries International (Bethesda Churches)': 2403
-        'Born Again Christian': 2802
-        Brethren: 2051
-        Buddhism: 1011
-        'C3 Global (Christian City Church)': 2404
-        Caodaism: 6991
-        'Catholic, nec': 2079
-        'Chaldean Catholic': 2075
-        'Chinese Religions, nec': 6059
-        Christadelphians: 2902
-        'Christian and Missionary Alliance': 2803
-        'Christian Church in Australia': 2417
-        'Christian Community Churches of Australia': 2811
-        'Christian Science': 2903
-        'Church of Christ (Nondenominational)': 2112
-        'Church of Jesus Christ of Latter-day Saints': 2151
-        'Church of Scientology': 6992
-        'Church of the Nazarene': 2804
-        'Churches of Christ (Conference)': 2111
-        'Community of Christ': 2152
-        Confucianism: 6052
-        Congregational: 2805
-        'Coptic Orthodox': 2214
-        'CRC International (Christian Revival Crusade)': 2407
-        Druidism: 6132
-        Druse: 6071
-        'Eastern Orthodox, nec': 2239
-        Eckankar: 6993
-        'Ethiopian Orthodox': 2216
-        'Ethnic Evangelical Churches': 2806
-        'Foursquare Gospel Church': 2411
-        'Free Reformed': 2253
-        'Full Gospel Church of Australia (Full Gospel Church)': 2412
-        'Gnostic Christians': 2904
-        'Grace Communion International (Worldwide Church of God)': 2915
-        'Greek Orthodox': 2233
-        Hinduism: 3011
-        Humanism: 7203
-        'Independent Evangelical Churches': 2807
-        'International Church of Christ': 2113
-        'International Network of Churches (Christian Outreach Centres)': 2406
-        Islam: 4011
-        Jainism: 6997
-        'Japanese Religions, nec': 6119
-        'Jehovah''s Witnesses': 2131
-        Judaism: 5011
-        'Liberal Catholic Church': 2905
-        Lutheran: 2171
-        'Macedonian Orthodox': 2234
-        Mandaean: 6901
-        'Maronite Catholic': 2072
-        'Melkite Catholic': 2073
-        'Methodist, so described': 2812
-        'Multi Faith': 7301
-        'Nature Religions, nec': 6139
-        'New Age': 7302
-        'New Apostolic Church': 2906
-        'New Churches (Swedenborgian)': 2907
-        'No Religion, so described': 7101
-        'Oriental Orthodox, nec': 2219
-        'Other Anglican': 2019
-        'Other Christian, nec': 2999
-        'Other Protestant, nec': 2899
-        'Other Spiritual Beliefs, nec': 7399
-        'Own Spiritual Beliefs': 7303
-        Paganism: 6133
-        'Pentecostal City Life Church': 2418
-        'Pentecostal, nec': 2499
-        Presbyterian: 2251
-        Rastafari: 6994
-        'Ratana (Maori)': 2908
-        Rationalism: 7204
-        Reformed: 2252
-        'Religious Groups, nec': 6999
-        'Religious Science': 2911
-        'Religious Society of Friends (Quakers)': 2912
-        'Revival Centres': 2413
-        'Revival Fellowship': 2421
-        'Rhema Family Church': 2414
-        'Romanian Orthodox': 2235
-        'Russian Orthodox': 2236
-        'Salvation Army': 2271
-        Satanism: 6995
-        'Secular Beliefs nec': 7299
-        'Serbian Orthodox': 2237
-        'Seventh-day Adventist': 2311
-        Shinto: 6111
-        Sikhism: 6151
-        Spiritualism: 6171
-        'Sukyo Mahikari': 6112
-        'Syrian Orthodox': 2215
-        'Syro Malabar Catholic': 2076
-        Taoism: 6053
-        'Temple Society': 2913
-        Tenrikyo: 6113
-        Theism: 7304
-        Theosophy: 6996
-        'Ukrainian Catholic': 2074
-        'Ukrainian Orthodox': 2238
-        'United Methodist Church': 2813
-        'United Pentecostal': 2415
-        'Uniting Church': 2331
-        'Universal Unitarianism': 7305
-        'Victory Life Centre': 2422
-        'Victory Worship Centre': 2423
-        'Wesleyan Methodist Church': 2808
-        'Western Catholic': 2071
-        'Wiccan (Witchcraft)': 6135
-        'Worship Centre network': 2424
-        Yezidi: 6902
-        Zoroastrianism: 6998
+        'Aboriginal Evangelical Missions': '2801'
+        'Acts 2 Alliance': '2416'
+        Agnosticism: '7201'
+        'Albanian Orthodox': '2231'
+        'Ancestor Veneration': '6051'
+        'Ancient Church of the East': '2222'
+        'Anglican Catholic Church': '2013'
+        'Anglican Church of Australia': '2012'
+        Animism: '6131'
+        'Antiochian Orthodox': '2232'
+        'Apostolic Church (Australia)': '2401'
+        'Apostolic Church of Queensland': '2901'
+        'Armenian Apostolic': '2212'
+        'Assyrian Apostolic, nec': '2229'
+        'Assyrian Church of the East': '2221'
+        Atheism: '7202'
+        'Australian Aboriginal Traditional Religions': '6011'
+        'Australian Christian Churches (Assemblies of God)': '2402'
+        'Baha''i': '6031'
+        Baptist: '2031'
+        'Bethesda Ministries International (Bethesda Churches)': '2403'
+        'Born Again Christian': '2802'
+        Brethren: '2051'
+        Buddhism: '1011'
+        'C3 Global (Christian City Church)': '2404'
+        Caodaism: '6991'
+        'Catholic, nec': '2079'
+        'Chaldean Catholic': '2075'
+        'Chinese Religions, nec': '6059'
+        Christadelphians: '2902'
+        'Christian and Missionary Alliance': '2803'
+        'Christian Church in Australia': '2417'
+        'Christian Community Churches of Australia': '2811'
+        'Christian Science': '2903'
+        'Church of Christ (Nondenominational)': '2112'
+        'Church of Jesus Christ of Latter-day Saints': '2151'
+        'Church of Scientology': '6992'
+        'Church of the Nazarene': '2804'
+        'Churches of Christ (Conference)': '2111'
+        'Community of Christ': '2152'
+        Confucianism: '6052'
+        Congregational: '2805'
+        'Coptic Orthodox': '2214'
+        'CRC International (Christian Revival Crusade)': '2407'
+        Druidism: '6132'
+        Druse: '6071'
+        'Eastern Orthodox, nec': '2239'
+        Eckankar: '6993'
+        'Ethiopian Orthodox': '2216'
+        'Ethnic Evangelical Churches': '2806'
+        'Foursquare Gospel Church': '2411'
+        'Free Reformed': '2253'
+        'Full Gospel Church of Australia (Full Gospel Church)': '2412'
+        'Gnostic Christians': '2904'
+        'Grace Communion International (Worldwide Church of God)': '2915'
+        'Greek Orthodox': '2233'
+        Hinduism: '3011'
+        Humanism: '7203'
+        'Independent Evangelical Churches': '2807'
+        'International Church of Christ': '2113'
+        'International Network of Churches (Christian Outreach Centres)': '2406'
+        Islam: '4011'
+        Jainism: '6997'
+        'Japanese Religions, nec': '6119'
+        'Jehovah''s Witnesses': '2131'
+        Judaism: '5011'
+        'Liberal Catholic Church': '2905'
+        Lutheran: '2171'
+        'Macedonian Orthodox': '2234'
+        Mandaean: '6901'
+        'Maronite Catholic': '2072'
+        'Melkite Catholic': '2073'
+        'Methodist, so described': '2812'
+        'Multi Faith': '7301'
+        'Nature Religions, nec': '6139'
+        'New Age': '7302'
+        'New Apostolic Church': '2906'
+        'New Churches (Swedenborgian)': '2907'
+        'No Religion, so described': '7101'
+        'Oriental Orthodox, nec': '2219'
+        'Other Anglican': '2019'
+        'Other Christian, nec': '2999'
+        'Other Protestant, nec': '2899'
+        'Other Spiritual Beliefs, nec': '7399'
+        'Own Spiritual Beliefs': '7303'
+        Paganism: '6133'
+        'Pentecostal City Life Church': '2418'
+        'Pentecostal, nec': '2499'
+        Presbyterian: '2251'
+        Rastafari: '6994'
+        'Ratana (Maori)': '2908'
+        Rationalism: '7204'
+        Reformed: '2252'
+        'Religious Groups, nec': '6999'
+        'Religious Science': '2911'
+        'Religious Society of Friends (Quakers)': '2912'
+        'Revival Centres': '2413'
+        'Revival Fellowship': '2421'
+        'Rhema Family Church': '2414'
+        'Romanian Orthodox': '2235'
+        'Russian Orthodox': '2236'
+        'Salvation Army': '2271'
+        Satanism: '6995'
+        'Secular Beliefs nec': '7299'
+        'Serbian Orthodox': '2237'
+        'Seventh-day Adventist': '2311'
+        Shinto: '6111'
+        Sikhism: '6151'
+        Spiritualism: '6171'
+        'Sukyo Mahikari': '6112'
+        'Syrian Orthodox': '2215'
+        'Syro Malabar Catholic': '2076'
+        Taoism: '6053'
+        'Temple Society': '2913'
+        Tenrikyo: '6113'
+        Theism: '7304'
+        Theosophy: '6996'
+        'Ukrainian Catholic': '2074'
+        'Ukrainian Orthodox': '2238'
+        'United Methodist Church': '2813'
+        'United Pentecostal': '2415'
+        'Uniting Church': '2331'
+        'Universal Unitarianism': '7305'
+        'Victory Life Centre': '2422'
+        'Victory Worship Centre': '2423'
+        'Wesleyan Methodist Church': '2808'
+        'Western Catholic': '2071'
+        'Wiccan (Witchcraft)': '6135'
+        'Worship Centre network': '2424'
+        Yezidi: '6902'
+        Zoroastrianism: '6998'
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 residency.list:
     type: array
@@ -752,7 +758,7 @@ residency.list:
     choice: null
     validator: null
     role: ROLE_ADMIN
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 house.list:
     type: array
@@ -775,7 +781,7 @@ house.list:
     choice: null
     validator: App\School\Validator\Houses
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 student.groups:
     type: array
@@ -800,7 +806,7 @@ student.groups:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 department.type.list:
     type: array
@@ -813,7 +819,7 @@ department.type.list:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 department.staff.type.list:
     type: array
@@ -835,7 +841,7 @@ department.staff.type.list:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 date.format:
     type: array
@@ -849,7 +855,7 @@ date.format:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 time.format:
     type: array
@@ -862,7 +868,7 @@ time.format:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 schoolday.periods:
     type: array
@@ -908,7 +914,7 @@ schoolday.periods:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 languages.translated:
     type: array
@@ -922,7 +928,7 @@ languages.translated:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 teachingload.timetable.maximum:
     type: integer
@@ -958,7 +964,7 @@ calendar.status.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 activity.provider.type:
     type: array
@@ -985,7 +991,7 @@ activity.type.type:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 activity.payment.type:
     type: array
@@ -1030,7 +1036,7 @@ tutor.type.list:
     choice: null
     validator: null
     role: ROLE_REGISTRAR
-    defaultValue: 'null'
+    defaultValue: '''null'''
     translateChoice: null
 currency:
     type: string
@@ -1049,13 +1055,13 @@ google:
     displayName: 'Google Authentication and App Access'
     description: 'Google Authentication and App Access details.'
     value:
-        o_auth: true
+        o_auth: '1'
         client_id: 142820932329-q1upj2vokedceen3nhcp6l8uo6hulsl2.apps.googleusercontent.com
         client_secret: EZ9oJc3uuvHh_2X27lkMexZ-
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 external.activity.status.list:
     type: array
@@ -1070,7 +1076,7 @@ external.activity.status.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 external.activity.type.list:
     type: array
@@ -1084,7 +1090,7 @@ external.activity.type.list:
     choice: null
     validator: null
     role: ROLE_SYSTEM_ADMIN
-    defaultValue: null
+    defaultValue: 'null'
     translateChoice: null
 period.type.list:
     type: array
