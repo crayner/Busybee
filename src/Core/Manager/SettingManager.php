@@ -426,6 +426,7 @@ class SettingManager implements ContainerAwareInterface
                 'role' => null,
                 'choice' => null,
                 'validator' => null,
+                'translateChoice' => null,
             ]
         );
 
@@ -437,7 +438,7 @@ class SettingManager implements ContainerAwareInterface
             $values = $resolver->resolve($values);
             $setting = $this->getSettingCache();
 
-            if ($setting->importSetting($values)) {
+            if ($setting->importSetting($values, $this->getEntityManager())) {
                 $this->addSetting($setting, $name);
                 $count++;
             }
@@ -856,5 +857,25 @@ class SettingManager implements ContainerAwareInterface
     public function isLockedCache(): bool
     {
         return $this->lockedCache;
+    }
+
+    public function exportSettings()
+    {
+        $result = '';
+        $results = $this->getEntityManager()->getRepository(Setting::class)->createQueryBuilder('s')
+            ->where('s.type != :setType')
+            ->setParameter('setType', 'system')
+            ->getQuery()
+            ->getResult();
+        $settings = [];
+        foreach($results as $setting) {
+            $w = $setting->__toArray();
+            unset($w['valid'],$w['createdOn'],$w['lastModified'],$w['createdBy'],$w['modifiedBy'],$w['id']);
+            if ($w['type'] === 'array')
+                $w['value'] = SettingCache::convertDatabaseToArray($w['value']);
+            $settings[strtolower($w['name'])] = $w;
+        }
+        $result = Yaml::dump($settings, 4);
+        return $result;
     }
 }

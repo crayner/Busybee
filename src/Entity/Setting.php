@@ -287,4 +287,14 @@ class Setting implements UserTrackInterface
         $this->translateChoice = $translateChoice;
         return $this;
     }
+
+    /**
+     * __toArray
+     *
+     * @return array
+     */
+    public function __toArray()
+    {
+        return get_object_vars($this);
+    }
 }

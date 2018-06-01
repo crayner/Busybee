@@ -628,7 +628,7 @@ class SettingCache
      */
     public function importSetting(array $values, EntityManagerInterface $entityManager): bool
     {
-        $this->findOneByName($values['name']);
+        $this->findOneByName($values['name'], $entityManager);
         $this->setting = $this->getSetting() instanceof Setting ? $this->getSetting() : new Setting();
         foreach ($values as $field => $value) {
             $func = 'set' . ucfirst($field);

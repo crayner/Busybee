@@ -136,3 +136,8 @@ services:
     App\Core\Listener\SettingUpdateListener:
         tags:
             - { name: doctrine.orm.entity_listener, entity: 'App\Entity\Setting', event: preUpdate }
+    App\Security\EnvironmentVoter:
+        arguments:
+            - '%kernel.environment%'
+        tags:
+            - { name: security.voter, priority: 100 }

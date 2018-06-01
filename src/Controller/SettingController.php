@@ -8,16 +8,21 @@ use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Entity\Setting;
+use App\Kernel;
+use App\Menu\Show\EnvironmentIs;
 use App\Pagination\SettingPagination;
 use App\Repository\SettingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
 class SettingController extends Controller
 {
@@ -178,4 +183,30 @@ class SettingController extends Controller
 
 		return $this->forward(SettingController::class.'::edit', ['id' => $setting->getId(), 'closeWindow' => $closeWindow]);
 	}
+
+    /**
+     * export
+     *
+     * @Route("/setting/export/", name="export_settings")
+     * @Security("has_role('ROLE_SYSTEM_ADMIN') and is_granted('App\\Security\\EnvironmentVoter', 'dev')")
+     * @param SettingManager $settingManager
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     */
+	public function export(SettingManager $settingManager, Request $request)
+    {
+        $settings = $settingManager->exportSettings();
+
+        $response = new StreamedResponse(function () use ($settingManager) {
+            echo $settingManager->exportSettings();
+        });
+        $response->headers->set('Content-Type', 'text/yaml');
+        $response->headers->set('Cache-Control', '');
+        $response->headers->set('Content-Length', strlen($settings));
+        $response->headers->set('Last-Modified', gmdate('D, d M Y H:i:s'));
+        $contentDisposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'settings.yaml');
+        $response->headers->set('Content-Disposition', $contentDisposition);
+        $response->prepare($request);
+        return $response;
+    }
 }

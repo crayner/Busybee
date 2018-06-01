@@ -2,24 +2,15 @@
 
 {% trans_default_domain 'System' %}
 
-{% form_theme form
-    '@HillrangeForm/FormTheme/bootstrap.html.twig'
-%}
-
 {% block title %}{{ 'system.setting.create.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.setting.create.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.setting.create.description'|trans }}{% endblock headerLead %}
 
 
 {% block contentContainer %}
-    {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
     {% set h3Content = h3Content ~ miscButton({class: 'btn btn-warning fas fa-download', title: 'system.setting.export.button', transDomain: 'System', windowOpen: {route: path('export_settings')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% include 'Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'System', 'panelParagraph': 'system.setting.edit.description'} %}
-    <div class="card col-lg-auto">
-            {{ form_row(form.setting) }}
-    </div>
     {% include 'Page/panelEnd.html.twig' %}
-    {{ form_end(form) }}
 {% endblock contentContainer %}

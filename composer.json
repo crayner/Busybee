@@ -37,6 +37,7 @@
 		"symfony/property-access": "^4.1",
 		"symfony/requirements-checker": "^1.0",
 		"symfony/security-bundle": "^4.1",
+		"symfony/serializer": "^4.1",
 		"symfony/swiftmailer-bundle": "^3.1",
 		"symfony/templating": "^4.1",
 		"symfony/translation": "^4.1",

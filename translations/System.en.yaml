@@ -78,6 +78,7 @@ system:
         translate_choice:
             label: Choice Translation Domain
             help: 'When presented as a Setting choice in a form, translate the choices using this domain.  This allows the local staff to overwrite translation with their own file in the "config/translations" directory.'
+        export.button: Download Settings
     string_replacement:
         title: String Replacement
         description: ''
