@@ -16,6 +16,7 @@ install:
     - travis_retry composer install
     - cp /config/packages/doctrine.yaml.travis /config/packages/doctrine.yaml
     - cp .env.travis .env
+    - mysql -e 'CREATE DATABASE `craigray_core`;'
     - php bin/console doctrine:database:create --env=test
     - php bin/console doctrine:schema:create --env=test
 

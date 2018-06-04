@@ -110,12 +110,12 @@ class PersonNameManager
             if (self::getUserManager()->getUser())
                 $user = self::getUserManager()->getUser();
 
-        if (self::getUserManager()->hasPerson($user))
+        if (self::getUserManager()->hasPerson($user)) {
             $person = self::getUserManager()->getPerson($user);
 
-        if ($person instanceof Person)
-            return self::getFullName($person);
-
+            if ($person instanceof Person)
+                return self::getFullName($person);
+        }
         if ($user instanceof UserInterface)
             return $user->formatName();
 

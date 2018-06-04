@@ -759,7 +759,7 @@ class PeriodReportManager extends ReportManager
             foreach($this->getDuplicateStudents()->getIterator() as $id=>$students)
             {
                 $grade = $this->getGrades()[$id];
-                $this->addMessage('info', 'report.grade.name', ['%grade%' => $grade->getFullName()]);
+                $this->addMessage('info', 'report.grade.name', ['%grade%' => $grade ? $grade->getFullName() : 'Unknown' ]);
                 foreach($students->getIterator() as $student)
                     $this->addMessage('light', 'report.student.details', ['%identifier%' => $student->getIdentifier(), '%name%' => $student->getFullName()]);
             }

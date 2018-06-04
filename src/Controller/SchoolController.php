@@ -458,7 +458,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/activity/{id}/tutor/{cid}/manage/", name="activity_tutor_manage")
+     * @Route("/activity/{id}/{activity_type}/tutor/{cid}/manage/", name="activity_tutor_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param string $cid
@@ -469,7 +469,7 @@ class SchoolController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function activityTutorManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    public function activityTutorManage($id = 'Add', $cid = 'ignore', $activity_type, ActivityManager $activityManager, \Twig_Environment $twig)
     {
         //if cid != ignore, then remove cid from collection
         $activity = $activityManager->setActivityType('activity')->findActivity($id);
@@ -506,7 +506,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/activity/{id}/student/{cid}/manage/", name="activity_student_manage")
+     * @Route("/activity/{id}/{activity_type}/student/{cid}/manage/", name="activity_student_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param string $cid
@@ -517,7 +517,7 @@ class SchoolController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function activityStudentManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
+    public function activityStudentManage($id = 'Add', $cid = 'ignore', $activity_type, ActivityManager $activityManager, \Twig_Environment $twig)
     {
         //if cid != ignore, then remove cid from collection
         $activity = $activityManager->setActivityType('activity')->findActivity($id);

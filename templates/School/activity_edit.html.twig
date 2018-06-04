@@ -27,7 +27,7 @@
     {% include '@HillrangeForm/Toggle/script.html.twig' %}
     {{ collections_manage(form, ['students','tutors', 'slots'])|raw }}
     {% if tabManager.activityType is same as('class') %}
-        {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {closeWindow: app.request.get('closeWindow')}} %}
+        {% include 'Script/formTabSubmitScript.html.twig' with {route: 'face_to_face_edit', options: {course_id: app.request.get('course_id'), closeWindow: app.request.get('closeWindow')}} %}
     {% elseif tabManager.activityType is same as('roll') %}
         {% include 'Script/formTabSubmitScript.html.twig' with {route: 'roll_edit', options: {closeWindow: app.request.get('closeWindow')}} %}
     {% elseif tabManager.activityType is same as('external') %}
