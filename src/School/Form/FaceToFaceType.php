@@ -2,11 +2,13 @@
 namespace App\School\Form;
 
 use App\Calendar\Util\CalendarManager;
+use App\Entity\Activity;
 use App\Entity\CalendarGrade;
 use App\Entity\FaceToFace;
 use App\Entity\Space;
 use App\School\Form\Subscriber\ActivitySubscriber;
 use App\School\Util\ActivityManager;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
@@ -55,7 +57,9 @@ class FaceToFaceType extends AbstractType
         $activity = $options['data']->getId();
         $key = array_search($activity, $activities);
         unset($activities[$key]);
-
+        $add = false;
+        if (empty($options['data']->getId()))
+            $add = true;
 		$builder
             ->add('name', TextType::class,
                 [
@@ -88,32 +92,6 @@ class FaceToFaceType extends AbstractType
                     'class' => Space::class,
                     'choice_label' => 'fullName',
                     'required' => false,
-                ]
-            )
-            ->add('students', CollectionType::class,
-                [
-                    'label' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => ActivityStudentType::class,
-                    'required' => false,
-                    'entry_options' => [
-                        'student_list' => $this->activityManager->getPossibleStudents($options['data']),
-                    ],
-                    'route' => 'activity_student_manage',
-                    'button_merge_class' => 'btn-sm',
-                ]
-            )
-            ->add('tutors', CollectionType::class,
-                [
-                    'entry_type' => ActivityTutorType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'allow_up' => true,
-                    'allow_down' => true,
-                    'sort_manage' => true,
-                    'route' => 'activity_tutor_manage',
-                    'button_merge_class' => 'btn-sm',
                 ]
             )
             ->add('reportable', ToggleType::class,
@@ -149,6 +127,54 @@ class FaceToFaceType extends AbstractType
                 ]
             )
         ;
+        if (! $add) {
+            $builder
+                ->add('students', CollectionType::class,
+                    [
+                        'label' => false,
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'entry_type' => ActivityStudentType::class,
+                        'required' => false,
+                        'entry_options' => [
+                            'student_list' => $this->activityManager->getPossibleStudents($options['data']),
+                        ],
+                        'route' => 'activity_student_manage',
+                        'button_merge_class' => 'btn-sm',
+                    ]
+                )
+                ->add('tutors', CollectionType::class,
+                    [
+                        'entry_type' => ActivityTutorType::class,
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'allow_up' => true,
+                        'allow_down' => true,
+                        'sort_manage' => true,
+                        'route' => 'activity_tutor_manage',
+                        'button_merge_class' => 'btn-sm',
+                    ]
+                )
+                ->add('studentReference', EntityType::class,
+                    [
+                        'label' => 'activity.student_reference.label',
+                        'help' => 'activity.student_reference.help',
+                        'class' => Activity::class,
+                        'choice_label' => 'fullName',
+                        'placeholder' => 'activity.student_reference.placeholder',
+                        'query_builder' => function (EntityRepository $er) use ($grades) {
+                            return $er->createQueryBuilder('a')
+                                ->leftJoin('a.calendarGrades', 'cg')
+                                ->where('cg.id IN (:grades)')
+                                ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
+                                ->orderBy('a.name', 'ASC')
+                                ;
+                        },
+                    ]
+                )
+
+            ;
+        }
 		$builder->addEventSubscriber($this->activitySubscriber);
 	}
 

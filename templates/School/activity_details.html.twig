@@ -2,7 +2,7 @@
 
 {% set h3Content = '' %}
 {% if app.request.get('closeWindow') is empty %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id')})}}) %}
+    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id'), hint: tabManager.activityType})}}) %}
 {% else %}
     {% set h3Content = h3Content ~ closeButton() %}
 {% endif %}
@@ -49,13 +49,15 @@
         {{ form_row(form.calendarGrades) }}
     </div>
     <div class="col-9">
-        {% set h3Content = '' %}
-        {% set h3Content = h3Content ~ resetButton() %}
-        {% include 'Page/panelStart.html.twig' with {colour: 'success', header: 'school.activity.' ~ tabManager.activityType ~ '.tutors.label', transDomain: 'School'} %}
-        <section id="activity_tutors_target">
-            {{ form_widget(form.tutors) }}
-        </section>
+        {% if form.tutors is defined %}
+            {% set h3Content = '' %}
+            {% set h3Content = h3Content ~ resetButton() %}
+            {% include 'Page/panelStart.html.twig' with {colour: 'success', header: 'school.activity.' ~ tabManager.activityType ~ '.tutors.label', transDomain: 'School'} %}
+            <section id="activity_tutors_target">
+                {{ form_widget(form.tutors) }}
+            </section>
         {% include 'Page/panelEnd.html.twig' %}
+        {% endif %}
     </div>
 </div>
 {% include 'Page/panelEnd.html.twig' %}

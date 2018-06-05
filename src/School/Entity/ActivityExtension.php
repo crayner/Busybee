@@ -3,6 +3,8 @@ namespace App\School\Entity;
 
 use App\Entity\ActivityStudent;
 use App\Entity\ActivityTutor;
+use App\School\Util\ActivityManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -171,5 +173,35 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
     public function isUseCourseName(): bool
     {
         return false;
+    }
+
+    /**
+     * verifyStudents
+     *
+     * @return ActivityExtension
+     */
+    public function verifyStudents(): ActivityExtension
+    {
+        if (empty($this->getStudentReference()))
+            return $this;
+
+        $students = new ArrayCollection();
+
+        foreach($this->getStudents() as $actStud)
+            if (! $students->contains($actStud->getStudent()))
+                $students->add($actStud->getStudent());
+
+        $activity = $this->getStudentReference();
+
+        foreach($activity->getStudents() as $actStud)
+            if (! $students->contains($actStud->getStudent())) {
+                $as = new ActivityStudent();
+                $as->setStudent($actStud->getStudent());
+                $as->setActivity($this->getActivity());
+                $as->setClassReportable($this->isClassReportable());
+                $this->addStudent($as);
+            }
+
+        return $this;
     }
 }

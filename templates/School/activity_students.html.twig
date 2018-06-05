@@ -1,14 +1,20 @@
-{% trans_default_domain 'School' %}
-{% set h3Content = '' %}
-{% if app.request.get('closeWindow') is empty %}
-    {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id')})}}) %}
-{% else %}
-    {% set h3Content = h3Content ~ closeButton() %}
-{% endif %}
-{% set h3Content = h3Content ~ resetButton() %}
-{% set h3Content = h3Content ~ saveButton() %}
+{% if form.students is defined %}
+    {% trans_default_domain 'School' %}
+    {% set h3Content = '' %}
+    {% if app.request.get('closeWindow') is empty %}
+        {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('activity_return', {id: app.request.get('id'), hint: tabManager.activityType})}}) %}
+    {% else %}
+        {% set h3Content = h3Content ~ closeButton() %}
+    {% endif %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
 
-    {% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.activity.' ~ tabManager.activityType ~ '.manage.help', panelParams: {transChoice: [tabManager.possibleStudentCount, tabManager.allocatedStudentCount]} } %}
+        {% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.activity.' ~ tabManager.activityType ~ '.manage.help', panelParams: {transChoice: [tabManager.possibleStudentCount, tabManager.allocatedStudentCount]} } %}
+    <div class="row">
+        <div class="col-12">
+            {{ form_row(form.studentReference, {value: transformData(form.studentReference)}) }}
+        </div>
+    </div>
     <div class="row row-header text-center">
         <div class="col-6 card">
             {{ 'activity.student.name.label'|trans }}
@@ -16,8 +22,6 @@
         <div class="col-3 card">
             {% if isInstanceof(form.vars.value, 'App\Entity\Class') %}
                 {{ 'activity.student.reportable.label'|trans }}
-            {% else %}
-                &nbsp;
             {% endif %}
         </div>
         <div class="col-3 card">
@@ -26,4 +30,6 @@
     </div>
     {{ collection_widget(form.students) }}
     {% do form.students.setRendered %}
-{% include 'Page/panelEnd.html.twig' %}
+    {% do form.studentReference.setRendered %}
+    {% include 'Page/panelEnd.html.twig' %}
+{% endif %}

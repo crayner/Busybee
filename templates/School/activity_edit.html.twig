@@ -34,4 +34,5 @@
         {% include 'Script/formTabSubmitScript.html.twig' with {route: 'external_activity_edit', options: {closeWindow: app.request.get('closeWindow')}} %}
         {{ collection_script(form.activitySlots) }}
     {% endif %}
+
 {% endblock %}

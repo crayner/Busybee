@@ -203,6 +203,8 @@ class SchoolController extends Controller
         else
             $activityManager->setActivityType($hint);
 
+        $activityManager->findActivity($id);
+
         switch ($activityManager->getActivityType())
         {
             case 'class':
@@ -458,7 +460,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/activity/{id}/{activity_type}/tutor/{cid}/manage/", name="activity_tutor_manage")
+     * @Route("/activity/{id}/tutor/{cid}/manage/", name="activity_tutor_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param string $cid
@@ -469,7 +471,7 @@ class SchoolController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function activityTutorManage($id = 'Add', $cid = 'ignore', $activity_type, ActivityManager $activityManager, \Twig_Environment $twig)
+    public function activityTutorManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
     {
         //if cid != ignore, then remove cid from collection
         $activity = $activityManager->setActivityType('activity')->findActivity($id);
@@ -506,7 +508,7 @@ class SchoolController extends Controller
     }
 
     /**
-     * @Route("/activity/{id}/{activity_type}/student/{cid}/manage/", name="activity_student_manage")
+     * @Route("/activity/{id}/student/{cid}/manage/", name="activity_student_manage")
      * @IsGranted("ROLE_PRINCIPAL")
      * @param string $id
      * @param string $cid
@@ -517,7 +519,7 @@ class SchoolController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function activityStudentManage($id = 'Add', $cid = 'ignore', $activity_type, ActivityManager $activityManager, \Twig_Environment $twig)
+    public function activityStudentManage($id = 'Add', $cid = 'ignore', ActivityManager $activityManager, \Twig_Environment $twig)
     {
         //if cid != ignore, then remove cid from collection
         $activity = $activityManager->setActivityType('activity')->findActivity($id);
@@ -576,12 +578,12 @@ class SchoolController extends Controller
     }
 
     /**
-     * staf
+     * staff
      *
      * @param $activity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function staf($activity)
+    private function staff($activity)
     {
         return $this->render('School/Display/staff.html.twig',
             [

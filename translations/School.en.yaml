@@ -297,6 +297,10 @@ activity:
     activity_student:
         remove.title: Remove Student
         add.title: Add Student
+    student_reference:
+        help: When selected, students in the selected activity are used to populate this activity, and you are not able to add students directly to this activity.  A student change in the referenced activity will change in this activity as well.
+        label: Reference Student in this Activity
+        placeholder: Reference an Activity
     external:
         details.tab: Details
         students.tab: Students

@@ -210,11 +210,8 @@ class Activity extends ActivityExtension
         if (empty($this->students))
             $this->students = new ArrayCollection();
 
-        if ($this->students instanceof PersistentCollection && ! $this->students->isInitialized())
+        if ($this->students instanceof PersistentCollection)
             $this->students->initialize();
-
-        if ($this->getStudentReference() instanceof Activity)
-            $this->students = $this->getStudentReference()->getStudents();
 
         if ($sort)
             $this->studentsSorted = false;
@@ -260,6 +257,8 @@ class Activity extends ActivityExtension
             $studentReference = null;
 
         $this->studentReference = $studentReference;
+
+        $this->verifyStudents();
 
         return $this;
     }

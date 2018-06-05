@@ -137,6 +137,7 @@ external_activity_students:
     include: School/external_activity_students.html.twig
     message: activityStudentMessage
     translation: School
+    display: hasStudents
 external_activity_tutors:
     label: activity.external.tutors.tab
     include: School/external_activity_tutors.html.twig
@@ -166,6 +167,7 @@ class_students:
     include: School/activity_students.html.twig
     message: classStudentsMessage
     translation: School
+    display: hasStudents
 ");
                 break;
             case 'roll':
@@ -180,6 +182,7 @@ class_students:
     include: School/activity_students.html.twig
     message: classStudentsMessage
     translation: School
+    display: hasStudents
 ");
                 break;
             default:
@@ -483,7 +486,10 @@ class_students:
      */
     public function isDisplay(string $method = ''): bool
     {
-        return true;
+        if (empty($method))
+            return true;
+
+        return $this->$method();
     }
 
     public function createForm(): FormInterface
@@ -551,5 +557,24 @@ class_students:
     {
         $this->getAllocatedStudents($activity);
         return $this->allocatedStudentCount;
+    }
+
+    /**
+     * hasStudents
+     *
+     * @return bool
+     */
+    public function hasStudents(): bool
+    {
+        if (empty($this->getActivity()))
+            return false;
+
+        if (empty($this->getActivity()->getId()))
+            return false;
+
+        if ($this->getActivity()->getCalendarGrades()->count() > 0)
+            return true;
+
+        return false;
     }
 }

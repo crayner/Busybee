@@ -123,7 +123,7 @@ staff:
     display: isStaff
 student:
     label: person.student.tab
-    include: Person/student.html.twig
+    include: Person/students.html.twig
     message: studentMessage
     translation: Person
     display: isStudent
