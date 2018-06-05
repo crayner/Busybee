@@ -60,18 +60,18 @@ class ActivityTutor extends ActivityTutorExtension implements UserTrackInterface
     private $tutor;
 
     /**
-     * @return Person|null
+     * @return Staff|null
      */
-    public function getTutor(): ?Person
+    public function getTutor(): ?Staff
     {
         return $this->tutor;
     }
 
     /**
-     * @param Person|null $tutor
+     * @param Staff|null $tutor
      * @return ActivityTutor
      */
-    public function setTutor(?Person $tutor, $add = true): ActivityTutor
+    public function setTutor(?Staff $tutor, $add = true): ActivityTutor
     {
         if (empty($tutor))
             return $this;

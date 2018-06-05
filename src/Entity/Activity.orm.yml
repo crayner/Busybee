@@ -106,3 +106,5 @@ App\Entity\Activity:
                 nullable: true
     lifecycleCallbacks:
         postLoad: [verifyStudents]
+        prePersist: [verifyStudents]
+        preUpdate: [verifyStudents]

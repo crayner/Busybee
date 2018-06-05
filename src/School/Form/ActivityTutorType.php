@@ -5,6 +5,7 @@ use App\Core\Type\SettingChoiceType;
 use App\Entity\Activity;
 use App\Entity\ActivityTutor;
 use App\Entity\Person;
+use App\Entity\Staff;
 use App\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\EntityType;
@@ -45,17 +46,15 @@ class ActivityTutorType extends AbstractType
             )
             ->add('tutor', EntityType::class,
                 [
-                    'class' => Person::class,
+                    'class' => Staff::class,
                     'choice_label' => 'fullName',
                     'label' => 'activity_tutor.tutor.label',
                     'help' => 'activity_tutor.tutor.help',
                     'placeholder' => 'activity_tutor.tutor.placeholder',
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('p')
-                            ->where('p NOT INSTANCE OF :student')
-                            ->setParameter('student', Student::class)
-                            ->orderBy('p.surname')
-                            ->addOrderBy('p.firstName')
+                        return $er->createQueryBuilder('s')
+                            ->orderBy('s.surname')
+                            ->addOrderBy('s.firstName')
                         ;
                     },
                     'attr'  => [

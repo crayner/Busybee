@@ -577,4 +577,29 @@ class_students:
 
         return false;
     }
+
+    /**
+     * clearUnReferencedStudents
+     *
+     * @return ActivityManager
+     */
+    public function clearUnReferencedStudents(): ActivityManager
+    {
+        if (! $this->getActivity()->getStudentReference() instanceof Activity)
+            return $this;
+        
+        $referenced = $this->getActivity()->getReferencedStudents();
+        $activity = $this->getActivity();
+        foreach($activity->getStudents() as $as)
+            if (! $referenced->contains($as->getStudent()))
+            {
+                $this->getEntityManager()->remove($as);
+                $activity->removeStudent($as);
+            }
+
+        $this->getEntityManager()->persist($activity);
+        $this->getEntityManager()->flush();
+
+        return $this;
+    }
 }

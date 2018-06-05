@@ -228,23 +228,25 @@ class SchoolController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/activity/{id}/edit/{hint}/{closeWindow}", name="activity_edit")
      */
-    public function activityEdit($id, string $hint = 'activity', string $closeWindow = null, ActivityManager $activityManager)
+    public function activityEdit($id, string $hint = 'activity', string $closeWindow = null, ActivityManager $activityManager, Request $request)
     {
         if ($hint === 'activity')
             $activityManager->setActivityType('activity')->findActivity($id);
         else
             $activityManager->setActivityType($hint);
 
+        $fragment = $request->get('_fragment') ?: '';
+
         switch ($activityManager->getActivityType())
         {
             case 'class':
-                return $this->redirectToRoute('face_to_face_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow]);
+                return $this->redirectToRoute('face_to_face_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow, '_fragment' => $fragment]);
                 break;
             case 'roll':
-                return $this->redirectToRoute('roll_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow]);
+                return $this->redirectToRoute('roll_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow, '_fragment' => $fragment]);
                 break;
             case 'external':
-                return $this->redirectToRoute('external_activity_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow]);
+                return $this->redirectToRoute('external_activity_edit', ['id' => $activityManager->getActivity()->getId(), 'closeWindow' => $closeWindow, '_fragment' => $fragment]);
             default:
                 throw new \TypeError(sprintf('000 The Activity type could not be determined. %s', $activityManager->getActivityType()));
         }
@@ -590,5 +592,22 @@ class SchoolController extends Controller
                 'activity' => $activity,
             ]
         );
+    }
+
+    /**
+     * clearUnReferencedStudents
+     *
+     * @param $id
+     * @Route("/activity/{id}/students/clear/not_referenced", name="clear_activity_students_to_reference")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function clearUnReferencedStudents($id, ActivityManager $activityManager)
+    {
+        $activityManager->setActivityType('activity')->findActivity($id);
+
+        $activityManager->clearUnReferencedStudents();
+
+        $fragment = $activityManager->getActivityType() === 'external' ? 'external_activity_students' : 'class_students';
+        return $this->forward(SchoolController::class.'::activityEdit', ['id' => $id, '_fragment' => $fragment]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\School\Entity;
 
+use App\Entity\Activity;
 use App\Entity\ActivityStudent;
 use App\Entity\ActivityTutor;
 use App\School\Util\ActivityManager;
@@ -197,11 +198,30 @@ abstract class ActivityExtension implements ActivityInterface, UserTrackInterfac
             if (! $students->contains($actStud->getStudent())) {
                 $as = new ActivityStudent();
                 $as->setStudent($actStud->getStudent());
-                $as->setActivity($this->getActivity());
-                $as->setClassReportable($this->isClassReportable());
+                $as->setActivity($this);
+                $as->setClassReportable($this->isReportable());
                 $this->addStudent($as);
             }
 
         return $this;
+    }
+
+    /**
+     * getReferencedStudents
+     *
+     * @return ArrayCollection
+     */
+    public function getReferencedStudents(): ArrayCollection
+    {
+        $students = new ArrayCollection();
+
+        $activity = $this->getStudentReference();
+
+        if ($activity instanceof Activity)
+            foreach($activity->getStudents() as $actStud)
+                if (! $students->contains($actStud->getStudent()))
+                    $students->add($actStud->getStudent());
+
+        return $students;
     }
 }

@@ -11,8 +11,11 @@
 
         {% include 'Page/panelStart.html.twig' with {header: 'school.activity.' ~ tabManager.activityType ~ '.manage.title', name: form.vars.value.fullName, transDomain: 'School', panelParagraph: 'school.activity.' ~ tabManager.activityType ~ '.manage.help', panelParams: {transChoice: [tabManager.possibleStudentCount, tabManager.allocatedStudentCount]} } %}
     <div class="row">
-        <div class="col-12">
+        <div class="col-9 card">
             {{ form_row(form.studentReference, {value: transformData(form.studentReference)}) }}
+        </div>
+        <div class="col-3 card">
+            <div>{{ miscButton({class: 'fas fa-unlink btn btn-primary', title: 'activity.students.remove_reference.button', transDomain: 'School', style: 'float: right; margin: 5px 0 0 5px;', windowOpen: {route: path('clear_activity_students_to_reference', {id: app.request.get('id'), _fragment: 'students'})}})|raw }}<p>{{ 'activity.students.remove_reference.help'|trans }}</p></div>
         </div>
     </div>
     <div class="row row-header text-center">

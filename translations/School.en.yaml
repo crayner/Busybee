@@ -284,6 +284,9 @@ activity:
     students:
         label: Possible Students
         help: 'The system found %{count} students available for this class.'
+        remove_reference:
+            button: Remove Students not Referenced.
+            help: Remove students that are attached to this activity but not in this reference activity.
     participants.label: Participants
     reportable.label: Reportable
     attendance.label: Record Attendance

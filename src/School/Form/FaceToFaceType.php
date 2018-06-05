@@ -162,6 +162,7 @@ class FaceToFaceType extends AbstractType
                         'class' => Activity::class,
                         'choice_label' => 'fullName',
                         'placeholder' => 'activity.student_reference.placeholder',
+                        'required' => false,
                         'query_builder' => function (EntityRepository $er) use ($grades) {
                             return $er->createQueryBuilder('a')
                                 ->leftJoin('a.calendarGrades', 'cg')
