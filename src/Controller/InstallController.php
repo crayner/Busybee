@@ -316,7 +316,7 @@ class InstallController extends Controller
             $settingManager->setInstallMode(true);
 
             $settingManager->set('currency', $data['currency']);
-            $orgName = [];dump($data);
+            $orgName = [];
             $orgName['long'] = $data['orgName'];
             $orgName['short'] = $data['orgCode'];
             $settingManager->set('org.name', $orgName);

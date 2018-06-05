@@ -799,7 +799,6 @@ class PeriodReportManager extends ReportManager
         if ($this->getDuplicateSpaceCount() > 0) {
             foreach ($this->getDuplicateSpaces()->getIterator() as $space) {
                 $this->addMessage('danger', 'report.space.duplicated', ['%{name}' => $space->getSpace()->getName(), '%{activity}' => $space->getActivity()->getActivity()->getFullName()]);
-                dump($space);
             }
         }
 

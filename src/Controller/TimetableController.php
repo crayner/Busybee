@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
 use App\Pagination\ActivityPagination;
@@ -9,6 +10,7 @@ use App\Pagination\PeriodPagination;
 use App\Pagination\TimetablePagination;
 use App\Security\VoterDetails;
 use App\Timetable\Form\ColumnType;
+use App\Timetable\Form\EditPeriodActivityType;
 use App\Timetable\Form\LineType;
 use App\Timetable\Form\TimetableType;
 use App\Timetable\Util\ColumnManager;
@@ -527,9 +529,29 @@ class TimetableController extends Controller
      * @param PeriodManager $periodManager
      * @param string $closeWindow
      * @Route("/period/activity/{activity}/edit/{closeWindow}", name="period_activity_edit")
-     * @IsGranted("ROLE_PRINCIPAL")
+     * @IsGranted("ROLE_REGISTRAR")
      */
-    public function editPeriodActivity(Request $request, $activity, PeriodManager $periodManager, $closeWindow = ''){}
+    public function editPeriodActivity(Request $request, $activity, PeriodManager $periodManager, $closeWindow = '')
+    {
+        $act = $periodManager->findPeriodActivity($activity);
+
+        $form = $this->createForm(EditPeriodActivityType::class, $act, ['calendar_data' => CalendarManager::getCurrentCalendar()]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $om = $this->get('doctrine')->getManager();
+            $om->persist($act);
+            $om->flush();
+        }
+
+        return $this->render('Timetable/Period/activity.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            ]
+        );
+    }
 
     /**
      * addLineToPeriod

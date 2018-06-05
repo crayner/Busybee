@@ -1,0 +1,46 @@
+{% trans_default_domain "School" %}
+
+{% extends "Default/template.html.twig" %}
+
+{% form_theme form
+    'Timetable/Period/period_activity_tutor.html.twig'
+    '@HillrangeForm/FormTheme/jquery.collection.html.twig'
+    '@HillrangeForm/FormTheme/bootstrap.html.twig'
+%}
+{% block title %}{{ parent() }}{{ 'period.activities.activity.edit.title'|trans }}{% endblock title %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger alert dismissable show hide") }}
+    <div class="container">
+    <h3>{{ form.vars.value.activity.fullName }}</h3>
+    <h5>{{ form.vars.value.period.fullName }} - {{ form.vars.value.period.columnName }}<br/><span
+                class="small">{{ form.vars.value.period.startTime }} - {{ form.vars.value.period.endTime }}</span></h5>
+    {{ form_start(form) }}
+    {% include '@HillrangeForm/Script/collection_message.html.twig' %}
+
+    <div class="row">
+        <div class="col-8 card">
+            {{ form_row(form.space) }}
+        </div>
+        <div class="col-4 card">
+            <div>
+                {{ closeButton({mergeClass: 'btn-sm'})|raw }}
+                {{ resetButton({windowOpen: {route: path('period_activity_edit', {activity: app.request.get('activity')})}, title: 'form.refresh.button', mergeClass: 'btn-sm'})|raw }}
+                {{ saveButton({mergeClass: 'btn-sm'})|raw }}
+            </div>
+        </div>
+    </div>
+
+
+    {{ collection_row(form.tutors) }}
+    {{ form_end(form) }}
+    </div>
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ collections_manage(form, ['tutors'])|raw }}
+    {{ collection_script(form.tutors)|raw }}
+{% endblock javascripts %}
+

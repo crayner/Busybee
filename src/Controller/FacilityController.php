@@ -183,7 +183,6 @@ class FacilityController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $value = [];
-            dump($form->get('values'));
             foreach($form->get('values')->getData()->getIterator() as $item)
             {
                 if ($item->isTeachingSpace())
@@ -193,7 +192,7 @@ class FacilityController extends Controller
             }
             sort($value['teaching_space']);
             sort($value['non_teaching_space']);
-dump($value);
+
             $settingManager->set('space.type', $value);
 
             $flashBagManager->addMessages($settingManager->getMessageManager());

@@ -19,3 +19,4 @@ form:
     required: Required
     notvalid: 'The form data is not Valid!'
     valid: 'The form data is valid'
+    refresh.button: Refresh

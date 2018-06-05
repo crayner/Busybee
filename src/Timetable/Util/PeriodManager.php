@@ -108,18 +108,18 @@ class PeriodManager
     private $period;
 
     /**
-     * @return TimetablePeriod
+     * @return TimetablePeriod|null
      */
-    public function getPeriod(): TimetablePeriod
+    public function getPeriod(): ?TimetablePeriod
     {
         return $this->period;
     }
 
     /**
-     * @param TimetablePeriod $period
+     * @param TimetablePeriod|null $period
      * @return PeriodManager
      */
-    public function setPeriod(TimetablePeriod $period): PeriodManager
+    public function setPeriod(?TimetablePeriod $period): PeriodManager
     {
         $this->period = $period;
         return $this;
@@ -308,5 +308,16 @@ class PeriodManager
         $this->getTimetableManager()->getPeriodReport($this->getPeriod());
 
         return;
+    }
+
+    /**
+     * findPeriodActivity
+     *
+     * @param $id
+     * @return TimetablePeriodActivity|null
+     */
+    public function findPeriodActivity($id): ?TimetablePeriodActivity
+    {
+        return $this->getEntityManager()->getRepository(TimetablePeriodActivity::class)->find($id);
     }
 }

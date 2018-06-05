@@ -256,6 +256,7 @@ activity:
     space:
         label: Location
         placeholder: Select Location
+        help: ''
     next_roll:
         label: Roll next Calendar
         placeholder: Leaving (Select !!!roll_name!!!)

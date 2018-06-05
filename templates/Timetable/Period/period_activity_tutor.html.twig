@@ -1,0 +1,25 @@
+{% trans_default_domain "School" %}
+
+{% block period_activity_tutor_label %}{% endblock %}
+{% block period_activity_tutor_errors %}{% endblock %}
+
+{% block period_activity_tutor_widget %}
+    {% spaceless %}
+        {% set h3Content = '<div class="collection-actions">' %}
+        {% set h3Content = h3Content ~ saveButton({mergeClass: 'btn-sm'}) %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        <div class="row">
+            <div class="col-5 card">
+                {{ form_widget(form.tutor, {value: transformData(form.tutor.vars)}) }}
+                {{ form_row(form.activity, {value: app.request.get('id')}) }}
+            </div>
+            <div class="col-3 card">
+                {{ form_widget(form.role) }}
+            </div>
+            <div class="col-4 card">
+                {{ h3Content|raw }}
+                {{ form_rest(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock period_activity_tutor_widget %}

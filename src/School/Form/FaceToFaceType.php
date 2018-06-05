@@ -173,7 +173,6 @@ class FaceToFaceType extends AbstractType
                         },
                     ]
                 )
-
             ;
         }
 		$builder->addEventSubscriber($this->activitySubscriber);

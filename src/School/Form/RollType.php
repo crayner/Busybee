@@ -9,6 +9,7 @@ use App\Entity\Staff;
 use App\Entity\Student;
 use App\School\Form\Subscriber\ActivitySubscriber;
 use App\School\Util\ActivityManager;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Hillrange\Form\Type\CollectionType;
 use Hillrange\Form\Type\EntityType;
@@ -52,6 +53,9 @@ class RollType extends AbstractType
             $grades[] = $grade->getId();
         $stu = new Student();
         $statuses = $stu->getStatusList('active');
+        $add = false;
+        if (empty($options['data']->getId()))
+            $add = true;
 		$builder
             ->add('name', TextType::class,
                 [
@@ -79,32 +83,6 @@ class RollType extends AbstractType
                     'choice_label' => 'fullName',
                 ]
             )
-            ->add('students', CollectionType::class,
-                [
-                    'label' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => ClassStudentType::class,
-                    'required' => false,
-                    'entry_options' => [
-                        'student_list' => $this->activityManager->getPossibleStudents($options['data']),
-                    ],
-                    'route' => 'activity_student_manage',
-                    'button_merge_class' => 'btn-sm',
-                ]
-            )
-            ->add('tutors', CollectionType::class,
-                [
-                    'entry_type' => ActivityTutorType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'allow_up' => true,
-                    'allow_down' => true,
-                    'sort_manage' => true,
-                    'route' => 'activity_tutor_manage',
-                    'button_merge_class' => 'btn-sm',
-                ]
-            )
             ->add('calendarGrades', EntityType::class,
                 [
                     'label' => 'external_activity.calendar_grade.label',
@@ -130,6 +108,53 @@ class RollType extends AbstractType
             ->add('attendance', HiddenType::class)
             ->add('reportable', HiddenType::class)
         ;
+        if (! $add)
+            $builder
+                ->add('students', CollectionType::class,
+                    [
+                        'label' => false,
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'entry_type' => ClassStudentType::class,
+                        'required' => false,
+                        'entry_options' => [
+                            'student_list' => $this->activityManager->getPossibleStudents($options['data']),
+                        ],
+                        'route' => 'activity_student_manage',
+                        'button_merge_class' => 'btn-sm',
+                    ]
+                )
+                ->add('tutors', CollectionType::class,
+                    [
+                        'entry_type' => ActivityTutorType::class,
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'allow_up' => true,
+                        'allow_down' => true,
+                        'sort_manage' => true,
+                        'route' => 'activity_tutor_manage',
+                        'button_merge_class' => 'btn-sm',
+                    ]
+                )
+                ->add('studentReference', EntityType::class,
+                    [
+                        'label' => 'activity.student_reference.label',
+                        'help' => 'activity.student_reference.help',
+                        'class' => Activity::class,
+                        'choice_label' => 'fullName',
+                        'placeholder' => 'activity.student_reference.placeholder',
+                        'required' => false,
+                        'query_builder' => function (EntityRepository $er) use ($grades) {
+                            return $er->createQueryBuilder('a')
+                                ->leftJoin('a.calendarGrades', 'cg')
+                                ->where('cg.id IN (:grades)')
+                                ->setParameter('grades', $grades, Connection::PARAM_INT_ARRAY)
+                                ->orderBy('a.name', 'ASC')
+                                ;
+                        },
+                    ]
+                )
+            ;
 
 		$builder->addEventSubscriber($this->activitySubscriber);
 	}
