@@ -20,7 +20,6 @@ use App\Calendar\Util\CalendarManager;
 use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
-use App\Entity\Space;
 use App\Entity\Student;
 use App\Entity\TimetablePeriodActivity;
 use App\Timetable\Organism\SpaceActivity;
@@ -258,7 +257,7 @@ class PeriodReportManager extends ReportManager
             $iterator = $this->activities->getIterator();
             $iterator->uasort(
                 function ($a, $b) {
-                    return ($a->getEntity()->getActivity()->getName() < $b->getEntity()->getActivity()->getName() ? -1 : 1);
+                    return ($a->getEntity()->getActivity()->getFullName() < $b->getEntity()->getActivity()->getFullName() ? -1 : 1);
                 }
             );
 

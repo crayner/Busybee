@@ -16,12 +16,15 @@
                     {{ period.entity.columnName }}
                 </div>
                 <div id="periodStatus{{ period.entity.id }}" class="startHidden container-fluid" style="clear: both;">
+                    <div id="periodMessage{{ period.entity.id }}">{% if period.entity.id == app.request.get('all') %}
+                            {% include 'Default/messages.html.twig' with {messages: periodManager.messageManager.addStatusMessages(period.messages, 'Timetable', 'success')} %}{% endif %}
+                    </div>
                     {% for activity in period.activities %}
                         <div class="row row-hover" id="periodActivity{{ activity.entity.id }}">
                             <div class="col-4 small">
                                 {{ activity.entity.fullName }}
                             </div>
-                            <div class="col-4 small{{ 'alert-' ~ activity.status }}">
+                            <div class="col-4 small{{ ' alert-' ~ activity.status }}">
                                 {% include 'Timetable/Period/activityDetails.html.twig' %}
                             </div>
                             <div class="col-4">
@@ -38,9 +41,6 @@
 
                         </div>
                     {% endfor %}
-                    <div id="periodMessage{{ period.entity.id }}">{% if period.entity.id == app.request.get('all') %}
-                        {% include 'Default/messages.html.twig' with {messages: periodManager.messageManager.addStatusMessages(period.messages, 'Timetable', 'success')} %}{% endif %}
-                    </div>
                 </div>
             </div>
         </div>

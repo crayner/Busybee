@@ -2570,6 +2570,15 @@
   activity_id: 161
   calendar_grade_id: 1
 -
+  activity_id: 162
+  calendar_grade_id: 2
+-
+  activity_id: 163
+  calendar_grade_id: 2
+-
+  activity_id: 164
+  calendar_grade_id: 2
+-
   activity_id: 165
   calendar_grade_id: 6
 -
@@ -2621,6 +2630,12 @@
   activity_id: 182
   calendar_grade_id: 7
 -
+  activity_id: 183
+  calendar_grade_id: 1
+-
+  activity_id: 184
+  calendar_grade_id: 1
+-
   activity_id: 185
   calendar_grade_id: 2
 -
@@ -2662,6 +2677,9 @@
 -
   activity_id: 198
   calendar_grade_id: 4
+-
+  activity_id: 199
+  calendar_grade_id: 5
 -
   activity_id: 200
   calendar_grade_id: 4
@@ -2915,6 +2933,9 @@
   activity_id: 285
   calendar_grade_id: 3
 -
+  activity_id: 286
+  calendar_grade_id: 3
+-
   activity_id: 287
   calendar_grade_id: 4
 -
@@ -2944,6 +2965,9 @@
 -
   activity_id: 296
   calendar_grade_id: 7
+-
+  activity_id: 297
+  calendar_grade_id: 3
 -
   activity_id: 298
   calendar_grade_id: 4
@@ -3123,5 +3147,8 @@
   calendar_grade_id: 7
 -
   activity_id: 359
+  calendar_grade_id: 6
+-
+  activity_id: 362
   calendar_grade_id: 6
 ...
