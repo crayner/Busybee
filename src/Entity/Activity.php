@@ -221,7 +221,7 @@ class Activity extends ActivityExtension
             $iterator = $this->students->getIterator();
             $iterator->uasort(
                 function ($a, $b) {
-                    return ($a->getStudent()->formatName(['surnameFirst' => true]) < $b->getStudent()->formatName(['surnameFirst' => true])) ? -1 : 1;
+                    return ($a->getStudent()->getFullName(['surnameFirst' => true]) < $b->getStudent()->getFullName(['surnameFirst' => true])) ? -1 : 1;
                 }
             );
 

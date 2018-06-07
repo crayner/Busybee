@@ -4,6 +4,7 @@ namespace App\People\Entity;
 use App\Entity\Person;
 use App\Entity\Staff;
 use App\Entity\Student;
+use App\People\Util\PersonNameManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Connection;
 use Hillrange\Security\Util\UserTrackInterface;
@@ -177,11 +178,10 @@ abstract class PersonExtension implements UserTrackInterface
     /**
      * @param array $options
      * @return string
-     * @deprecated Use PersonManager->getFullName()
      */
 	public function getFullName($options = array())
 	{
-		return $this->formatName($options);
+	    return PersonNameManager::getFullName($this, $options);
 	}
 
 	/**

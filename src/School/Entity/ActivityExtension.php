@@ -4,7 +4,6 @@ namespace App\School\Entity;
 use App\Entity\Activity;
 use App\Entity\ActivityStudent;
 use App\Entity\ActivityTutor;
-use App\School\Util\ActivityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
