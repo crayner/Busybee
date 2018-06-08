@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Calendar\Util\CalendarManager;
 use App\Core\Manager\FlashBagManager;
 use App\Core\Manager\TwigManager;
+use App\Entity\Timetable;
 use App\Pagination\ActivityPagination;
 use App\Pagination\LinePagination;
 use App\Pagination\PeriodPagination;
@@ -17,6 +18,7 @@ use App\Timetable\Util\ColumnManager;
 use App\Timetable\Util\LineManager;
 use App\Timetable\Util\PeriodManager;
 use App\Timetable\Util\TimetableDisplayManager;
+use App\Timetable\Util\TimetableReportHelper;
 use App\Timetable\Util\TimetableManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -116,7 +118,7 @@ class TimetableController extends Controller
         $classPagination->injectRequest($request);
         $linePagination->injectRequest($request);
 
-        $grades = $timetableManager->gradeControl();
+        $grades = TimetableReportHelper::gradeControl();
 
         $classPagination->setCalendarGrades($grades);
         $linePagination->setCalendarGrades($grades);
@@ -676,7 +678,7 @@ class TimetableController extends Controller
     {
         $linePagination->injectRequest($request);
         $timetableManager->find($id);
-        $grades = $timetableManager->gradeControl();
+        $grades = TimetableReportHelper::gradeControl();
 
         $linePagination->setDisplaySearch(false)
             ->setDisplaySort(false)
@@ -718,7 +720,7 @@ class TimetableController extends Controller
                                        TimetableManager $timetableManager, ActivityPagination $classPagination) {
         $timetableManager->find($id);
 
-        $grades = $timetableManager->gradeControl();
+        $grades = TimetableReportHelper::gradeControl();
 
         $classPagination->injectRequest($request);
 
@@ -784,7 +786,7 @@ class TimetableController extends Controller
     {
         $timetable = $timetableManager->find($id);
 
-        $grades = $timetableManager->gradeControl();
+        $grades = TimetableReportHelper::gradeControl();
 
         $periodPagination->setTimetable($timetable);
 
@@ -808,6 +810,34 @@ class TimetableController extends Controller
                 'all' => $all,
                 'report' => $report,
                 'manager' => $timetableManager,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200);
+    }
+
+    /**
+     * refreshPeriodReport
+     *
+     * @param $id
+     * @param PeriodManager $periodManager
+     * @return JsonResponse
+     * @Route("/timetable/period/{id}/refresh/", name="timetable_period_refresh")
+     * @IsGranted("ROLE_PRINCIPAL")
+     */
+    public function refreshPeriodReport($id, PeriodManager $periodManager)
+    {
+        $report = $periodManager->getPeriodReport(intval($id));
+
+        $content = $this->renderView('Timetable/Period/single_period.html.twig',
+            [
+                'periodManager' => $periodManager,
+                'period' => $report,
+                'manager' => $periodManager,
             ]
         );
 

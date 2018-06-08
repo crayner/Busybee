@@ -6,17 +6,14 @@ use App\Core\Manager\MessageManager;
 use App\Core\Manager\SettingManager;
 use App\Core\Manager\TabManager;
 use App\Entity\Calendar;
-use App\Entity\CalendarGrade;
 use App\Entity\SpecialDay;
 use App\Entity\Term;
 use App\Entity\Timetable;
 use App\Entity\TimetableAssignedDay;
 use App\Entity\TimetableColumn;
-use App\Entity\TimetablePeriod;
 use App\Pagination\PeriodPagination;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -57,14 +54,14 @@ class TimetableManager extends TabManager
      * @param RequestStack $stack
      */
     public function __construct(EntityManagerInterface $entityManager, MessageManager $messageManager,
-                                SettingManager $settingManager, RequestStack $stack, CalendarManager $calendarManager)
+                                SettingManager $settingManager, RequestStack $stack, TimetableReportHelper $timetableGradeManager)
     {
         $this->entityManager = $entityManager;
         $this->messageManager = $messageManager;
         $this->settingManager = $settingManager;
         $this->schoolWeek = $this->getSettingManager()->get('schoolweek');
         $this->stack = $stack;
-        $this->calendarManager = $calendarManager;
+        $timetableGradeManager::gradeControl();
     }
 
     /**
@@ -562,12 +559,9 @@ timetable:
             throw new \InvalidArgumentException('The timetable has not been injected into the manager.');
 
         $this->report = new TimetableReportManager();
-        $this->report = $this->report->setEntityManager($this->getEntityManager())->retrieveCache($this->getTimetable(), TimetableReportManager::class);
+        $this->report = $this->report->setEntityManager($this->getEntityManager())->retrieveCache($this->getTimetable());
 
         $this->report
-            ->setGrades($this->getGrades())
-            ->setCalendar($this->getCurrentCalendar())
-            ->setSpaceTypes($this->getSettingManager()->get('space.type.teaching_space'))
             ->setPeriodList($pag->getResult())
         ;
 
@@ -575,48 +569,11 @@ timetable:
     }
 
     /**
-     * Get Report
-     * @param PeriodPagination $pag
-     * @return TimetableReportManager
-     */
-    public function getPeriodReport(TimetablePeriod $period)
-    {
-        $this->setTimetable($period->getColumn()->getTimetable());
-        if (!$this->timetable instanceof TimeTable)
-            throw new \InvalidArgumentException('The timetable has not been injected into the manager.');
-
-        $this->report = new TimetableReportManager();
-        $this->report = $this->report->setEntityManager($this->getEntityManager())->retrieveCache($this->getTimetable(), TimetableReportManager::class);
-
-        $this->report
-            ->setGrades($this->getGrades())
-            ->setCalendar($this->getCurrentCalendar())
-            ->setSpaceTypes($this->getSettingManager()->get('space.type.teaching_space'))
-            ->addPeriod($period)
-        ;
-
-        return $this->report;
-    }
-
-    /**
-     * @var ArrayCollection
-     */
-    private $grades;
-
-    /**
      * @return ArrayCollection
      */
     public function getGrades(): ArrayCollection
     {
-        if (! empty($this->grades))
-            return $this->grades;
-
-        $this->grades = new ArrayCollection();
-
-        foreach($this->gradeControl() as $grade)
-            $this->grades->set($grade->getId(), $grade);
-
-        return $this->grades;
+        return TimetableReportHelper::getGrades();
     }
 
     /**
@@ -632,7 +589,7 @@ timetable:
      */
     public function getCurrentCalendar(): Calendar
     {
-        return $this->getCalendarManager()->getCurrentCalendar();
+        return CalendarManager::getCurrentCalendar();
     }
 
     /**
@@ -651,32 +608,6 @@ timetable:
     {
         $this->timetable = $timetable;
         return $this;
-    }
-
-    /**
-     * gradeControl
-     *
-     * @return Collection
-     */
-    public function gradeControl(): Collection
-    {
-        $grades = new ArrayCollection();
-
-        $gradeControl = $this->getSession()->get('gradeControl');
-
-        $gradeControl = is_array($gradeControl) ? $gradeControl : [];
-
-        foreach ($this->getCalendarGrades() as $q => $w)
-        {
-            if (isset($gradeControl[$w->getId()]) && $gradeControl[$w->getId()]) {
-                if (!$grades->contains($w))
-                    $grades->add($w);
-            } else
-                $gradeControl[$w->getId()] = false;
-        }
-        $this->getSession()->set('gradeControl', $gradeControl);
-
-        return $grades;
     }
 
     /**

@@ -30,12 +30,18 @@ abstract class TimetableExtension implements UserTrackInterface
      * @param Timetable $timetable
      * @return bool
      */
-    public function isEqualTo(Timetable $timetable): bool
+    public function isEqualTo(?Timetable $timetable): bool
     {
-        if ($this !== $timetable)
+        if ($this->getLastModified() === $timetable->getLastModified())
             return false;
 
-        if ($this->getLastModified() === $timetable->getLastModified())
+        if ($this->getId() === $timetable->getId())
+            return false;
+
+        if ($this->getName() === $timetable->getName())
+            return false;
+
+        if (! $this->getCalendar()->isEqualTo($timetable->getCalendar()))
             return false;
 
         return true;

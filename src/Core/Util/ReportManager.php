@@ -106,10 +106,11 @@ abstract class ReportManager implements ReportInterface, \Serializable
     public function retrieveCache($entity): ReportInterface
     {
         $report = $this->loadReport($entity);
+        $this->setRefreshReport(false);
         if ($report instanceof ReportCache) {
             $lastModified = $report->getLastModified();
             $this->setRefreshReport(! $entity->isEqualTo($this->getEntity()));
-            if ($lastModified < new \DateTime("-15 minutes"))
+            if ($lastModified->getTimestamp() > strtotime("-20 minutes"))
                 $this->setRefreshReport(true);
             if ($this->isRefreshReport())
                 $this->setEntity($entity);
@@ -218,6 +219,8 @@ abstract class ReportManager implements ReportInterface, \Serializable
         if (empty($entity))
             $entity = $this->getEntity();
         $this->setEntity($entity);
+        if (empty($entity))
+            return null;
         $report = $this->getEntityManager()->getRepository(ReportCache::class)->findOneBy(['classId' => $entity->getId(), 'className' => get_class($entity)]);
         if ($report)
             $this->unserialize($report->getReport());

@@ -618,10 +618,6 @@ input[type=color].form-control {
     min-height: 1.8rem;
     max-height: 1.8rem;
 }
-.dropPeriod {
-    max-height: 600px;
-    overflow-y: auto;
-}
 .dropPeriod:hover {
     background-color: lightsteelblue;
 }

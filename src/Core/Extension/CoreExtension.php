@@ -12,6 +12,9 @@ class CoreExtension extends AbstractExtension
      */
 	private $twigManager;
 
+    /**
+     * @var ScriptManager
+     */
 	private $scriptManager;
 
     /**

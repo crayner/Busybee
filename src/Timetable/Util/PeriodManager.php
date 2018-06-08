@@ -234,22 +234,13 @@ class PeriodManager
     public function generateFullPeriodReport()
     {
         $this->isValidPeriod(true);
-        $report = new TimetableReportManager();
-        $report->setEntityManager($this->getEntityManager())->retrieveCache($this->getPeriod()->getColumn()->getTimetable());
+        $report = new PeriodReportManager();
+        $report->setEntityManager($this->getEntityManager())->retrieveCache($this->getPeriod());
         $this->getTimetableManager()->setTimetable($this->getPeriod()->getColumn()->getTimetable());
-        if ($report)
-            $report
-                ->setGrades($this->getGrades())
-                ->setCalendar(CalendarManager::getCurrentCalendar())
-                ->setSpaceTypes($this->getTimetableManager()->getSettingManager()->get('space.type.teaching_space'))
-            ;
 
-        $periodReport = $report->getFullPeriodReport($this->getPeriod());
+        $report = $this->getPeriodReport(null);
 
-        $periodReport->setGrades($this->getGrades())
-            ->generateActivityReports();
-
-        return $periodReport;
+        return $report;
     }
 
     /**
@@ -273,7 +264,7 @@ class PeriodManager
      */
     private function getGrades(): Collection
     {
-        return $this->getTimetableManager()->getGrades();
+        return TimetableReportHelper::getGrades();
     }
 
     /**
@@ -319,5 +310,26 @@ class PeriodManager
     public function findPeriodActivity($id): ?TimetablePeriodActivity
     {
         return $this->getEntityManager()->getRepository(TimetablePeriodActivity::class)->find($id);
+    }
+
+    /**
+     * Get Period Report
+     * @param int|null $id
+     * @return PeriodReportManager
+     */
+    public function getPeriodReport(?int $id)
+    {
+        if ($id)
+            $this->find($id);
+        $this->report = new PeriodReportManager();
+        $this->report = $this->report->setEntityManager($this->getEntityManager())->retrieveCache($this->getPeriod());
+
+        if ($this->report->isRefreshReport())
+            $this->report
+                ->generatePeriodReport($this->getPeriod())
+                ->saveReport($this->getPeriod())
+            ;
+
+        return $this->report;
     }
 }

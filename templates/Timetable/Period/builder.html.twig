@@ -9,39 +9,7 @@
     {% for period in report.periods %}
         <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.entity.id }}">
             <div class="col-12 dropPeriod{{ period.disableDrop }}" id="period{{ period.entity.id }}">
-                <div>
-                    {{ miscButton({additional: 'id="button' ~ period.entity.id ~ '" ' ~ period.disableDrop, class: 'lockButton fas fa-unlock btn btn-sm btn-' ~ period.status, javascript: {function: 'fixPeriod', options: [period.entity.id]}, title: {message: 'period.status.messages', params: {transChoice: period.messages|length}}, transDomain: 'Timetable'})|raw }}
-                    {{ miscButton({class: 'btn btn-sm btn-dark fas fa-info-circle', windowOpen: {route: path('period_plan_report', {id: period.entity.id}), target: 'PeriodReport', params: 'width=500,height=600'}, title: 'period.activities.report.button', transDomain: 'Timetable'})|raw }}
-                    {{ resetButton({javascript: {function: 'resetBuilder'}, additional: {id: "resetButton", reset: "All"}, class: 'fas fa-sync btn btn-sm btn-warning'})|raw }}
-                    {{ period.entity.columnName }}
-                </div>
-                <div id="periodStatus{{ period.entity.id }}" class="startHidden container-fluid" style="clear: both;">
-                    <div id="periodMessage{{ period.entity.id }}">{% if period.entity.id == app.request.get('all') %}
-                            {% include 'Default/messages.html.twig' with {messages: periodManager.messageManager.addStatusMessages(period.messages, 'Timetable', 'success')} %}{% endif %}
-                    </div>
-                    {% for activity in period.activities %}
-                        <div class="row row-hover" id="periodActivity{{ activity.entity.id }}">
-                            <div class="col-4 small">
-                                {{ activity.entity.fullName }}
-                            </div>
-                            <div class="col-4 small{{ ' alert-' ~ activity.status }}">
-                                {% include 'Timetable/Period/activityDetails.html.twig' %}
-                            </div>
-                            <div class="col-4">
-                                <div>
-                                    {{ editButton({mergeClass: 'btn-sm', windowOpen: {route: path('period_activity_edit',
-                                        {activity: activity.entity.id, closeWindow: '_closeWindow'}), target: 'PeriodActivity', params: 'width=500,height=600'},
-                                        title: 'period.activities.activity.overwrite.button', transDomain: 'Timetable'})|raw }}
-                                    {{ miscButton({'class': 'fas fa-cog btn btn-sm btn-success', windowOpen: {route: path('activity_edit', {id:
-                                        activity.entity.activity.id, closeWindow: '_closeWindow'}), target: 'ActivityEdit',
-                                        params: 'width=1200,height=800'}, title: 'period.activities.activity.edit.button', transDomain: 'Timetable'})|raw }}
-                                    {{ deleteButton({mergeClass: 'removeActivity btn-sm', colour: 'warning', additional: {id: 'removeActivity' ~ activity.entity.id, period: period.entity.id}, title: 'period.activities.activity.remove.button', transDomain: 'Timetable'})|raw }}
-                                </div>
-                            </div>
-
-                        </div>
-                    {% endfor %}
-                </div>
+                {% include 'Timetable/Period/single_period.html.twig' %}
             </div>
         </div>
     {% endfor %}

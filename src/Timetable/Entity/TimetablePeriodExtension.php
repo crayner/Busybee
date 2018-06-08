@@ -23,8 +23,7 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
     public function getColumnName()
     {
         if (is_null($this->getColumn()))
-            return $this->getFullName();
-        $this->getColumn()->getId();
+            return 'ERROR '. $this->getFullName();
         return $this->getColumn()->getName() . ' - ' . $this->getFullName();
     }
 
@@ -108,13 +107,10 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
      */
     public function isEqualTo(?TimetablePeriod $period): bool
     {
-        if ($this !== $period)
-            return false;
+        if ($this->getId() === $period->getId())
+            return true;
 
-        if ($this->getLastModified() !== $period->getLastModified())
-            return false;
-
-        return true;
+        return false;
     }
 
     /**

@@ -41,8 +41,9 @@ abstract class CalendarExtension implements UserTrackInterface
 	 */
 	public function isEqual(Calendar $calendar): bool
 	{
-		if ($calendar->getId() === $this->getId())
-			return true;
-		return false;
+        if ($this->getId() === $calendar->getId())
+            return true;
+
+        return false;
 	}
 }

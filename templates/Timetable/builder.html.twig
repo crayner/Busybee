@@ -95,14 +95,17 @@
                     'display': 'none'
                 });
 
+                var maxHeight = (screen.height - 300) + 'px';
                 $fix.css({
                     'position': 'fixed',
                     'top': '55px',
                     'display': 'flex',
                     'min-height': '75px',
+                    'max-height': maxHeight,
                     'background-image': 'linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%)',
                     'width': $width,
                     'z-index': 100,
+                    'overflow-y': 'auto',
                 });
                 button.toggleClass('fa-lock fa-unlock');
                 $('#resetButton').attr('reset', id);
@@ -190,7 +193,8 @@
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    buildPeriod('', 'All');
+                    buildLine();
+                    buildActivity();
                 }
             });
         }
@@ -220,33 +224,34 @@
             });
         }
 
-        function buildPeriod(message, period) {
-            var path = '{{ path('timetable_period_builder', {id: app.request.get('id'), all: '__period__'}) }}';
-            period = period.replace('__period__', '{{ app.request.get('all') }}');
-            path = path.replace('__period__', period);
+        function buildPeriod(message, id) {
+            var path = '{{ path('timetable_period_refresh', {id: '__period__'}) }}';
+            path = path.replace('__period__', id);
             $.ajax({
                 url: path,
                 type: 'POST',
                 success: function (data) {
-                    $('#periodFrame').html('');
-                    $('#periodFrame').html(data['content']);
-                    if (period != 'All') {
-                        fixPeriod(period);
-                        messages = $('#periodMessage' + period).html();
-                        $('#periodMessage' + period).html(message + messages);
-                    } else {
-                        $('#allPeriodMessages').html(message);
-                    }
-                    buildLine();
-                    buildActivity();
+                    $('#period'.id).html('');
+                    $('#period'.id).html(data['content']);
+                    $('#allPeriodMessages').html(message);
                 }
             });
 
         }
 
         function resetBuilder() {
-            var id = $('#resetButton').attr('reset');
+            return false;
+        }
+
+        function resetPeriodBuilder(id) {
             buildPeriod('', id);
+            var $fix = $('#periodRow' + id);
+            var current = $fix.css('position');
+            if (current != 'fixed') {
+                fixPeriod(id);
+            }
+            buildLine();
+            buildActivity();
         }
 
         $(document).on('dblclick', '.dragActivity', function () {

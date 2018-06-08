@@ -210,7 +210,6 @@ class MessageManager
 
         if (! is_array($status))
             $status = [$status];
-
         foreach($status as $item) {
             if (self::compareLevel($item->level, $level, '>=')) {
                 if (is_array($item))

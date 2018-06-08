@@ -24,34 +24,13 @@ use Doctrine\Common\Collections\Collection;
 class ActivityReportManager extends ReportManager
 {
     /**
-     * @var ArrayCollection
-     */
-    private $grades;
-
-    /**
      * getGrades
      *
      * @return ArrayCollection
      */
     public function getGrades(): ArrayCollection
     {
-        if (empty($this->grades))
-            throw new \InvalidArgumentException('The grades need to be injected into the report.');
-        return $this->grades;
-    }
-
-    /**
-     * setGrades
-     *
-     * @param ArrayCollection $grades
-     * @return ActivityReportManager
-     */
-    public function setGrades(ArrayCollection $grades): ActivityReportManager
-    {
-        if ($this->grades !== $grades)
-            $this->setRefreshReport(true);
-        $this->grades = $grades;
-        return $this;
+        return TimetableReportHelper::getGrades();
     }
 
     /**

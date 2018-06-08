@@ -20,21 +20,19 @@ use App\Calendar\Util\CalendarManager;
 use App\Core\Util\ReportManager;
 use App\Entity\Calendar;
 use App\Entity\CalendarGrade;
+use App\Entity\Space;
+use App\Entity\Staff;
 use App\Entity\Student;
+use App\Entity\TimetablePeriod;
 use App\Entity\TimetablePeriodActivity;
 use App\Timetable\Organism\SpaceActivity;
 use App\Timetable\Organism\TutorActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
 
 class PeriodReportManager extends ReportManager
 {
-
-    /**
-     * @var ArrayCollection
-     */
-    private $grades;
-
     /**
      * getGrades
      *
@@ -42,29 +40,8 @@ class PeriodReportManager extends ReportManager
      */
     public function getGrades(): ArrayCollection
     {
-        if (empty($this->grades))
-            throw new \InvalidArgumentException('The grades need to be injected into the report.');
-        return $this->grades;
+        return TimetableReportHelper::getGrades();
     }
-
-    /**
-     * setGrades
-     *
-     * @param ArrayCollection $grades
-     * @return PeriodReportManager
-     */
-    public function setGrades(ArrayCollection $grades): PeriodReportManager
-    {
-        if ($this->grades !== $grades)
-            $this->setRefreshReport(true);
-        $this->grades = $grades;
-        return $this;
-    }
-
-    /**
-     * @var Calendar
-     */
-    private $calendar;
 
     /**
      * getCalendar
@@ -73,21 +50,7 @@ class PeriodReportManager extends ReportManager
      */
     public function getCalendar(): Calendar
     {
-        if (empty($this->calendar))
-            throw new \InvalidArgumentException('Injection of the current calendar is required.');
-        return $this->calendar;
-    }
-
-    /**
-     * setCalendar
-     *
-     * @param Calendar $calendar
-     * @return PeriodReportManager
-     */
-    public function setCalendar(Calendar $calendar): PeriodReportManager
-    {
-        $this->calendar = $calendar;
-        return $this;
+        return CalendarManager::getCurrentCalendar();
     }
 
     /**
@@ -275,19 +238,18 @@ class PeriodReportManager extends ReportManager
     public function addActivity(TimetablePeriodActivity $activity): PeriodReportManager
     {
         $report = new ActivityReportManager();
-        $report = $report->setEntityManager($this->getEntityManager())->retrieveCache($activity, TimetablePeriodActivity::class);
+        $report = $report->setEntityManager($this->getEntityManager())->retrieveCache($activity) ?: $report;
 
-        $report->setGrades($this->getGrades());
         $this->getActivities()->set($activity->getId(), $report);
         return $this;
     }
 
     /**
-     * generateActivityReports
+     * addPeriodActivityReports
      *
      * @return PeriodReportManager
      */
-    public function generateActivityReports(): PeriodReportManager
+    public function addPeriodActivityReports(): PeriodReportManager
     {
         foreach($this->getEntity()->getActivities()->getIterator() as $activity)
             $this->addActivity($activity);
@@ -408,10 +370,10 @@ class PeriodReportManager extends ReportManager
     }
 
     /**
-     * @param CalendarGrade $grade
+     * @param CalendarGrade|null $grade
      * @return Collection
      */
-    public function getMissingStudentGrade(CalendarGrade $grade): Collection
+    public function getMissingStudentGrade(?CalendarGrade $grade): Collection
     {
         if (empty($this->missingStudents))
             $this->missingStudents = new ArrayCollection();
@@ -744,8 +706,8 @@ class PeriodReportManager extends ReportManager
             $this->addMessage('warning', 'report.students.missing', ['transChoice' => $this->getMissingStudentCount()]);
             foreach($this->getMissingStudents()->getIterator() as $id=>$students)
             {
-                $grade = $this->getGrades()[$id];
-                $this->addMessage('info', 'report.grade.name', ['%grade%' => $grade->getFullName()]);
+                $grade = TimetableReportHelper::getGradeByID($id);
+                $this->addMessage('info', 'report.grade.name', ['%grade%' => $grade instanceof CalendarGrade ? $grade->getFullName() : 'No Grade']);
                 foreach($students->getIterator() as $student)
                     $this->addMessage('light', 'report.student.details', ['%identifier%' => $student->getIdentifier(), '%name%' => $student->getFullName()]);
             }
@@ -882,7 +844,6 @@ class PeriodReportManager extends ReportManager
             $this->getMessages(),
             $this->getEntity(),
             $this->getGrades(),
-            $this->getCalendar(),
             $this->possibleStudents,
             $this->possibleStudentCount,
             $this->allocatedStudents,
@@ -900,6 +861,8 @@ class PeriodReportManager extends ReportManager
         ]);
     }
 
+    private $grades;
+
     /**
      * unserialize
      *
@@ -912,7 +875,6 @@ class PeriodReportManager extends ReportManager
             $messages,
             $entity,
             $this->grades,
-            $this->calendar,
             $this->possibleStudents,
             $this->possibleStudentCount,
             $this->allocatedStudents,
@@ -930,5 +892,43 @@ class PeriodReportManager extends ReportManager
             ) = unserialize($serialized);
 
         $this->setStatus($status)->setMessages($messages)->setEntity($entity);
+    }
+
+    /**
+     * generatePeriodReport
+     *
+     * @param TimetablePeriod $period
+     * @return PeriodReportManager
+     */
+    public function generatePeriodReport(): PeriodReportManager
+    {
+        if (empty($this->getEntity()))
+            throw new \Exception('STuff up here!');
+        $spaces = $this->getEntityManager()->getRepository(Space::class)->createQueryBuilder('s')
+            ->where('s.type in (:types)')
+            ->setParameter('types', TimetableReportHelper::getSpaceTypes(), Connection::PARAM_STR_ARRAY)
+            ->orderBy('s.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $spaces = new ArrayCollection($spaces);
+
+        $tutors = $this->getEntityManager()->getRepository(Staff::class)->findBy([], ['surname' => 'ASC', 'firstName' => 'ASC']);
+        $tutors = new ArrayCollection($tutors);
+
+        if (in_array($this->getEntity()->getPeriodType(), TimetablePeriod::getPeriodTypeList('students'))) {
+            $this
+                ->addPeriodActivityReports()
+                ->addPossibleStudents()
+                ->addAllocatedStudents()
+                ->setMissingStudents()
+                ->setPossibleSpaces($spaces)
+                ->setAllocatedSpaces()
+                ->setPossibleTutors($tutors)
+                ->setAllocatedTutors()
+                ->writeReport()
+                ->saveReport();
+        }
+        return $this;
     }
 }
