@@ -842,7 +842,7 @@ class PeriodReportManager extends ReportManager
         return serialize([
             $this->getStatus(),
             $this->getMessages(),
-            $this->getEntity(),
+            $this->getEntity()->serialise(),
             $this->getGrades(),
             $this->possibleStudents,
             $this->possibleStudentCount,
@@ -890,6 +890,8 @@ class PeriodReportManager extends ReportManager
             $this->duplicateSpaces,
             $this->duplicateSpaceCount
             ) = unserialize($serialized);
+
+        $entity = $this->getEntity()->unserialise($entity);
 
         $this->setStatus($status)->setMessages($messages)->setEntity($entity);
     }

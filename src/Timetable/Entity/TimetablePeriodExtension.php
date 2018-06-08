@@ -1,6 +1,7 @@
 <?php
 namespace App\Timetable\Entity;
 
+use App\Entity\Timetable;
 use App\Entity\TimetablePeriod;
 use Hillrange\Security\Util\UserTrackInterface;
 use Hillrange\Security\Util\UserTrackTrait;
@@ -18,47 +19,92 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
     }
 
     /**
+     * @var string|null
+     */
+    private $columnName = null;
+
+    /**
      * @return mixed
      */
     public function getColumnName()
     {
+        if ($this->columnName)
+            return $this->columnName;
+
         if (is_null($this->getColumn()))
-            return 'ERROR '. $this->getFullName();
-        return $this->getColumn()->getName() . ' - ' . $this->getFullName();
+            return $this->columnName = 'ERROR '. $this->getFullName();
+
+        return $this->columnName = $this->getColumn()->getName() . ' - ' . $this->getFullName();
     }
+
+    /**
+     * @var string|null
+     */
+    private $fullName = null;
 
     /**
      * @return string
      */
     public function getFullName()
     {
-        return $this->getName() . ' (' . $this->getCode() . ')';
+        if ($this->fullName)
+            return $this->fullName;
+
+        return $this->fullName = $this->getName() . ' (' . $this->getCode() . ')';
     }
+
+    /**
+     * @var null|string
+     */
+    private $startTime = null;
 
     /**
      * @return string
      */
     public function getStartTime($format = 'H:i')
     {
-        return $this->getStart()->format($format);
+        if ($this->startTime)
+            return $this->startTime;
+        return $this->startTime = $this->getStart()->format($format);
     }
+
+    /**
+     * @var null|string
+     */
+    private $endTime = null;
 
     /**
      * @return string
      */
     public function getEndTime($format = 'H:i')
     {
-        return $this->getEnd()->format($format);
+        if ($this->endTime)
+            return $this->endTime;
+
+        return $this->endTime = $this->getEnd()->format($format);
     }
+
+    /**
+     * @var null|Timetable
+     */
+    private $timetable = null;
 
     public function getTimeTable()
     {
+        if ($this->timetable)
+            return $this->timetable;
+
         $col = $this->getColumn();
         if (is_null($col))
             return null;
 
-        return $col->getTimeTable();
+        return $this->timetable = $col->getTimeTable();
     }
+
+    /**
+     * @var null|integer
+     */
+    private $minutes = null;
 
     /**
      * Get Minutes (interval)
@@ -67,9 +113,11 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
      */
     public function getMinutes(): int
     {
-        $interval = ($this->getEnd()->getTimeStamp() - $this->getStart()->getTimeStamp()) / 60;
+        if ($this->minutes)
+            return $this->minutes;
+        $this->minutes = ($this->getEnd()->getTimeStamp() - $this->getStart()->getTimeStamp()) / 60;
 
-        return $interval;
+        return $this->minutes;
     }
 
 
@@ -157,6 +205,58 @@ abstract class TimetablePeriodExtension implements UserTrackInterface
     public function setClass(string $class): TimetablePeriodExtension
     {
         $this->class = $class;
+        return $this;
+    }
+
+    /**
+     * serialise
+     *
+     * @return string
+     */
+    public function serialise()
+    {
+        return serialize([
+            $this->getId(),
+            $this->getName(),
+            $this->getCode(),
+            $this->getStart(),
+            $this->getEnd(),
+            $this->getPeriodType(),
+            $this->getActivities(),
+            $this->getColumn(),
+            $this->getColumnName(),
+        ]);
+    }
+
+    /**
+     * unserialise
+     *
+     * @param $serialised
+     * @return $this
+     */
+    public function unserialise($serialised)
+    {
+        list(
+            $id,
+            $name,
+            $code,
+            $start,
+            $end,
+            $periodType,
+            $activities,
+            $column,
+            $this->columnName,
+            ) = unserialize($serialised);
+
+        $this->setId($id)
+            ->setName($name)
+            ->setCode($code)
+            ->setStart($start)
+            ->setEnd($end)
+            ->setPeriodType($periodType)
+            ->setActivities($activities)
+            ->setColumn($column);
+
         return $this;
     }
 }

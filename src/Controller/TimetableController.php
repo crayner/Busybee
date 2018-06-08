@@ -841,6 +841,14 @@ class TimetableController extends Controller
             ]
         );
 
+        return $this->render('Timetable/Period/single_period.html.twig',
+            [
+                'periodManager' => $periodManager,
+                'period' => $report,
+                'manager' => $periodManager,
+            ]
+        );
+
         return new JsonResponse(
             [
                 'content' => $content,
